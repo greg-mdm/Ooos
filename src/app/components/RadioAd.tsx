@@ -23,7 +23,7 @@ export function RadioAd() {
       label: "German",
       src: `${base}assets/audio/radio-ad-de.m4a`,
       download: "ooo-radio-ad-de.m4a",
-      credit: { name: "[Voice talent]", org: "[Organization]" },
+      credit: { name: "CJ Smith", org: "Resonate Strategy Inc." },
     },
   ];
 
