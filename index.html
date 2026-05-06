@@ -8,6 +8,17 @@
       <link rel="icon" type="image/png" href="/assets/images/brand/compass.png" />
       <title>Ooos · Ooo Digital Media Studio</title>
       <style>html, body { height: 100%; margin: 0; } #root { height: 100%; }</style>
+      <script>
+        // GitHub Pages SPA shim: if 404.html redirected with ?p=/route,
+        // restore the path before React Router boots.
+        (function () {
+          var p = new URLSearchParams(location.search).get('p');
+          if (p) {
+            var q = new URLSearchParams(location.search).get('q');
+            history.replaceState(null, '', p + (q ? '?' + decodeURIComponent(q) : '') + location.hash);
+          }
+        })();
+      </script>
     </head>
 
     <body>

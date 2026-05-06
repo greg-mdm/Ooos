@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ooos</title>
+    <script>
+      // GitHub Pages SPA shim: rewrite the URL into a query string the
+      // app can consume on load, then send the browser to index.html.
+      var l = window.location;
+      var path = l.pathname.replace(/^\/+/, '');
+      var search = l.search ? l.search.slice(1) : '';
+      var hash = l.hash || '';
+      var redirect = '/?p=/' + path + (search ? '&q=' + encodeURIComponent(search) : '') + hash;
+      l.replace(redirect);
+    </script>
+  </head>
+  <body></body>
+</html>

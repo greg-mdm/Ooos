@@ -15,7 +15,7 @@ export default function App() {
   const close = () => setSupportOpen(false);
 
   return (
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
+    <BrowserRouter>
       <SkipLink />
       <Nav onSupport={open} />
       <main id="main">
