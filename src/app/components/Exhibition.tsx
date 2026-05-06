@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { RadioAd } from "./RadioAd";
 
 export function Exhibition({ onSupport }: { onSupport: () => void }) {
   return (
@@ -72,6 +73,8 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
           Open a portal →
         </button>
       </div>
+
+      <RadioAd />
     </>
   );
 }

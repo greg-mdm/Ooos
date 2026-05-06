@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { RadioAd } from "./RadioAd";
 
 export function Home({ onSupport }: { onSupport: () => void }) {
   return (
@@ -102,8 +101,6 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           </div>
         </div>
       </section>
-
-      <RadioAd />
 
       <section className="section support">
         <div className="section-header">
