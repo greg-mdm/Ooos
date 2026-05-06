@@ -11,8 +11,11 @@ export function RadioAd() {
           <h2>Listen to our radio ad.</h2>
           <p>
             Click to play, or download and share. English and German versions
-            are available for distribution thanks to in-kind donations of
-            talent from CJ Smith at Resonate Strategy Inc.
+            are available for distribution.
+          </p>
+          <p className="credit" style={{ fontSize: 13, opacity: 0.8, marginTop: 8, lineHeight: 1.4 }}>
+            <strong>CJ Smith</strong><br />
+            Resonate Strategy Inc.
           </p>
         </div>
         <div className="radio-cards">
