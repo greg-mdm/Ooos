@@ -25,6 +25,16 @@ export function About() {
           Source Card on every project.
         </p>
 
+        <h2>Credits and acknowledgements</h2>
+        <p>
+          The studio is grateful to the people who contributed time, voice,
+          and code in-kind:
+        </p>
+        <ul>
+          <li><strong>CJ Smith</strong>, Resonate Strategy Inc. Voice talent and creative direction on the English and German radio ads.</li>
+          <li><strong>Melih Onat</strong>, full-stack developer and MDM alum. Engineering collaboration on the Ooos web platform.</li>
+        </ul>
+
         <h2>References</h2>
         <ul>
           <li>Cavoukian, A. (2009). Privacy by design: The 7 foundational principles.</li>
