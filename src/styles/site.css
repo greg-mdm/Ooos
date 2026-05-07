@@ -761,13 +761,17 @@ a:hover { color: var(--electric); }
   margin-bottom: 18px;
 }
 /* Resize-only: preserve deck colours, borders, glow, animation, type sizes.
-   Just let the cards flex into the grid by overriding the fixed 200x170. */
+   Flexible rectangles that fill the grid column at any width (mobile-friendly). */
 .cid-scope .cid-vote-panel .big-vote-card {
-  width: auto;
+  width: 100%;
   height: auto;
-  aspect-ratio: 1 / 1;
-  min-height: 0;
-  padding: 12px 8px;
+  aspect-ratio: auto;
+  min-height: 110px;
+  padding: 14px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .cid-scope .cid-vote-panel .vote-meta {
   font-size: 0.62rem;
