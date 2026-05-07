@@ -816,6 +816,15 @@ a:hover { color: var(--electric); }
 .cid-scope .cid-watchlist-card h2 { color: #822F00; margin-top: 0; }
 .cid-scope .cid-watchlist-card p,
 .cid-scope .cid-watchlist-card li { color: #1A0033; }
+.cid-scope .cid-watchlist-card .cid-watchlist-list {
+  margin: 0 0 12px 1.25rem;
+  padding: 0;
+  list-style: disc;
+}
+.cid-scope .cid-watchlist-card .cid-watchlist-list li {
+  margin-bottom: 6px;
+  line-height: 1.55;
+}
 .cid-scope .cid-watchlist-card a { color: #006B57; text-decoration: underline; }
 .cid-scope .cid-watchlist-card a.btn { text-decoration: none; }
 .cid-scope .cid-watchlist-card a:hover { color: #00A589; }

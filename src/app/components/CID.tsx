@@ -10,13 +10,34 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           <h1>Canadian Innovation Dimension.</h1>
           <p className="summary">
             A research dimension tracking sovereign innovation across Canada
-            and allied jurisdictions. Public sources only. The Canadian
-            Innovation Watchlist is the first tool inside this dimension.
+            and allied jurisdictions through triangulation of public sources,
+            verified public data sets, and strict exclusion of Material Non
+            Public Information (MNPI).
+          </p>
+          <p className="summary">
+            The system tracks organizations, strategic sectors, policy
+            developments, bilateral partnerships, and capital market activity
+            across emerging technologies and industrial priorities. The
+            Innovation Watchlist is the first public tool released from this
+            dimension.
+          </p>
+          <p className="summary">
+            Built for innovators, researchers, entrepreneurs, and curious
+            observers, the system invites participants to move across sector
+            relationships, examine signals and emerging developments more
+            closely, and experiment with different interpretations as new
+            information comes into view.
+          </p>
+          <p className="summary">
+            Ostara does not provide financial advice or make predictions about
+            the future. It provides a public space to compare signals, examine
+            strategic developments, and test competing perspectives using
+            verified public information.
           </p>
           <div className="case-meta">
             <span className="chip">Research dimension</span>
             <span className="chip">Public sources only</span>
-            <span className="chip">CSS scope: cid-scope</span>
+            <span className="chip">MNPI excluded</span>
           </div>
         </div>
       </section>
@@ -28,15 +49,23 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             <p>
               A curated, signal-scored watchlist covering Space, AI, Defence,
               Energy, Maritime, and Quantum across Canada, the EU, the Nordic
-              countries, and the Indo-Pacific. Each card carries a HOLD, SHIFT,
-              or BREAK classification and a 1-to-5 signal strength represented
-              by tulips (a nod to Ostara, the spring equinox).
+              countries, and the Indo-Pacific.
             </p>
+            <p>Each card carries:</p>
+            <ul className="cid-watchlist-list">
+              <li>a HOLD, SHIFT, or BREAK classification</li>
+              <li>
+                a 1 to 5 tulip signal score corresponding to the observed
+                strength, alignment, and momentum of the signal across verified
+                public information
+              </li>
+            </ul>
             <p>
-              The watchlist is filterable by region, segment, status, and sector
-              type. Organisations are tagged as Public Stock, Public Org,
-              Non-Profit, or Private. Policy triggers are listed under each
-              watch theme.
+              The watchlist can be filtered by region, segment, status, and
+              sector type. Organizations are categorized as Public Stock,
+              Public Org, Non-Profit, or Private. Policy triggers are listed
+              beneath each theme to connect developments with procurement,
+              regulation, investment, and strategic priorities.
             </p>
 
             <p style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 24 }}>
