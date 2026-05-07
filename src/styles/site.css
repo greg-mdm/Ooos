@@ -1066,3 +1066,48 @@ textarea:focus-visible,
   color: var(--charcoal);
   opacity: 0.75;
 }
+
+/* ===== HERO PROJECT BUTTONS ===== */
+.btn-ostara,
+.btn-exhibition {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 22px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  text-decoration: none;
+  border: 2px solid #19007D;
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+.btn-ostara {
+  background: #19007D;
+  color: #FFFFFF;
+}
+.btn-ostara:hover,
+.btn-ostara:focus-visible {
+  background: #F0C040;
+  color: #19007D;
+  border-color: #F0C040;
+}
+.btn-exhibition {
+  background: #FFFFFF;
+  color: #19007D;
+}
+.btn-exhibition:hover,
+.btn-exhibition:focus-visible {
+  background: #6B2500; /* muted dark ruby */
+  color: #FFFFFF;
+  border-color: #6B2500;
+}
+.btn-ostara:focus-visible,
+.btn-exhibition:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn-ostara, .btn-exhibition { transition: none; }
+}

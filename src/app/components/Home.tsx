@@ -15,8 +15,8 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           ABSTAIN treated as a first-class outcome.
         </p>
         <div className="hero-cta">
-          <Link to="/ostara" className="btn btn-primary">View Ostara</Link>
-          <button onClick={onSupport} className="btn btn-secondary">Support the work</button>
+          <Link to="/ostara" className="btn btn-ostara">Ostara: Collective Intelligence System</Link>
+          <Link to="/exhibition" className="btn btn-exhibition">Canadian Interactive Exhibition</Link>
         </div>
       </section>
 

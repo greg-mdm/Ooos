@@ -41,8 +41,7 @@ export function SupportModal({ onClose }: { onClose: () => void }) {
             <h3 id="support-modal-title">Support the work</h3>
             <p className="muted">
               Donations are not yet processed. We are gathering interest while
-              the Stripe and Bitcoin integrations are finalised. ABSTAIN is a
-              legitimate response.
+              the Stripe and Bitcoin integrations are finalised.
             </p>
 
             <div style={{ display: "flex", gap: 6, marginBottom: 18, flexWrap: "wrap" }}>
