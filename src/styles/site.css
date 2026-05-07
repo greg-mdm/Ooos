@@ -60,11 +60,11 @@
   --bone: #07051A;
 }
 
-/* Canadian Innovation Dimension scope — bone + ruby on light */
+/* Canadian Innovation Dimension scope — ruby hero + teal-tinted body */
 .cid-scope {
   --indigo: #822F00;
   --indigo-deep: #5a2000;
-  --bg: #F5F0EA;
+  --bg: #E6F7F2; /* pale teal — pairs with ruby + teal accent #00D4AA */
 }
 
 * { box-sizing: border-box; }
@@ -645,6 +645,21 @@ a:hover { color: var(--electric); }
 .ostara-scope .case-body li { color: #1A0033; }
 .ostara-scope .case-body a { color: #19007D; text-decoration: underline; }
 .ostara-scope .case-body a:hover { color: #5B04DE; }
+
+/* CID: light teal page body, ruby ink, teal-accent headings/links */
+.cid-scope .case-body {
+  background: #E6F7F2;
+  color: #1A0033;
+}
+.cid-scope .case-body h2,
+.cid-scope .case-body h3,
+.cid-scope .case-body h4,
+.cid-scope .case-body strong { color: #822F00; }
+.cid-scope .case-body p,
+.cid-scope .case-body li { color: #1A0033; }
+.cid-scope .case-body a { color: #006B57; text-decoration: underline; } /* darker teal for AA */
+.cid-scope .case-body a:hover { color: #00D4AA; }
+.cid-scope .cid-watchlist-embed { background: #05030F; }
 .case-body h2 {
   font-family: var(--serif);
   font-size: 26px;
