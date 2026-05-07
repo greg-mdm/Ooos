@@ -756,20 +756,18 @@ a:hover { color: var(--electric); }
 .cid-scope .cid-vote-panel .vote-cards-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 14px;
   width: 100%;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
+/* Resize-only: preserve deck colours, borders, glow, animation, type sizes.
+   Just let the cards flex into the grid by overriding the fixed 200x170. */
 .cid-scope .cid-vote-panel .big-vote-card {
-  min-height: 92px;
-  padding: 10px 6px;
-}
-.cid-scope .cid-vote-panel .bvc-label { font-size: 0.78rem; }
-.cid-scope .cid-vote-panel .bvc-price { font-size: 1.4rem; }
-.cid-scope .cid-vote-panel .vote-cta-btn {
-  margin-top: 0;
-  font-size: 0.82rem;
-  padding: 11px 20px;
+  width: auto;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  min-height: 0;
+  padding: 12px 8px;
 }
 .cid-scope .cid-vote-panel .vote-meta {
   font-size: 0.62rem;
