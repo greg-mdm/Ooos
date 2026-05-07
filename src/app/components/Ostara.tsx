@@ -46,6 +46,20 @@ export function Ostara({ onSupport }: { onSupport: () => void }) {
         <p>
           Live delivery, April 6, 2026, two graduate sessions at TMU.
         </p>
+        <div className="evidence-stats" role="list" aria-label="Session results">
+          <div className="evidence-stat" role="listitem">
+            <div className="evidence-stat-num">32</div>
+            <div className="evidence-stat-label">Participants</div>
+          </div>
+          <div className="evidence-stat" role="listitem">
+            <div className="evidence-stat-num">126</div>
+            <div className="evidence-stat-label">Structured inputs</div>
+          </div>
+          <div className="evidence-stat" role="listitem">
+            <div className="evidence-stat-num">3.9&times;</div>
+            <div className="evidence-stat-label">Class average</div>
+          </div>
+        </div>
         <div className="evidence-bar">
           <div className="row">
             <span className="label">Session 1</span>
@@ -58,10 +72,9 @@ export function Ostara({ onSupport }: { onSupport: () => void }) {
             <span className="num">42</span>
           </div>
           <div className="evidence-summary">
-            <strong>32 participants · 126 structured inputs · 3.9× class
-            average.</strong> The Kahoot input layer mitigated production
-            blocking and shared-information bias. ABSTAIN was used as a
-            recognised outcome rather than absorbed into silence.
+            The Kahoot input layer mitigated production blocking and
+            shared-information bias. ABSTAIN was used as a recognised outcome
+            rather than absorbed into silence.
           </div>
         </div>
 
