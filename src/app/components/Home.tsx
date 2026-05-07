@@ -32,9 +32,19 @@ export function Home({ onSupport }: { onSupport: () => void }) {
 
         <div className="featured">
           <Link to="/ostara" className="feature-card" style={{ textDecoration: "none", color: "inherit" }}>
-            <div className="feature-thumb ostara">
+            <div className="feature-thumb ostara ostara-brand">
               <span className="feature-thumb-label">Project 01</span>
-              <div className="feature-thumb-title">Ostara</div>
+              <div className="ostara-brand-stack">
+                <div className="ostara-brand-name">OSTARA</div>
+                <div className="ostara-brand-divider" aria-hidden="true" />
+                <div className="ostara-brand-tagline">Collective Intelligence System</div>
+                <div className="ostara-brand-descriptors">
+                  <span className="ostara-descriptor">Aggregates signals</span>
+                  <span className="ostara-descriptor">Routes intent</span>
+                  <span className="ostara-descriptor">Orchestrates agents</span>
+                  <span className="ostara-descriptor">Channels strategic foresight</span>
+                </div>
+              </div>
             </div>
             <div className="feature-body">
               <p>
@@ -70,6 +80,50 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               <span className="feature-link">Open case study →</span>
             </div>
           </Link>
+        </div>
+      </section>
+
+      <section className="section vote-feature">
+        <div className="section-header">
+          <div className="section-eyebrow">★ Invited innovators · live vote</div>
+          <h2>One signal. Three positions. Audience as evidence.</h2>
+          <p className="lead">
+            A preview of the participatory layer used in workshops and shared
+            with the 200 invited innovators. ABSTAIN sits beside YES and NO as
+            a recognised outcome, not a fallback.
+          </p>
+        </div>
+        <div className="vote-stage">
+          <div className="vote-source-label">
+            POLYMARKET · <span className="vote-volume">$8.4M LIVE VOLUME</span> · EXPIRES 2026-06-30
+          </div>
+          <div className="vote-question-text">
+            Will the US and Iran reach<br />a nuclear deal by June 30?
+          </div>
+          <div className="vote-cards-row">
+            <div className="big-vote-card yes-card">
+              <div className="bvc-label">YES</div>
+              <div className="bvc-price">18¢</div>
+            </div>
+            <div className="big-vote-card no-card">
+              <div className="bvc-label">NO</div>
+              <div className="bvc-price">82¢</div>
+            </div>
+            <div className="big-vote-card abstain-card">
+              <div className="bvc-label">ABSTAIN</div>
+            </div>
+          </div>
+          <a
+            className="vote-cta-btn"
+            href="https://kahoot.it/challenge/09193020"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Vote on Kahoot →
+          </a>
+          <div className="vote-meta">
+            Ground forces deploying · SOF + Marines confirmed · OSTARA signal: HOLD · Environment is Risk-Off
+          </div>
         </div>
       </section>
 
