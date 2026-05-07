@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
 
-// Public/unlisted Kahoot identifier. Swap when the final game is published
-// from greg@ooos.ca (admin). Embed URL pattern: https://embed.kahoot.it/<ID>.
-const KAHOOT_ID = "REPLACE_WITH_KAHOOT_ID";
-const KAHOOT_EMBED = `https://embed.kahoot.it/${KAHOOT_ID}`;
-const KAHOOT_PLAY = `https://kahoot.it/challenge/${KAHOOT_ID}`;
+// Live Kahoot challenge embed. Admin: greg@ooos.ca.
+// Generated from Kahoot share dialog ("Embed" option), assignment-style URL.
+const KAHOOT_EMBED =
+  "https://kahoot.it/challenge/09193020?challenge-id=403b6d09-7c09-4def-94ce-5fb7aa8db66b_1778169959976&embed=true";
+const KAHOOT_PLAY = "https://kahoot.it/challenge/09193020";
 
 export function Ostara({ onSupport }: { onSupport: () => void }) {
-  const kahootReady = KAHOOT_ID !== "REPLACE_WITH_KAHOOT_ID";
   return (
     <div className="ostara-scope">
       <section className="case-hero">
@@ -82,30 +81,23 @@ export function Ostara({ onSupport }: { onSupport: () => void }) {
           qualitative insight alongside the multiple-choice signal reads.
         </p>
         <div className="kahoot-embed">
-          {kahootReady ? (
+          <div className="kahoot-frame-wrap">
             <iframe
               src={KAHOOT_EMBED}
               title="Ostara workshop Kahoot"
-              width="100%"
-              height="480"
+              name="kahoot-embed"
+              scrolling="no"
+              frameBorder={0}
+              allowFullScreen
               loading="lazy"
               allow="fullscreen"
               referrerPolicy="no-referrer-when-downgrade"
             />
-          ) : (
-            <div className="kahoot-placeholder">
-              <strong>Kahoot embed pending.</strong>
-              <span>
-                Game is being finalised under the greg@ooos.ca admin account.
-                Public link drops in here once the Gold upgrade and word-cloud
-                rounds are live.
-              </span>
-            </div>
-          )}
+          </div>
           <div className="kahoot-actions">
             <a
               className="btn btn-secondary"
-              href={kahootReady ? KAHOOT_PLAY : "https://kahoot.it"}
+              href={KAHOOT_PLAY}
               target="_blank"
               rel="noopener noreferrer"
             >
