@@ -1043,32 +1043,6 @@ textarea:focus-visible,
 .tier { outline: none; }
 .tier:focus { outline: 3px solid var(--gold); outline-offset: 3px; }
 
-/* Brand logo in nav */
-.nav-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-.nav-brand img {
-  height: 36px;
-  width: 36px;
-  display: block;
-  object-fit: contain;
-  mix-blend-mode: multiply; /* drops baked-in white square against Robin's Egg nav */
-}
-
-/* Reduced motion: honour the OS preference */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
 /* ===== ACCESSIBILITY (AODA / WCAG 2.0 AA) ===== */
 .skip-link {
   position: absolute;
@@ -1115,7 +1089,9 @@ textarea:focus-visible,
 .tier { outline: none; }
 .tier:focus { outline: 3px solid var(--gold); outline-offset: 3px; }
 
-/* Brand logo in nav */
+/* Brand logo in nav (no mix-blend-mode: caused dark-square rendering
+   when the nav scrolled over dark hero sections). The .over-dark class
+   below switches the nav surface so the round logo reads cleanly. */
 .nav-brand {
   display: inline-flex;
   align-items: center;
@@ -1126,8 +1102,23 @@ textarea:focus-visible,
   width: 36px;
   display: block;
   object-fit: contain;
-  mix-blend-mode: multiply; /* drops baked-in white square against Robin's Egg nav */
 }
+
+/* Scroll-aware nav contrast (mirror of canada_watchlist's over-light pattern).
+   Default is the light robin's-egg surface; over a dark hero/section it
+   shifts to a saturated teal tint with white text. */
+.nav { transition: background 0.3s ease, border-color 0.3s ease; }
+.nav .nav-brand,
+.nav .nav-links a { transition: color 0.3s ease; }
+.nav.over-dark {
+  background: rgba(31, 206, 203, 0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(31, 206, 203, 0.45);
+}
+.nav.over-dark .nav-brand,
+.nav.over-dark .nav-links a { color: #ffffff; }
+.nav.over-dark .nav-links a:hover { color: #1fcecb; }
 
 /* Reduced motion: honour the OS preference */
 @media (prefers-reduced-motion: reduce) {

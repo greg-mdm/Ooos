@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 export function SkipLink() {
@@ -8,8 +9,36 @@ export function SkipLink() {
 
 export function Nav({ onSupport }: { onSupport: () => void }) {
   const base = import.meta.env.BASE_URL;
+  const navRef = useRef<HTMLElement>(null);
+
+  // Same pattern as canada_watchlist.html: detect when nav overlaps a dark
+  // hero/section and swap to a robin's-egg teal tint with white text.
+  useEffect(() => {
+    const nav = navRef.current;
+    if (!nav) return;
+    const selector = ".hero, .case-hero, .cid-vote-panel, .footer";
+    function check() {
+      if (!nav) return;
+      const navRect = nav.getBoundingClientRect();
+      const targets = document.querySelectorAll(selector);
+      let overDark = false;
+      targets.forEach((el) => {
+        const r = (el as HTMLElement).getBoundingClientRect();
+        if (navRect.bottom > r.top && navRect.top < r.bottom) overDark = true;
+      });
+      nav.classList.toggle("over-dark", overDark);
+    }
+    check();
+    window.addEventListener("scroll", check, { passive: true });
+    window.addEventListener("resize", check);
+    return () => {
+      window.removeEventListener("scroll", check);
+      window.removeEventListener("resize", check);
+    };
+  }, []);
+
   return (
-    <nav className="nav" aria-label="Primary">
+    <nav className="nav" aria-label="Primary" ref={navRef}>
       <div className="nav-inner">
         <Link to="/" className="nav-brand" aria-label="Ooo Digital Media Studio home">
           <img src={`${base}assets/images/brand/ooo-logo.png`} alt="" width="36" height="36" />
