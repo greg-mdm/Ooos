@@ -46,25 +46,29 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           <div className="cid-watchlist-card">
             <h2 className="cid-watchlist-title"><strong>INNOVATION WATCHLIST</strong></h2>
             <p>
-              A curated, signal-scored watchlist covering Space, AI, Defence,
-              Energy, Maritime, and Quantum across Canada, the EU, the Nordic
-              countries, and the Indo-Pacific.
+              A curated watchlist monitoring Space, AI, Defence, Energy,
+              Maritime, and Quantum across Canada, the EU, the Nordic countries,
+              and the Indo-Pacific.
             </p>
-            <p>Each card carries:</p>
+            <p>
+              By bringing these often-disconnected systems into one interactive
+              environment, participants can explore patterns, compare
+              relationships, and discover emerging opportunities for
+              collaboration, B2B cooperation, and strategic alignment across
+              industries, markets, policy, research, and institutional systems.
+            </p>
+            <p>Each signal card includes:</p>
             <ul className="cid-watchlist-list">
-              <li>a HOLD, SHIFT, or BREAK classification</li>
-              <li>
-                a 1 to 5 tulip signal score corresponding to the observed
-                strength, alignment, and momentum of the signal across verified
-                public information
-              </li>
+              <li>HOLD, SHIFT, or BREAK classifications</li>
+              <li>a 1–5 tulip score showing signal strength, alignment, and momentum</li>
+              <li>linked organizations categorized as Public Stock, Public Org, Non-Profit, or Private</li>
+              <li>policy triggers connected to procurement, regulation, sovereignty, investment, and published strategic priorities</li>
             </ul>
             <p>
-              The watchlist can be filtered by region, segment, status, and
-              sector type. Organizations are categorized as Public Stock,
-              Public Org, Non-Profit, or Private. Policy triggers are listed
-              beneath each theme to connect developments with procurement,
-              regulation, investment, and strategic priorities.
+              Signals can be filtered by region, sector, status, organization
+              type, and signal strength. Inspired by gamestorming concepts, the
+              watchlist empowers participants worldwide to explore signals,
+              compare perspectives, and make decisions under uncertainty.
             </p>
 
             <p style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 24 }}>
