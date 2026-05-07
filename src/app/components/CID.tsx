@@ -22,34 +22,41 @@ export function CID({ onSupport }: { onSupport: () => void }) {
       </section>
 
       <div className="case-body">
-        <h2>The Canadian Innovation Watchlist</h2>
-        <p>
-          A curated, signal-scored watchlist covering Space, AI, Defence,
-          Energy, Maritime, and Quantum across Canada, the EU, the Nordic
-          countries, and the Indo-Pacific. Each card carries a HOLD, SHIFT,
-          or BREAK classification and a 1-to-5 signal strength represented
-          by tulips (a nod to Ostara, the spring equinox).
-        </p>
-        <p>
-          The watchlist is filterable by region, segment, status, and sector
-          type. Organisations are tagged as Public Stock, Public Org,
-          Non-Profit, or Private. Policy triggers are listed under each
-          watch theme.
-        </p>
+        <div className="cid-watchlist-card">
+          <h2>The Canadian Innovation Watchlist</h2>
+          <p>
+            A curated, signal-scored watchlist covering Space, AI, Defence,
+            Energy, Maritime, and Quantum across Canada, the EU, the Nordic
+            countries, and the Indo-Pacific. Each card carries a HOLD, SHIFT,
+            or BREAK classification and a 1-to-5 signal strength represented
+            by tulips (a nod to Ostara, the spring equinox).
+          </p>
+          <p>
+            The watchlist is filterable by region, segment, status, and sector
+            type. Organisations are tagged as Public Stock, Public Org,
+            Non-Profit, or Private. Policy triggers are listed under each
+            watch theme.
+          </p>
 
-        <p style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 24 }}>
-          <a
-            href={`${base}cid/watchlist/`}
-            className="btn btn-primary"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Open the watchlist (full screen) ↗
-          </a>
-          <button onClick={onSupport} className="btn btn-ghost" type="button">
-            Support a watch theme
-          </button>
-        </p>
+          <p style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 24 }}>
+            <a
+              href={`${base}cid/watchlist/`}
+              className="btn btn-primary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open the watchlist (full screen) ↗
+            </a>
+            <a
+              href="https://kahoot.it/challenge/09193020"
+              className="btn btn-kahoot"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Vote on Kahoot →
+            </a>
+          </p>
+        </div>
       </div>
 
       <section className="cid-watchlist-embed">

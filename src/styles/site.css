@@ -195,8 +195,13 @@ a:hover { color: var(--electric); }
   background: linear-gradient(135deg, var(--resolution), var(--electric));
   color: #fff;
   box-shadow: 0 4px 16px rgba(91, 4, 222, 0.3);
+  text-decoration: none;
 }
-.btn-primary:hover { color: #fff; }
+.btn-primary,
+.btn-primary:visited,
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active { color: #fff !important; text-decoration: none !important; }
 .btn-secondary {
   background: transparent;
   color: var(--ink);
@@ -660,6 +665,38 @@ a:hover { color: var(--electric); }
 .cid-scope .case-body a { color: #006B57; text-decoration: underline; } /* darker teal for AA */
 .cid-scope .case-body a:hover { color: #00D4AA; }
 .cid-scope .cid-watchlist-embed { background: #05030F; }
+
+/* AODA white card on the teal section so body copy clears 7:1 */
+.cid-scope .cid-watchlist-card {
+  background: #FFFFFF;
+  color: #1A0033;
+  border: 1px solid rgba(130, 47, 0, 0.18);
+  border-radius: 14px;
+  padding: 36px 40px;
+  box-shadow: 0 6px 24px rgba(26, 0, 51, 0.08);
+}
+.cid-scope .cid-watchlist-card h2 { color: #822F00; margin-top: 0; }
+.cid-scope .cid-watchlist-card p,
+.cid-scope .cid-watchlist-card li { color: #1A0033; }
+.cid-scope .cid-watchlist-card a { color: #006B57; text-decoration: underline; }
+.cid-scope .cid-watchlist-card a.btn { text-decoration: none; }
+.cid-scope .cid-watchlist-card a:hover { color: #00A589; }
+@media (max-width: 640px) {
+  .cid-scope .cid-watchlist-card { padding: 24px 20px; }
+}
+
+/* Kahoot CTA button — Kahoot purple #46178F with white text (contrast ~10:1) */
+.btn-kahoot,
+.btn-kahoot:visited {
+  background: #46178F;
+  color: #FFFFFF !important;
+  border: 1px solid #46178F;
+  text-decoration: none !important;
+  box-shadow: 0 4px 16px rgba(70, 23, 143, 0.28);
+}
+.btn-kahoot:hover,
+.btn-kahoot:focus { background: #5B1FB8; border-color: #5B1FB8; color: #FFFFFF !important; }
+.btn-kahoot:focus-visible { outline: 3px solid #F0C040; outline-offset: 2px; }
 .case-body h2 {
   font-family: var(--serif);
   font-size: 26px;
