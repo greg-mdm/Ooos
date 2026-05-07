@@ -19,10 +19,14 @@ export function Ostara({ onSupport }: { onSupport: () => void }) {
             architecture to make probabilistic reasoning visible,
             participatory, and interpretable.
           </p>
-          <div className="case-meta">
-            <span className="chip">DG8010 · TMU MDM</span>
-            <span className="chip teal">Spring 2026</span>
-            <span className="chip">Public data only</span>
+          <div className="ostara-descriptors" role="list" aria-label="Ostara system functions">
+            <div className="ostara-descriptor" role="listitem">Aggregates signals</div>
+            <div className="ostara-descriptor" role="listitem">Routes intent</div>
+            <div className="ostara-descriptor" role="listitem">Orchestrates agents</div>
+            <div className="ostara-descriptor" role="listitem">Channels strategic foresight</div>
+            <div className="ostara-mnpi-octagon" role="listitem" aria-label="MNPI excluded">
+              <span>MNPI<br />excluded</span>
+            </div>
           </div>
         </div>
       </section>

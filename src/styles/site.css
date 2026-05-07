@@ -925,6 +925,70 @@ a:hover { color: var(--electric); }
 }
 .evidence-summary strong { color: var(--ink); }
 
+/* Ostara hero descriptors — ported from Final_LIGHTNING_OstaraPresentation
+   .descriptor pattern. Bold + highlight on hover. */
+.ostara-descriptors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-top: 6px;
+  max-width: 920px;
+}
+.ostara-descriptor {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+  color: rgba(200, 210, 240, 0.9);
+  border: 1px solid rgba(108, 1, 244, 0.45);
+  border-radius: 4px;
+  padding: 10px 22px;
+  letter-spacing: 0.08em;
+  background: transparent;
+  transition: color 200ms ease, background 200ms ease, border-color 200ms ease, font-weight 0ms;
+  cursor: default;
+}
+.ostara-descriptor:hover,
+.ostara-descriptor:focus-visible {
+  color: #ffffff;
+  font-weight: 700;
+  border-color: #6C01F4;
+  background: rgba(108, 1, 244, 0.22);
+  outline: none;
+}
+
+/* Muted-red octagon: MNPI excluded badge */
+.ostara-mnpi-octagon {
+  width: 96px;
+  height: 96px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: #8B2A2A; /* muted red */
+  color: #ffffff;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.15;
+  /* Octagon clip-path */
+  clip-path: polygon(
+    30% 0%, 70% 0%,
+    100% 30%, 100% 70%,
+    70% 100%, 30% 100%,
+    0% 70%, 0% 30%
+  );
+  border: none;
+  transition: background 200ms ease, transform 200ms ease;
+  cursor: default;
+}
+.ostara-mnpi-octagon:hover {
+  background: #A33333;
+  transform: scale(1.04);
+}
+.ostara-mnpi-octagon span { padding: 0 6px; }
+
 /* IA diagram video block */
 .ia-diagram-figure {
   margin: 28px 0;
