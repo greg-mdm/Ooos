@@ -677,6 +677,24 @@ a:hover { color: var(--electric); }
 .ostara-scope .case-body {
   background: #FFFFFF;
   color: #1A0033;
+  max-width: 1180px;
+  padding-left: 48px;
+  padding-right: 48px;
+}
+.ostara-scope .case-body > p,
+.ostara-scope .case-body > h2,
+.ostara-scope .case-body > h3,
+.ostara-scope .case-body > h4,
+.ostara-scope .case-body > ul,
+.ostara-scope .case-body > ol,
+.ostara-scope .case-body > .pull {
+  max-width: 760px;
+}
+@media (max-width: 720px) {
+  .ostara-scope .case-body {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
 }
 .ostara-scope .case-body h2,
 .ostara-scope .case-body h3,
