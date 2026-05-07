@@ -666,6 +666,79 @@ a:hover { color: var(--electric); }
 .cid-scope .case-body a:hover { color: #00D4AA; }
 .cid-scope .cid-watchlist-embed { background: #05030F; }
 
+/* CID body that breaks out of the 760px max-width to allow side-by-side */
+.cid-scope .case-body.cid-body-wide {
+  max-width: 1240px;
+}
+.cid-scope .cid-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 28px;
+  align-items: stretch;
+}
+@media (max-width: 980px) {
+  .cid-scope .cid-split { grid-template-columns: 1fr; }
+}
+.cid-scope .cid-watchlist-title {
+  letter-spacing: 0.04em;
+  font-size: 28px;
+  text-transform: uppercase;
+}
+
+/* Vote panel — dark deck-style box, fits beside the white card */
+.cid-scope .cid-vote-panel {
+  background: linear-gradient(180deg, #0d0a28 0%, #05030F 100%);
+  border: 1px solid #2a2060;
+  border-radius: 14px;
+  padding: 28px 26px;
+  color: #e8eaf0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+}
+.cid-scope .cid-vote-panel .vote-source-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: #8090b8;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.cid-scope .cid-vote-panel .vote-volume { color: #00e676; }
+.cid-scope .cid-vote-panel .vote-question-text {
+  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+  color: #ffffff;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+.cid-scope .cid-vote-panel .vote-cards-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 18px;
+}
+.cid-scope .cid-vote-panel .big-vote-card {
+  min-height: 110px;
+  padding: 14px 8px;
+}
+.cid-scope .cid-vote-panel .bvc-label { font-size: 0.85rem; }
+.cid-scope .cid-vote-panel .bvc-price { font-size: 1.6rem; }
+.cid-scope .cid-vote-panel .vote-cta-btn {
+  margin-top: 0;
+  font-size: 0.85rem;
+  padding: 12px 22px;
+}
+.cid-scope .cid-vote-panel .vote-meta {
+  font-size: 0.65rem;
+  color: #8090b8;
+  margin-top: 14px;
+  letter-spacing: 0.06em;
+}
+
 /* AODA white card on the teal section so body copy clears 7:1 */
 .cid-scope .cid-watchlist-card {
   background: #FFFFFF;
