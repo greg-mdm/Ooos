@@ -95,7 +95,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
         </div>
         <div className="vote-stage">
           <div className="vote-source-label">
-            POLYMARKET · <span className="vote-volume">$8.4M LIVE VOLUME</span> · EXPIRES 2026-06-30
+            POLYMARKET · <span className="vote-volume">$29.05M LIVE VOLUME</span> · EXPIRES 2026-06-30
           </div>
           <div className="vote-question-text">
             Will the US and Iran reach<br />a permanent peace deal by June 30?
