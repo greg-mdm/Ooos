@@ -989,6 +989,30 @@ a:hover { color: var(--electric); }
 }
 .ostara-mnpi-octagon span { padding: 0 6px; }
 
+/* "What it is" row: heading + paragraph on the left, MNPI octagon on the right */
+.what-it-is-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.what-it-is-row .what-it-is-text { min-width: 0; }
+.what-it-is-row .what-it-is-text h2 { margin-top: 0; }
+.what-it-is-row .ostara-mnpi-octagon--inline {
+  width: 132px;
+  height: 132px;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+@media (max-width: 700px) {
+  .what-it-is-row {
+    grid-template-columns: 1fr;
+    justify-items: start;
+    gap: 18px;
+  }
+}
+
 /* IA diagram video block */
 .ia-diagram-figure {
   margin: 28px 0;

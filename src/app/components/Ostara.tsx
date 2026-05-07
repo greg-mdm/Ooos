@@ -24,22 +24,30 @@ export function Ostara({ onSupport }: { onSupport: () => void }) {
             <div className="ostara-descriptor" role="listitem">Routes intent</div>
             <div className="ostara-descriptor" role="listitem">Orchestrates agents</div>
             <div className="ostara-descriptor" role="listitem">Channels strategic foresight</div>
-            <div className="ostara-mnpi-octagon" role="listitem" aria-label="MNPI excluded">
-              <span>MNPI<br />excluded</span>
-            </div>
           </div>
         </div>
       </section>
 
       <div className="case-body">
-        <h2>What it is</h2>
-        <p>
-          Ostara is the culmination of an applied-research course on AI for
-          experiential design. It integrates four layers: a workshop interface,
-          a Python signal stack, a Polymarket integration, and an agent role
-          separation that enforces privacy and ethics in code rather than in
-          policy.
-        </p>
+        <div className="what-it-is-row">
+          <div className="what-it-is-text">
+            <h2>What it is</h2>
+            <p>
+              Ostara is the culmination of an applied-research course on AI for
+              experiential design. It integrates four layers: a workshop
+              interface, a Python signal stack, a Polymarket integration, and
+              an agent role separation that enforces privacy and ethics in
+              code rather than in policy.
+            </p>
+          </div>
+          <div
+            className="ostara-mnpi-octagon ostara-mnpi-octagon--inline"
+            role="img"
+            aria-label="MNPI excluded"
+          >
+            <span>MNPI<br />excluded</span>
+          </div>
+        </div>
 
         <div className="pull">
           The role with raw data has no execution authority. The role with
