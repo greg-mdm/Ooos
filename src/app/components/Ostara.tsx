@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
 
+// Public/unlisted Kahoot identifier. Swap when the final game is published
+// from greg@ooos.ca (admin). Embed URL pattern: https://embed.kahoot.it/<ID>.
+const KAHOOT_ID = "REPLACE_WITH_KAHOOT_ID";
+const KAHOOT_EMBED = `https://embed.kahoot.it/${KAHOOT_ID}`;
+const KAHOOT_PLAY = `https://kahoot.it/challenge/${KAHOOT_ID}`;
+
 export function Ostara({ onSupport }: { onSupport: () => void }) {
+  const kahootReady = KAHOOT_ID !== "REPLACE_WITH_KAHOOT_ID";
   return (
     <div className="ostara-scope">
       <section className="case-hero">
@@ -56,6 +63,57 @@ export function Ostara({ onSupport }: { onSupport: () => void }) {
             average.</strong> The Kahoot input layer mitigated production
             blocking and shared-information bias. ABSTAIN was used as a
             recognised outcome rather than absorbed into silence.
+          </div>
+        </div>
+
+        <h2>Kahoot as the participatory layer</h2>
+        <p>
+          Ostara's complexity, probabilistic signals, abstention as a valid
+          position, role-separated agents, only works if the room can input in
+          parallel without one voice dominating. Kahoot is the instrument that
+          makes that possible. It collapses the gap between facilitator and
+          participant, and turns a workshop into a collective-intelligence
+          system where every disposition is captured, timestamped, and visible.
+        </p>
+        <p>
+          Try the live game below. Same questions used in the TMU sessions,
+          same five-step inquiry arc. Word-cloud and open-input rounds are
+          being added on the Kahoot 365 Gold tier so future workshops collect
+          qualitative insight alongside the multiple-choice signal reads.
+        </p>
+        <div className="kahoot-embed">
+          {kahootReady ? (
+            <iframe
+              src={KAHOOT_EMBED}
+              title="Ostara workshop Kahoot"
+              width="100%"
+              height="480"
+              loading="lazy"
+              allow="fullscreen"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          ) : (
+            <div className="kahoot-placeholder">
+              <strong>Kahoot embed pending.</strong>
+              <span>
+                Game is being finalised under the greg@ooos.ca admin account.
+                Public link drops in here once the Gold upgrade and word-cloud
+                rounds are live.
+              </span>
+            </div>
+          )}
+          <div className="kahoot-actions">
+            <a
+              className="btn btn-secondary"
+              href={kahootReady ? KAHOOT_PLAY : "https://kahoot.it"}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Play in a new tab →
+            </a>
+            <span className="kahoot-meta">
+              Admin: greg@ooos.ca · Tier: Kahoot 365 Gold (workshop edition)
+            </span>
           </div>
         </div>
 
