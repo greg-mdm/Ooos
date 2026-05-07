@@ -32,21 +32,22 @@ export function Home({ onSupport }: { onSupport: () => void }) {
 
         <div className="featured">
           <Link to="/ostara" className="feature-card" style={{ textDecoration: "none", color: "inherit" }}>
-            <div className="feature-thumb ostara ostara-brand">
+            <div className="feature-thumb ostara ostara-brand ostara-brand--image">
               <span className="feature-thumb-label">Project 01</span>
-              <div className="ostara-brand-stack">
-                <div className="ostara-brand-name">OSTARA</div>
-                <div className="ostara-brand-divider" aria-hidden="true" />
-                <div className="ostara-brand-tagline">Collective Intelligence System</div>
-                <div className="ostara-brand-descriptors">
-                  <span className="ostara-descriptor">Aggregates signals</span>
-                  <span className="ostara-descriptor">Routes intent</span>
-                  <span className="ostara-descriptor">Orchestrates agents</span>
-                  <span className="ostara-descriptor">Channels strategic foresight</span>
-                </div>
-              </div>
+              <img
+                className="ostara-brand-image"
+                src={`${import.meta.env.BASE_URL}assets/images/ostara-login.png`}
+                alt="Ostara: Collective Intelligence System login screen with solar sphere"
+                loading="lazy"
+              />
             </div>
             <div className="feature-body">
+              <div className="ostara-brand-descriptors ostara-brand-descriptors--below">
+                <span className="ostara-descriptor">Aggregates signals</span>
+                <span className="ostara-descriptor">Routes intent</span>
+                <span className="ostara-descriptor">Orchestrates agents</span>
+                <span className="ostara-descriptor">Channels strategic foresight</span>
+              </div>
               <p>
                 A locally hosted, AI-assisted decision-support environment for
                 reasoning under uncertainty. Workshop interface, Python signal

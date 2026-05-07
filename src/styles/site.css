@@ -1634,6 +1634,36 @@ textarea:focus-visible,
   .ostara-descriptor { transition: none; }
 }
 
+/* Image variant of the Ostara brand thumb: shows the final "Collective
+   Intelligence System" login still (solar sphere) instead of the typed
+   stack. Descriptor bubbles move below the image into the feature body. */
+.feature-thumb.ostara-brand--image {
+  padding: 0;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  position: relative;
+}
+.ostara-brand-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+.feature-thumb.ostara-brand--image .feature-thumb-label {
+  position: relative;
+  z-index: 2;
+}
+.ostara-brand-descriptors--below {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 16px;
+  justify-content: flex-start;
+}
+
 /* ===== INVITED-INNOVATORS LIVE VOTE (transposed from lightning slide 5) ===== */
 .vote-feature {
   background: radial-gradient(circle at 50% 0%, #0D0A28 0%, #05030F 70%);
