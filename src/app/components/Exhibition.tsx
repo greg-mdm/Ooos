@@ -7,71 +7,85 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
       <section className="case-hero">
         <div className="container">
           <Link to="/" className="back">← All projects</Link>
-          <h1>Canadian Interactive Exhibition.</h1>
+          <h1>Nonprofit portals are now open across Canada.</h1>
           <p className="summary">
-            Nonprofit portals are now open across Canada. A public canvas for
-            interactive engagement that lets organizations share their
-            mission, collaborate across sectors, and meet audiences where
-            attention already lives.
+            Share your mission. Join the exhibition. Engage the public.
           </p>
           <div className="case-meta">
-            <span className="chip">Exhibition</span>
-            <span className="chip teal">In partnership with Charity Village</span>
-            <span className="chip">Public canvas</span>
+            <span className="chip">Interactive programming</span>
+            <span className="chip">Cross-sector collaboration</span>
+            <span className="chip teal">In collaboration with Charity Village</span>
           </div>
         </div>
       </section>
 
       <div className="case-body">
-        <h2>The premise</h2>
+        <h2>A shared public space for Canada's nonprofits</h2>
         <p>
-          Most nonprofit visibility is locked inside annual galas and
-          newsletter lists. The Canadian Interactive Exhibition reframes
-          public engagement as an open portal: a curated, always-on canvas
-          where organizations contribute interactive programming and
-          audiences participate in real time.
+          The Canadian Interactive Exhibition is a national pilot that
+          invites nonprofits across Canada to bring forward real challenges
+          and work with digital artists to shape them into interactive
+          public experiences. The exhibition is free, browser-based, and
+          designed to help organizations strengthen visibility, public
+          engagement, and cross-sector connection.
         </p>
+      </div>
 
-        <div className="pull">
-          Share your mission. Join the exhibition. Engage the public.
+      <section className="exhibit-support">
+        <div className="container">
+          <p className="tiers-label">Support the exhibition</p>
+          <p className="tier-note">
+            Crowdfunding supports the build and launch of the exhibition,
+            artist collaboration, and a virtual tip jar that allows
+            participating nonprofits to receive donations while keeping the
+            experience free for the public.
+          </p>
+
+          <div className="support-tiers">
+            <button type="button" onClick={onSupport} className="tier t1">
+              <div className="tier-name">Supporter</div>
+              <div className="tier-amt">$25+</div>
+              <div className="tier-desc">Name on the contributor wall</div>
+            </button>
+            <button type="button" onClick={onSupport} className="tier t2">
+              <div className="tier-name">Builder</div>
+              <div className="tier-amt">$100+</div>
+              <div className="tier-desc">Featured on the exhibition landing</div>
+            </button>
+            <button type="button" onClick={onSupport} className="tier t3">
+              <div className="tier-name">Patron</div>
+              <div className="tier-amt">$250+</div>
+              <div className="tier-desc">Name embedded in the exhibition</div>
+            </button>
+            <button type="button" onClick={onSupport} className="tier t4">
+              <div className="tier-name">Founding Partner</div>
+              <div className="tier-amt">$500+</div>
+              <div className="tier-desc">Custom portal in the virtual gallery</div>
+            </button>
+          </div>
+
+          <button onClick={onSupport} className="btn btn-primary exhibit-cta">
+            Share your mission, join the exhibition →
+          </button>
         </div>
+      </section>
 
-        <h2>Three pillars</h2>
-        <h3>Interactive programming</h3>
-        <p>
-          Each portal carries a live program. Kahoot inputs, signal cards,
-          and audience-vote artifacts replace static slide decks. The
-          programming is the deliverable.
-        </p>
-        <h3>Cross-sector collaboration</h3>
-        <p>
-          Nonprofits, civic groups, and creative studios build shared
-          portals. Mission alignment surfaces as overlap in the public
-          canvas, not as a press-release deal.
-        </p>
-        <h3>Public canvas for interactive engagement</h3>
-        <p>
-          The exhibition itself runs as a single, navigable surface, open to
-          drop-in audiences, leave-behind for facilitators, archived for
-          research and accountability.
-        </p>
-
-        <h2>How a portal opens</h2>
-        <ul>
-          <li>An organization shares its mission and a short interactive prompt.</li>
-          <li>The portal goes live on the exhibition canvas. Audience inputs are anonymous.</li>
-          <li>Engagement is reported in aggregate. ABSTAIN is recorded as a legitimate outcome.</li>
-          <li>The artifact is preserved as a public, citable record.</li>
-        </ul>
-
-        <h2>Support a portal</h2>
-        <p>
-          Portals open on a rolling basis. Indicative tiers below. No
-          payments are processed yet, this gauges willingness-to-engage.
-        </p>
-        <button onClick={onSupport} className="btn btn-primary" style={{ marginTop: 8 }}>
-          Open a portal →
-        </button>
+      <div className="case-body">
+        <h2>What the exhibition includes</h2>
+        <div className="outcome-grid">
+          <div className="outcome-item">
+            <strong>Nonprofit and artist collaborations</strong> from across Canada
+          </div>
+          <div className="outcome-item">
+            <strong>Public canvas</strong> for interactive experiences
+          </div>
+          <div className="outcome-item">
+            <strong>One-month online space</strong> open to everyone
+          </div>
+          <div className="outcome-item">
+            <strong>Participatory engagement</strong> with nonprofit missions
+          </div>
+        </div>
       </div>
 
       <RadioAd />
