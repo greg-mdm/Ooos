@@ -71,8 +71,10 @@ export function Ostara({ onSupport }: { onSupport: () => void }) {
           />
           <figcaption>
             Ostara System [Information Architecture]. The mermaid diagram
-            introduces the signal stack, Polymarket integration, and
-            role-separated agents shown as a single information flow.
+            shows the routing logic. Users submit signals, hypotheses,
+            questions, and commands. The system routes their intent to the
+            Empathic Analyst for review before the Executive Trader runs API
+            exchanges within user-defined limits.
           </figcaption>
         </figure>
 
