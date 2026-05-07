@@ -39,8 +39,27 @@ export function Ostara({ onSupport }: { onSupport: () => void }) {
 
         <div className="pull">
           The role with raw data has no execution authority. The role with
-          execution authority has no raw data.
+          execution authority has no access to raw data noise.
         </div>
+
+        <figure className="ia-diagram-figure">
+          <video
+            className="ia-diagram-video"
+            src={`${import.meta.env.BASE_URL}assets/video/ostara-ia-diagram.mp4`}
+            autoPlay
+            muted
+            loop
+            playsInline
+            controls
+            preload="metadata"
+            aria-label="Ostara system information architecture diagram"
+          />
+          <figcaption>
+            Ostara System &mdash; Information Architecture. Workshop interface,
+            Python signal stack, Polymarket integration, and role-separated
+            agents shown as a single information flow.
+          </figcaption>
+        </figure>
 
         <h2>Evidence from the field</h2>
         <p>

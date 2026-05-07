@@ -925,6 +925,32 @@ a:hover { color: var(--electric); }
 }
 .evidence-summary strong { color: var(--ink); }
 
+/* IA diagram video block */
+.ia-diagram-figure {
+  margin: 28px 0;
+  padding: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #05030F;
+  border: 1px solid rgba(75, 0, 182, 0.25);
+  box-shadow: 0 12px 36px rgba(26, 0, 51, 0.18);
+}
+.ia-diagram-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #05030F;
+}
+.ia-diagram-figure figcaption {
+  padding: 12px 18px 16px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+  background: linear-gradient(180deg, #0D0A28 0%, #07051A 100%);
+  border-top: 1px solid rgba(75, 0, 182, 0.25);
+}
+.ostara-scope .case-body .ia-diagram-figure figcaption { color: rgba(255, 255, 255, 0.85); }
+
 /* Pulled-out KPI heading — high-contrast on Ostara dark scope */
 .evidence-stats {
   display: grid;
