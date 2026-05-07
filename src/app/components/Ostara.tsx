@@ -36,8 +36,8 @@ export function Ostara({ onSupport }: { onSupport: () => void }) {
               Ostara is the culmination of an applied-research course on AI for
               experiential design. It integrates four layers: a workshop
               interface, a Python signal stack, a Polymarket integration, and
-              an agent role separation that enforces privacy and ethics in
-              code rather than in policy.
+              a role-separated agent architecture that enforces privacy and
+              ethics in code rather than in policy.
             </p>
           </div>
           <div
@@ -50,8 +50,9 @@ export function Ostara({ onSupport }: { onSupport: () => void }) {
         </div>
 
         <div className="pull">
-          The role with raw data has no execution authority. The role with
-          execution authority has no access to raw data noise.
+          The Empathic Analyst reviews raw data and co-creates strategy. The
+          Executive Trader executes the strategy within the user-defined
+          limits, with no access to raw data noise.
         </div>
 
         <figure className="ia-diagram-figure">
