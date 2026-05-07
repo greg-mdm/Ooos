@@ -743,6 +743,7 @@ a:hover { color: var(--electric); }
   color: #8090b8;
   text-transform: uppercase;
   margin: 12px 0 12px;
+  padding-top: 22px; /* clear LIVE pill in top-right */
 }
 .cid-scope .cid-vote-panel .vote-volume { color: #00e676; }
 .cid-scope .cid-vote-panel .vote-question-text {
@@ -780,14 +781,15 @@ a:hover { color: var(--electric); }
   letter-spacing: 0.06em;
 }
 
-/* AODA white card on the teal section so body copy clears 7:1 */
+/* AODA white card on the teal section so body copy clears 7:1.
+   Underlight uses dark-teal #0d1117 (matches the watchlist HTML header bar). */
 .cid-scope .cid-watchlist-card {
   background: #FFFFFF;
   color: #1A0033;
-  border: 1px solid rgba(130, 47, 0, 0.18);
+  border: 1px solid #0d1117;
   border-radius: 14px;
   padding: 36px 40px;
-  box-shadow: 0 6px 24px rgba(26, 0, 51, 0.08);
+  box-shadow: 0 10px 0 #0d1117, 0 18px 36px rgba(13, 17, 23, 0.35);
 }
 .cid-scope .cid-watchlist-card h2 { color: #822F00; margin-top: 0; }
 .cid-scope .cid-watchlist-card p,
@@ -1460,7 +1462,7 @@ textarea:focus-visible,
   font-size: 15px;
   font-weight: 900;
   letter-spacing: 0.22em;
-  color: #c8b0ff;
+  color: #FFFFFF !important;
   padding: 16px 42px;
   border: 2px solid rgba(108,1,244,0.85);
   border-radius: 8px;
