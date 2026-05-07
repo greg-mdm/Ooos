@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 // Live Kahoot challenge embed. Admin: greg@ooos.ca.
 // Generated from Kahoot share dialog ("Embed" option), assignment-style URL.
 const KAHOOT_EMBED =
-  "https://kahoot.it/challenge/09193020?challenge-id=403b6d09-7c09-4def-94ce-5fb7aa8db66b_1778169959976&embed=true";
-const KAHOOT_PLAY = "https://kahoot.it/challenge/09193020";
+  "https://kahoot.it/challenge/09524505?challenge-id=403b6d09-7c09-4def-94ce-5fb7aa8db66b_1778197641699&embed=true";
+const KAHOOT_PLAY = "https://kahoot.it/challenge/09524505";
 
 export function Ostara({ onSupport }: { onSupport: () => void }) {
   const [kahootActive, setKahootActive] = useState(false);
