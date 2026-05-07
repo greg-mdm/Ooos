@@ -70,9 +70,9 @@ export function Ostara({ onSupport }: { onSupport: () => void }) {
             aria-label="Ostara system information architecture diagram"
           />
           <figcaption>
-            Ostara System &mdash; Information Architecture. Workshop interface,
-            Python signal stack, Polymarket integration, and role-separated
-            agents shown as a single information flow.
+            Ostara System [Information Architecture]. The mermaid diagram
+            introduces the signal stack, Polymarket integration, and
+            role-separated agents shown as a single information flow.
           </figcaption>
         </figure>
 
