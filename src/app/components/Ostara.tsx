@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 // Live Kahoot challenge embed. Admin: greg@ooos.ca.
@@ -7,6 +8,7 @@ const KAHOOT_EMBED =
 const KAHOOT_PLAY = "https://kahoot.it/challenge/09193020";
 
 export function Ostara({ onSupport }: { onSupport: () => void }) {
+  const [kahootActive, setKahootActive] = useState(false);
   return (
     <div className="ostara-scope">
       <section className="case-hero">
@@ -127,17 +129,34 @@ export function Ostara({ onSupport }: { onSupport: () => void }) {
         </p>
         <div className="kahoot-embed">
           <div className="kahoot-frame-wrap">
-            <iframe
-              src={KAHOOT_EMBED}
-              title="Ostara workshop Kahoot"
-              name="kahoot-embed"
-              scrolling="no"
-              frameBorder={0}
-              allowFullScreen
-              loading="lazy"
-              allow="fullscreen"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
+            {kahootActive ? (
+              <iframe
+                src={KAHOOT_EMBED}
+                title="Ostara workshop Kahoot"
+                name="kahoot-embed"
+                scrolling="no"
+                frameBorder={0}
+                allowFullScreen
+                allow="fullscreen"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            ) : (
+              <button
+                type="button"
+                className="kahoot-poster"
+                onClick={() => setKahootActive(true)}
+                aria-label="Launch the Ostara workshop Kahoot"
+              >
+                <span className="kahoot-poster__brand">Kahoot!</span>
+                <span className="kahoot-poster__title">
+                  Ostara workshop · Assignment by Ooo.Play
+                </span>
+                <span className="kahoot-poster__cta">▶ Click to launch</span>
+                <span className="kahoot-poster__meta">
+                  Loads only when you activate it. Won't auto-play on page load.
+                </span>
+              </button>
+            )}
           </div>
           <div className="kahoot-actions">
             <a

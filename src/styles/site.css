@@ -1438,6 +1438,71 @@ textarea:focus-visible,
   background: #000;
   box-shadow: 0 18px 40px rgba(0,0,0,0.25);
 }
+/* Click-to-load poster: Kahoot iframe auto-plays an intro animation on
+   mount, so we only mount it after the user activates this button. */
+.kahoot-poster {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 400px;
+  max-width: 100%;
+  height: 584px;
+  padding: 32px 28px;
+  border: 0;
+  border-radius: 10px;
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(255,255,255,0.10), transparent 60%),
+    linear-gradient(160deg, #46178F 0%, #2E0F66 100%);
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.25);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+.kahoot-poster:hover,
+.kahoot-poster:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 48px rgba(0,0,0,0.32);
+  outline: none;
+}
+.kahoot-poster__brand {
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-weight: 900;
+  font-size: 2.2rem;
+  letter-spacing: 0.02em;
+  font-style: italic;
+}
+.kahoot-poster__title {
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 0.92;
+  max-width: 28ch;
+}
+.kahoot-poster__cta {
+  margin-top: 12px;
+  display: inline-block;
+  padding: 14px 28px;
+  border-radius: 999px;
+  background: #1A1A1A;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  font-size: 1.05rem;
+}
+.kahoot-poster__meta {
+  margin-top: 10px;
+  font-size: 0.78rem;
+  opacity: 0.7;
+  max-width: 32ch;
+  line-height: 1.4;
+}
+@media (prefers-reduced-motion: reduce) {
+  .kahoot-poster { transition: none; }
+  .kahoot-poster:hover,
+  .kahoot-poster:focus-visible { transform: none; }
+}
 .kahoot-actions {
   display: flex;
   flex-wrap: wrap;
