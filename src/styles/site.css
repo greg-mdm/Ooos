@@ -639,6 +639,22 @@ a:hover { color: var(--electric); }
   max-width: 640px;
   line-height: 1.6;
 }
+/* CID hero uses width better: 2-column flow across the 4 summary paragraphs */
+.cid-scope .case-hero .cid-hero-summary {
+  column-count: 2;
+  column-gap: 48px;
+}
+.cid-scope .case-hero .cid-hero-summary p.summary {
+  max-width: none;
+  margin-top: 0;
+  break-inside: avoid;
+}
+.cid-scope .case-hero .cid-hero-summary p.summary + p.summary {
+  margin-top: 14px;
+}
+@media (max-width: 880px) {
+  .cid-scope .case-hero .cid-hero-summary { column-count: 1; }
+}
 .case-meta {
   display: flex;
   gap: 8px;

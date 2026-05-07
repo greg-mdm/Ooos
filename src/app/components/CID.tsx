@@ -8,35 +8,34 @@ export function CID({ onSupport }: { onSupport: () => void }) {
         <div className="container">
           <Link to="/" className="back">← All projects</Link>
           <h1>Canadian Innovation Dimension.</h1>
-          <p className="summary">
-            A research dimension tracking sovereign innovation across Canada
-            and allied jurisdictions through triangulation of public sources,
-            verified public data sets, and strict exclusion of Material Non
-            Public Information (MNPI).
-          </p>
-          <p className="summary">
-            The system tracks organizations, strategic sectors, policy
-            developments, bilateral partnerships, and capital market activity
-            across emerging technologies and industrial priorities. The
-            Innovation Watchlist is the first public tool released from this
-            dimension.
-          </p>
-          <p className="summary">
-            Built for innovators, researchers, entrepreneurs, and curious
-            observers, the system invites participants to move across sector
-            relationships, examine signals and emerging developments more
-            closely, and experiment with different interpretations as new
-            information comes into view.
-          </p>
-          <p className="summary">
-            Ostara does not provide financial advice or make predictions about
-            the future. It provides a public space to compare signals, examine
-            strategic developments, and test competing perspectives using
-            verified public information.
-          </p>
+          <div className="cid-hero-summary">
+            <p className="summary">
+              A research dimension tracking sovereign innovation across Canada
+              and allied jurisdictions through triangulation of public sources,
+              verified public data sets, and strict exclusion of Material Non
+              Public Information (MNPI).
+            </p>
+            <p className="summary">
+              The system tracks organizations, strategic sectors, policy
+              developments, bilateral partnerships, and capital market activity
+              across emerging technologies and industrial priorities. The
+              Innovation Watchlist is the first public tool released from this
+              dimension.
+            </p>
+            <p className="summary">
+              Built for innovators, researchers, entrepreneurs, and curious
+              observers, the system supports collaborative exploration across
+              sectors, policy movements, industrial strategy, and public markets
+              as new information comes into view.
+            </p>
+            <p className="summary">
+              Ostara does not provide financial advice or make predictions about
+              the future. It provides a public environment for comparing verified
+              public information and testing competing interpretations.
+            </p>
+          </div>
           <div className="case-meta">
             <span className="chip">Research dimension</span>
-            <span className="chip">Public sources only</span>
             <span className="chip">MNPI excluded</span>
           </div>
         </div>
