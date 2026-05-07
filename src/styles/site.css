@@ -631,6 +631,20 @@ a:hover { color: var(--electric); }
   margin: 0 auto;
   padding: 60px 24px;
 }
+/* AODA: force readable dark-ink-on-white in the Ostara case body, even
+   though .ostara-scope flips the global tokens for the dark hero band. */
+.ostara-scope .case-body {
+  background: #FFFFFF;
+  color: #1A0033;
+}
+.ostara-scope .case-body h2,
+.ostara-scope .case-body h3,
+.ostara-scope .case-body h4,
+.ostara-scope .case-body strong { color: #19007D; }
+.ostara-scope .case-body p,
+.ostara-scope .case-body li { color: #1A0033; }
+.ostara-scope .case-body a { color: #19007D; text-decoration: underline; }
+.ostara-scope .case-body a:hover { color: #5B04DE; }
 .case-body h2 {
   font-family: var(--serif);
   font-size: 26px;
