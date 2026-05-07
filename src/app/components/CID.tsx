@@ -50,29 +50,18 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             Support a watch theme
           </button>
         </p>
+      </div>
 
-        <h2>Inline preview</h2>
-        <div
-          style={{
-            border: "1px solid var(--border-soft)",
-            borderRadius: 10,
-            overflow: "hidden",
-            background: "#000",
-          }}
-        >
-          <iframe
-            src={`${base}cid/watchlist/`}
-            title="Canadian Innovation Watchlist preview"
-            loading="lazy"
-            style={{
-              width: "100%",
-              height: "70vh",
-              border: 0,
-              display: "block",
-            }}
-          />
-        </div>
+      <section className="cid-watchlist-embed">
+        <iframe
+          src={`${base}cid/watchlist-embed/`}
+          title="Canadian Innovation Watchlist"
+          loading="lazy"
+          className="cid-watchlist-frame"
+        />
+      </section>
 
+      <div className="case-body">
         <h2>What lives inside the dimension</h2>
         <ul>
           <li><strong>Watchlist</strong> live now. Filterable, signal-scored, public-source-only.</li>

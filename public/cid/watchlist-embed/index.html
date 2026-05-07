@@ -1,0 +1,2201 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canadian Innovation & Partnership Watchlist — Ostara</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-weight: 600;
+      background: #0d1117;
+      color: #e6edf3;
+      margin: 0;
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    .ticker { font-family: 'Courier New', Courier, monospace; }
+    .small-caps { letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.72rem; }
+
+    canvas#bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .page-wrap {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(31, 206, 203, 0.15);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(31, 206, 203, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 2rem;
+    }
+
+    header .brand {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #ffffff;
+      letter-spacing: 0.04em;
+      line-height: 1.4;
+    }
+
+    header .ostara-label {
+      font-weight: 600;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #ffffff;
+      font-variant: small-caps;
+      line-height: 1.4;
+    }
+
+    header .brand,
+    header .ostara-label {
+      transition: color 0.3s ease;
+    }
+
+    header.over-light .brand,
+    header.over-light .ostara-label {
+      color: #822F00;
+    }
+
+    /* TITLE BANNER — red as highlight, not dominant */
+    .title-banner-wrap {
+      margin: 2rem 5rem;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 2px 10px rgba(31,206,203,0.08);
+    }
+
+    .title-banner-wrap {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+    }
+
+    .title-banner {
+      background: linear-gradient(135deg, #6b2700 0%, #541f00 100%);
+      border: 1px solid rgba(31, 206, 203, 0.35);
+      border-right: none;
+      border-radius: 11px 0 0 11px;
+      text-align: left;
+      padding: 1.1rem 2.8rem;
+      position: relative;
+      overflow: hidden;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .title-banner-compass {
+      width: 180px;
+      flex-shrink: 0;
+      background: #0d1117;
+      border: 1px solid rgba(31, 206, 203, 0.35);
+      border-left: none;
+      border-radius: 0 11px 11px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 0.8rem;
+    }
+
+    .title-banner-compass img {
+      width: 160px;
+      height: auto;
+      object-fit: contain;
+      opacity: 1;
+      display: block;
+    }
+
+    .title-eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 0.35rem;
+    }
+
+    .title-banner h1 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #ffffff;
+      line-height: 1.2;
+      margin: 0;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      white-space: nowrap;
+    }
+
+    .title-dims {
+      display: flex;
+      gap: 1.2rem;
+      margin-top: 0.7rem;
+      flex-wrap: wrap;
+    }
+
+    .title-dim-block {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .title-dim-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(31,206,203,0.6);
+    }
+
+    .title-banner .title-sub {
+      font-weight: 400;
+      color: rgba(255,255,255,0.72);
+      font-size: 0.82rem;
+      margin-top: 0.45rem;
+      margin-bottom: 0.55rem;
+      letter-spacing: 0.01em;
+      line-height: 1.6;
+      max-width: 780px;
+    }
+
+    .title-dim-tags {
+      display: flex;
+      gap: 0.3rem;
+      flex-wrap: wrap;
+    }
+
+    .title-dim-tag {
+      font-size: 0.65rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.07);
+      color: rgba(255,255,255,0.75);
+      border: 1px solid rgba(255,255,255,0.14);
+      white-space: nowrap;
+    }
+
+    /* INTRO — 3 separate column containers */
+    .intro-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.8rem;
+      margin: 2rem 3rem;
+    }
+
+    .intro-col-card {
+      background: rgba(16, 22, 30, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(31, 206, 203, 0.3);
+      border-top: 3px solid #1fcecb;
+      border-radius: 10px;
+      padding: 2.2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.35), 0 1px 6px rgba(31,206,203,0.06);
+      transition: box-shadow 0.2s ease;
+    }
+
+    .intro-col-card:hover {
+      box-shadow: 0 6px 28px rgba(0,0,0,0.45), 0 2px 10px rgba(31,206,203,0.12);
+    }
+
+    .intro-col-card .col-heading {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #1fcecb;
+      letter-spacing: 0.03em;
+      padding-bottom: 0.7rem;
+      border-bottom: 1px solid rgba(31,206,203,0.25);
+      line-height: 1.4;
+    }
+
+    .intro-col-card .col-desc {
+      font-weight: 600;
+      color: #d0d7de;
+      font-size: 1.1rem;
+      line-height: 1.9;
+    }
+
+    .intro-col-card .col-note {
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: #8b949e;
+      padding-left: 0.7rem;
+      border-left: 2px solid rgba(31,206,203,0.3);
+      margin-top: 0.3rem;
+      line-height: 1.7;
+    }
+
+    /* legacy .panel kept for legend only */
+    .panel {
+      background: rgba(13, 17, 23, 0.72);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(31, 206, 203, 0.18);
+      border-radius: 12px;
+      padding: 2.5rem;
+      max-width: 860px;
+      margin: 2rem auto;
+    }
+
+    /* ECOSYSTEM DIMENSION OVERVIEW */
+    .eco-overview {
+      margin: 0 3rem 1.5rem 3rem;
+      padding: 1.6rem 2rem;
+      background: rgba(13,17,23,0.55);
+      border: 1px solid rgba(31,206,203,0.16);
+      border-radius: 12px;
+    }
+    .eco-overview-title {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(31,206,203,0.55);
+      margin-bottom: 1.2rem;
+    }
+    .eco-dims {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .eco-dim {
+      background: rgba(31,206,203,0.05);
+      border: 1px solid rgba(31,206,203,0.13);
+      border-radius: 8px;
+      padding: 1rem 1.1rem;
+    }
+    .eco-dim-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(31,206,203,0.5);
+      margin-bottom: 0.4rem;
+    }
+    .eco-dim-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #eef2f7;
+      margin-bottom: 0.55rem;
+    }
+    .eco-dim-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.6rem;
+    }
+    .eco-dim-pill {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.65rem;
+      border-radius: 20px;
+      background: rgba(31,206,203,0.12);
+      color: rgba(31,206,203,0.85);
+      border: 1px solid rgba(31,206,203,0.22);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .eco-dim-pill:hover, .eco-dim-pill.active {
+      background: rgba(31,206,203,0.28);
+      color: #fff;
+      border-color: rgba(31,206,203,0.5);
+    }
+    .eco-dim-desc {
+      font-size: 0.78rem;
+      color: rgba(238,242,247,0.55);
+      line-height: 1.6;
+    }
+    .eco-connector {
+      text-align: center;
+      margin: 1rem 0 0.3rem;
+      font-size: 0.7rem;
+      color: rgba(31,206,203,0.35);
+      letter-spacing: 0.1em;
+    }
+
+    /* CITIES OF INNOVATION */
+    .cities-section {
+      margin: 0 3rem 1.8rem 3rem;
+    }
+    .cities-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(31,206,203,0.15);
+      margin-bottom: 0;
+    }
+    .cities-section-title {
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #f0c040;
+    }
+    .cities-toggle-btn {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #f0c040;
+      background: rgba(240,192,64,0.07);
+      border: 1px solid rgba(240,192,64,0.3);
+      border-radius: 4px;
+      padding: 0.22rem 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .cities-toggle-btn:hover { background: rgba(240,192,64,0.15); border-color: rgba(240,192,64,0.65); }
+
+    .cities-grid {
+      display: none;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+      padding-top: 1.1rem;
+    }
+    .cities-grid.open { display: grid; }
+
+    .city-card {
+      background: rgba(16,22,30,0.8);
+      border: 1px solid rgba(240,192,64,0.2);
+      border-top: 2px solid #f0c040;
+      border-radius: 9px;
+      padding: 1.4rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      transition: box-shadow 0.2s;
+    }
+    .city-card:hover { box-shadow: 0 4px 20px rgba(240,192,64,0.1); }
+    .city-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .city-name {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #f0c040;
+      line-height: 1.3;
+    }
+    .city-badge {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 10px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .city-badge--shift { background: rgba(108,1,244,0.2); border: 1px solid rgba(108,1,244,0.5); color: #a855f7; }
+    .city-badge--hold  { background: rgba(240,192,64,0.15); border: 1px solid rgba(240,192,64,0.45); color: #f0c040; }
+
+    .city-desc {
+      font-size: 0.9rem;
+      color: #c8d0e8;
+      line-height: 1.75;
+    }
+
+    /* Progressive disclosure — detail layer inside city card */
+    .city-detail-toggle {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(240,192,64,0.6);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      text-align: left;
+      transition: color 0.2s;
+      margin-top: 0.1rem;
+    }
+    .city-detail-toggle:hover { color: #f0c040; }
+
+    .city-detail {
+      display: none;
+      padding-top: 0.7rem;
+      border-top: 1px solid rgba(240,192,64,0.12);
+      font-size: 0.88rem;
+      color: #8b949e;
+      line-height: 1.75;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .city-detail.open { display: flex; }
+
+    .city-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.2rem;
+    }
+    .city-stat {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.2rem 0.65rem;
+      border-radius: 4px;
+      background: rgba(240,192,64,0.08);
+      border: 1px solid rgba(240,192,64,0.22);
+      color: #f0c040;
+      white-space: nowrap;
+    }
+    .city-sectors {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+    .city-sector-tag {
+      font-size: 0.62rem;
+      padding: 0.18rem 0.55rem;
+      border-radius: 3px;
+      background: rgba(31,206,203,0.08);
+      border: 1px solid rgba(31,206,203,0.22);
+      color: #1fcecb;
+    }
+
+    /* LEGEND BAR — replaced by signal boxes grid */
+    .legend-bar {
+      margin: 0 3rem 1.6rem 3rem;
+    }
+    .legend-label {
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      display: block;
+      line-height: 1.5;
+    }
+
+    /* SIGNAL BOXES GRID */
+    .signal-boxes-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .signal-box {
+      background: rgba(19, 16, 58, 0.6);
+      border: 1px solid rgba(108, 1, 244, 0.2);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: row;
+      height: 200px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+    }
+
+    /* IMAGE SIDE — left 60% */
+    .signal-box-img-wrap {
+      position: relative;
+      width: 50%;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .signal-box-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.65) brightness(0.7);
+    }
+
+    /* Colour tint overlay */
+    .signal-box-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .signal-box.level-5 .signal-box-img-wrap::after {
+      background: linear-gradient(135deg, rgba(108,1,244,0.35), rgba(0,0,0,0.45));
+    }
+    .signal-box.level-4 .signal-box-img-wrap::after {
+      background: linear-gradient(135deg, rgba(75,45,191,0.35), rgba(0,0,0,0.45));
+    }
+    .signal-box.level-3 .signal-box-img-wrap::after {
+      background: linear-gradient(135deg, rgba(31,206,203,0.3), rgba(0,0,0,0.4));
+    }
+    .signal-box.level-2 .signal-box-img-wrap::after {
+      background: linear-gradient(135deg, rgba(127,167,179,0.3), rgba(0,0,0,0.4));
+    }
+
+    /* DIVIDER LINE — between image and panel */
+    .signal-box-divider {
+      width: 4px;
+      flex-shrink: 0;
+    }
+    .signal-box.level-5 .signal-box-divider { background: #6C01F4; }
+    .signal-box.level-4 .signal-box-divider { background: #4B2DBF; }
+    .signal-box.level-3 .signal-box-divider { background: #1FCECB; }
+    .signal-box.level-2 .signal-box-divider { background: #7FA7B3; }
+
+    /* RIGHT PANEL — light text area */
+    .signal-box-panel {
+      flex: 1;
+      background: rgba(240, 242, 245, 0.95);
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      padding: 1.2rem 1rem 1.2rem 0.8rem;
+      gap: 0.6rem;
+    }
+
+    /* Vertical flower column — anchored to divider */
+    .signal-box-flowers {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding-top: 0.2rem;
+      flex-shrink: 0;
+    }
+
+    /* Text area */
+    .signal-box-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.3rem;
+    }
+
+    .signal-box-label {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #2d3436;
+      letter-spacing: 0.04em;
+      line-height: 1.3;
+    }
+
+    .signal-box-sublabel {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #4a5568;
+      letter-spacing: 0.03em;
+      line-height: 1.3;
+    }
+
+    /* CARDS GRID */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin: 0 3rem 3rem 3rem;
+      padding: 0;
+    }
+
+    @media (max-width: 900px) {
+      .cards-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 580px) {
+      .cards-grid { grid-template-columns: 1fr; }
+    }
+
+    /* CARD */
+    .card {
+      background: rgba(22, 27, 34, 0.84);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(31, 206, 203, 0.2);
+      border-left: 3px solid #1fcecb;
+      border-radius: 10px;
+      padding: 1.8rem;
+      color: #e6edf3;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      box-shadow: 0 3px 16px rgba(0,0,0,0.3);
+    }
+
+    .card-title {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #ffffff;
+      line-height: 1.4;
+    }
+
+    .card-title-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.6rem;
+      flex-wrap: nowrap;
+      min-height: 2.8rem;
+    }
+
+    .horizon-badge {
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: #1fcecb;
+      background: rgba(31, 206, 203, 0.15);
+      border: 1px solid rgba(31, 206, 203, 0.3);
+      border-radius: 20px;
+      padding: 0.18rem 0.65rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+      align-self: flex-start;
+      line-height: 1.5;
+    }
+
+    .signal-row {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+    }
+
+    .signal-text {
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      color: #8b949e;
+      line-height: 1.5;
+    }
+
+    .signal-score {
+      font-size: 0.78rem;
+      color: #1fcecb;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .flower-row {
+      display: flex;
+      gap: 5px;
+      align-items: flex-end;
+    }
+    .flower-icon {
+      display: inline-block;
+    }
+
+    .section-label {
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      color: #8b949e;
+      margin-bottom: 0.4rem;
+      line-height: 1.5;
+    }
+
+    .trigger-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .trigger-list li {
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: #c9d1d9;
+      padding-left: 0.9rem;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .trigger-list li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: #4b5563;
+    }
+
+    .company-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .chip {
+      background: rgba(31, 206, 203, 0.1);
+      border: 1px solid rgba(31, 206, 203, 0.4);
+      border-radius: 6px;
+      padding: 0.28rem 0.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.08rem;
+    }
+
+    .chip-name {
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: #1fcecb;
+      line-height: 1.4;
+    }
+
+    .chip-ticker {
+      font-family: 'Courier New', Courier, monospace;
+      font-weight: 700;
+      font-size: 0.67rem;
+      color: #8b949e;
+      line-height: 1.4;
+    }
+
+    .chip-type {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.3;
+      margin-top: 0.05rem;
+    }
+
+    /* Chip variants by org type */
+    .chip--stock {
+      background: rgba(31, 206, 203, 0.08);
+      border-color: rgba(31, 206, 203, 0.5);
+    }
+    .chip--stock .chip-name { color: #1fcecb; }
+    .chip--stock .chip-type { color: rgba(31, 206, 203, 0.7); }
+
+    .chip--puborg {
+      background: rgba(74, 158, 255, 0.08);
+      border-color: rgba(74, 158, 255, 0.45);
+    }
+    .chip--puborg .chip-name { color: #4a9eff; }
+    .chip--puborg .chip-type { color: rgba(74, 158, 255, 0.7); }
+
+    .chip--nonprofit {
+      background: rgba(108, 1, 244, 0.1);
+      border-color: rgba(108, 1, 244, 0.45);
+    }
+    .chip--nonprofit .chip-name { color: #a855f7; }
+    .chip--nonprofit .chip-type { color: rgba(168, 85, 247, 0.7); }
+
+    .chip--private {
+      background: rgba(139, 148, 158, 0.08);
+      border-color: rgba(139, 148, 158, 0.35);
+    }
+    .chip--private .chip-name { color: #8b949e; }
+    .chip--private .chip-type { color: rgba(139, 148, 158, 0.7); }
+
+    /* CARD META ROW — region + classification at top */
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.1rem;
+    }
+
+    .region-tag {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.12rem 0.5rem;
+      border-radius: 20px;
+      background: rgba(31, 206, 203, 0.1);
+      border: 1px solid rgba(31, 206, 203, 0.3);
+      color: #1fcecb;
+      line-height: 1.5;
+    }
+
+    .class-badge {
+      font-size: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.12rem 0.55rem;
+      border-radius: 20px;
+      line-height: 1.5;
+      margin-left: auto;
+    }
+    .class-badge--hold {
+      background: rgba(240, 192, 64, 0.18);
+      border: 1px solid rgba(240, 192, 64, 0.5);
+      color: #F0C040;
+    }
+    .class-badge--shift {
+      background: rgba(232, 137, 12, 0.18);
+      border: 1px solid rgba(232, 137, 12, 0.5);
+      color: #E8890C;
+    }
+    .class-badge--break {
+      background: rgba(232, 69, 60, 0.18);
+      border: 1px solid rgba(232, 69, 60, 0.5);
+      color: #E8453C;
+    }
+
+    /* FILTER BAR */
+    .filter-bar {
+      margin: 0 3rem 1.5rem 3rem;
+      background: rgba(16, 22, 30, 0.8);
+      border: 1px solid rgba(31, 206, 203, 0.2);
+      border-radius: 10px;
+      padding: 1rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .filter-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+    }
+
+    .filter-row--sector {
+      align-items: stretch;
+      gap: 0;
+      border-top: 1px solid rgba(31, 206, 203, 0.1);
+      padding-top: 0.75rem;
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .filter-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #8b949e;
+      margin-right: 0.2rem;
+      white-space: nowrap;
+    }
+
+    /* Sector filter blocks */
+    .sector-filter-block {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding-right: 1.8rem;
+      border-right: 1px solid rgba(31, 206, 203, 0.12);
+      margin-right: 1.8rem;
+    }
+    .sector-filter-block:last-of-type {
+      border-right: none;
+      margin-right: auto;
+    }
+    .sector-block-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(31, 206, 203, 0.55);
+    }
+    .sector-block-buttons {
+      display: flex;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+
+    /* Trading System Link */
+    .trading-system-link {
+      margin-left: auto;
+      font-family: monospace;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #f0c040;
+      text-decoration: none;
+      padding: 0.3rem 0.9rem;
+      border: 1px solid rgba(240, 192, 64, 0.35);
+      border-radius: 4px;
+      background: rgba(240, 192, 64, 0.07);
+      transition: all 0.2s;
+      white-space: nowrap;
+      align-self: center;
+    }
+    .trading-system-link:hover {
+      background: rgba(240, 192, 64, 0.15);
+      border-color: rgba(240, 192, 64, 0.7);
+    }
+
+    /* Sector Nodes toggle */
+    .sector-nodes-btn {
+      font-family: monospace;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #a855f7;
+      padding: 0.3rem 0.9rem;
+      border: 1px solid rgba(168, 85, 247, 0.35);
+      border-radius: 4px;
+      background: rgba(168, 85, 247, 0.07);
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+      align-self: center;
+    }
+    .sector-nodes-btn:hover, .sector-nodes-btn.active {
+      background: rgba(168, 85, 247, 0.18);
+      border-color: rgba(168, 85, 247, 0.7);
+    }
+
+    .filter-pill {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.8rem;
+      border-radius: 20px;
+      border: 1px solid rgba(139, 148, 158, 0.3);
+      background: rgba(139, 148, 158, 0.08);
+      color: #8b949e;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      line-height: 1.5;
+    }
+    .filter-pill:hover {
+      border-color: rgba(31, 206, 203, 0.5);
+      color: #1fcecb;
+      background: rgba(31, 206, 203, 0.08);
+    }
+    .filter-pill.active {
+      background: rgba(31, 206, 203, 0.15);
+      border-color: rgba(31, 206, 203, 0.6);
+      color: #1fcecb;
+    }
+    .filter-pill.sort-active {
+      background: rgba(108, 1, 244, 0.18);
+      border-color: rgba(108, 1, 244, 0.5);
+      color: #a855f7;
+    }
+
+    /* SECTOR NODES PANEL */
+    #sector-nodes-panel {
+      display: none;
+      margin: 0 3rem 1.5rem 3rem;
+      background: rgba(16, 22, 30, 0.85);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 10px;
+      padding: 1.2rem 1.4rem;
+      backdrop-filter: blur(8px);
+    }
+    #sector-nodes-panel.open { display: block; }
+    .nodes-intro {
+      font-size: 0.65rem;
+      color: #8b949e;
+      letter-spacing: 0.06em;
+      margin-bottom: 1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid rgba(168,85,247,0.15);
+    }
+    .nodes-section { margin-bottom: 1.1rem; }
+    .nodes-section:last-child { margin-bottom: 0; }
+    .nodes-section-title {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 0.6rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nodes-group { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 0.55rem; align-items: flex-start; }
+    .nodes-group:last-child { margin-bottom: 0; }
+    .nodes-group-label {
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #8b949e;
+      width: 100%;
+      margin-bottom: 0.1rem;
+    }
+    .node-chip {
+      display: flex;
+      flex-direction: column;
+      padding: 0.35rem 0.8rem;
+      border-radius: 6px;
+      border: 1px solid;
+      cursor: default;
+      min-width: 90px;
+    }
+    .node-chip .nc-name { font-size: 0.78rem; font-weight: 700; }
+    .node-chip .nc-tag { font-size: 0.58rem; opacity: 0.65; margin-top: 1px; }
+    .node-chip .nc-sectors { font-size: 0.55rem; letter-spacing: 0.04em; margin-top: 3px; color: rgba(255,255,255,0.35); }
+    /* Multi-sector = appears in 2+ cards — gold highlight */
+    .node-chip.multi-sector { box-shadow: 0 0 0 1px rgba(240,192,64,0.5); }
+    .node-chip.multi-sector .nc-sectors { color: rgba(240,192,64,0.7); }
+
+    .node-chip--nyse { background: rgba(0,230,118,0.06); border-color: rgba(0,230,118,0.28); }
+    .node-chip--nyse .nc-name { color: #00e676; }
+    .node-chip--tsx { background: rgba(31,206,203,0.06); border-color: rgba(31,206,203,0.28); }
+    .node-chip--tsx .nc-name { color: #1fcecb; }
+    .node-chip--tsxv { background: rgba(126,184,255,0.05); border-color: rgba(126,184,255,0.25); }
+    .node-chip--tsxv .nc-name { color: #7eb8ff; }
+    .node-chip--private { background: rgba(139,148,158,0.06); border-color: rgba(139,148,158,0.22); }
+    .node-chip--private .nc-name { color: #8b949e; }
+    .node-chip--puborg { background: rgba(74,158,255,0.06); border-color: rgba(74,158,255,0.28); }
+    .node-chip--puborg .nc-name { color: #4a9eff; }
+    .node-chip--nonprofit { background: rgba(168,85,247,0.06); border-color: rgba(168,85,247,0.28); }
+    .node-chip--nonprofit .nc-name { color: #a855f7; }
+
+    /* card hidden state for filtering */
+    .card.hidden { display: none; }
+
+    /* SIGNAL CONTAINER — light box inside dark cards */
+    .signal-container {
+      background: rgba(240, 242, 245, 0.95);
+      border: 1px solid rgba(31, 206, 203, 0.2);
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+
+    .signal-container .signal-text {
+      font-weight: 600;
+      color: #4a5568;
+    }
+
+    .signal-container .signal-score {
+      color: #2d3436;
+      font-weight: 700;
+    }
+
+    /* FOOTER — dark purple container with lift */
+    footer {
+      margin: 2rem 3rem 3rem 3rem;
+      padding: 1.4rem 2rem;
+      background: rgba(19, 16, 58, 0.5);
+      border: 1px solid rgba(108, 1, 244, 0.2);
+      border-left: 4px solid #6C01F4;
+      border-radius: 0 10px 10px 0;
+      text-align: center;
+      color: rgba(200, 210, 225, 0.85);
+      font-weight: 600;
+      font-size: 0.88rem;
+      letter-spacing: 0.03em;
+      line-height: 1.7;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3), 0 1px 6px rgba(108,1,244,0.08);
+    }
+
+    footer strong {
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    /* TOGGLE BUTTONS */
+    .toggle-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-left: 1.5rem;
+      padding-top: 1.2rem;
+      align-self: flex-start;
+    }
+
+    .toggle-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 48px;
+      min-height: 48px;
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      border: 2px solid rgba(108, 1, 244, 0.35);
+      background: rgba(22, 27, 34, 0.7);
+      color: rgba(108, 1, 244, 0.6);
+      font-size: 1.35rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .toggle-btn:hover {
+      border-color: rgba(108, 1, 244, 0.6);
+      color: #6C01F4;
+      background: rgba(75, 0, 130, 0.2);
+    }
+
+    .toggle-btn.active {
+      background: rgba(108, 1, 244, 0.25);
+      border-color: #6C01F4;
+      color: #6C01F4;
+      box-shadow: 0 0 12px rgba(108, 1, 244, 0.3), inset 0 0 8px rgba(108, 1, 244, 0.1);
+    }
+
+    .cards-grid.list-view {
+      grid-template-columns: 1fr;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cards-grid.list-view .card {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      align-items: flex-start;
+    }
+
+    .cards-grid.list-view .card-title-row { min-width: 220px; flex: 1; }
+    .cards-grid.list-view .card > div { flex: 1; min-width: 160px; }
+
+    main {
+      padding-top: 0;
+    }
+
+    /* === EMBED OVERRIDES (sit-below-header variant) === */
+    body { background: #05030F; }
+    canvas#bg { display: none; }
+    .page-wrap > header { display: none !important; }
+    .page-wrap > footer { display: none !important; }
+    .page-wrap { padding-top: 24px; padding-bottom: 24px; }
+    /* Auto-fit min-heights; the parent React page handles outer scroll */
+    html, body { overflow-x: hidden; }
+  </style>
+</head>
+<body>
+
+<canvas id="bg"></canvas>
+
+<div class="page-wrap">
+  <header>
+    <span class="brand">CANADIAN INNOVATION &amp; PARTNERSHIP WATCHLIST</span>
+    <span class="ostara-label">OSTARA SIGNALS</span>
+  </header>
+
+  <main>
+    <!-- TITLE BANNER — nested in blue-bordered wrapper -->
+    <div class="title-banner-wrap">
+      <div class="title-banner">
+        <div class="title-eyebrow">Ostara Signal Intelligence &nbsp;·&nbsp; Canada Edition</div>
+        <h1>Innovation &nbsp;·&nbsp; Entrepreneurship &nbsp;·&nbsp; Partnership</h1>
+        <div class="title-sub">Signal intelligence tracking Canada's emerging tech ecosystem, bilateral partnerships, and capital markets across AI, critical minerals, defence, energy, and quantum.</div>
+      </div>
+      <div class="title-banner-compass">
+        <img src="Canadian Innovation NAV v2.png" alt="OSTARA Navigation Compass">
+      </div>
+    </div>
+
+    <!-- INTRO — 3 separate column containers -->
+    <div class="intro-row">
+      <div class="intro-col-card">
+        <div class="col-heading">Canada–Nordic: High North Vanguard</div>
+        <div class="col-desc">Defence cooperation, Arctic security, critical minerals, and transatlantic security in the North.</div>
+      </div>
+      <div class="intro-col-card">
+        <div class="col-heading">Canada–EU: Strategic Framework</div>
+        <div class="col-desc">Shared values and economic security through trade, the digital transition, and security and defence cooperation.</div>
+      </div>
+      <div class="intro-col-card">
+        <div class="col-heading">Asia-Pacific: Partnership &amp; Engagement</div>
+        <div class="col-desc">Diversifying partnerships and cultural cooperation through regional forums and bilateral channels, supporting resilience, strategic autonomy, and Indo-Pacific alignment.</div>
+        <div class="col-note">Indo-Pacific Strategy signals are nested inside this layer.</div>
+      </div>
+    </div>
+
+    <!-- CITIES OF INNOVATION — progressive disclosure -->
+    <div class="cities-section">
+      <div class="cities-section-header">
+        <span class="cities-section-title">Cities of Innovation</span>
+        <button class="cities-toggle-btn" id="cities-toggle-btn" onclick="toggleCities()">Explore Cities ▾</button>
+      </div>
+      <div class="cities-grid" id="cities-grid">
+
+        <!-- Toronto -->
+        <div class="city-card">
+          <div class="city-card-header">
+            <span class="city-name">Toronto, Ontario</span>
+            <span class="city-badge city-badge--shift">SHIFT</span>
+          </div>
+          <div class="city-desc">Canada's financial capital — home to the country's five major banks, a dense insurance and capital markets cluster, and over 289,000 tech workers. The Toronto–Waterloo Corridor ranks among North America's top regions by fintech talent concentration and startup formation rate.</div>
+          <button class="city-detail-toggle" onclick="toggleCityDetail(this)">More detail ▾</button>
+          <div class="city-detail">
+            <div>One of the fastest-growing tech talent pools in the world. Connected to federal AI procurement, sovereign infrastructure mandates, and a growing RMB/CAD trade finance corridor through the Jan 2026 bilateral roadmap.</div>
+            <div class="city-stats">
+              <span class="city-stat">#3 CBRE Tech Talent (North America)</span>
+              <span class="city-stat">289K tech workers</span>
+              <span class="city-stat">23,936 AI-skilled</span>
+              <span class="city-stat">$522B GDP</span>
+              <span class="city-stat">+42,900 jobs 2021–2024</span>
+            </div>
+            <div class="city-sectors">
+              <span class="city-sector-tag">FinTech</span>
+              <span class="city-sector-tag">AI</span>
+              <span class="city-sector-tag">Capital Markets</span>
+              <span class="city-sector-tag">Insurance</span>
+              <span class="city-sector-tag">Quantum (Waterloo)</span>
+            </div>
+            <div style="font-size:0.85rem;color:#8b949e;border-left:2px solid rgba(240,192,64,0.3);padding-left:0.75rem;margin-top:0.3rem;line-height:1.75;">Public services, universities, and nonprofits sit right beside major financial and tech players in Toronto — that cross-sector density is a key driver of bilateral partnership formation. See Sector Nodes ⊕ for connected organizations.</div>
+          </div>
+        </div>
+
+        <!-- Vancouver (placeholder — Indo-Pacific gateway) -->
+        <div class="city-card">
+          <div class="city-card-header">
+            <span class="city-name">Vancouver, BC</span>
+            <span class="city-badge city-badge--shift">SHIFT</span>
+          </div>
+          <div class="city-desc">Canada's Asia-Pacific gateway. Strong bilateral trade corridors to China, Japan, and South Korea. Home to a large diaspora network and growing clean tech and digital media clusters.</div>
+          <button class="city-detail-toggle" onclick="toggleCityDetail(this)">More detail ▾</button>
+          <div class="city-detail">
+            <div>Port of Vancouver is Canada's largest and busiest, handling ~$310B in annual trade. The city is a key node in canola, LNG, and agri-food exports to Asia — all sectors activated by the Jan 2026 bilateral roadmap.</div>
+            <div class="city-sectors">
+              <span class="city-sector-tag">Asia-Pacific Trade</span>
+              <span class="city-sector-tag">Clean Tech</span>
+              <span class="city-sector-tag">Agri-Food Exports</span>
+              <span class="city-sector-tag">LNG</span>
+              <span class="city-sector-tag">Digital Media</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ottawa (coming soon placeholder) -->
+        <div class="city-card" style="opacity:0.65;">
+          <div class="city-card-header">
+            <span class="city-name">Ottawa, Ontario</span>
+            <span class="city-badge city-badge--hold">HOLD</span>
+          </div>
+          <div class="city-desc">Federal government hub and growing defence technology corridor. Home to NRC, CSA, DND, and a dense cluster of cybersecurity and geospatial intelligence firms.</div>
+          <button class="city-detail-toggle" onclick="toggleCityDetail(this)">More detail ▾</button>
+          <div class="city-detail">
+            <div>Ottawa anchors the government AI procurement pipeline — federal trusted AI strategy, DND simulation contracts, and NRC research mandates all originate here. Direct connection to Space and Defence watchlist cards.</div>
+            <div class="city-sectors">
+              <span class="city-sector-tag">Defence Tech</span>
+              <span class="city-sector-tag">Cybersecurity</span>
+              <span class="city-sector-tag">Space</span>
+              <span class="city-sector-tag">Gov AI Procurement</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SIGNAL STRENGTH LEGEND — 4 boxes with images -->
+    <div class="legend-bar">
+      <span class="legend-label">Signal Strength</span>
+      <div style="display:flex; align-items:flex-start; gap:1.2rem;">
+        <div class="signal-boxes-grid" style="flex:1;">
+
+          <!-- Very Strong -->
+          <div class="signal-box level-5">
+            <div class="signal-box-img-wrap">
+              <img src="images/signal-very-strong.jpg" alt="Red tulips — Very Strong signal">
+            </div>
+            <div class="signal-box-divider"></div>
+            <div class="signal-box-panel">
+              <div class="signal-box-flowers">
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
+              </div>
+              <div class="signal-box-text">
+                <div class="signal-box-label">Very Strong</div>
+                <div class="signal-box-sublabel">5 / 5</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Strong -->
+          <div class="signal-box level-4">
+            <div class="signal-box-img-wrap">
+              <img src="images/signal-strong.jpg" alt="Purple tulips — Strong signal">
+            </div>
+            <div class="signal-box-divider"></div>
+            <div class="signal-box-panel">
+              <div class="signal-box-flowers">
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
+              </div>
+              <div class="signal-box-text">
+                <div class="signal-box-label">Strong</div>
+                <div class="signal-box-sublabel">4 / 5</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Moderate -->
+          <div class="signal-box level-3">
+            <div class="signal-box-img-wrap">
+              <img src="images/signal-moderate.jpg" alt="Tulip farm — Moderate signal">
+            </div>
+            <div class="signal-box-divider"></div>
+            <div class="signal-box-panel">
+              <div class="signal-box-flowers">
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8890C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8890C"/></svg>
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8890C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8890C"/></svg>
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8890C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8890C"/></svg>
+              </div>
+              <div class="signal-box-text">
+                <div class="signal-box-label">Moderate</div>
+                <div class="signal-box-sublabel">3 / 5</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Early -->
+          <div class="signal-box level-2">
+            <div class="signal-box-img-wrap">
+              <img src="images/signal-early.jpg" alt="Yellow tulips — Early signal">
+            </div>
+            <div class="signal-box-divider"></div>
+            <div class="signal-box-panel">
+              <div class="signal-box-flowers">
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#D4B83D" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#D4B83D"/></svg>
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#D4B83D" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#D4B83D"/></svg>
+              </div>
+              <div class="signal-box-text">
+                <div class="signal-box-label">Early</div>
+                <div class="signal-box-sublabel">2 / 5</div>
+              </div>
+            </div>
+          </div>
+          </div>
+
+        <div class="toggle-wrap">
+          <button onclick="setView('grid')" id="btn-grid" class="toggle-btn active" title="Grid view">⊞</button>
+          <button onclick="setView('list')" id="btn-list" class="toggle-btn" title="List view">☰</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+      <!-- Row 1: Sort + Status + Link -->
+      <div class="filter-row">
+        <div class="filter-group">
+          <span class="filter-label">Sort</span>
+          <button class="filter-pill" id="sort-asc" onclick="sortCards('asc')">Signal ↑</button>
+          <button class="filter-pill" id="sort-desc" onclick="sortCards('desc')">Signal ↓</button>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">Status</span>
+          <button class="filter-pill active" data-dim="classification" data-val="all" onclick="applyFilter(this,'classification')">All</button>
+          <button class="filter-pill" data-dim="classification" data-val="hold" onclick="applyFilter(this,'classification')">HOLD</button>
+          <button class="filter-pill" data-dim="classification" data-val="shift" onclick="applyFilter(this,'classification')">SHIFT</button>
+        </div>
+        <a href="PARTS_OstaraViz_MP2.html" class="trading-system-link" target="_blank">Spring Equinox Trading System →</a>
+      </div>
+      <!-- Row 2: Sector blocks -->
+      <div class="filter-row filter-row--sector">
+        <div class="sector-filter-block">
+          <span class="sector-block-label">Stock Exchange</span>
+          <div class="sector-block-buttons">
+            <button class="filter-pill" data-dim="exchange" data-val="nyse" onclick="applyFilter(this,'exchange')">NYSE</button>
+            <button class="filter-pill" data-dim="exchange" data-val="tsx" onclick="applyFilter(this,'exchange')">TSX</button>
+          </div>
+        </div>
+        <div class="sector-filter-block">
+          <span class="sector-block-label">Sector Growth</span>
+          <div class="sector-block-buttons">
+            <button class="filter-pill" data-dim="sectortype" data-val="private" onclick="applyFilter(this,'sectortype')">Private</button>
+            <button class="filter-pill" data-dim="sectortype" data-val="puborg" onclick="applyFilter(this,'sectortype')">Public Service</button>
+          </div>
+        </div>
+        <div class="sector-filter-block">
+          <span class="sector-block-label">Public Organizations</span>
+          <div class="sector-block-buttons">
+            <button class="filter-pill" data-dim="sectortype" data-val="nonprofit" onclick="applyFilter(this,'sectortype')">Non-Profit</button>
+          </div>
+        </div>
+        <div class="sector-filter-block">
+          <span class="sector-block-label">Asia-Pacific Partnership</span>
+          <div class="sector-block-buttons">
+            <button class="filter-pill" data-dim="segment" data-val="finance" onclick="applyFilter(this,'segment')">Financial Services</button>
+          </div>
+        </div>
+        <button class="sector-nodes-btn" id="nodes-btn" onclick="toggleNodesView()">Sector Nodes ⊕</button>
+      </div>
+    </div>
+
+    <!-- SECTOR NODES PANEL -->
+    <div id="sector-nodes-panel">
+      <div class="nodes-intro">Sector nodes reveal bilateral partnerships across cards. Gold border = organization active in multiple sectors.</div>
+
+      <!-- STOCK EXCHANGE -->
+      <div class="nodes-section">
+        <div class="nodes-section-title">Stock Exchange</div>
+        <div class="nodes-group">
+          <span class="nodes-group-label">NYSE</span>
+          <div class="node-chip node-chip--nyse">
+            <span class="nc-name">D-Wave</span>
+            <span class="nc-tag">QBTS · NYSE</span>
+            <span class="nc-sectors">Quantum</span>
+          </div>
+        </div>
+        <div class="nodes-group">
+          <span class="nodes-group-label">TSX</span>
+          <div class="node-chip node-chip--tsx">
+            <span class="nc-name">MDA Space</span>
+            <span class="nc-tag">MDA.TO · TSX</span>
+            <span class="nc-sectors">Space &amp; Geospatial</span>
+          </div>
+          <div class="node-chip node-chip--tsx">
+            <span class="nc-name">TELUS</span>
+            <span class="nc-tag">T.TO · TSX</span>
+            <span class="nc-sectors">Sovereign AI</span>
+          </div>
+          <div class="node-chip node-chip--tsx">
+            <span class="nc-name">OpenText</span>
+            <span class="nc-tag">OTEX.TO · TSX</span>
+            <span class="nc-sectors">Sovereign AI</span>
+          </div>
+          <div class="node-chip node-chip--tsx">
+            <span class="nc-name">CAE</span>
+            <span class="nc-tag">CAE.TO · TSX</span>
+            <span class="nc-sectors">Defence</span>
+          </div>
+          <div class="node-chip node-chip--tsx">
+            <span class="nc-name">CGI</span>
+            <span class="nc-tag">GIB-A.TO · TSX</span>
+            <span class="nc-sectors">Defence</span>
+          </div>
+          <div class="node-chip node-chip--tsx">
+            <span class="nc-name">AtkinsRéalis</span>
+            <span class="nc-tag">ATRL.TO · TSX</span>
+            <span class="nc-sectors">Energy</span>
+          </div>
+          <div class="node-chip node-chip--tsx multi-sector">
+            <span class="nc-name">RBC</span>
+            <span class="nc-tag">RY.TO · TSX</span>
+            <span class="nc-sectors">Finance · Asia-Pacific</span>
+          </div>
+          <div class="node-chip node-chip--tsx">
+            <span class="nc-name">CIBC</span>
+            <span class="nc-tag">CM.TO · TSX</span>
+            <span class="nc-sectors">Finance · Asia-Pacific</span>
+          </div>
+          <div class="node-chip node-chip--tsx">
+            <span class="nc-name">BMO</span>
+            <span class="nc-tag">BMO.TO · TSX</span>
+            <span class="nc-sectors">Finance · Asia-Pacific</span>
+          </div>
+          <div class="node-chip node-chip--tsx">
+            <span class="nc-name">National Bank</span>
+            <span class="nc-tag">NA.TO · TSX</span>
+            <span class="nc-sectors">Finance · Asia-Pacific</span>
+          </div>
+          <div class="node-chip node-chip--tsx multi-sector">
+            <span class="nc-name">Manulife</span>
+            <span class="nc-tag">MFC.TO · TSX</span>
+            <span class="nc-sectors">Finance · China ops (宏利)</span>
+          </div>
+          <div class="node-chip node-chip--tsx multi-sector">
+            <span class="nc-name">Sun Life</span>
+            <span class="nc-tag">SLF.TO · TSX</span>
+            <span class="nc-sectors">Finance · China ops (永明)</span>
+          </div>
+          <div class="node-chip node-chip--tsx">
+            <span class="nc-name">Air Canada</span>
+            <span class="nc-tag">AC.TO · TSX</span>
+            <span class="nc-sectors">Finance · Direct flights</span>
+          </div>
+        </div>
+        <div class="nodes-group">
+          <span class="nodes-group-label">TSX Venture</span>
+          <div class="node-chip node-chip--tsxv">
+            <span class="nc-name">Kraken Robotics</span>
+            <span class="nc-tag">PNG.V · TSXV</span>
+            <span class="nc-sectors">Maritime</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTOR GROWTH -->
+      <div class="nodes-section">
+        <div class="nodes-section-title">Sector Growth</div>
+        <div class="nodes-group">
+          <span class="nodes-group-label">Private</span>
+          <div class="node-chip node-chip--private">
+            <span class="nc-name">Cohere</span>
+            <span class="nc-tag">Private · Not Traded</span>
+            <span class="nc-sectors">Sovereign AI</span>
+          </div>
+          <div class="node-chip node-chip--private">
+            <span class="nc-name">Northleaf Capital</span>
+            <span class="nc-tag">Private · Asset Mgmt</span>
+            <span class="nc-sectors">Finance · Asia-Pacific</span>
+          </div>
+          <div class="node-chip node-chip--private">
+            <span class="nc-name">Xanadu</span>
+            <span class="nc-tag">Private · Not Traded</span>
+            <span class="nc-sectors">Quantum</span>
+          </div>
+          <div class="node-chip node-chip--private">
+            <span class="nc-name">1QBit</span>
+            <span class="nc-tag">Private · Not Traded</span>
+            <span class="nc-sectors">Quantum</span>
+          </div>
+        </div>
+        <div class="nodes-group">
+          <span class="nodes-group-label">Public Service</span>
+          <div class="node-chip node-chip--puborg">
+            <span class="nc-name">CSA</span>
+            <span class="nc-tag">Gov-Funded</span>
+            <span class="nc-sectors">Space</span>
+          </div>
+          <div class="node-chip node-chip--puborg">
+            <span class="nc-name">NRC</span>
+            <span class="nc-tag">Gov-Funded</span>
+            <span class="nc-sectors">Space</span>
+          </div>
+          <div class="node-chip node-chip--puborg">
+            <span class="nc-name">ISED Canada</span>
+            <span class="nc-tag">Gov-Funded</span>
+            <span class="nc-sectors">AI</span>
+          </div>
+          <div class="node-chip node-chip--puborg multi-sector">
+            <span class="nc-name">DND Canada</span>
+            <span class="nc-tag">Gov-Funded</span>
+            <span class="nc-sectors">Defence · Maritime</span>
+          </div>
+          <div class="node-chip node-chip--puborg">
+            <span class="nc-name">NRCan</span>
+            <span class="nc-tag">Gov-Funded</span>
+            <span class="nc-sectors">Energy</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PUBLIC ORGANIZATIONS -->
+      <div class="nodes-section">
+        <div class="nodes-section-title">Public Organizations — Non-Profit Research</div>
+        <div class="nodes-group">
+          <div class="node-chip node-chip--nonprofit">
+            <span class="nc-name">Vector Institute</span>
+            <span class="nc-tag">Non-Profit · AI Research</span>
+            <span class="nc-sectors">Sovereign AI</span>
+          </div>
+          <div class="node-chip node-chip--nonprofit multi-sector">
+            <span class="nc-name">CIFAR</span>
+            <span class="nc-tag">Non-Profit · Research</span>
+            <span class="nc-sectors">AI · Quantum</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARDS GRID -->
+    <div class="cards-grid">
+
+      <!-- Card 1: Space and Geospatial Intelligence -->
+      <div class="card" data-signal="5" data-region="canada nordic" data-segment="space" data-classification="hold" data-sectortype="stock puborg" data-exchange="tsx">
+        <div class="card-meta-row">
+          <span class="region-tag">Canada</span>
+          <span class="region-tag">Nordic</span>
+          <span class="class-badge class-badge--hold">HOLD</span>
+        </div>
+        <div class="card-title-row">
+          <div class="card-title">Space and Geospatial Intelligence</div>
+          <span class="horizon-badge">Near–Medium</span>
+        </div>
+        <div class="signal-container">
+          <div class="signal-row">
+            <span class="signal-text">Signal Strength —&nbsp;Very Strong</span>
+            <span class="signal-score">5 / 5</span>
+          </div>
+          <div class="flower-row" style="margin-top:0.4rem;" title="Very Strong">
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
+          </div>
+        </div>
+        <div>
+          <div class="section-label">Policy Triggers</div>
+          <ul class="trigger-list">
+            <li>Arctic sovereignty monitoring</li>
+            <li>Five Eyes integration</li>
+            <li>Canada–EU satellite data agreements</li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-label">Organizations</div>
+          <div class="company-chips">
+            <div class="chip chip--stock">
+              <span class="chip-name">MDA Space</span>
+              <span class="chip-ticker">MDA.TO</span>
+              <span class="chip-type">Public Stock · TSX</span>
+            </div>
+            <div class="chip chip--puborg">
+              <span class="chip-name">CSA</span>
+              <span class="chip-type">Public Org · Gov-Funded</span>
+            </div>
+            <div class="chip chip--puborg">
+              <span class="chip-name">NRC</span>
+              <span class="chip-type">Public Org · Gov-Funded</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Sovereign AI Infrastructure -->
+      <div class="card" data-signal="5" data-region="canada" data-segment="ai" data-classification="shift" data-sectortype="stock puborg nonprofit private" data-exchange="tsx">
+        <div class="card-meta-row">
+          <span class="region-tag">Canada</span>
+          <span class="class-badge class-badge--shift">SHIFT</span>
+        </div>
+        <div class="card-title-row">
+          <div class="card-title">Sovereign AI Infrastructure</div>
+          <span class="horizon-badge">Near–Medium</span>
+        </div>
+        <div class="signal-container">
+          <div class="signal-row">
+            <span class="signal-text">Signal Strength —&nbsp;Very Strong</span>
+            <span class="signal-score">5 / 5</span>
+          </div>
+          <div class="flower-row" style="margin-top:0.4rem;" title="Very Strong">
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
+          </div>
+        </div>
+        <div>
+          <div class="section-label">Policy Triggers</div>
+          <ul class="trigger-list">
+            <li>Federal trusted AI strategy</li>
+            <li>Data sovereignty mandates</li>
+            <li>Secure government AI systems</li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-label">Organizations</div>
+          <div class="company-chips">
+            <div class="chip chip--stock">
+              <span class="chip-name">TELUS</span>
+              <span class="chip-ticker">T.TO</span>
+              <span class="chip-type">Public Stock · TSX</span>
+            </div>
+            <div class="chip chip--stock">
+              <span class="chip-name">OpenText</span>
+              <span class="chip-ticker">OTEX.TO</span>
+              <span class="chip-type">Public Stock · TSX/NASDAQ</span>
+            </div>
+            <div class="chip chip--nonprofit">
+              <span class="chip-name">Vector Institute</span>
+              <span class="chip-type">Non-Profit · AI Research</span>
+            </div>
+            <div class="chip chip--nonprofit">
+              <span class="chip-name">CIFAR</span>
+              <span class="chip-type">Non-Profit · Research</span>
+            </div>
+            <div class="chip chip--private">
+              <span class="chip-name">Cohere</span>
+              <span class="chip-type">Private · Not Traded</span>
+            </div>
+            <div class="chip chip--puborg">
+              <span class="chip-name">ISED Canada</span>
+              <span class="chip-type">Public Org · Gov-Funded</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Defence and Simulation -->
+      <div class="card" data-signal="4" data-region="canada eu" data-segment="defence" data-classification="shift" data-sectortype="stock puborg" data-exchange="tsx">
+        <div class="card-meta-row">
+          <span class="region-tag">Canada</span>
+          <span class="region-tag">EU</span>
+          <span class="class-badge class-badge--shift">SHIFT</span>
+        </div>
+        <div class="card-title-row">
+          <div class="card-title">Defence and Simulation</div>
+          <span class="horizon-badge">Medium</span>
+        </div>
+        <div class="signal-container">
+          <div class="signal-row">
+            <span class="signal-text">Signal Strength —&nbsp;Strong</span>
+            <span class="signal-score">4 / 5</span>
+          </div>
+          <div class="flower-row" style="margin-top:0.4rem;" title="Strong">
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
+          </div>
+        </div>
+        <div>
+          <div class="section-label">Policy Triggers</div>
+          <ul class="trigger-list">
+            <li>NATO expansion</li>
+            <li>Canadian defence budget increase</li>
+            <li>European integration in training systems</li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-label">Organizations</div>
+          <div class="company-chips">
+            <div class="chip chip--stock">
+              <span class="chip-name">CAE</span>
+              <span class="chip-ticker">CAE.TO</span>
+              <span class="chip-type">Public Stock · TSX</span>
+            </div>
+            <div class="chip chip--stock">
+              <span class="chip-name">CGI</span>
+              <span class="chip-ticker">GIB-A.TO</span>
+              <span class="chip-type">Public Stock · TSX</span>
+            </div>
+            <div class="chip chip--puborg">
+              <span class="chip-name">DND Canada</span>
+              <span class="chip-type">Public Org · Gov-Funded</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Energy and Nuclear Infrastructure -->
+      <div class="card" data-signal="4" data-region="canada eu nordic" data-segment="energy" data-classification="hold" data-sectortype="stock puborg" data-exchange="tsx">
+        <div class="card-meta-row">
+          <span class="region-tag">Canada</span>
+          <span class="region-tag">EU</span>
+          <span class="region-tag">Nordic</span>
+          <span class="class-badge class-badge--hold">HOLD</span>
+        </div>
+        <div class="card-title-row">
+          <div class="card-title">Energy and Nuclear Infrastructure</div>
+          <span class="horizon-badge">Medium</span>
+        </div>
+        <div class="signal-container">
+          <div class="signal-row">
+            <span class="signal-text">Signal Strength —&nbsp;Strong</span>
+            <span class="signal-score">4 / 5</span>
+          </div>
+          <div class="flower-row" style="margin-top:0.4rem;" title="Strong">
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
+          </div>
+        </div>
+        <div>
+          <div class="section-label">Policy Triggers</div>
+          <ul class="trigger-list">
+            <li>European energy security demand</li>
+            <li>CANDU exports</li>
+            <li>Post-Russian supply diversification</li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-label">Organizations</div>
+          <div class="company-chips">
+            <div class="chip chip--stock">
+              <span class="chip-name">AtkinsRéalis</span>
+              <span class="chip-ticker">ATRL.TO</span>
+              <span class="chip-type">Public Stock · TSX</span>
+            </div>
+            <div class="chip chip--puborg">
+              <span class="chip-name">NRCan</span>
+              <span class="chip-type">Public Org · Gov-Funded</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5: Maritime and Subsea Systems -->
+      <div class="card" data-signal="3" data-region="canada nordic" data-segment="maritime" data-classification="shift" data-sectortype="stock puborg" data-exchange="tsxv">
+        <div class="card-meta-row">
+          <span class="region-tag">Canada</span>
+          <span class="region-tag">Nordic</span>
+          <span class="class-badge class-badge--shift">SHIFT</span>
+        </div>
+        <div class="card-title-row">
+          <div class="card-title">Maritime and Subsea Systems</div>
+          <span class="horizon-badge">Medium–Long</span>
+        </div>
+        <div class="signal-container">
+          <div class="signal-row">
+            <span class="signal-text">Signal Strength —&nbsp;Moderate</span>
+            <span class="signal-score">3 / 5</span>
+          </div>
+          <div class="flower-row" style="margin-top:0.4rem;" title="Moderate">
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8890C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8890C"/></svg>
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8890C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8890C"/></svg>
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8890C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8890C"/></svg>
+          </div>
+        </div>
+        <div>
+          <div class="section-label">Policy Triggers</div>
+          <ul class="trigger-list">
+            <li>Canada–Nordic Arctic cooperation</li>
+            <li>Subsea cable protection</li>
+            <li>Energy infrastructure monitoring</li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-label">Organizations</div>
+          <div class="company-chips">
+            <div class="chip chip--stock">
+              <span class="chip-name">Kraken Robotics</span>
+              <span class="chip-ticker">PNG.V</span>
+              <span class="chip-type">Public Stock · TSXV</span>
+            </div>
+            <div class="chip chip--puborg">
+              <span class="chip-name">DND Canada</span>
+              <span class="chip-type">Public Org · Gov-Funded</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6: Quantum and Advanced Compute -->
+      <div class="card" data-signal="2" data-region="canada" data-segment="quantum" data-classification="hold" data-sectortype="stock nonprofit private" data-exchange="nyse">
+        <div class="card-meta-row">
+          <span class="region-tag">Canada</span>
+          <span class="class-badge class-badge--hold">HOLD</span>
+        </div>
+        <div class="card-title-row">
+          <div class="card-title">Quantum and Advanced Compute</div>
+          <span class="horizon-badge">Long</span>
+        </div>
+        <div class="signal-container">
+          <div class="signal-row">
+            <span class="signal-text">Signal Strength —&nbsp;Early</span>
+            <span class="signal-score">2 / 5</span>
+          </div>
+          <div class="flower-row" style="margin-top:0.4rem;" title="Early">
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#D4B83D" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#D4B83D"/></svg>
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#D4B83D" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#D4B83D"/></svg>
+          </div>
+        </div>
+        <div>
+          <div class="section-label">Policy Triggers</div>
+          <ul class="trigger-list">
+            <li>National Quantum Strategy</li>
+            <li>Federal funding programs</li>
+            <li>Enterprise optimization demand</li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-label">Organizations</div>
+          <div class="company-chips">
+            <div class="chip chip--stock">
+              <span class="chip-name">D-Wave</span>
+              <span class="chip-ticker">QBTS</span>
+              <span class="chip-type">Public Stock · NYSE</span>
+            </div>
+            <div class="chip chip--private">
+              <span class="chip-name">Xanadu</span>
+              <span class="chip-type">Private · Not Traded</span>
+            </div>
+            <div class="chip chip--private">
+              <span class="chip-name">1QBit</span>
+              <span class="chip-type">Private · Not Traded</span>
+            </div>
+            <div class="chip chip--nonprofit">
+              <span class="chip-name">CIFAR</span>
+              <span class="chip-type">Non-Profit · Research</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 7: Financial Services & Asia-Pacific Partnership -->
+      <div class="card" data-signal="4" data-region="canada indo-pacific" data-segment="finance" data-classification="shift" data-sectortype="stock private" data-exchange="tsx">
+        <div class="card-meta-row">
+          <span class="region-tag">Canada</span>
+          <span class="region-tag">Indo-Pacific</span>
+          <span class="class-badge class-badge--shift">SHIFT</span>
+        </div>
+        <div class="card-title-row">
+          <div class="card-title">Financial Services &amp; Asia-Pacific Partnership</div>
+          <span class="horizon-badge">Near–Medium</span>
+        </div>
+        <div class="signal-container">
+          <div class="signal-row">
+            <span class="signal-text">Signal Strength —&nbsp;Strong</span>
+            <span class="signal-score">4 / 5</span>
+          </div>
+          <div class="flower-row" style="margin-top:0.4rem;" title="Strong">
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
+            <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
+          </div>
+        </div>
+        <div>
+          <div class="section-label">Policy Triggers</div>
+          <ul class="trigger-list">
+            <li>Carney–Beijing bilateral roadmap — Jan 2026</li>
+            <li>RMB/CAD currency swap renewed (¥200B)</li>
+            <li>JETC revitalization — trade dispute resolution channel</li>
+            <li>EV &amp; agri-food tariff reductions unlocking ~$3B exports</li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-label">Organizations — Platinum Sponsors, Canada–China Bilateral Roadmap</div>
+          <div class="company-chips">
+            <div class="chip chip--stock">
+              <span class="chip-name">RBC</span>
+              <span class="chip-ticker">RY.TO</span>
+              <span class="chip-type">Public Stock · TSX</span>
+            </div>
+            <div class="chip chip--stock">
+              <span class="chip-name">CIBC</span>
+              <span class="chip-ticker">CM.TO</span>
+              <span class="chip-type">Public Stock · TSX</span>
+            </div>
+            <div class="chip chip--stock">
+              <span class="chip-name">BMO</span>
+              <span class="chip-ticker">BMO.TO</span>
+              <span class="chip-type">Public Stock · TSX</span>
+            </div>
+            <div class="chip chip--stock">
+              <span class="chip-name">National Bank</span>
+              <span class="chip-ticker">NA.TO</span>
+              <span class="chip-type">Public Stock · TSX</span>
+            </div>
+            <div class="chip chip--stock">
+              <span class="chip-name">Manulife</span>
+              <span class="chip-ticker">MFC.TO</span>
+              <span class="chip-type">Public Stock · TSX · China ops</span>
+            </div>
+            <div class="chip chip--stock">
+              <span class="chip-name">Sun Life</span>
+              <span class="chip-ticker">SLF.TO</span>
+              <span class="chip-type">Public Stock · TSX · China ops</span>
+            </div>
+            <div class="chip chip--private">
+              <span class="chip-name">Northleaf Capital</span>
+              <span class="chip-type">Private · Asset Management</span>
+            </div>
+            <div class="chip chip--stock">
+              <span class="chip-name">Air Canada</span>
+              <span class="chip-ticker">AC.TO</span>
+              <span class="chip-type">Public Stock · TSX · Direct flights</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /cards-grid -->
+  </main>
+
+  <footer>
+    <strong>Signal layer — Ostara</strong> — Sources: PM Carney Nordic Summit March 2026 · Canada Defence Industrial Strategy March 2026
+  </footer>
+</div><!-- /page-wrap -->
+
+<script>
+(function() {
+  var canvas = document.getElementById('bg');
+  var ctx = canvas.getContext('2d');
+  var W, H;
+  var colors = ['#1fcecb', '#6C01F4', '#4B0082', '#ffffff', '#8b949e'];
+  var particles = [];
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function rand(min, max) {
+    return min + Math.random() * (max - min);
+  }
+
+  function createParticle() {
+    return {
+      x: rand(0, W),
+      y: rand(0, H),
+      vx: rand(-0.3, 0.3),
+      vy: rand(-0.3, 0.3),
+      radius: rand(1, 2.5),
+      opacity: rand(0.3, 0.8),
+      color: colors[Math.floor(Math.random() * colors.length)]
+    };
+  }
+
+  function init() {
+    resize();
+    particles = [];
+    for (var i = 0; i < 120; i++) {
+      particles.push(createParticle());
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0d1117';
+    ctx.fillRect(0, 0, W, H);
+
+    for (var i = 0; i < particles.length; i++) {
+      var p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < -p.radius) p.x = W + p.radius;
+      else if (p.x > W + p.radius) p.x = -p.radius;
+      if (p.y < -p.radius) p.y = H + p.radius;
+      else if (p.y > H + p.radius) p.y = -p.radius;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.globalAlpha = p.opacity;
+      ctx.fillStyle = p.color;
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(animate);
+  }
+
+  window.addEventListener('resize', function() {
+    resize();
+  });
+
+  init();
+  animate();
+})();
+
+// FILTER + SORT STATE
+var activeFilters = { classification: 'all', sectortype: 'all', exchange: 'all', segment: 'all' };
+
+function applyFilter(btn, dim) {
+  // Toggle off if same button is clicked again (re-click = reset to all)
+  if (btn.dataset.val !== 'all' && btn.classList.contains('active')) {
+    activeFilters[dim] = 'all';
+    document.querySelectorAll('[data-dim="' + dim + '"]').forEach(function(b) { b.classList.remove('active'); });
+    filterCards();
+    return;
+  }
+  activeFilters[dim] = btn.dataset.val;
+  document.querySelectorAll('[data-dim="' + dim + '"]').forEach(function(b) {
+    b.classList.toggle('active', b === btn);
+  });
+  filterCards();
+}
+
+function filterCards() {
+  var cards = document.querySelectorAll('.cards-grid .card');
+  cards.forEach(function(card) {
+    var show = true;
+    Object.keys(activeFilters).forEach(function(dim) {
+      var val = activeFilters[dim];
+      if (val === 'all') return;
+      var cardVal = (card.dataset[dim] || '');
+      if (!cardVal.split(' ').includes(val)) show = false;
+    });
+    card.classList.toggle('hidden', !show);
+  });
+}
+
+function toggleCities() {
+  var grid = document.getElementById('cities-grid');
+  var btn = document.getElementById('cities-toggle-btn');
+  var isOpen = grid.classList.toggle('open');
+  btn.textContent = isOpen ? 'Collapse Cities ▴' : 'Explore Cities ▾';
+}
+
+function toggleCityDetail(btn) {
+  var detail = btn.nextElementSibling;
+  var isOpen = detail.classList.toggle('open');
+  btn.textContent = isOpen ? 'Less detail ▴' : 'More detail ▾';
+}
+
+
+function toggleNodesView() {
+  var panel = document.getElementById('sector-nodes-panel');
+  var btn = document.getElementById('nodes-btn');
+  var isOpen = panel.classList.toggle('open');
+  btn.classList.toggle('active', isOpen);
+  btn.textContent = isOpen ? 'Sector Nodes ⊖' : 'Sector Nodes ⊕';
+}
+
+function sortCards(dir) {
+  var grid = document.querySelector('.cards-grid');
+  var cards = Array.from(grid.querySelectorAll('.card'));
+  cards.sort(function(a, b) {
+    var sa = parseInt(a.dataset.signal || 0);
+    var sb = parseInt(b.dataset.signal || 0);
+    return dir === 'asc' ? sa - sb : sb - sa;
+  });
+  cards.forEach(function(c) { grid.appendChild(c); });
+  // Update sort button states
+  document.getElementById('sort-asc').classList.toggle('sort-active', dir === 'asc');
+  document.getElementById('sort-desc').classList.toggle('sort-active', dir === 'desc');
+  document.getElementById('sort-asc').classList.remove('active');
+  document.getElementById('sort-desc').classList.remove('active');
+}
+
+function setView(mode) {
+  var grid = document.querySelector('.cards-grid');
+  var btnGrid = document.getElementById('btn-grid');
+  var btnList = document.getElementById('btn-list');
+  if (mode === 'list') {
+    grid.classList.add('list-view');
+    btnList.classList.add('active');
+    btnGrid.classList.remove('active');
+  } else {
+    grid.classList.remove('list-view');
+    btnGrid.classList.add('active');
+    btnList.classList.remove('active');
+  }
+}
+
+// Dynamic header contrast — detect when header overlaps light containers
+(function() {
+  var header = document.querySelector('header');
+  if (!header) return;
+
+  var lightTargets = document.querySelectorAll('.signal-container');
+
+  function checkOverlap() {
+    var headerRect = header.getBoundingClientRect();
+    var isOverLight = false;
+
+    lightTargets.forEach(function(el) {
+      var rect = el.getBoundingClientRect();
+      if (headerRect.bottom > rect.top && headerRect.top < rect.bottom) {
+        isOverLight = true;
+      }
+    });
+
+    if (isOverLight) {
+      header.classList.add('over-light');
+    } else {
+      header.classList.remove('over-light');
+    }
+  }
+
+  window.addEventListener('scroll', checkOverlap, { passive: true });
+  checkOverlap();
+})();
+</script>
+
+</body>
+</html>

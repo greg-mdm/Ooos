@@ -1328,3 +1328,19 @@ textarea:focus-visible,
   .yes-card, .no-card, .abstain-card, .vote-cta-btn { animation: none; }
   .big-vote-card { transition: none; }
 }
+
+/* ===== CID INLINE WATCHLIST ===== */
+.cid-watchlist-embed {
+  background: #05030F;
+  padding: 0;
+}
+.cid-watchlist-frame {
+  display: block;
+  width: 100%;
+  border: 0;
+  background: #05030F;
+  height: 4200px; /* fits full watchlist content; tune as needed */
+}
+@media (max-width: 980px) {
+  .cid-watchlist-frame { height: 6800px; }
+}
