@@ -685,57 +685,96 @@ a:hover { color: var(--electric); }
   text-transform: uppercase;
 }
 
-/* Vote panel — dark deck-style box, fits beside the white card */
+/* Vote panel — interactive "ad" card, contained dark unit beside the white card */
 .cid-scope .cid-vote-panel {
-  background: linear-gradient(180deg, #0d0a28 0%, #05030F 100%);
-  border: 1px solid #2a2060;
+  position: relative;
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(108,1,244,0.18) 0%, transparent 60%),
+    linear-gradient(180deg, #0d0a28 0%, #05030F 100%);
+  border: 1px solid rgba(108,1,244,0.45);
   border-radius: 14px;
-  padding: 28px 26px;
+  padding: 22px 22px 24px;
   color: #e8eaf0;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   font-family: 'Courier New', Courier, monospace;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  box-shadow:
+    0 14px 36px rgba(0,0,0,0.45),
+    0 0 0 1px rgba(108,1,244,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+  overflow: hidden;
+  isolation: isolate;
+}
+.cid-scope .cid-vote-panel::before {
+  content: "LIVE · INTERACTIVE";
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  color: #00e676;
+  background: rgba(0,230,118,0.08);
+  border: 1px solid rgba(0,230,118,0.35);
+  padding: 3px 8px;
+  border-radius: 999px;
+  z-index: 2;
+}
+.cid-scope .cid-vote-panel::after {
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #00e676;
+  box-shadow: 0 0 8px #00e676;
+  animation: glowPulse 1.8s ease-in-out infinite;
+  z-index: 2;
+}
+@keyframes glowPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(0.85); }
 }
 .cid-scope .cid-vote-panel .vote-source-label {
-  font-size: 0.72rem;
-  letter-spacing: 0.18em;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
   color: #8090b8;
   text-transform: uppercase;
-  margin-bottom: 14px;
+  margin: 12px 0 12px;
 }
 .cid-scope .cid-vote-panel .vote-volume { color: #00e676; }
 .cid-scope .cid-vote-panel .vote-question-text {
-  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+  font-size: clamp(0.9rem, 1.4vw, 1.05rem);
   color: #ffffff;
   letter-spacing: 0.04em;
   line-height: 1.5;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
+  max-width: 32ch;
 }
 .cid-scope .cid-vote-panel .vote-cards-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  gap: 10px;
   width: 100%;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 .cid-scope .cid-vote-panel .big-vote-card {
-  min-height: 110px;
-  padding: 14px 8px;
+  min-height: 92px;
+  padding: 10px 6px;
 }
-.cid-scope .cid-vote-panel .bvc-label { font-size: 0.85rem; }
-.cid-scope .cid-vote-panel .bvc-price { font-size: 1.6rem; }
+.cid-scope .cid-vote-panel .bvc-label { font-size: 0.78rem; }
+.cid-scope .cid-vote-panel .bvc-price { font-size: 1.4rem; }
 .cid-scope .cid-vote-panel .vote-cta-btn {
   margin-top: 0;
-  font-size: 0.85rem;
-  padding: 12px 22px;
+  font-size: 0.82rem;
+  padding: 11px 20px;
 }
 .cid-scope .cid-vote-panel .vote-meta {
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   color: #8090b8;
-  margin-top: 14px;
+  margin-top: 12px;
   letter-spacing: 0.06em;
 }
 
