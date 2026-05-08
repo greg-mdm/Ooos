@@ -93,7 +93,7 @@ export function Ostara({ onSupport }: { onSupport: () => void }) {
           </div>
           <div className="evidence-stat" role="listitem">
             <div className="evidence-stat-num">3.9&times;</div>
-            <div className="evidence-stat-label">Class average</div>
+            <div className="evidence-stat-label">Per student</div>
           </div>
         </div>
         <div className="evidence-bar">
