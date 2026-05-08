@@ -131,9 +131,6 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           >
             Vote on Kahoot →
           </a>
-          <div className="vote-meta">
-            Ground forces deploying · SOF + Marines confirmed · OSTARA signal: HOLD · Environment is Risk-Off
-          </div>
         </div>
       </section>
 
