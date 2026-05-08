@@ -1624,8 +1624,8 @@ textarea:focus-visible,
   transition: color 160ms, background 160ms, border-color 160ms;
   background: rgba(8,4,22,0.4);
 }
-.feature-card:hover .ostara-descriptor,
-.ostara-descriptor:hover {
+.ostara-descriptor:hover,
+.ostara-descriptor:focus-visible {
   color: #ffffff;
   border-color: #6C01F4;
   background: rgba(108,1,244,0.18);
@@ -1653,7 +1653,12 @@ textarea:focus-visible,
   display: block;
 }
 .feature-thumb.ostara-brand--image .feature-thumb-label {
-  position: relative;
+  /* Restore the default top-left absolute placement used on the right
+     (Project 02) card. The parent .ostara-brand sets flex-centering for
+     the typed-stack variant, which otherwise centers this label. */
+  position: absolute;
+  top: 14px;
+  left: 14px;
   z-index: 2;
 }
 .ostara-brand-descriptors--below {
@@ -1662,6 +1667,22 @@ textarea:focus-visible,
   gap: 8px;
   margin: 0 0 16px;
   justify-content: flex-start;
+}
+
+/* Descriptor bubbles rendered as a sibling of the feature card (not inside
+   the <Link>) so individual bubble hover micro-interactions are preserved
+   and the card's translateY-on-hover does not bump the whole row. */
+.feature-card-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.ostara-brand-descriptors--standalone {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-start;
+  padding: 0 4px;
 }
 
 /* ===== INVITED-INNOVATORS LIVE VOTE (transposed from lightning slide 5) ===== */

@@ -31,36 +31,42 @@ export function Home({ onSupport }: { onSupport: () => void }) {
         </div>
 
         <div className="featured">
-          <Link to="/ostara" className="feature-card" style={{ textDecoration: "none", color: "inherit" }}>
-            <div className="feature-thumb ostara ostara-brand ostara-brand--image">
-              <span className="feature-thumb-label">Project 01</span>
-              <img
-                className="ostara-brand-image"
-                src={`${import.meta.env.BASE_URL}assets/images/ostara-login.png`}
-                alt="Ostara: Collective Intelligence System login screen with solar sphere"
-                loading="lazy"
-              />
-            </div>
-            <div className="feature-body">
-              <div className="ostara-brand-descriptors ostara-brand-descriptors--below">
-                <span className="ostara-descriptor">Aggregates signals</span>
-                <span className="ostara-descriptor">Routes intent</span>
-                <span className="ostara-descriptor">Orchestrates agents</span>
-                <span className="ostara-descriptor">Channels strategic foresight</span>
+          <div className="feature-card-stack">
+            <Link to="/ostara" className="feature-card" style={{ textDecoration: "none", color: "inherit" }}>
+              <div className="feature-thumb ostara ostara-brand ostara-brand--image">
+                <span className="feature-thumb-label">Project 01</span>
+                <img
+                  className="ostara-brand-image"
+                  src={`${import.meta.env.BASE_URL}assets/images/ostara-login.png`}
+                  alt="Ostara: Collective Intelligence System login screen with solar sphere"
+                  loading="lazy"
+                />
               </div>
-              <p>
-                A locally hosted, AI-assisted decision-support environment for
-                reasoning under uncertainty. Workshop interface, Python signal
-                pipeline, agent-role-separated architecture.
-              </p>
-              <div className="feature-meta">
-                <span className="chip">DG8010</span>
-                <span className="chip teal">Research</span>
-                <span className="chip">Privacy by design</span>
+              <div className="feature-body">
+                <p>
+                  A locally hosted, AI-assisted decision-support environment for
+                  reasoning under uncertainty. Workshop interface, Python signal
+                  pipeline, agent-role-separated architecture.
+                </p>
+                <div className="feature-meta">
+                  <span className="chip">DG8010</span>
+                  <span className="chip teal">Research</span>
+                  <span className="chip">Privacy by design</span>
+                </div>
+                <span className="feature-link">Open case study →</span>
               </div>
-              <span className="feature-link">Open case study →</span>
+            </Link>
+            <div
+              className="ostara-brand-descriptors ostara-brand-descriptors--standalone"
+              role="list"
+              aria-label="Ostara system functions"
+            >
+              <span className="ostara-descriptor" role="listitem">Aggregates signals</span>
+              <span className="ostara-descriptor" role="listitem">Routes intent</span>
+              <span className="ostara-descriptor" role="listitem">Orchestrates agents</span>
+              <span className="ostara-descriptor" role="listitem">Channels strategic foresight</span>
             </div>
-          </Link>
+          </div>
 
           <Link to="/exhibition" className="feature-card" style={{ textDecoration: "none", color: "inherit" }}>
             <div className="feature-thumb exhibition">
