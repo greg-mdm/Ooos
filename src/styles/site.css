@@ -968,6 +968,35 @@ a:hover { color: var(--electric); }
   align-items: center;
   justify-content: center;
 }
+/* Explicit reinforcement — overrides the 0-3-0 big-vote-card rule so
+   card-specific colours, borders, glows, and animations all apply */
+.cid-scope .cid-vote-panel .yes-card {
+  border: 3px solid rgba(0,230,118,0.8);
+  background: rgba(0,230,118,0.06);
+  box-shadow: 0 0 28px rgba(0,230,118,0.22);
+  animation: voteGlowGreen 3s ease infinite;
+}
+.cid-scope .cid-vote-panel .no-card {
+  border: 3px solid rgba(255,68,68,0.7);
+  background: rgba(255,68,68,0.06);
+  box-shadow: 0 0 28px rgba(255,68,68,0.18);
+  animation: voteGlowRed 3s ease infinite;
+}
+.cid-scope .cid-vote-panel .abstain-card {
+  border: 3px solid rgba(240,192,64,0.7);
+  background: rgba(240,192,64,0.06);
+  box-shadow: 0 0 28px rgba(240,192,64,0.18);
+  animation: voteGlowGold 3s ease infinite;
+}
+.cid-scope .cid-vote-panel .yes-card .bvc-label     { color: #00e676; }
+.cid-scope .cid-vote-panel .no-card .bvc-label      { color: #ff4444; }
+.cid-scope .cid-vote-panel .abstain-card .bvc-label { color: #F0C040; letter-spacing: 0.18em; }
+.cid-scope .cid-vote-panel .yes-card .bvc-price     { color: #00e676; }
+.cid-scope .cid-vote-panel .no-card .bvc-price      { color: #ff4444; }
+/* Scale price text to fit the compact panel cards */
+.cid-scope .cid-vote-panel .bvc-price {
+  font-size: clamp(22px, 2.8vw, 36px);
+}
 .cid-scope .cid-vote-panel .vote-meta {
   font-size: 0.62rem;
   color: #8090b8;
