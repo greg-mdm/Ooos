@@ -90,9 +90,6 @@ export function Footer() {
         </div>
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} Ooo Digital Media Studio</span>
-          <span>
-            <strong>Melih Onat</strong> · Full-Stack Developer · MDM Alum
-          </span>
           <span>Toronto · Canada</span>
         </div>
       </footer>

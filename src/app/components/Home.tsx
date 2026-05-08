@@ -63,6 +63,12 @@ export function Home({ onSupport }: { onSupport: () => void }) {
 
           <Link to="/exhibition" className="feature-card" style={{ textDecoration: "none", color: "inherit" }}>
             <div className="feature-thumb exhibition">
+              <img
+                className="feature-thumb-image"
+                src="https://github.com/user-attachments/assets/c8bc4839-5fc1-4480-a175-4420dbcf073d"
+                alt="Canadian Interactive Exhibition feature preview"
+                loading="lazy"
+              />
               <div className="feature-thumb-title">Canadian Interactive Exhibition</div>
             </div>
             <div className="feature-body">

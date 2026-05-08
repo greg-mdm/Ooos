@@ -306,6 +306,15 @@ a:hover { color: var(--electric); }
   position: relative;
   overflow: hidden;
 }
+.feature-thumb-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
 .feature-thumb.ostara {
   background:
     radial-gradient(circle at 30% 30%, rgba(240,192,64,0.18), transparent 55%),
