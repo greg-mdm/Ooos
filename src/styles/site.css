@@ -134,6 +134,16 @@ a:hover { color: var(--electric); }
   display: block;
   background: transparent;
 }
+.nav-brand .nav-brand-text {
+  font-family: "Montserrat", "Inter", system-ui, sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.nav.over-dark .nav-brand .nav-brand-text { color: #ffffff; }
 .nav-links {
   display: flex;
   gap: 24px;
@@ -733,6 +743,28 @@ a:hover { color: var(--electric); }
 @media (max-width: 980px) {
   .cid-scope .cid-split { grid-template-columns: 1fr; }
 }
+.cid-scope .cid-right-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+.cid-scope .cid-note-card {
+  background: #ffffff;
+  color: var(--ink);
+  border-radius: 12px;
+  padding: 22px 26px;
+  margin-top: auto;
+  box-shadow: 0 18px 40px -18px rgba(25, 0, 125, 0.45),
+              0 8px 18px -10px rgba(25, 0, 125, 0.35);
+  border: 1px solid rgba(25, 0, 125, 0.08);
+}
+.cid-scope .cid-note-card p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink);
+}
 .cid-scope .cid-watchlist-title {
   letter-spacing: 0.04em;
   font-size: 28px;
@@ -916,11 +948,12 @@ a:hover { color: var(--electric); }
 }
 .evidence-bar .label {
   font-size: 12px;
-  font-weight: 600;
-  color: var(--mist);
+  font-weight: 700;
+  color: var(--ink);
   width: 90px;
   letter-spacing: 1px;
   text-transform: uppercase;
+  opacity: 1;
 }
 .evidence-bar .bar {
   height: 14px;

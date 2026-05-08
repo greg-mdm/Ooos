@@ -50,13 +50,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               Maritime, and Quantum across Canada, the EU, the Nordic countries,
               and the Indo-Pacific.
             </p>
-            <p>
-              By bringing these often-disconnected systems into one interactive
-              environment, participants can explore patterns, compare
-              relationships, and discover emerging opportunities for
-              collaboration, B2B cooperation, and strategic alignment across
-              industries, markets, policy, research, and institutional systems.
-            </p>
             <p>Each signal card includes:</p>
             <ul className="cid-watchlist-list">
               <li>HOLD, SHIFT, or BREAK classifications</li>
@@ -91,6 +84,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             </p>
           </div>
 
+          <div className="cid-right-col">
           <aside className="cid-vote-panel" aria-label="Live polymarket vote">
             <div className="vote-source-label">
               POLYMARKET · <span className="vote-volume">$29.05M LIVE VOLUME</span>
@@ -123,6 +117,16 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               EXPIRES 2026-06-30
             </div>
           </aside>
+          <div className="cid-note-card">
+            <p>
+              By bringing these often-disconnected systems into one interactive
+              environment, participants can explore patterns, compare
+              relationships, and discover emerging opportunities for
+              collaboration, B2B cooperation, and strategic alignment across
+              industries, markets, policy, research, and institutional systems.
+            </p>
+          </div>
+          </div>
         </div>
       </div>
 

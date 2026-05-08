@@ -42,7 +42,7 @@ export function Nav({ onSupport }: { onSupport: () => void }) {
       <div className="nav-inner">
         <Link to="/" className="nav-brand" aria-label="Ooo Digital Media Studio home">
           <img src={`${base}assets/images/brand/ooo-logo.png`} alt="" width="36" height="36" />
-          <span>Ooo!</span>
+          <span className="nav-brand-text">DIGITAL MEDIA STUDIO</span>
         </Link>
         <div className="nav-links">
           <Link to="/ostara">Ostara</Link>
