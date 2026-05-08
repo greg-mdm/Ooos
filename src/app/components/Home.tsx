@@ -62,25 +62,30 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           </Link>
 
           <Link to="/exhibition" className="feature-card" style={{ textDecoration: "none", color: "inherit" }}>
-            <div className="feature-thumb exhibition">
-              <img
-                className="feature-thumb-image"
-                src="https://github.com/user-attachments/assets/c8bc4839-5fc1-4480-a175-4420dbcf073d"
-                alt="Canadian Interactive Exhibition feature preview"
-                loading="lazy"
-              />
-              <div className="feature-thumb-title">Canadian Interactive Exhibition</div>
+            <div className="feature-thumb exh-thumb">
+              <div className="exh-orbit-wrap">
+                <span className="exh-ring r4" />
+                <span className="exh-ring r3" />
+                <span className="exh-ring r2" />
+                <span className="exh-ring r1" />
+                <div className="exh-center-text">Non-profit<br />portals are<br />now open</div>
+              </div>
+              <div className="exh-feat-list">
+                <div className="exh-feat exh-feat--purple">Cross-sector<br />Collaboration</div>
+                <div className="exh-feat exh-feat--teal">Interactive<br />Programming</div>
+              </div>
+              <div className="exh-wave" />
             </div>
             <div className="feature-body">
               <p>
-                A nationwide nonprofit-portal exhibition. Public canvas for
-                interactive engagement, in partnership with Charity Village.
-                Cross-sector collaboration over interactive programming.
+                A nationwide nonprofit-portal exhibition. Portals are now open,
+                connecting nonprofits and public audiences through cross-sector
+                collaboration and interactive programming.
               </p>
               <div className="feature-meta">
                 <span className="chip">Exhibition</span>
-                <span className="chip teal">Nonprofit</span>
-                <span className="chip">Public canvas</span>
+                <span className="chip teal">Portals open</span>
+                <span className="chip">Charity Village</span>
               </div>
               <span className="feature-link">Open case study →</span>
             </div>

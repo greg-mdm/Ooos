@@ -386,6 +386,105 @@ a:hover { color: var(--electric); }
   margin-top: 4px;
 }
 
+/* ===== EXHIBITION CARD THUMB ===== */
+.feature-thumb.exh-thumb {
+  background: #060418;
+  display: flex;
+  align-items: stretch;
+  position: relative;
+  overflow: hidden;
+}
+.exh-orbit-wrap {
+  position: relative;
+  width: 56%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.exh-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border-style: solid;
+}
+.exh-ring.r1 {
+  width: 58%; aspect-ratio: 1;
+  border: 1.5px solid rgba(91, 4, 222, 0.9);
+  box-shadow: 0 0 14px rgba(91, 4, 222, 0.65), inset 0 0 14px rgba(91, 4, 222, 0.15);
+}
+.exh-ring.r2 {
+  width: 71%; aspect-ratio: 1;
+  border: 1px solid rgba(91, 4, 222, 0.5);
+  box-shadow: 0 0 20px rgba(91, 4, 222, 0.35);
+}
+.exh-ring.r3 {
+  width: 85%; aspect-ratio: 1;
+  border: 2px solid rgba(0, 212, 170, 0.7);
+  box-shadow: 0 0 22px rgba(0, 212, 170, 0.45), inset 0 0 22px rgba(0, 212, 170, 0.08);
+}
+.exh-ring.r4 {
+  width: 98%; aspect-ratio: 1;
+  border: 1px solid rgba(0, 212, 170, 0.25);
+}
+.exh-center-text {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.5;
+  letter-spacing: 0.2px;
+}
+.exh-feat-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 14px 14px 6px;
+}
+.exh-feat {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 5px;
+  padding: 9px 12px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: 1.4;
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+}
+.exh-feat::before {
+  content: '●';
+  font-size: 7px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.exh-feat--purple::before { color: #7B61FF; }
+.exh-feat--teal::before   { color: #00D4AA; }
+.exh-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 22px;
+  background-image: repeating-linear-gradient(
+    to right,
+    rgba(30, 80, 220, 0.45) 0px, rgba(30, 80, 220, 0.45) 3px,
+    transparent 3px, transparent 7px
+  );
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.6) 15%, rgba(0,0,0,0.6) 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.6) 15%, rgba(0,0,0,0.6) 85%, transparent 100%);
+}
+
 /* ===== PRODUCTS / SERVICES ===== */
 .dual {
   display: grid;
