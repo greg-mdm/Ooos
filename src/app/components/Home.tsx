@@ -33,7 +33,6 @@ export function Home({ onSupport }: { onSupport: () => void }) {
         <div className="featured">
           <Link to="/ostara" className="feature-card" style={{ textDecoration: "none", color: "inherit" }}>
             <div className="feature-thumb ostara ostara-brand ostara-brand--image">
-              <span className="feature-thumb-label">Project 01</span>
               <img
                 className="ostara-brand-image"
                 src={`${import.meta.env.BASE_URL}assets/images/ostara-login.png`}
@@ -64,7 +63,6 @@ export function Home({ onSupport }: { onSupport: () => void }) {
 
           <Link to="/exhibition" className="feature-card" style={{ textDecoration: "none", color: "inherit" }}>
             <div className="feature-thumb exhibition">
-              <span className="feature-thumb-label">Project 02</span>
               <div className="feature-thumb-title">Canadian Interactive Exhibition</div>
             </div>
             <div className="feature-body">
