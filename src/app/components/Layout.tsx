@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export function SkipLink() {
   return (
@@ -59,6 +59,8 @@ export function Nav({ onSupport }: { onSupport: () => void }) {
 }
 
 export function Footer() {
+  const { pathname } = useLocation();
+  const showDisclosure = !pathname.startsWith("/exhibition");
   return (
     <>
       <footer className="footer">
@@ -94,7 +96,7 @@ export function Footer() {
           <span>Toronto · Canada</span>
         </div>
       </footer>
-      <div className="disclosure-banner">
+      <div className="disclosure-banner" style={showDisclosure ? {} : { display: "none" }}>
         <strong>Not financial advice.</strong> All signals, simulations, and
         votes are research and educational artifacts. ABSTAIN is a legitimate
         response.
