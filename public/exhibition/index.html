@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Canadian Interactive Exhibition — Ooos</title>
+  <meta name="description" content="The Canadian Interactive Exhibition is a national pilot inviting nonprofits across Canada to share their missions through collaborative, browser-based public art. Public launch: June 1, 2026." />
+  <meta property="og:title" content="Canadian Interactive Exhibition — Ooos" />
+  <meta property="og:description" content="A national pilot bringing 7 Canadian nonprofits together with digital artists for a free, browser-based public exhibition. Public launch June 1, 2026." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ooos.ca/exhibition" />
+  <link rel="canonical" href="https://ooos.ca/exhibition" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --resolution: #312583;
+      --dark-indigo: #19007D;
+      --portal: #4B00B6;
+      --electric: #5B04DE;
+      --gold: #F0C040;
+      --teal: #00D4AA;
+      --teal-deep: #008F72;
+      --bone: #F5F0EA;
+      --faint: #F8F7F5;
+      --border-soft: #E5E3DF;
+      --ink: #1A0033;
+      --charcoal: #1A0033;
+      --slate: #4A3A6E;
+      --mist: #6A5A8A;
+      --robin: #F0F4F5;
+      --bg: var(--robin);
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--charcoal);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--portal); text-decoration: none; }
+    a:hover { color: var(--electric); }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(240, 244, 245, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(26, 0, 51, 0.08);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 24px; max-width: 1100px; margin: 0 auto;
+    }
+    .nav-brand {
+      font-family: var(--serif); font-weight: 700; font-size: 22px;
+      color: var(--ink); letter-spacing: -0.01em;
+    }
+    .nav-links a { color: var(--ink); margin-left: 24px; font-weight: 500; font-size: 15px; }
+    .nav-links a:hover { color: var(--electric); }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(160deg, var(--dark-indigo) 0%, var(--portal) 60%, var(--electric) 100%);
+      color: #fff;
+      padding: 96px 0 80px;
+    }
+    .hero .back {
+      display: inline-block; margin-bottom: 24px;
+      color: rgba(255,255,255,0.85); font-size: 14px; font-weight: 500;
+    }
+    .hero .back:hover { color: var(--gold); }
+    .hero h1 {
+      font-family: var(--serif); font-weight: 700;
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 1.1; margin: 0 0 20px; max-width: 880px;
+      letter-spacing: -0.02em;
+    }
+    .hero .summary {
+      font-size: clamp(17px, 1.6vw, 20px);
+      max-width: 720px; margin: 0 0 28px;
+      color: rgba(255,255,255,0.92);
+    }
+    .case-meta { display: flex; flex-wrap: wrap; gap: 10px; }
+    .chip {
+      display: inline-block; padding: 6px 14px; border-radius: 999px;
+      background: rgba(255,255,255,0.14); color: #fff;
+      font-size: 13px; font-weight: 500;
+    }
+    .chip.teal { background: rgba(0, 212, 170, 0.22); color: #BDFFEC; }
+    .chip.gold { background: rgba(240, 192, 64, 0.22); color: #FFE8A6; }
+
+    /* Status Strip */
+    .status-strip { background: var(--bone); border-bottom: 1px solid var(--border-soft); }
+    .status-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px; padding: 28px 0;
+    }
+    .status-item .label {
+      font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--mist); margin-bottom: 6px;
+    }
+    .status-item .value {
+      font-family: var(--serif); font-size: 22px; font-weight: 700; color: var(--ink);
+      line-height: 1.25;
+    }
+
+    /* Body */
+    .body-section { padding: 64px 0; }
+    .body-section h2 {
+      font-family: var(--serif); font-size: clamp(26px, 3vw, 34px);
+      font-weight: 700; color: var(--ink); margin: 0 0 16px; letter-spacing: -0.01em;
+    }
+    .body-section h3 {
+      font-family: var(--serif); font-size: 22px; font-weight: 700;
+      color: var(--ink); margin: 32px 0 12px;
+    }
+    .body-section p { font-size: 16px; color: var(--charcoal); max-width: 780px; }
+    .body-section ul { color: var(--charcoal); padding-left: 20px; max-width: 780px; }
+    .body-section li { margin-bottom: 8px; }
+
+    /* Milestones */
+    .milestones {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px; margin-top: 28px;
+    }
+    .milestone {
+      background: #fff; border: 1px solid var(--border-soft);
+      border-radius: 14px; padding: 24px;
+      box-shadow: 0 2px 8px rgba(26, 0, 51, 0.04);
+    }
+    .milestone .amt {
+      font-family: var(--serif); font-size: 28px; font-weight: 700;
+      color: var(--portal); margin-bottom: 6px;
+    }
+    .milestone .head {
+      font-weight: 600; color: var(--ink); margin-bottom: 8px; font-size: 15px;
+    }
+    .milestone p { font-size: 14px; margin: 0; color: var(--slate); }
+    .milestone.first { border-top: 4px solid var(--teal); }
+    .milestone.major { border-top: 4px solid var(--gold); }
+
+    /* Support tiers */
+    .support {
+      background: var(--faint);
+      border-top: 1px solid var(--border-soft);
+      border-bottom: 1px solid var(--border-soft);
+      padding: 64px 0;
+    }
+    .support .container { max-width: 880px; }
+    .tiers-label {
+      font-family: var(--serif); font-size: 28px; font-weight: 700;
+      color: var(--ink); margin: 0 0 8px;
+    }
+    .tier-note { color: var(--slate); margin: 0 0 28px; font-size: 15px; }
+    .support-tiers {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px; margin-bottom: 28px;
+    }
+    .tier {
+      position: relative; overflow: hidden;
+      background: #fff; border: 1px solid var(--border-soft);
+      border-radius: 14px; padding: 22px; text-align: left;
+      transition: transform 200ms ease, box-shadow 200ms ease;
+    }
+    .tier::before {
+      content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+    }
+    .tier.t1::before { background: var(--resolution); }
+    .tier.t2::before { background: var(--portal); }
+    .tier.t3::before { background: var(--electric); }
+    .tier.t4::before { background: var(--gold); }
+    .tier:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(26, 0, 51, 0.10);
+    }
+    .tier-name {
+      font-weight: 600; font-size: 14px; text-transform: uppercase;
+      letter-spacing: 0.06em; color: var(--mist); margin-bottom: 6px;
+    }
+    .tier-amt {
+      font-family: var(--serif); font-size: 26px; font-weight: 700;
+      color: var(--ink); margin-bottom: 8px;
+    }
+    .tier-desc { font-size: 14px; color: var(--charcoal); line-height: 1.5; }
+
+    .btn-primary {
+      display: inline-block; padding: 14px 26px; border-radius: 999px;
+      background: var(--portal); color: #fff !important;
+      font-weight: 600; font-size: 15px; border: none; cursor: pointer;
+      transition: background 200ms ease, transform 200ms ease;
+    }
+    .btn-primary:hover { background: var(--electric); transform: translateY(-1px); }
+
+    /* Includes grid */
+    .outcome-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px; margin-top: 24px;
+    }
+    .outcome-item {
+      background: #fff; border: 1px solid var(--border-soft);
+      border-radius: 12px; padding: 20px; font-size: 15px;
+    }
+    .outcome-item strong { color: var(--ink); display: block; margin-bottom: 4px; }
+
+    /* Footer */
+    footer {
+      background: var(--ink); color: rgba(255,255,255,0.78);
+      padding: 40px 0; font-size: 14px;
+    }
+    footer a { color: rgba(255,255,255,0.92); }
+    footer a:hover { color: var(--gold); }
+    .footer-inner {
+      display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between;
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 64px 0 56px; }
+      .body-section { padding: 48px 0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">Ooos</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/exhibition" aria-current="page">Exhibition</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <a href="/" class="back">← All projects</a>
+      <h1>Canadian Interactive Exhibition</h1>
+      <p class="summary">
+        A national pilot inviting nonprofits across Canada to bring forward real
+        challenges and work with digital artists to shape them into interactive
+        public experiences. Free, browser-based, and built for everyone.
+      </p>
+      <div class="case-meta">
+        <span class="chip">Interactive programming</span>
+        <span class="chip">Cross-sector collaboration</span>
+        <span class="chip teal">In collaboration with Charity Village</span>
+        <span class="chip gold">Public Launch: June 1, 2026</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="status-strip" aria-label="Campaign status">
+    <div class="container">
+      <div class="status-grid">
+        <div class="status-item">
+          <div class="label">Funding Goal</div>
+          <div class="value">$0 Secured</div>
+        </div>
+        <div class="status-item">
+          <div class="label">Public Launch Date</div>
+          <div class="value">June 1, 2026</div>
+        </div>
+        <div class="status-item">
+          <div class="label">Pilot Cohort</div>
+          <div class="value">7 nonprofit partners selected</div>
+        </div>
+        <div class="status-item">
+          <div class="label">Status</div>
+          <div class="value">Crowdfunding opens to support this project.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="body-section">
+    <div class="container">
+      <h2>A shared public space for Canada's nonprofits</h2>
+      <p>
+        The Canadian Interactive Exhibition is a national pilot that invites
+        nonprofits across Canada to bring forward real challenges and work with
+        digital artists to shape them into interactive public experiences. The
+        exhibition is free, browser-based, and designed to help organizations
+        strengthen visibility, public engagement, and cross-sector connection.
+      </p>
+      <p>
+        The first pilot cohort has been selected. Crowdfunding opens to support
+        this project, with a public launch planned for <strong>June 1, 2026</strong>.
+      </p>
+    </div>
+  </section>
+
+  <section class="body-section" style="background: #fff; border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft);">
+    <div class="container">
+      <h2>Funding milestones</h2>
+      <p>
+        Each milestone unlocks the next stage of the exhibition. Together they
+        carry the pilot from a first cohort experience to a national, publicly
+        supported program.
+      </p>
+      <div class="milestones">
+        <div class="milestone first">
+          <div class="amt">$10,000</div>
+          <div class="head">Funding Goal</div>
+          <p>Supports the first pilot &ldquo;Canadian Non-Profit Exhibition&rdquo; with the 7 nonprofit partners selected for the pilot cohort.</p>
+        </div>
+        <div class="milestone major">
+          <div class="amt">$25,000</div>
+          <div class="head">Funding Goal</div>
+          <p>A major milestone for the Canadian Interactive Exhibition. Canada Council for the Arts application will be submitted with public support.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="support" id="support">
+    <div class="container">
+      <p class="tiers-label">Support the exhibition</p>
+      <p class="tier-note">
+        Crowdfunding supports the build and launch of the exhibition, artist
+        collaboration, and a virtual tip jar that allows participating
+        nonprofits to receive donations while keeping the experience free for
+        the public.
+      </p>
+
+      <div class="support-tiers">
+        <div class="tier t1">
+          <div class="tier-name">Supporter</div>
+          <div class="tier-amt">$25+</div>
+          <div class="tier-desc">Name on the contributor wall</div>
+        </div>
+        <div class="tier t2">
+          <div class="tier-name">Builder</div>
+          <div class="tier-amt">$100+</div>
+          <div class="tier-desc">Featured on the exhibition landing</div>
+        </div>
+        <div class="tier t3">
+          <div class="tier-name">Patron</div>
+          <div class="tier-amt">$500+</div>
+          <div class="tier-desc">Name embedded in the exhibition</div>
+        </div>
+        <div class="tier t4">
+          <div class="tier-name">Founding Partner</div>
+          <div class="tier-amt">$1,000+</div>
+          <div class="tier-desc">Custom portal in the virtual gallery</div>
+        </div>
+      </div>
+
+      <a href="/" class="btn-primary">Share your mission, join the exhibition →</a>
+    </div>
+  </section>
+
+  <section class="body-section">
+    <div class="container">
+      <h2>What the exhibition includes</h2>
+      <div class="outcome-grid">
+        <div class="outcome-item">
+          <strong>Nonprofit and artist collaborations</strong>
+          From across Canada, paired through the pilot cohort.
+        </div>
+        <div class="outcome-item">
+          <strong>Public canvas</strong>
+          A shared space for interactive experiences.
+        </div>
+        <div class="outcome-item">
+          <strong>One-month online space</strong>
+          Open to everyone, free to access.
+        </div>
+        <div class="outcome-item">
+          <strong>Participatory engagement</strong>
+          Visitors connect directly with nonprofit missions.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© <span id="yr"></span> Ooo Digital Media Studio</div>
+      <div>
+        <a href="/">Home</a> &nbsp;·&nbsp;
+        <a href="/about">About</a> &nbsp;·&nbsp;
+        <a href="/exhibition">Exhibition</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
