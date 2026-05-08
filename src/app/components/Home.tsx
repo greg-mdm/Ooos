@@ -141,8 +141,8 @@ export function Home({ onSupport }: { onSupport: () => void }) {
         </div>
         <div className="dual">
           <div className="pane">
-            <h3>Products</h3>
-            <p>Self-contained artifacts. Open them cold, run without us in the room.</p>
+            <h3>Digital Products</h3>
+            <p>Ooos-on-demand are for immediate impact. Masterfully created assets built to launch quickly and scale with intention.</p>
             <ul>
               <li>Workshop kit: HTML interface + facilitator notes + Kahoot template</li>
               <li>Signal stack: Python pipeline, public-source-only triangulation</li>
@@ -151,8 +151,8 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             </ul>
           </div>
           <div className="pane">
-            <h3>Services</h3>
-            <p>Studio engagements where the deliverable is a working artifact, not a deck.</p>
+            <h3>Studio Services</h3>
+            <p>Our consulting and projects build internal digital capacity, translating directly into measurable business growth.</p>
             <ul>
               <li>Workshop facilitation for graduate seminars and executive education</li>
               <li>Custom signal pipelines for civic deliberation and research teams</li>
