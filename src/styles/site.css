@@ -1616,6 +1616,13 @@ textarea:focus-visible,
 .exhibit-support .tier-amt  { color: var(--ink); }
 .exhibit-support .tier-desc { color: var(--slate); }
 
+.exhibit-cta-arrow {
+  font-size: 1.55em;
+  line-height: 1;
+  vertical-align: middle;
+  display: inline-block;
+  margin-left: 2px;
+}
 .exhibit-cta {
   margin-top: 4px;
   border: 1.5px solid rgba(255, 255, 255, 0.75);

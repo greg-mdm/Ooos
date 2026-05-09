@@ -67,7 +67,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               </div>
 
               <button onClick={onSupport} className="btn btn-primary exhibit-cta">
-                Join our mission! Support the exhibition ➠
+                Join our mission! Support the exhibition <span className="exhibit-cta-arrow">➠</span>
               </button>
             </div>
 
