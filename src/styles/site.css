@@ -1934,17 +1934,17 @@ textarea:focus-visible,
 /* Image variant of the Ostara brand thumb: shows the final "Collective
    Intelligence System" login still (solar sphere) instead of the typed
    stack. Descriptor bubbles move below the image into the feature body. */
-/* Particle canvas — fills the Ostara image thumb, sits under the image */
+/* Particle canvas — floats ABOVE the Ostara image, clipped to thumb bounds */
 .ostara-particle-canvas {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 0;
+  z-index: 2;
   pointer-events: none;
-  opacity: 0.65;
+  opacity: 0.55;
 }
-/* Image sits above the canvas; brand nameplate above image */
+/* Image behind canvas, nameplate above both via z-index on its wrapper */
 .ostara-brand-image { z-index: 1; }
 
 .feature-thumb.ostara-brand--image {
