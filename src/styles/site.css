@@ -1922,10 +1922,10 @@ textarea:focus-visible,
   box-shadow: 0 0 0 0 rgba(108,1,244,0);
 }
 .ostara-descriptor:hover {
-  color: #ffffff;
-  border-color: rgba(108, 1, 244, 1);
+  color: #F0C040;
+  border-color: rgba(240, 192, 64, 0.90);
   background: rgba(6, 2, 18, 0.92);
-  box-shadow: 0 0 0 1px rgba(108,1,244,0.5), 0 0 18px rgba(108,1,244,0.5);
+  box-shadow: 0 0 0 1px rgba(240,192,64,0.45), 0 0 18px rgba(240,192,64,0.40);
 }
 @media (prefers-reduced-motion: reduce) {
   .ostara-descriptor { transition: none; }
@@ -1934,6 +1934,19 @@ textarea:focus-visible,
 /* Image variant of the Ostara brand thumb: shows the final "Collective
    Intelligence System" login still (solar sphere) instead of the typed
    stack. Descriptor bubbles move below the image into the feature body. */
+/* Particle canvas — fills the Ostara image thumb, sits under the image */
+.ostara-particle-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.65;
+}
+/* Image sits above the canvas; brand nameplate above image */
+.ostara-brand-image { z-index: 1; }
+
 .feature-thumb.ostara-brand--image {
   padding: 0;
   aspect-ratio: 16 / 9;

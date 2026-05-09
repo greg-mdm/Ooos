@@ -1,4 +1,69 @@
 import { Link } from "react-router-dom";
+import { useEffect, useRef } from "react";
+
+const PALETTE = ['#f0c040','#00d4aa','#ff4444','#00e676','#6C01F4','#4488ff'];
+
+function OstaraParticleCanvas() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    let animId: number;
+    let W = 0, H = 0;
+    type Particle = { x: number; y: number; vx: number; vy: number; r: number; c: string };
+    let particles: Particle[] = [];
+
+    function resize() {
+      const rect = canvas!.parentElement!.getBoundingClientRect();
+      W = canvas!.width  = rect.width;
+      H = canvas!.height = rect.height;
+    }
+    function init() {
+      particles = Array.from({ length: 55 }, () => ({
+        x: Math.random() * W, y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        r: Math.random() * 1.6 + 0.5,
+        c: PALETTE[Math.floor(Math.random() * PALETTE.length)],
+      }));
+    }
+    function draw() {
+      animId = requestAnimationFrame(draw);
+      ctx!.clearRect(0, 0, W, H);
+      for (const p of particles) {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+        if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+      }
+      for (let i = 0; i < particles.length; i++) {
+        const a = particles[i];
+        for (let j = i + 1; j < particles.length; j++) {
+          const b = particles[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const d = Math.sqrt(dx * dx + dy * dy);
+          if (d < 120) {
+            ctx!.beginPath();
+            ctx!.moveTo(a.x, a.y); ctx!.lineTo(b.x, b.y);
+            ctx!.strokeStyle = `rgba(108,1,244,${(1 - d / 120) * 0.14})`;
+            ctx!.lineWidth = 0.5;
+            ctx!.stroke();
+          }
+        }
+        ctx!.beginPath();
+        ctx!.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+        ctx!.fillStyle = a.c + '99';
+        ctx!.fill();
+      }
+    }
+    const ro = new ResizeObserver(() => { resize(); init(); });
+    ro.observe(canvas.parentElement!);
+    resize(); init(); draw();
+    return () => { cancelAnimationFrame(animId); ro.disconnect(); };
+  }, []);
+  return <canvas ref={canvasRef} className="ostara-particle-canvas" aria-hidden="true" />;
+}
 
 export function Home({ onSupport }: { onSupport: () => void }) {
   return (
@@ -33,6 +98,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
         <div className="featured">
           <Link to="/ostara" className="feature-card" style={{ textDecoration: "none", color: "inherit" }}>
             <div className="feature-thumb ostara ostara-brand ostara-brand--image">
+              <OstaraParticleCanvas />
               <img
                 className="ostara-brand-image"
                 src={`${import.meta.env.BASE_URL}assets/images/ostara-login.png`}
@@ -62,14 +128,18 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           </Link>
 
           <Link to="/exhibition" className="feature-card" style={{ textDecoration: "none", color: "inherit" }}>
-            <div className="feature-thumb exhibition">
-this              <img
-                className="feature-thumb-image"
-                src="https://github.com/user-attachments/assets/c8bc4839-5fc1-4480-a175-4420dbcf073d"
-                alt="Canadian Interactive Exhibition feature preview"
-                loading="lazy"
-              />
-              <div className="feature-thumb-title">Canadian Interactive Exhibition</div>
+            <div className="feature-thumb exh-thumb">
+              <div className="exh-orbit-wrap">
+                <span className="exh-ring r1"></span>
+                <span className="exh-ring r2"></span>
+                <span className="exh-ring r3"></span>
+                <span className="exh-ring r4"></span>
+                <div className="exh-center-text">Non-profit<br/>portals are<br/>now open</div>
+              </div>
+              <div className="exh-feat-list">
+                <div className="exh-feat--purple">· CROSS-SECTOR<br/>  COLLABORATION</div>
+                <div className="exh-feat--teal">· INTERACTIVE<br/>  PROGRAMMING</div>
+              </div>
             </div>
             <div className="feature-body">
               <p>
