@@ -39,14 +39,14 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 alt="Ostara: Collective Intelligence System login screen with solar sphere"
                 loading="lazy"
               />
-            </div>
-            <div className="feature-body">
-              <div className="ostara-brand-descriptors ostara-brand-descriptors--below">
+              <div className="ostara-descriptor-strip">
                 <span className="ostara-descriptor">Aggregates signals</span>
                 <span className="ostara-descriptor">Routes intent</span>
                 <span className="ostara-descriptor">Orchestrates agents</span>
                 <span className="ostara-descriptor">Channels strategic foresight</span>
               </div>
+            </div>
+            <div className="feature-body">
               <p>
                 A locally hosted, AI-assisted decision-support environment for
                 reasoning under uncertainty. Workshop interface, Python signal
@@ -62,30 +62,25 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           </Link>
 
           <Link to="/exhibition" className="feature-card" style={{ textDecoration: "none", color: "inherit" }}>
-            <div className="feature-thumb exh-thumb">
-              <div className="exh-orbit-wrap">
-                <span className="exh-ring r4" />
-                <span className="exh-ring r3" />
-                <span className="exh-ring r2" />
-                <span className="exh-ring r1" />
-                <div className="exh-center-text">Non-profit<br />portals are<br />now open</div>
-              </div>
-              <div className="exh-feat-list">
-                <div className="exh-feat exh-feat--purple">Cross-sector<br />Collaboration</div>
-                <div className="exh-feat exh-feat--teal">Interactive<br />Programming</div>
-              </div>
-              <div className="exh-wave" />
+            <div className="feature-thumb exhibition">
+this              <img
+                className="feature-thumb-image"
+                src="https://github.com/user-attachments/assets/c8bc4839-5fc1-4480-a175-4420dbcf073d"
+                alt="Canadian Interactive Exhibition feature preview"
+                loading="lazy"
+              />
+              <div className="feature-thumb-title">Canadian Interactive Exhibition</div>
             </div>
             <div className="feature-body">
               <p>
-                A nationwide nonprofit-portal exhibition. Portals are now open,
-                connecting nonprofits and public audiences through cross-sector
-                collaboration and interactive programming.
+                A nationwide nonprofit-portal exhibition. Public canvas for
+                interactive engagement, in partnership with Charity Village.
+                Cross-sector collaboration over interactive programming.
               </p>
               <div className="feature-meta">
                 <span className="chip">Exhibition</span>
-                <span className="chip teal">Portals open</span>
-                <span className="chip">Charity Village</span>
+                <span className="chip teal">Nonprofit</span>
+                <span className="chip">Public canvas</span>
               </div>
               <span className="feature-link">Open case study →</span>
             </div>
@@ -97,6 +92,11 @@ export function Home({ onSupport }: { onSupport: () => void }) {
         <div className="section-header">
           <div className="section-eyebrow">★ Invited innovators · live vote</div>
           <h2>One signal. Three positions. Audience as evidence.</h2>
+          <p className="lead">
+            A preview of the participatory layer used in workshops and shared
+            with the 200 invited innovators. ABSTAIN sits beside YES and NO as
+            a recognised outcome, not a fallback.
+          </p>
         </div>
         <div className="vote-stage">
           <div className="vote-source-label">
@@ -126,6 +126,9 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           >
             Vote on Kahoot →
           </a>
+          <div className="vote-meta">
+            Ground forces deploying · SOF + Marines confirmed · OSTARA signal: HOLD · Environment is Risk-Off
+          </div>
         </div>
       </section>
 
@@ -136,8 +139,8 @@ export function Home({ onSupport }: { onSupport: () => void }) {
         </div>
         <div className="dual">
           <div className="pane">
-            <h3>Digital Products</h3>
-            <p>Ooos-on-demand are for immediate impact. Masterfully created assets built to launch quickly and scale with intention.</p>
+            <h3>Products</h3>
+            <p>Self-contained artifacts. Open them cold, run without us in the room.</p>
             <ul>
               <li>Workshop kit: HTML interface + facilitator notes + Kahoot template</li>
               <li>Signal stack: Python pipeline, public-source-only triangulation</li>
@@ -146,8 +149,8 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             </ul>
           </div>
           <div className="pane">
-            <h3>Studio Services</h3>
-            <p>Our consulting and projects build internal digital capacity, translating directly into measurable business growth.</p>
+            <h3>Services</h3>
+            <p>Studio engagements where the deliverable is a working artifact, not a deck.</p>
             <ul>
               <li>Workshop facilitation for graduate seminars and executive education</li>
               <li>Custom signal pipelines for civic deliberation and research teams</li>

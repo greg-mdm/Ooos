@@ -1910,23 +1910,22 @@ textarea:focus-visible,
   font-family: 'Courier New', Courier, monospace;
   font-size: 13px;
   font-weight: 600;
-  color: rgba(210, 220, 250, 0.92);
-  border: 1px solid rgba(108, 1, 244, 0.65);
+  color: rgba(210, 220, 255, 0.90);
+  border: 1px solid rgba(108, 1, 244, 0.70);
   border-radius: 7px;
   padding: 9px 18px;
   letter-spacing: 0.07em;
-  background: rgba(8, 4, 22, 0.58);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(6, 2, 18, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   transition: color 160ms, background 160ms, border-color 160ms, box-shadow 160ms;
   box-shadow: 0 0 0 0 rgba(108,1,244,0);
 }
-.feature-card:hover .ostara-descriptor,
 .ostara-descriptor:hover {
   color: #ffffff;
-  border-color: #6C01F4;
-  background: rgba(108, 1, 244, 0.28);
-  box-shadow: 0 0 14px rgba(108,1,244,0.35);
+  border-color: rgba(108, 1, 244, 1);
+  background: rgba(6, 2, 18, 0.92);
+  box-shadow: 0 0 0 1px rgba(108,1,244,0.5), 0 0 18px rgba(108,1,244,0.5);
 }
 @media (prefers-reduced-motion: reduce) {
   .ostara-descriptor { transition: none; }
