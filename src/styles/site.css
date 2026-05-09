@@ -1934,7 +1934,9 @@ textarea:focus-visible,
 /* Image variant of the Ostara brand thumb: shows the final "Collective
    Intelligence System" login still (solar sphere) instead of the typed
    stack. Descriptor bubbles move below the image into the feature body. */
-/* Particle canvas — floats ABOVE the Ostara image, clipped to thumb bounds */
+/* Particle canvas — floats ABOVE the Ostara image, clipped to thumb bounds.
+   Mask dims the centre (nameplate zone) so dots don't overpower the panel,
+   then fades back to full brightness toward the edges. */
 .ostara-particle-canvas {
   position: absolute;
   inset: 0;
@@ -1943,6 +1945,8 @@ textarea:focus-visible,
   z-index: 2;
   pointer-events: none;
   opacity: 0.55;
+  -webkit-mask-image: radial-gradient(ellipse 58% 48% at 50% 52%, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.72) 48%, black 68%);
+  mask-image:         radial-gradient(ellipse 58% 48% at 50% 52%, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.72) 48%, black 68%);
 }
 /* Image behind canvas, nameplate above both via z-index on its wrapper */
 .ostara-brand-image { z-index: 1; }
