@@ -2062,13 +2062,13 @@ textarea:focus-visible,
   font-size: 15px;
   font-weight: 900;
   letter-spacing: 0.22em;
-  color: #FFFFFF;
+  color: #FFFFFF !important;
   padding: 16px 42px;
   border: 2px solid rgba(108,1,244,0.85);
   border-radius: 8px;
   background: rgba(108,1,244,0.12);
   text-transform: uppercase;
-  text-decoration: none;
+  text-decoration: none !important;
   display: inline-block;
   animation: voteBtnGlow 2.5s ease infinite;
   transition: background 160ms, color 160ms;
@@ -2076,7 +2076,7 @@ textarea:focus-visible,
 .vote-cta-btn:hover,
 .vote-cta-btn:focus-visible {
   background: rgba(108,1,244,0.28);
-  color: #FFFFFF;
+  color: #FFFFFF !important;
   outline: 3px solid #F0C040;
   outline-offset: 3px;
 }
