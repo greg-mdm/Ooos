@@ -83,8 +83,8 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
         </div>
       </section>
 
-      <div className="case-body">
-        <h2>What the exhibition includes</h2>
+      <div className="case-body exhibit-includes-section">
+        <p className="exhibit-includes-eyebrow">What the Exhibition Includes</p>
         <div className="outcome-grid">
           <div className="outcome-item">
             <strong>Nonprofit and artist collaborations</strong> from across Canada

@@ -1662,22 +1662,43 @@ textarea:focus-visible,
 }
 
 /* ===== EXHIBITION OUTCOMES ===== */
+/* Eyebrow label for "What the Exhibition Includes" */
+.exhibit-includes-section {
+  margin-top: 36px;
+}
+.exhibit-includes-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--mist, #8A8A9A);
+  margin: 0 0 12px;
+}
 .outcome-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 14px;
-  margin-top: 18px;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 0 0 4px;
 }
 .outcome-item {
-  background: var(--white);
-  border: 1px solid rgba(26,0,51,0.08);
-  border-radius: 10px;
-  padding: 16px 18px;
+  background: #F8F7F5;
+  border: 1px solid rgba(26,0,51,0.07);
+  border-left: 3px solid transparent;
+  border-radius: 8px;
+  padding: 14px 16px;
   font-size: 14px;
-  color: var(--charcoal);
+  color: var(--slate, #5A5A6E);
   line-height: 1.5;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
 }
-.outcome-item strong { color: var(--ink); }
+.outcome-item:nth-child(1) { border-left-color: var(--electric); }
+.outcome-item:nth-child(2) { border-left-color: var(--teal); }
+.outcome-item:nth-child(3) { border-left-color: var(--indigo); }
+.outcome-item:nth-child(4) { border-left-color: #822F00; }
+.outcome-item strong { color: var(--charcoal); font-weight: 600; }
+@media (max-width: 640px) {
+  .outcome-grid { grid-template-columns: 1fr; }
+}
 
 /* ===== KAHOOT EMBED ===== */
 .kahoot-embed {
