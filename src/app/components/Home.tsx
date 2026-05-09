@@ -39,12 +39,12 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 alt="Ostara: Collective Intelligence System login screen with solar sphere"
                 loading="lazy"
               />
-              <div className="ostara-descriptor-strip">
-                <span className="ostara-descriptor">Aggregates signals</span>
-                <span className="ostara-descriptor">Routes intent</span>
-                <span className="ostara-descriptor">Orchestrates agents</span>
-                <span className="ostara-descriptor">Channels strategic foresight</span>
-              </div>
+            </div>
+            <div className="ostara-pill-bar">
+              <span className="ostara-descriptor">Aggregates signals</span>
+              <span className="ostara-descriptor">Routes intent</span>
+              <span className="ostara-descriptor">Orchestrates agents</span>
+              <span className="ostara-descriptor">Channels strategic foresight</span>
             </div>
             <div className="feature-body">
               <p>

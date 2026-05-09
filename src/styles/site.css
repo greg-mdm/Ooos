@@ -1971,6 +1971,15 @@ textarea:focus-visible,
   gap: 9px;
   z-index: 2;
 }
+/* Dark pill bar — sits between the image thumb and white card body in normal flow */
+.ostara-pill-bar {
+  background: linear-gradient(135deg, #05030F 0%, #0D0A28 60%, #150830);
+  padding: 14px 18px 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  border-top: 1px solid rgba(108,1,244,0.18);
+}
 
 /* ===== INVITED-INNOVATORS LIVE VOTE (transposed from lightning slide 5) ===== */
 .vote-feature {
