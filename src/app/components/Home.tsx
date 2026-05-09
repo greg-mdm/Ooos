@@ -97,11 +97,6 @@ export function Home({ onSupport }: { onSupport: () => void }) {
         <div className="section-header">
           <div className="section-eyebrow">★ Invited innovators · live vote</div>
           <h2>One signal. Three positions. Audience as evidence.</h2>
-          <p className="lead">
-            A preview of the participatory layer used in workshops and shared
-            with the 200 invited innovators. ABSTAIN sits beside YES and NO as
-            a recognised outcome, not a fallback.
-          </p>
         </div>
         <div className="vote-stage">
           <div className="vote-source-label">
