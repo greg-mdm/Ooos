@@ -46,7 +46,7 @@ export function Nav({ onSupport }: { onSupport: () => void }) {
         </Link>
         <div className="nav-links">
           <Link to="/ostara">Ostara</Link>
-          <Link to="/cid">Innovation Dimension</Link>
+          <Link to="/cid">Innovation</Link>
           <Link to="/exhibition">Exhibition</Link>
           <Link to="/about">About</Link>
           <button onClick={onSupport} className="nav-cta" type="button">

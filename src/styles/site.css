@@ -92,22 +92,24 @@ a:hover { color: var(--electric); }
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(240, 244, 245, 0.92); /* robin's egg blue, slight transparency */
-  backdrop-filter: blur(10px);
+  /* Teal glassmorphism — distinct from the off-white hero, always legible */
+  background: rgba(0, 212, 170, 0.13);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   color: var(--ink);
-  border-bottom: 1px solid rgba(26, 0, 51, 0.08);
-  transition: background 320ms ease, border-color 320ms ease, color 320ms ease;
+  border-bottom: 1.5px solid rgba(0, 212, 170, 0.48);
+  box-shadow: 0 1px 0 rgba(0, 212, 170, 0.10), 0 4px 18px rgba(0, 0, 0, 0.06);
+  transition: background 320ms ease, border-color 320ms ease;
 }
-/* Dynamic contrast: when nav overlaps a dark section, switch to robin's-egg
-   teal tint with white text. Mirrors canada_watchlist.html `over-light` pattern. */
+/* over-dark: slightly more opaque teal when nav overlaps dark sections.
+   Text stays dark indigo — the teal panel itself provides contrast. */
 .nav.over-dark {
-  background: rgba(31, 206, 203, 0.18);
-  border-bottom-color: rgba(31, 206, 203, 0.45);
-  color: #ffffff;
+  background: rgba(0, 212, 170, 0.22);
+  border-bottom-color: rgba(0, 212, 170, 0.60);
 }
 .nav.over-dark .nav-brand,
-.nav.over-dark .nav-links a { color: #ffffff; }
-.nav.over-dark .nav-links a:hover { color: var(--gold); }
+.nav.over-dark .nav-links a { color: var(--ink); }
+.nav.over-dark .nav-links a:hover { color: var(--electric); opacity: 1; }
 .nav-inner {
   display: flex;
   align-items: center;
@@ -143,7 +145,7 @@ a:hover { color: var(--electric); }
   text-transform: uppercase;
   color: var(--ink);
 }
-.nav.over-dark .nav-brand .nav-brand-text { color: #ffffff; }
+.nav.over-dark .nav-brand .nav-brand-text { color: var(--ink); }
 .nav-links {
   display: flex;
   gap: 24px;
