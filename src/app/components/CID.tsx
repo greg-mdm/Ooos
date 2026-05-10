@@ -72,7 +72,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 Open the watchlist (full screen) ↗
               </a>
               <a
-                href="https://kahoot.it/challenge/09193020"
+                href="https://kahoot.it/challenge/01297559"
                 className="btn btn-kahoot"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -105,14 +105,14 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             </div>
             <a
               className="vote-cta-btn"
-              href="https://kahoot.it/challenge/09193020"
+              href="https://kahoot.it/challenge/01297559"
               target="_blank"
               rel="noopener noreferrer"
             >
               Vote on Kahoot →
             </a>
             <div className="vote-meta">
-              EXPIRES 2026-06-30
+              Game Pin: 01297559 · EXPIRES 2026-06-01
             </div>
           </aside>
           <div className="cid-note-card">

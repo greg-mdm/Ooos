@@ -190,7 +190,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           </div>
           <a
             className="vote-cta-btn"
-            href="https://kahoot.it/challenge/09193020"
+            href="https://kahoot.it/challenge/01297559"
             target="_blank"
             rel="noopener noreferrer"
           >
