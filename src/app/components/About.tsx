@@ -40,56 +40,40 @@ export function About() {
 
       <section className="ds" aria-labelledby="ds-heading">
         <div className="container">
-          <header className="ds-intro">
-            <p className="ds-eyebrow">Design system</p>
-            <h2 id="ds-heading">Creative Environments</h2>
-            <p className="ds-lede">
-              Each project creates space for meaningful engagement within a
-              unique creative environment, centrally guided by the studio's
-              founder and creative director. Shared systems of spacing,
-              contrast, typography, and disclosure are applied consistently
-              across all creative environments.
-            </p>
-            <p className="ds-lede">
-              Ooos universe promotes participatory design and inclusive
-              access, hosting a range of experiences from observation to
-              exploration and engagement.
-            </p>
-          </header>
-
-          <h3 className="ds-section-title">Guiding Principles</h3>
-          <ul className="ds-pillars" aria-label="Guiding principles">
-            <li>
-              <h4>Design responsibly.</h4>
-              <p>Make risk, system limits, and user choice and freedom visible.</p>
-            </li>
-            <li>
-              <h4>Design for diverse mental models.</h4>
-              <p>Build for the range of ways people think, perceive, and decide.</p>
-            </li>
-            <li>
-              <h4>Design to earn trust.</h4>
-              <p>Transparent disclosures on every artifact, including AI assistance.</p>
-            </li>
-          </ul>
-
           <div className="ds-intro-grid">
-            <div className="commit-text" aria-labelledby="commit-heading">
-              <h3 id="commit-heading" className="ds-eyebrow">Principles in motion</h3>
-              <dl className="commit-list">
-                <div className="commit-list-row">
-                  <dt>Clarity</dt>
-                  <dd>where it matters</dd>
-                </div>
-                <div className="commit-list-row">
-                  <dt>Curiosity</dt>
-                  <dd>that leads to knowledge exchange</dd>
-                </div>
-                <div className="commit-list-row">
-                  <dt>Freedom</dt>
-                  <dd>to choose your level of participation</dd>
-                </div>
-              </dl>
+            <div className="ds-intro-text">
+              <p className="ds-eyebrow">Design system</p>
+              <h2 id="ds-heading">Creative Environments</h2>
+              <p className="ds-lede">
+                Each project creates space for meaningful engagement within a
+                unique creative environment, centrally guided by the studio's
+                founder and creative director. Shared systems of spacing,
+                contrast, typography, and disclosure are applied consistently
+                across all creative environments.
+              </p>
+              <p className="ds-lede">
+                Ooos universe promotes participatory design and inclusive
+                access, hosting a range of experiences from observation to
+                exploration and engagement.
+              </p>
+
+              <div className="commit-text" aria-labelledby="commit-heading">
+                <h3 id="commit-heading" className="ds-eyebrow">Principles in motion</h3>
+                <dl className="commit-list">
+                  <div className="commit-list-row">
+                    <dt>Clarity</dt>
+                    <dd>where it matters</dd>
+                  </div>
+                  <div className="commit-list-row">
+                    <dt>Curiosity</dt>
+                    <dd>that leads to knowledge exchange</dd>
+                  </div>
+                  <div className="commit-list-row">
+                    <dt>Freedom</dt>
+                    <dd>to choose your level of participation</dd>
+                  </div>
+                </dl>
+              </div>
             </div>
 
             <div
@@ -157,6 +141,22 @@ export function About() {
               </svg>
             </div>
           </div>
+
+          <h3 className="ds-section-title">Guiding Principles</h3>
+          <ul className="ds-pillars" aria-label="Guiding principles">
+            <li>
+              <h4>Design responsibly.</h4>
+              <p>Make risk, system limits, and user choice and freedom visible.</p>
+            </li>
+            <li>
+              <h4>Design for diverse mental models.</h4>
+              <p>Build for the range of ways people think, perceive, and decide.</p>
+            </li>
+            <li>
+              <h4>Design to earn trust.</h4>
+              <p>Transparent disclosures on every artifact, including AI assistance.</p>
+            </li>
+          </ul>
 
           <h3 className="ds-section-title">Strategic Priorities</h3>
           <ul className="ds-pillars ds-pillars--quiet" aria-label="Strategic priorities">
