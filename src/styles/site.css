@@ -216,7 +216,6 @@ a:hover { color: var(--electric); }
   max-width: 680px;
   margin: 0;
   color: var(--ink);
-  opacity: 0.78;
 }
 .hero-cta {
   display: flex;
