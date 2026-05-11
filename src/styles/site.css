@@ -2652,20 +2652,28 @@ textarea:focus-visible,
   width: 100%;
   max-width: 480px;
   margin: 0 auto;
-  padding: 16px;
+  padding: 20px 20px 36px;
   outline: none;
   align-self: center;
   cursor: pointer;
-  border-radius: 18px;
-  border: 1px dashed rgba(25, 0, 125, 0.18);
-  background: rgba(255, 255, 255, 0.0);
-  transition: background 0.4s ease, border-color 0.4s ease;
+  border-radius: 22px;
+  border: 1px dashed rgba(25, 0, 125, 0.10);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 18px 40px -28px rgba(25, 0, 125, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.4) inset;
+  transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
 }
 .commit-graphic:hover,
 .commit-graphic.is-active,
 .commit-graphic:focus-visible {
-  background: rgba(255, 255, 255, 0.5);
-  border-color: rgba(25, 0, 125, 0.32);
+  background: rgba(255, 255, 255, 0.55);
+  border-color: rgba(25, 0, 125, 0.22);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 24px 56px -22px rgba(91, 4, 222, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.6) inset;
 }
 .commit-graphic svg {
   width: 100%;
@@ -2674,10 +2682,10 @@ textarea:focus-visible,
   overflow: visible;
 }
 
-/* "Hover to activate" hint sits at rest, fades when active */
+/* "Hover to activate" hint sits at rest at the bottom, fades when active */
 .commit-hint {
   position: absolute;
-  top: 14px;
+  bottom: 14px;
   left: 50%;
   transform: translateX(-50%);
   font-family: var(--sans);
@@ -2685,21 +2693,24 @@ textarea:focus-visible,
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--dark-indigo);
-  opacity: 0.55;
+  opacity: 0.6;
   pointer-events: none;
   transition: opacity 0.4s ease;
+  white-space: nowrap;
 }
 .commit-graphic.is-active .commit-hint { opacity: 0; }
 
-/* Orbit ring: barely-there dashed guide */
+/* Orbit ring: the path the shapes travel - most prominent dashed line */
 .commit-ring {
   fill: none;
   stroke: var(--dark-indigo);
-  stroke-width: 1;
-  stroke-dasharray: 2 8;
-  opacity: 0.22;
+  stroke-width: 1.25;
+  stroke-dasharray: 3 6;
+  opacity: 0.55;
   vector-effect: non-scaling-stroke;
+  transition: opacity 0.5s ease;
 }
+.commit-graphic.is-active .commit-ring { opacity: 0.75; }
 
 /* Orbiting shapes: thin outlines, soft fill so the gold center reads loudest */
 .commit-shape-data,
@@ -2761,11 +2772,7 @@ textarea:focus-visible,
   to   { transform: rotate(-360deg); }
 }
 
-/* Active: brighten ring and shape fills */
-.commit-graphic.is-active .commit-ring {
-  opacity: 0.4;
-  transition: opacity 0.5s ease;
-}
+/* Active: brighten shape fills (ring opacity handled in canonical rule above) */
 .commit-graphic.is-active .commit-shape-data,
 .commit-graphic.is-active .commit-shape-connector,
 .commit-graphic.is-active .commit-shape-decision {
