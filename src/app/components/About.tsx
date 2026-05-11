@@ -38,7 +38,7 @@ export function About() {
             </li>
             <li>
               <strong>Design for diverse mental models.</strong> Build for the
-              range of ways people think, not a single user.
+              range of ways people think, perceive, and decide.
             </li>
             <li>
               <strong>Design to earn trust.</strong> Transparent disclosures
