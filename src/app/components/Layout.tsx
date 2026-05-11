@@ -8,40 +8,20 @@ export function SkipLink() {
 }
 
 export function Nav({ onSupport }: { onSupport: () => void }) {
-  const base = import.meta.env.BASE_URL;
   const navRef = useRef<HTMLElement | null>(null);
 
-  // Dynamic header contrast: when nav overlaps a dark section, swap to teal/white.
-  // Mirrors the pattern used in canada_watchlist.html (over-light), inverted.
+  // Nav is permanently dark indigo (matches the footer band). No over-dark swap needed.
   useEffect(() => {
     const nav = navRef.current;
     if (!nav) return;
-    const darkSelectors = ".case-hero, .cid-vote-panel, .vote-feature";
-
-    const check = () => {
-      const navRect = nav.getBoundingClientRect();
-      let overDark = false;
-      document.querySelectorAll(darkSelectors).forEach((el) => {
-        const r = (el as HTMLElement).getBoundingClientRect();
-        if (navRect.bottom > r.top && navRect.top < r.bottom) overDark = true;
-      });
-      nav.classList.toggle("over-dark", overDark);
-    };
-
-    check();
-    window.addEventListener("scroll", check, { passive: true });
-    window.addEventListener("resize", check);
-    return () => {
-      window.removeEventListener("scroll", check);
-      window.removeEventListener("resize", check);
-    };
+    nav.classList.remove("over-dark");
   }, []);
 
   return (
     <nav ref={navRef} className="nav" aria-label="Primary">
       <div className="nav-inner">
         <Link to="/" className="nav-brand" aria-label="Ooo Digital Media Studio home">
-          <img src={`${base}assets/images/brand/ooo-logo.png`} alt="" width="36" height="36" />
+          <span className="nav-brand-mark">Ooo!</span>
           <span className="nav-brand-text">DIGITAL MEDIA STUDIO</span>
         </Link>
         <div className="nav-links">

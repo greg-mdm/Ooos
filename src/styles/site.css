@@ -95,24 +95,15 @@ a:hover { color: var(--electric); }
   position: sticky;
   top: 0;
   z-index: 50;
-  /* Solid teal panel — fully opaque so scrolled headings never bleed through. */
-  background: #C7F0E6;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  color: var(--ink);
-  border-bottom: 1.5px solid rgba(0, 212, 170, 0.55);
-  box-shadow: 0 1px 0 rgba(0, 212, 170, 0.10), 0 4px 18px rgba(0, 0, 0, 0.06);
-  transition: background 320ms ease, border-color 320ms ease;
+  /* Dark indigo glass — matches the footer band. Sets a calm, confident frame
+     for the page and removes the cyan glassmorphism that read as Charity Village. */
+  background: rgba(25, 0, 125, 0.88);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
 }
-/* over-dark: nudge alpha further when nav overlaps dark sections.
-   Text stays dark indigo — the teal panel itself provides contrast. */
-.nav.over-dark {
-  background: rgba(0, 212, 170, 0.96);
-  border-bottom-color: rgba(0, 212, 170, 0.70);
-}
-.nav.over-dark .nav-brand,
-.nav.over-dark .nav-links a { color: var(--ink); }
-.nav.over-dark .nav-links a:hover { color: var(--electric); opacity: 1; }
 .nav-inner {
   display: flex;
   align-items: center;
@@ -123,53 +114,58 @@ a:hover { color: var(--electric); }
   gap: 24px;
 }
 .nav-brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 12px;
+  color: #fff;
+  text-decoration: none;
+}
+.nav-brand-mark {
   font-family: var(--serif);
   font-style: italic;
   font-weight: 700;
-  font-size: 22px;
-  color: var(--ink);
-  letter-spacing: 0.5px;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  transition: color 320ms ease;
+  font-size: 26px;
+  line-height: 1;
+  color: #fff;
+  letter-spacing: 0;
 }
-.nav-brand img {
-  border-radius: 50%;
-  display: block;
-  background: transparent;
-}
-.nav-brand .nav-brand-text {
+.nav-brand-text {
   font-family: "Montserrat", "Inter", system-ui, sans-serif;
-  font-style: normal;
   font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.14em;
+  font-size: 12px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--ink);
+  color: rgba(255, 255, 255, 0.78);
 }
-.nav.over-dark .nav-brand .nav-brand-text { color: var(--ink); }
 .nav-links {
   display: flex;
-  gap: 24px;
+  gap: 28px;
   align-items: center;
 }
 .nav-links a {
-  color: var(--ink);
+  color: rgba(255, 255, 255, 0.85);
   font-size: 14px;
   font-weight: 500;
-  opacity: 0.85;
+  text-decoration: none;
+  transition: color 200ms ease;
 }
-.nav-links a:hover { color: var(--electric); opacity: 1; }
+.nav-links a:hover,
+.nav-links a:focus-visible { color: #fff; }
 .nav-cta {
-  background: linear-gradient(135deg, var(--resolution), var(--electric));
-  color: #fff !important;
+  background: #fff;
+  color: var(--dark-indigo) !important;
   padding: 8px 18px;
   border-radius: 6px;
   font-weight: 600;
-  border: 1px solid rgba(255,255,255,0.15);
+  border: 1px solid rgba(255, 255, 255, 0.0);
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease, transform 200ms ease;
 }
-.nav-cta:hover { color: #fff !important; opacity: 0.92; }
+.nav-cta:hover,
+.nav-cta:focus-visible {
+  background: var(--electric);
+  color: #fff !important;
+}
 
 /* ===== HERO ===== */
 .hero {
@@ -1457,21 +1453,6 @@ textarea:focus-visible,
 .tier { outline: none; }
 .tier:focus { outline: 3px solid var(--gold); outline-offset: 3px; }
 
-/* Brand logo in nav */
-.nav-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-.nav-brand img {
-  height: 36px;
-  width: 36px;
-  display: block;
-  object-fit: cover;
-  border-radius: 50%;
-  overflow: hidden;
-}
-
 /* Reduced motion: honour the OS preference */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -1529,21 +1510,6 @@ textarea:focus-visible,
 /* Make tiers keyboard-reachable */
 .tier { outline: none; }
 .tier:focus { outline: 3px solid var(--gold); outline-offset: 3px; }
-
-/* Brand logo in nav */
-.nav-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-.nav-brand img {
-  height: 36px;
-  width: 36px;
-  display: block;
-  object-fit: cover;
-  border-radius: 50%;
-  overflow: hidden;
-}
 
 /* Reduced motion: honour the OS preference */
 @media (prefers-reduced-motion: reduce) {

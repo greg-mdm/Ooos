@@ -151,14 +151,14 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             </div>
             <div className="feature-body">
               <p>
-                A nationwide nonprofit-portal exhibition. Public canvas for
-                interactive engagement, in partnership with Charity Village.
-                Cross-sector collaboration over interactive programming.
+                A public canvas for interactive artwork, non-profit campaigns,
+                and fan-supported experiences. Gateway portals connect visitors
+                to independent artist-created worlds.
               </p>
               <div className="feature-meta">
                 <span className="chip">Exhibition</span>
-                <span className="chip teal">Nonprofit</span>
-                <span className="chip">Public canvas</span>
+                <span className="chip teal">Public canvas</span>
+                <span className="chip">Artist portals</span>
               </div>
               <span className="feature-link">Open case study →</span>
             </div>
