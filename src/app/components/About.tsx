@@ -1,6 +1,28 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 export function About() {
+  const [orbitActive, setOrbitActive] = useState(false);
+  const stopTimer = useRef<number | null>(null);
+
+  const wake = () => {
+    if (stopTimer.current !== null) {
+      window.clearTimeout(stopTimer.current);
+      stopTimer.current = null;
+    }
+    setOrbitActive(true);
+  };
+  const rest = () => {
+    if (stopTimer.current !== null) window.clearTimeout(stopTimer.current);
+    stopTimer.current = window.setTimeout(() => {
+      setOrbitActive(false);
+      stopTimer.current = null;
+    }, 3000);
+  };
+  useEffect(() => () => {
+    if (stopTimer.current !== null) window.clearTimeout(stopTimer.current);
+  }, []);
+
   return (
     <>
       <section className="case-hero">
@@ -18,32 +40,24 @@ export function About() {
 
       <section className="ds" aria-labelledby="ds-heading">
         <div className="container">
-          <header className="ds-header ds-header--split">
-            <div className="ds-header-left">
+          <div className="ds-intro-grid">
+            <div className="ds-intro-text">
               <p className="ds-eyebrow">Design system</p>
               <h2 id="ds-heading">Creative Environments</h2>
               <p className="ds-lede">
                 Each project creates space for meaningful engagement within a
                 unique creative environment, centrally guided by the studio's
-                founder and creative director.
+                founder and creative director. Shared systems of spacing,
+                contrast, typography, and disclosure are applied consistently
+                across all creative environments.
               </p>
-              <p className="ds-lede">
-                Shared systems of spacing, contrast, typography, and disclosure
-                are applied consistently across all creative environments.
-              </p>
-            </div>
-            <div className="ds-header-right">
               <p className="ds-lede">
                 Ooos universe promotes participatory design and inclusive
                 access, hosting a range of experiences from observation to
                 exploration and engagement.
               </p>
-            </div>
-          </header>
 
-          <section className="commit-section" aria-labelledby="commit-heading">
-            <div className="commit-grid">
-              <div className="commit-text">
+              <div className="commit-text" aria-labelledby="commit-heading">
                 <h3 id="commit-heading" className="ds-eyebrow">Principles in motion</h3>
                 <dl className="commit-list">
                   <div className="commit-list-row">
@@ -60,101 +74,70 @@ export function About() {
                   </div>
                 </dl>
               </div>
-
-              <div
-                className="commit-graphic"
-                tabIndex={0}
-                role="img"
-                aria-label="Three commitments orbiting a central intent: Clarity, Curiosity, Freedom"
-              >
-                <svg
-                  viewBox="0 0 480 480"
-                  preserveAspectRatio="xMidYMid meet"
-                  aria-hidden="true"
-                  focusable="false"
-                >
-                  {/* Orbit ring (decorative) */}
-                  <circle className="commit-ring" cx="240" cy="240" r="180" />
-
-                  {/* Orbiting shapes group rotates once every 60s */}
-                  <g className="commit-orbit">
-                    <animateTransform
-                      attributeName="transform"
-                      attributeType="XML"
-                      type="rotate"
-                      from="0 240 240"
-                      to="360 240 240"
-                      dur="60s"
-                      repeatCount="indefinite"
-                    />
-
-                    {/* Top: Parallelogram — Clarity */}
-                    <g transform="translate(240,60)">
-                      <g className="commit-counter">
-                        <animateTransform
-                          attributeName="transform"
-                          attributeType="XML"
-                          type="rotate"
-                          from="0"
-                          to="-360"
-                          dur="60s"
-                          repeatCount="indefinite"
-                        />
-                        <polygon
-                          className="commit-shape-data"
-                          points="-72,-34 72,-34 56,34 -88,34"
-                        />
-                        <text y="8" textAnchor="middle" className="commit-word">Clarity</text>
-                      </g>
-                    </g>
-
-                    {/* Bottom-right: Circle — Curiosity */}
-                    <g transform="translate(396,318)">
-                      <g className="commit-counter">
-                        <animateTransform
-                          attributeName="transform"
-                          attributeType="XML"
-                          type="rotate"
-                          from="0"
-                          to="-360"
-                          dur="60s"
-                          repeatCount="indefinite"
-                        />
-                        <circle className="commit-shape-connector" r="58" />
-                        <text y="8" textAnchor="middle" className="commit-word">Curiosity</text>
-                      </g>
-                    </g>
-
-                    {/* Bottom-left: Diamond — Freedom */}
-                    <g transform="translate(84,318)">
-                      <g className="commit-counter">
-                        <animateTransform
-                          attributeName="transform"
-                          attributeType="XML"
-                          type="rotate"
-                          from="0"
-                          to="-360"
-                          dur="60s"
-                          repeatCount="indefinite"
-                        />
-                        <polygon
-                          className="commit-shape-decision"
-                          points="0,-66 66,0 0,66 -66,0"
-                        />
-                        <text y="8" textAnchor="middle" className="commit-word">Freedom</text>
-                      </g>
-                    </g>
-                  </g>
-
-                  {/* Center: gold Commitments circle (drawn last, sits on top) */}
-                  <g className="commit-center">
-                    <circle cx="240" cy="240" r="92" />
-                    <text x="240" y="240" textAnchor="middle" className="commit-center-word">Commitments</text>
-                  </g>
-                </svg>
-              </div>
             </div>
-          </section>
+
+            <div
+              className={`commit-graphic${orbitActive ? " is-active" : ""}`}
+              tabIndex={0}
+              role="img"
+              aria-label="Three commitments orbiting a central intent: Clarity, Curiosity, Freedom"
+              onPointerEnter={wake}
+              onPointerMove={wake}
+              onPointerDown={wake}
+              onPointerLeave={rest}
+              onFocus={wake}
+              onBlur={rest}
+            >
+              <svg
+                viewBox="0 0 480 480"
+                preserveAspectRatio="xMidYMid meet"
+                aria-hidden="true"
+                focusable="false"
+              >
+                {/* Orbit ring (decorative) */}
+                <circle className="commit-ring" cx="240" cy="240" r="180" />
+
+                {/* Orbiting group — paused unless .is-active on parent */}
+                <g className="commit-orbit">
+                  {/* Top: Parallelogram — Clarity */}
+                  <g transform="translate(240,60)">
+                    <g className="commit-counter">
+                      <polygon
+                        className="commit-shape-data"
+                        points="-72,-34 72,-34 56,34 -88,34"
+                      />
+                      <text y="8" textAnchor="middle" className="commit-word">Clarity</text>
+                    </g>
+                  </g>
+
+                  {/* Bottom-right: Circle — Curiosity */}
+                  <g transform="translate(396,318)">
+                    <g className="commit-counter">
+                      <circle className="commit-shape-connector" r="58" />
+                      <text y="8" textAnchor="middle" className="commit-word">Curiosity</text>
+                    </g>
+                  </g>
+
+                  {/* Bottom-left: Diamond — Freedom */}
+                  <g transform="translate(84,318)">
+                    <g className="commit-counter">
+                      <polygon
+                        className="commit-shape-decision"
+                        points="0,-66 66,0 0,66 -66,0"
+                      />
+                      <text y="8" textAnchor="middle" className="commit-word">Freedom</text>
+                    </g>
+                  </g>
+                </g>
+
+                {/* Center: gold Commitments circle (drawn last, sits on top) */}
+                <g className="commit-center">
+                  <circle cx="240" cy="240" r="92" />
+                  <text x="240" y="240" textAnchor="middle" className="commit-center-word">Commitments</text>
+                </g>
+              </svg>
+            </div>
+          </div>
 
           <div className="ds-quadrant" role="list" aria-label="Creative environments">
             <article className="ds-surface ds-surface--ooo" role="listitem">

@@ -2602,18 +2602,19 @@ textarea:focus-visible,
 /* ds-section-title: canonical rule above at line ~2359 */
 
 /* ===== Commitments — orbital layout ===== */
-.commit-section { margin: 88px 0 32px; }
-.commit-section .ds-section-title { margin-top: 0; margin-bottom: 18px; }
-
-.commit-grid {
+.ds-intro-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 48px 64px;
   align-items: center;
 }
+.ds-intro-text > .ds-eyebrow { margin-bottom: 8px; }
+.ds-intro-text > h2 { margin: 0 0 18px; }
+.ds-intro-text > .ds-lede { margin-bottom: 18px; }
+.ds-intro-text > .ds-lede:last-of-type { margin-bottom: 0; }
 
-.commit-text .ds-eyebrow { margin-bottom: 8px; }
-.commit-text .ds-lede { margin-bottom: 28px; }
+.commit-text { margin-top: 40px; }
+.commit-text .ds-eyebrow { margin-bottom: 16px; }
 
 .commit-list {
   margin: 0;
@@ -2650,6 +2651,7 @@ textarea:focus-visible,
   max-width: 480px;
   margin: 0 auto;
   outline: none;
+  align-self: center;
 }
 .commit-graphic svg {
   width: 100%;
@@ -2672,7 +2674,7 @@ textarea:focus-visible,
 .commit-shape-data,
 .commit-shape-connector,
 .commit-shape-decision {
-  fill: rgba(255, 255, 255, 0.7);
+  fill: rgba(255, 255, 255, 0.85);
   stroke-width: 1.5;
   vector-effect: non-scaling-stroke;
 }
@@ -2704,35 +2706,54 @@ textarea:focus-visible,
   dominant-baseline: middle;
 }
 
-/* Hover/focus: brighten outline shapes (orbit speed is SMIL-driven, not CSS) */
-.commit-graphic:hover .commit-shape-data,
-.commit-graphic:hover .commit-shape-connector,
-.commit-graphic:hover .commit-shape-decision,
-.commit-graphic:focus-visible .commit-shape-data,
-.commit-graphic:focus-visible .commit-shape-connector,
-.commit-graphic:focus-visible .commit-shape-decision {
-  fill: #fff;
-  transition: fill 0.5s ease;
+/* Orbit: stationary by default; only animates when .is-active */
+.commit-orbit {
+  transform-box: view-box;
+  transform-origin: 240px 240px;
 }
-.commit-graphic:hover .commit-ring,
-.commit-graphic:focus-visible .commit-ring {
+.commit-counter {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.commit-graphic.is-active .commit-orbit {
+  animation: commit-orbit 60s linear infinite;
+}
+.commit-graphic.is-active .commit-counter {
+  animation: commit-counter 60s linear infinite;
+}
+@keyframes commit-orbit {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes commit-counter {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
+/* Active: brighten ring and shape fills */
+.commit-graphic.is-active .commit-ring {
   opacity: 0.4;
   transition: opacity 0.5s ease;
 }
+.commit-graphic.is-active .commit-shape-data,
+.commit-graphic.is-active .commit-shape-connector,
+.commit-graphic.is-active .commit-shape-decision {
+  fill: #fff;
+  transition: fill 0.5s ease;
+}
 
-/* Reduced motion: freeze the orbit */
+/* Reduced motion: never animate */
 @media (prefers-reduced-motion: reduce) {
-  .commit-orbit animateTransform,
-  .commit-counter animateTransform { display: none; }
+  .commit-graphic.is-active .commit-orbit,
+  .commit-graphic.is-active .commit-counter { animation: none !important; }
 }
 
 /* Mobile: stack text above graphic */
 @media (max-width: 860px) {
-  .commit-grid { grid-template-columns: 1fr; gap: 32px; }
+  .ds-intro-grid { grid-template-columns: 1fr; gap: 32px; }
   .commit-graphic { max-width: 380px; }
 }
 @media (max-width: 720px) {
-  .commit-section { margin: 56px 0 16px; }
   .commit-word { font-size: 17px; }
   .commit-center-word { font-size: 18px; }
   .commit-list-row { grid-template-columns: 110px 1fr; }
