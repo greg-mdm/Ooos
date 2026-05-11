@@ -761,7 +761,7 @@ a:hover { color: var(--electric); }
 }
 .exhibit-scope .case-hero {
   background:
-    radial-gradient(ellipse 70% 90% at 50% 55%, rgba(0, 128, 128, 0.95) 0%, rgba(0, 128, 128, 0) 65%),
+    radial-gradient(ellipse 55% 130% at 50% 50%, rgba(0, 128, 128, 1) 0%, rgba(0, 128, 128, 0.85) 25%, rgba(0, 128, 128, 0) 90%),
     linear-gradient(180deg, rgba(54, 40, 135, 1) 0%, rgba(49, 37, 131, 1) 100%);
 }
 .case-hero .container { text-align: left; }
