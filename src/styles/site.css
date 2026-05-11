@@ -181,6 +181,7 @@ a:hover { color: var(--electric); }
   width: 80px;
   height: 80px;
   display: block;
+  margin: 0 auto;
   mix-blend-mode: multiply;
 }
 .hero-eyebrow {
