@@ -42,17 +42,11 @@ export function About() {
           <section className="commit-section" aria-labelledby="commit-heading">
             <div className="commit-grid">
               <div className="commit-text">
-                <p className="ds-eyebrow">Principles in motion</p>
-                <h3 id="commit-heading" className="ds-section-title">Three commitments, one intent</h3>
-                <p className="ds-lede">
-                  Every Ooos project orbits a single intent: a participatory
-                  experience anchored by three commitments to the people who
-                  enter the work.
-                </p>
+                <h3 id="commit-heading" className="ds-eyebrow">Principles in motion</h3>
                 <dl className="commit-list">
                   <div className="commit-list-row">
                     <dt>Clarity</dt>
-                    <dd>where it matters most</dd>
+                    <dd>where it matters</dd>
                   </div>
                   <div className="commit-list-row">
                     <dt>Curiosity</dt>
