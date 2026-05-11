@@ -2028,7 +2028,7 @@ textarea:focus-visible,
   border-color: #F0C040;
 }
 .btn-exhibition {
-  background: #FFFFFF;
+  background: transparent;
   color: #19007D;
 }
 .btn-exhibition:hover,

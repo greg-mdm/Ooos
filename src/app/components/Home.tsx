@@ -87,8 +87,8 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             Based in Ontario's innovation ecosystem, Ooo collaborates with partners across Canada and builds with a growing network of global digital engagement partners.
           </p>
           <div className="hero-cta">
-            <Link to="/ostara" className="btn btn-primary">Ostara: Collective Intelligence System</Link>
-            <Link to="/exhibition" className="btn btn-secondary">Canadian Interactive Exhibition</Link>
+            <Link to="/ostara" className="btn-ostara">Ostara: Collective Intelligence System</Link>
+            <Link to="/exhibition" className="btn-exhibition">Canadian Interactive Exhibition</Link>
           </div>
         </div>
       </section>
