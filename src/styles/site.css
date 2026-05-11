@@ -2559,3 +2559,18 @@ textarea:focus-visible,
 @media (max-width: 520px) {
   .ds-pillars, .ds-pillars--quiet { grid-template-columns: 1fr; }
 }
+
+/* ds-lede-list: bullets inside the ds-header intro block */
+.ds-lede-list {
+  list-style: none; padding: 0; margin: 4px 0 0;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.ds-lede-list li {
+  padding-left: 1.25rem; position: relative;
+  font-size: 1rem; line-height: 1.6; color: var(--ink);
+}
+.ds-lede-list li::before {
+  content: ''; position: absolute; left: 0; top: 0.6em;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--electric);
+}
