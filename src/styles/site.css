@@ -2598,3 +2598,6 @@ textarea:focus-visible,
 /* Pillar text size increase */
 .ds-pillars h4 { font-size: 1.125rem; }
 .ds-pillars p { font-size: 1rem; }
+
+/* ds-section-title size increase */
+.ds-section-title { font-size: 1.75rem; }
