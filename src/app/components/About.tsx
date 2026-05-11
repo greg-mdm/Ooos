@@ -79,15 +79,18 @@ export function About() {
             <div
               className={`commit-graphic${orbitActive ? " is-active" : ""}`}
               tabIndex={0}
-              role="img"
-              aria-label="Three commitments orbiting a central intent: Clarity, Curiosity, Freedom"
-              onPointerEnter={wake}
-              onPointerMove={wake}
-              onPointerDown={wake}
-              onPointerLeave={rest}
+              role="button"
+              aria-label="Activate Commitments animation. Hover, tap or focus to start."
+              aria-pressed={orbitActive}
+              onMouseMove={wake}
+              onMouseLeave={rest}
+              onPointerDown={(e) => { if (e.pointerType !== "mouse") wake(); }}
+              onPointerUp={(e) => { if (e.pointerType !== "mouse") rest(); }}
+              onPointerCancel={rest}
               onFocus={wake}
               onBlur={rest}
             >
+              <span className="commit-hint" aria-hidden="true">Hover to activate</span>
               <svg
                 viewBox="0 0 480 480"
                 preserveAspectRatio="xMidYMid meet"

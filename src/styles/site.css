@@ -2647,11 +2647,24 @@ textarea:focus-visible,
 
 /* Graphic panel */
 .commit-graphic {
+  position: relative;
   width: 100%;
   max-width: 480px;
   margin: 0 auto;
+  padding: 16px;
   outline: none;
   align-self: center;
+  cursor: pointer;
+  border-radius: 18px;
+  border: 1px dashed rgba(25, 0, 125, 0.18);
+  background: rgba(255, 255, 255, 0.0);
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+.commit-graphic:hover,
+.commit-graphic.is-active,
+.commit-graphic:focus-visible {
+  background: rgba(255, 255, 255, 0.5);
+  border-color: rgba(25, 0, 125, 0.32);
 }
 .commit-graphic svg {
   width: 100%;
@@ -2659,6 +2672,23 @@ textarea:focus-visible,
   display: block;
   overflow: visible;
 }
+
+/* "Hover to activate" hint sits at rest, fades when active */
+.commit-hint {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--sans);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dark-indigo);
+  opacity: 0.55;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.commit-graphic.is-active .commit-hint { opacity: 0; }
 
 /* Orbit ring: barely-there dashed guide */
 .commit-ring {
