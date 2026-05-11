@@ -2577,3 +2577,20 @@ textarea:focus-visible,
 
 /* Pillar h4s: sentence case, bold — directive register, not label register */
 .ds-pillars h4 { font-weight: 700; }
+
+/* ds-header split: heading anchors left, system copy fills right */
+.ds-header--split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px 64px;
+  max-width: 100%;
+  margin-bottom: 64px;
+  align-items: start;
+}
+.ds-header-left { max-width: 480px; }
+.ds-header-left h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); margin-bottom: 18px; }
+.ds-header-right { padding-top: 42px; } /* aligns roughly with the lede below the eyebrow+h2 */
+@media (max-width: 800px) {
+  .ds-header--split { grid-template-columns: 1fr; gap: 16px; }
+  .ds-header-right { padding-top: 0; }
+}

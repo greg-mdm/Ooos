@@ -18,26 +18,30 @@ export function About() {
 
       <section className="ds" aria-labelledby="ds-heading">
         <div className="container">
-          <header className="ds-header">
-            <p className="ds-eyebrow">Design system</p>
-            <h2 id="ds-heading">Creative Environments</h2>
-            <p className="ds-lede">
-              Each project creates space for meaningful engagement within a
-              unique creative environment, centrally guided by the studio's
-              founder and creative director.
-            </p>
-            <p className="ds-lede">
-              Shared systems of spacing, contrast, typography, and disclosure
-              are applied consistently across all creative environments.
-            </p>
-            <p className="ds-lede">
-              Participatory design creates coherence across the Ooo universe through:
-            </p>
-            <ul className="ds-lede-list">
-              <li>Clarity where it matters</li>
-              <li>Curiosity that leads to knowledge exchange</li>
-              <li>Freedom to choose your own level of participation and engagement</li>
-            </ul>
+          <header className="ds-header ds-header--split">
+            <div className="ds-header-left">
+              <p className="ds-eyebrow">Design system</p>
+              <h2 id="ds-heading">Creative Environments</h2>
+              <p className="ds-lede">
+                Each project creates space for meaningful engagement within a
+                unique creative environment, centrally guided by the studio's
+                founder and creative director.
+              </p>
+            </div>
+            <div className="ds-header-right">
+              <p className="ds-lede">
+                Shared systems of spacing, contrast, typography, and disclosure
+                are applied consistently across all creative environments.
+              </p>
+              <p className="ds-lede">
+                Participatory design creates coherence across the Ooo universe through:
+              </p>
+              <ul className="ds-lede-list">
+                <li>Clarity where it matters</li>
+                <li>Curiosity that leads to knowledge exchange</li>
+                <li>Freedom to choose your own level of participation and engagement</li>
+              </ul>
+            </div>
           </header>
 
           <div className="ds-quadrant" role="list" aria-label="Creative environments">
