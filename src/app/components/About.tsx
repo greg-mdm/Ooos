@@ -32,7 +32,7 @@ export function About() {
               <p className="ds-lede">
                 Shared systems of spacing, contrast, typography, and disclosure
                 are applied consistently across all creative environments.
-                Participatory design creates coherence across Ooos universe through:
+                Ooos universe creates coherence through participatory design that offers:
               </p>
               <ul className="ds-lede-list">
                 <li>Clarity where it matters</li>
