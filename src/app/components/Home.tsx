@@ -79,13 +79,9 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             aria-hidden="true"
           />
         </div>
-        <div className="hero-eyebrow">OOO DIGITAL MEDIA STUDIO</div>
         <h1>
-          Toronto-based interactive digital media studio building digital engagement experiences, websites, and workshops for founders, organizations, and creative communities.
+          <strong>Ooo Digital Media Studio</strong> is a Toronto-based interactive digital media studio building digital engagement experiences, websites, and workshops for founders, organizations, and creative communities. Based in Ontario's innovation ecosystem, Ooo collaborates with creative partners across Canada and builds with a growing network of global digital engagement partners.
         </h1>
-        <p className="lead">
-          Based in Ontario's innovation ecosystem, Ooo collaborates with creative partners across Canada and builds with a growing network of global digital engagement partners.
-        </p>
         <div className="hero-cta">
           <Link to="/ostara" className="btn btn-primary">Ostara: Collective Intelligence System</Link>
           <Link to="/exhibition" className="btn btn-secondary">Canadian Interactive Exhibition</Link>
