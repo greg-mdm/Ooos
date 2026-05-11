@@ -80,10 +80,10 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           />
         </div>
         <h1>
-          <strong>Ooo Digital Media Studio</strong> builds interactive digital engagement experiences, websites, and workshops for founders, organizations, and creative communities.
+          <strong>Ooo Digital Media Studio</strong> designs interactive experiences, websites, workshops, and creative campaigns for founders, organizations, and communities.
         </h1>
         <p className="lead">
-          Based in Ontario's innovation ecosystem, Ooo collaborates with creative partners across Canada and creates with a growing network of global digital engagement partners.
+          Based in Ontario's innovation ecosystem, Ooo collaborates with partners across Canada and builds with a growing network of global digital engagement partners.
         </p>
         <div className="hero-cta">
           <Link to="/ostara" className="btn btn-primary">Ostara: Collective Intelligence System</Link>
