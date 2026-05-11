@@ -2357,8 +2357,8 @@ textarea:focus-visible,
 .ds-lede { font-size: 1.0625rem; line-height: 1.55; margin: 0; color: var(--ink); }
 
 .ds-section-title {
-  font-family: var(--serif); font-size: 1.25rem; margin: 40px 0 14px;
-  color: var(--dark-indigo);
+  font-family: var(--serif); font-size: 1.625rem; margin: 72px 0 18px;
+  color: var(--dark-indigo); font-weight: 400;
 }
 .ds-section-lede { font-size: 0.95rem; line-height: 1.55; margin: 0 0 18px; max-width: 680px; color: var(--ink); }
 
@@ -2465,7 +2465,7 @@ textarea:focus-visible,
 .ds-header h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); margin-bottom: 18px; }
 .ds-header .ds-lede + .ds-lede { margin-top: 14px; }
 
-.ds-section-title { margin: 72px 0 18px; font-size: 1.375rem; }
+/* ds-section-title: canonical rule above at line ~2359 */
 .ds-section-title--quiet { color: var(--slate); font-size: 1.0625rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; font-family: var(--sans); }
 .ds-section-lede { margin-bottom: 28px; }
 
@@ -2599,5 +2599,4 @@ textarea:focus-visible,
 .ds-pillars h4 { font-size: 1.125rem; }
 .ds-pillars p { font-size: 1rem; }
 
-/* ds-section-title size increase */
-.ds-section-title { font-size: 1.75rem; }
+/* ds-section-title: canonical rule above at line ~2359 */
