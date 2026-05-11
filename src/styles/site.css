@@ -2607,6 +2607,7 @@ textarea:focus-visible,
   grid-template-columns: 1fr 1fr;
   gap: 48px 64px;
   align-items: center;
+  margin-bottom: 96px;
 }
 .ds-intro-text > .ds-eyebrow { margin-bottom: 8px; }
 .ds-intro-text > h2 { margin: 0 0 18px; }
