@@ -79,15 +79,17 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             aria-hidden="true"
           />
         </div>
-        <h1>
-          <strong>Ooo Digital Media Studio</strong> designs interactive experiences, websites, workshops, and creative campaigns for founders, organizations, and communities.
-        </h1>
-        <p className="lead">
-          Based in Ontario's innovation ecosystem, Ooo collaborates with partners across Canada and builds with a growing network of global digital engagement partners.
-        </p>
-        <div className="hero-cta">
-          <Link to="/ostara" className="btn btn-primary">Ostara: Collective Intelligence System</Link>
-          <Link to="/exhibition" className="btn btn-secondary">Canadian Interactive Exhibition</Link>
+        <div className="hero-content">
+          <h1>
+            <strong>Ooo Digital Media Studio</strong> designs interactive experiences, websites, workshops, and creative campaigns for founders, organizations, and communities.
+          </h1>
+          <p className="lead">
+            Based in Ontario's innovation ecosystem, Ooo collaborates with partners across Canada and builds with a growing network of global digital engagement partners.
+          </p>
+          <div className="hero-cta">
+            <Link to="/ostara" className="btn btn-primary">Ostara: Collective Intelligence System</Link>
+            <Link to="/exhibition" className="btn btn-secondary">Canadian Interactive Exhibition</Link>
+          </div>
         </div>
       </section>
 
