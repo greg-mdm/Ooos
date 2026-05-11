@@ -3,7 +3,7 @@ import { RadioAd } from "./RadioAd";
 
 export function Exhibition({ onSupport }: { onSupport: () => void }) {
   return (
-    <>
+    <div className="exhibit-scope">
       <section className="case-hero">
         <div className="container">
           <Link to="/" className="back">← All projects</Link>
@@ -148,6 +148,6 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
       </div>
 
       <RadioAd />
-    </>
+    </div>
   );
 }

@@ -163,8 +163,8 @@ a:hover { color: var(--electric); }
 }
 .nav-cta:hover,
 .nav-cta:focus-visible {
-  background: var(--electric);
-  color: #fff !important;
+  background: var(--teal);
+  color: var(--dark-indigo) !important;
 }
 
 /* ===== HERO ===== */
@@ -758,6 +758,9 @@ a:hover { color: var(--electric); }
 }
 .cid-scope .case-hero {
   background: linear-gradient(180deg, var(--ruby) 0%, #5a2000 100%);
+}
+.exhibit-scope .case-hero {
+  background: radial-gradient(circle, rgba(0, 128, 128, 1) 0%, rgba(54, 40, 135, 1) 100%);
 }
 .case-hero .container { text-align: left; }
 .case-hero .back {
