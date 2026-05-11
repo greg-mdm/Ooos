@@ -16,6 +16,147 @@ export function About() {
         </div>
       </section>
 
+      <section className="ds" aria-labelledby="ds-heading">
+        <div className="container">
+          <header className="ds-header">
+            <p className="ds-eyebrow">Design system</p>
+            <h2 id="ds-heading">One language. Four surfaces.</h2>
+            <p className="ds-lede">
+              Every product in the studio sits on shared primitives — type,
+              spacing, focus, and contrast — and pulls from a defined color
+              spectrum so each surface stays distinct without breaking the
+              family.
+            </p>
+          </header>
+
+          <h3 className="ds-section-title">Brand surfaces</h3>
+          <div className="ds-grid ds-grid--surfaces" role="list">
+            <article className="ds-surface ds-surface--ooo" role="listitem">
+              <h4>Ooo Digital Media Studio</h4>
+              <p className="ds-surface-note">Teal and indigo spectrum. The parent brand.</p>
+              <ul className="ds-swatches" aria-label="Ooo palette">
+                <li><span className="ds-sw" style={{ background: "#19007D" }} aria-hidden="true" /><code>#19007D</code><span>Dark Indigo</span></li>
+                <li><span className="ds-sw" style={{ background: "#312583" }} aria-hidden="true" /><code>#312583</code><span>Resolution</span></li>
+                <li><span className="ds-sw" style={{ background: "#5B04DE" }} aria-hidden="true" /><code>#5B04DE</code><span>Electric</span></li>
+                <li><span className="ds-sw" style={{ background: "#00D4AA" }} aria-hidden="true" /><code>#00D4AA</code><span>Teal</span></li>
+                <li><span className="ds-sw ds-sw--bordered" style={{ background: "#F0F4F5" }} aria-hidden="true" /><code>#F0F4F5</code><span>Robin's egg</span></li>
+              </ul>
+            </article>
+
+            <article className="ds-surface ds-surface--ostara" role="listitem">
+              <h4>Ostara</h4>
+              <p className="ds-surface-note">Indigo with gold. Collective intelligence and signal work.</p>
+              <ul className="ds-swatches" aria-label="Ostara palette">
+                <li><span className="ds-sw" style={{ background: "#19007D" }} aria-hidden="true" /><code>#19007D</code><span>Dark Indigo</span></li>
+                <li><span className="ds-sw" style={{ background: "#4B00B6" }} aria-hidden="true" /><code>#4B00B6</code><span>Portal</span></li>
+                <li><span className="ds-sw" style={{ background: "#F0C040" }} aria-hidden="true" /><code>#F0C040</code><span>Gold</span></li>
+              </ul>
+            </article>
+
+            <article className="ds-surface ds-surface--cid" role="listitem">
+              <h4>CID and Innovation</h4>
+              <p className="ds-surface-note">Muted ruby red and teal on robin's egg. Research-forward.</p>
+              <ul className="ds-swatches" aria-label="CID palette">
+                <li><span className="ds-sw" style={{ background: "#822F00" }} aria-hidden="true" /><code>#822F00</code><span>Ruby</span></li>
+                <li><span className="ds-sw" style={{ background: "#00D4AA" }} aria-hidden="true" /><code>#00D4AA</code><span>Teal</span></li>
+                <li><span className="ds-sw ds-sw--bordered" style={{ background: "#F0F4F5" }} aria-hidden="true" /><code>#F0F4F5</code><span>Robin's egg</span></li>
+              </ul>
+            </article>
+
+            <article className="ds-surface ds-surface--exhibition" role="listitem">
+              <h4>Exhibition</h4>
+              <p className="ds-surface-note">Ruby red and white, anchored to the Ooo indigo spectrum.</p>
+              <ul className="ds-swatches" aria-label="Exhibition palette">
+                <li><span className="ds-sw" style={{ background: "#822F00" }} aria-hidden="true" /><code>#822F00</code><span>Ruby</span></li>
+                <li><span className="ds-sw ds-sw--bordered" style={{ background: "#FFFFFF" }} aria-hidden="true" /><code>#FFFFFF</code><span>White</span></li>
+                <li><span className="ds-sw" style={{ background: "#19007D" }} aria-hidden="true" /><code>#19007D</code><span>Dark Indigo</span></li>
+              </ul>
+            </article>
+          </div>
+
+          <h3 className="ds-section-title">Component primitives</h3>
+          <div className="ds-grid ds-grid--primitives">
+            <article className="ds-primitive">
+              <h4>Button variants</h4>
+              <p>Indigo primary, outline secondary, ghost tertiary. Hover and focus states share the same teal-to-indigo logic across surfaces.</p>
+              <div className="ds-row">
+                <button type="button" className="btn btn-primary">Primary</button>
+                <button type="button" className="btn btn-secondary">Secondary</button>
+                <button type="button" className="btn btn-ghost">Ghost</button>
+              </div>
+            </article>
+
+            <article className="ds-primitive">
+              <h4>Chips and badges</h4>
+              <p>Status, taxonomy, and meta. Background uses tinted brand tokens at low alpha so chips read against any surface.</p>
+              <div className="ds-row">
+                <span className="chip">Default</span>
+                <span className="chip chip--teal">Teal</span>
+                <span className="chip chip--gold">Gold</span>
+                <span className="chip chip--ruby">Ruby</span>
+              </div>
+            </article>
+
+            <article className="ds-primitive">
+              <h4>Cards</h4>
+              <p>Same container, swapped accents. Hover lifts 2px and reveals the surface-specific accent border.</p>
+              <div className="ds-card-sample">
+                <p className="ds-card-eyebrow">Signal</p>
+                <p className="ds-card-title">One signal. Three positions.</p>
+                <p className="ds-card-body">Audience-as-evidence with persistent disclosure on every artifact.</p>
+              </div>
+            </article>
+
+            <article className="ds-primitive">
+              <h4>Interaction states</h4>
+              <p>Every interactive element ships with rest, hover, focus-visible, and disabled. Focus is always a 2px ring at 3:1 contrast minimum.</p>
+              <ul className="ds-states">
+                <li><span className="ds-state-dot ds-state-dot--rest" /> Rest</li>
+                <li><span className="ds-state-dot ds-state-dot--hover" /> Hover</li>
+                <li><span className="ds-state-dot ds-state-dot--focus" /> Focus-visible</li>
+                <li><span className="ds-state-dot ds-state-dot--disabled" /> Disabled</li>
+              </ul>
+            </article>
+          </div>
+
+          <h3 className="ds-section-title">Practice</h3>
+          <p className="ds-section-lede">
+            The system is enforced by how the work is made, not just what
+            ships. Three repeated patterns hold the studio together.
+          </p>
+          <div className="ds-grid ds-grid--practice">
+            <article className="ds-practice">
+              <p className="ds-practice-num">01</p>
+              <h4>Skills architecture</h4>
+              <p>
+                Reusable modular workflows live as named skills with clear
+                inputs and outputs. Specialist review patterns (accessibility,
+                copy, hierarchy) plug into any project the same way every
+                time.
+              </p>
+            </article>
+            <article className="ds-practice">
+              <p className="ds-practice-num">02</p>
+              <h4>Multi-pass review pipelines</h4>
+              <p>
+                Each artifact runs through accessibility check, design polish,
+                consistency sweep, and hierarchy cleanup. Each pass is scoped
+                and recorded so the next reviewer picks up clean state.
+              </p>
+            </article>
+            <article className="ds-practice">
+              <p className="ds-practice-num">03</p>
+              <h4>Prompt structuring</h4>
+              <p>
+                Constrained prompts with explicit scope, iterative refinement
+                in small steps, and consistency enforcement against the
+                system. Human authorship stays visible at every step.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <div className="case-body">
         <h2>Posture</h2>
         <p>
