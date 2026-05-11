@@ -89,7 +89,7 @@ export function About() {
             </article>
           </div>
 
-          <h3 className="ds-section-title">Guiding principles</h3>
+          <h3 className="ds-section-title">Guiding Principles</h3>
           <ul className="ds-pillars" aria-label="Guiding principles">
             <li>
               <h4>Design responsibly.</h4>
@@ -105,7 +105,7 @@ export function About() {
             </li>
           </ul>
 
-          <h3 className="ds-section-title">Strategic priorities</h3>
+          <h3 className="ds-section-title">Strategic Priorities</h3>
           <p className="ds-section-lede">Strategies follow principles.</p>
           <ul className="ds-pillars ds-pillars--quiet" aria-label="Strategic priorities">
             <li>
