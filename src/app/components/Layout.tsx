@@ -28,7 +28,7 @@ export function Nav({ onSupport }: { onSupport: () => void }) {
           <Link to="/ostara">Ostara</Link>
           <Link to="/cid">Innovation</Link>
           <Link to="/exhibition">Exhibition</Link>
-          <Link to="/about">About</Link>
+          <Link to="/about">Design</Link>
           <button onClick={onSupport} className="nav-cta" type="button">
             Support
           </button>

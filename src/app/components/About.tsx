@@ -83,34 +83,42 @@ export function About() {
             </article>
           </div>
 
-          <div className="ds-band ds-band--columns">
-            <div>
-              <h3 className="ds-section-title">Principles</h3>
-              <ul className="ds-principles">
-                <li>
-                  <strong>Design responsibly.</strong> Make risk, system limits,
-                  and user choice and freedom visible.
-                </li>
-                <li>
-                  <strong>Design for diverse mental models.</strong> Build for
-                  the range of ways people think, perceive, and decide.
-                </li>
-                <li>
-                  <strong>Design to earn trust.</strong> Transparent disclosures
-                  on every artifact, including AI assistance.
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="ds-section-title">Priorities</h3>
-              <ul className="ds-priorities">
-                <li><strong>Co-creation.</strong> Participation over presentation.</li>
-                <li><strong>Interactivity.</strong> Engagement over spectacle.</li>
-                <li><strong>Emotion.</strong> Empathy over polish.</li>
-                <li><strong>Behaviour.</strong> Engagement that earns its time.</li>
-              </ul>
-            </div>
-          </div>
+          <h3 className="ds-section-title">Guiding principles</h3>
+          <ul className="ds-pillars" aria-label="Guiding principles">
+            <li>
+              <h4>Design responsibly.</h4>
+              <p>Make risk, system limits, and user choice and freedom visible.</p>
+            </li>
+            <li>
+              <h4>Design for diverse mental models.</h4>
+              <p>Build for the range of ways people think, perceive, and decide.</p>
+            </li>
+            <li>
+              <h4>Design to earn trust.</h4>
+              <p>Transparent disclosures on every artifact, including AI assistance.</p>
+            </li>
+          </ul>
+
+          <h3 className="ds-section-title">Strategic priorities</h3>
+          <p className="ds-section-lede">Strategies follow principles.</p>
+          <ul className="ds-pillars ds-pillars--quiet" aria-label="Strategic priorities">
+            <li>
+              <h4>Co-creation.</h4>
+              <p>Participation over presentation.</p>
+            </li>
+            <li>
+              <h4>Interactivity.</h4>
+              <p>Engagement over spectacle.</p>
+            </li>
+            <li>
+              <h4>Emotion.</h4>
+              <p>Empathy over polish.</p>
+            </li>
+            <li>
+              <h4>Behaviour.</h4>
+              <p>Engagement that earns its time.</p>
+            </li>
+          </ul>
 
           <h3 className="ds-section-title ds-section-title--quiet">Component primitives</h3>
           <div className="ds-quadrant ds-quadrant--quiet">

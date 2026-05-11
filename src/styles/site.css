@@ -2532,3 +2532,30 @@ textarea:focus-visible,
   .ds-step { grid-template-columns: 1fr; gap: 8px; padding: 24px 0; }
   .ds-step-num { font-size: 1.75rem; }
 }
+
+/* Pillars: 3-up rows for principles, 4-up for priorities (quiet variant) */
+.ds-pillars {
+  list-style: none; padding: 0; margin: 8px 0 0;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.ds-pillars--quiet { grid-template-columns: repeat(4, 1fr); }
+.ds-pillars li {
+  padding: 22px 22px 20px;
+  border: 1px solid rgba(25,0,125,0.10);
+  border-top: 3px solid var(--electric);
+  border-radius: 6px;
+  background: #fff;
+}
+.ds-pillars--quiet li { border-top-color: var(--teal); }
+.ds-pillars h4 {
+  font-family: var(--serif); font-size: 1.0625rem;
+  color: var(--dark-indigo); margin: 0 0 8px;
+}
+.ds-pillars p { margin: 0; font-size: 0.9375rem; line-height: 1.55; color: var(--ink); }
+@media (max-width: 860px) {
+  .ds-pillars, .ds-pillars--quiet { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 520px) {
+  .ds-pillars, .ds-pillars--quiet { grid-template-columns: 1fr; }
+}
