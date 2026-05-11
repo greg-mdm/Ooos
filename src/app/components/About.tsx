@@ -27,14 +27,16 @@ export function About() {
                 unique creative environment, centrally guided by the studio's
                 founder and creative director.
               </p>
+              <p className="ds-lede">
+                Shared systems of spacing, contrast, typography, and disclosure
+                are applied consistently across all creative environments.
+              </p>
             </div>
             <div className="ds-header-right">
               <p className="ds-lede">
-                Shared systems of spacing, contrast, typography, and disclosure
-                are applied consistently across all creative environments. Ooos
-                universe promotes participatory design and inclusive access,
-                hosting a range of experiences from observation to exploration
-                and engagement.
+                Ooos universe promotes participatory design and inclusive
+                access, hosting a range of experiences from observation to
+                exploration and engagement.
               </p>
             </div>
           </header>
