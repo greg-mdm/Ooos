@@ -2574,3 +2574,6 @@ textarea:focus-visible,
   width: 6px; height: 6px; border-radius: 50%;
   background: var(--electric);
 }
+
+/* Pillar h4s: sentence case, bold — directive register, not label register */
+.ds-pillars h4 { font-weight: 700; }
