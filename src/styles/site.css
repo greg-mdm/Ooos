@@ -92,20 +92,20 @@ a:hover { color: var(--electric); }
   position: sticky;
   top: 0;
   z-index: 50;
-  /* Teal glassmorphism — distinct from the off-white hero, always legible */
-  background: rgba(0, 212, 170, 0.13);
+  /* Teal glass — alpha raised so scrolled content does not bleed through the sticky nav */
+  background: rgba(0, 212, 170, 0.92);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   color: var(--ink);
-  border-bottom: 1.5px solid rgba(0, 212, 170, 0.48);
+  border-bottom: 1.5px solid rgba(0, 212, 170, 0.55);
   box-shadow: 0 1px 0 rgba(0, 212, 170, 0.10), 0 4px 18px rgba(0, 0, 0, 0.06);
   transition: background 320ms ease, border-color 320ms ease;
 }
-/* over-dark: slightly more opaque teal when nav overlaps dark sections.
+/* over-dark: nudge alpha further when nav overlaps dark sections.
    Text stays dark indigo — the teal panel itself provides contrast. */
 .nav.over-dark {
-  background: rgba(0, 212, 170, 0.22);
-  border-bottom-color: rgba(0, 212, 170, 0.60);
+  background: rgba(0, 212, 170, 0.96);
+  border-bottom-color: rgba(0, 212, 170, 0.70);
 }
 .nav.over-dark .nav-brand,
 .nav.over-dark .nav-links a { color: var(--ink); }
@@ -812,6 +812,10 @@ a:hover { color: var(--electric); }
   margin: 0 auto;
   padding: 60px 24px;
 }
+/* Keep section headings clear of the sticky nav on anchor jumps and short scrolls. */
+.case-body h2,
+.case-body h3,
+.case-body h4 { scroll-margin-top: 88px; }
 /* AODA: force readable dark-ink-on-white in the Ostara case body, even
    though .ostara-scope flips the global tokens for the dark hero band. */
 .ostara-scope .case-body {
