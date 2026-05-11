@@ -2699,8 +2699,9 @@ textarea:focus-visible,
   font-family: var(--serif);
   font-size: 22px;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.01em;
   fill: var(--dark-indigo);
+  dominant-baseline: middle;
 }
 
 /* Hover/focus: brighten outline shapes (orbit speed is SMIL-driven, not CSS) */

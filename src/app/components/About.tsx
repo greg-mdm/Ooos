@@ -147,10 +147,7 @@ export function About() {
                   {/* Center: gold Commitments circle (drawn last, sits on top) */}
                   <g className="commit-center">
                     <circle cx="240" cy="240" r="92" />
-                    <text x="240" y="234" textAnchor="middle" className="commit-center-word">
-                      <tspan x="240" dy="0">COMMIT-</tspan>
-                      <tspan x="240" dy="26">MENTS</tspan>
-                    </text>
+                    <text x="240" y="240" textAnchor="middle" className="commit-center-word">Commitments</text>
                   </g>
                 </svg>
               </div>
