@@ -73,8 +73,8 @@ export function About() {
             </article>
 
             <article className="ds-surface ds-surface--ostara" role="listitem">
-              <h4>Ostara</h4>
-              <p className="ds-surface-note">Indigo with gold. Collective intelligence and signal work.</p>
+              <h4>Ostara: Collective Intelligence System</h4>
+              <p className="ds-surface-note">Indigo with gold. Designed for collective reasoning, uncertainty, and signal exploration.</p>
               <ul className="ds-swatches" aria-label="Ostara palette">
                 <li><span className="ds-sw" style={{ background: "#19007D" }} aria-hidden="true" /><code>#19007D</code><span>Dark Indigo</span></li>
                 <li><span className="ds-sw" style={{ background: "#4B00B6" }} aria-hidden="true" /><code>#4B00B6</code><span>Portal</span></li>
