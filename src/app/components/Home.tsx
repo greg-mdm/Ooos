@@ -69,17 +69,17 @@ export function Home({ onSupport }: { onSupport: () => void }) {
   return (
     <>
       <section className="hero">
-        <div className="hero-logo-wrap">
-          <img
-            src={`${import.meta.env.BASE_URL}assets/images/brand/ooo-logo.png`}
-            alt=""
-            className="hero-logo"
-            width="120"
-            height="120"
-            aria-hidden="true"
-          />
-        </div>
         <div className="hero-content">
+          <div className="hero-logo-wrap">
+            <img
+              src={`${import.meta.env.BASE_URL}assets/images/brand/ooo-logo.png`}
+              alt=""
+              className="hero-logo"
+              width="120"
+              height="120"
+              aria-hidden="true"
+            />
+          </div>
           <h1>
             <strong>Ooo Digital Media Studio</strong> designs interactive experiences, websites, workshops, and creative campaigns for founders, organizations, and communities.
           </h1>

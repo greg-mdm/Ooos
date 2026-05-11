@@ -172,8 +172,7 @@ a:hover { color: var(--electric); }
 .hero {
   background: var(--bg);
   color: var(--ink);
-  padding: 48px 24px 44px;
-  text-align: center; /* centers logo via inline flow */
+  padding: 48px 24px 32px;
 }
 .hero-logo-wrap {
   margin-bottom: 20px;
@@ -182,7 +181,6 @@ a:hover { color: var(--electric); }
   width: 80px;
   height: 80px;
   display: block;
-  margin: 0 auto;
   mix-blend-mode: multiply;
 }
 .hero-eyebrow {
