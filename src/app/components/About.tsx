@@ -20,13 +20,17 @@ export function About() {
         <div className="container">
           <header className="ds-header">
             <p className="ds-eyebrow">Design system</p>
-            <h2 id="ds-heading">How the studio works.</h2>
+            <h2 id="ds-heading">Creative environments.</h2>
             <p className="ds-lede">
-              Every product in the studio sits on shared primitives: type,
-              spacing, focus, and contrast. Each brand surface pulls from a
-              defined color spectrum so it stays distinct without breaking
-              the family. The system is governed by stated principles and
-              priorities so decisions stay transparent.
+              Each project creates space for meaningful engagement within its
+              unique environment, guided by the central creative direction of
+              the studio's sole founder and creative director.
+            </p>
+            <p className="ds-lede">
+              Shared systems of spacing, contrast, typography, disclosure,
+              and participation design create continuity across the studio
+              while preserving the distinct identity, tone, and intent of
+              each project.
             </p>
           </header>
 
@@ -89,8 +93,8 @@ export function About() {
             </article>
 
             <article className="ds-surface ds-surface--exhibition" role="listitem">
-              <h4>Exhibition</h4>
-              <p className="ds-surface-note">Ruby red and white, anchored to the Ooo indigo spectrum.</p>
+              <h4>Canadian Interactive Exhibition</h4>
+              <p className="ds-surface-note">Ruby red and white with flows through the Ooo indigo spectrum. Designed for public interaction, artist-created digital worlds, and non-profit partnership.</p>
               <ul className="ds-swatches" aria-label="Exhibition palette">
                 <li><span className="ds-sw" style={{ background: "#822F00" }} aria-hidden="true" /><code>#822F00</code><span>Ruby</span></li>
                 <li><span className="ds-sw ds-sw--bordered" style={{ background: "#FFFFFF" }} aria-hidden="true" /><code>#FFFFFF</code><span>White</span></li>
