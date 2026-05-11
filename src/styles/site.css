@@ -221,9 +221,8 @@ a:hover { color: var(--electric); }
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   margin-top: 1.5rem;
-  max-width: 680px;
 }
 @media (max-width: 600px) {
   .hero-cta {
