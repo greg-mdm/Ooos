@@ -1656,16 +1656,17 @@ textarea:focus-visible,
   0%, 100% { transform: scaleY(0.35); }
   50%       { transform: scaleY(1); }
 }
-/* 4 orbs: 2 travel left-to-right, 2 right-to-left simultaneously */
+/* Two orbs only: one upper L→R, one lower R→L. Calm 9s loop, staggered so
+   they cross at opposite quadrants instead of stacking. */
 .npp-orb {
   position: absolute;
   width: 5px; height: 5px;
   border-radius: 50%;
 }
-.npp-orb--1 { background: var(--electric, #6C01F4); top: 30%; animation: npp-orbslide 3.5s linear infinite; animation-delay: 0s; }
-.npp-orb--2 { background: var(--teal, #00D4AA);     top: 62%; animation: npp-orbslide 3.5s linear infinite; animation-delay: 1.75s; }
-.npp-orb--3 { background: var(--ruby, #C0392B);     top: 44%; animation: npp-orbback  3.5s linear infinite; animation-delay: 0s; }
-.npp-orb--4 { background: var(--dark-indigo, #1A0033); top: 54%; animation: npp-orbback 3.5s linear infinite; animation-delay: 1.75s; }
+.npp-orb--1 { background: var(--electric, #6C01F4); top: 32%; animation: npp-orbslide 9s linear infinite; animation-delay: 0s; }
+.npp-orb--2 { background: var(--teal,     #00D4AA); top: 64%; animation: npp-orbback  9s linear infinite; animation-delay: 4.5s; }
+.npp-orb--3,
+.npp-orb--4 { display: none; }
 @keyframes npp-orbslide {
   0%   { left: -5px; opacity: 0; }
   8%   { opacity: 1; }
