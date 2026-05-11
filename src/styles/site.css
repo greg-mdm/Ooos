@@ -2457,3 +2457,78 @@ textarea:focus-visible,
 }
 .ds-priorities li::before { background: var(--electric); }
 .ds-principles li strong, .ds-priorities li strong { color: var(--dark-indigo); font-weight: 700; }
+
+/* ===== DESIGN SYSTEM v2 — spatial pacing ===== */
+.ds { padding: 96px 24px 72px; }
+.ds .container { max-width: 1180px; }
+.ds-header { max-width: 760px; margin-bottom: 64px; }
+.ds-header h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); margin-bottom: 18px; }
+.ds-header .ds-lede + .ds-lede { margin-top: 14px; }
+
+.ds-section-title { margin: 72px 0 18px; font-size: 1.375rem; }
+.ds-section-title--quiet { color: var(--slate); font-size: 1.0625rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; font-family: var(--sans); }
+.ds-section-lede { margin-bottom: 28px; }
+
+/* Quadrant: 2x2 grouped relationships (Creative environments) */
+.ds-quadrant {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px 32px;
+  margin-top: 8px;
+}
+@media (max-width: 720px) { .ds-quadrant { grid-template-columns: 1fr; gap: 20px; } }
+
+/* Quiet variant for primitives: less chrome, more breathing */
+.ds-quadrant--quiet .ds-primitive {
+  background: transparent;
+  border: 0;
+  border-top: 1px solid rgba(25,0,125,0.10);
+  border-radius: 0;
+  padding: 20px 0 8px;
+}
+
+/* Surface eyebrow label (Studio / System / Research / Exhibition) */
+.ds-surface-eyebrow {
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--slate); font-weight: 600; margin: 0 0 10px;
+}
+
+.ds-surface { padding: 28px 28px 24px; }
+.ds-surface h4 { font-size: 1.25rem; margin-bottom: 8px; }
+.ds-surface-note { margin-bottom: 20px; }
+
+/* Columns band: principles vs priorities side-by-side comparison */
+.ds-band--columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  margin-top: 16px;
+  padding: 8px 0;
+}
+@media (max-width: 720px) { .ds-band--columns { grid-template-columns: 1fr; gap: 32px; } }
+.ds-band--columns .ds-section-title { margin-top: 16px; }
+
+/* Sequence: rows for ordered practice steps */
+.ds-sequence {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; gap: 0;
+}
+.ds-step {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 32px;
+  padding: 32px 0;
+  border-top: 1px solid rgba(25,0,125,0.10);
+  align-items: start;
+}
+.ds-step:last-child { border-bottom: 1px solid rgba(25,0,125,0.10); }
+.ds-step-num {
+  font-family: var(--serif); font-size: 2.5rem; font-weight: 400;
+  color: var(--electric); margin: 0; line-height: 1;
+}
+.ds-step h4 { font-family: var(--serif); font-size: 1.125rem; color: var(--dark-indigo); margin: 0 0 8px; }
+.ds-step p { margin: 0; font-size: 0.9375rem; line-height: 1.6; color: var(--ink); max-width: 64ch; }
+@media (max-width: 600px) {
+  .ds-step { grid-template-columns: 1fr; gap: 8px; padding: 24px 0; }
+  .ds-step-num { font-size: 1.75rem; }
+}

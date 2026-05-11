@@ -34,35 +34,11 @@ export function About() {
             </p>
           </header>
 
-          <h3 className="ds-section-title">Design principles</h3>
-          <ul className="ds-principles">
-            <li>
-              <strong>Design responsibly.</strong> Make risk, system limits,
-              and user choice and freedom visible.
-            </li>
-            <li>
-              <strong>Design for diverse mental models.</strong> Build for the
-              range of ways people think, perceive, and decide.
-            </li>
-            <li>
-              <strong>Design to earn trust.</strong> Transparent disclosures
-              on every artifact, including AI assistance.
-            </li>
-          </ul>
-
-          <h3 className="ds-section-title">Design priorities</h3>
-          <ul className="ds-priorities">
-            <li><strong>Co-creation.</strong> Participation over presentation.</li>
-            <li><strong>Interactivity.</strong> Engagement over spectacle.</li>
-            <li><strong>Emotion.</strong> Empathy over polish.</li>
-            <li><strong>Behaviour.</strong> Engagement that earns its time.</li>
-          </ul>
-
-          <h3 className="ds-section-title">Brand surfaces</h3>
-          <div className="ds-grid ds-grid--surfaces" role="list">
+          <div className="ds-quadrant" role="list" aria-label="Creative environments">
             <article className="ds-surface ds-surface--ooo" role="listitem">
+              <p className="ds-surface-eyebrow">Studio</p>
               <h4>Ooo Digital Media Studio</h4>
-              <p className="ds-surface-note">Teal and indigo spectrum. The parent brand.</p>
+              <p className="ds-surface-note">Teal and indigo spectrum. The studio environment for participatory design, digital development, and interactive systems.</p>
               <ul className="ds-swatches" aria-label="Ooo palette">
                 <li><span className="ds-sw" style={{ background: "#19007D" }} aria-hidden="true" /><code>#19007D</code><span>Dark Indigo</span></li>
                 <li><span className="ds-sw" style={{ background: "#312583" }} aria-hidden="true" /><code>#312583</code><span>Resolution</span></li>
@@ -73,6 +49,7 @@ export function About() {
             </article>
 
             <article className="ds-surface ds-surface--ostara" role="listitem">
+              <p className="ds-surface-eyebrow">System</p>
               <h4>Ostara: Collective Intelligence System</h4>
               <p className="ds-surface-note">Indigo with gold. Designed for collective reasoning, uncertainty, and signal exploration.</p>
               <ul className="ds-swatches" aria-label="Ostara palette">
@@ -83,6 +60,7 @@ export function About() {
             </article>
 
             <article className="ds-surface ds-surface--cid" role="listitem">
+              <p className="ds-surface-eyebrow">Research</p>
               <h4>Canadian Innovation Dimension (CID)</h4>
               <p className="ds-surface-note">Muted ruby red and teal on robin's egg. Research-forward.</p>
               <ul className="ds-swatches" aria-label="CID palette">
@@ -93,8 +71,9 @@ export function About() {
             </article>
 
             <article className="ds-surface ds-surface--exhibition" role="listitem">
+              <p className="ds-surface-eyebrow">Exhibition</p>
               <h4>Canadian Interactive Exhibition</h4>
-              <p className="ds-surface-note">Ruby red and white with flows through the Ooo indigo spectrum. Designed for public interaction, artist-created digital worlds, and non-profit partnership.</p>
+              <p className="ds-surface-note">Ruby red and white flowing through the Ooo indigo spectrum. Designed for public interaction, artist-created digital worlds, and nonprofit participation.</p>
               <ul className="ds-swatches" aria-label="Exhibition palette">
                 <li><span className="ds-sw" style={{ background: "#822F00" }} aria-hidden="true" /><code>#822F00</code><span>Ruby</span></li>
                 <li><span className="ds-sw ds-sw--bordered" style={{ background: "#FFFFFF" }} aria-hidden="true" /><code>#FFFFFF</code><span>White</span></li>
@@ -104,11 +83,40 @@ export function About() {
             </article>
           </div>
 
-          <h3 className="ds-section-title">Component primitives</h3>
-          <div className="ds-grid ds-grid--primitives">
+          <div className="ds-band ds-band--columns">
+            <div>
+              <h3 className="ds-section-title">Principles</h3>
+              <ul className="ds-principles">
+                <li>
+                  <strong>Design responsibly.</strong> Make risk, system limits,
+                  and user choice and freedom visible.
+                </li>
+                <li>
+                  <strong>Design for diverse mental models.</strong> Build for
+                  the range of ways people think, perceive, and decide.
+                </li>
+                <li>
+                  <strong>Design to earn trust.</strong> Transparent disclosures
+                  on every artifact, including AI assistance.
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="ds-section-title">Priorities</h3>
+              <ul className="ds-priorities">
+                <li><strong>Co-creation.</strong> Participation over presentation.</li>
+                <li><strong>Interactivity.</strong> Engagement over spectacle.</li>
+                <li><strong>Emotion.</strong> Empathy over polish.</li>
+                <li><strong>Behaviour.</strong> Engagement that earns its time.</li>
+              </ul>
+            </div>
+          </div>
+
+          <h3 className="ds-section-title ds-section-title--quiet">Component primitives</h3>
+          <div className="ds-quadrant ds-quadrant--quiet">
             <article className="ds-primitive">
               <h4>Button variants</h4>
-              <p>Indigo primary, outline secondary, ghost tertiary. Hover and focus states share the same teal-to-indigo logic across surfaces.</p>
+              <p>Indigo primary, outline secondary, ghost tertiary. Hover and focus share the same teal-to-indigo logic across surfaces.</p>
               <div className="ds-row">
                 <button type="button" className="btn btn-primary">Primary</button>
                 <button type="button" className="btn btn-secondary">Secondary</button>
@@ -151,39 +159,38 @@ export function About() {
 
           <h3 className="ds-section-title">Practice</h3>
           <p className="ds-section-lede">
-            The system is enforced by how the work is made, not just what
-            ships. Three repeated patterns hold the studio together.
+            The system holds together through how the work is made. Three
+            repeated patterns run in sequence on every project.
           </p>
-          <div className="ds-grid ds-grid--practice">
-            <article className="ds-practice">
-              <p className="ds-practice-num">01</p>
+          <ol className="ds-sequence" aria-label="Practice sequence">
+            <li className="ds-step">
+              <p className="ds-step-num">01</p>
               <h4>Skills architecture</h4>
               <p>
                 Reusable modular workflows live as named skills with clear
-                inputs and outputs. Specialist review patterns (accessibility,
-                copy, hierarchy) plug into any project the same way every
-                time.
+                inputs and outputs. Specialist review patterns plug into any
+                project the same way every time.
               </p>
-            </article>
-            <article className="ds-practice">
-              <p className="ds-practice-num">02</p>
-              <h4>Multi-pass review pipelines</h4>
+            </li>
+            <li className="ds-step">
+              <p className="ds-step-num">02</p>
+              <h4>Multi-pass review</h4>
               <p>
                 Each artifact runs through accessibility check, design polish,
                 consistency sweep, and hierarchy cleanup. Each pass is scoped
                 and recorded so the next reviewer picks up clean state.
               </p>
-            </article>
-            <article className="ds-practice">
-              <p className="ds-practice-num">03</p>
+            </li>
+            <li className="ds-step">
+              <p className="ds-step-num">03</p>
               <h4>Prompt structuring</h4>
               <p>
                 Constrained prompts with explicit scope, iterative refinement
                 in small steps, and consistency enforcement against the
                 system. Human authorship stays visible at every step.
               </p>
-            </article>
-          </div>
+            </li>
+          </ol>
         </div>
       </section>
 
