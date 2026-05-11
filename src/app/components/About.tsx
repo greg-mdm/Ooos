@@ -31,16 +31,61 @@ export function About() {
             <div className="ds-header-right">
               <p className="ds-lede">
                 Shared systems of spacing, contrast, typography, and disclosure
-                are applied consistently across all creative environments.
-                Ooos universe creates coherence through participatory design that offers:
+                are applied consistently across all creative environments. Ooos
+                universe promotes participatory design and inclusive access,
+                hosting a range of experiences from observation to exploration
+                and engagement.
               </p>
-              <ul className="ds-lede-list">
-                <li>Clarity where it matters</li>
-                <li>Curiosity that leads to knowledge exchange</li>
-                <li>Freedom to choose your own level of participation and engagement</li>
-              </ul>
             </div>
           </header>
+
+          <section className="commit-section" aria-labelledby="commit-heading">
+            <h3 id="commit-heading" className="ds-section-title">Commitments</h3>
+            <div
+              className="commit-flow"
+              tabIndex={0}
+              role="img"
+              aria-label="Three commitments connected: Clarity (data shape), Curiosity (continuation), Freedom (decision)"
+            >
+              <svg
+                viewBox="0 0 900 260"
+                preserveAspectRatio="xMidYMid meet"
+                aria-hidden="true"
+                focusable="false"
+              >
+                {/* Connectors render under shapes */}
+                <path className="commit-link" d="M240,130 C300,80 340,180 400,130" />
+                <path className="commit-link" d="M520,130 C580,80 620,180 680,130" />
+
+                {/* Parallelogram — Clarity (data shape: information flowing legibly) */}
+                <g className="commit-shape commit-shape--data">
+                  <polygon points="60,60 240,60 220,200 40,200" />
+                  <text x="140" y="120" textAnchor="middle" className="commit-word">Clarity</text>
+                  <text x="140" y="150" textAnchor="middle" className="commit-sub">where it matters</text>
+                </g>
+
+                {/* Circle — Curiosity (connector: ongoing loop of exchange) */}
+                <g className="commit-shape commit-shape--connector">
+                  <circle cx="460" cy="130" r="80" />
+                  <text x="460" y="115" textAnchor="middle" className="commit-word">Curiosity</text>
+                  <text x="460" y="148" textAnchor="middle" className="commit-sub">
+                    <tspan x="460" dy="0">that leads to</tspan>
+                    <tspan x="460" dy="18">knowledge exchange</tspan>
+                  </text>
+                </g>
+
+                {/* Diamond — Freedom (decision: user chooses path) */}
+                <g className="commit-shape commit-shape--decision">
+                  <polygon points="780,45 865,130 780,215 695,130" />
+                  <text x="780" y="115" textAnchor="middle" className="commit-word">Freedom</text>
+                  <text x="780" y="148" textAnchor="middle" className="commit-sub">
+                    <tspan x="780" dy="0">to choose your</tspan>
+                    <tspan x="780" dy="18">level of participation</tspan>
+                  </text>
+                </g>
+              </svg>
+            </div>
+          </section>
 
           <div className="ds-quadrant" role="list" aria-label="Creative environments">
             <article className="ds-surface ds-surface--ooo" role="listitem">

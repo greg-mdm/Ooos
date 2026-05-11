@@ -2600,3 +2600,116 @@ textarea:focus-visible,
 .ds-pillars p { font-size: 1rem; }
 
 /* ds-section-title: canonical rule above at line ~2359 */
+
+/* ===== Commitments flow — Clay-inspired slow drift ===== */
+.commit-section { margin: 88px 0 32px; }
+.commit-section .ds-section-title { margin-top: 0; margin-bottom: 32px; }
+
+.commit-flow {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  outline: none;
+  cursor: pointer;
+}
+.commit-flow svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  display: block;
+}
+
+/* Shape outlines: thin, single hue per shape, no fill */
+.commit-shape polygon,
+.commit-shape circle {
+  fill: rgba(255,255,255,0.65);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.commit-shape--data polygon { stroke: var(--electric); }
+.commit-shape--connector circle { stroke: var(--teal); }
+.commit-shape--decision polygon { stroke: var(--gold); }
+
+/* Text inside shapes */
+.commit-word {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  fill: var(--dark-indigo);
+}
+.commit-sub {
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  fill: var(--ink);
+  opacity: 0.7;
+}
+
+/* Connectors: dashed flowing line */
+.commit-link {
+  fill: none;
+  stroke: var(--dark-indigo);
+  stroke-width: 1;
+  stroke-dasharray: 4 6;
+  opacity: 0.45;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Always-on slow drift (subtle, ambient) */
+.commit-shape--data     { animation: commit-drift-a 14s ease-in-out infinite; }
+.commit-shape--connector{ animation: commit-drift-b 17s ease-in-out infinite; }
+.commit-shape--decision { animation: commit-drift-c 13s ease-in-out infinite; }
+
+@keyframes commit-drift-a {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50%      { transform: translate3d(0, -6px, 0) rotate(-0.6deg); }
+}
+@keyframes commit-drift-b {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(0, 5px, 0) scale(1.015); }
+}
+@keyframes commit-drift-c {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50%      { transform: translate3d(0, -5px, 0) rotate(0.6deg); }
+}
+
+/* Connector dash flow — continuous, slow */
+.commit-link {
+  stroke-dashoffset: 0;
+  animation: commit-flow 18s linear infinite;
+}
+@keyframes commit-flow {
+  to { stroke-dashoffset: -100; }
+}
+
+/* On hover/focus: lift opacity + faster flow */
+.commit-flow:hover .commit-link,
+.commit-flow:focus-visible .commit-link {
+  opacity: 0.85;
+  animation-duration: 6s;
+  transition: opacity 0.6s ease;
+}
+.commit-flow:hover .commit-shape polygon,
+.commit-flow:hover .commit-shape circle,
+.commit-flow:focus-visible .commit-shape polygon,
+.commit-flow:focus-visible .commit-shape circle {
+  fill: #fff;
+  transition: fill 0.4s ease;
+}
+
+/* Reduced motion: hold still */
+@media (prefers-reduced-motion: reduce) {
+  .commit-shape--data,
+  .commit-shape--connector,
+  .commit-shape--decision,
+  .commit-link { animation: none !important; }
+}
+
+/* Mobile: stack the SVG more tightly via container, but keep one row */
+@media (max-width: 720px) {
+  .commit-section { margin: 56px 0 16px; }
+  .commit-word { font-size: 18px; }
+  .commit-sub { font-size: 10px; }
+}
