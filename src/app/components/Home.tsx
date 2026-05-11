@@ -81,7 +81,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             />
           </div>
           <h1>
-            <strong>Ooo Digital Media Studio</strong> designs interactive experiences, websites, workshops, and creative campaigns for founders, organizations, and communities.
+            <strong>Ooo Digital Media Studio</strong> designs interactive experiences and creative campaigns for founders, organizations, and communities.
           </h1>
           <p className="lead">
             Based in Ontario's innovation ecosystem, Ooo collaborates with partners across Canada and builds with a growing network of global digital engagement partners.
