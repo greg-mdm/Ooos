@@ -2594,3 +2594,7 @@ textarea:focus-visible,
   .ds-header--split { grid-template-columns: 1fr; gap: 16px; }
   .ds-header-right { padding-top: 0; }
 }
+
+/* Pillar text size increase */
+.ds-pillars h4 { font-size: 1.125rem; }
+.ds-pillars p { font-size: 1rem; }

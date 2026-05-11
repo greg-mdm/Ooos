@@ -108,7 +108,6 @@ export function About() {
           </ul>
 
           <h3 className="ds-section-title">Strategic Priorities</h3>
-          <p className="ds-section-lede">Strategies follow principles.</p>
           <ul className="ds-pillars ds-pillars--quiet" aria-label="Strategic priorities">
             <li>
               <h4>Co-creation.</h4>
