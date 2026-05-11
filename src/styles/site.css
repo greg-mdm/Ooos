@@ -2601,115 +2601,138 @@ textarea:focus-visible,
 
 /* ds-section-title: canonical rule above at line ~2359 */
 
-/* ===== Commitments flow — Clay-inspired slow drift ===== */
+/* ===== Commitments — orbital layout ===== */
 .commit-section { margin: 88px 0 32px; }
-.commit-section .ds-section-title { margin-top: 0; margin-bottom: 32px; }
+.commit-section .ds-section-title { margin-top: 0; margin-bottom: 18px; }
 
-.commit-flow {
+.commit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px 64px;
+  align-items: center;
+}
+
+.commit-text .ds-eyebrow { margin-bottom: 8px; }
+.commit-text .ds-lede { margin-bottom: 28px; }
+
+.commit-list {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+.commit-list-row {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  align-items: baseline;
+  gap: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(25, 0, 125, 0.12);
+}
+.commit-list-row:last-child { border-bottom: none; padding-bottom: 0; }
+.commit-list dt {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--dark-indigo);
+  margin: 0;
+}
+.commit-list dd {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--ink);
+  opacity: 0.78;
+}
+
+/* Graphic panel */
+.commit-graphic {
   width: 100%;
-  max-width: 980px;
+  max-width: 480px;
   margin: 0 auto;
   outline: none;
-  cursor: pointer;
 }
-.commit-flow svg {
+.commit-graphic svg {
   width: 100%;
   height: auto;
-  overflow: visible;
   display: block;
+  overflow: visible;
 }
 
-/* Shape outlines: thin, single hue per shape, no fill */
-.commit-shape polygon,
-.commit-shape circle {
-  fill: rgba(255,255,255,0.65);
-  stroke-width: 1.5;
-  vector-effect: non-scaling-stroke;
-  transform-box: fill-box;
-  transform-origin: center;
-}
-.commit-shape--data polygon { stroke: var(--electric); }
-.commit-shape--connector circle { stroke: var(--teal); }
-.commit-shape--decision polygon { stroke: var(--gold); }
-
-/* Text inside shapes */
-.commit-word {
-  font-family: var(--serif);
-  font-size: 22px;
-  font-weight: 400;
-  fill: var(--dark-indigo);
-}
-.commit-sub {
-  font-family: var(--sans);
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  fill: var(--ink);
-  opacity: 0.7;
-}
-
-/* Connectors: dashed flowing line */
-.commit-link {
+/* Orbit ring: barely-there dashed guide */
+.commit-ring {
   fill: none;
   stroke: var(--dark-indigo);
   stroke-width: 1;
-  stroke-dasharray: 4 6;
-  opacity: 0.45;
+  stroke-dasharray: 2 8;
+  opacity: 0.22;
   vector-effect: non-scaling-stroke;
 }
 
-/* Always-on slow drift (subtle, ambient) */
-.commit-shape--data     { animation: commit-drift-a 14s ease-in-out infinite; }
-.commit-shape--connector{ animation: commit-drift-b 17s ease-in-out infinite; }
-.commit-shape--decision { animation: commit-drift-c 13s ease-in-out infinite; }
+/* Orbiting shapes: thin outlines, soft fill so the gold center reads loudest */
+.commit-shape-data,
+.commit-shape-connector,
+.commit-shape-decision {
+  fill: rgba(255, 255, 255, 0.7);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+.commit-shape-data      { stroke: var(--electric); }
+.commit-shape-connector { stroke: var(--teal); }
+.commit-shape-decision  { stroke: var(--gold); }
 
-@keyframes commit-drift-a {
-  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
-  50%      { transform: translate3d(0, -6px, 0) rotate(-0.6deg); }
-}
-@keyframes commit-drift-b {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50%      { transform: translate3d(0, 5px, 0) scale(1.015); }
-}
-@keyframes commit-drift-c {
-  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
-  50%      { transform: translate3d(0, -5px, 0) rotate(0.6deg); }
-}
-
-/* Connector dash flow — continuous, slow */
-.commit-link {
-  stroke-dashoffset: 0;
-  animation: commit-flow 18s linear infinite;
-}
-@keyframes commit-flow {
-  to { stroke-dashoffset: -100; }
+.commit-word {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 400;
+  fill: var(--dark-indigo);
+  dominant-baseline: middle;
 }
 
-/* On hover/focus: lift opacity + faster flow */
-.commit-flow:hover .commit-link,
-.commit-flow:focus-visible .commit-link {
-  opacity: 0.85;
-  animation-duration: 6s;
-  transition: opacity 0.6s ease;
+/* Gold center — the focal point */
+.commit-center circle {
+  fill: var(--gold);
+  stroke: var(--dark-indigo);
+  stroke-width: 1.25;
+  vector-effect: non-scaling-stroke;
 }
-.commit-flow:hover .commit-shape polygon,
-.commit-flow:hover .commit-shape circle,
-.commit-flow:focus-visible .commit-shape polygon,
-.commit-flow:focus-visible .commit-shape circle {
+.commit-center-word {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  fill: var(--dark-indigo);
+}
+
+/* Hover/focus: brighten outline shapes (orbit speed is SMIL-driven, not CSS) */
+.commit-graphic:hover .commit-shape-data,
+.commit-graphic:hover .commit-shape-connector,
+.commit-graphic:hover .commit-shape-decision,
+.commit-graphic:focus-visible .commit-shape-data,
+.commit-graphic:focus-visible .commit-shape-connector,
+.commit-graphic:focus-visible .commit-shape-decision {
   fill: #fff;
-  transition: fill 0.4s ease;
+  transition: fill 0.5s ease;
+}
+.commit-graphic:hover .commit-ring,
+.commit-graphic:focus-visible .commit-ring {
+  opacity: 0.4;
+  transition: opacity 0.5s ease;
 }
 
-/* Reduced motion: hold still */
+/* Reduced motion: freeze the orbit */
 @media (prefers-reduced-motion: reduce) {
-  .commit-shape--data,
-  .commit-shape--connector,
-  .commit-shape--decision,
-  .commit-link { animation: none !important; }
+  .commit-orbit animateTransform,
+  .commit-counter animateTransform { display: none; }
 }
 
-/* Mobile: stack the SVG more tightly via container, but keep one row */
+/* Mobile: stack text above graphic */
+@media (max-width: 860px) {
+  .commit-grid { grid-template-columns: 1fr; gap: 32px; }
+  .commit-graphic { max-width: 380px; }
+}
 @media (max-width: 720px) {
   .commit-section { margin: 56px 0 16px; }
-  .commit-word { font-size: 18px; }
-  .commit-sub { font-size: 10px; }
+  .commit-word { font-size: 17px; }
+  .commit-center-word { font-size: 18px; }
+  .commit-list-row { grid-template-columns: 110px 1fr; }
 }

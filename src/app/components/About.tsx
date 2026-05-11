@@ -40,50 +40,126 @@ export function About() {
           </header>
 
           <section className="commit-section" aria-labelledby="commit-heading">
-            <h3 id="commit-heading" className="ds-section-title">Commitments</h3>
-            <div
-              className="commit-flow"
-              tabIndex={0}
-              role="img"
-              aria-label="Three commitments connected: Clarity (data shape), Curiosity (continuation), Freedom (decision)"
-            >
-              <svg
-                viewBox="0 0 900 260"
-                preserveAspectRatio="xMidYMid meet"
-                aria-hidden="true"
-                focusable="false"
+            <div className="commit-grid">
+              <div className="commit-text">
+                <p className="ds-eyebrow">Principles in motion</p>
+                <h3 id="commit-heading" className="ds-section-title">Three commitments, one intent</h3>
+                <p className="ds-lede">
+                  Every Ooos project orbits a single intent: a participatory
+                  experience anchored by three commitments to the people who
+                  enter the work.
+                </p>
+                <dl className="commit-list">
+                  <div className="commit-list-row">
+                    <dt>Clarity</dt>
+                    <dd>where it matters most</dd>
+                  </div>
+                  <div className="commit-list-row">
+                    <dt>Curiosity</dt>
+                    <dd>that leads to knowledge exchange</dd>
+                  </div>
+                  <div className="commit-list-row">
+                    <dt>Freedom</dt>
+                    <dd>to choose your level of participation</dd>
+                  </div>
+                </dl>
+              </div>
+
+              <div
+                className="commit-graphic"
+                tabIndex={0}
+                role="img"
+                aria-label="Three commitments orbiting a central intent: Clarity, Curiosity, Freedom"
               >
-                {/* Connectors render under shapes */}
-                <path className="commit-link" d="M240,130 C300,80 340,180 400,130" />
-                <path className="commit-link" d="M520,130 C580,80 620,180 680,130" />
+                <svg
+                  viewBox="0 0 480 480"
+                  preserveAspectRatio="xMidYMid meet"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  {/* Orbit ring (decorative) */}
+                  <circle className="commit-ring" cx="240" cy="240" r="180" />
 
-                {/* Parallelogram — Clarity (data shape: information flowing legibly) */}
-                <g className="commit-shape commit-shape--data">
-                  <polygon points="60,60 240,60 220,200 40,200" />
-                  <text x="140" y="120" textAnchor="middle" className="commit-word">Clarity</text>
-                  <text x="140" y="150" textAnchor="middle" className="commit-sub">where it matters</text>
-                </g>
+                  {/* Orbiting shapes group rotates once every 60s */}
+                  <g className="commit-orbit">
+                    <animateTransform
+                      attributeName="transform"
+                      attributeType="XML"
+                      type="rotate"
+                      from="0 240 240"
+                      to="360 240 240"
+                      dur="60s"
+                      repeatCount="indefinite"
+                    />
 
-                {/* Circle — Curiosity (connector: ongoing loop of exchange) */}
-                <g className="commit-shape commit-shape--connector">
-                  <circle cx="460" cy="130" r="80" />
-                  <text x="460" y="115" textAnchor="middle" className="commit-word">Curiosity</text>
-                  <text x="460" y="148" textAnchor="middle" className="commit-sub">
-                    <tspan x="460" dy="0">that leads to</tspan>
-                    <tspan x="460" dy="18">knowledge exchange</tspan>
-                  </text>
-                </g>
+                    {/* Top: Parallelogram — Clarity */}
+                    <g transform="translate(240,60)">
+                      <g className="commit-counter">
+                        <animateTransform
+                          attributeName="transform"
+                          attributeType="XML"
+                          type="rotate"
+                          from="0"
+                          to="-360"
+                          dur="60s"
+                          repeatCount="indefinite"
+                        />
+                        <polygon
+                          className="commit-shape-data"
+                          points="-72,-34 72,-34 56,34 -88,34"
+                        />
+                        <text y="8" textAnchor="middle" className="commit-word">Clarity</text>
+                      </g>
+                    </g>
 
-                {/* Diamond — Freedom (decision: user chooses path) */}
-                <g className="commit-shape commit-shape--decision">
-                  <polygon points="780,45 865,130 780,215 695,130" />
-                  <text x="780" y="115" textAnchor="middle" className="commit-word">Freedom</text>
-                  <text x="780" y="148" textAnchor="middle" className="commit-sub">
-                    <tspan x="780" dy="0">to choose your</tspan>
-                    <tspan x="780" dy="18">level of participation</tspan>
-                  </text>
-                </g>
-              </svg>
+                    {/* Bottom-right: Circle — Curiosity */}
+                    <g transform="translate(396,318)">
+                      <g className="commit-counter">
+                        <animateTransform
+                          attributeName="transform"
+                          attributeType="XML"
+                          type="rotate"
+                          from="0"
+                          to="-360"
+                          dur="60s"
+                          repeatCount="indefinite"
+                        />
+                        <circle className="commit-shape-connector" r="58" />
+                        <text y="8" textAnchor="middle" className="commit-word">Curiosity</text>
+                      </g>
+                    </g>
+
+                    {/* Bottom-left: Diamond — Freedom */}
+                    <g transform="translate(84,318)">
+                      <g className="commit-counter">
+                        <animateTransform
+                          attributeName="transform"
+                          attributeType="XML"
+                          type="rotate"
+                          from="0"
+                          to="-360"
+                          dur="60s"
+                          repeatCount="indefinite"
+                        />
+                        <polygon
+                          className="commit-shape-decision"
+                          points="0,-66 66,0 0,66 -66,0"
+                        />
+                        <text y="8" textAnchor="middle" className="commit-word">Freedom</text>
+                      </g>
+                    </g>
+                  </g>
+
+                  {/* Center: gold Commitments circle (drawn last, sits on top) */}
+                  <g className="commit-center">
+                    <circle cx="240" cy="240" r="92" />
+                    <text x="240" y="234" textAnchor="middle" className="commit-center-word">
+                      <tspan x="240" dy="0">COMMIT-</tspan>
+                      <tspan x="240" dy="26">MENTS</tspan>
+                    </text>
+                  </g>
+                </svg>
+              </div>
             </div>
           </section>
 
