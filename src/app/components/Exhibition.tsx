@@ -18,40 +18,63 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
         </div>
       </section>
 
-      <div className="case-body exhibit-match-section">
-        <div className="exhibit-match-image-wrap">
-          <img
-            src={`${import.meta.env.BASE_URL}assets/images/matchmaking.png`}
-            alt="Artist and nonprofit matchmaking network — people connected through a central hub"
-            className="exhibit-match-image"
-            loading="lazy"
-          />
-          <p className="exhibit-match-caption">
-            Match with an artist to transform your cause into an interactive experience.
+      <div className="exhibit-intro-row">
+        <div className="exhibit-intro-text">
+          <h2>A shared public space for Canada's nonprofits</h2>
+          <p>
+            The Canadian Interactive Exhibition is a national pilot that
+            invites nonprofits across Canada to bring forward real challenges
+            and work with digital artists to shape them into interactive
+            public experiences. The exhibition is free, browser-based, and
+            designed to help organizations strengthen visibility, public
+            engagement, and cross-sector connection.
           </p>
+          <div className="exhibit-match-image-wrap">
+            <img
+              src={`${import.meta.env.BASE_URL}assets/images/matchmaking.png`}
+              alt="Artist and nonprofit matchmaking — people connected through a central hub"
+              className="exhibit-match-image"
+              loading="lazy"
+            />
+            <p className="exhibit-match-caption">
+              Match with an artist to transform your cause into an interactive experience.
+            </p>
+          </div>
         </div>
-      </div>
 
-      <div className="npp-anim-div">
-        <div className="npp-line"></div>
-        <div className="npp-bars">
-          <div className="npp-b"></div>
-          <div className="npp-b"></div>
-          <div className="npp-b"></div>
-          <div className="npp-b"></div>
-          <div className="npp-b"></div>
-          <div className="npp-b"></div>
-          <div className="npp-b"></div>
-          <div className="npp-b"></div>
-          <div className="npp-b"></div>
-          <div className="npp-b"></div>
-          <div className="npp-b"></div>
-          <div className="npp-b"></div>
+        <div className="exhibit-intro-anim">
+          <div className="npp-anim-div">
+            <div className="npp-line"></div>
+            <div className="npp-bars">
+              <div className="npp-b"></div>
+              <div className="npp-b"></div>
+              <div className="npp-b"></div>
+              <div className="npp-b"></div>
+              <div className="npp-b"></div>
+              <div className="npp-b"></div>
+              <div className="npp-b"></div>
+              <div className="npp-b"></div>
+              <div className="npp-b"></div>
+              <div className="npp-b"></div>
+              <div className="npp-b"></div>
+              <div className="npp-b"></div>
+            </div>
+            <div className="npp-orb npp-orb--1"></div>
+            <div className="npp-orb npp-orb--2"></div>
+            <div className="npp-orb npp-orb--3"></div>
+            <div className="npp-orb npp-orb--4"></div>
+            <span className="npp-lbl">Non-Profit Partnerships</span>
+          </div>
+          <div className="exhibit-intro-anim-body">
+            <p>Ooo connects nonprofits with digital artists across Canada to shape real challenges into public interactive experiences.</p>
+            <ul>
+              <li>Cross-sector creative collaboration</li>
+              <li>Public-facing browser experiences</li>
+              <li>Participatory audience engagement</li>
+              <li>Visibility for mission-driven organizations</li>
+            </ul>
+          </div>
         </div>
-        <div className="npp-orb"></div>
-        <div className="npp-orb"></div>
-        <div className="npp-orb"></div>
-        <span className="npp-lbl">Non-Profit Partnerships</span>
       </div>
 
       <section className="exhibit-support">
