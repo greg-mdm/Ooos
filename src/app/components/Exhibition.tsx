@@ -14,21 +14,44 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
           <div className="case-meta">
             <span className="chip">Interactive programming</span>
             <span className="chip">Cross-sector collaboration</span>
-            <span className="chip teal">In collaboration with Charity Village</span>
           </div>
         </div>
       </section>
 
-      <div className="case-body">
-        <h2>A shared public space for Canada's nonprofits</h2>
-        <p>
-          The Canadian Interactive Exhibition is a national pilot that
-          invites nonprofits across Canada to bring forward real challenges
-          and work with digital artists to shape them into interactive
-          public experiences. The exhibition is free, browser-based, and
-          designed to help organizations strengthen visibility, public
-          engagement, and cross-sector connection.
-        </p>
+      <div className="case-body exhibit-match-section">
+        <div className="exhibit-match-image-wrap">
+          <img
+            src={`${import.meta.env.BASE_URL}assets/images/matchmaking.png`}
+            alt="Artist and nonprofit matchmaking network — people connected through a central hub"
+            className="exhibit-match-image"
+            loading="lazy"
+          />
+          <p className="exhibit-match-caption">
+            Match with an artist to transform your cause into an interactive experience.
+          </p>
+        </div>
+      </div>
+
+      <div className="npp-anim-div">
+        <div className="npp-line"></div>
+        <div className="npp-bars">
+          <div className="npp-b"></div>
+          <div className="npp-b"></div>
+          <div className="npp-b"></div>
+          <div className="npp-b"></div>
+          <div className="npp-b"></div>
+          <div className="npp-b"></div>
+          <div className="npp-b"></div>
+          <div className="npp-b"></div>
+          <div className="npp-b"></div>
+          <div className="npp-b"></div>
+          <div className="npp-b"></div>
+          <div className="npp-b"></div>
+        </div>
+        <div className="npp-orb"></div>
+        <div className="npp-orb"></div>
+        <div className="npp-orb"></div>
+        <span className="npp-lbl">Non-Profit Partnerships</span>
       </div>
 
       <section className="exhibit-support">
