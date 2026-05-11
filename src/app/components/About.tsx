@@ -22,9 +22,9 @@ export function About() {
             <p className="ds-eyebrow">Design system</p>
             <h2 id="ds-heading">Creative Environments</h2>
             <p className="ds-lede">
-              Each project creates space for meaningful engagement within its
-              unique environment, guided by the central creative direction of
-              the studio's sole founder and creative director.
+              Each project creates space for meaningful engagement within a
+              unique creative environment, centrally guided by the studio's
+              founder and creative director.
             </p>
             <p className="ds-lede">
               Shared systems of spacing, contrast, typography, and disclosure
