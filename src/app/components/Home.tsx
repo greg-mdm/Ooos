@@ -69,19 +69,26 @@ export function Home({ onSupport }: { onSupport: () => void }) {
   return (
     <>
       <section className="hero">
-        <div className="hero-eyebrow">Ooo Digital Media Studio</div>
+        <div className="hero-logo-wrap">
+          <img
+            src={`${import.meta.env.BASE_URL}assets/images/brand/ooo-logo.png`}
+            alt=""
+            className="hero-logo"
+            width="120"
+            height="120"
+            aria-hidden="true"
+          />
+        </div>
+        <div className="hero-eyebrow">OOO DIGITAL MEDIA STUDIO</div>
         <h1>
-          Decision-support and participatory design,<br />
-          <em>made visible.</em>
+          Toronto-based interactive digital media studio building digital engagement experiences, websites, and workshops for founders, organizations, and creative communities.
         </h1>
         <p className="lead">
-          A portfolio of locally hosted, AI-assisted systems for reasoning
-          under uncertainty. Public sources only. Disclosure on every artifact.
-          ABSTAIN treated as a first-class outcome.
+          Based in Ontario's innovation ecosystem, Ooo collaborates with creative partners across Canada and builds with a growing network of global digital engagement partners.
         </p>
         <div className="hero-cta">
-          <Link to="/ostara" className="btn btn-ostara">Ostara: Collective Intelligence System</Link>
-          <Link to="/exhibition" className="btn btn-exhibition">Canadian Interactive Exhibition</Link>
+          <Link to="/ostara" className="btn btn-primary">Ostara: Collective Intelligence System</Link>
+          <Link to="/exhibition" className="btn btn-secondary">Canadian Interactive Exhibition</Link>
         </div>
       </section>
 

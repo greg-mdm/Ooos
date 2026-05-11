@@ -16,7 +16,7 @@ export function Nav({ onSupport }: { onSupport: () => void }) {
   useEffect(() => {
     const nav = navRef.current;
     if (!nav) return;
-    const darkSelectors = ".case-hero, .hero, .cid-vote-panel, .vote-feature";
+    const darkSelectors = ".case-hero, .cid-vote-panel, .vote-feature";
 
     const check = () => {
       const navRect = nav.getBoundingClientRect();
