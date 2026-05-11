@@ -20,14 +20,39 @@ export function About() {
         <div className="container">
           <header className="ds-header">
             <p className="ds-eyebrow">Design system</p>
-            <h2 id="ds-heading">One language. Four surfaces.</h2>
+            <h2 id="ds-heading">How the studio works.</h2>
             <p className="ds-lede">
-              Every product in the studio sits on shared primitives — type,
-              spacing, focus, and contrast — and pulls from a defined color
-              spectrum so each surface stays distinct without breaking the
-              family.
+              Every product in the studio sits on shared primitives: type,
+              spacing, focus, and contrast. Each brand surface pulls from a
+              defined color spectrum so it stays distinct without breaking
+              the family. The system is governed by stated principles and
+              priorities so decisions stay transparent.
             </p>
           </header>
+
+          <h3 className="ds-section-title">Design principles</h3>
+          <ul className="ds-principles">
+            <li>
+              <strong>Design responsibly.</strong> Make risk, system limits,
+              and user choice and freedom visible.
+            </li>
+            <li>
+              <strong>Design for diverse mental models.</strong> Build for the
+              range of ways people think, not a single user.
+            </li>
+            <li>
+              <strong>Design to earn trust.</strong> Transparent disclosures
+              on every artifact, including AI assistance.
+            </li>
+          </ul>
+
+          <h3 className="ds-section-title">Design priorities</h3>
+          <ul className="ds-priorities">
+            <li><strong>Co-creation.</strong> Participation over presentation.</li>
+            <li><strong>Interactivity.</strong> Engagement over spectacle.</li>
+            <li><strong>Emotion.</strong> Empathy over polish.</li>
+            <li><strong>Behaviour.</strong> Engagement that earns its time.</li>
+          </ul>
 
           <h3 className="ds-section-title">Brand surfaces</h3>
           <div className="ds-grid ds-grid--surfaces" role="list">
@@ -38,7 +63,7 @@ export function About() {
                 <li><span className="ds-sw" style={{ background: "#19007D" }} aria-hidden="true" /><code>#19007D</code><span>Dark Indigo</span></li>
                 <li><span className="ds-sw" style={{ background: "#312583" }} aria-hidden="true" /><code>#312583</code><span>Resolution</span></li>
                 <li><span className="ds-sw" style={{ background: "#5B04DE" }} aria-hidden="true" /><code>#5B04DE</code><span>Electric</span></li>
-                <li><span className="ds-sw" style={{ background: "#00D4AA" }} aria-hidden="true" /><code>#00D4AA</code><span>Teal</span></li>
+                <li><span className="ds-sw" style={{ background: "#008080" }} aria-hidden="true" /><code>#008080</code><span>Teal</span></li>
                 <li><span className="ds-sw ds-sw--bordered" style={{ background: "#F0F4F5" }} aria-hidden="true" /><code>#F0F4F5</code><span>Robin's egg</span></li>
               </ul>
             </article>
@@ -54,11 +79,11 @@ export function About() {
             </article>
 
             <article className="ds-surface ds-surface--cid" role="listitem">
-              <h4>CID and Innovation</h4>
+              <h4>Canadian Innovation Dimension (CID)</h4>
               <p className="ds-surface-note">Muted ruby red and teal on robin's egg. Research-forward.</p>
               <ul className="ds-swatches" aria-label="CID palette">
                 <li><span className="ds-sw" style={{ background: "#822F00" }} aria-hidden="true" /><code>#822F00</code><span>Ruby</span></li>
-                <li><span className="ds-sw" style={{ background: "#00D4AA" }} aria-hidden="true" /><code>#00D4AA</code><span>Teal</span></li>
+                <li><span className="ds-sw" style={{ background: "#008080" }} aria-hidden="true" /><code>#008080</code><span>Teal</span></li>
                 <li><span className="ds-sw ds-sw--bordered" style={{ background: "#F0F4F5" }} aria-hidden="true" /><code>#F0F4F5</code><span>Robin's egg</span></li>
               </ul>
             </article>
@@ -70,6 +95,7 @@ export function About() {
                 <li><span className="ds-sw" style={{ background: "#822F00" }} aria-hidden="true" /><code>#822F00</code><span>Ruby</span></li>
                 <li><span className="ds-sw ds-sw--bordered" style={{ background: "#FFFFFF" }} aria-hidden="true" /><code>#FFFFFF</code><span>White</span></li>
                 <li><span className="ds-sw" style={{ background: "#19007D" }} aria-hidden="true" /><code>#19007D</code><span>Dark Indigo</span></li>
+                <li><span className="ds-sw" style={{ background: "#4B00B6" }} aria-hidden="true" /><code>#4B00B6</code><span>Portal</span></li>
               </ul>
             </article>
           </div>
