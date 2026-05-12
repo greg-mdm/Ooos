@@ -2611,7 +2611,7 @@ textarea:focus-visible,
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 48px 64px;
-  align-items: center;
+  align-items: start;
   margin-bottom: 0;
 }
 .ds-intro-grid + .ds-section-title { margin-top: 40px; }
