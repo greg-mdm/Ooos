@@ -143,13 +143,15 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 alt="Non-profit portals are now open"
                 loading="lazy"
               />
-              <span className="exh-wanted-poster">
-                WANTED:<br /><span className="exh-wanted-number">20</span><br />Digital Art<br />Influencers
-              </span>
             </div>
             <div className="exh-pill-bar">
-              <span className="exh-descriptor">Immersive artist-created worlds</span>
-              <span className="exh-descriptor">A public canvas to embed your work</span>
+              <div className="exh-pill-bar-pills">
+                <span className="exh-descriptor">Immersive artist-created worlds</span>
+                <span className="exh-descriptor">A public canvas to embed your work</span>
+              </div>
+              <span className="exh-wanted-poster">
+                WANTED:<span className="exh-wanted-number">20</span>Digital Art Influencers
+              </span>
             </div>
             <div className="feature-body">
               <p>
