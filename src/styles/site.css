@@ -426,7 +426,7 @@ body:has(.ostara-scope) .nav-cta:focus-visible {
   overflow: hidden;
 }
 .feature-thumb.exh-thumb--image {
-  background: linear-gradient(90deg, hsl(252,100%,10%) 0%, hsl(252,90%,28%) 45%, hsl(252,65%,58%) 80%, hsl(252,50%,76%) 100%);
+  background: linear-gradient(90deg, hsl(252,100%,8%) 0%, hsl(252,95%,18%) 40%, hsl(252,85%,30%) 70%, hsl(252,75%,42%) 100%);
 }
 .feature-thumb.exh-thumb--image .feature-thumb-image {
   object-fit: contain;
