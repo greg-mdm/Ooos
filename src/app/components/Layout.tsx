@@ -73,7 +73,7 @@ export function Footer() {
           <span>Toronto · Canada</span>
         </div>
       </footer>
-      <div className="disclosure-banner" style={showDisclosure ? {} : { display: "none" }}>
+      <div className="disclosure-banner" style={{ display: "none" }}>
         <strong>Not financial advice.</strong> All signals, simulations, and
         votes are research and educational artifacts. ABSTAIN is a legitimate
         response.

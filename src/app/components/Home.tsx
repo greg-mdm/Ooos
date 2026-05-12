@@ -168,12 +168,11 @@ export function Home({ onSupport }: { onSupport: () => void }) {
 
       <section className="section vote-feature">
         <div className="section-header">
-          <div className="section-eyebrow">★ Invited innovators · live vote</div>
-          <h2>One signal. Three positions. Audience as evidence.</h2>
+          <div className="section-eyebrow" style={{fontSize: '11px'}}>★ Choosing Our Digital Destiny · Exclusive Access</div>
+          <h2>An interactive workshop experience.</h2>
           <p className="lead">
-            A preview of the participatory layer used in workshops and shared
-            with the 200 invited innovators. ABSTAIN sits beside YES and NO as
-            a recognised outcome, not a fallback.
+            200 innovators explore the digital economy, exchange perspectives on AI, media,
+            and funding, and strengthen digital literacy skills.
           </p>
         </div>
         <div className="vote-stage">
@@ -204,9 +203,6 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           >
             Vote on Kahoot →
           </a>
-          <div className="vote-meta">
-            Ground forces deploying · SOF + Marines confirmed · OSTARA signal: HOLD · Environment is Risk-Off
-          </div>
         </div>
       </section>
 
