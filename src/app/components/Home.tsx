@@ -136,18 +136,13 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           </Link>
 
           <Link to="/exhibition" className="feature-card" style={{ textDecoration: "none", color: "inherit" }}>
-            <div className="feature-thumb exh-thumb">
-              <div className="exh-orbit-wrap">
-                <span className="exh-ring r1"></span>
-                <span className="exh-ring r2"></span>
-                <span className="exh-ring r3"></span>
-                <span className="exh-ring r4"></span>
-                <div className="exh-center-text">Non-profit<br/>portals are<br/>now open</div>
-              </div>
-              <div className="exh-feat-list">
-                <div className="exh-feat--purple">· CROSS-SECTOR<br/>  COLLABORATION</div>
-                <div className="exh-feat--teal">· INTERACTIVE<br/>  PROGRAMMING</div>
-              </div>
+            <div className="feature-thumb exh-thumb exh-thumb--image">
+              <img
+                className="feature-thumb-image"
+                src={`${import.meta.env.BASE_URL}assets/images/portals-open.png`}
+                alt="Non-profit portals are now open"
+                loading="lazy"
+              />
             </div>
             <div className="feature-body">
               <p>
