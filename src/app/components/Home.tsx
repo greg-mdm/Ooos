@@ -144,10 +144,10 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 loading="lazy"
               />
             </div>
-            <div className="ostara-pill-bar">
-              <span className="ostara-descriptor">WANTED: 20 Digital Art Influencers</span>
-              <span className="ostara-descriptor">Immersive artist-created worlds</span>
-              <span className="ostara-descriptor">A public canvas to embed your work</span>
+            <div className="exh-pill-bar">
+              <span className="exh-descriptor exh-descriptor--ruby">WANTED: 20 Digital Art Influencers</span>
+              <span className="exh-descriptor">Immersive artist-created worlds</span>
+              <span className="exh-descriptor">A public canvas to embed your work</span>
             </div>
             <div className="feature-body">
               <p>
