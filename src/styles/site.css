@@ -2188,17 +2188,15 @@ textarea:focus-visible,
   background:
     linear-gradient(180deg, rgba(25,0,125,0.10) 0%, rgba(255,255,255,0) 60%),
     #FFFFFF;
-  padding: 12px 18px;
+  padding: 14px 18px;
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
   border-top: 1px solid rgba(130,47,0,0.18);
   border-bottom: 1px solid rgba(130,47,0,0.22);
   box-shadow: 0 6px 14px -8px rgba(130,47,0,0.45);
-  overflow: hidden;
 }
-.exh-descriptor--right { margin-left: auto; white-space: nowrap; }
 .exh-descriptor {
   font-family: 'Courier New', Courier, monospace;
   font-size: 13px;
