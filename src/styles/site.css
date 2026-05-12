@@ -449,6 +449,15 @@ body:has(.ostara-scope) .nav-cta:focus-visible {
   text-align: center;
   box-shadow: 0 8px 24px rgba(130,47,0,0.45);
 }
+.exh-wanted-number {
+  display: inline-block;
+  font-family: var(--serif);
+  font-size: clamp(36px, 4.2vw, 64px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
+  margin: 4px 0;
+}
 .exh-orbit-wrap {
   position: relative;
   width: 56%;
