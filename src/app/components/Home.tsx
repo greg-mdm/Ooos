@@ -143,9 +143,9 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 alt="Non-profit portals are now open"
                 loading="lazy"
               />
+              <span className="exh-wanted-poster">WANTED: 20 Digital Art Influencers</span>
             </div>
             <div className="exh-pill-bar">
-              <span className="exh-descriptor exh-descriptor--ruby">WANTED: 20 Digital Art Influencers</span>
               <span className="exh-descriptor">Immersive artist-created worlds</span>
               <span className="exh-descriptor">A public canvas to embed your work</span>
             </div>
