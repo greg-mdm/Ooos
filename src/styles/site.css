@@ -2623,6 +2623,8 @@ textarea:focus-visible,
 .commit-text { margin-top: 40px; }
 .commit-text .ds-eyebrow { margin-bottom: 16px; }
 
+.commit-graphic { margin-top: -24px; }
+
 .commit-list {
   margin: 0;
   padding: 0;
