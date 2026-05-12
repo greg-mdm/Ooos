@@ -166,11 +166,11 @@ export function About() {
             </li>
             <li>
               <h4>Engagement</h4>
-              <p>Design for interactivity (not spectacle)</p>
+              <p>Design for interactivity over spectacle</p>
             </li>
             <li>
               <h4>Emotion</h4>
-              <p>Design with empathy to cultivate interconnected relationships</p>
+              <p>Design with empathy to cultivate relationships</p>
             </li>
             <li>
               <h4>Behaviour</h4>
