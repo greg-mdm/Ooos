@@ -2459,7 +2459,7 @@ textarea:focus-visible,
 .ds-principles li strong, .ds-priorities li strong { color: var(--dark-indigo); font-weight: 700; }
 
 /* ===== DESIGN SYSTEM v2 — spatial pacing ===== */
-.ds { padding: 56px 24px 72px; }
+.ds { padding: 40px 24px 72px; }
 .ds .container { max-width: 1180px; }
 .ds-header { max-width: 760px; margin-bottom: 64px; }
 .ds-header h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); margin-bottom: 18px; }
@@ -2612,8 +2612,9 @@ textarea:focus-visible,
   grid-template-columns: 1fr 1fr;
   gap: 48px 64px;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 0;
 }
+.ds-intro-grid + .ds-section-title { margin-top: 40px; }
 .ds-intro-text > .ds-eyebrow { margin-bottom: 8px; }
 .ds-intro-text > h2 { margin: 0 0 18px; }
 .ds-intro-text > .ds-lede { margin-bottom: 18px; }
