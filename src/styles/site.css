@@ -425,6 +425,11 @@ body:has(.ostara-scope) .nav-cta:focus-visible {
   position: relative;
   overflow: hidden;
 }
+.feature-thumb.exh-thumb--image .feature-thumb-image {
+  object-fit: contain;
+  object-position: center;
+  background: #060418;
+}
 .exh-orbit-wrap {
   position: relative;
   width: 56%;
