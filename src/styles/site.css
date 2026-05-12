@@ -447,24 +447,22 @@ body:has(.ostara-scope) .nav-cta:focus-visible {
   letter-spacing: 0.04em;
   line-height: 1.1;
   color: #FFFFFF;
-  /* Brick wall: offset horizontal mortar via two layered patterns */
+  /* Brick wall: subtle mortar grooves on the ruby base */
   background-color: var(--ruby);
   background-image:
-    /* horizontal mortar lines */
     repeating-linear-gradient(
       0deg,
       transparent 0,
       transparent 22px,
-      rgba(0,0,0,0.28) 22px,
-      rgba(0,0,0,0.28) 24px
+      rgba(0,0,0,0.10) 22px,
+      rgba(0,0,0,0.10) 24px
     ),
-    /* vertical mortar (every other row offset via mask trick using gradients) */
     repeating-linear-gradient(
       90deg,
       transparent 0,
       transparent 44px,
-      rgba(0,0,0,0.28) 44px,
-      rgba(0,0,0,0.28) 46px
+      rgba(0,0,0,0.10) 44px,
+      rgba(0,0,0,0.10) 46px
     );
   background-size: 100% 48px, 88px 48px;
   background-position: 0 0, 0 0;
@@ -2240,8 +2238,10 @@ textarea:focus-visible,
 
 /* Exhibition pill bar — Ruby + White brand */
 .exh-pill-bar {
-  background: #FFFFFF;
-  padding: 14px 18px 14px;
+  background:
+    linear-gradient(180deg, rgba(25,0,125,0.10) 0%, rgba(255,255,255,0) 60%),
+    #FFFFFF;
+  padding: 18px 18px 14px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
