@@ -144,6 +144,11 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 loading="lazy"
               />
             </div>
+            <div className="ostara-pill-bar">
+              <span className="ostara-descriptor">WANTED: 20 Digital Art Influencers</span>
+              <span className="ostara-descriptor">Immersive artist-created worlds</span>
+              <span className="ostara-descriptor">A public canvas to embed your work</span>
+            </div>
             <div className="feature-body">
               <p>
                 A public canvas for interactive artwork, non-profit campaigns,
