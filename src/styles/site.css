@@ -2357,7 +2357,7 @@ textarea:focus-visible,
 .ds-lede { font-size: 1.0625rem; line-height: 1.55; margin: 0; color: var(--ink); }
 
 .ds-section-title {
-  font-family: var(--serif); font-size: 1.625rem; margin: 72px 0 18px;
+  font-family: var(--serif); font-size: 1.625rem; margin: 40px 0 18px;
   color: var(--dark-indigo); font-weight: 400;
 }
 .ds-section-lede { font-size: 0.95rem; line-height: 1.55; margin: 0 0 18px; max-width: 680px; color: var(--ink); }
