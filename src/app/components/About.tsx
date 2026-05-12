@@ -170,7 +170,7 @@ export function About() {
             </li>
             <li>
               <h4>Emotion</h4>
-              <p>Design with empathy to build relationships</p>
+              <p>Design with empathy to cultivate interconnected relationships</p>
             </li>
             <li>
               <h4>Behaviour</h4>
