@@ -2605,34 +2605,28 @@ textarea:focus-visible,
 @media (max-width: 720px) { .ds-band--columns { grid-template-columns: 1fr; gap: 32px; } }
 .ds-band--columns .ds-section-title { margin-top: 16px; }
 
-/* Sequence: rows for ordered practice steps */
+/* Sequence: 3-up columns on desktop, stacked on mobile */
 .ds-sequence {
   list-style: none; padding: 0; margin: 0;
-  display: grid; gap: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  border-top: 1px solid rgba(25,0,125,0.10);
+  padding-top: 28px;
 }
 .ds-step {
-  display: grid;
-  grid-template-columns: 96px 1fr;
-  gap: 8px 32px;
-  padding: 32px 0;
-  border-top: 1px solid rgba(25,0,125,0.10);
-  align-items: start;
+  display: block;
+  padding: 0;
 }
-.ds-step-num { grid-column: 1; grid-row: 1 / span 2; }
-.ds-step h4 { grid-column: 2; grid-row: 1; }
-.ds-step p  { grid-column: 2; grid-row: 2; }
-.ds-step:last-child { border-bottom: 1px solid rgba(25,0,125,0.10); }
 .ds-step-num {
-  font-family: var(--serif); font-size: 2.5rem; font-weight: 400;
-  color: var(--electric); margin: 0; line-height: 1;
+  font-family: var(--serif); font-size: 1.5rem; font-weight: 400;
+  color: var(--electric); margin: 0 0 8px; line-height: 1;
+  display: block;
 }
 .ds-step h4 { font-family: var(--serif); font-size: 1.125rem; color: var(--dark-indigo); margin: 0 0 8px; }
-.ds-step p { margin: 0; font-size: 0.9375rem; line-height: 1.6; color: var(--ink); max-width: 64ch; }
-@media (max-width: 600px) {
-  .ds-step { grid-template-columns: 1fr; gap: 8px; padding: 24px 0; }
-  .ds-step-num { grid-column: 1; grid-row: 1; font-size: 1.75rem; }
-  .ds-step h4 { grid-column: 1; grid-row: 2; }
-  .ds-step p  { grid-column: 1; grid-row: 3; }
+.ds-step p { margin: 0; font-size: 0.9375rem; line-height: 1.6; color: var(--ink); }
+@media (max-width: 720px) {
+  .ds-sequence { grid-template-columns: 1fr; gap: 24px; }
 }
 
 /* Pillars: 3-up rows for principles, 4-up for priorities (quiet variant) */
