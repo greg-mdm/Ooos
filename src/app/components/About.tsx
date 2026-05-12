@@ -161,20 +161,20 @@ export function About() {
           <h3 className="ds-section-title">Strategic Priorities</h3>
           <ul className="ds-pillars ds-pillars--quiet" aria-label="Strategic priorities">
             <li>
-              <h4>Co-creation.</h4>
-              <p>Participation over presentation.</p>
+              <h4>Co-creation</h4>
+              <p>Design for participation</p>
             </li>
             <li>
-              <h4>Interactivity.</h4>
-              <p>Engagement over spectacle.</p>
+              <h4>Engagement</h4>
+              <p>Design for interactivity (not spectacle)</p>
             </li>
             <li>
-              <h4>Emotion.</h4>
-              <p>Empathy over polish.</p>
+              <h4>Emotion</h4>
+              <p>Design with empathy to build relationships</p>
             </li>
             <li>
-              <h4>Behaviour.</h4>
-              <p>Engagement that earns its time.</p>
+              <h4>Behaviour</h4>
+              <p>Support understanding and decision making</p>
             </li>
           </ul>
 
