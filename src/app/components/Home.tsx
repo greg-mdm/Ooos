@@ -145,7 +145,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               />
             </div>
             <div className="exh-pill-bar">
-              <span className="exh-descriptor">Immersive artist-created worlds</span>
+              <span className="exh-label"><span className="exh-label-main">Immersive</span><span className="exh-label-sub">experiences</span></span>
               <span className="exh-descriptor">A public canvas to embed your work</span>
               <span className="exh-descriptor exh-descriptor--ruby">WANTED: 20 Digital Art Influencers</span>
             </div>
