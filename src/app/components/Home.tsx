@@ -145,13 +145,9 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               />
             </div>
             <div className="exh-pill-bar">
-              <div className="exh-pill-bar-pills">
-                <span className="exh-descriptor">Immersive artist-created worlds</span>
-                <span className="exh-descriptor">A public canvas to embed your work</span>
-              </div>
-              <span className="exh-wanted-poster">
-                WANTED:<span className="exh-wanted-number">20</span>Digital Art Influencers
-              </span>
+              <span className="exh-descriptor">Immersive artist-created worlds</span>
+              <span className="exh-descriptor">A public canvas to embed your work</span>
+              <span className="exh-descriptor exh-descriptor--ruby exh-descriptor--right">WANTED: 20 Digital Art Influencers</span>
             </div>
             <div className="feature-body">
               <p>

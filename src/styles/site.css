@@ -426,76 +426,12 @@ body:has(.ostara-scope) .nav-cta:focus-visible {
   overflow: hidden;
 }
 .feature-thumb.exh-thumb--image {
-  /* Indigo → white gradient fills the right strip; image left-aligns over it */
-  background:
-    linear-gradient(180deg, hsla(252,100%,25%,1) 0%, hsla(0,0%,100%,1) 100%);
+  background: linear-gradient(180deg, hsla(252,100%,25%,1) 0%, hsla(0,0%,100%,1) 100%);
 }
 .feature-thumb.exh-thumb--image .feature-thumb-image {
   object-fit: contain;
   object-position: left center;
   background: transparent;
-}
-.exh-pill-bar {
-  position: relative;
-}
-.exh-pill-bar-pills {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  flex: 1 1 auto;
-  min-width: 0;
-}
-.exh-wanted-poster {
-  flex: 0 0 auto;
-  width: 30%;
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  font-family: var(--serif);
-  font-size: clamp(10px, 0.85vw, 13px);
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  line-height: 1.1;
-  color: #FFFFFF;
-  background-color: var(--ruby);
-  background-image:
-    repeating-linear-gradient(
-      0deg,
-      transparent 0,
-      transparent 22px,
-      rgba(0,0,0,0.10) 22px,
-      rgba(0,0,0,0.10) 24px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent 0,
-      transparent 44px,
-      rgba(0,0,0,0.10) 44px,
-      rgba(0,0,0,0.10) 46px
-    );
-  background-size: 100% 48px, 88px 48px;
-  border: 2px solid #FFFFFF;
-  outline: 1px solid rgba(130,47,0,0.55);
-  outline-offset: 3px;
-  border-radius: 4px;
-  padding: 10px 8px;
-  text-align: center;
-  text-transform: uppercase;
-  overflow: hidden;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.55);
-  box-shadow: 0 10px 24px rgba(130,47,0,0.45);
-}
-.exh-wanted-number {
-  display: block;
-  font-family: var(--serif);
-  font-size: clamp(28px, 3.5vw, 52px);
-  font-weight: 700;
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  margin: 4px 0;
 }
 .exh-orbit-wrap {
   position: relative;
@@ -2254,13 +2190,14 @@ textarea:focus-visible,
     #FFFFFF;
   padding: 14px 18px;
   display: flex;
-  flex-wrap: nowrap;
-  align-items: stretch;
-  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
   border-top: 1px solid rgba(130,47,0,0.18);
   border-bottom: 1px solid rgba(130,47,0,0.22);
   box-shadow: 0 6px 14px -8px rgba(130,47,0,0.45);
 }
+.exh-descriptor--right { margin-left: auto; }
 .exh-descriptor {
   font-family: 'Courier New', Courier, monospace;
   font-size: 13px;
