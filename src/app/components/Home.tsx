@@ -139,7 +139,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             <div className="feature-thumb exh-thumb exh-thumb--image">
               <img
                 className="feature-thumb-image"
-                src={`${import.meta.env.BASE_URL}assets/images/portals-open.png`}
+                src={`${import.meta.env.BASE_URL}assets/images/portals-open-live.png`}
                 alt="Non-profit portals are now open"
                 loading="lazy"
               />
