@@ -564,9 +564,9 @@ body:has(.ostara-scope) .nav-cta:focus-visible {
 .support .lead { color: rgba(255,255,255,0.8); }
 .support-tiers {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 14px;
-  max-width: 760px;
+  max-width: 960px;
   margin: 30px auto 24px;
 }
 .tier {
@@ -750,6 +750,7 @@ body:has(.ostara-scope) .nav-cta:focus-visible {
 }
 @media (max-width: 720px) {
   .footer-grid { grid-template-columns: 1fr; }
+  .support-tiers { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* ===== DISCLOSURE BANNER ===== */
