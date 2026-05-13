@@ -208,12 +208,12 @@ export function Home({ onSupport }: { onSupport: () => void }) {
       <section className="section section-light">
         <div className="section-header">
           <div className="section-eyebrow">What we build</div>
-          <h2>Products and services.</h2>
+          <h2>Ooos and Ahhhs.</h2>
         </div>
         <div className="dual">
           <div className="pane">
             <h3>Digital Products</h3>
-            <p className="pane-lead">Ooos-on-demand are for immediate impact. Masterfully crafted assets built to launch quickly and scale with intention.</p>
+            <p className="pane-lead"><strong>Ooos-on-demand are for immediate impact. Masterfully crafted assets built to launch quickly and scale with intention.</strong></p>
             <div className="service-chips service-chips--stack">
               <div className="service-chip">
                 <strong>Interactive Digital Media</strong>
@@ -240,6 +240,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           </div>
           <div className="pane">
             <h3>Studio Services</h3>
+            <p className="pane-lead">When research, strategy, and execution work in harmony, you can see the whole picture clearly: <strong><em>Ahhh. Deeper understanding drives success.</em></strong></p>
             <div className="service-chips">
               <div className="service-chip">
                 <strong>Digital Strategy</strong>
@@ -262,7 +263,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               <p className="studio-testimonial__eyebrow">One creative contact. No reset cycle.</p>
               <p className="studio-testimonial__quote">&ldquo;The problem with external SEO agencies is the turnover. Every six months, there&rsquo;s a new key contact to bring up to speed.&rdquo;</p>
               <div className="studio-testimonial__meta">
-                <span className="studio-testimonial__flag" aria-hidden="true" style={{color:'#d00',fontSize:'15px',fontWeight:700}}>CA</span>
+                <span className="studio-testimonial__flag" role="img" aria-label="Canada">&#127809;</span>
                 <span className="studio-testimonial__role">CEO, Canada</span>
               </div>
               <p className="studio-testimonial__pitch">Outsourcing SEO and PPC is prone to high turnover, which repeats onboarding and slows progress. Ooos micro-studio model ensures a consistent creative lead, helping teams build internal digital capacity that translates directly into measurable business growth.</p>
