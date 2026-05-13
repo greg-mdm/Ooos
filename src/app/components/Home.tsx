@@ -212,7 +212,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
         </div>
         <div className="dual">
           <div className="pane">
-            <h3>Products</h3>
+            <h3>Digital Products</h3>
             <p>Self-contained artifacts. Open them cold, run without us in the room.</p>
             <ul>
               <li>Workshop kit: HTML interface + facilitator notes + Kahoot template</li>
@@ -222,7 +222,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             </ul>
           </div>
           <div className="pane">
-            <h3>Services</h3>
+            <h3>Studio Services</h3>
             <p>Studio engagements where the deliverable is a working artifact, not a deck.</p>
             <ul>
               <li>Workshop facilitation for graduate seminars and executive education</li>
@@ -230,6 +230,14 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               <li>Privacy-by-design audits of existing AI systems</li>
               <li>Source Card authorship and AI-disclosure documentation</li>
             </ul>
+            <div className="studio-testimonial">
+              <p className="studio-testimonial__quote">&ldquo;The problem with external SEO agencies is the external turnover. Every six months, there&rsquo;s a new key contact to bring up to speed.&rdquo;</p>
+              <div className="studio-testimonial__meta">
+                <span className="studio-testimonial__flag">🇨🇦</span>
+                <span className="studio-testimonial__role">CEO, Canada</span>
+              </div>
+              <p className="studio-testimonial__pitch">One creative contact. No reset cycle. Outsourcing SEO and PPC is prone to high turnover, which repeats onboarding and slows progress. The Ooos micro-studio model ensures a consistent creative lead, helping teams build internal digital capacity that translates directly into measurable business growth.</p>
+            </div>
           </div>
         </div>
       </section>
