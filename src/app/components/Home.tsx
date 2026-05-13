@@ -171,7 +171,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           <div className="vote-guide-eyebrow">
             <span className="vote-guide-star">&#9733;</span>
             <span className="vote-guide-title"> Choosing Our Digital Destiny</span>
-            <span className="vote-guide-access"> &middot; <span className="vote-guide-dot" aria-hidden="true">&#9679;</span> Exclusive Access</span>
+            <span className="vote-guide-access"> &middot; Exclusive Access</span>
           </div>
           <p className="vote-guide-body">
             Join our interactive workshop to co-play with 200 innovators! Explore the digital economy,<br />
