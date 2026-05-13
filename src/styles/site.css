@@ -292,6 +292,7 @@ a:hover { color: var(--electric); }
 .pane-wordmark {
   display: flex;
   align-items: baseline;
+  justify-content: space-between;
   gap: 10px;
   margin-bottom: 14px;
 }

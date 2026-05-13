@@ -246,7 +246,13 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             <div className="studio-testimonial" style={{marginTop: '12px'}}>
               <p className="studio-testimonial__quote">&ldquo;Your report was very helpful. I have already applied some of the strategies to expand our community network and add practical value to our marketplace.&rdquo;</p>
               <div className="studio-testimonial__meta">
-                <svg role="img" aria-label="Norway" width="20" height="14" viewBox="0 0 20 14" xmlns="http://www.w3.org/2000/svg" style={{borderRadius:'2px',flexShrink:0}}><rect width="20" height="14" fill="#EF2B2D"/><rect x="6" y="0" width="3" height="14" fill="white"/><rect x="0" y="5.5" width="20" height="3" fill="white"/><rect x="7" y="0" width="1.4" height="14" fill="#002868"/><rect x="0" y="6.3" width="20" height="1.4" fill="#002868"/></svg>
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/1/19/Norway_on_the_globe_%28Europe_centered%29.svg"
+                  alt="Norway on the globe"
+                  width="36"
+                  height="36"
+                  style={{borderRadius:'50%',flexShrink:0,display:'block'}}
+                />
                 <span className="studio-testimonial__role">Founder &amp; CEO &middot; Norway</span>
               </div>
             </div>
