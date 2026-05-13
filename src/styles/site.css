@@ -321,7 +321,60 @@ a:hover { color: var(--electric); }
   transition: color 220ms ease, transform 220ms ease;
 }
 .pane-wordmark__bang.xk {
-  color: #5B04DE;
+  color: #312583;
+  position: relative;
+  display: inline-block;
+  width: 0.32em;
+  height: 1em;
+  vertical-align: baseline;
+  margin-left: 2px;
+}
+.pane-wordmark__bang-stem {
+  position: absolute;
+  left: 50%;
+  top: 0.12em;
+  width: 0.14em;
+  height: 0.6em;
+  background: currentColor;
+  border-radius: 2px 2px 1px 1px;
+  transform: translateX(-50%) skewX(-12deg);
+}
+.pane-wordmark__bang-dot {
+  position: absolute;
+  left: 50%;
+  bottom: 0.05em;
+  width: 0.18em;
+  height: 0.18em;
+  border-radius: 50%;
+  background: #312583;
+  transform: translateX(-50%) skewX(-12deg);
+  box-shadow: 0 0 0 0 rgba(240,192,64,0);
+  animation: lighthouse 4.5s ease-in-out infinite;
+}
+@keyframes lighthouse {
+  0%, 78%, 100% {
+    background: #312583;
+    box-shadow: 0 0 0 0 rgba(240,192,64,0);
+  }
+  82% {
+    background: #F0C040;
+    box-shadow: 0 0 6px 1px rgba(240,192,64,0.65);
+  }
+  88% {
+    background: #312583;
+    box-shadow: 0 0 0 0 rgba(240,192,64,0);
+  }
+  92% {
+    background: #F0C040;
+    box-shadow: 0 0 4px 1px rgba(240,192,64,0.45);
+  }
+  96% {
+    background: #312583;
+    box-shadow: 0 0 0 0 rgba(240,192,64,0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pane-wordmark__bang-dot { animation: none; background: #F0C040; }
 }
 @keyframes xkPlay {
   0%   { color: inherit; transform: translateY(0) scale(1); }
