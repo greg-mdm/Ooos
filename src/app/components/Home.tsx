@@ -223,13 +223,24 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           </div>
           <div className="pane">
             <h3>Studio Services</h3>
-            <p>Studio engagements where the deliverable is a working artifact, not a deck.</p>
-            <ul>
-              <li>Workshop facilitation for graduate seminars and executive education</li>
-              <li>Custom signal pipelines for civic deliberation and research teams</li>
-              <li>Privacy-by-design audits of existing AI systems</li>
-              <li>Source Card authorship and AI-disclosure documentation</li>
-            </ul>
+            <div className="service-chips">
+              <div className="service-chip">
+                <strong>Digital Strategy</strong>
+                <span>Direction + Execution</span>
+              </div>
+              <div className="service-chip">
+                <strong>Advertising</strong>
+                <span>SEO + PPC + Adwords</span>
+              </div>
+              <div className="service-chip">
+                <strong>Data Visualization</strong>
+                <span>3D &middot; Immersive &middot; Interactive</span>
+              </div>
+              <div className="service-chip">
+                <strong>Internationalization</strong>
+                <span>Global Digital Engagement</span>
+              </div>
+            </div>
             <div className="studio-testimonial">
               <p className="studio-testimonial__eyebrow">One creative contact. No reset cycle.</p>
               <p className="studio-testimonial__quote">&ldquo;The problem with external SEO agencies is the turnover. Every six months, there&rsquo;s a new key contact to bring up to speed.&rdquo;</p>

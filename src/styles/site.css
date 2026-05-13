@@ -544,6 +544,31 @@ a:hover { color: var(--electric); }
 .pane p { font-size: 14px; color: var(--slate); margin: 0 0 18px; }
 .pane ul { padding-left: 18px; margin: 0; color: var(--slate); font-size: 14px; }
 .pane ul li { margin-bottom: 6px; }
+.service-chips {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 16px 0 24px;
+}
+.service-chip {
+  background: var(--bg);
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.service-chip strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.service-chip span {
+  font-size: 12px;
+  color: var(--slate);
+}
 .studio-testimonial {
   margin-top: 24px;
   padding: 18px 20px;
