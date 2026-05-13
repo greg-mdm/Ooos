@@ -713,6 +713,11 @@ a:hover { color: var(--electric); }
   gap: 8px;
   margin-bottom: 12px;
 }
+.studio-testimonial__meta img {
+  height: 18px;
+  width: auto;
+  flex-shrink: 0;
+}
 .studio-testimonial__flag { font-size: 18px; }
 .studio-testimonial__role {
   font-size: 12px;
