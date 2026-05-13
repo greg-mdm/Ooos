@@ -2456,6 +2456,32 @@ textarea:focus-visible,
 .vote-feature .section-header h2 { color: #FFFFFF; }
 .vote-feature .section-eyebrow { color: #F0C040; }
 .vote-feature .lead { color: rgba(255,255,255,0.78); max-width: 780px; }
+.vote-guide-box {
+  background: #FFFFFF;
+  border-radius: 14px;
+  box-shadow: 0 10px 48px rgba(0,0,0,0.5), 0 2px 10px rgba(0,0,0,0.3);
+  max-width: 760px;
+  margin: 0 auto 52px;
+  padding: 28px 36px;
+  text-align: center;
+}
+.vote-guide-eyebrow {
+  font-size: 13px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  font-weight: 800;
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+.vote-guide-star  { color: #F0C040; }
+.vote-guide-title { color: #312583; }
+.vote-guide-access { color: #822F00; }
+.vote-guide-body {
+  color: #1A0033;
+  font-size: 16px;
+  line-height: 1.7;
+  margin: 0;
+}
 .vote-stage {
   max-width: 920px;
   margin: 28px auto 0;

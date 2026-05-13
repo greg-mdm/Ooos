@@ -167,9 +167,13 @@ export function Home({ onSupport }: { onSupport: () => void }) {
       </section>
 
       <section className="section vote-feature">
-        <div className="section-header">
-          <div className="section-eyebrow" style={{fontSize: '11px'}}>★ Choosing Our Digital Destiny · Exclusive Access</div>
-          <p className="lead">
+        <div className="vote-guide-box">
+          <div className="vote-guide-eyebrow">
+            <span className="vote-guide-star">&#9733;</span>
+            <span className="vote-guide-title"> Choosing Our Digital Destiny</span>
+            <span className="vote-guide-access"> &middot; Exclusive Access</span>
+          </div>
+          <p className="vote-guide-body">
             Join our interactive workshop to co-play with 200 innovators! Explore the digital economy,<br />
             exchange perspectives on AI, and examine opportunities for funding innovation.
           </p>
@@ -235,7 +239,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 <strong>Trustworthy-AI Governance</strong>
                 <ul className="service-chip__list">
                   <li>Guiding new roles for AI adoption</li>
-                  <li>Safety planning for human-AI cooperation</li>
+                  <li>Safety plans for human-AI cooperation</li>
                 </ul>
               </div>
             </div>
