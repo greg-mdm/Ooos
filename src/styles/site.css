@@ -303,16 +303,19 @@ a:hover { color: var(--electric); }
   font-size: 28px;
   font-weight: 700;
   font-style: italic;
-  color: var(--dark-indigo);
+  color: #312583;
   line-height: 1;
   letter-spacing: -0.02em;
+}
+.pane-wordmark__bang {
+  color: #5B04DE;
 }
 .pane-wordmark__ahh {
   font-family: var(--serif);
   font-size: 28px;
   font-weight: 700;
   font-style: italic;
-  color: var(--electric);
+  color: #312583;
   line-height: 1;
   letter-spacing: -0.02em;
 }

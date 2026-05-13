@@ -213,7 +213,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           <div className="pane">
             <div className="pane-wordmark">
               <h3>Digital Products</h3>
-              <span className="pane-wordmark__ooo">Ooo!</span>
+              <span className="pane-wordmark__ooo">Ooo<span className="pane-wordmark__bang">!</span></span>
             </div>
             <p className="pane-lead"><strong>Ooos-on-demand are for immediate impact.</strong> Masterfully crafted assets built to launch quickly and scale with intention.</p>
             <div className="service-chips service-chips--stack">
@@ -250,7 +250,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           <div className="pane">
             <div className="pane-wordmark">
               <h3>Studio Services</h3>
-              <span className="pane-wordmark__ahh">Ahhhh!</span>
+              <span className="pane-wordmark__ahh">Ahhhh</span>
             </div>
             <p className="pane-lead">When research, strategy, and execution work in harmony, you can see the whole picture clearly: <strong><em>Ahhh. Deeper understanding drives success.</em></strong></p>
             <div className="service-chips">
