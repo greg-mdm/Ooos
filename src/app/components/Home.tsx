@@ -213,7 +213,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           <div className="pane">
             <div className="pane-wordmark">
               <h3>Digital Products</h3>
-              <span className="pane-wordmark__ooo" tabIndex={0} aria-label="Ooo!"><span className="xk" data-i="0">O</span><span className="xk" data-i="1">o</span><span className="xk" data-i="2">o</span><span className="xk pane-wordmark__bang" data-i="3" aria-hidden="true"><span className="pane-wordmark__bang-stem" /><span className="pane-wordmark__bang-dot" /></span></span>
+              <span className="pane-wordmark__ooo" tabIndex={0} aria-label="Ooo!"><span className="xk" data-i="0">O</span><span className="xk" data-i="1">o</span><span className="xk" data-i="2">o</span><span className="xk pane-wordmark__bang" data-i="3">!</span></span>
             </div>
             <p className="pane-lead"><strong>Ooos-on-demand are for immediate impact.</strong> Masterfully crafted assets built to launch quickly and scale with intention.</p>
             <div className="service-chips service-chips--stack">

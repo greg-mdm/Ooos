@@ -322,60 +322,18 @@ a:hover { color: var(--electric); }
 }
 .pane-wordmark__bang.xk {
   color: #312583;
-  position: relative;
   display: inline-block;
-  width: 0.4em;
-  height: 1em;
-  vertical-align: baseline;
-  margin-left: 4px;
-  font-style: normal;
-}
-.pane-wordmark__bang-stem {
-  position: absolute;
-  left: 50%;
-  top: 0.05em;
-  width: 0.13em;
-  height: 0.55em;
-  background: currentColor;
-  border-radius: 2px;
-  transform: translateX(-50%);
-}
-.pane-wordmark__bang-dot {
-  position: absolute;
-  left: 50%;
-  top: 0.78em;
-  width: 0.17em;
-  height: 0.17em;
-  border-radius: 50%;
-  background: #312583;
-  transform: translateX(-50%);
-  box-shadow: 0 0 0 0 rgba(240,192,64,0);
   animation: lighthouse 4.5s ease-in-out infinite;
 }
 @keyframes lighthouse {
-  0%, 78%, 100% {
-    background: #312583;
-    box-shadow: 0 0 0 0 rgba(240,192,64,0);
-  }
-  82% {
-    background: #F0C040;
-    box-shadow: 0 0 6px 1px rgba(240,192,64,0.65);
-  }
-  88% {
-    background: #312583;
-    box-shadow: 0 0 0 0 rgba(240,192,64,0);
-  }
-  92% {
-    background: #F0C040;
-    box-shadow: 0 0 4px 1px rgba(240,192,64,0.45);
-  }
-  96% {
-    background: #312583;
-    box-shadow: 0 0 0 0 rgba(240,192,64,0);
-  }
+  0%, 78%, 100% { color: #312583; }
+  82%          { color: #F0C040; }
+  88%          { color: #312583; }
+  92%          { color: #F0C040; }
+  96%          { color: #312583; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .pane-wordmark__bang-dot { animation: none; background: #F0C040; }
+  .pane-wordmark__bang.xk { animation: none; color: #312583; }
 }
 @keyframes xkPlay {
   0%   { color: inherit; transform: translateY(0) scale(1); }
