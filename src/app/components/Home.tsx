@@ -171,7 +171,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           <div className="vote-guide-eyebrow">
             <span className="vote-guide-star">&#9733;</span>
             <span className="vote-guide-title"> Choosing Our Digital Destiny</span>
-            <span className="vote-guide-access"> &middot; Exclusive Access</span>
+            <span className="vote-guide-access"> &middot; <span className="vote-guide-dot" aria-hidden="true">&#9679;</span> Exclusive Access</span>
           </div>
           <p className="vote-guide-body">
             Join our interactive workshop to co-play with 200 innovators! Explore the digital economy,<br />
@@ -219,7 +219,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               <h3>Digital Products</h3>
               <span className="pane-wordmark__ooo" tabIndex={0} aria-label="Ooo!"><span className="xk" data-i="0">O</span><span className="xk" data-i="1">o</span><span className="xk" data-i="2">o</span><span className="xk pane-wordmark__bang" data-i="3">!</span></span>
             </div>
-            <p className="pane-lead"><strong>Ooos-on-demand are for immediate impact.</strong> Masterfully crafted assets built to launch quickly and scale with intention.</p>
+            <p className="pane-lead">Ooos offer digital assets on demand. Shop downloadable creative resources that fuse research insights, market strategy, AI-enabled localization, and reusable media logic so you can launch faster, adapt across markets, and learn from every campaign.</p>
             <div className="service-chips service-chips--stack">
               <div className="service-chip">
                 <strong>Interactive Digital Media</strong>
@@ -244,7 +244,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               </div>
             </div>
             <div className="studio-testimonial" style={{marginTop: '12px'}}>
-              <p className="studio-testimonial__quote">&ldquo;Your research is very interesting, and I&rsquo;ve already implemented some of the strategies into building our platform.&rdquo;</p>
+              <p className="studio-testimonial__quote">&ldquo;Your report was very helpful. I have already applied some of the strategies to expand our community network and add practical value to our marketplace.&rdquo;</p>
               <div className="studio-testimonial__meta">
                 <svg role="img" aria-label="Norway" width="20" height="14" viewBox="0 0 20 14" xmlns="http://www.w3.org/2000/svg" style={{borderRadius:'2px',flexShrink:0}}><rect width="20" height="14" fill="#EF2B2D"/><rect x="6" y="0" width="3" height="14" fill="white"/><rect x="0" y="5.5" width="20" height="3" fill="white"/><rect x="7" y="0" width="1.4" height="14" fill="#002868"/><rect x="0" y="6.3" width="20" height="1.4" fill="#002868"/></svg>
                 <span className="studio-testimonial__role">Founder &amp; CEO &middot; Norway</span>
