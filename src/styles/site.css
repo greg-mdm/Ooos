@@ -163,15 +163,10 @@ a:hover { color: var(--electric); }
 }
 .nav-cta:hover,
 .nav-cta:focus-visible {
-  background: var(--teal);
-  color: var(--dark-indigo) !important;
-}
-/* On the Ostara page the nav CTA hovers yellow to match the Ostara pill */
-body:has(.ostara-scope) .nav-cta:hover,
-body:has(.ostara-scope) .nav-cta:focus-visible {
   background: #F0C040;
   color: var(--dark-indigo) !important;
 }
+/* Ostara-scope override no longer needed — gold is the global default */
 
 /* ===== HERO ===== */
 .hero {
@@ -786,7 +781,7 @@ body:has(.ostara-scope) .nav-cta:focus-visible {
 .case-hero .container { text-align: left; }
 .case-hero .back {
   font-size: 13px;
-  color: var(--teal);
+  color: rgba(255,255,255,0.85);
   margin-bottom: 18px;
   display: inline-block;
 }
