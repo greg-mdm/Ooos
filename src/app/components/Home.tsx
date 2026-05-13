@@ -208,11 +208,13 @@ export function Home({ onSupport }: { onSupport: () => void }) {
       <section className="section section-light">
         <div className="section-header">
           <div className="section-eyebrow">Creative Offerings</div>
-          <h2>Ooos and Ahhs.</h2>
         </div>
         <div className="dual">
           <div className="pane">
-            <h3>Digital Products</h3>
+            <div className="pane-wordmark">
+              <h3>Digital Products</h3>
+              <span className="pane-wordmark__ooo">Ooo!</span>
+            </div>
             <p className="pane-lead"><strong>Ooos-on-demand are for immediate impact.</strong> Masterfully crafted assets built to launch quickly and scale with intention.</p>
             <div className="service-chips service-chips--stack">
               <div className="service-chip">
@@ -246,7 +248,10 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             </div>
           </div>
           <div className="pane">
-            <h3>Studio Services</h3>
+            <div className="pane-wordmark">
+              <h3>Studio Services</h3>
+              <span className="pane-wordmark__ahh">Ahhhh!</span>
+            </div>
             <p className="pane-lead">When research, strategy, and execution work in harmony, you can see the whole picture clearly: <strong><em>Ahhh. Deeper understanding drives success.</em></strong></p>
             <div className="service-chips">
               <div className="service-chip">

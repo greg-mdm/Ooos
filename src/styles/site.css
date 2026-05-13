@@ -282,12 +282,39 @@ a:hover { color: var(--electric); }
   margin: 0 auto 48px;
 }
 .section-eyebrow {
-  font-size: 11px;
+  font-size: 15px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--electric);
   font-weight: 700;
   margin-bottom: 12px;
+}
+.pane-wordmark {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.pane-wordmark h3 {
+  margin: 0;
+}
+.pane-wordmark__ooo {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--dark-indigo);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.pane-wordmark__ahh {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--electric);
+  line-height: 1;
+  letter-spacing: -0.02em;
 }
 .section h2 {
   font-family: var(--serif);
