@@ -310,6 +310,44 @@ a:hover { color: var(--electric); }
 .pane-wordmark__bang {
   color: #5B04DE;
 }
+.pane-wordmark__ooo,
+.pane-wordmark__ahh {
+  cursor: pointer;
+  outline: none;
+}
+.pane-wordmark .xk {
+  display: inline-block;
+  color: inherit;
+  transition: color 220ms ease, transform 220ms ease;
+}
+.pane-wordmark__bang.xk {
+  color: #5B04DE;
+}
+@keyframes xkPlay {
+  0%   { color: inherit; transform: translateY(0) scale(1); }
+  20%  { color: var(--xk-tone); transform: translateY(-6px) scale(1.12); }
+  60%  { color: var(--xk-tone); transform: translateY(0) scale(1); }
+  100% { color: inherit; transform: translateY(0) scale(1); }
+}
+.pane-wordmark__ooo:hover .xk,
+.pane-wordmark__ooo:focus .xk,
+.pane-wordmark__ooo:active .xk,
+.pane-wordmark__ahh:hover .xk,
+.pane-wordmark__ahh:focus .xk,
+.pane-wordmark__ahh:active .xk {
+  animation: xkPlay 900ms ease both;
+}
+.pane-wordmark .xk[data-i="0"] { --xk-tone: #19007D; animation-delay: 0ms; }
+.pane-wordmark .xk[data-i="1"] { --xk-tone: #312583; animation-delay: 90ms; }
+.pane-wordmark .xk[data-i="2"] { --xk-tone: #4B00B6; animation-delay: 180ms; }
+.pane-wordmark .xk[data-i="3"] { --xk-tone: #5B04DE; animation-delay: 270ms; }
+.pane-wordmark .xk[data-i="4"] { --xk-tone: #4B00B6; animation-delay: 360ms; }
+@media (prefers-reduced-motion: reduce) {
+  .pane-wordmark__ooo:hover .xk,
+  .pane-wordmark__ooo:focus .xk,
+  .pane-wordmark__ahh:hover .xk,
+  .pane-wordmark__ahh:focus .xk { animation: none; color: var(--xk-tone); }
+}
 .pane-wordmark__ahh {
   font-family: var(--serif);
   font-size: 28px;
