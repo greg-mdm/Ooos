@@ -170,7 +170,8 @@ export function Home({ onSupport }: { onSupport: () => void }) {
         <div className="section-header">
           <div className="section-eyebrow" style={{fontSize: '11px'}}>★ Choosing Our Digital Destiny · Exclusive Access</div>
           <p className="lead">
-            An interactive workshop where 200 innovators explore the digital economy, exchange perspectives on AI, media, and funding, and strengthen digital literacy skills.
+            Join our interactive workshop to co-play with 200 innovators! Explore the digital economy,<br />
+            exchange perspectives on AI, and examine opportunities for funding innovation.
           </p>
         </div>
         <div className="vote-stage">
