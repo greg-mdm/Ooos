@@ -213,13 +213,30 @@ export function Home({ onSupport }: { onSupport: () => void }) {
         <div className="dual">
           <div className="pane">
             <h3>Digital Products</h3>
-            <p>Self-contained artifacts. Open them cold, run without us in the room.</p>
-            <ul>
-              <li>Workshop kit: HTML interface + facilitator notes + Kahoot template</li>
-              <li>Signal stack: Python pipeline, public-source-only triangulation</li>
-              <li>Disclosure templates: persistent banners and ABSTAIN-as-position copy</li>
-              <li>Agent role separation reference architecture</li>
-            </ul>
+            <p className="pane-lead">Ooos-on-demand are for immediate impact. Masterfully crafted assets built to launch quickly and scale with intention.</p>
+            <div className="service-chips">
+              <div className="service-chip">
+                <strong>Interactive Digital Media</strong>
+                <ul className="service-chip__list">
+                  <li>Brand templates + sales-cycle systems</li>
+                  <li>Workshop kits for live engagement</li>
+                </ul>
+              </div>
+              <div className="service-chip">
+                <strong>Intelligent Communication</strong>
+                <ul className="service-chip__list">
+                  <li>Chatbot subscriptions</li>
+                  <li>Messaging for automation strategy</li>
+                </ul>
+              </div>
+              <div className="service-chip service-chip--full">
+                <strong>Trustworthy-AI Governance</strong>
+                <ul className="service-chip__list">
+                  <li>Guiding new roles for AI adoption</li>
+                  <li>Safety planning for human-AI cooperation</li>
+                </ul>
+              </div>
+            </div>
           </div>
           <div className="pane">
             <h3>Studio Services</h3>

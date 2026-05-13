@@ -569,6 +569,37 @@ a:hover { color: var(--electric); }
   font-size: 12px;
   color: var(--slate);
 }
+.service-chip--full {
+  grid-column: 1 / -1;
+}
+.service-chip__list {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.service-chip__list li {
+  font-size: 12px;
+  color: var(--slate);
+  padding-left: 14px;
+  position: relative;
+}
+.service-chip__list li::before {
+  content: "\25CB";
+  position: absolute;
+  left: 0;
+  font-size: 9px;
+  top: 1px;
+  color: var(--slate);
+}
+.pane-lead {
+  font-size: 14px;
+  color: var(--slate);
+  margin: 0 0 16px;
+  line-height: 1.55;
+}
 .studio-testimonial {
   margin-top: 24px;
   padding: 18px 20px;
