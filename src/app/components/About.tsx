@@ -47,14 +47,11 @@ export function About() {
               <p className="ds-lede">
                 Each project creates space for meaningful engagement within a
                 unique creative environment, centrally guided by the studio's
-                founder and creative director. Shared systems of spacing,
-                contrast, typography, and disclosure are applied consistently
-                across all creative environments.
-              </p>
-              <p className="ds-lede">
-                Ooos universe promotes participatory design and inclusive
-                access, hosting a range of experiences from observation to
-                exploration and engagement.
+                founder and creative director. Consistency in spacing,
+                typography, contrast, consent and disclosure reinforces all
+                creative environments. Ooos universe promotes participatory
+                design and inclusive access, hosting a range of experiences
+                from <strong>observation</strong> to <strong>exploration</strong> and <strong>engagement</strong>.
               </p>
 
               <div className="commit-text" aria-labelledby="commit-heading">
