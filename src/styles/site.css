@@ -731,6 +731,24 @@ a:hover { color: var(--electric); }
 .footer ul li { margin-bottom: 8px; }
 .footer ul li a { color: rgba(255,255,255,0.6); }
 .footer ul li a:hover { color: var(--teal); }
+.footer-connect { list-style: none; padding: 0; margin: 0; }
+.footer-connect li { margin-bottom: 14px; }
+.footer-connect-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 160ms;
+}
+.footer-connect-link:hover { color: #F0F4F5; }
+.footer-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
 .footer-bottom {
   max-width: 1100px;
   margin: 32px auto 0;
