@@ -70,7 +70,7 @@ export function Footer() {
         </div>
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} Ooo Digital Media Studio</span>
-          <span>Toronto · Canada</span>
+          <span>Toronto · Ontario · Canada</span>
         </div>
       </footer>
       <div className="disclosure-banner" style={{ display: "none" }}>
