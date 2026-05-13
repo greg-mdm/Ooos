@@ -20,16 +20,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               offering access to this dimension.
             </p>
             <p className="summary">
-              Built for innovators, researchers, entrepreneurs, and curious
-              observers, the system supports collaborative exploration across
-              sectors, policy movements, industrial strategy, and public markets
-              as new information comes into view.
-            </p>
-            <p className="summary">
-              Ostara does not offer recommendations or make predictions about
-              the future. The system analyzes real-world signals, encourages
-              experimentation, and provides a platform for comparing verified
-              public information and testing competing interpretations.
+              Ostara empowers innovators, researchers, entrepreneurs, and curious minds to collaboratively explore diverse sectors, policy trends, and market dynamics. It analyzes real-world signals, enables experimentation, and offers a platform for comparing verified information and assessing competing interpretations. Ostara does not make predictions about the future or offer financial advice.
             </p>
           </div>
           <div className="case-meta">
@@ -137,21 +128,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
         />
       </section>
 
-      <div className="case-body">
-        <h2>What lives inside the dimension</h2>
-        <ul>
-          <li><strong>Watchlist</strong> live now. Filterable, signal-scored, public-source-only.</li>
-          <li><strong>City spotlights</strong> Ottawa, Halifax, Toronto, Montreal, and others. Anchored to specific watch themes.</li>
-          <li><strong>Policy triggers</strong> Each card maps to named procurement, sovereignty, or alliance triggers.</li>
-          <li><strong>Source cards</strong> Authorship and AI-disclosure documentation per artifact.</li>
-        </ul>
-
-        <h2>Posture</h2>
-        <p>
-          ABSTAIN is recorded as a legitimate response. Nothing on this page
-          is financial advice. All assertions are anchored to a named source.
-        </p>
-      </div>
     </div>
   );
 }
