@@ -262,7 +262,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               <p className="studio-testimonial__eyebrow">One creative contact. No reset cycle.</p>
               <p className="studio-testimonial__quote">&ldquo;The problem with external SEO agencies is the turnover. Every six months, there&rsquo;s a new key contact to bring up to speed.&rdquo;</p>
               <div className="studio-testimonial__meta">
-                <span className="studio-testimonial__flag">�</span>
+                <span className="studio-testimonial__flag" aria-hidden="true" style={{color:'#d00',fontSize:'15px',fontWeight:700}}>CA</span>
                 <span className="studio-testimonial__role">CEO, Canada</span>
               </div>
               <p className="studio-testimonial__pitch">Outsourcing SEO and PPC is prone to high turnover, which repeats onboarding and slows progress. Ooos micro-studio model ensures a consistent creative lead, helping teams build internal digital capacity that translates directly into measurable business growth.</p>
@@ -323,3 +323,4 @@ function Tier({
     </div>
   );
 }
+
