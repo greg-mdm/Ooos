@@ -214,11 +214,11 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           <div className="pane">
             <h3>Digital Products</h3>
             <p className="pane-lead">Ooos-on-demand are for immediate impact. Masterfully crafted assets built to launch quickly and scale with intention.</p>
-            <div className="service-chips">
+            <div className="service-chips service-chips--stack">
               <div className="service-chip">
                 <strong>Interactive Digital Media</strong>
                 <ul className="service-chip__list">
-                  <li>Brand templates + sales-cycle systems</li>
+                  <li>Brand templates and sales-cycle systems</li>
                   <li>Workshop kits for live engagement</li>
                 </ul>
               </div>
@@ -229,7 +229,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                   <li>Messaging for automation strategy</li>
                 </ul>
               </div>
-              <div className="service-chip service-chip--full">
+              <div className="service-chip">
                 <strong>Trustworthy-AI Governance</strong>
                 <ul className="service-chip__list">
                   <li>Guiding new roles for AI adoption</li>
