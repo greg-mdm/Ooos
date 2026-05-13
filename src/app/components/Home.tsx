@@ -246,7 +246,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             <div className="studio-testimonial" style={{marginTop: '12px'}}>
               <p className="studio-testimonial__quote">&ldquo;Your report was very helpful. I have already applied some of the strategies to expand our community network and add practical value to our marketplace.&rdquo;</p>
               <div className="studio-testimonial__meta">
-                <svg role="img" aria-label="Norway" width="20" height="14" viewBox="0 0 20 14" xmlns="http://www.w3.org/2000/svg" style={{borderRadius:'2px',flexShrink:0}}><rect width="20" height="14" fill="#EF2B2D"/><rect x="6" y="0" width="3" height="14" fill="white"/><rect x="0" y="5.5" width="20" height="3" fill="white"/><rect x="7" y="0" width="1.4" height="14" fill="#002868"/><rect x="0" y="6.3" width="20" height="1.4" fill="#002868"/></svg>
+                <img src="/assets/NORWAY-flag-ooo.png" alt="Norway" height="14" style={{borderRadius:'2px',flexShrink:0,display:'block'}} />
                 <span className="studio-testimonial__role">Founder &amp; CEO <span aria-hidden="true">&#127760;</span> Norway</span>
               </div>
             </div>
@@ -279,7 +279,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               <p className="studio-testimonial__eyebrow">One creative contact. No reset cycle.</p>
               <p className="studio-testimonial__quote">&ldquo;The problem with external SEO agencies is the turnover. Every six months, there&rsquo;s a new key contact to bring up to speed.&rdquo;</p>
               <div className="studio-testimonial__meta">
-                <span className="studio-testimonial__flag" role="img" aria-label="Canada">&#127809;</span>
+                <img src="/assets/CANADA-Flag-Drop.png" alt="Canada" height="14" style={{borderRadius:'2px',flexShrink:0,display:'block'}} />
                 <span className="studio-testimonial__role">CEO &middot; Canada</span>
               </div>
               <p className="studio-testimonial__pitch">Outsourcing SEO and PPC is prone to high turnover, which repeats onboarding and slows progress. Ooos micro-studio model ensures a consistent creative lead, helping teams build internal digital capacity that translates directly into measurable business growth.</p>

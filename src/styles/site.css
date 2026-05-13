@@ -2476,7 +2476,7 @@ textarea:focus-visible,
 }
 .vote-guide-star  { color: #F0C040; }
 .vote-guide-title { color: #312583; }
-.vote-guide-access { color: #822F00; font-weight: 900; font-size: 15px; }
+.vote-guide-access { color: #822F00; font-weight: 600; font-size: 13px; }
 .vote-guide-body {
   color: #1A0033;
   font-size: 16px;
