@@ -207,13 +207,13 @@ export function Home({ onSupport }: { onSupport: () => void }) {
 
       <section className="section section-light">
         <div className="section-header">
-          <div className="section-eyebrow">What we build</div>
-          <h2>Ooos and Ahhhs.</h2>
+          <div className="section-eyebrow">Creative Offerings</div>
+          <h2>Ooos and Ahhs.</h2>
         </div>
         <div className="dual">
           <div className="pane">
             <h3>Digital Products</h3>
-            <p className="pane-lead"><strong>Ooos-on-demand are for immediate impact. Masterfully crafted assets built to launch quickly and scale with intention.</strong></p>
+            <p className="pane-lead"><strong>Ooos-on-demand are for immediate impact.</strong> Masterfully crafted assets built to launch quickly and scale with intention.</p>
             <div className="service-chips service-chips--stack">
               <div className="service-chip">
                 <strong>Interactive Digital Media</strong>
