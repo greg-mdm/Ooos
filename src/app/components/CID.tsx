@@ -20,7 +20,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               offering access to this dimension.
             </p>
             <p className="summary">
-              Ostara empowers innovators, researchers, entrepreneurs, and curious minds to collaboratively explore diverse sectors, policy trends, and market dynamics. It analyzes real-world signals, enables experimentation, and offers a platform for comparing verified information and assessing competing interpretations. Ostara does not make predictions about the future or offer financial advice.
+              Ostara empowers innovators, researchers, entrepreneurs, and curious minds to collaboratively explore diverse sectors, policy trends, and market dynamics. It analyzes real-world signals, enables experimentation, and offers a platform for comparing verified information and assessing competing interpretations. <strong>Ostara and the experimental Canadian Innovation Dimension (CID) do not provide future predictions or financial advice.</strong>
             </p>
           </div>
           <div className="case-meta">
