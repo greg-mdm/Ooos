@@ -237,6 +237,13 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 </ul>
               </div>
             </div>
+            <div className="studio-testimonial" style={{marginTop: '12px'}}>
+              <p className="studio-testimonial__quote">&ldquo;Your research is very interesting, and I&rsquo;ve already implemented some of it into building our platform.&rdquo;</p>
+              <div className="studio-testimonial__meta">
+                <svg role="img" aria-label="Norway" width="20" height="14" viewBox="0 0 20 14" xmlns="http://www.w3.org/2000/svg" style={{borderRadius:'2px',flexShrink:0}}><rect width="20" height="14" fill="#EF2B2D"/><rect x="6" y="0" width="3" height="14" fill="white"/><rect x="0" y="5.5" width="20" height="3" fill="white"/><rect x="7" y="0" width="1.4" height="14" fill="#002868"/><rect x="0" y="6.3" width="20" height="1.4" fill="#002868"/></svg>
+                <span className="studio-testimonial__role">Founder &amp; CEO, Norway</span>
+              </div>
+            </div>
           </div>
           <div className="pane">
             <h3>Studio Services</h3>
@@ -267,13 +274,6 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 <span className="studio-testimonial__role">CEO, Canada</span>
               </div>
               <p className="studio-testimonial__pitch">Outsourcing SEO and PPC is prone to high turnover, which repeats onboarding and slows progress. Ooos micro-studio model ensures a consistent creative lead, helping teams build internal digital capacity that translates directly into measurable business growth.</p>
-            </div>
-            <div className="studio-testimonial" style={{marginTop: '12px'}}>
-              <p className="studio-testimonial__quote">&ldquo;Your research is very interesting, and I&rsquo;ve already implemented some of it into building our platform.&rdquo;</p>
-              <div className="studio-testimonial__meta">
-                <svg role="img" aria-label="Norway" width="20" height="14" viewBox="0 0 20 14" xmlns="http://www.w3.org/2000/svg" style={{borderRadius:'2px',flexShrink:0}}><rect width="20" height="14" fill="#EF2B2D"/><rect x="6" y="0" width="3" height="14" fill="white"/><rect x="0" y="5.5" width="20" height="3" fill="white"/><rect x="7" y="0" width="1.4" height="14" fill="#002868"/><rect x="0" y="6.3" width="20" height="1.4" fill="#002868"/></svg>
-                <span className="studio-testimonial__role">Founder &amp; CEO, Norway</span>
-              </div>
             </div>
           </div>
         </div>
