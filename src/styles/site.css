@@ -2252,7 +2252,7 @@ textarea:focus-visible,
 }
 .vote-feature .section-header h2 { color: #FFFFFF; }
 .vote-feature .section-eyebrow { color: #F0C040; }
-.vote-feature .lead { color: rgba(255,255,255,0.78); }
+.vote-feature .lead { color: rgba(255,255,255,0.78); max-width: 780px; }
 .vote-stage {
   max-width: 920px;
   margin: 28px auto 0;
