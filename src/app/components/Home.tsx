@@ -169,10 +169,8 @@ export function Home({ onSupport }: { onSupport: () => void }) {
       <section className="section vote-feature">
         <div className="section-header">
           <div className="section-eyebrow" style={{fontSize: '11px'}}>★ Choosing Our Digital Destiny · Exclusive Access</div>
-          <h2>An interactive workshop experience.</h2>
           <p className="lead">
-            200 innovators explore the digital economy, exchange perspectives on AI, media,
-            and funding, and strengthen digital literacy skills.
+            An interactive workshop where 200 innovators explore the digital economy, exchange perspectives on AI, media, and funding, and strengthen digital literacy skills.
           </p>
         </div>
         <div className="vote-stage">
