@@ -324,30 +324,31 @@ a:hover { color: var(--electric); }
   color: #312583;
   position: relative;
   display: inline-block;
-  width: 0.32em;
+  width: 0.4em;
   height: 1em;
   vertical-align: baseline;
-  margin-left: 2px;
+  margin-left: 4px;
+  font-style: normal;
 }
 .pane-wordmark__bang-stem {
   position: absolute;
   left: 50%;
-  top: 0.12em;
-  width: 0.14em;
-  height: 0.6em;
+  top: 0.05em;
+  width: 0.13em;
+  height: 0.55em;
   background: currentColor;
-  border-radius: 2px 2px 1px 1px;
-  transform: translateX(-50%) skewX(-12deg);
+  border-radius: 2px;
+  transform: translateX(-50%);
 }
 .pane-wordmark__bang-dot {
   position: absolute;
   left: 50%;
-  bottom: 0.05em;
-  width: 0.18em;
-  height: 0.18em;
+  top: 0.78em;
+  width: 0.17em;
+  height: 0.17em;
   border-radius: 50%;
   background: #312583;
-  transform: translateX(-50%) skewX(-12deg);
+  transform: translateX(-50%);
   box-shadow: 0 0 0 0 rgba(240,192,64,0);
   animation: lighthouse 4.5s ease-in-out infinite;
 }
