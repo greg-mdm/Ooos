@@ -987,91 +987,98 @@ a:hover { color: var(--electric); }
   gap: 14px;
 }
 .pool-widget {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(240,192,64,0.35);
+  position: relative;
+  background: #fff;
+  border: 1px solid rgba(130,47,0,0.18);
   border-radius: 12px;
-  padding: 16px 18px;
-  transition: border-color 0.2s ease, transform 0.15s ease, background 0.2s ease;
+  padding: 18px 20px 16px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+  overflow: hidden;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+.pool-widget::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--ruby);
 }
 .pool-widget:hover {
-  border-color: var(--gold);
   transform: translateY(-2px);
-  background: rgba(255,255,255,0.08);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.24);
 }
 .pool-widget__head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 .pool-widget__label {
   font-size: 10.5px;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--ruby);
 }
 .pool-widget__chip {
   font-size: 9.5px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--dark-indigo);
-  background: var(--gold);
-  padding: 3px 8px;
+  color: #fff;
+  background: var(--ruby);
+  padding: 3px 9px;
   border-radius: 999px;
 }
 .pool-widget__amounts {
   display: flex;
   align-items: baseline;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   flex-wrap: wrap;
 }
 .pool-widget__raised {
   font-family: var(--serif);
-  font-size: 30px;
+  font-size: 32px;
   font-weight: 700;
-  color: #fff;
+  color: var(--dark-indigo);
   line-height: 1;
 }
 .pool-widget__goal {
   font-size: 12.5px;
-  color: rgba(255,255,255,0.7);
+  color: var(--slate);
   letter-spacing: 0.04em;
 }
 .pool-widget__bar {
   position: relative;
-  height: 12px;
-  background: rgba(255,255,255,0.08);
+  height: 14px;
+  background: rgba(130,47,0,0.10);
   border-radius: 999px;
   overflow: hidden;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 .pool-widget__fill {
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, #ffd45a, var(--gold));
+  background: linear-gradient(90deg, #b04a1a, var(--ruby));
   border-radius: 999px;
   transition: width 1.2s cubic-bezier(0.22, 0.61, 0.36, 1);
-  box-shadow: 0 0 0 1px rgba(240,192,64,0.4) inset;
 }
 .pool-widget__pct {
   position: absolute;
-  right: 8px;
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.06em;
-  color: #fff;
-  mix-blend-mode: difference;
+  color: var(--dark-indigo);
 }
 .pool-widget__unlocks {
-  font-size: 12.5px;
-  color: rgba(255,255,255,0.88);
-  margin: 0 0 12px;
+  font-size: 13px;
+  color: var(--ink);
+  margin: 0 0 14px;
   line-height: 1.5;
 }
 .pool-widget__cta {
@@ -1080,24 +1087,26 @@ a:hover { color: var(--electric); }
   gap: 6px;
   width: 100%;
   justify-content: center;
-  padding: 9px 14px;
-  background: transparent;
-  border: 1px solid var(--gold);
+  padding: 10px 14px;
+  background: var(--ruby);
+  border: 1px solid var(--ruby);
   border-radius: 8px;
-  color: var(--gold);
+  color: #fff;
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
 }
 .pool-widget__cta:hover,
 .pool-widget__cta:focus-visible {
-  background: var(--gold);
-  color: var(--dark-indigo);
+  background: var(--dark-indigo);
+  border-color: var(--dark-indigo);
+  color: #fff;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(240,192,64,0.3);
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.25);
+  transform: translateY(-1px);
 }
 @media (max-width: 820px) {
   .path-feature__grid { grid-template-columns: 1fr; gap: 18px; }
