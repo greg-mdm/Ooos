@@ -219,7 +219,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               <h3>Digital Products</h3>
               <span className="pane-wordmark__ooo" tabIndex={0} aria-label="Ooo!"><span className="xk" data-i="0">O</span><span className="xk" data-i="1">o</span><span className="xk" data-i="2">o</span><span className="xk pane-wordmark__bang" data-i="3">!</span></span>
             </div>
-            <p className="pane-lead">Ooos offer digital assets on demand. Shop downloadable creative resources that fuse research insights, market strategy, AI-enabled localization, and reusable media logic so you can launch faster, adapt across markets, and learn from every campaign.</p>
+            <p className="pane-lead"><strong>Ooos offer digital assets on demand.</strong> Shop downloadable creative resources that fuse research insights with market strategy, so you can learn from every campaign.</p>
             <div className="service-chips service-chips--stack">
               <div className="service-chip">
                 <strong>Interactive Digital Media</strong>
@@ -230,9 +230,11 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               </div>
               <div className="service-chip">
                 <strong>Intelligent Communication</strong>
-                <ul className="service-chip__list">
+                <ul className="service-chip__list service-chip__list--grid">
                   <li>Chatbot subscriptions</li>
                   <li>Messaging for automation strategy</li>
+                  <li>AI-enabled localization</li>
+                  <li>Reusable media logic</li>
                 </ul>
               </div>
               <div className="service-chip">
