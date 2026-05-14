@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { PathwayModal } from "./PathwayModal";
 
 const PALETTE = ['#f0c040','#00d4aa','#ff4444','#00e676','#6C01F4','#4488ff'];
 
@@ -66,6 +67,7 @@ function OstaraParticleCanvas() {
 }
 
 export function Home({ onSupport }: { onSupport: () => void }) {
+  const [pathwayOpen, setPathwayOpen] = useState(false);
   return (
     <>
       <section className="hero">
@@ -286,60 +288,108 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               </div>
               <p className="studio-testimonial__pitch">Outsourcing SEO and PPC is prone to high turnover, which repeats onboarding and slows progress. Ooos micro-studio model ensures a consistent creative lead, helping teams build internal digital capacity that translates directly into measurable business growth.</p>
             </div>
+            <div className="studio-ad" role="complementary" aria-label="Limited studio spaces">
+              <div className="studio-ad__eyebrow">Limited Studio Spaces · 2026 to 2027</div>
+              <p className="studio-ad__text">
+                Ooo opens a small number of collaboration spaces for people and teams exploring or implementing research-led creative and digital strategy.
+              </p>
+              <button
+                type="button"
+                className="studio-ad__cta"
+                onClick={() => setPathwayOpen(true)}
+              >
+                Open the Pathway with a Conversation →
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
       <section className="section support">
         <div className="section-header">
-          <div className="section-eyebrow" style={{ color: "var(--teal)" }}>Express interest</div>
-          <h2>Support the next portal.</h2>
+          <div className="section-eyebrow support-eyebrow">Find Your Path</div>
+          <h2>Ooo offers a variety of pathways to engage.</h2>
           <p className="lead">
-            We are testing willingness-to-engage, not running a fundraising
-            campaign. Pick an indicative amount or join the token waitlist.
+            Explore free resources, access premium assets, receive project
+            support, or work together on collaborative studio ventures.
           </p>
         </div>
-        <div className="support-tiers">
-          <Tier name="Spark" amt="$10" desc="Keeps the lights on for one workshop kit download." cls="t1" onSupport={onSupport} />
-          <Tier name="Signal" amt="$25" desc="Funds one signal-card research cycle." cls="t2" onSupport={onSupport} />
-          <Tier name="Studio" amt="$50" desc="Sponsors a facilitator one-pager and walkthrough video." cls="t3" onSupport={onSupport} />
-          <Tier name="Patron" amt="$100+" desc="Supports a full session of a workshop with a non-academic audience." cls="t4" onSupport={onSupport} />
+
+        <div className="path-grid">
+          <article className="path-card">
+            <div className="path-card__eyebrow">Join the stream · Public access</div>
+            <h3 className="path-card__title">Explore + Remix</h3>
+            <p className="path-card__body">
+              Explore open resources and downloadable content. If you remix or
+              republish Ooo media, keep an active link to Ooo.ca anywhere on
+              your site while the media is up. Happy creating.
+            </p>
+          </article>
+
+          <article className="path-card">
+            <div className="path-card__eyebrow">Flow into the current · Fans + Members</div>
+            <h3 className="path-card__title">Premium assets &amp; early releases</h3>
+            <p className="path-card__body">
+              Access premium creative assets, research reports, workshop and
+              strategy kits, and early releases from the Ooo universe. The
+              waitlist for the Ooo token is now open.
+            </p>
+          </article>
+
+          <article className="path-card">
+            <div className="path-card__eyebrow">Support a shared vision</div>
+            <h3 className="path-card__title">Back a project that moves you</h3>
+            <p className="path-card__body">
+              Choose a project that inspires you, uplifts your community, or
+              reflects your values. Each contribution flows into a visible
+              project pool, so supporters can watch the total grow as the
+              project moves toward its next public milestone.
+            </p>
+          </article>
         </div>
-        <div style={{ textAlign: "center" }}>
-          <button onClick={onSupport} className="btn btn-primary">Open support form</button>
+
+        <div className="path-feature">
+          <div className="path-feature__eyebrow">Featured project</div>
+          <h3 className="path-feature__title">Canadian Interactive Exhibition</h3>
+          <p className="path-feature__body">
+            Canadian nonprofits share real-world challenges, and artists
+            transform those challenges into interactive public experiences.
+          </p>
+          <ul className="path-feature__milestones">
+            <li>
+              <strong>$10K</strong> launches the first public event with seven
+              nonprofit partners.
+            </li>
+            <li>
+              <strong>$25K</strong> total crowdfunding goal. With $25,000 in
+              public support, Ooo will apply to the Canada Council for the Arts
+              as Creative Director for this virtual exhibition, aiming for a
+              matching Sector Support, Innovation, and Development grant for
+              nationwide expansion.
+            </li>
+          </ul>
         </div>
+
+        <div className="path-links">
+          <span className="path-links__label">Other project links</span>
+          <Link to="/ostara" className="path-links__link">Ostara: Collective Intelligence System</Link>
+          <Link to="/cid" className="path-links__link">Canadian Innovation Dimension (CID)</Link>
+        </div>
+
+        <div style={{ textAlign: "center", marginTop: 20 }}>
+          <button onClick={onSupport} className="btn btn-gold" type="button">
+            Watch the current grow →
+          </button>
+        </div>
+
         <p className="support-disclosure">
           No payments are processed yet. Stripe (CAD) and Bitcoin integrations
           are coming. The Ooo token is in concept stage only. No token has
           been issued. Nothing here is a solicitation or financial advice.
         </p>
       </section>
+      {pathwayOpen && <PathwayModal onClose={() => setPathwayOpen(false)} />}
     </>
-  );
-}
-
-function Tier({
-  name, amt, desc, cls, onSupport,
-}: { name: string; amt: string; desc: string; cls: string; onSupport: () => void }) {
-  const handleKey = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      onSupport();
-    }
-  };
-  return (
-    <div
-      className={`tier ${cls}`}
-      onClick={onSupport}
-      onKeyDown={handleKey}
-      role="button"
-      tabIndex={0}
-      aria-label={`Support tier ${name}, ${amt}. ${desc}`}
-    >
-      <div className="tier-name">{name}</div>
-      <div className="tier-amt">{amt}</div>
-      <div className="tier-desc">{desc}</div>
-    </div>
   );
 }
 
