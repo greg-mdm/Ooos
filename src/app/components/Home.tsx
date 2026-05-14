@@ -232,9 +232,9 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 <strong>Intelligent Communication</strong>
                 <ul className="service-chip__list service-chip__list--grid">
                   <li>Chatbot subscriptions</li>
-                  <li>Messaging for automation strategy</li>
-                  <li>AI-enabled localization</li>
-                  <li>Reusable media logic</li>
+                  <li>Messaging for marketing automation</li>
+                  <li>Multi-market localization</li>
+                  <li>AI-driven cultural targeting</li>
                 </ul>
               </div>
               <div className="service-chip">
