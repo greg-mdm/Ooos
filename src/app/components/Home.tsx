@@ -289,7 +289,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               <p className="studio-testimonial__pitch">Outsourcing SEO and PPC is prone to high turnover, which repeats onboarding and slows progress. Ooos micro-studio model ensures a consistent creative lead, helping teams build internal digital capacity that translates directly into measurable business growth.</p>
             </div>
             <div className="studio-ad" role="complementary" aria-label="Limited studio spaces">
-              <div className="studio-ad__eyebrow">Studio Services · 2026 to 2027</div>
+              <div className="studio-ad__eyebrow">Studio Services · 2026–2027</div>
               <p className="studio-ad__text">
                 Exclusive collaboration spaces are opening for people and teams exploring or implementing research-led creative and digital strategy.
               </p>
