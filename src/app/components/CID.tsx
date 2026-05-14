@@ -7,7 +7,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
       <section className="case-hero">
         <div className="container">
           <Link to="/" className="back">← All projects</Link>
-          <h1>Canadian Innovation Dimension.</h1>
+          <h1>Canadian Innovation Dimension</h1>
           <div className="cid-hero-summary">
             <p className="summary">
               A research dimension tracking sovereign innovation across Canada
@@ -15,8 +15,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               verified public data sets, and strict exclusion of Material Non
               Public Information (MNPI). The system tracks organizations,
               strategic sectors, policy developments, bilateral partnerships,
-              and capital market activity across emerging technologies and
-              industrial priorities. The Innovation Watchlist is the first tool
+              and capital market activity across emerging technologies. The Innovation Watchlist is the first tool
               offering access to this dimension.
             </p>
             <p className="summary">
