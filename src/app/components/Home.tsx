@@ -234,7 +234,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                   <li>Chatbot subscriptions</li>
                   <li>Messaging for marketing automation</li>
                   <li>Multi-market localization</li>
-                  <li>AI-driven cultural targeting</li>
+                  <li>AI-driven audience targeting</li>
                 </ul>
               </div>
               <div className="service-chip">
