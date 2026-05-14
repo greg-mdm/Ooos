@@ -339,24 +339,37 @@ export function Home({ onSupport }: { onSupport: () => void }) {
 
         <div className="path-feature">
           <div className="path-feature__eyebrow">Featured project</div>
-          <h3 className="path-feature__title">Canadian Interactive Exhibition</h3>
-          <p className="path-feature__body">
-            Canadian nonprofits share real-world challenges, and artists
-            transform those challenges into interactive public experiences.
-          </p>
-          <ul className="path-feature__milestones">
-            <li>
-              <strong>$10K</strong> launches the first public event with seven
-              nonprofit partners.
-            </li>
-            <li>
-              <strong>$25K</strong> total crowdfunding goal. With $25,000 in
-              public support, Ooo will apply to the Canada Council for the Arts
-              as Creative Director for this virtual exhibition, aiming for a
-              matching Sector Support, Innovation, and Development grant for
-              nationwide expansion.
-            </li>
-          </ul>
+          <div className="path-feature__grid">
+            <div className="path-feature__narrative">
+              <h3 className="path-feature__title">Canadian Interactive Exhibition</h3>
+              <p className="path-feature__body">
+                Canadian nonprofits share real-world challenges. Artists
+                transform them into interactive public experiences.
+              </p>
+              <p className="path-feature__body">
+                Two funding pools, two public milestones. Each pool fills
+                openly so supporters can watch momentum build.
+              </p>
+            </div>
+            <div className="pool-board" role="group" aria-label="Project funding pools">
+              <PoolWidget
+                label="Pool 1 · Launch"
+                goal={10000}
+                raised={7}
+                unlocks="First public event with seven nonprofit partners."
+                cta="Join our mission"
+                onSupport={onSupport}
+              />
+              <PoolWidget
+                label="Pool 2 · National"
+                goal={25000}
+                raised={7}
+                unlocks="Unlocks Ooo's application to the Canada Council for the Arts as Creative Director, aiming for a matching Sector Support, Innovation, and Development grant."
+                cta="Support the exhibition!"
+                onSupport={onSupport}
+              />
+            </div>
+          </div>
         </div>
 
         <div className="path-links">
@@ -422,5 +435,96 @@ function PathCard({
         </span>
       </button>
     </article>
+  );
+}
+
+function PoolWidget({
+  label,
+  goal,
+  raised,
+  unlocks,
+  cta,
+  onSupport,
+}: {
+  label: string;
+  goal: number;
+  raised: number;
+  unlocks: string;
+  cta: string;
+  onSupport: () => void;
+}) {
+  const targetPct = Math.max(0, Math.min(100, (raised / goal) * 100));
+  const [pct, setPct] = useState(0);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+    const reduce =
+      typeof window !== "undefined" &&
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      setPct(targetPct);
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setPct(targetPct);
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.35 }
+    );
+    io.observe(node);
+    return () => io.disconnect();
+  }, [targetPct]);
+
+  const fmt = (n: number) =>
+    n.toLocaleString("en-CA", {
+      style: "currency",
+      currency: "CAD",
+      maximumFractionDigits: 0,
+    });
+  const pctLabel = Math.round(pct);
+
+  return (
+    <div ref={ref} className="pool-widget">
+      <div className="pool-widget__head">
+        <span className="pool-widget__label">{label}</span>
+        <span className="pool-widget__chip" aria-label="Pool currently open">
+          Open
+        </span>
+      </div>
+      <div className="pool-widget__amounts">
+        <span className="pool-widget__raised">{fmt(raised)}</span>
+        <span className="pool-widget__goal">of {fmt(goal)} CAD</span>
+      </div>
+      <div
+        className="pool-widget__bar"
+        role="progressbar"
+        aria-label={`${label} progress`}
+        aria-valuenow={Math.round(targetPct)}
+        aria-valuemin={0}
+        aria-valuemax={100}
+      >
+        <div
+          className="pool-widget__fill"
+          style={{ width: `${pct}%` }}
+        />
+        <span className="pool-widget__pct">{pctLabel}%</span>
+      </div>
+      <p className="pool-widget__unlocks">{unlocks}</p>
+      <button
+        type="button"
+        className="pool-widget__cta"
+        onClick={onSupport}
+      >
+        {cta} →
+      </button>
+    </div>
   );
 }
