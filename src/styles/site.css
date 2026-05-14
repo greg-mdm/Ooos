@@ -795,12 +795,12 @@ a:hover { color: var(--electric); }
 
 /* ===== SUPPORT (DEMO DONATE) ===== */
 .support {
-  background: linear-gradient(135deg, var(--dark-indigo), var(--portal));
-  color: #fff;
+  background: #F0F4F5;
+  color: var(--dark-indigo);
   text-align: center;
 }
-.support h2 { color: #fff; }
-.support .lead { color: rgba(255,255,255,0.8); }
+.support h2 { color: var(--dark-indigo); }
+.support .lead { color: rgba(25,0,125,0.78); }
 .support-tiers {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -853,7 +853,7 @@ a:hover { color: var(--electric); }
 }
 .support-disclosure {
   font-size: 12px;
-  color: rgba(255,255,255,0.55);
+  color: rgba(25,0,125,0.6);
   margin-top: 10px;
   max-width: 540px;
   margin-left: auto;
@@ -877,14 +877,10 @@ a:hover { color: var(--electric); }
 .path-tank {
   max-width: 1080px;
   margin: 30px auto 24px;
-  padding: 28px 24px;
-  background: linear-gradient(180deg, #BFE9EC 0%, #A8DFE3 100%);
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,0.4);
-  box-shadow:
-    inset 0 2px 8px rgba(255,255,255,0.55),
-    inset 0 -6px 16px rgba(25,0,125,0.10),
-    0 8px 24px rgba(0,0,0,0.18);
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 .path-grid {
   display: grid;
@@ -895,32 +891,46 @@ a:hover { color: var(--electric); }
 .path-card {
   position: relative;
   background: linear-gradient(180deg, #4B3FB8 0%, #312583 55%, #19007D 100%);
-  border: 1px solid rgba(255,255,255,0.22);
+  border: 1px solid rgba(25,0,125,0.35);
   border-radius: 14px;
-  padding: 22px 18px 20px;
+  padding: 18px 14px;
   text-align: center;
   overflow: hidden;
   box-shadow:
     inset 0 2px 0 rgba(255,255,255,0.22),
-    inset 0 -10px 24px rgba(0,0,0,0.28),
-    0 6px 18px rgba(25,0,125,0.35);
+    inset 0 -10px 24px rgba(0,0,0,0.32),
+    0 10px 24px rgba(25,0,125,0.28);
   transition: transform 0.15s ease, box-shadow 0.2s ease;
 }
 .path-card::before {
   content: '';
   position: absolute;
-  inset: 6px 10px auto 10px;
+  inset: 6px 14px auto 14px;
   height: 10px;
   border-radius: 50%;
   background: radial-gradient(ellipse at center, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0) 70%);
   pointer-events: none;
+  z-index: 1;
+}
+.path-card__label {
+  position: relative;
+  background: linear-gradient(180deg, rgba(0,0,0,0.32) 0%, rgba(0,0,0,0.42) 100%);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 10px;
+  padding: 18px 14px 16px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.18),
+    inset 0 -1px 0 rgba(0,0,0,0.25);
+  z-index: 2;
 }
 .path-card:hover {
   transform: translateY(-2px);
   box-shadow:
     inset 0 2px 0 rgba(255,255,255,0.28),
-    inset 0 -10px 24px rgba(0,0,0,0.32),
-    0 10px 24px rgba(25,0,125,0.45);
+    inset 0 -10px 24px rgba(0,0,0,0.36),
+    0 14px 28px rgba(25,0,125,0.38);
 }
 .path-card {
   text-align: center;
@@ -997,29 +1007,30 @@ a:hover { color: var(--electric); }
   max-width: 1040px;
   margin: 8px auto 18px;
   padding: 22px 22px 18px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(240,192,64,0.45);
+  background: #ffffff;
+  border: 1px solid rgba(25,0,125,0.18);
   border-radius: 12px;
   text-align: left;
+  box-shadow: 0 4px 14px rgba(25,0,125,0.08);
 }
 .path-feature__eyebrow {
   font-size: 10.5px;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--ruby);
   margin-bottom: 8px;
 }
 .path-feature__title {
   font-family: var(--serif);
   font-size: 22px;
   font-weight: 700;
-  color: #fff;
+  color: var(--dark-indigo);
   margin: 0 0 10px;
 }
 .path-feature__body {
   font-size: 14px;
-  color: rgba(255,255,255,0.9);
+  color: rgba(25,0,125,0.85);
   margin: 0 0 12px;
   line-height: 1.55;
 }
@@ -1183,19 +1194,19 @@ a:hover { color: var(--electric); }
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.7);
+  color: rgba(25,0,125,0.75);
 }
 .path-links__link {
   font-size: 13px;
-  color: #fff;
+  color: var(--dark-indigo);
   text-decoration: underline;
-  text-decoration-color: rgba(240,192,64,0.5);
+  text-decoration-color: rgba(130,47,0,0.55);
   text-underline-offset: 3px;
 }
 .path-links__link:hover,
 .path-links__link:focus-visible {
-  color: var(--gold);
-  text-decoration-color: var(--gold);
+  color: var(--ruby);
+  text-decoration-color: var(--ruby);
 }
 
 /* Gold button — accessible on dark indigo background */

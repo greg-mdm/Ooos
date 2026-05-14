@@ -320,18 +320,21 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             <PathCard
               title="Join our stream"
               tag="Public access"
+              cta="Learn more"
               summary="Explore open resources and downloadable content."
               detail="If you remix or republish Ooo media, keep an active link to Ooo.ca anywhere on your site while the media is up."
             />
             <PathCard
               title="Flow into the current"
-              tag="Fans + Members"
+              tag="Community members"
+              cta="Get inside access"
               summary="Access premium creative assets, research reports, workshop and strategy kits, and early releases from the Ooo universe."
               detail="The waitlist for the Ooo token is now open!"
             />
             <PathCard
               title="Donate to support a shared vision!"
               tag="Partners"
+              cta="Create a wave!"
               summary="Choose a project that inspires you, uplifts your community, or reflects your values. Each contribution flows into a visible project pool!"
               detail="Watch and share as the total grows and the project advances toward its next public milestone!"
             />
@@ -401,38 +404,42 @@ function PathCard({
   tag,
   summary,
   detail,
+  cta = "Create a wave!",
 }: {
   title: string;
   tag?: string;
   summary: string;
   detail: string;
+  cta?: string;
 }) {
   const [open, setOpen] = useState(false);
   const detailId = `path-detail-${title.replace(/\s+/g, "-").toLowerCase()}`;
   return (
     <article className={`path-card ${open ? "is-open" : ""}`}>
-      <h3 className="path-card__title">{title}</h3>
-      {tag && <div className="path-card__tag">{tag}</div>}
-      <p className="path-card__body">{summary}</p>
-      <div
-        id={detailId}
-        className="path-card__detail"
-        hidden={!open}
-      >
-        <p>{detail}</p>
+      <div className="path-card__label">
+        <h3 className="path-card__title">{title}</h3>
+        {tag && <div className="path-card__tag">{tag}</div>}
+        <p className="path-card__body">{summary}</p>
+        <div
+          id={detailId}
+          className="path-card__detail"
+          hidden={!open}
+        >
+          <p>{detail}</p>
+        </div>
+        <button
+          type="button"
+          className="path-card__toggle"
+          aria-expanded={open}
+          aria-controls={detailId}
+          onClick={() => setOpen((v) => !v)}
+        >
+          {open ? "Show less" : cta}
+          <span aria-hidden="true" className="path-card__toggle-arrow">
+            {open ? "↑" : "↓"}
+          </span>
+        </button>
       </div>
-      <button
-        type="button"
-        className="path-card__toggle"
-        aria-expanded={open}
-        aria-controls={detailId}
-        onClick={() => setOpen((v) => !v)}
-      >
-        {open ? "Show less" : "Create a wave!"}
-        <span aria-hidden="true" className="path-card__toggle-arrow">
-          {open ? "↑" : "↓"}
-        </span>
-      </button>
     </article>
   );
 }
