@@ -726,6 +726,13 @@ a:hover { color: var(--electric); }
   width: auto;
   flex-shrink: 0;
 }
+.studio-testimonial__globe {
+  height: 18px;
+  width: auto;
+  vertical-align: middle;
+  margin: 0 4px;
+  display: inline-block;
+}
 .studio-testimonial__flag { font-size: 18px; }
 .studio-testimonial__role {
   font-size: 12px;
