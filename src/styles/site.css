@@ -313,6 +313,8 @@ a:hover { color: var(--electric); }
 }
 .pane-wordmark__ooo,
 .pane-wordmark__ahh {
+  margin-right: 6px;
+  padding-right: 4px;
   cursor: pointer;
   outline: none;
 }
