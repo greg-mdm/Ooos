@@ -308,7 +308,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
       <section className="section support">
         <div className="section-header">
           <div className="section-eyebrow support-eyebrow">Find Your Path</div>
-          <h2>Ooo offers a variety of pathways to engage.</h2>
+          <h2>Ooo offers various ways to engage!</h2>
           <p className="lead">
             Explore free resources, access premium assets, receive project
             support, or work together on collaborative studio ventures.
@@ -316,36 +316,25 @@ export function Home({ onSupport }: { onSupport: () => void }) {
         </div>
 
         <div className="path-grid">
-          <article className="path-card">
-            <div className="path-card__eyebrow">Join the stream · Public access</div>
-            <h3 className="path-card__title">Explore + Remix</h3>
-            <p className="path-card__body">
-              Explore open resources and downloadable content. If you remix or
-              republish Ooo media, keep an active link to Ooo.ca anywhere on
-              your site while the media is up. Happy creating.
-            </p>
-          </article>
-
-          <article className="path-card">
-            <div className="path-card__eyebrow">Flow into the current · Fans + Members</div>
-            <h3 className="path-card__title">Premium assets &amp; early releases</h3>
-            <p className="path-card__body">
-              Access premium creative assets, research reports, workshop and
-              strategy kits, and early releases from the Ooo universe. The
-              waitlist for the Ooo token is now open.
-            </p>
-          </article>
-
-          <article className="path-card">
-            <div className="path-card__eyebrow">Support a shared vision</div>
-            <h3 className="path-card__title">Back a project that moves you</h3>
-            <p className="path-card__body">
-              Choose a project that inspires you, uplifts your community, or
-              reflects your values. Each contribution flows into a visible
-              project pool, so supporters can watch the total grow as the
-              project moves toward its next public milestone.
-            </p>
-          </article>
+          <PathCard
+            eyebrow="Join the stream · Public access"
+            title="Explore + Remix"
+            summary="Explore open resources and downloadable content."
+            detail="If you remix or republish Ooo media, keep an active link to Ooo.ca anywhere on your site while the media is up."
+          />
+          <PathCard
+            eyebrow="Flow into the current · Fans + Members"
+            title="Premium assets & early releases"
+            summary="Access premium creative assets, research reports, workshop and strategy kits, and early releases from the Ooo universe."
+            detail="The waitlist for the Ooo token is now open!"
+          />
+          <PathCard
+            eyebrow="Support a shared vision"
+            title="Support a shared vision"
+            hideTitle
+            summary="Choose a project that inspires you, uplifts your community, or reflects your values. Each contribution flows into a visible project pool!"
+            detail="Watch and share as the total grows and the project advances toward its next public milestone!"
+          />
         </div>
 
         <div className="path-feature">
@@ -393,3 +382,45 @@ export function Home({ onSupport }: { onSupport: () => void }) {
   );
 }
 
+function PathCard({
+  eyebrow,
+  title,
+  summary,
+  detail,
+  hideTitle,
+}: {
+  eyebrow: string;
+  title: string;
+  summary: string;
+  detail: string;
+  hideTitle?: boolean;
+}) {
+  const [open, setOpen] = useState(false);
+  const detailId = `path-detail-${title.replace(/\s+/g, "-").toLowerCase()}`;
+  return (
+    <article className={`path-card ${open ? "is-open" : ""}`}>
+      <div className="path-card__eyebrow">{eyebrow}</div>
+      {!hideTitle && <h3 className="path-card__title">{title}</h3>}
+      <p className="path-card__body">{summary}</p>
+      <div
+        id={detailId}
+        className="path-card__detail"
+        hidden={!open}
+      >
+        <p>{detail}</p>
+      </div>
+      <button
+        type="button"
+        className="path-card__toggle"
+        aria-expanded={open}
+        aria-controls={detailId}
+        onClick={() => setOpen((v) => !v)}
+      >
+        {open ? "Show less" : "Read more"}
+        <span aria-hidden="true" className="path-card__toggle-arrow">
+          {open ? "↑" : "↓"}
+        </span>
+      </button>
+    </article>
+  );
+}
