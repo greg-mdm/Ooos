@@ -862,7 +862,17 @@ a:hover { color: var(--electric); }
 
 /* ===== FIND YOUR PATH ===== */
 .support-eyebrow {
-  color: var(--gold) !important;
+  display: inline-block;
+  color: var(--resolution) !important;
+  background: #ffffff;
+  border: 2px solid var(--gold);
+  border-radius: 999px;
+  padding: 8px 22px;
+  margin-bottom: 16px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  font-size: 14px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.18);
 }
 .path-grid {
   display: grid;
