@@ -317,21 +317,19 @@ export function Home({ onSupport }: { onSupport: () => void }) {
 
         <div className="path-grid">
           <PathCard
-            eyebrow="Join the stream · Public access"
-            title="Explore + Remix"
+            title="Join the stream"
+            tag="Public access"
             summary="Explore open resources and downloadable content."
             detail="If you remix or republish Ooo media, keep an active link to Ooo.ca anywhere on your site while the media is up."
           />
           <PathCard
-            eyebrow="Flow into the current · Fans + Members"
-            title="Premium assets & early releases"
+            title="Flow with the current"
+            tag="Fans + Members"
             summary="Access premium creative assets, research reports, workshop and strategy kits, and early releases from the Ooo universe."
             detail="The waitlist for the Ooo token is now open!"
           />
           <PathCard
-            eyebrow="Support a shared vision"
             title="Support a shared vision"
-            hideTitle
             summary="Choose a project that inspires you, uplifts your community, or reflects your values. Each contribution flows into a visible project pool!"
             detail="Watch and share as the total grows and the project advances toward its next public milestone!"
           />
@@ -396,24 +394,22 @@ export function Home({ onSupport }: { onSupport: () => void }) {
 }
 
 function PathCard({
-  eyebrow,
   title,
+  tag,
   summary,
   detail,
-  hideTitle,
 }: {
-  eyebrow: string;
   title: string;
+  tag?: string;
   summary: string;
   detail: string;
-  hideTitle?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const detailId = `path-detail-${title.replace(/\s+/g, "-").toLowerCase()}`;
   return (
     <article className={`path-card ${open ? "is-open" : ""}`}>
-      <div className="path-card__eyebrow">{eyebrow}</div>
-      {!hideTitle && <h3 className="path-card__title">{title}</h3>}
+      <h3 className="path-card__title">{title}</h3>
+      {tag && <div className="path-card__tag">{tag}</div>}
       <p className="path-card__body">{summary}</p>
       <div
         id={detailId}
