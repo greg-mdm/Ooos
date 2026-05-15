@@ -929,7 +929,15 @@ a:hover { color: var(--electric); }
 }
 .path-card {
   position: relative;
-  background: linear-gradient(180deg, #4B3FB8 0%, #312583 55%, #19007D 100%);
+  background:
+    linear-gradient(
+      0deg,
+      #19007D 0%,
+      #19007D 18%,
+      #312583 38%,
+      #008080 72%,
+      #F0F4F5 100%
+    );
   border: 1px solid rgba(25,0,125,0.35);
   border-radius: 14px;
   padding: 26px 14px 18px;
