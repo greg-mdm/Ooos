@@ -257,7 +257,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             <div className="shop-ad" role="complementary" aria-label="Ooo Media Shop">
               <img src="/assets/Ooo.Media-Shop-Trans.png" alt="" className="shop-ad__art" />
               <div className="shop-ad__body">
-                <div className="shop-ad__eyebrow">Ooo Media Shop <span className="shop-ad__status">&middot; Open soon!</span></div>
+                <div className="shop-ad__eyebrow">Ooo Media Shop <span className="shop-ad__status">&middot; OPEN SOON!</span></div>
                 <p className="shop-ad__text">Shop digital assets on demand.</p>
               </div>
             </div>
@@ -296,17 +296,20 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               <p className="studio-testimonial__pitch">Outsourcing SEO and PPC is prone to high turnover, which leads to repeated onboarding and slows progress. Ooos micro-studio model provides a consistent creative lead, helping teams build internal digital capacity and drive measurable business growth.</p>
             </div>
             <div className="studio-ad" role="complementary" aria-label="Limited studio spaces">
-              <div className="studio-ad__eyebrow">Studio Services · 2026–2027</div>
-              <p className="studio-ad__text">
-                Exclusive collaboration spaces are opening for teams seeking research-led creative and digital strategy.
-              </p>
-              <button
-                type="button"
-                className="studio-ad__cta"
-                onClick={() => setPathwayOpen(true)}
-              >
-                Open the pathway with a conversation →
-              </button>
+              <div className="studio-ad__body">
+                <div className="studio-ad__eyebrow">Studio Services · 2026–2027</div>
+                <p className="studio-ad__text">
+                  Exclusive collaboration spaces are opening for teams seeking research-led creative and digital strategy.
+                </p>
+                <button
+                  type="button"
+                  className="studio-ad__cta"
+                  onClick={() => setPathwayOpen(true)}
+                >
+                  Open the pathway with a conversation →
+                </button>
+              </div>
+              <img src="/assets/Ooo-Target.png" alt="" className="studio-ad__art" />
             </div>
           </div>
         </div>
