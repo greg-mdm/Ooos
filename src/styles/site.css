@@ -347,9 +347,11 @@ a:hover { color: var(--electric); }
 .pane-wordmark__ooo:hover .xk,
 .pane-wordmark__ooo:focus .xk,
 .pane-wordmark__ooo:active .xk,
+.pane-wordmark__ooo.is-playing .xk,
 .pane-wordmark__ahh:hover .xk,
 .pane-wordmark__ahh:focus .xk,
-.pane-wordmark__ahh:active .xk {
+.pane-wordmark__ahh:active .xk,
+.pane-wordmark__ahh.is-playing .xk {
   animation: xkPlay 900ms ease both;
 }
 .pane-wordmark .xk[data-i="0"] { --xk-tone: #19007D; animation-delay: 0ms; }

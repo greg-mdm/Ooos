@@ -305,7 +305,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
         </div>
       </section>
 
-      <section className="section support">
+      <section className="section support" id="find-your-path">
         <div className="section-header">
           <div className="section-eyebrow support-eyebrow">Find Your Path</div>
           <h2>Ooo offers various ways to engage!</h2>

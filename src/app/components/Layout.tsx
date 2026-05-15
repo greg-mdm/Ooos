@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export function SkipLink() {
   return (
@@ -7,8 +7,68 @@ export function SkipLink() {
   );
 }
 
-export function Nav({ onSupport }: { onSupport: () => void }) {
+function playWordmark(el: HTMLElement | null) {
+  if (!el) return;
+  el.classList.remove("is-playing");
+  // force reflow so the animation can restart
+  void el.offsetWidth;
+  el.classList.add("is-playing");
+  window.setTimeout(() => el.classList.remove("is-playing"), 1400);
+}
+
+function scrollToFindYourPath() {
+  const target = document.getElementById("find-your-path");
+  if (!target) return;
+  const navOffset = 72;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const targetY = target.getBoundingClientRect().top + window.scrollY - navOffset;
+  if (reduce) {
+    window.scrollTo(0, targetY);
+    return;
+  }
+  const startY = window.scrollY;
+  const distance = targetY - startY;
+  if (Math.abs(distance) < 4) return;
+  // slow + steady: ~1.1px per ms, clamped
+  const duration = Math.min(5200, Math.max(2000, Math.abs(distance) / 1.1));
+  const startTime = performance.now();
+  const ooo = document.querySelector<HTMLElement>(".pane-wordmark__ooo");
+  const ahh = document.querySelector<HTMLElement>(".pane-wordmark__ahh");
+  let oooPlayed = false;
+  let ahhPlayed = false;
+  function step(now: number) {
+    const t = Math.min(1, (now - startTime) / duration);
+    const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    window.scrollTo(0, startY + distance * eased);
+    if (!oooPlayed && ooo) {
+      const r = ooo.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.7 && r.bottom > 0) {
+        oooPlayed = true;
+        playWordmark(ooo);
+        window.setTimeout(() => {
+          if (!ahhPlayed) {
+            ahhPlayed = true;
+            playWordmark(ahh);
+          }
+        }, 750);
+      }
+    }
+    if (!ahhPlayed && ahh) {
+      const r = ahh.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.7 && r.bottom > 0) {
+        ahhPlayed = true;
+        playWordmark(ahh);
+      }
+    }
+    if (t < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+export function Nav() {
   const navRef = useRef<HTMLElement | null>(null);
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   // Nav is permanently dark indigo (matches the footer band). No over-dark swap needed.
   useEffect(() => {
@@ -16,6 +76,15 @@ export function Nav({ onSupport }: { onSupport: () => void }) {
     if (!nav) return;
     nav.classList.remove("over-dark");
   }, []);
+
+  const handleExplore = () => {
+    if (pathname !== "/") {
+      navigate("/");
+      window.setTimeout(scrollToFindYourPath, 280);
+    } else {
+      scrollToFindYourPath();
+    }
+  };
 
   return (
     <nav ref={navRef} className="nav" aria-label="Primary">
@@ -29,8 +98,8 @@ export function Nav({ onSupport }: { onSupport: () => void }) {
           <Link to="/cid">Innovation</Link>
           <Link to="/exhibition">Exhibition</Link>
           <Link to="/about">Design</Link>
-          <button onClick={onSupport} className="nav-cta" type="button">
-            Support
+          <button onClick={handleExplore} className="nav-cta" type="button">
+            Explore
           </button>
         </div>
       </div>

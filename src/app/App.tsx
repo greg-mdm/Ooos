@@ -17,7 +17,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <SkipLink />
-      <Nav onSupport={open} />
+      <Nav />
       <main id="main">
         <Routes>
           <Route path="/" element={<Home onSupport={open} />} />
