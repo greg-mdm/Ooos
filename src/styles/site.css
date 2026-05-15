@@ -779,23 +779,22 @@ a:hover { color: var(--electric); }
 .studio-ad {
   margin-top: 20px;
   padding: 14px 16px;
-  border: 1.5px solid var(--dark-indigo);
+  border: 1.5px solid var(--resolution);
   border-radius: 8px;
-  background: linear-gradient(180deg, #19007D 0%, #312583 100%);
-  color: #fff;
-  box-shadow: 0 0 0 3px rgba(25,0,125,0.08);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(49, 37, 131, 0.06);
 }
 .studio-ad__eyebrow {
   font-size: 10.5px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--resolution);
   margin-bottom: 6px;
 }
 .studio-ad__text {
   font-size: 12.5px;
-  color: #fff;
+  color: var(--ink);
   line-height: 1.5;
   margin: 0 0 10px;
 }
@@ -805,18 +804,17 @@ a:hover { color: var(--electric); }
   font-size: 11.5px;
   font-weight: 700;
   letter-spacing: 0.04em;
-  color: var(--dark-indigo);
-  background: #fff;
-  border: 1px solid #fff;
+  color: var(--resolution);
+  background: transparent;
+  border: 1px solid var(--resolution);
   border-radius: 6px;
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease;
 }
 .studio-ad__cta:hover,
 .studio-ad__cta:focus-visible {
-  background: var(--gold);
-  border-color: var(--gold);
-  color: var(--dark-indigo);
+  background: var(--resolution);
+  color: #fff;
   outline: none;
 }
 .shop-ad {
