@@ -221,7 +221,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               <h3>Digital Products</h3>
               <span className="pane-wordmark__ooo" tabIndex={0} aria-label="Ooo!"><span className="xk" data-i="0">O</span><span className="xk" data-i="1">o</span><span className="xk" data-i="2">o</span><span className="xk pane-wordmark__bang" data-i="3">!</span></span>
             </div>
-            <p className="pane-lead"><strong>Shop digital assets on demand.</strong> Ooos offer downloadable creative resources that fuse research insights with market strategy, so you can learn from every campaign.</p>
+            <p className="pane-lead">Ooos offer downloadable creative resources that fuse research insights with market strategy, so you can learn from every campaign.</p>
             <div className="service-chips service-chips--stack">
               <div className="service-chip">
                 <strong>Interactive Digital Media</strong>
@@ -252,6 +252,14 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               <div className="studio-testimonial__meta">
                 <img src="/assets/NORWAY-flag-ooo.png" alt="Norway" height="14" style={{borderRadius:'2px',flexShrink:0,display:'block'}} />
                 <span className="studio-testimonial__role">Founder &amp; CEO <img src="/assets/Ooo-Global-Network-Electric.png" alt="" className="studio-testimonial__globe" /> Norway</span>
+              </div>
+            </div>
+            <div className="shop-ad" role="complementary" aria-label="Ooo Media Shop">
+              <img src="/assets/shop-uncropped.svg" alt="" className="shop-ad__art" onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }} />
+              <div className="shop-ad__body">
+                <div className="shop-ad__eyebrow">Ooo Media Shop</div>
+                <p className="shop-ad__text">Shop digital assets on demand.</p>
+                <span className="shop-ad__cta">Opening soon →</span>
               </div>
             </div>
           </div>
@@ -322,7 +330,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               tag="Public access"
               cta="Learn more"
               summary="Explore open resources and downloadable content."
-              detail="If you remix or republish Ooo media, keep an active link to Ooo.ca anywhere on your site while the media is up."
+              detail="If you remix or republish Ooo media, keep an active link to Ooos.ca anywhere on your site while the media is up."
             />
             <PathCard
               title="Flow into the current"
