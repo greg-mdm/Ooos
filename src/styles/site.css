@@ -1175,22 +1175,35 @@ a:hover { color: var(--electric); }
 }
 .pool-widget__amounts {
   display: flex;
-  align-items: baseline;
-  gap: 8px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
   margin-bottom: 12px;
-  flex-wrap: wrap;
-}
-.pool-widget__raised {
-  font-family: var(--serif);
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--dark-indigo);
-  line-height: 1;
 }
 .pool-widget__goal {
-  font-size: 12.5px;
+  font-family: var(--serif);
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--dark-indigo);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+.pool-widget__currency {
+  font-family: var(--sans, inherit);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--slate);
+  margin-left: 4px;
+  vertical-align: middle;
+}
+.pool-widget__raised {
+  font-family: var(--sans, inherit);
+  font-size: 12px;
+  font-weight: 600;
   color: var(--slate);
   letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 .pool-widget__bar {
   position: relative;

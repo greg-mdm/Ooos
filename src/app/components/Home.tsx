@@ -360,7 +360,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 label="Pool 1 · Launch"
                 goal={10000}
                 raised={7}
-                unlocks="Launch the first public event with seven nonprofit partners. Ten Digital Art Influencers transform real-world challenges into interactive experiences that the public can explore for free."
+                unlocks="Reaching this funding goal launches the first public event with seven nonprofit partners. Ten Digital Art Influencers transform real-world challenges into interactive experiences that the public can explore for free."
                 cta="Join our mission"
                 onSupport={onSupport}
               />
@@ -517,8 +517,8 @@ function PoolWidget({
         </span>
       </div>
       <div className="pool-widget__amounts">
-        <span className="pool-widget__raised">{fmt(raised)}</span>
-        <span className="pool-widget__goal">of {fmt(goal)} CAD</span>
+        <span className="pool-widget__goal">{fmt(goal)} <span className="pool-widget__currency">CAD</span></span>
+        <span className="pool-widget__raised">{fmt(raised)} raised so far</span>
       </div>
       <div
         className="pool-widget__bar"
