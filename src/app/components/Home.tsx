@@ -247,7 +247,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 </ul>
               </div>
             </div>
-            <div className="studio-testimonial" style={{marginTop: '12px'}}>
+            <div className="studio-testimonial">
               <p className="studio-testimonial__quote">&ldquo;Your report was very helpful. I have already applied some of the strategies to expand our community network and add practical value to our marketplace.&rdquo;</p>
               <div className="studio-testimonial__meta">
                 <img src="/assets/NORWAY-flag-ooo.png" alt="Norway" height="14" style={{borderRadius:'2px',flexShrink:0,display:'block'}} />
@@ -298,7 +298,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 className="studio-ad__cta"
                 onClick={() => setPathwayOpen(true)}
               >
-                open the pathway with a conversation →
+                Open the pathway with a conversation →
               </button>
             </div>
           </div>
