@@ -415,32 +415,34 @@ function PathCard({
   const [open, setOpen] = useState(false);
   const detailId = `path-detail-${title.replace(/\s+/g, "-").toLowerCase()}`;
   return (
-    <article className={`path-card ${open ? "is-open" : ""}`}>
-      <div className="path-card__label">
-        <h3 className="path-card__title">{title}</h3>
-        {tag && <div className="path-card__tag">{tag}</div>}
-        <p className="path-card__body">{summary}</p>
-        <div
-          id={detailId}
-          className="path-card__detail"
-          hidden={!open}
-        >
-          <p>{detail}</p>
+    <div className="path-pool">
+      {tag && <div className="path-pool__tag">{tag}</div>}
+      <article className={`path-card ${open ? "is-open" : ""}`}>
+        <div className="path-card__label">
+          <h3 className="path-card__title">{title}</h3>
+          <p className="path-card__body">{summary}</p>
+          <div
+            id={detailId}
+            className="path-card__detail"
+            hidden={!open}
+          >
+            <p>{detail}</p>
+          </div>
+          <button
+            type="button"
+            className="path-card__toggle"
+            aria-expanded={open}
+            aria-controls={detailId}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? "Show less" : cta}
+            <span aria-hidden="true" className="path-card__toggle-arrow">
+              {open ? "↑" : "↓"}
+            </span>
+          </button>
         </div>
-        <button
-          type="button"
-          className="path-card__toggle"
-          aria-expanded={open}
-          aria-controls={detailId}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? "Show less" : cta}
-          <span aria-hidden="true" className="path-card__toggle-arrow">
-            {open ? "↑" : "↓"}
-          </span>
-        </button>
-      </div>
-    </article>
+      </article>
+    </div>
   );
 }
 
