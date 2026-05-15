@@ -221,7 +221,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               <h3>Digital Products</h3>
               <span className="pane-wordmark__ooo" tabIndex={0} aria-label="Ooo!"><span className="xk" data-i="0">O</span><span className="xk" data-i="1">o</span><span className="xk" data-i="2">o</span><span className="xk pane-wordmark__bang" data-i="3">!</span></span>
             </div>
-            <p className="pane-lead">Ooos offer downloadable creative resources that fuse research insights with market strategy, so you can learn from every campaign.</p>
+            <p className="pane-lead">Ooos are downloadable creative resources that fuse research insights with market strategy, so you can learn from every campaign.</p>
             <div className="service-chips service-chips--stack">
               <div className="service-chip">
                 <strong>Interactive Digital Media</strong>
