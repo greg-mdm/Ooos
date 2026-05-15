@@ -820,7 +820,7 @@ a:hover { color: var(--electric); }
 .shop-ad {
   position: relative;
   margin-top: 20px;
-  padding: 8px 18px 8px 8px;
+  padding: 6px 18px 6px 4px;
   border-radius: 10px;
   border: 2px solid transparent;
   background:
@@ -829,7 +829,7 @@ a:hover { color: var(--electric); }
   box-shadow: 0 0 0 4px rgba(91,4,222,0.10), 0 8px 22px rgba(91,4,222,0.15);
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
   overflow: hidden;
 }
 .shop-ad::before {
@@ -842,8 +842,9 @@ a:hover { color: var(--electric); }
   pointer-events: none;
 }
 .shop-ad__art {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
+  margin: -40px -20px -40px -20px;
   flex-shrink: 0;
   object-fit: contain;
   filter: drop-shadow(0 4px 12px rgba(91,4,222,0.28));
