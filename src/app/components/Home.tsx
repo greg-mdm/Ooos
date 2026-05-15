@@ -97,7 +97,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
 
       <section className="section section-tinted">
         <div className="section-header">
-          <div className="section-eyebrow">★ Featured Assets</div>
+          <div className="section-eyebrow">★ Featured Experiences</div>
           <h2>Two systems, one design language.</h2>
           <p className="lead">
             Both projects use the same backbone: structured signals, agent role
