@@ -335,7 +335,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               title="Donate to support a shared vision!"
               tag="Partners"
               cta="Create a wave!"
-              summary="Choose a project that inspires you, uplifts your community, or reflects your values. Each contribution flows into a visible project pool!"
+              summary="Choose a project that inspires you, benefits your community, or reflects your values. Every contribution adds to a visible pool of public support!"
               detail="Watch and share as the total grows and the project advances toward its next public milestone!"
             />
           </div>
