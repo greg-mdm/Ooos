@@ -1010,6 +1010,10 @@ a:hover { color: var(--electric); }
   margin: 0;
   line-height: 1.55;
 }
+.path-card__body strong {
+  color: #fff;
+  font-weight: 700;
+}
 .path-card__detail {
   margin-top: 10px;
   padding-top: 10px;

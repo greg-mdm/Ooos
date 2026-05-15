@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 import { PathwayModal } from "./PathwayModal";
 
 const PALETTE = ['#f0c040','#00d4aa','#ff4444','#00e676','#6C01F4','#4488ff'];
@@ -328,14 +328,14 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               title="Flow into the current"
               tag="Community members"
               cta="Get inside access"
-              summary="Access premium creative assets, research reports, workshop and strategy kits, and early releases from the Ooo universe."
+              summary={<>Access premium creative assets, research reports, workshop and strategy kits, and early releases from <strong>Ooos universe</strong>.</>}
               detail="The waitlist for the Ooo token is now open!"
             />
             <PathCard
               title="Donate to support a shared vision!"
               tag="Partners"
               cta="Create a wave!"
-              summary="Choose a project that inspires you, benefits your community, or reflects your values. Every contribution adds to a visible pool of public support!"
+              summary={<><strong>Choose</strong> a project that inspires you, benefits your community, or reflects your values. <strong>Every contribution adds to a visible pool of public support!</strong></>}
               detail="Watch and share as the total grows and the project advances toward its next public milestone!"
             />
           </div>
@@ -384,7 +384,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
 
         <div style={{ textAlign: "center", marginTop: 20 }}>
           <button onClick={onSupport} className="btn btn-gold" type="button">
-            Watch the current grow →
+            Support a shared vision!
           </button>
         </div>
 
@@ -408,8 +408,8 @@ function PathCard({
 }: {
   title: string;
   tag?: string;
-  summary: string;
-  detail: string;
+  summary: ReactNode;
+  detail: ReactNode;
   cta?: string;
 }) {
   const [open, setOpen] = useState(false);
