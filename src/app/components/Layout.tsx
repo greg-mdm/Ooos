@@ -29,8 +29,8 @@ function scrollToFindYourPath() {
   const startY = window.scrollY;
   const distance = targetY - startY;
   if (Math.abs(distance) < 4) return;
-  // slow + steady: ~1.1px per ms, clamped
-  const duration = Math.min(5200, Math.max(2000, Math.abs(distance) / 1.1));
+  // slow + steady: reading pace, ~0.35 px per ms, clamped 5s–12s
+  const duration = Math.min(12000, Math.max(5000, Math.abs(distance) / 0.35));
   const startTime = performance.now();
   const ooo = document.querySelector<HTMLElement>(".pane-wordmark__ooo");
   const ahh = document.querySelector<HTMLElement>(".pane-wordmark__ahh");
