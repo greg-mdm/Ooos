@@ -286,7 +286,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 <img src="/assets/CANADA-Flag-Drop.png" alt="Canada" height="14" style={{borderRadius:'2px',flexShrink:0,display:'block'}} />
                 <span className="studio-testimonial__role">CEO <img src="/assets/Ooo-Global-Network-Electric.png" alt="" className="studio-testimonial__globe" /> Canada</span>
               </div>
-              <p className="studio-testimonial__pitch">Outsourcing SEO and PPC is prone to high turnover, which repeats onboarding and slows progress. Ooos micro-studio model ensures a consistent creative lead, helping teams build internal digital capacity that translates directly into measurable business growth.</p>
+              <p className="studio-testimonial__pitch">Outsourcing SEO and PPC is prone to high turnover, which leads to repeated onboarding and slows progress. Ooos micro-studio model provides a consistent creative lead, helping teams build internal digital capacity and drive measurable business growth.</p>
             </div>
             <div className="studio-ad" role="complementary" aria-label="Limited studio spaces">
               <div className="studio-ad__eyebrow">Studio Services · 2026–2027</div>
@@ -368,8 +368,8 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 label="Pool 2 · National"
                 goal={25000}
                 raised={7}
-                unlocks="Activates our national grant proposal for the next-level exhibition! Supporters contribute to bringing diverse stories and serious issues into a shared public space while enjoying perks like personalizing a signature on the donor wall inside the virtual exhibition."
-                revealLabel="Peek behind national stage"
+                unlocks="Activates our national grant proposal for the next-level exhibition! Supporters help bring diverse stories and serious issues into a shared public space while enjoying perks like personalizing a signature on the donor wall in the virtual exhibition."
+                revealLabel="Peek behind the national stage"
                 reveal={<>
                   <p>With a transparent pool of public support, Ooo Digital Media Studio will apply to the Canada Council for the Arts as the project's Creative Director in pursuit of Sector Support, Innovation and Development funding to help expand the exhibition nationally.</p>
                   <p>Supporters can add their names to a digital donor wall in the national exhibition gallery, recognizing the innovators and visionaries who saw the potential for cross-sector collaboration before the experience opened to the public for free.</p>
