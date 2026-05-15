@@ -635,9 +635,12 @@ a:hover { color: var(--electric); }
 }
 .pane h3 {
   font-family: var(--serif);
-  font-size: 22px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   margin: 0 0 12px;
-  color: var(--ink);
+  color: var(--dark-indigo);
 }
 .pane p { font-size: 14px; color: var(--slate); margin: 0 0 18px; }
 .pane ul { padding-left: 18px; margin: 0; color: var(--slate); font-size: 14px; }
