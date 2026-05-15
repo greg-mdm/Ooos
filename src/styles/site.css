@@ -820,7 +820,7 @@ a:hover { color: var(--electric); }
 .shop-ad {
   position: relative;
   margin-top: 20px;
-  padding: 16px 18px;
+  padding: 8px 18px 8px 8px;
   border-radius: 10px;
   border: 2px solid transparent;
   background:
@@ -829,7 +829,7 @@ a:hover { color: var(--electric); }
   box-shadow: 0 0 0 4px rgba(91,4,222,0.10), 0 8px 22px rgba(91,4,222,0.15);
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   overflow: hidden;
 }
 .shop-ad::before {
@@ -842,8 +842,8 @@ a:hover { color: var(--electric); }
   pointer-events: none;
 }
 .shop-ad__art {
-  width: 110px;
-  height: 110px;
+  width: 150px;
+  height: 150px;
   flex-shrink: 0;
   object-fit: contain;
   filter: drop-shadow(0 4px 12px rgba(91,4,222,0.28));
@@ -858,23 +858,19 @@ a:hover { color: var(--electric); }
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--electric);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+}
+.shop-ad__status {
+  color: var(--ruby);
+  letter-spacing: 0.1em;
 }
 .shop-ad__text {
   font-family: var(--serif);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--dark-indigo);
   line-height: 1.2;
-  margin: 0 0 6px;
-}
-.shop-ad__cta {
-  display: inline-block;
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--electric);
+  margin: 0;
 }
 @media (max-width: 720px) {
   .dual { grid-template-columns: 1fr; }
