@@ -1199,6 +1199,40 @@ a:hover { color: var(--electric); }
   margin: 0 0 14px;
   line-height: 1.5;
 }
+.pool-widget__reveal {
+  margin: -6px 0 12px;
+}
+.pool-widget__reveal-toggle {
+  background: transparent;
+  border: none;
+  padding: 4px 0;
+  color: var(--ruby);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.pool-widget__reveal-toggle:hover,
+.pool-widget__reveal-toggle:focus-visible {
+  color: var(--dark-indigo);
+  outline: none;
+  text-decoration: underline;
+}
+.pool-widget__reveal-body {
+  margin-top: 8px;
+  padding: 10px 12px;
+  background: rgba(130,47,0,0.06);
+  border-left: 2px solid var(--ruby);
+  border-radius: 4px;
+}
+.pool-widget__reveal-body p {
+  margin: 0 0 8px;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.pool-widget__reveal-body p:last-child { margin-bottom: 0; }
 .pool-widget__cta {
   display: inline-flex;
   align-items: center;

@@ -360,7 +360,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 label="Pool 1 · Launch"
                 goal={10000}
                 raised={7}
-                unlocks="First public event with seven nonprofit partners."
+                unlocks="Launch the first public event with seven nonprofit partners. Ten Digital Art Influencers transform real-world challenges into interactive experiences that the public can explore for free."
                 cta="Join our mission"
                 onSupport={onSupport}
               />
@@ -368,7 +368,12 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 label="Pool 2 · National"
                 goal={25000}
                 raised={7}
-                unlocks="Unlocks Ooo's application to the Canada Council for the Arts as Creative Director, aiming for a matching Sector Support, Innovation, and Development grant."
+                unlocks="Activates our national grant proposal for the next-level exhibition! Supporters contribute to bringing diverse stories and serious issues into a shared public space while enjoying perks like personalizing a signature on the donor wall inside the virtual exhibition."
+                revealLabel="Peek behind national stage"
+                reveal={<>
+                  <p>With a transparent pool of public support, Ooo Digital Media Studio will apply to the Canada Council for the Arts as the project's Creative Director in pursuit of Sector Support, Innovation and Development funding to help expand the exhibition nationally.</p>
+                  <p>Supporters can add their names to a digital donor wall in the national exhibition gallery, recognizing the innovators and visionaries who saw the potential for cross-sector collaboration before the experience opened to the public for free.</p>
+                </>}
                 cta="Support the exhibition!"
                 onSupport={onSupport}
               />
@@ -453,6 +458,8 @@ function PoolWidget({
   unlocks,
   cta,
   onSupport,
+  reveal,
+  revealLabel,
 }: {
   label: string;
   goal: number;
@@ -460,6 +467,8 @@ function PoolWidget({
   unlocks: string;
   cta: string;
   onSupport: () => void;
+  reveal?: ReactNode;
+  revealLabel?: string;
 }) {
   const targetPct = Math.max(0, Math.min(100, (raised / goal) * 100));
   const [pct, setPct] = useState(0);
@@ -526,6 +535,9 @@ function PoolWidget({
         <span className="pool-widget__pct">{pctLabel}%</span>
       </div>
       <p className="pool-widget__unlocks">{unlocks}</p>
+      {reveal && (
+        <PoolReveal label={revealLabel ?? "Read more"}>{reveal}</PoolReveal>
+      )}
       <button
         type="button"
         className="pool-widget__cta"
@@ -533,6 +545,26 @@ function PoolWidget({
       >
         {cta} →
       </button>
+    </div>
+  );
+}
+
+function PoolReveal({ label, children }: { label: string; children: ReactNode }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="pool-widget__reveal">
+      <button
+        type="button"
+        className="pool-widget__reveal-toggle"
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+      >
+        {open ? "Hide details" : label}
+        <span aria-hidden="true">{open ? " ↑" : " ↓"}</span>
+      </button>
+      <div className="pool-widget__reveal-body" hidden={!open}>
+        {children}
+      </div>
     </div>
   );
 }
