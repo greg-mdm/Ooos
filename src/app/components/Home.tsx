@@ -333,7 +333,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             />
             <PathCard
               title="Donate to support a shared vision!"
-              tag="Partners"
+              tag="Project partners"
               cta="Create a wave!"
               summary={<><strong>Choose</strong> a project that inspires you, benefits your community, or reflects your values. <strong>Every contribution adds to a visible pool of public support!</strong></>}
               detail="Watch and share as the total grows and the project advances toward its next public milestone!"
