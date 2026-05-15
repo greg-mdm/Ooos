@@ -233,6 +233,19 @@ a:hover { color: var(--electric); }
     flex-direction: column;
     align-items: center;
   }
+  .nav-link--collapse,
+  .nav-cta--collapse { display: none !important; }
+  .pane-wordmark {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .pane-wordmark__ooo,
+  .pane-wordmark__ahh { white-space: nowrap; font-size: 26px; }
+}
+@media (max-width: 420px) {
+  .pane-wordmark__ooo,
+  .pane-wordmark__ahh { font-size: 22px; }
 }
 .btn {
   display: inline-block;
