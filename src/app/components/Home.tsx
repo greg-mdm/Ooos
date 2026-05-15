@@ -255,7 +255,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               </div>
             </div>
             <div className="shop-ad" role="complementary" aria-label="Ooo Media Shop">
-              <img src="/assets/Ooo Media - Shop.png" alt="" className="shop-ad__art" />
+              <img src="/assets/Ooo.Media-Shop-Trans.png" alt="" className="shop-ad__art" />
               <div className="shop-ad__body">
                 <div className="shop-ad__eyebrow">Ooo Media Shop</div>
                 <p className="shop-ad__text">Shop digital assets on demand.</p>
