@@ -794,23 +794,23 @@ a:hover { color: var(--electric); }
   min-width: 0;
 }
 .studio-ad__art {
-  width: 78px;
-  height: 78px;
+  width: 95px;
+  height: 95px;
   margin: 0 -4px 0 4px;
   flex-shrink: 0;
   object-fit: contain;
   filter: drop-shadow(0 4px 12px rgba(49, 37, 131, 0.22));
 }
 .studio-ad__eyebrow {
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--resolution);
   margin-bottom: 6px;
 }
 .studio-ad__text {
-  font-size: 12.5px;
+  font-size: 13px;
   color: var(--ink);
   line-height: 1.5;
   margin: 0 0 10px;
@@ -882,11 +882,10 @@ a:hover { color: var(--electric); }
   letter-spacing: 0.1em;
 }
 .shop-ad__text {
-  font-family: var(--serif);
-  font-size: 20px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--dark-indigo);
-  line-height: 1.2;
+  line-height: 1.4;
   margin: 0;
 }
 @media (max-width: 720px) {
