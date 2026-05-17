@@ -299,7 +299,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               <div className="studio-ad__body">
                 <div className="studio-ad__eyebrow">Studio Services · 2026–2027</div>
                 <p className="studio-ad__text">
-                  Exclusive collaboration spaces are opening for teams seeking research-led creative and digital strategy.
+                  Collaboration spaces are opening for teams seeking research-led creative and digital strategy.
                 </p>
                 <button
                   type="button"
