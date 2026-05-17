@@ -618,16 +618,53 @@
     }
 
     @media (max-width: 720px) {
+      /* === Mobile-first layout: single column everywhere === */
+      header { padding: 0.7rem 1rem; }
+      header .brand { font-size: 0.95rem; }
+      header .ostara-label { font-size: 0.68rem; letter-spacing: 0.1em; }
+
+      .title-banner-wrap {
+        margin: 1rem 1rem;
+        flex-direction: column;
+      }
+      .title-banner {
+        border-right: 1px solid rgba(31, 206, 203, 0.35);
+        border-bottom: none;
+        border-radius: 11px 11px 0 0;
+        padding: 1rem 1.2rem;
+      }
+      .title-banner h1 {
+        white-space: normal;
+        font-size: 1.05rem;
+        letter-spacing: 0.06em;
+      }
+      .title-banner .title-sub { font-size: 0.78rem; line-height: 1.5; }
+      .title-banner-compass {
+        width: 100%;
+        padding: 0.6rem;
+        border-radius: 0 0 11px 11px;
+        background: rgba(0,0,0,0.25);
+      }
+      .title-banner-compass img { width: 110px; }
+
+      .intro-row { grid-template-columns: 1fr; gap: 1rem; margin: 1.2rem 1rem; }
+      .intro-col-card { padding: 1.4rem 1.2rem; }
+      .intro-col-card .col-desc { font-size: 1rem; line-height: 1.65; }
+
+      .eco-overview { margin: 0 1rem 1.2rem; padding: 1.1rem 1rem; }
+      .eco-dims { grid-template-columns: 1fr; gap: 0.7rem; }
+
+      .cities-section { margin: 0 1rem 1.4rem; }
+      .cities-grid { grid-template-columns: 1fr; gap: 0.8rem; }
+      .city-card { padding: 1.1rem 1.1rem; }
+
       .legend-bar { margin: 0 1rem 1.4rem; }
       .legend-hero-mobile { display: block; }
       .signal-boxes-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.75rem;
       }
-      .signal-box {
-        height: auto;
-        min-height: 0;
-      }
+      .signal-box { height: auto; min-height: 0; }
       .signal-box-img-wrap { display: none; }
       .signal-box-divider { width: 3px; }
       .signal-box-panel { padding: 0.7rem 0.6rem; gap: 0.5rem; }
@@ -635,6 +672,26 @@
       .signal-box-flowers .flower-icon { width: 16px; height: 16px; }
       .signal-box-label { font-size: 0.92rem; }
       .signal-box-sublabel { font-size: 1rem; }
+
+      .filter-bar { margin: 0 1rem 1.2rem; padding: 0.8rem 0.9rem; }
+      .filter-row { gap: 0.5rem 0.8rem; }
+      .sector-filter-block {
+        padding-right: 0;
+        margin-right: 0;
+        border-right: none;
+        border-bottom: 1px solid rgba(31, 206, 203, 0.12);
+        padding-bottom: 0.6rem;
+        margin-bottom: 0.2rem;
+        width: 100%;
+      }
+      .sector-filter-block:last-of-type { border-bottom: none; margin-bottom: 0; }
+      .trading-system-link { margin-left: 0; width: 100%; text-align: center; }
+
+      .cards-grid { grid-template-columns: 1fr; gap: 1rem; margin: 0 1rem 2rem; }
+      .card { padding: 1.2rem 1.1rem; }
+      .card-title { font-size: 1.05rem; }
+
+      .toggle-wrap { align-self: stretch; justify-content: flex-end; }
     }
 
     /* CARDS GRID */
