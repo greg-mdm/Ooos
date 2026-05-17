@@ -104,6 +104,12 @@ a:hover { color: var(--electric); }
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
 }
+/* On phones the sticky nav competes with embedded iframes (watchlist) and
+   absorbs touch-drags near its bottom edge on iOS. Let the user scroll
+   uninterrupted; the nav becomes static and scrolls away with the page. */
+@media (max-width: 720px) {
+  .nav { position: static; }
+}
 .nav-inner {
   display: flex;
   align-items: center;

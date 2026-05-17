@@ -107,11 +107,9 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           </aside>
           <div className="cid-note-card">
             <p>
-              By bringing these often-disconnected systems into one interactive
-              environment, participants can explore patterns, compare
-              relationships, and discover emerging opportunities for
-              collaboration, B2B cooperation, and strategic alignment across
-              industries, markets, policy, research, and institutional systems.
+              Examine interconnected signals across public, private, nonprofit,
+              government, financial, and research sectors to identify emerging
+              opportunities for strategic alignment.
             </p>
           </div>
           </div>
