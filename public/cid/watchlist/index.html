@@ -179,15 +179,16 @@
       max-width: 780px;
     }
 
-    /* Mobile-only structured intro. Hidden by default; revealed at <=720px. */
-    .title-sub-mobile { display: none; }
+    /* Structured intro — shown on all sizes. Replaces the single-line title-sub. */
+    .title-sub-mobile { display: block; }
     .title-sub-mobile .tsm-lede {
       font-weight: 500;
-      color: rgba(255,255,255,0.88);
-      font-size: 0.92rem;
+      color: rgba(255,255,255,0.9);
+      font-size: 1rem;
       line-height: 1.55;
-      margin-top: 0.55rem;
-      margin-bottom: 0.85rem;
+      margin-top: 0.75rem;
+      margin-bottom: 1rem;
+      max-width: 780px;
     }
     .title-sub-mobile .tsm-prompt {
       font-weight: 700;
@@ -195,20 +196,22 @@
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: #1fcecb;
-      margin-bottom: 0.55rem;
+      margin-bottom: 0.6rem;
     }
     .title-sub-mobile .tsm-list {
       list-style: none;
       margin: 0;
       padding: 0;
       display: grid;
-      gap: 0.55rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.6rem 1rem;
+      max-width: 780px;
     }
     .title-sub-mobile .tsm-list li {
       display: flex;
       flex-direction: column;
       gap: 0.1rem;
-      padding: 0.55rem 0.7rem;
+      padding: 0.55rem 0.8rem;
       background: rgba(255,255,255,0.05);
       border-left: 2px solid rgba(31,206,203,0.55);
       border-radius: 4px;
@@ -448,14 +451,9 @@
       line-height: 1.3;
     }
     .city-badge {
-      font-size: 0.6rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.2rem 0.6rem;
-      border-radius: 10px;
-      white-space: nowrap;
-      flex-shrink: 0;
+      /* Hidden — status labels (SHIFT/HOLD) don't carry signal meaning at the
+         city level; they belong on individual sector signal cards below. */
+      display: none;
     }
     .city-badge--shift { background: rgba(108,1,244,0.2); border: 1px solid rgba(108,1,244,0.5); color: #a855f7; }
     .city-badge--hold  { background: rgba(240,192,64,0.15); border: 1px solid rgba(240,192,64,0.45); color: #f0c040; }
@@ -677,9 +675,9 @@
       header .brand { font-size: 1.05rem; }
       header .ostara-label { font-size: 0.82rem; letter-spacing: 0.12em; }
 
-      /* Hide the dense desktop intro line; show the structured mobile block instead. */
-      .title-banner .title-sub { display: none; }
-      .title-sub-mobile { display: block; }
+      /* Structured intro stacks to one column on phones. */
+      .title-sub-mobile .tsm-lede { font-size: 0.92rem; line-height: 1.55; }
+      .title-sub-mobile .tsm-list { grid-template-columns: 1fr; }
 
       .title-banner-wrap {
         margin: 1rem 1rem;
@@ -1340,9 +1338,8 @@
       <div class="title-banner">
         <div class="title-eyebrow">Ostara Signal Intelligence &nbsp;·&nbsp; Canada Edition</div>
         <h1>Innovation &nbsp;·&nbsp; Entrepreneurship &nbsp;·&nbsp; Partnership</h1>
-        <div class="title-sub">Signal intelligence tracking Canada's emerging tech ecosystem, bilateral partnerships, and capital markets across AI, critical minerals, defence, energy, and quantum.</div>
         <div class="title-sub-mobile" aria-hidden="false">
-          <p class="tsm-lede">Signal intelligence tracking Canada’s emerging technology ecosystem, industrial strategy, bilateral partnerships, and capital market activity.</p>
+          <p class="tsm-lede">Harnessing signal intelligence to illuminate Canada’s technology innovation ecosystem by monitoring industrial strategy, bilateral partnerships, and capital market activity.</p>
           <p class="tsm-prompt">Explore signals across:</p>
           <ul class="tsm-list">
             <li><span class="tsm-head">Digital &amp; Compute</span><span class="tsm-sub">AI · Quantum · Photonics</span></li>

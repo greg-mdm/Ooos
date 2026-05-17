@@ -451,14 +451,9 @@
       line-height: 1.3;
     }
     .city-badge {
-      font-size: 0.6rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.2rem 0.6rem;
-      border-radius: 10px;
-      white-space: nowrap;
-      flex-shrink: 0;
+      /* Hidden — status labels (SHIFT/HOLD) don't carry signal meaning at the
+         city level; they belong on individual sector signal cards below. */
+      display: none;
     }
     .city-badge--shift { background: rgba(108,1,244,0.2); border: 1px solid rgba(108,1,244,0.5); color: #a855f7; }
     .city-badge--hold  { background: rgba(240,192,64,0.15); border: 1px solid rgba(240,192,64,0.45); color: #f0c040; }
@@ -1342,16 +1337,13 @@
       <div class="title-banner">
         <div class="title-eyebrow">Ostara Signal Intelligence: Canadian Innovation Dimension</div>
         <h1>Innovation &nbsp;·&nbsp; Entrepreneurship &nbsp;·&nbsp; Partnership</h1>
-        <div class="title-sub">Signal intelligence tracking Canada's emerging technology ecosystem, industrial strategy, bilateral partnerships, and capital market activity across AI, critical minerals, defence, energy, maritime systems, space, and quantum technologies. The first public engagement phase invites 200 innovators into a live Kahoot based exploration of the system.</div>
+        <div class="title-sub">
+          <p>Harnessing signal intelligence to illuminate Canada’s technology innovation ecosystem through industrial strategy, bilateral partnerships, and capital market activity.</p>
+          <p style="margin-top: 0.8rem;">The first phase of public engagement involves an interactive learning experience hosted by Ooo.Play on Kahoot. Join us to exchange insights, explore entrepreneurial opportunities, examine serious issues, deepen your understanding, and expand your network!</p>
+        </div>
         <div class="title-sub-mobile" aria-hidden="false">
-          <p class="tsm-lede">Signal intelligence tracking Canada’s emerging technology ecosystem, industrial strategy, bilateral partnerships, and capital market activity.</p>
-          <p class="tsm-prompt">Explore signals across:</p>
-          <ul class="tsm-list">
-            <li><span class="tsm-head">Digital &amp; Compute</span><span class="tsm-sub">AI · Quantum · Photonics</span></li>
-            <li><span class="tsm-head">Sovereignty &amp; Security</span><span class="tsm-sub">Defence · Geospatial · Maritime</span></li>
-            <li><span class="tsm-head">Energy &amp; Critical Minerals</span><span class="tsm-sub">Power · Infrastructure · Supply Chains</span></li>
-            <li><span class="tsm-head">Capital &amp; Industry</span><span class="tsm-sub">Digital Finance · Advanced Manufacturing · Infrastructure</span></li>
-          </ul>
+          <p class="tsm-lede">Harnessing signal intelligence to illuminate Canada’s technology innovation ecosystem through industrial strategy, bilateral partnerships, and capital market activity.</p>
+          <p class="tsm-lede">The first phase of public engagement involves an interactive learning experience hosted by Ooo.Play on Kahoot. Join us to exchange insights, explore entrepreneurial opportunities, examine serious issues, deepen your understanding, and expand your network!</p>
         </div>
       </div>
       <div class="title-banner-compass">
