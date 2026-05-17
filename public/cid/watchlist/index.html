@@ -601,6 +601,37 @@
       line-height: 1.3;
     }
 
+    /* Legend hero strip — mobile only */
+    .legend-hero-mobile {
+      display: none;
+      width: 100%;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin: 0 0 1rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+    }
+
+    @media (max-width: 720px) {
+      .legend-bar { margin: 0 1rem 1.4rem; }
+      .legend-hero-mobile { display: block; }
+      .signal-boxes-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+      }
+      .signal-box {
+        height: auto;
+        min-height: 0;
+      }
+      .signal-box-img-wrap { display: none; }
+      .signal-box-divider { width: 3px; }
+      .signal-box-panel { padding: 0.7rem 0.6rem; gap: 0.5rem; }
+      .signal-box-flowers { gap: 2px; padding-top: 0; }
+      .signal-box-flowers .flower-icon { width: 16px; height: 16px; }
+      .signal-box-label { font-size: 0.92rem; }
+      .signal-box-sublabel { font-size: 1rem; }
+    }
+
     /* CARDS GRID */
     .cards-grid {
       display: grid;
@@ -1294,6 +1325,7 @@
     <!-- SIGNAL STRENGTH LEGEND — 4 boxes with images -->
     <div class="legend-bar">
       <span class="legend-label">Signal Strength</span>
+      <img class="legend-hero-mobile" src="/assets/images/Signals-Tulips-CID.png" alt="" aria-hidden="true">
       <div style="display:flex; align-items:flex-start; gap:1.2rem;">
         <div class="signal-boxes-grid" style="flex:1;">
 

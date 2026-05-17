@@ -370,7 +370,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 label="Pool 1 · Launch"
                 goal={10000}
                 raised={7}
-                unlocks="Reaching this funding goal launches the first public event with seven nonprofit partners. Ten Digital Art Influencers transform real-world challenges into interactive experiences that the public can explore for free."
+                unlocks="Help us reach this funding goal to launch an interactive event with 7 nonprofit partners. Ten digital art influencers will transform real-world challenges into interactive experiences that the public can explore for free."
                 cta="Join our mission"
                 onSupport={onSupport}
               />
