@@ -182,6 +182,18 @@
       max-width: 880px;
     }
 
+    .title-banner-bullets {
+      list-style: disc;
+      margin: 1rem 0 0;
+      padding-left: 1.4rem;
+      color: #ffffff;
+      font-size: 1.15rem;
+      line-height: 1.55;
+      max-width: 880px;
+    }
+    .title-banner-bullets li { margin-bottom: 0.4rem; }
+    .title-banner-bullets li::marker { color: #f0f4f5; }
+
     /* Mobile-only structured intro. Hidden by default; revealed at <=720px. */
     .title-sub-mobile { display: none; }
     .title-sub-mobile .tsm-lede {
@@ -192,6 +204,16 @@
       margin-top: 0.55rem;
       margin-bottom: 0.85rem;
     }
+    .title-sub-mobile .tsm-bullets {
+      list-style: disc;
+      margin: 0.5rem 0 0.85rem;
+      padding-left: 1.2rem;
+      color: #ffffff;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .title-sub-mobile .tsm-bullets li { margin-bottom: 0.35rem; }
+    .title-sub-mobile .tsm-bullets li::marker { color: #f0f4f5; }
     .title-sub-mobile .tsm-prompt {
       font-weight: 700;
       font-size: 0.78rem;
@@ -1389,18 +1411,20 @@
     <div class="title-banner-wrap">
       <div class="title-banner">
         <div class="title-eyebrow">Ostara Signal Intelligence: Canadian Innovation Dimension</div>
-        <h1>Innovation &nbsp;·&nbsp; Entrepreneurship &nbsp;·&nbsp; Partnership</h1>
+        <ul class="title-banner-bullets">
+          <li>Harness signal intelligence to illuminate Canada’s technology innovation ecosystem.</li>
+          <li>Monitor industrial strategy, bilateral partnerships, and capital market activity.</li>
+        </ul>
         <div class="title-sub">
-          <p>Harnessing signal intelligence to illuminate Canada’s technology innovation ecosystem through industrial strategy, bilateral partnerships, and capital market activity.</p>
           <p style="margin-top: 0.8rem;">The first phase of public engagement involves an interactive learning experience hosted by Ooo.Play on Kahoot. Join us to exchange insights, explore entrepreneurial opportunities, examine serious issues, deepen your understanding, and expand your network!</p>
         </div>
         <div class="title-sub-mobile" aria-hidden="false">
-          <p class="tsm-lede">Harnessing signal intelligence to illuminate Canada’s technology innovation ecosystem through industrial strategy, bilateral partnerships, and capital market activity.</p>
+          <ul class="tsm-bullets">
+            <li>Harness signal intelligence to illuminate Canada’s technology innovation ecosystem.</li>
+            <li>Monitor industrial strategy, bilateral partnerships, and capital market activity.</li>
+          </ul>
           <p class="tsm-lede">The first phase of public engagement involves an interactive learning experience hosted by Ooo.Play on Kahoot. Join us to exchange insights, explore entrepreneurial opportunities, examine serious issues, deepen your understanding, and expand your network!</p>
         </div>
-      </div>
-      <div class="title-banner-compass">
-        <img src="Watchlist-Nav-on-Transparent.png" alt="OSTARA Navigation Compass">
       </div>
     </div>
 
