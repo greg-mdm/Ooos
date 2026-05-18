@@ -128,7 +128,7 @@
     .title-banner-row {
       display: flex;
       align-items: stretch;
-      gap: 1.5rem;
+      gap: 0.6rem;
     }
 
     .title-banner {
@@ -150,23 +150,24 @@
     .title-banner-compass {
       flex: 1 1 40%;
       min-width: 0;
+      align-self: stretch;
       background: transparent;
-      border: none;
-      border-radius: 0;
+      border: 1px solid rgba(31, 206, 203, 0.35);
+      border-radius: 12px;
+      overflow: hidden;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      align-items: stretch;
+      justify-content: stretch;
       padding: 0;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.35);
     }
 
     .title-banner-compass img {
       width: 100%;
-      max-width: 420px;
-      height: auto;
-      object-fit: contain;
-      opacity: 1;
+      height: 100%;
+      object-fit: cover;
       display: block;
-      filter: drop-shadow(0 8px 24px rgba(0,0,0,0.55));
+      filter: none;
     }
 
     /* Desktop pane content (hidden on mobile) */
