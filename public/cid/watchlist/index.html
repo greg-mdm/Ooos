@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -15,6 +15,9 @@
       margin: 0;
       min-height: 100vh;
       line-height: 1.5;
+      /* CID light azure — used only for text on red or black backgrounds where
+         teal fails AODA contrast. */
+      --cid-azure: #f0f4f5;
     }
 
     html, body { overflow-x: hidden; max-width: 100vw; }
@@ -201,7 +204,7 @@
       font-size: 0.65rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.55);
+      color: var(--cid-azure);
       margin-bottom: 0.35rem;
     }
 
@@ -264,7 +267,7 @@
       font-size: 0.78rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #1fcecb;
+      color: var(--cid-azure);
       margin-bottom: 0.6rem;
     }
     .title-sub-mobile .tsm-list {
@@ -605,6 +608,59 @@
       margin-bottom: 1.2rem;
       display: block;
       line-height: 1.5;
+    }
+
+    /* Contextual growth-stage legend (collapsible) sitting below the tulip boxes. */
+    .growth-legend {
+      margin-top: 1.2rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(31, 206, 203, 0.22);
+      border-radius: 10px;
+      padding: 0.6rem 1rem;
+      color: #e6edf3;
+    }
+    .growth-legend > summary {
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #1fcecb;
+      list-style: none;
+      padding: 0.35rem 0;
+      outline-offset: 4px;
+    }
+    .growth-legend > summary::-webkit-details-marker { display: none; }
+    .growth-legend > summary::after {
+      content: " ▾";
+      color: rgba(31, 206, 203, 0.7);
+      font-size: 0.7rem;
+      margin-left: 0.35rem;
+    }
+    .growth-legend[open] > summary::after { content: " ▴"; }
+    .growth-legend-grid {
+      margin-top: 0.8rem;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.9rem 1.1rem;
+    }
+    .growth-legend-item .gli-head {
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: #ffffff;
+      margin-bottom: 0.25rem;
+    }
+    .growth-legend-item p {
+      font-size: 0.82rem;
+      color: rgba(230, 237, 243, 0.78);
+      line-height: 1.5;
+      margin: 0;
+    }
+    @media (max-width: 900px) {
+      .growth-legend-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 580px) {
+      .growth-legend-grid { grid-template-columns: 1fr; }
     }
 
     /* SIGNAL BOXES GRID */
@@ -1428,15 +1484,6 @@
             <div class="title-eyebrow">Ostara Signal Intelligence: Canadian Innovation Dimension</div>
             <p class="title-banner-para">Harnessing signal intelligence to illuminate Canada’s technology innovation ecosystem through industrial strategy, bilateral partnerships, and capital market activity.</p>
             <p class="title-banner-para">The first phase of public engagement involves an interactive learning experience hosted by Ooo.Play on Kahoot. Join us to exchange insights, explore entrepreneurial opportunities, examine serious issues, deepen your understanding, and expand your network!</p>
-            <div class="title-banner-includes">
-              <p class="tbi-prompt">Each signal card includes:</p>
-              <ul>
-                <li>HOLD, SHIFT, or BREAK classifications</li>
-                <li>a 1–5 tulip score reflecting signal maturity, alignment, and momentum</li>
-                <li>linked organizations grouped by NYSE, TSX, TSX Venture, Private, Public Service, and Non-Profit Research</li>
-                <li>policy triggers connected to procurement, regulation, sovereignty, investment, and published strategic priorities</li>
-              </ul>
-            </div>
           </div>
           <div class="title-sub-mobile" aria-hidden="false">
             <p class="tsm-lede">Harnessing signal intelligence to illuminate Canada’s technology innovation ecosystem by monitoring industrial strategy, bilateral partnerships, and capital market activity.</p>
@@ -1547,9 +1594,9 @@
       </div>
     </div>
 
-    <!-- SIGNAL STRENGTH LEGEND — 4 boxes with images -->
+    <!-- SIGNAL GROWTH STAGES LEGEND — 4 boxes with images -->
     <div class="legend-bar">
-      <span class="legend-label">Signal Strength</span>
+      <span class="legend-label">Signal Growth Stages</span>
       <img class="legend-hero-mobile" src="/assets/images/Signals-Tulips-CID.png" alt="" aria-hidden="true">
       <div style="display:flex; align-items:flex-start; gap:1.2rem;">
         <div class="signal-boxes-grid" style="flex:1;">
@@ -1569,7 +1616,7 @@
                 <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
               </div>
               <div class="signal-box-text">
-                <div class="signal-box-label">Very Strong</div>
+                <div class="signal-box-label">Established</div>
                 <div class="signal-box-sublabel">5 / 5</div>
               </div>
             </div>
@@ -1589,7 +1636,7 @@
                 <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
               </div>
               <div class="signal-box-text">
-                <div class="signal-box-label">Strong</div>
+                <div class="signal-box-label">Accelerating</div>
                 <div class="signal-box-sublabel">4 / 5</div>
               </div>
             </div>
@@ -1608,7 +1655,7 @@
                 <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8890C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8890C"/></svg>
               </div>
               <div class="signal-box-text">
-                <div class="signal-box-label">Moderate</div>
+                <div class="signal-box-label">Developing</div>
                 <div class="signal-box-sublabel">3 / 5</div>
               </div>
             </div>
@@ -1626,7 +1673,7 @@
                 <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#D4B83D" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#D4B83D"/></svg>
               </div>
               <div class="signal-box-text">
-                <div class="signal-box-label">Early</div>
+                <div class="signal-box-label">Early Stage</div>
                 <div class="signal-box-sublabel">2 / 5</div>
               </div>
             </div>
@@ -1638,6 +1685,29 @@
           <button onclick="setView('list')" id="btn-list" class="toggle-btn" title="List view">☰</button>
         </div>
       </div>
+
+      <!-- Contextual legend: how to read the tulip score -->
+      <details class="growth-legend">
+        <summary>How to read the tulip score</summary>
+        <div class="growth-legend-grid">
+          <div class="growth-legend-item">
+            <div class="gli-head">Established</div>
+            <p>Visible adoption, institutional support, and measurable market activity.</p>
+          </div>
+          <div class="growth-legend-item">
+            <div class="gli-head">Accelerating</div>
+            <p>Gaining momentum through investment, adoption, coordination, or strategic repositioning.</p>
+          </div>
+          <div class="growth-legend-item">
+            <div class="gli-head">Developing</div>
+            <p>Taking shape through new partnerships, infrastructure activity, pilots, or funding initiatives.</p>
+          </div>
+          <div class="growth-legend-item">
+            <div class="gli-head">Early Stage</div>
+            <p>Initial innovation activity, applied research, and measurable evidence of first-mover potential.</p>
+          </div>
+        </div>
+      </details>
     </div>
 
     <!-- FILTER BAR -->
@@ -1872,10 +1942,10 @@
         </div>
         <div class="signal-container">
           <div class="signal-row">
-            <span class="signal-text">Signal Strength —&nbsp;Very Strong</span>
+            <span class="signal-text">Signal Growth Stage —&nbsp;Established</span>
             <span class="signal-score">5 / 5</span>
           </div>
-          <div class="flower-row" style="margin-top:0.4rem;" title="Very Strong">
+          <div class="flower-row" style="margin-top:0.4rem;" title="Established">
             <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
             <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
             <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
@@ -1923,10 +1993,10 @@
         </div>
         <div class="signal-container">
           <div class="signal-row">
-            <span class="signal-text">Signal Strength —&nbsp;Very Strong</span>
+            <span class="signal-text">Signal Growth Stage —&nbsp;Established</span>
             <span class="signal-score">5 / 5</span>
           </div>
-          <div class="flower-row" style="margin-top:0.4rem;" title="Very Strong">
+          <div class="flower-row" style="margin-top:0.4rem;" title="Established">
             <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
             <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
             <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
@@ -1988,10 +2058,10 @@
         </div>
         <div class="signal-container">
           <div class="signal-row">
-            <span class="signal-text">Signal Strength —&nbsp;Strong</span>
+            <span class="signal-text">Signal Growth Stage —&nbsp;Accelerating</span>
             <span class="signal-score">4 / 5</span>
           </div>
-          <div class="flower-row" style="margin-top:0.4rem;" title="Strong">
+          <div class="flower-row" style="margin-top:0.4rem;" title="Accelerating">
             <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
             <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
             <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
@@ -2041,10 +2111,10 @@
         </div>
         <div class="signal-container">
           <div class="signal-row">
-            <span class="signal-text">Signal Strength —&nbsp;Strong</span>
+            <span class="signal-text">Signal Growth Stage —&nbsp;Accelerating</span>
             <span class="signal-score">4 / 5</span>
           </div>
-          <div class="flower-row" style="margin-top:0.4rem;" title="Strong">
+          <div class="flower-row" style="margin-top:0.4rem;" title="Accelerating">
             <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
             <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
             <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
@@ -2088,10 +2158,10 @@
         </div>
         <div class="signal-container">
           <div class="signal-row">
-            <span class="signal-text">Signal Strength —&nbsp;Moderate</span>
+            <span class="signal-text">Signal Growth Stage —&nbsp;Developing</span>
             <span class="signal-score">3 / 5</span>
           </div>
-          <div class="flower-row" style="margin-top:0.4rem;" title="Moderate">
+          <div class="flower-row" style="margin-top:0.4rem;" title="Developing">
             <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8890C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8890C"/></svg>
             <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8890C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8890C"/></svg>
             <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8890C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8890C"/></svg>
@@ -2133,10 +2203,10 @@
         </div>
         <div class="signal-container">
           <div class="signal-row">
-            <span class="signal-text">Signal Strength —&nbsp;Early</span>
+            <span class="signal-text">Signal Growth Stage —&nbsp;Early Stage</span>
             <span class="signal-score">2 / 5</span>
           </div>
-          <div class="flower-row" style="margin-top:0.4rem;" title="Early">
+          <div class="flower-row" style="margin-top:0.4rem;" title="Early Stage">
             <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#D4B83D" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#D4B83D"/></svg>
             <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#D4B83D" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#D4B83D"/></svg>
           </div>
@@ -2186,10 +2256,10 @@
         </div>
         <div class="signal-container">
           <div class="signal-row">
-            <span class="signal-text">Signal Strength —&nbsp;Strong</span>
+            <span class="signal-text">Signal Growth Stage —&nbsp;Accelerating</span>
             <span class="signal-score">4 / 5</span>
           </div>
-          <div class="flower-row" style="margin-top:0.4rem;" title="Strong">
+          <div class="flower-row" style="margin-top:0.4rem;" title="Accelerating">
             <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
             <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
             <svg class="flower-icon" width="28" height="28" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
