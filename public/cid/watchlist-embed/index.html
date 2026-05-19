@@ -85,22 +85,46 @@
       gap: 0.6rem;
     }
 
+    .title-banner-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      flex: 0 1 620px;
+      min-width: 0;
+    }
+
     .title-banner {
       background: linear-gradient(135deg, #6b2700 0%, #541f00 100%);
       border: 1px solid rgba(31, 206, 203, 0.35);
       border-radius: 12px;
       box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 2px 10px rgba(31,206,203,0.08);
       text-align: left;
-      padding: 2.5rem 2rem;
+      padding: 1.8rem 2rem;
       position: relative;
-      flex: 0 1 auto;
-      min-width: 0;
-      max-width: 620px;
-      min-height: 580px;
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
+
+    .title-banner-white {
+      background: #ffffff;
+      border: 1px solid rgba(31, 206, 203, 0.35);
+      border-radius: 12px;
+      padding: 1.4rem 2rem;
+      color: #1a1a1a;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+    }
+    .title-banner-white p {
+      margin: 0;
+      font-size: 0.98rem;
+      line-height: 1.6;
+      color: #1a1a1a;
+      font-weight: 400;
+    }
+    .title-banner-white p strong { font-weight: 700; }
 
     .title-banner-compass {
       flex: 0 0 620px;
@@ -190,8 +214,9 @@
       margin: 1rem 0 0;
       padding-left: 1.4rem;
       color: #ffffff;
-      font-size: 1.15rem;
+      font-size: 1.35rem;
       line-height: 1.55;
+      font-weight: 400;
       max-width: 880px;
     }
     .title-banner-bullets li { margin-bottom: 0.4rem; }
@@ -746,6 +771,7 @@
       /* Hide the dense desktop intro line; show the structured mobile block instead. */
       .title-banner .title-sub { display: none; }
       .title-banner-bullets { display: none; }
+      .title-banner-white { display: none; }
       .title-sub-mobile { display: block; }
 
       .title-banner-wrap {
@@ -1413,15 +1439,13 @@
   <main>
     <!-- TITLE BANNER — nested in blue-bordered wrapper -->
     <div class="title-banner-wrap">
+      <div class="title-banner-stack">
       <div class="title-banner">
         <div class="title-eyebrow">Ostara Signal Intelligence: Canadian Innovation Dimension</div>
         <ul class="title-banner-bullets">
           <li>Harness signal intelligence to illuminate Canada’s technology innovation ecosystem.</li>
           <li>Monitor industrial strategy, bilateral partnerships, and capital market activity.</li>
         </ul>
-        <div class="title-sub">
-          <p style="margin-top: 0.8rem;">The first phase of public engagement involves an interactive learning experience hosted by Ooo.Play on Kahoot. Join us to exchange insights, explore entrepreneurial opportunities, examine serious issues, deepen your understanding, and expand your network!</p>
-        </div>
         <div class="title-sub-mobile" aria-hidden="false">
           <ul class="tsm-bullets">
             <li>Harness signal intelligence to illuminate Canada’s technology innovation ecosystem.</li>
@@ -1429,6 +1453,10 @@
           </ul>
           <p class="tsm-lede">The first phase of public engagement involves an interactive learning experience hosted by Ooo.Play on Kahoot. Join us to exchange insights, explore entrepreneurial opportunities, examine serious issues, deepen your understanding, and expand your network!</p>
         </div>
+      </div>
+      <div class="title-banner-white">
+        <p>The first phase of public engagement involves an interactive learning experience hosted by <strong>Ooo.Play</strong> on Kahoot. Join us to exchange insights, explore entrepreneurial opportunities, examine serious issues, deepen your understanding, and expand your network!</p>
+      </div>
       </div>
       <div class="title-banner-compass" aria-hidden="true">
         <img src="/assets/INNOVATION-IEP.png" alt="Innovation · Entrepreneurship · Partnership">
