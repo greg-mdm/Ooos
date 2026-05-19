@@ -111,7 +111,7 @@
 
     /* TITLE BANNER — red as highlight, not dominant */
     .title-banner-wrap {
-      margin: 1.4rem 5rem 2rem;
+      margin: 1.4rem 3rem 2rem;
       border-radius: 12px;
       overflow: visible;
     }
@@ -127,7 +127,7 @@
 
     .title-banner-row {
       display: flex;
-      align-items: center;
+      align-items: stretch;
       gap: 0.6rem;
     }
 
@@ -174,9 +174,8 @@
     .title-banner-white p strong { font-weight: 700; }
 
     .title-banner-compass {
-      flex: 0 0 720px;
-      width: 720px;
-      aspect-ratio: 1832 / 1080;
+      flex: 1 1 auto;
+      min-width: 0;
       background: transparent;
       border: 1px solid rgba(31, 206, 203, 0.35);
       border-radius: 12px;
