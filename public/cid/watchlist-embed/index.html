@@ -137,7 +137,6 @@
       padding: 0;
       display: block;
       box-shadow: 0 6px 18px rgba(0,0,0,0.3);
-      opacity: 0.55;
     }
 
     .title-banner-compass img {
@@ -145,7 +144,7 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      filter: brightness(0.75) saturate(0.85);
+      filter: none;
     }
 
     @media (max-width: 900px) {
@@ -162,11 +161,21 @@
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: #ffffff;
-      margin-bottom: 1rem;
+      margin-bottom: 0.35rem;
       white-space: nowrap;
       font-weight: 700;
       line-height: 1.05;
       text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    .title-source {
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      color: var(--cid-azure);
+      margin-bottom: 0.9rem;
+      white-space: nowrap;
+      font-weight: 500;
+      opacity: 0.9;
     }
 
     .title-banner h1 {
@@ -1447,6 +1456,7 @@
       <div class="title-banner-stack">
       <div class="title-banner">
         <div class="title-eyebrow">Innovation Watchlist</div>
+        <div class="title-source">&#42; Canadian Innovation Dimension</div>
         <ul class="title-banner-bullets">
           <li>Harness signal intelligence to illuminate Canada’s technology innovation ecosystem.</li>
           <li>Monitor industrial strategy, bilateral partnerships, and capital market activity.</li>
