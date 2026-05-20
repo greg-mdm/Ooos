@@ -231,25 +231,29 @@
     .title-banner-includes ul li { margin-bottom: 0.35rem; }
 
     .title-eyebrow {
-      font-size: 1.9rem;
-      letter-spacing: 0.14em;
+      font-size: 1.55rem;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: #ffffff;
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.75rem;
       white-space: nowrap;
       font-weight: 700;
       line-height: 1.05;
       text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      display: flex;
+      align-items: baseline;
+      gap: 0.7rem;
     }
 
     .title-source {
-      font-size: 0.82rem;
+      font-size: 0.72rem;
       letter-spacing: 0.08em;
       color: var(--cid-azure);
-      margin-bottom: 0.75rem;
       white-space: nowrap;
       font-weight: 500;
       opacity: 0.9;
+      text-transform: none;
+      text-shadow: none;
     }
 
     .title-banner h1 {
@@ -1532,8 +1536,7 @@
       <div class="title-banner-row">
         <div class="title-banner-stack">
         <div class="title-banner">
-          <div class="title-eyebrow">Innovation Watchlist</div>
-          <div class="title-source">&#42; Canadian Innovation Dimension</div>
+          <div class="title-eyebrow">Innovation Watchlist<span class="title-source">&#42; Canadian Innovation Dimension</span></div>
           <div class="title-banner-desktop">
             <ul class="title-banner-bullets">
               <li>Harness signal intelligence to illuminate Canada’s technology innovation ecosystem.</li>
