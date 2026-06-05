@@ -2645,6 +2645,20 @@ textarea:focus-visible,
   opacity: 0.82;
   margin: 0;
 }
+.exhibit-program-list {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.exhibit-program-list li {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--ink);
+  opacity: 0.82;
+}
+.exhibit-program-list li::marker { color: var(--tone); }
 .exhibit-program-sub {
   margin-top: 4px;
   padding-left: 14px;

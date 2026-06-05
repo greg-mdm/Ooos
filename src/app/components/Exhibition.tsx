@@ -27,21 +27,14 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
           </h2>
           <p>
             The Canadian Interactive Exhibition promises public access to an
-            innovative virtual environment featuring a variety of digital
-            experiences and experimental creations. Nonprofit organizations and
+            innovative virtual environment. Nonprofit organizations and
             avant-garde artists are teaming up to turn real-world challenges
-            into interactive experiences, simulations, and role-playing games.
+            into interactive experiences that can change minds and open hearts.
           </p>
-          <p className="exhibit-intro-subhead">A State of the Art Show!</p>
-          <ul className="exhibit-intro-bullets">
-            <li>Explore experimental digital artwork from Canadian creators.</li>
-            <li>Support fair profit sharing for creators outside monopolized marketplaces.</li>
-            <li>Foster innovation across arts, culture, business, and industry.</li>
-          </ul>
           <p>
-            Your mission deserves to be experienced! Nonprofits, artists,
-            supporters, and community leaders are invited to help shape the
-            exhibition&rsquo;s design and development.
+            Your mission deserves to be experienced! Nonprofits, artists, and
+            community leaders are invited to help shape the exhibition&rsquo;s
+            design and development.
           </p>
           <div className="exhibit-match-image-wrap">
             <img
@@ -58,6 +51,12 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
 
         <div className="exhibit-intro-anim exhibit-programs">
           <p className="exhibit-programs-eyebrow">Interactive Programming</p>
+
+          <ProgramItem title="National Gallery" tag="Digital Art Influencers" tone="indigo">
+            <ul className="exhibit-program-list">
+              <li>Explore experimental digital artwork from Canadian creators.</li>
+            </ul>
+          </ProgramItem>
 
           <ProgramItem title="Idea Accelerator" tag="Shoot a beam" tone="ruby">
             <p>
