@@ -34,10 +34,17 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             avant-garde artists are teaming up to turn real-world challenges
             into interactive experiences that can change minds and open hearts.
           </p>
+          <h3 className="exhibit-match-heading">
+            Your mission deserves to be experienced!
+          </h3>
           <p>
-            Your mission deserves to be experienced! Nonprofits, artists, and
-            community leaders are invited to help shape the exhibition&rsquo;s
-            design and development.
+            Ooo Digital Media Studio connects nonprofits with interactive
+            artists who share common values and goals, guiding each team to
+            harmonize complementary creative and technical skills.
+          </p>
+          <p className="exhibit-match-lead">
+            Match with an artist to transform your cause into an interactive
+            experience.
           </p>
           <div className="exhibit-match-image-wrap">
             <img
@@ -47,7 +54,8 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               loading="lazy"
             />
             <p className="exhibit-match-caption">
-              Match with an artist to transform your cause into an interactive experience.
+              Personalized guidance &middot; Customized solutions &middot;
+              One-of-a-kind experiences
             </p>
           </div>
         </div>
