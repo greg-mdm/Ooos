@@ -327,6 +327,13 @@ a:hover { color: var(--electric); }
 }
 .pane-wordmark h3 {
   margin: 0;
+  font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--indigo, #312583);
+  line-height: 1.2;
 }
 .pane-wordmark__ooo {
   font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
@@ -713,14 +720,14 @@ a:hover { color: var(--electric); }
 }
 .service-chip__list--grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 16px;
+  grid-template-columns: auto 1fr;
+  column-gap: 8px;
   row-gap: 4px;
 }
 .service-chip__list li {
   font-size: 12px;
   color: var(--slate);
-  padding-left: 14px;
+  padding-left: 11px;
   position: relative;
 }
 .service-chip__list li::before {
