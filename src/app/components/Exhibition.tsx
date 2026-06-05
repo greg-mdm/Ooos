@@ -59,21 +59,21 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
         <div className="exhibit-intro-anim exhibit-programs">
           <p className="exhibit-programs-eyebrow">Interactive Programming</p>
 
-          <ProgramItem title="Idea Accelerator">
+          <ProgramItem title="Idea Accelerator" tone="ruby">
             <p>
               Shoot a beam. Spinning at the speed of light, similar ideas
               attract. Rare collisions create stellar new connections.
             </p>
           </ProgramItem>
 
-          <ProgramItem title="Thought Garden">
+          <ProgramItem title="Thought Garden" tone="portal">
             <p>
               Plant a thought. See what connects; discover deep roots and quiet
               contemplation.
             </p>
           </ProgramItem>
 
-          <ProgramItem title="Serious Games Showcase" tag="Play with purpose.">
+          <ProgramItem title="Serious Games Showcase" tag="Play with purpose." tone="indigo">
             <p>
               Bias Busting POVs invite visitors into interactive stories that
               confront hard realities, challenge assumptions, shift perspectives,
@@ -81,7 +81,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             </p>
           </ProgramItem>
 
-          <ProgramItem title="Sassy Games Spotlight" tag="Play proud.">
+          <ProgramItem title="Sassy Games Spotlight" tag="Play proud." tone="ruby">
             <p>
               Celebrate queer joy, experience Canadian camp, and witness radical
               resistance.
@@ -103,7 +103,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             </div>
           </ProgramItem>
 
-          <ProgramItem title="Gateway Portals">
+          <ProgramItem title="Gateway Portals" tone="portal">
             <p>Enter artist-created worlds.</p>
           </ProgramItem>
         </div>
@@ -187,16 +187,18 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
 function ProgramItem({
   title,
   tag,
+  tone = "indigo",
   children,
 }: {
   title: string;
   tag?: string;
+  tone?: "ruby" | "indigo" | "portal";
   children: ReactNode;
 }) {
   const [open, setOpen] = useState(false);
   const detailId = `exhibit-program-${title.replace(/\s+/g, "-").toLowerCase()}`;
   return (
-    <div className={`exhibit-program ${open ? "is-open" : ""}`}>
+    <div className={`exhibit-program exhibit-program--${tone} ${open ? "is-open" : ""}`}>
       <button
         type="button"
         className="exhibit-program-toggle"
