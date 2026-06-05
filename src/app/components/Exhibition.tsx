@@ -60,10 +60,24 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               loading="lazy"
             />
           </div>
-          <ul className="exhibit-match-bullets exhibit-match-bullets--after">
-            <li>Personalized guidance &middot; Customized solutions &middot; One-of-a-kind experiences</li>
-            <li>Strategic alignment that builds capacity together.</li>
-          </ul>
+          <div className="exhibit-match-table">
+            <div className="exhibit-match-box">
+              <h4 className="exhibit-match-box__title">Advantages for YOU</h4>
+              <ul className="exhibit-match-bullets exhibit-match-bullets--after">
+                <li>Personalized guidance</li>
+                <li>Customized solutions</li>
+                <li>Co-create reusable assets</li>
+              </ul>
+            </div>
+            <div className="exhibit-match-box">
+              <h4 className="exhibit-match-box__title">Benefits for EVERYONE</h4>
+              <ul className="exhibit-match-bullets exhibit-match-bullets--after">
+                <li>Strategic alignment</li>
+                <li>Powerful partnerships</li>
+                <li>Lead Canadian innovation together</li>
+              </ul>
+            </div>
+          </div>
         </div>
 
         <div className="exhibit-intro-anim exhibit-programs">
