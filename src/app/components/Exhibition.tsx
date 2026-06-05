@@ -20,59 +20,90 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
 
       <div className="exhibit-intro-row">
         <div className="exhibit-intro-text">
-          <h2>A shared public space for Canada's nonprofits</h2>
+          <h2>
+            A Shared Public Space for Canada&rsquo;s Nonprofits
+            <span className="exhibit-intro-pill">National Pilot</span>
+          </h2>
           <p>
-            The Canadian Interactive Exhibition is a national pilot that
-            invites nonprofits across Canada to bring forward real challenges
-            and work with digital artists to shape them into interactive
-            public experiences. The exhibition is free, browser-based, and
-            designed to help organizations strengthen visibility, public
-            engagement, and cross-sector connection.
+            The Canadian Interactive Exhibition promises public access to an
+            innovative virtual environment featuring a variety of digital
+            experiences and experimental creations. Nonprofit organizations and
+            avant-garde artists are teaming up to turn real-world challenges
+            into interactive experiences, simulations, and role-playing games.
           </p>
-          <div className="exhibit-match-image-wrap">
-            <img
-              src={`${import.meta.env.BASE_URL}assets/images/matchmaking.png`}
-              alt="Artist and nonprofit matchmaking — people connected through a central hub"
-              className="exhibit-match-image"
-              loading="lazy"
-            />
-            <p className="exhibit-match-caption">
-              Match with an artist to transform your cause into an interactive experience.
-            </p>
-          </div>
+          <p className="exhibit-intro-subhead">A State of the Art Show!</p>
+          <ul className="exhibit-intro-bullets">
+            <li>Explore experimental digital artwork from Canadian creators.</li>
+            <li>Support fair profit sharing for creators outside monopolized marketplaces.</li>
+            <li>Foster innovation across arts, culture, business, and industry.</li>
+          </ul>
+          <p>
+            Your mission deserves to be experienced! Nonprofits, artists,
+            supporters, and community leaders are invited to help shape the
+            exhibition&rsquo;s design and development.
+          </p>
         </div>
 
-        <div className="exhibit-intro-anim">
-          <div className="npp-anim-div">
-            <div className="npp-line"></div>
-            <div className="npp-bars">
-              <div className="npp-b"></div>
-              <div className="npp-b"></div>
-              <div className="npp-b"></div>
-              <div className="npp-b"></div>
-              <div className="npp-b"></div>
-              <div className="npp-b"></div>
-              <div className="npp-b"></div>
-              <div className="npp-b"></div>
-              <div className="npp-b"></div>
-              <div className="npp-b"></div>
-              <div className="npp-b"></div>
-              <div className="npp-b"></div>
-            </div>
-            <div className="npp-orb npp-orb--1"></div>
-            <div className="npp-orb npp-orb--2"></div>
-            <div className="npp-orb npp-orb--3"></div>
-            <div className="npp-orb npp-orb--4"></div>
-            <span className="npp-lbl">Non-Profit Partnerships</span>
+        <div className="exhibit-intro-anim exhibit-programs">
+          <p className="exhibit-programs-eyebrow">Interactive Programming</p>
+
+          <div className="exhibit-program">
+            <h3 className="exhibit-program-name">Idea Accelerator</h3>
+            <p>
+              Shoot a beam. Spinning at the speed of light, similar ideas
+              attract. Rare collisions create stellar new connections.
+            </p>
           </div>
-          <div className="exhibit-intro-anim-body">
-            <p>Ooo connects nonprofits with digital artists across Canada to shape real challenges into public interactive experiences.</p>
-            <ul>
-              <li>Cross-sector creative collaboration</li>
-              <li>Public-facing browser experiences</li>
-              <li>Participatory audience engagement</li>
-              <li>Visibility for mission-driven organizations</li>
-            </ul>
+
+          <div className="exhibit-program">
+            <h3 className="exhibit-program-name">Thought Garden</h3>
+            <p>
+              Plant a thought. See what connects; discover deep roots and quiet
+              contemplation.
+            </p>
+          </div>
+
+          <div className="exhibit-program">
+            <h3 className="exhibit-program-name">
+              Serious Games Showcase
+              <span className="exhibit-program-tag">Play with purpose.</span>
+            </h3>
+            <p>
+              Bias Busting POVs invite visitors into interactive stories that
+              confront hard realities, challenge assumptions, shift perspectives,
+              and strengthen public education.
+            </p>
+          </div>
+
+          <div className="exhibit-program">
+            <h3 className="exhibit-program-name">
+              Sassy Games Spotlight
+              <span className="exhibit-program-tag">Play proud.</span>
+            </h3>
+            <p>
+              Celebrate queer joy, experience Canadian camp, and witness radical
+              resistance.
+            </p>
+            <div className="exhibit-program-sub">
+              <h4 className="exhibit-program-subname">The Most Radical Jester</h4>
+              <p>
+                Speak truth to power, make light of a painful reality, or flip
+                the script in your own twisted way.
+              </p>
+            </div>
+            <div className="exhibit-program-sub">
+              <h4 className="exhibit-program-subname">Radiant Queen of the Night</h4>
+              <p>
+                Experience emotional liberation for one night only. Elusive,
+                elegant, and intense. Do not excuse your beauty. Flaunt
+                forbidden feelings you&rsquo;ve kept inside all year.
+              </p>
+            </div>
+          </div>
+
+          <div className="exhibit-program">
+            <h3 className="exhibit-program-name">Gateway Portals</h3>
+            <p>Enter artist-created worlds.</p>
           </div>
         </div>
       </div>
