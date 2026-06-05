@@ -5,24 +5,21 @@ import { RadioAd } from "./RadioAd";
 export function Exhibition({ onSupport }: { onSupport: () => void }) {
   return (
     <div className="exhibit-scope">
-      <section className="exhibit-event-banner" aria-label="Canadian Interactive Exhibition">
-        <div className="container">
-          <h1 className="exhibit-event-banner__title">Canadian Interactive Exhibition</h1>
-        </div>
-      </section>
       <section className="case-hero">
         <div className="container">
           <Link to="/" className="back">← All projects</Link>
-          <div className="case-hero-meta-row">
-            <ul className="case-hero-slogans" aria-label="Exhibition call to action">
-              <li>Share your mission</li>
-              <li>Join the exhibition</li>
-            </ul>
-            <div className="case-meta case-meta--stacked">
-              <span className="chip">Interactive programming</span>
+          <div className="case-hero-meta-row case-hero-meta-row--inline">
+            <p className="case-hero-slogan">Share your mission. Join the exhibition!</p>
+            <div className="case-meta case-meta--inline">
+              <span className="chip">Active Public Participation</span>
               <span className="chip">Cross-sector collaboration</span>
             </div>
           </div>
+        </div>
+      </section>
+      <section className="exhibit-event-banner" aria-label="Canadian Interactive Exhibition">
+        <div className="container">
+          <h1 className="exhibit-event-banner__title">Canadian Interactive Exhibition</h1>
         </div>
       </section>
 
