@@ -1,3 +1,4 @@
+import { ReactNode, useState } from "react";
 import { Link } from "react-router-dom";
 import { RadioAd } from "./RadioAd";
 
@@ -42,44 +43,45 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             supporters, and community leaders are invited to help shape the
             exhibition&rsquo;s design and development.
           </p>
+          <div className="exhibit-match-image-wrap">
+            <img
+              src={`${import.meta.env.BASE_URL}assets/images/matchmaking.png`}
+              alt="Artist and nonprofit matchmaking — people connected through a central hub"
+              className="exhibit-match-image"
+              loading="lazy"
+            />
+            <p className="exhibit-match-caption">
+              Match with an artist to transform your cause into an interactive experience.
+            </p>
+          </div>
         </div>
 
         <div className="exhibit-intro-anim exhibit-programs">
           <p className="exhibit-programs-eyebrow">Interactive Programming</p>
 
-          <div className="exhibit-program">
-            <h3 className="exhibit-program-name">Idea Accelerator</h3>
+          <ProgramItem title="Idea Accelerator">
             <p>
               Shoot a beam. Spinning at the speed of light, similar ideas
               attract. Rare collisions create stellar new connections.
             </p>
-          </div>
+          </ProgramItem>
 
-          <div className="exhibit-program">
-            <h3 className="exhibit-program-name">Thought Garden</h3>
+          <ProgramItem title="Thought Garden">
             <p>
               Plant a thought. See what connects; discover deep roots and quiet
               contemplation.
             </p>
-          </div>
+          </ProgramItem>
 
-          <div className="exhibit-program">
-            <h3 className="exhibit-program-name">
-              Serious Games Showcase
-              <span className="exhibit-program-tag">Play with purpose.</span>
-            </h3>
+          <ProgramItem title="Serious Games Showcase" tag="Play with purpose.">
             <p>
               Bias Busting POVs invite visitors into interactive stories that
               confront hard realities, challenge assumptions, shift perspectives,
               and strengthen public education.
             </p>
-          </div>
+          </ProgramItem>
 
-          <div className="exhibit-program">
-            <h3 className="exhibit-program-name">
-              Sassy Games Spotlight
-              <span className="exhibit-program-tag">Play proud.</span>
-            </h3>
+          <ProgramItem title="Sassy Games Spotlight" tag="Play proud.">
             <p>
               Celebrate queer joy, experience Canadian camp, and witness radical
               resistance.
@@ -99,12 +101,11 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
                 forbidden feelings you&rsquo;ve kept inside all year.
               </p>
             </div>
-          </div>
+          </ProgramItem>
 
-          <div className="exhibit-program">
-            <h3 className="exhibit-program-name">Gateway Portals</h3>
+          <ProgramItem title="Gateway Portals">
             <p>Enter artist-created worlds.</p>
-          </div>
+          </ProgramItem>
         </div>
       </div>
 
@@ -179,6 +180,41 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
       </div>
 
       <RadioAd />
+    </div>
+  );
+}
+
+function ProgramItem({
+  title,
+  tag,
+  children,
+}: {
+  title: string;
+  tag?: string;
+  children: ReactNode;
+}) {
+  const [open, setOpen] = useState(false);
+  const detailId = `exhibit-program-${title.replace(/\s+/g, "-").toLowerCase()}`;
+  return (
+    <div className={`exhibit-program ${open ? "is-open" : ""}`}>
+      <button
+        type="button"
+        className="exhibit-program-toggle"
+        aria-expanded={open}
+        aria-controls={detailId}
+        onClick={() => setOpen((v) => !v)}
+      >
+        <span className="exhibit-program-name">
+          {title}
+          {tag && <span className="exhibit-program-tag">{tag}</span>}
+        </span>
+        <span aria-hidden="true" className="exhibit-program-arrow">
+          {open ? "\u2212" : "+"}
+        </span>
+      </button>
+      <div id={detailId} className="exhibit-program-body" hidden={!open}>
+        {children}
+      </div>
     </div>
   );
 }

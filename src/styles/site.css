@@ -2517,7 +2517,7 @@ textarea:focus-visible,
 
 /* Interactive Programming column */
 .exhibit-programs {
-  gap: 22px;
+  gap: 0;
 }
 .exhibit-programs-eyebrow {
   font-size: 0.72rem;
@@ -2526,20 +2526,39 @@ textarea:focus-visible,
   font-weight: 700;
   color: var(--ink);
   opacity: 0.65;
-  margin: 0 0 4px;
+  margin: 0 0 12px;
 }
 .exhibit-program {
+  border-top: 1px solid rgba(26,0,51,0.12);
+}
+.exhibit-program:last-child {
+  border-bottom: 1px solid rgba(26,0,51,0.12);
+}
+.exhibit-program-toggle {
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  gap: 6px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+  color: var(--ink);
+  font: inherit;
+}
+.exhibit-program-toggle:hover .exhibit-program-name,
+.exhibit-program-toggle:focus-visible .exhibit-program-name {
+  color: var(--ruby, #822F00);
 }
 .exhibit-program-name {
   font-family: var(--serif);
   font-size: 1.05rem;
   font-weight: 700;
   color: var(--ink);
-  margin: 0;
   line-height: 1.25;
+  transition: color 160ms ease;
 }
 .exhibit-program-tag {
   display: inline-block;
@@ -2553,15 +2572,28 @@ textarea:focus-visible,
   opacity: 0.55;
   vertical-align: middle;
 }
-.exhibit-program p {
+.exhibit-program-arrow {
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--ink);
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+.exhibit-program-body {
+  padding: 0 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.exhibit-program-body p {
   font-size: 14px;
   line-height: 1.6;
   color: var(--ink);
-  opacity: 0.8;
+  opacity: 0.82;
   margin: 0;
 }
 .exhibit-program-sub {
-  margin-top: 8px;
+  margin-top: 4px;
   padding-left: 14px;
   border-left: 2px solid rgba(26,0,51,0.12);
   display: flex;
