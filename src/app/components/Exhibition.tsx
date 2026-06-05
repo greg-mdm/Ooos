@@ -23,9 +23,10 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
         </div>
       </section>
 
+      <section className="exhibit-intro-section">
       <div className="exhibit-intro-row">
         <div className="exhibit-intro-text">
-          <h2>
+          <h2 className="exhibit-intro-h2 exhibit-intro-h2--centered">
             A Shared Public Space for Canada&rsquo;s Nonprofits
             <span className="exhibit-intro-pill">National Pilot</span>
           </h2>
@@ -81,7 +82,10 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
         </div>
 
         <div className="exhibit-intro-anim exhibit-programs">
-          <h2 className="exhibit-programs-heading">Interactive Programming</h2>
+          <h2 className="exhibit-programs-heading exhibit-intro-h2--centered">
+            Interactive Programming
+            <span className="exhibit-maple" aria-hidden="true">🍁</span>
+          </h2>
 
           <ProgramItem title="National Gallery" tag="Digital Art Influencers" tone="ruby">
             <ul className="exhibit-program-list">
@@ -91,17 +95,21 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
 
           <ProgramItem title="Idea Accelerator" tag="Shoot a beam" tone="indigo" pillTone="gold">
             <p>
-              Energize a beam of light by sharing an observation or idea.
-              Spinning at the speed of light, similar ideas attract, and rare
-              collisions create brilliant new connections.
+              Energize your thought beam by sharing an observation. Spinning at
+              the speed of light, different perspectives pull together as
+              opposing ideas attract. When a conflicting insight collides with a
+              cluster, the impact ignites a constellation of vibrant new
+              connections.
             </p>
           </ProgramItem>
 
-          <ProgramItem title="Thought Garden" tag="Plant a thought" tone="indigo" pillTone="teal">
-            <p>
-              See what connects; discover deep roots through quiet
-              contemplation.
-            </p>
+          <ProgramItem title="Thought Garden" tag="Plant a seed" tone="indigo" pillTone="teal">
+            <div className="exhibit-haiku">
+              <p className="exhibit-haiku__line">Underground roots meet,</p>
+              <p className="exhibit-haiku__line">Trees trade gifts beneath the soil,</p>
+              <p className="exhibit-haiku__line">We grow together.</p>
+              <p className="exhibit-haiku__author">GTL 6/2026</p>
+            </div>
           </ProgramItem>
 
           <ProgramItem title="Serious Games Showcase" tag="Play with purpose" tone="ruby">
@@ -114,19 +122,20 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
 
           <ProgramItem title="Sassy Games Spotlight" tag="Play proud" tone="ruby" pillTone="portal">
             <p>
-              Celebrate queer joy, experience Canadian camp, and witness radical
-              resistance.
+              Join us as we welcome community leaders, proud players, allies,
+              anonymous avatars, and anyone seeking a safe space for supportive
+              conversations about gender and sexuality.
             </p>
           </ProgramItem>
 
-          <ProgramItem title="The Most Radical Jester" tag="Speak truth" tone="ruby">
+          <ProgramItem title="The Most Radical Jester" tag="Truth to power" tone="ruby">
             <p>
               Speak truth to power, make light of a painful reality, or flip
               the script in your own twisted way.
             </p>
           </ProgramItem>
 
-          <ProgramItem title="Radiant Queen of the Night" tag="Reign for a night" tone="ruby">
+          <ProgramItem title="Queen of the Night" tag="Your radiant reign" tone="ruby">
             <p>
               Experience emotional liberation for one night only. Elusive,
               elegant, and intense. Do not excuse your beauty. Flaunt
@@ -139,6 +148,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
           </ProgramItem>
         </div>
       </div>
+      </section>
 
       <section className="exhibit-support">
         <div className="container">

@@ -1670,7 +1670,7 @@ a:hover { color: var(--electric); }
 .case-hero {
   background: linear-gradient(180deg, var(--dark-indigo) 0%, var(--portal) 100%);
   color: #fff;
-  padding: 36px 24px 48px;
+  padding: 28px 24px 20px;
 }
 .ostara-scope .case-hero {
   background:
@@ -1777,7 +1777,7 @@ a:hover { color: var(--electric); }
 /* Inline variant: single-line slogan + chips on one row, comfortable
    padding above/below so the row breathes inside the teal hero. */
 .case-hero-meta-row--inline {
-  margin: 32px 0 36px;
+  margin: 22px 0 6px;
   align-items: center;
   gap: 24px;
   flex-wrap: nowrap;
@@ -2536,11 +2536,17 @@ textarea:focus-visible,
 }
 
 /* ===== EXHIBITION INTRO TWO-COLUMN ===== */
+/* White panel directly under the red event banner: red + white with a
+   crisp horizontal divider reads as a Canadian-flag pairing. */
+.exhibit-intro-section {
+  background: #ffffff;
+  border-top: 1px solid rgba(0, 0, 0, 0.18);
+}
 .exhibit-intro-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0;
-  background: var(--bg);
+  background: #ffffff;
   max-width: 1200px;
   margin: 0 auto;
   padding: 56px 40px;
@@ -2556,6 +2562,20 @@ textarea:focus-visible,
   color: var(--ink);
   margin-bottom: 16px;
   line-height: 1.2;
+}
+/* Centered headings inside the white Canadian-flag panel. Applies to both
+   the left intro h2 (with its National Pilot pill) and the right
+   Interactive Programming h2 (with the maple leaf). */
+.exhibit-intro-h2--centered {
+  text-align: center;
+}
+.exhibit-maple {
+  display: inline-block;
+  margin-left: 10px;
+  color: #c8102e;
+  font-size: 0.95em;
+  line-height: 1;
+  vertical-align: -0.05em;
 }
 .exhibit-intro-text p {
   font-size: 15px;
@@ -2753,6 +2773,28 @@ textarea:focus-visible,
   color: var(--ink);
   margin: 0 0 16px;
   line-height: 1.2;
+}
+/* Haiku block inside the Thought Garden accordion: each line on its own
+   row, slightly serif-styled, with a small author credit beneath. */
+.exhibit-haiku {
+  margin: 4px 0 8px;
+}
+.exhibit-haiku__line {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink);
+  margin: 0;
+}
+.exhibit-haiku__author {
+  margin: 10px 0 0;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0.6;
 }
 
 /* Clean accordion list with color reserved for accent + glow.
