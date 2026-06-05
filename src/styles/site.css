@@ -41,8 +41,13 @@
   /* Legacy alias retained for any older rule */
   --red: var(--ruby);
 
-  --serif: 'Playfair Display', Georgia, serif;
-  --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Type system — three fonts only.
+     --sans      Poppins      friendly first, body default
+     --serif     Montserrat   elevated display (headings, "DIGITAL MEDIA STUDIO")
+     --research  Inter        accessibility first, used in CID / Research / Ostara scopes */
+  --sans: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --serif: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --research: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 /* Ostara case-study scope — switches the page to the Oracle palette */
@@ -58,6 +63,9 @@
   --white: #0D0A28;
   --faint: #13103A;
   --bone: #07051A;
+  --sans: var(--research);
+  --serif: var(--research);
+  font-family: var(--research);
 }
 
 /* Canadian Innovation Dimension scope — ruby hero + teal-tinted body */
@@ -65,6 +73,9 @@
   --indigo: #822F00;
   --indigo-deep: #5a2000;
   --bg: #E6F7F2; /* pale teal — pairs with ruby + teal accent #00D4AA */
+  --sans: var(--research);
+  --serif: var(--research);
+  font-family: var(--research);
 }
 
 * { box-sizing: border-box; }
