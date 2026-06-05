@@ -52,13 +52,13 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
         <div className="exhibit-intro-anim exhibit-programs">
           <p className="exhibit-programs-eyebrow">Interactive Programming</p>
 
-          <ProgramItem title="National Gallery" tag="Digital Art Influencers" tone="indigo">
+          <ProgramItem title="National Gallery" tag="Digital Art Influencers" tone="ruby">
             <ul className="exhibit-program-list">
               <li>Explore experimental digital artwork from Canadian creators.</li>
             </ul>
           </ProgramItem>
 
-          <ProgramItem title="Idea Accelerator" tag="Shoot a beam" tone="ruby">
+          <ProgramItem title="Idea Accelerator" tag="Shoot a beam" tone="portal">
             <p>
               Energize a beam of light by sharing an observation or idea.
               Spinning at the speed of light, similar ideas attract, and rare
@@ -73,7 +73,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             </p>
           </ProgramItem>
 
-          <ProgramItem title="Serious Games Showcase" tag="Play with purpose" tone="indigo">
+          <ProgramItem title="Serious Games Showcase" tag="Play with purpose" tone="ruby">
             <p>
               Bias Busting POVs invite visitors into interactive stories that
               confront hard realities, challenge assumptions, shift perspectives,
@@ -95,7 +95,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             </p>
           </ProgramItem>
 
-          <ProgramItem title="Radiant Queen of the Night" tag="Reign for a night" tone="portal">
+          <ProgramItem title="Radiant Queen of the Night" tag="Reign for a night" tone="ruby">
             <p>
               Experience emotional liberation for one night only. Elusive,
               elegant, and intense. Do not excuse your beauty. Flaunt
@@ -103,7 +103,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             </p>
           </ProgramItem>
 
-          <ProgramItem title="Gateway Portals" tag="Enter here" tone="indigo">
+          <ProgramItem title="Gateway Portals" tag="Enter here" tone="portal">
             <p>Enter artist-created worlds</p>
           </ProgramItem>
         </div>
@@ -187,12 +187,12 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
 function ProgramItem({
   title,
   tag,
-  tone = "indigo",
+  tone = "ruby",
   children,
 }: {
   title: string;
   tag?: string;
-  tone?: "ruby" | "indigo" | "portal";
+  tone?: "ruby" | "portal";
   children: ReactNode;
 }) {
   const [open, setOpen] = useState(false);
@@ -208,13 +208,7 @@ function ProgramItem({
       >
         <span className="exhibit-program-name">
           {title}
-          {tag && (
-            <span className="exhibit-program-tag">
-              <span aria-hidden="true" className="exhibit-program-tag-bracket">[</span>
-              {tag}
-              <span aria-hidden="true" className="exhibit-program-tag-bracket">]</span>
-            </span>
-          )}
+          {tag && <span className="exhibit-program-tag">{tag}</span>}
         </span>
         <span aria-hidden="true" className="exhibit-program-arrow">
           {open ? "\u2212" : "+"}

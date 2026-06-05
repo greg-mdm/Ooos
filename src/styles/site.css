@@ -2613,17 +2613,18 @@ textarea:focus-visible,
 .exhibit-program-tag {
   display: inline-block;
   margin-left: 10px;
+  padding: 3px 10px;
   font-family: var(--sans, inherit);
-  font-size: 0.7rem;
+  font-size: 0.66rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--tone);
+  background: color-mix(in srgb, var(--tone) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--tone) 30%, transparent);
+  border-radius: 999px;
   vertical-align: middle;
-}
-.exhibit-program-tag-bracket {
-  opacity: 0.55;
-  margin: 0 2px;
+  line-height: 1.4;
 }
 .exhibit-program-arrow {
   font-size: 1.25rem;
