@@ -42,10 +42,15 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             artists who share common values and goals, guiding each team to
             harmonize complementary creative and technical skills.
           </p>
-          <p className="exhibit-match-lead">
-            Match with an artist to transform your cause into an interactive
-            experience.
-          </p>
+          <h3 className="exhibit-match-lead">
+            Transform your cause into an interactive experience
+          </h3>
+          <ul className="exhibit-match-bullets">
+            <li>User-friendly platform architecture</li>
+            <li>Donation station for every cause</li>
+            <li>Tip trays tagged to artists</li>
+            <li>Plug-ins, embed tools, and gateway nodes</li>
+          </ul>
           <div className="exhibit-match-image-wrap">
             <img
               src={`${import.meta.env.BASE_URL}assets/images/matchmaking.png`}
@@ -58,6 +63,9 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               One-of-a-kind experiences
             </p>
           </div>
+          <ul className="exhibit-match-bullets exhibit-match-bullets--after">
+            <li>Strategic alignment that builds capacity together.</li>
+          </ul>
         </div>
 
         <div className="exhibit-intro-anim exhibit-programs">

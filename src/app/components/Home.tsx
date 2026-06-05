@@ -292,7 +292,14 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 <img src="/assets/CANADA-Flag-Drop.png" alt="Canada" height="14" style={{borderRadius:'2px',flexShrink:0,display:'block'}} />
                 <span className="studio-testimonial__role">CEO <img src="/assets/Ooo-Global-Network-Electric.png" alt="" className="studio-testimonial__globe" /> Canada</span>
               </div>
-              <p className="studio-testimonial__pitch">Outsourcing SEO and PPC is prone to high turnover, which leads to repeated onboarding and slows progress. Ooos micro-studio model provides a consistent creative lead, helping teams build internal digital capacity and drive measurable business growth.</p>
+              <p className="studio-testimonial__pitch">
+                <span className="studio-pitch-dot studio-pitch-dot--problem" aria-hidden="true"></span>
+                <span>Outsourcing SEO and PPC is prone to high turnover, which leads to repeated onboarding and slows progress.</span>
+              </p>
+              <p className="studio-testimonial__pitch">
+                <span className="studio-pitch-dot studio-pitch-dot--solution" aria-hidden="true"></span>
+                <span>Ooos micro-studio model provides a consistent creative lead, helping teams build internal digital capacity and drive measurable business growth.</span>
+              </p>
             </div>
             <div className="studio-ad" role="complementary" aria-label="Limited studio spaces">
               <div className="studio-ad__body">
