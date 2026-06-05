@@ -2528,7 +2528,7 @@ textarea:focus-visible,
 
 /* Interactive Programming column */
 .exhibit-programs {
-  gap: 12px;
+  gap: 0;
 }
 .exhibit-programs-eyebrow {
   font-size: 0.72rem;
@@ -2537,28 +2537,47 @@ textarea:focus-visible,
   font-weight: 700;
   color: var(--ink);
   opacity: 0.65;
-  margin: 0 0 4px;
+  margin: 0 0 12px;
 }
 
-/* Each programming entry is its own colored card. AODA contrast:
-   - White on Ruby #822F00       ~8.4:1   AAA
-   - White on Dark Indigo #19007D ~13:1   AAA
-   - White on Portal #4B00B6     ~9.5:1   AAA */
+/* Clean accordion list with color reserved for accent + glow.
+   Tone tokens (used by the left edge bar, tag color, hover glow):
+   - ruby   #822F00  on white  ~8.4:1  AAA
+   - indigo #19007D  on white  ~14:1   AAA
+   - portal #4B00B6  on white  ~10:1   AAA */
 .exhibit-program {
-  --tone-bg: var(--ruby, #822F00);
-  --tone-fg: #FFFFFF;
-  --tone-fg-muted: rgba(255, 255, 255, 0.78);
-  --tone-divider: rgba(255, 255, 255, 0.28);
-  background: var(--tone-bg);
-  color: var(--tone-fg);
-  border-radius: 12px;
-  overflow: hidden;
-  transition: transform 200ms ease, box-shadow 200ms ease;
+  --tone: #19007D;
+  position: relative;
+  border-top: 1px solid rgba(26, 0, 51, 0.12);
+  transition: background 160ms ease, box-shadow 200ms ease;
 }
-.exhibit-program:hover { transform: translateY(-2px); }
-.exhibit-program--ruby   { --tone-bg: #822F00; }
-.exhibit-program--indigo { --tone-bg: #19007D; }
-.exhibit-program--portal { --tone-bg: #4B00B6; }
+.exhibit-program::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--tone);
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+.exhibit-program:hover::before,
+.exhibit-program.is-open::before,
+.exhibit-program:focus-within::before {
+  opacity: 1;
+}
+.exhibit-program:last-child {
+  border-bottom: 1px solid rgba(26, 0, 51, 0.12);
+}
+.exhibit-program.is-open {
+  background: rgba(26, 0, 51, 0.02);
+  box-shadow: inset 0 0 0 1px rgba(26, 0, 51, 0.06), 0 4px 18px -8px var(--tone);
+}
+.exhibit-program--ruby   { --tone: #822F00; }
+.exhibit-program--indigo { --tone: #19007D; }
+.exhibit-program--portal { --tone: #4B00B6; }
 
 .exhibit-program-toggle {
   width: 100%;
@@ -2566,61 +2585,70 @@ textarea:focus-visible,
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 16px 18px;
+  padding: 14px 14px 14px 16px;
   background: transparent;
   border: 0;
   cursor: pointer;
   text-align: left;
-  color: var(--tone-fg);
+  color: var(--ink);
   font: inherit;
 }
 .exhibit-program-toggle:focus-visible {
-  outline: 2px solid var(--gold, #F0C040);
+  outline: 2px solid var(--tone);
   outline-offset: -2px;
+  border-radius: 4px;
+}
+.exhibit-program-toggle:hover .exhibit-program-name,
+.exhibit-program.is-open .exhibit-program-name {
+  color: var(--tone);
 }
 .exhibit-program-name {
   font-family: var(--serif);
   font-size: 1.05rem;
   font-weight: 700;
-  color: var(--tone-fg);
+  color: var(--ink);
   line-height: 1.25;
+  transition: color 160ms ease;
 }
 .exhibit-program-tag {
   display: inline-block;
   margin-left: 10px;
-  padding: 2px 8px;
   font-family: var(--sans, inherit);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--tone-fg);
-  background: rgba(255, 255, 255, 0.18);
-  border-radius: 999px;
+  color: var(--tone);
   vertical-align: middle;
 }
+.exhibit-program-tag-bracket {
+  opacity: 0.55;
+  margin: 0 2px;
+}
 .exhibit-program-arrow {
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   line-height: 1;
-  color: var(--tone-fg);
+  color: var(--tone);
+  opacity: 0.7;
   flex-shrink: 0;
 }
 .exhibit-program-body {
-  padding: 0 18px 18px;
+  padding: 0 16px 16px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 .exhibit-program-body p {
   font-size: 14px;
   line-height: 1.65;
-  color: var(--tone-fg-muted);
+  color: var(--ink);
+  opacity: 0.82;
   margin: 0;
 }
 .exhibit-program-sub {
-  margin-top: 6px;
+  margin-top: 4px;
   padding-left: 14px;
-  border-left: 2px solid var(--tone-divider);
+  border-left: 2px solid var(--tone);
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -2629,7 +2657,7 @@ textarea:focus-visible,
   font-family: var(--serif);
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--tone-fg);
+  color: var(--ink);
   margin: 0;
   line-height: 1.25;
 }

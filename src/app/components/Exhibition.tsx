@@ -59,21 +59,22 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
         <div className="exhibit-intro-anim exhibit-programs">
           <p className="exhibit-programs-eyebrow">Interactive Programming</p>
 
-          <ProgramItem title="Idea Accelerator" tone="ruby">
+          <ProgramItem title="Idea Accelerator" tag="Shoot a beam" tone="ruby">
             <p>
-              Shoot a beam. Spinning at the speed of light, similar ideas
-              attract. Rare collisions create stellar new connections.
+              Energize a beam of light by sharing an observation or idea.
+              Spinning at the speed of light, similar ideas attract, and rare
+              collisions create brilliant new connections.
             </p>
           </ProgramItem>
 
-          <ProgramItem title="Thought Garden" tone="portal">
+          <ProgramItem title="Thought Garden" tag="Plant a thought" tone="portal">
             <p>
-              Plant a thought. See what connects; discover deep roots and quiet
+              See what connects; discover deep roots through quiet
               contemplation.
             </p>
           </ProgramItem>
 
-          <ProgramItem title="Serious Games Showcase" tag="Play with purpose." tone="indigo">
+          <ProgramItem title="Serious Games Showcase" tag="Play with purpose" tone="indigo">
             <p>
               Bias Busting POVs invite visitors into interactive stories that
               confront hard realities, challenge assumptions, shift perspectives,
@@ -81,7 +82,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             </p>
           </ProgramItem>
 
-          <ProgramItem title="Sassy Games Spotlight" tag="Play proud." tone="ruby">
+          <ProgramItem title="Sassy Games Spotlight" tag="Play proud" tone="ruby">
             <p>
               Celebrate queer joy, experience Canadian camp, and witness radical
               resistance.
@@ -103,8 +104,8 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             </div>
           </ProgramItem>
 
-          <ProgramItem title="Gateway Portals" tone="portal">
-            <p>Enter artist-created worlds.</p>
+          <ProgramItem title="Gateway Portals" tag="Enter here" tone="portal">
+            <p>Enter artist-created worlds</p>
           </ProgramItem>
         </div>
       </div>
@@ -208,7 +209,13 @@ function ProgramItem({
       >
         <span className="exhibit-program-name">
           {title}
-          {tag && <span className="exhibit-program-tag">{tag}</span>}
+          {tag && (
+            <span className="exhibit-program-tag">
+              <span aria-hidden="true" className="exhibit-program-tag-bracket">[</span>
+              {tag}
+              <span aria-hidden="true" className="exhibit-program-tag-bracket">]</span>
+            </span>
+          )}
         </span>
         <span aria-hidden="true" className="exhibit-program-arrow">
           {open ? "\u2212" : "+"}
