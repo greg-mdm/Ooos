@@ -9,12 +9,15 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
         <div className="container">
           <Link to="/" className="back">← All projects</Link>
           <h1>Nonprofit portals are now open across Canada.</h1>
-          <p className="summary">
-            Share your mission. Join the exhibition. Engage the public.
-          </p>
-          <div className="case-meta">
-            <span className="chip">Interactive programming</span>
-            <span className="chip">Cross-sector collaboration</span>
+          <div className="case-hero-meta-row">
+            <ul className="case-hero-slogans" aria-label="Exhibition call to action">
+              <li>Share your mission</li>
+              <li>Join the exhibition</li>
+            </ul>
+            <div className="case-meta case-meta--stacked">
+              <span className="chip">Interactive programming</span>
+              <span className="chip">Cross-sector collaboration</span>
+            </div>
           </div>
         </div>
       </section>
@@ -50,7 +53,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
         </div>
 
         <div className="exhibit-intro-anim exhibit-programs">
-          <p className="exhibit-programs-eyebrow">Interactive Programming</p>
+          <h2 className="exhibit-programs-heading">Interactive Programming</h2>
 
           <ProgramItem title="National Gallery" tag="Digital Art Influencers" tone="ruby">
             <ul className="exhibit-program-list">
@@ -58,7 +61,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             </ul>
           </ProgramItem>
 
-          <ProgramItem title="Idea Accelerator" tag="Shoot a beam" tone="indigo">
+          <ProgramItem title="Idea Accelerator" tag="Shoot a beam" tone="indigo" pillTone="gold">
             <p>
               Energize a beam of light by sharing an observation or idea.
               Spinning at the speed of light, similar ideas attract, and rare
@@ -66,7 +69,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             </p>
           </ProgramItem>
 
-          <ProgramItem title="Thought Garden" tag="Plant a thought" tone="indigo">
+          <ProgramItem title="Thought Garden" tag="Plant a thought" tone="indigo" pillTone="teal">
             <p>
               See what connects; discover deep roots through quiet
               contemplation.
@@ -81,7 +84,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             </p>
           </ProgramItem>
 
-          <ProgramItem title="Sassy Games Spotlight" tag="Play proud" tone="ruby">
+          <ProgramItem title="Sassy Games Spotlight" tag="Play proud" tone="ruby" pillTone="portal">
             <p>
               Celebrate queer joy, experience Canadian camp, and witness radical
               resistance.
@@ -99,7 +102,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             <p>
               Experience emotional liberation for one night only. Elusive,
               elegant, and intense. Do not excuse your beauty. Flaunt
-              forbidden feelings you&rsquo;ve kept inside all year.
+              forbidden feelings.
             </p>
           </ProgramItem>
 
@@ -188,15 +191,18 @@ function ProgramItem({
   title,
   tag,
   tone = "ruby",
+  pillTone,
   children,
 }: {
   title: string;
   tag?: string;
   tone?: "ruby" | "indigo";
+  pillTone?: "ruby" | "indigo" | "gold" | "teal" | "portal";
   children: ReactNode;
 }) {
   const [open, setOpen] = useState(false);
   const detailId = `exhibit-program-${title.replace(/\s+/g, "-").toLowerCase()}`;
+  const pillClass = pillTone ? ` exhibit-program-tag--${pillTone}` : "";
   return (
     <div className={`exhibit-program exhibit-program--${tone} ${open ? "is-open" : ""}`}>
       <button
@@ -208,7 +214,7 @@ function ProgramItem({
       >
         <span className="exhibit-program-name">
           {title}
-          {tag && <span className="exhibit-program-tag">{tag}</span>}
+          {tag && <span className={`exhibit-program-tag${pillClass}`}>{tag}</span>}
         </span>
         <span aria-hidden="true" className="exhibit-program-arrow">
           {open ? "\u2212" : "+"}

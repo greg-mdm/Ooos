@@ -1677,11 +1677,57 @@ a:hover { color: var(--electric); }
   flex-wrap: wrap;
   margin-top: 18px;
 }
+.case-meta--stacked {
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 0;
+  flex-wrap: nowrap;
+  gap: 14px;
+}
 .case-meta .chip {
   background: rgba(255,255,255,0.1);
   color: rgba(255,255,255,0.85);
 }
+.case-meta--stacked .chip {
+  font-size: 14px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
 .case-meta .chip.teal { background: rgba(0,212,170,0.18); color: var(--teal); }
+
+/* Two-column hero footer: all-caps slogans paired with chips. Each slogan
+   line is sized to match the chip line so the rows align horizontally. */
+.case-hero-meta-row {
+  margin-top: 28px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+.case-hero-slogans {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-family: var(--serif);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #fff;
+}
+.case-hero-slogans li {
+  font-size: clamp(20px, 2.4vw, 28px);
+  line-height: 1.5;
+}
+@media (max-width: 720px) {
+  .case-hero-meta-row { gap: 18px; }
+  .case-meta--stacked { align-items: flex-start; }
+}
 
 .case-body {
   max-width: 760px;
@@ -2490,16 +2536,16 @@ textarea:focus-visible,
 /* Pill next to the left-column h2 */
 .exhibit-intro-pill {
   display: inline-block;
-  margin-left: 10px;
-  padding: 3px 10px;
+  margin-left: 12px;
+  padding: 5px 14px;
   font-family: var(--sans, inherit);
-  font-size: 0.6rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--ink);
-  background: rgba(26,0,51,0.06);
-  border: 1px solid rgba(26,0,51,0.18);
+  color: #ffffff;
+  background: var(--ruby, #822F00);
+  border: 1px solid var(--ruby, #822F00);
   border-radius: 999px;
   vertical-align: middle;
   white-space: nowrap;
@@ -2530,14 +2576,13 @@ textarea:focus-visible,
 .exhibit-programs {
   gap: 0;
 }
-.exhibit-programs-eyebrow {
-  font-size: 0.72rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+.exhibit-programs-heading {
+  font-family: var(--serif);
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
   font-weight: 700;
   color: var(--ink);
-  opacity: 0.65;
-  margin: 0 0 12px;
+  margin: 0 0 16px;
+  line-height: 1.2;
 }
 
 /* Clean accordion list with color reserved for accent + glow.
@@ -2625,6 +2670,37 @@ textarea:focus-visible,
   border-radius: 999px;
   vertical-align: middle;
   line-height: 1.4;
+}
+
+/* Per-pill accent overrides (used as guiding signals on selected items).
+   AODA contrast checks:
+   - Gold #F0C040 + Dark Indigo #19007D text  ~10:1   AAA
+   - White on Teal #008080                    ~4.83:1 AA  (normal text)
+   - White on Portal #4B00B6                  ~10:1   AAA */
+.exhibit-program-tag--gold {
+  color: #19007D;
+  background: #F0C040;
+  border-color: #F0C040;
+}
+.exhibit-program-tag--teal {
+  color: #ffffff;
+  background: #008080;
+  border-color: #008080;
+}
+.exhibit-program-tag--portal {
+  color: #ffffff;
+  background: #4B00B6;
+  border-color: #4B00B6;
+}
+.exhibit-program-tag--ruby {
+  color: #ffffff;
+  background: #822F00;
+  border-color: #822F00;
+}
+.exhibit-program-tag--indigo {
+  color: #ffffff;
+  background: #19007D;
+  border-color: #19007D;
 }
 .exhibit-program-arrow {
   font-size: 1.25rem;
