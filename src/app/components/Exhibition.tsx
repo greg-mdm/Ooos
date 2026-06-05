@@ -5,10 +5,14 @@ import { RadioAd } from "./RadioAd";
 export function Exhibition({ onSupport }: { onSupport: () => void }) {
   return (
     <div className="exhibit-scope">
+      <section className="exhibit-event-banner" aria-label="Canadian Interactive Exhibition">
+        <div className="container">
+          <h1 className="exhibit-event-banner__title">Canadian Interactive Exhibition</h1>
+        </div>
+      </section>
       <section className="case-hero">
         <div className="container">
           <Link to="/" className="back">← All projects</Link>
-          <h1>Nonprofit portals are now open across Canada.</h1>
           <div className="case-hero-meta-row">
             <ul className="case-hero-slogans" aria-label="Exhibition call to action">
               <li>Share your mission</li>
