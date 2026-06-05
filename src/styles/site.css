@@ -1639,36 +1639,31 @@ a:hover { color: var(--electric); }
 /* ===== CASE STUDY ===== */
 /* Exhibition event banner — a red strip directly below the nav so the
    event name "Canadian Interactive Exhibition" carries the brand
-   hierarchy before the teal hero. Uses Bowlby One as a block-font
-   stand-in for Lovelo (Lovelo is not on Google Fonts; the fallback
-   stack will use Lovelo if a viewer has it installed locally). */
+   hierarchy before the teal hero. Uses self-hosted Lovelo Black
+   (royalty free, FF EULA v2.2). Lovelo is already a heavy block face,
+   so no extra boldening or text-shadow lift — a single soft drop shadow
+   keeps the letterforms intact. */
 .exhibit-event-banner {
-  background:
-    linear-gradient(180deg, #8a3300 0%, #5a2000 100%);
-  padding: 32px 24px 36px;
+  background: linear-gradient(180deg, #8a3300 0%, #5a2000 100%);
+  padding: 26px 24px 28px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-  box-shadow: 0 6px 24px rgba(90, 32, 0, 0.35);
 }
 .exhibit-event-banner .container {
   text-align: center;
 }
 .exhibit-event-banner__title {
   margin: 0;
-  font-family: 'Lovelo', 'Bowlby One', 'Bowlby One SC', 'Impact', 'Arial Black', sans-serif;
-  font-weight: 400; /* Bowlby One ships at 400 only */
-  font-size: clamp(32px, 6vw, 72px);
-  line-height: 1;
-  letter-spacing: 0.04em;
+  font-family: 'Lovelo', 'Impact', 'Arial Black', sans-serif;
+  font-weight: 900;
+  font-size: clamp(28px, 4.4vw, 56px);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
   color: #ffffff;
-  /* Lift (inset highlight) + drop shadow */
-  text-shadow:
-    0 -1px 0 rgba(255, 255, 255, 0.35),
-    0 2px 0 rgba(0, 0, 0, 0.35),
-    0 6px 18px rgba(0, 0, 0, 0.45);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
 }
 @media (max-width: 720px) {
-  .exhibit-event-banner { padding: 22px 18px 26px; }
+  .exhibit-event-banner { padding: 18px 18px 20px; }
 }
 
 .case-hero {
