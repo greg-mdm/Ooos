@@ -86,24 +86,24 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               Celebrate queer joy, experience Canadian camp, and witness radical
               resistance.
             </p>
-            <div className="exhibit-program-sub">
-              <h4 className="exhibit-program-subname">The Most Radical Jester</h4>
-              <p>
-                Speak truth to power, make light of a painful reality, or flip
-                the script in your own twisted way.
-              </p>
-            </div>
-            <div className="exhibit-program-sub">
-              <h4 className="exhibit-program-subname">Radiant Queen of the Night</h4>
-              <p>
-                Experience emotional liberation for one night only. Elusive,
-                elegant, and intense. Do not excuse your beauty. Flaunt
-                forbidden feelings you&rsquo;ve kept inside all year.
-              </p>
-            </div>
           </ProgramItem>
 
-          <ProgramItem title="Gateway Portals" tag="Enter here" tone="portal">
+          <ProgramItem title="The Most Radical Jester" tag="Speak truth" tone="ruby">
+            <p>
+              Speak truth to power, make light of a painful reality, or flip
+              the script in your own twisted way.
+            </p>
+          </ProgramItem>
+
+          <ProgramItem title="Radiant Queen of the Night" tag="Reign for a night" tone="portal">
+            <p>
+              Experience emotional liberation for one night only. Elusive,
+              elegant, and intense. Do not excuse your beauty. Flaunt
+              forbidden feelings you&rsquo;ve kept inside all year.
+            </p>
+          </ProgramItem>
+
+          <ProgramItem title="Gateway Portals" tag="Enter here" tone="indigo">
             <p>Enter artist-created worlds</p>
           </ProgramItem>
         </div>
