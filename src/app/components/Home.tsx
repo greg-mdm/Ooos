@@ -176,8 +176,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             <span className="vote-guide-access"> &middot; Exclusive Access</span>
           </div>
           <p className="vote-guide-body">
-            Join our interactive workshop to co-play with 200 innovators! Explore the digital economy,<br />
-            exchange perspectives on AI, and examine opportunities for funding innovation.
+            Join our interactive workshop to co-play with 200 innovators! Explore the digital economy, exchange perspectives on AI, and examine opportunities for funding innovation.
           </p>
         </div>
         <div className="vote-stage">
