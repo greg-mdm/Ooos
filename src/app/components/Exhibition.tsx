@@ -58,12 +58,9 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               className="exhibit-match-image"
               loading="lazy"
             />
-            <p className="exhibit-match-caption">
-              Personalized guidance &middot; Customized solutions &middot;
-              One-of-a-kind experiences
-            </p>
           </div>
           <ul className="exhibit-match-bullets exhibit-match-bullets--after">
+            <li>Personalized guidance &middot; Customized solutions &middot; One-of-a-kind experiences</li>
             <li>Strategic alignment that builds capacity together.</li>
           </ul>
         </div>
