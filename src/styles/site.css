@@ -2541,10 +2541,11 @@ textarea:focus-visible,
 }
 
 /* Clean accordion list with color reserved for accent + glow.
-   Tone tokens (used by the left edge bar, tag color, hover glow):
+   Tone tokens (used by the left edge bar, tag color, hover glow).
+   Two tones only: ruby (warm) and indigo (cool). Indigo matches the nav band
+   so the page reads as a single purple plus red.
    - ruby   #822F00  on white  ~8.4:1  AAA
-   - indigo #19007D  on white  ~14:1   AAA
-   - portal #4B00B6  on white  ~10:1   AAA */
+   - indigo #19007D  on white  ~14:1   AAA */
 .exhibit-program {
   --tone: #19007D;
   position: relative;
@@ -2577,7 +2578,6 @@ textarea:focus-visible,
 }
 .exhibit-program--ruby   { --tone: #822F00; }
 .exhibit-program--indigo { --tone: #19007D; }
-.exhibit-program--portal { --tone: #4B00B6; }
 
 .exhibit-program-toggle {
   width: 100%;

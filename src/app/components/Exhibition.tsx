@@ -58,7 +58,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             </ul>
           </ProgramItem>
 
-          <ProgramItem title="Idea Accelerator" tag="Shoot a beam" tone="portal">
+          <ProgramItem title="Idea Accelerator" tag="Shoot a beam" tone="indigo">
             <p>
               Energize a beam of light by sharing an observation or idea.
               Spinning at the speed of light, similar ideas attract, and rare
@@ -66,7 +66,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             </p>
           </ProgramItem>
 
-          <ProgramItem title="Thought Garden" tag="Plant a thought" tone="portal">
+          <ProgramItem title="Thought Garden" tag="Plant a thought" tone="indigo">
             <p>
               See what connects; discover deep roots through quiet
               contemplation.
@@ -103,7 +103,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             </p>
           </ProgramItem>
 
-          <ProgramItem title="Gateway Portals" tag="Enter here" tone="portal">
+          <ProgramItem title="Gateway Portals" tag="Enter here" tone="indigo">
             <p>Enter artist-created worlds</p>
           </ProgramItem>
         </div>
@@ -192,7 +192,7 @@ function ProgramItem({
 }: {
   title: string;
   tag?: string;
-  tone?: "ruby" | "portal";
+  tone?: "ruby" | "indigo";
   children: ReactNode;
 }) {
   const [open, setOpen] = useState(false);
