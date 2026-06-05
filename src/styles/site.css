@@ -74,7 +74,6 @@
   --indigo-deep: #5a2000;
   --bg: #E6F7F2; /* pale teal — pairs with ruby + teal accent #00D4AA */
   --sans: var(--research);
-  --serif: var(--research);
   font-family: var(--research);
 }
 
@@ -138,7 +137,7 @@ a:hover { color: var(--electric); }
   text-decoration: none;
 }
 .nav-brand-mark {
-  font-family: var(--serif);
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
   font-style: italic;
   font-weight: 700;
   font-size: 26px;
@@ -330,7 +329,7 @@ a:hover { color: var(--electric); }
   margin: 0;
 }
 .pane-wordmark__ooo {
-  font-family: var(--serif);
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
   font-size: 28px;
   font-weight: 700;
   font-style: italic;
@@ -396,7 +395,7 @@ a:hover { color: var(--electric); }
   .pane-wordmark__ahh:focus .xk { animation: none; color: var(--xk-tone); }
 }
 .pane-wordmark__ahh {
-  font-family: var(--serif);
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
   font-size: 28px;
   font-weight: 700;
   font-style: italic;
