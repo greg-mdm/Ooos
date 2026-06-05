@@ -26,7 +26,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
       <section className="exhibit-intro-section">
       <div className="exhibit-intro-row">
         <div className="exhibit-intro-text">
-          <h2 className="exhibit-intro-h2 exhibit-intro-h2--centered">
+          <h2 className="exhibit-intro-h2">
             A Shared Public Space for Canada&rsquo;s Nonprofits
             <span className="exhibit-intro-pill">National Pilot</span>
           </h2>
@@ -67,7 +67,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               <ul className="exhibit-match-bullets exhibit-match-bullets--after">
                 <li>Personalized guidance</li>
                 <li>Customized solutions</li>
-                <li>Co-create reusable assets</li>
+                <li>Reusable creative content</li>
               </ul>
             </div>
             <div className="exhibit-match-box">
@@ -75,7 +75,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               <ul className="exhibit-match-bullets exhibit-match-bullets--after">
                 <li>Strategic alignment</li>
                 <li>Powerful partnerships</li>
-                <li>Lead Canadian innovation together</li>
+                <li>Lead innovation together</li>
               </ul>
             </div>
           </div>
@@ -138,8 +138,8 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
           <ProgramItem title="Queen of the Night" tag="Your radiant reign" tone="ruby">
             <p>
               Experience emotional liberation for one night only. Elusive,
-              elegant, and intense. Do not excuse your beauty. Flaunt
-              forbidden feelings.
+              elegant, or intense. Flaunt forbidden feelings and do not
+              excuse your beauty.
             </p>
           </ProgramItem>
 
@@ -154,12 +154,13 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
         <div className="container">
           <div className="exhibit-support-inner">
             <div className="exhibit-support-content">
-              <p className="tiers-label">Support the exhibition</p>
+              <p className="tiers-label">Donate to support a shared vision!</p>
               <p className="tier-note">
-                Crowdfunding supports the build and launch of the exhibition,
-                artist collaboration, and a virtual tip jar that allows
-                participating nonprofits to receive donations while keeping the
-                experience free for the public.
+                Crowdfunding helps support the design, development, and launch
+                of the Canadian Interactive Exhibition. As contributions flow
+                into a visible pool of community support, our shared vision
+                gets stronger. We demand to expand public access to immersive
+                digital environments!
               </p>
 
               <div className="support-tiers">

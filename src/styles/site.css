@@ -2782,6 +2782,7 @@ textarea:focus-visible,
 .exhibit-haiku__line {
   font-family: var(--serif);
   font-style: italic;
+  font-weight: 400;
   font-size: 15px;
   line-height: 1.55;
   color: var(--ink);
@@ -2790,7 +2791,7 @@ textarea:focus-visible,
 .exhibit-haiku__author {
   margin: 10px 0 0;
   font-family: var(--sans);
-  font-size: 11px;
+  font-size: 9px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink);
@@ -3086,7 +3087,7 @@ textarea:focus-visible,
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--teal);
+  color: var(--gold);
   margin: 0 0 12px;
 }
 .exhibit-support .tier-note {
