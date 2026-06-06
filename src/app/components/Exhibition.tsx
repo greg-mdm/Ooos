@@ -146,6 +146,32 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
           <ProgramItem title="Gateway Portals" tag="Enter here" tone="indigo">
             <p>Enter artist-created worlds</p>
           </ProgramItem>
+
+          <div className="exhibit-reach">
+            <p className="exhibit-reach__eyebrow">
+              60% of searches now end without a click.
+            </p>
+            <h3 className="exhibit-reach__heading">Community Reach Campaigns</h3>
+            <ul className="exhibit-reach__list">
+              <li className="exhibit-reach__item">
+                <h4 className="exhibit-reach__item-title">Category ad clusters</h4>
+                <p className="exhibit-reach__item-body">
+                  Reclaim category authority from AI-generated summaries with
+                  coordinated SEO tactics and credibility-building ad campaigns
+                  that scale through data-driven insights.
+                </p>
+              </li>
+              <li className="exhibit-reach__item">
+                <h4 className="exhibit-reach__item-title">Community voices</h4>
+                <p className="exhibit-reach__item-body">
+                  Community and campus radio are vital to Canadian culture!
+                  With programming in over 65 languages, trusted local voices
+                  help messages hit home. Learn to leverage free public service
+                  announcements and airtime available to non-profits.
+                </p>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       </section>

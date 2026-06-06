@@ -2798,6 +2798,62 @@ textarea:focus-visible,
   opacity: 0.6;
 }
 
+/* Community Reach Campaigns: sits in the right column directly below the
+   Interactive Programming schedule. Eyebrow stat in ruby leads into the
+   section heading; each productized solution is a titled paragraph in a
+   light panel. */
+.exhibit-reach {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(26, 0, 51, 0.12);
+}
+.exhibit-reach__eyebrow {
+  margin: 0 0 6px;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ruby, #822F00);
+}
+.exhibit-reach__heading {
+  font-family: var(--serif);
+  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 14px;
+  line-height: 1.2;
+}
+.exhibit-reach__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.exhibit-reach__item {
+  background: rgba(75, 0, 182, 0.04);
+  border: 1px solid rgba(75, 0, 182, 0.18);
+  border-radius: 10px;
+  padding: 14px 16px 16px;
+}
+.exhibit-reach__item-title {
+  margin: 0 0 6px;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
+.exhibit-reach__item-body {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink);
+  opacity: 0.85;
+}
+
 /* Clean accordion list with color reserved for accent + glow.
    Tone tokens (used by the left edge bar, tag color, hover glow).
    Two tones only: ruby (warm) and indigo (cool). Indigo matches the nav band
