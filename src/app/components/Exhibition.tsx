@@ -4,17 +4,6 @@ import { RadioAd } from "./RadioAd";
 export function Exhibition({ onSupport }: { onSupport: () => void }) {
   return (
     <div className="exhibit-scope">
-      <section className="case-hero">
-        <div className="container">
-          <div className="case-hero-meta-row case-hero-meta-row--inline">
-            <p className="case-hero-slogan">Share your mission. Join the exhibition!</p>
-            <div className="case-meta case-meta--inline">
-              <span className="chip">Active Public Participation</span>
-              <span className="chip">Cross-sector collaboration</span>
-            </div>
-          </div>
-        </div>
-      </section>
       <section className="exhibit-event-banner" aria-label="Canadian Interactive Exhibition">
         <div className="container">
           <h1 className="exhibit-event-banner__title">Canadian Interactive Exhibition</h1>
@@ -242,6 +231,18 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
           </div>
         </div>
       </div>
+
+      <section className="case-hero case-hero--mid">
+        <div className="container">
+          <div className="case-hero-meta-row case-hero-meta-row--inline">
+            <p className="case-hero-slogan">Share your mission. Join the exhibition!</p>
+            <div className="case-meta case-meta--inline">
+              <span className="chip">Active Public Participation</span>
+              <span className="chip">Cross-sector collaboration</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <RadioAd />
     </div>
