@@ -1670,7 +1670,7 @@ a:hover { color: var(--electric); }
 .case-hero {
   background: linear-gradient(180deg, var(--dark-indigo) 0%, var(--portal) 100%);
   color: #fff;
-  padding: 28px 24px 20px;
+  padding: 18px 24px 14px;
 }
 .ostara-scope .case-hero {
   background:
@@ -1774,14 +1774,14 @@ a:hover { color: var(--electric); }
   font-size: clamp(20px, 2.4vw, 28px);
   line-height: 1.5;
 }
-/* Inline variant: single-line slogan + chips on one row, comfortable
-   padding above/below so the row breathes inside the teal hero. */
+/* Inline variant: single-line slogan + chips on one row, centered inside
+   the teal hero. */
 .case-hero-meta-row--inline {
-  margin: 22px 0 6px;
+  margin: 6px 0 0;
   align-items: center;
   gap: 24px;
   flex-wrap: nowrap;
-  justify-content: flex-start;
+  justify-content: center;
 }
 .case-hero-meta-row--inline .case-hero-slogan {
   flex: 0 1 auto;
@@ -2586,6 +2586,8 @@ textarea:focus-visible,
 }
 .exhibit-match-image-wrap {
   text-align: center;
+  margin: 28px 0 28px;
+  padding: 0 8px;
 }
 .exhibit-match-heading {
   font-family: var(--serif);
@@ -2669,7 +2671,7 @@ textarea:focus-visible,
   width: 100%;
   border-radius: 10px;
   display: block;
-  margin: 0 auto 12px;
+  margin: 0 auto;
 }
 .exhibit-match-caption {
   font-size: 13px;

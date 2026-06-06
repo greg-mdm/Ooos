@@ -1,5 +1,4 @@
 import { ReactNode, useState } from "react";
-import { Link } from "react-router-dom";
 import { RadioAd } from "./RadioAd";
 
 export function Exhibition({ onSupport }: { onSupport: () => void }) {
@@ -7,7 +6,6 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
     <div className="exhibit-scope">
       <section className="case-hero">
         <div className="container">
-          <Link to="/" className="back">← All projects</Link>
           <div className="case-hero-meta-row case-hero-meta-row--inline">
             <p className="case-hero-slogan">Share your mission. Join the exhibition!</p>
             <div className="case-meta case-meta--inline">
@@ -84,7 +82,6 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
         <div className="exhibit-intro-anim exhibit-programs">
           <h2 className="exhibit-programs-heading exhibit-intro-h2--centered">
             Interactive Programming
-            <span className="exhibit-maple" aria-hidden="true">🍁</span>
           </h2>
 
           <ProgramItem title="National Gallery" tag="Digital Art Influencers" tone="ruby">
@@ -156,9 +153,8 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               <li className="exhibit-reach__item">
                 <h4 className="exhibit-reach__item-title">Category ad clusters</h4>
                 <p className="exhibit-reach__item-body">
-                  Reclaim category authority from AI-generated summaries with
-                  coordinated SEO tactics and credibility-building ad campaigns
-                  that scale through data-driven insights.
+                  Reclaim category authority from AI-generated summaries and
+                  optimize campaigns with data-driven insights.
                 </p>
               </li>
               <li className="exhibit-reach__item">
@@ -182,11 +178,11 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             <div className="exhibit-support-content">
               <p className="tiers-label">Donate to support a shared vision!</p>
               <p className="tier-note">
-                Crowdfunding helps support the design, development, and launch
-                of the Canadian Interactive Exhibition. As contributions flow
-                into a visible pool of community support, our shared vision
-                gets stronger. We demand to expand public access to immersive
-                digital environments!
+                Crowdfunding helps support the design and development of the
+                Canadian Interactive Exhibition. Our shared vision gets
+                stronger as contributions flow into a visible pool of
+                community support. We demand to expand public access to
+                immersive digital environments!
               </p>
 
               <div className="support-tiers">
