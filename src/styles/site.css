@@ -3885,23 +3885,41 @@ textarea:focus-visible,
   color: #FFFFFF;
   border-color: var(--ruby);
 }
-/* Lovelo event name inside the existing descriptor chip shape, white bg */
+/* Lovelo event name chip — two-segment: indigo prefix + ruby CIE name */
 .exh-descriptor--cie {
   font-family: 'Lovelo', 'Impact', 'Arial Black', sans-serif;
   font-weight: 900;
   font-size: 12px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--ruby, #822F00);
   background: #ffffff;
   border-color: rgba(130, 47, 0, 0.35);
+  gap: 4px;
 }
-/* Full-width top row: CIE name spans the entire pill-bar width */
+/* Segment 1: semi-bold deep indigo, 1pt smaller */
+.exh-descriptor--cie .cie-prefix {
+  font-family: 'Poppins', var(--sans), sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--dark-indigo, #19007D);
+}
+/* Segment 2: bold ruby, 1pt bigger */
+.exh-descriptor--cie .cie-name {
+  font-family: 'Lovelo', 'Impact', 'Arial Black', sans-serif;
+  font-weight: 900;
+  font-size: 13px;
+  color: var(--ruby, #822F00);
+}
+/* Hover: both segments go white */
+.exh-descriptor--cie:hover .cie-prefix,
+.exh-descriptor--cie:hover .cie-name {
+  color: #fff;
+}
+/* Full-width top row: CIE chip spans the entire pill-bar width */
 .exh-descriptor--cie-full {
   flex: 1 0 100%;
   text-align: center;
   justify-content: center;
-  font-size: 13px;
 }
 .exh-descriptor--poppins {
   font-family: 'Poppins', var(--sans, system-ui), sans-serif;
