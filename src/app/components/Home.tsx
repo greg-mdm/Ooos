@@ -296,7 +296,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               </p>
               <p className="studio-testimonial__pitch">
                 <span className="studio-pitch-dot studio-pitch-dot--solution" aria-hidden="true"></span>
-                <span>Ooos micro-studio model provides a consistent creative lead, helping teams build internal digital capacity and drive measurable business growth.</span>
+                <span><strong>Ooo Digital Media Studio</strong> provides a consistent creative lead, so your team can build on every success, strengthen internal digital capacity, and drive measurable business growth.</span>
               </p>
             </div>
             <div className="studio-ad" role="complementary" aria-label="Limited studio spaces">
