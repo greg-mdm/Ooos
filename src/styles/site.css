@@ -3819,6 +3819,8 @@ textarea:focus-visible,
   color: var(--ruby, #822F00);
   background: #ffffff;
   border-color: rgba(130, 47, 0, 0.35);
+  /* Push CIE to the right end of the pill-bar row, beside the Immersive label */
+  margin-left: auto;
 }
 .exh-descriptor--poppins {
   font-family: 'Poppins', var(--sans, system-ui), sans-serif;

@@ -143,7 +143,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             </div>
             <div className="exh-pill-bar">
               <span className="exh-label"><span className="exh-label-main">Immersive</span><span className="exh-label-sub">experiences</span></span>
-              <span className="exh-descriptor exh-descriptor--cie">Canadian Interactive Exhibition</span>
+              <span className="exh-descriptor exh-descriptor--cie exh-descriptor--cie-right">Canadian Interactive Exhibition</span>
               <span className="exh-descriptor exh-descriptor--ruby exh-descriptor--poppins">WANTED: 20 Digital Art Influencers</span>
             </div>
             <div className="feature-body">
