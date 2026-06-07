@@ -188,7 +188,7 @@ a:hover { color: var(--electric); }
 .hero {
   background: var(--bg);
   color: var(--ink);
-  padding: 48px 24px 32px;
+  padding: 48px 24px 8px;
 }
 .hero-logo-wrap {
   margin-bottom: 20px;
