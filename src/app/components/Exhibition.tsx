@@ -155,9 +155,11 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               <span className="exhibit-reach__pill-date">Tryouts open July 1, 2026</span>
             </p>
             <p className="exhibit-reach__intro">
-              Ooo Digital Media Studio is building co-marketing teams to
-              strengthen domain authority for mission-driven Canadian
-              organizations and increase visibility for important causes.
+              <strong>Ooo Digital Media Studio</strong> is building Canadian
+              co-marketing teams to <strong>strengthen domain authority</strong>
+              {" "}for mission-driven organizations,
+              {" "}<strong>reinforce credibility</strong> and
+              {" "}<strong>increase visibility</strong> for important causes.
             </p>
             <p className="exhibit-reach__hint">Click to open</p>
             <div className="exhibit-reach__plays">
@@ -175,10 +177,9 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
                   For courageous community builders who cover ground others
                   can&rsquo;t. Two campaigns run in parallel: one courts donors
                   and philanthropic partners; the other reaches the people
-                  your services are designed to help. Lead with intention.
-                  Strategic targeting and automated discovery elevate your
-                  digital presence and directly translate into real-world
-                  impact.
+                  your services are designed to help. Strategic targeting and
+                  automated discovery elevate your digital presence and
+                  directly translate into real-world impact.
                 </p>
               </PlayItem>
               <PlayItem title="Give-and-Get" meta="2 Player · Seasonal plan">
@@ -191,17 +192,17 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               </PlayItem>
               <PlayItem title="Double Bumper" meta="2 Player · Quick launch · Booster packs">
                 <p>
-                  Add your budgets together for three weeks to form an
-                  effective ad-buying alliance.
+                  Co-sponsor a 3-week campaign to launch an effective but
+                  quick and easy ad-buy alliance.
                 </p>
               </PlayItem>
               <PlayItem title="Hat-Trick" meta="3 Player">
                 <p>
-                  Accelerate your outreach with three trusted promotional
-                  partners aligned with your nonprofit&rsquo;s niche. Our game
-                  plan is designed to stack insights, synchronize marketing
-                  efforts, and efficiently manage live leads across adjacent
-                  audience segments.
+                  Accelerate your outreach with a trio of promo partners
+                  aligned with your nonprofit&rsquo;s niche. Our game plan is
+                  designed to stack insights, synchronize marketing efforts,
+                  and efficiently manage live leads across adjacent audience
+                  segments.
                 </p>
               </PlayItem>
             </div>
