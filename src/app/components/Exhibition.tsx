@@ -198,7 +198,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
                   quick and easy ad-buy alliance.
                 </p>
               </PlayItem>
-              <PlayItem title="Hat-Trick" meta="Three allies · One contract with a shared playbook.">
+              <PlayItem title="Hat-Tricks" meta="Three allies · One contract with a shared playbook.">
                 <p>
                   Accelerate outreach with a trio of promotional partners
                   aligned with your nonprofit&rsquo;s niche. Our game plan
