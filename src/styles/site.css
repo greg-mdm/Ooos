@@ -311,7 +311,7 @@ a:hover { color: var(--electric); }
   margin: 0 auto 48px;
 }
 .section-eyebrow {
-  font-size: 20px;
+  font-size: 14px;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--electric);
@@ -3800,6 +3800,27 @@ textarea:focus-visible,
   background: var(--ruby);
   color: #FFFFFF;
   border-color: var(--ruby);
+}
+.exh-descriptor--poppins {
+  font-family: 'Poppins', var(--sans, system-ui), sans-serif;
+  letter-spacing: 0.04em;
+}
+/* Lovelo event-name label beside the Immersive chip */
+.exh-cie-name {
+  font-family: 'Lovelo', 'Impact', 'Arial Black', sans-serif;
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ruby, #822F00);
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 7px;
+  border: 1px solid rgba(130,47,0,0.35);
+  background: rgba(130,47,0,0.04);
+  line-height: 1;
+  white-space: nowrap;
 }
 .exh-descriptor:hover {
   background: var(--ruby);
