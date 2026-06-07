@@ -138,24 +138,73 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               60% of searches now end without a click.
             </p>
             <h3 className="exhibit-reach__heading">Community Reach Campaigns</h3>
-            <ul className="exhibit-reach__list">
-              <li className="exhibit-reach__item">
-                <h4 className="exhibit-reach__item-title">Category ad clusters</h4>
-                <p className="exhibit-reach__item-body">
-                  Reclaim category authority from AI-generated summaries and
-                  optimize campaigns with data-driven insights.
+            <div className="exhibit-reach__image-wrap">
+              <img
+                src={`${import.meta.env.BASE_URL}assets/Ad-Display.png`}
+                alt="Ad display mockup — community reach campaign placements"
+                className="exhibit-reach__image"
+                loading="lazy"
+              />
+            </div>
+            <p className="exhibit-reach__lead">
+              Reclaim category authority from AI-generated summaries!
+            </p>
+            <p className="exhibit-reach__pill">
+              <span className="exhibit-reach__pill-label">Co-marketing teams</span>
+              <span className="exhibit-reach__pill-sep" aria-hidden="true">·</span>
+              <span className="exhibit-reach__pill-date">Tryouts open July 1, 2026</span>
+            </p>
+            <p className="exhibit-reach__intro">
+              Ooo Digital Media Studio is building co-marketing teams to
+              strengthen domain authority for mission-driven Canadian
+              organizations and increase visibility for important causes.
+            </p>
+            <p className="exhibit-reach__hint">Click to open</p>
+            <div className="exhibit-reach__plays">
+              <PlayItem title="Power Play" meta="Six strategic partners · Two related sectors">
+                <p>
+                  A unified market-entry strategy designed for optimal impact.
+                  Join forces with six allies across two related fields to
+                  advance systems thinking, test solutions, enhance
+                  collaboration, and engage the public. These priorities set
+                  our dream team up for success!
                 </p>
-              </li>
-              <li className="exhibit-reach__item">
-                <h4 className="exhibit-reach__item-title">Community voices</h4>
-                <p className="exhibit-reach__item-body">
-                  Community and campus radio are vital to Canadian culture!
-                  With programming in over 65 languages, trusted local voices
-                  help messages hit home. Learn to leverage free public service
-                  announcements and airtime available to non-profits.
+              </PlayItem>
+              <PlayItem title="Spread Eagle" meta="Solo mission for a marketing maven">
+                <p>
+                  For courageous community builders who cover ground others
+                  can&rsquo;t. Two campaigns run in parallel: one courts donors
+                  and philanthropic partners; the other reaches the people
+                  your services are designed to help. Lead with intention.
+                  Strategic targeting and automated discovery elevate your
+                  digital presence and directly translate into real-world
+                  impact.
                 </p>
-              </li>
-            </ul>
+              </PlayItem>
+              <PlayItem title="Give-and-Get" meta="2 Player · Seasonal plan">
+                <p>
+                  Mutual commitments sharpen your strategic edge. By exchanging
+                  signals with a trustworthy partner, both can establish
+                  authority in a category where shared values, common goals,
+                  and distinct roles create a reciprocal dynamic.
+                </p>
+              </PlayItem>
+              <PlayItem title="Double Bumper" meta="2 Player · Quick launch · Booster packs">
+                <p>
+                  Add your budgets together for three weeks to form an
+                  effective ad-buying alliance.
+                </p>
+              </PlayItem>
+              <PlayItem title="Hat-Trick" meta="3 Player">
+                <p>
+                  Accelerate your outreach with three trusted promotional
+                  partners aligned with your nonprofit&rsquo;s niche. Our game
+                  plan is designed to stack insights, synchronize marketing
+                  efforts, and efficiently manage live leads across adjacent
+                  audience segments.
+                </p>
+              </PlayItem>
+            </div>
           </div>
         </div>
       </div>
@@ -283,6 +332,46 @@ function ProgramItem({
         </span>
       </button>
       <div id={detailId} className="exhibit-program-body" hidden={!open}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function PlayItem({
+  title,
+  meta,
+  children,
+}: {
+  title: string;
+  meta?: string;
+  children: ReactNode;
+}) {
+  const [open, setOpen] = useState(false);
+  const detailId = `exhibit-play-${title.replace(/\s+/g, "-").toLowerCase()}`;
+  return (
+    <div className={`exhibit-play ${open ? "is-open" : ""}`}>
+      <button
+        type="button"
+        className="exhibit-play-toggle"
+        aria-expanded={open}
+        aria-controls={detailId}
+        onClick={() => setOpen((v) => !v)}
+      >
+        <span className="exhibit-play-name">
+          <span className="exhibit-play-title">{title}</span>
+          {meta && (
+            <>
+              <span className="exhibit-play-sep" aria-hidden="true">·</span>
+              <span className="exhibit-play-meta">{meta}</span>
+            </>
+          )}
+        </span>
+        <span aria-hidden="true" className="exhibit-play-arrow">
+          {open ? "\u2212" : "+"}
+        </span>
+      </button>
+      <div id={detailId} className="exhibit-play-body" hidden={!open}>
         {children}
       </div>
     </div>
