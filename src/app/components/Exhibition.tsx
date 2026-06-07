@@ -185,12 +185,11 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               </PlayItem>
               <PlayItem title="Give &amp; Receive" meta="2 Player · Seasonal plan">
                 <p>
-                  Mutual commitments sharpen your strategic edge. By
-                  exchanging authority-reinforcing signals with a trustworthy
-                  partner, both can establish a level of category authority
-                  that algorithms can&rsquo;t ignore. Leverage shared values,
-                  common goals, and distinct roles to create a powerful
-                  reciprocal dynamic.
+                  Mutual commitments sharpen your strategic edge. By exchanging
+                  credibility-confirming signals with a trustworthy partner, both
+                  consistently build category authority that algorithms can&rsquo;t
+                  ignore. Leverage shared values, common goals, and distinct roles
+                  to create a powerful reciprocal dynamic.
                 </p>
               </PlayItem>
               <PlayItem title="Double Bumper" meta="2 Player · Quick launch · Booster packs">
