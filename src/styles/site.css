@@ -2310,9 +2310,30 @@ a:hover { color: var(--electric); }
   border-bottom: 1px solid var(--border-soft);
 }
 
-/* Founding quote — sits between the teal SHARE YOUR MISSION band and
-   the RadioAd section. Borrows the bone background so it flows into
-   the radio section without a harsh colour break. */
+/* Founding quote — now lives inside the teal case-hero band */
+.exhibit-founding-quote__block--hero {
+  margin: 32px auto 8px;
+  max-width: 680px;
+  padding: 28px 32px;
+  border: 0;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.22);
+  border-radius: 12px;
+  backdrop-filter: blur(2px);
+}
+.exhibit-founding-quote__block--hero .exhibit-founding-quote__text {
+  color: #ffffff;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.45);
+}
+.exhibit-founding-quote__block--hero .exhibit-founding-quote__source {
+  color: rgba(255,255,255,0.9);
+  opacity: 1;
+}
+.exhibit-founding-quote__block--hero .exhibit-founding-quote__fine {
+  color: rgba(255,255,255,0.65);
+  opacity: 1;
+}
+/* Founding quote — standalone bone section (kept as fallback) */
 .exhibit-founding-quote {
   background: var(--bone);
   border-top: 1px solid var(--border-soft);
