@@ -150,12 +150,12 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               </div>
             </div>
             <p className="exhibit-reach__pill">
-              <span className="exhibit-reach__pill-label">Co-marketing teams</span>
+              <span className="exhibit-reach__pill-label">Canadian Co-marketing Teams</span>
               <span className="exhibit-reach__pill-sep" aria-hidden="true">·</span>
-              <span className="exhibit-reach__pill-date">Tryouts open July 1, 2026</span>
+              <span className="exhibit-reach__pill-date">Tryouts start July 1, 2026</span>
             </p>
             <p className="exhibit-reach__intro">
-              <span className="exhibit-sb">Ooo Digital Media Studio</span> is building Canadian
+              Ooo Digital Media Studio is building Canadian
               co-marketing teams to <span className="exhibit-sb">strengthen domain authority</span>
               {" "}for mission-driven organizations,
               {" "}<span className="exhibit-sb">reinforce credibility</span> and
