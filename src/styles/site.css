@@ -3918,18 +3918,18 @@ textarea:focus-visible,
   border-color: rgba(130, 47, 0, 0.35);
   gap: 4px;
 }
-/* Segment 1: semi-bold deep indigo, 1pt smaller */
+/* Segment 1: semi-bold deep indigo */
 .exh-descriptor--cie .cie-prefix {
   font-family: 'Poppins', var(--sans), sans-serif;
   font-weight: 600;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--dark-indigo, #19007D);
 }
-/* Segment 2: bold ruby, 1pt bigger */
+/* Segment 2: bold ruby */
 .exh-descriptor--cie .cie-name {
   font-family: 'Lovelo', 'Impact', 'Arial Black', sans-serif;
   font-weight: 900;
-  font-size: 13px;
+  font-size: 15px;
   color: var(--ruby, #822F00);
 }
 /* Hover: both segments go white */
@@ -3937,11 +3937,11 @@ textarea:focus-visible,
 .exh-descriptor--cie:hover .cie-name {
   color: #fff;
 }
-/* Full-width top row: CIE chip spans the entire pill-bar width */
+/* Full-width top row: CIE chip spans the entire pill-bar width, left-aligned */
 .exh-descriptor--cie-full {
   flex: 1 0 100%;
-  text-align: center;
-  justify-content: center;
+  text-align: left;
+  justify-content: flex-start;
 }
 .exh-descriptor--poppins {
   font-family: 'Poppins', var(--sans, system-ui), sans-serif;
