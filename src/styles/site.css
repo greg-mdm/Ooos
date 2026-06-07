@@ -2856,25 +2856,42 @@ textarea:focus-visible,
   opacity: 0.85;
 }
 
-/* Image inside the Community Reach Campaigns card */
-.exhibit-reach__image-wrap {
-  margin: 14px 0 18px;
+/* Feature rectangle for Community Reach Campaigns. Mirrors the
+   .studio-ad / .shop-ad promo cards on the homepage: 95px thumbnail on
+   the left, heading + supporting copy on the right, thin portal-purple
+   border with a soft outer ring. */
+.exhibit-reach__feature {
+  position: relative;
+  margin: 0 0 16px;
+  padding: 10px 14px 10px 10px;
+  border: 1.5px solid var(--portal, #4B00B6);
   border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(75, 0, 182, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 14px;
   overflow: hidden;
-  background: rgba(75, 0, 182, 0.04);
 }
-.exhibit-reach__image {
+.exhibit-reach__thumb {
+  width: 95px;
+  height: 95px;
+  flex-shrink: 0;
+  object-fit: contain;
   display: block;
-  width: 100%;
-  height: auto;
+  filter: drop-shadow(0 4px 12px rgba(75, 0, 182, 0.22));
 }
-.exhibit-reach__lead {
-  margin: 0 0 12px;
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 700;
-  font-size: clamp(1rem, 1.4vw, 1.15rem);
-  line-height: 1.3;
+.exhibit-reach__feature-body {
+  flex: 1;
+  min-width: 0;
+}
+.exhibit-reach__feature-body .exhibit-reach__heading {
+  margin: 0 0 6px;
+}
+.exhibit-reach__feature-text {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
   color: var(--ink);
 }
 .exhibit-reach__pill {

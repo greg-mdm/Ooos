@@ -134,21 +134,21 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
           </ProgramItem>
 
           <div className="exhibit-reach">
-            <p className="exhibit-reach__eyebrow">
-              60% of searches now end without a click.
-            </p>
-            <h3 className="exhibit-reach__heading">Community Reach Campaigns</h3>
-            <div className="exhibit-reach__image-wrap">
+            <div className="exhibit-reach__feature">
               <img
                 src={`${import.meta.env.BASE_URL}assets/Ad-Display.png`}
-                alt="Ad display mockup — community reach campaign placements"
-                className="exhibit-reach__image"
+                alt=""
+                className="exhibit-reach__thumb"
                 loading="lazy"
               />
+              <div className="exhibit-reach__feature-body">
+                <h3 className="exhibit-reach__heading">Community Reach Campaigns</h3>
+                <p className="exhibit-reach__feature-text">
+                  60% of searches now end without a click. Reclaim category
+                  authority from AI-generated summaries!
+                </p>
+              </div>
             </div>
-            <p className="exhibit-reach__lead">
-              Reclaim category authority from AI-generated summaries!
-            </p>
             <p className="exhibit-reach__pill">
               <span className="exhibit-reach__pill-label">Co-marketing teams</span>
               <span className="exhibit-reach__pill-sep" aria-hidden="true">·</span>
