@@ -232,7 +232,7 @@ a:hover { color: var(--electric); }
   font-family: var(--sans);
   font-size: clamp(1rem, 1.6vw, 1.5rem);
   line-height: 1.45;
-  max-width: 760px;
+  max-width: 880px;
   margin: 0 auto;
   color: var(--ink);
   text-align: left;
