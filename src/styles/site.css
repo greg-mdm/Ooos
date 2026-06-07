@@ -2966,10 +2966,16 @@ textarea:focus-visible,
   font-size: 14px;
   line-height: 1.35;
 }
-.exhibit-play-toggle:hover { background: rgba(75, 0, 182, 0.04); }
+.exhibit-play-toggle:hover { background: rgba(75, 0, 182, 0.06); }
 .exhibit-play-toggle:focus-visible {
   outline: 2px solid var(--portal, #4B00B6);
   outline-offset: -2px;
+}
+/* When open, shade only the header row — body stays white so the two
+   zones read as distinct even after the card expands. */
+.exhibit-play.is-open .exhibit-play-toggle {
+  background: rgba(75, 0, 182, 0.08);
+  border-bottom: 1px solid rgba(75, 0, 182, 0.14);
 }
 .exhibit-play-name {
   display: inline-flex;
@@ -2997,9 +3003,11 @@ textarea:focus-visible,
   line-height: 1;
   color: var(--portal, #4B00B6);
 }
-.exhibit-play.is-open { background: rgba(75, 0, 182, 0.04); }
+/* Card background stays white when open — only the toggle row is tinted */
+.exhibit-play.is-open { background: #ffffff; }
 .exhibit-play-body {
-  padding: 0 14px 14px;
+  padding: 12px 14px 14px;
+  background: #ffffff;
 }
 .exhibit-play-body p {
   margin: 0;
