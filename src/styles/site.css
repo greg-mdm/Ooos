@@ -221,8 +221,8 @@ a:hover { color: var(--electric); }
   letter-spacing: -0.012em;
   margin: 0 auto 20px;
   color: var(--ink);
-  max-width: 960px;
-  text-wrap: balance;
+  max-width: 880px;
+  text-align: left;
 }
 .hero h1 strong {
   font-weight: 700;
@@ -232,10 +232,10 @@ a:hover { color: var(--electric); }
   font-family: var(--sans);
   font-size: clamp(1rem, 1.6vw, 1.5rem);
   line-height: 1.45;
-  max-width: 860px;
+  max-width: 760px;
   margin: 0 auto;
   color: var(--ink);
-  text-wrap: balance;
+  text-align: left;
 }
 .hero-cta {
   display: flex;
