@@ -197,7 +197,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
                   quick and easy ad-buy alliance.
                 </p>
               </PlayItem>
-              <PlayItem title="Hat-Trick" meta="Three allies · One co-marketing contract with a shared playbook.">
+              <PlayItem title="Hat-Trick" meta="Three allies · One contract with a shared playbook.">
                 <p>
                   Accelerate outreach with a trio of promotional partners
                   aligned with your nonprofit&rsquo;s niche. Our game plan
@@ -299,6 +299,25 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               <span className="chip">Cross-sector collaboration</span>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="exhibit-founding-quote">
+        <div className="container">
+          <blockquote className="exhibit-founding-quote__block">
+            <p className="exhibit-founding-quote__text">
+              &ldquo;Public is not a passive, fixed idea; it must be
+              vigilantly invented and reconstructed by each generation.&rdquo;
+            </p>
+            <footer className="exhibit-founding-quote__footer">
+              <cite className="exhibit-founding-quote__source">
+                <em>But Is It Art? The Spirit of Art as Activism</em>
+              </cite>
+              <span className="exhibit-founding-quote__fine">
+                Art anthology, edited by Nina Felshin, p. 305 (1995)
+              </span>
+            </footer>
+          </blockquote>
         </div>
       </section>
 

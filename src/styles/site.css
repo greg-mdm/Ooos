@@ -2309,6 +2309,51 @@ a:hover { color: var(--electric); }
   border-top: 1px solid var(--border-soft);
   border-bottom: 1px solid var(--border-soft);
 }
+
+/* Founding quote — sits between the teal SHARE YOUR MISSION band and
+   the RadioAd section. Borrows the bone background so it flows into
+   the radio section without a harsh colour break. */
+.exhibit-founding-quote {
+  background: var(--bone);
+  border-top: 1px solid var(--border-soft);
+  padding: 48px 24px 40px;
+}
+.exhibit-founding-quote__block {
+  margin: 0 auto;
+  max-width: 720px;
+  padding: 0;
+  border: 0;
+  text-align: center;
+}
+.exhibit-founding-quote__text {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+  line-height: 1.55;
+  color: var(--ink);
+  margin: 0 0 20px;
+}
+.exhibit-founding-quote__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.exhibit-founding-quote__source {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  opacity: 0.85;
+}
+.exhibit-founding-quote__fine {
+  font-family: var(--sans);
+  font-size: 11px;
+  color: var(--ink);
+  opacity: 0.55;
+  letter-spacing: 0.04em;
+}
 .radio-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -2926,9 +2971,9 @@ textarea:focus-visible,
   opacity: 0.88;
 }
 .exhibit-reach__hint {
-  margin: 0 0 10px;
+  margin: 2px 0 10px;
   font-family: var(--sans);
-  font-size: 11px;
+  font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -2940,17 +2985,18 @@ textarea:focus-visible,
   margin: 0 0 4px;
   font-family: var(--serif);
   font-style: italic;
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 15px;
+  font-weight: 600;
   color: var(--ink);
-  opacity: 0.75;
+  opacity: 0.85;
 }
 .exhibit-reach__section-abbr {
   font-style: normal;
-  font-size: 11px;
+  font-size: 12px;
   font-family: var(--sans);
   letter-spacing: 0.04em;
-  opacity: 0.8;
+  font-weight: 500;
+  opacity: 0.7;
 }
 .exhibit-reach__plays {
   display: flex;
