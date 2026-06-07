@@ -3801,26 +3801,20 @@ textarea:focus-visible,
   color: #FFFFFF;
   border-color: var(--ruby);
 }
-.exh-descriptor--poppins {
-  font-family: 'Poppins', var(--sans, system-ui), sans-serif;
-  letter-spacing: 0.04em;
-}
-/* Lovelo event-name label beside the Immersive chip */
-.exh-cie-name {
+/* Lovelo event name inside the existing descriptor chip shape, white bg */
+.exh-descriptor--cie {
   font-family: 'Lovelo', 'Impact', 'Arial Black', sans-serif;
   font-weight: 900;
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--ruby, #822F00);
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 10px;
-  border-radius: 7px;
-  border: 1px solid rgba(130,47,0,0.35);
-  background: rgba(130,47,0,0.04);
-  line-height: 1;
-  white-space: nowrap;
+  background: #ffffff;
+  border-color: rgba(130, 47, 0, 0.35);
+}
+.exh-descriptor--poppins {
+  font-family: 'Poppins', var(--sans, system-ui), sans-serif;
+  letter-spacing: 0.04em;
 }
 .exh-descriptor:hover {
   background: var(--ruby);
