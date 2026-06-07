@@ -215,13 +215,13 @@ a:hover { color: var(--electric); }
 }
 .hero h1 {
   font-family: var(--serif);
-  font-size: clamp(1.5rem, 2.8vw, 2.25rem);
+  font-size: clamp(1.65rem, 3vw, 2.5rem);
   font-weight: 400;
   line-height: 1.25;
   letter-spacing: -0.012em;
   margin: 0 auto 20px;
   color: var(--ink);
-  max-width: 880px;
+  max-width: 960px;
   text-align: left;
 }
 .hero h1 strong {
@@ -232,7 +232,7 @@ a:hover { color: var(--electric); }
   font-family: var(--sans);
   font-size: clamp(1rem, 1.6vw, 1.5rem);
   line-height: 1.45;
-  max-width: 880px;
+  max-width: 1000px;
   margin: 0 auto;
   color: var(--ink);
   text-align: left;
