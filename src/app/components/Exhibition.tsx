@@ -161,7 +161,8 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               {" "}<span className="exhibit-sb">reinforce credibility</span> and
               {" "}<span className="exhibit-sb">increase visibility</span> for important causes.
             </p>
-            <p className="exhibit-reach__hint">Click to open</p>
+            <p className="exhibit-reach__section-name">Ooo Canadian Co-marketers <span className="exhibit-reach__section-abbr">(OCC)</span></p>
+            <p className="exhibit-reach__hint">Click a team to preview our gameplan</p>
             <div className="exhibit-reach__plays">
               <PlayItem title="Power Play" meta="Six strategic partners · Two related sectors">
                 <p>
@@ -196,7 +197,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
                   quick and easy ad-buy alliance.
                 </p>
               </PlayItem>
-              <PlayItem title="Hat-Trick" meta="Three allies operate a shared playbook.">
+              <PlayItem title="Hat-Trick" meta="Three allies · One co-marketing contract with a shared playbook.">
                 <p>
                   Accelerate outreach with a trio of promotional partners
                   aligned with your nonprofit&rsquo;s niche. Our game plan
@@ -221,11 +222,14 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             <div className="exhibit-support-content">
               <p className="tiers-label">Donate to support a shared vision!</p>
               <p className="tier-note">
-                Crowdfunding helps support the design and development of the
-                Canadian Interactive Exhibition. Our shared vision gets
-                stronger as contributions flow into a visible pool of
-                community support. We demand to expand public access to
-                immersive digital environments!
+                The Canadian Interactive Exhibition gets closer to a national
+                launch with every contribution. Your support is critical to
+                funding platform design and development, as well as building
+                public support for expanding access to immersive digital
+                environments.
+              </p>
+              <p className="tier-note tier-note--demand">
+                We demand to expand public access to digital environments!
               </p>
 
               <div className="support-tiers">

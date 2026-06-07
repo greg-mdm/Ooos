@@ -2935,6 +2935,23 @@ textarea:focus-visible,
   color: var(--portal, #4B00B6);
   opacity: 0.8;
 }
+/* OCC section name — sits above the hint, smaller italic label */
+.exhibit-reach__section-name {
+  margin: 0 0 4px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  opacity: 0.75;
+}
+.exhibit-reach__section-abbr {
+  font-style: normal;
+  font-size: 11px;
+  font-family: var(--sans);
+  letter-spacing: 0.04em;
+  opacity: 0.8;
+}
 .exhibit-reach__plays {
   display: flex;
   flex-direction: column;
@@ -3329,8 +3346,16 @@ textarea:focus-visible,
 .exhibit-support .tier-note {
   font-size: 15px;
   color: rgba(255,255,255,0.82);
-  margin: 0 0 28px;
+  margin: 0 0 16px;
   line-height: 1.6;
+  max-width: 540px;
+}
+.exhibit-support .tier-note--demand {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--gold, #F0C040);
+  margin: 0 0 28px;
+  line-height: 1.5;
   max-width: 540px;
 }
 .exhibit-support .support-tiers {
