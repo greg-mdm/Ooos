@@ -3008,6 +3008,18 @@ textarea:focus-visible,
   color: var(--ink);
   opacity: 0.88;
 }
+.exhibit-play-body p + p {
+  margin-top: 10px;
+}
+.exhibit-play__pro {
+  border-left: 3px solid var(--portal, #4B00B6);
+  padding-left: 10px;
+  opacity: 1 !important;
+}
+.exhibit-play__pro-label {
+  font-weight: 700;
+  color: var(--portal, #4B00B6);
+}
 
 /* Clean accordion list with color reserved for accent + glow.
    Tone tokens (used by the left edge bar, tag color, hover glow).

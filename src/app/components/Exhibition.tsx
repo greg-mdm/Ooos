@@ -196,13 +196,17 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
                   quick and easy ad-buy alliance.
                 </p>
               </PlayItem>
-              <PlayItem title="Hat-Trick" meta="3 Player">
+              <PlayItem title="Hat-Trick" meta="Three allies operate a shared playbook.">
                 <p>
-                  Accelerate your outreach with a trio of promo partners
-                  aligned with your nonprofit&rsquo;s niche. Our game plan is
-                  designed to stack insights, synchronize marketing efforts,
-                  and efficiently manage live leads across adjacent audience
-                  segments.
+                  Accelerate outreach with a trio of promotional partners
+                  aligned with your nonprofit&rsquo;s niche. Our game plan
+                  synchronizes marketing efforts, integrates insights, and
+                  efficiently manages live leads across audience segments.
+                </p>
+                <p className="exhibit-play__pro">
+                  <span className="exhibit-play__pro-label">Pro-plan:</span>{" "}
+                  Refine through repetition. Redeploy top-performing tactics
+                  and retarget audiences.
                 </p>
               </PlayItem>
             </div>
