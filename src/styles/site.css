@@ -3003,8 +3003,13 @@ textarea:focus-visible,
   line-height: 1;
   color: var(--portal, #4B00B6);
 }
-/* Card background stays white when open — only the toggle row is tinted */
-.exhibit-play.is-open { background: #ffffff; }
+/* Card background stays white when open — left accent bar maintains
+   visual identity so the expanded card never reads as a flat block */
+.exhibit-play.is-open {
+  background: #ffffff;
+  border-left: 3px solid var(--portal, #4B00B6);
+  border-radius: 0 10px 10px 0;
+}
 .exhibit-play-body {
   padding: 12px 14px 14px;
   background: #ffffff;
@@ -3819,8 +3824,13 @@ textarea:focus-visible,
   color: var(--ruby, #822F00);
   background: #ffffff;
   border-color: rgba(130, 47, 0, 0.35);
-  /* Push CIE to the right end of the pill-bar row, beside the Immersive label */
-  margin-left: auto;
+}
+/* Full-width top row: CIE name spans the entire pill-bar width */
+.exh-descriptor--cie-full {
+  flex: 1 0 100%;
+  text-align: center;
+  justify-content: center;
+  font-size: 13px;
 }
 .exh-descriptor--poppins {
   font-family: 'Poppins', var(--sans, system-ui), sans-serif;
