@@ -140,18 +140,18 @@ a:hover { color: var(--electric); }
   font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
   font-style: italic;
   font-weight: 700;
-  font-size: 26px;
+  font-size: 30px;
   line-height: 1;
   color: #fff;
   letter-spacing: 0;
 }
 .nav-brand-text {
-  font-family: "Montserrat", "Inter", system-ui, sans-serif;
-  font-weight: 600;
-  font-size: 12px;
-  letter-spacing: 0.16em;
+  font-family: "Montserrat", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(255, 255, 255, 0.92);
 }
 .nav-links {
   display: flex;
