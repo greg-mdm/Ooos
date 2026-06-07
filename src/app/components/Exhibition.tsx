@@ -18,7 +18,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             <span className="exhibit-intro-pill">National Pilot</span>
           </h2>
           <p>
-            The <span className="exhibit-reach__sb">Canadian Interactive Exhibition</span> promises public access to an
+            The <span className="exhibit-sb">Canadian Interactive Exhibition</span> promises public access to an
             innovative virtual environment. Nonprofit organizations and
             avant-garde artists are teaming up to turn real-world challenges
             into interactive experiences that can change minds and open hearts.
@@ -27,7 +27,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             Your mission deserves to be experienced!
           </h3>
           <p>
-            Ooo Digital Media Studio connects nonprofits with interactive
+            <span className="exhibit-sb">Ooo Digital Media Studio</span> connects nonprofits with interactive
             artists who share common values and goals, guiding each team to
             harmonize complementary creative and technical skills.
           </p>
@@ -155,11 +155,11 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               <span className="exhibit-reach__pill-date">Tryouts open July 1, 2026</span>
             </p>
             <p className="exhibit-reach__intro">
-              <span className="exhibit-reach__sb">Ooo Digital Media Studio</span> is building Canadian
-              co-marketing teams to <span className="exhibit-reach__sb">strengthen domain authority</span>
+              <span className="exhibit-sb">Ooo Digital Media Studio</span> is building Canadian
+              co-marketing teams to <span className="exhibit-sb">strengthen domain authority</span>
               {" "}for mission-driven organizations,
-              {" "}<span className="exhibit-reach__sb">reinforce credibility</span> and
-              {" "}<span className="exhibit-reach__sb">increase visibility</span> for important causes.
+              {" "}<span className="exhibit-sb">reinforce credibility</span> and
+              {" "}<span className="exhibit-sb">increase visibility</span> for important causes.
             </p>
             <p className="exhibit-reach__hint">Click to open</p>
             <div className="exhibit-reach__plays">

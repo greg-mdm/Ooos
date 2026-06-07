@@ -2800,6 +2800,12 @@ textarea:focus-visible,
   opacity: 0.6;
 }
 
+/* Semibold inline highlight used across the exhibition page for brand
+   name mentions and key phrases — lighter than bold, heavier than body. */
+.exhibit-sb {
+  font-weight: 600;
+}
+
 /* Community Reach Campaigns: sits in the right column directly below the
    Interactive Programming schedule. Eyebrow stat in ruby leads into the
    section heading; each productized solution is a titled paragraph in a
@@ -2918,9 +2924,6 @@ textarea:focus-visible,
   line-height: 1.6;
   color: var(--ink);
   opacity: 0.88;
-}
-.exhibit-reach__sb {
-  font-weight: 600;
 }
 .exhibit-reach__hint {
   margin: 0 0 10px;
