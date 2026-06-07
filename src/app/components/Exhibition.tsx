@@ -18,7 +18,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             <span className="exhibit-intro-pill">National Pilot</span>
           </h2>
           <p>
-            The Canadian Interactive Exhibition promises public access to an
+            The <span className="exhibit-reach__sb">Canadian Interactive Exhibition</span> promises public access to an
             innovative virtual environment. Nonprofit organizations and
             avant-garde artists are teaming up to turn real-world challenges
             into interactive experiences that can change minds and open hearts.
@@ -155,11 +155,11 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               <span className="exhibit-reach__pill-date">Tryouts open July 1, 2026</span>
             </p>
             <p className="exhibit-reach__intro">
-              <strong>Ooo Digital Media Studio</strong> is building Canadian
-              co-marketing teams to <strong>strengthen domain authority</strong>
+              <span className="exhibit-reach__sb">Ooo Digital Media Studio</span> is building Canadian
+              co-marketing teams to <span className="exhibit-reach__sb">strengthen domain authority</span>
               {" "}for mission-driven organizations,
-              {" "}<strong>reinforce credibility</strong> and
-              {" "}<strong>increase visibility</strong> for important causes.
+              {" "}<span className="exhibit-reach__sb">reinforce credibility</span> and
+              {" "}<span className="exhibit-reach__sb">increase visibility</span> for important causes.
             </p>
             <p className="exhibit-reach__hint">Click to open</p>
             <div className="exhibit-reach__plays">

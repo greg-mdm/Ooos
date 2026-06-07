@@ -2919,6 +2919,9 @@ textarea:focus-visible,
   color: var(--ink);
   opacity: 0.88;
 }
+.exhibit-reach__sb {
+  font-weight: 600;
+}
 .exhibit-reach__hint {
   margin: 0 0 10px;
   font-family: var(--sans);
