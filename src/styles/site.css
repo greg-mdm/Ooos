@@ -147,11 +147,11 @@ a:hover { color: var(--electric); }
 }
 .nav-brand-text {
   font-family: "Montserrat", system-ui, sans-serif;
-  font-weight: 700;
-  font-size: 15px;
+  font-weight: 800;
+  font-size: 16px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.92);
+  color: #ffffff;
 }
 .nav-links {
   display: flex;
@@ -194,8 +194,8 @@ a:hover { color: var(--electric); }
   margin-bottom: 20px;
 }
 .hero-logo {
-  width: 120px;
-  height: 120px;
+  width: 152px;
+  height: 152px;
   display: block;
   margin: 0 auto;
   mix-blend-mode: multiply;
@@ -238,17 +238,21 @@ a:hover { color: var(--electric); }
   text-align: left;
 }
 .hero-cta {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 1.5rem;
+  max-width: 760px;
+  margin: 1.5rem auto 0;
 }
+.hero-cta > *:first-child { justify-self: end; }
+.hero-cta > *:last-child  { justify-self: start; }
 @media (max-width: 600px) {
   .hero-cta {
-    flex-direction: column;
-    align-items: center;
+    grid-template-columns: 1fr;
+    max-width: 360px;
   }
+  .hero-cta > *:first-child,
+  .hero-cta > *:last-child { justify-self: stretch; }
   .nav-link--collapse,
   .nav-cta--collapse { display: none !important; }
   .pane-wordmark {
@@ -3922,14 +3926,14 @@ textarea:focus-visible,
 .exh-descriptor--cie .cie-prefix {
   font-family: 'Poppins', var(--sans), sans-serif;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 11px;
   color: var(--dark-indigo, #19007D);
 }
 /* Segment 2: bold ruby */
 .exh-descriptor--cie .cie-name {
   font-family: 'Lovelo', 'Impact', 'Arial Black', sans-serif;
   font-weight: 900;
-  font-size: 15px;
+  font-size: 13px;
   color: var(--ruby, #822F00);
 }
 /* Hover: both segments go white */
