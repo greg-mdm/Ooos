@@ -179,8 +179,9 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             <div className="vote-guide-eyebrow">
               <span className="vote-guide-star">&#9733;</span>
               <span className="vote-guide-title"> Choosing Our Digital Destiny</span>
-              <span className="vote-guide-access"> &middot; Exclusive Access</span>
+              <span className="vote-guide-access"> &bull; Workshop</span>
             </div>
+            <p className="vote-guide-access-line">&bull; Exclusive access for 200 innovators and visionary thinkers</p>
             <p className="vote-guide-body">
               Explore the digital economy, exchange perspectives on AI, and examine opportunities for funding innovation.
             </p>
@@ -193,12 +194,15 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             rel="noopener noreferrer"
           >
             <div className="vote-qr-card__text">
-              <p className="vote-qr-card__headline">Join our interactive workshop to co-play with 200 innovators!</p>
-              <span className="vote-qr-card__btn">VOTE ON KAHOOT →</span>
+              <p className="vote-qr-card__headline">Join our Kahoot workshop to exchange insights and have fun!</p>
+              <ul className="vote-qr-card__bullets">
+                <li>Asynchronous interaction anytime during our session</li>
+                <li>A collective exploration lasting 31 days in July 2026</li>
+              </ul>
             </div>
             <img
               className="vote-qr-card__qr"
-              src={`${import.meta.env.BASE_URL}assets/images/Ooo-Kahoot-QR.png`}
+              src={`${import.meta.env.BASE_URL}assets/Ooo%20Kahoot%20QR.png`}
               alt="Scan QR code to join Kahoot"
             />
           </a>

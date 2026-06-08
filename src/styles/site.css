@@ -4070,38 +4070,48 @@ textarea:focus-visible,
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.14);
   border-radius: 14px;
-  padding: 24px 32px;
+  padding: 24px 28px;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 20px;
   transition: background 160ms;
 }
 .vote-qr-card:hover { background: rgba(255,255,255,0.11); }
 .vote-qr-card__text {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   flex: 1;
 }
 .vote-qr-card__headline {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   color: #ffffff;
-  line-height: 1.35;
+  line-height: 1.4;
   margin: 0;
 }
-.vote-qr-card__btn {
-  display: inline-block;
-  background: #5B04DE;
-  color: #ffffff;
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  border-radius: 999px;
-  padding: 12px 28px;
-  align-self: flex-start;
-  transition: background 160ms;
+.vote-qr-card__bullets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
-.vote-qr-card:hover .vote-qr-card__btn { background: #F0C040; color: #19007D; }
+.vote-qr-card__bullets li {
+  font-size: 13px;
+  color: rgba(255,255,255,0.82);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.45;
+}
+.vote-qr-card__bullets li::before {
+  content: "\2022";
+  position: absolute;
+  left: 0;
+  color: #F0C040;
+}
 .vote-qr-card__qr {
   width: 140px;
   height: 140px;
@@ -4111,6 +4121,13 @@ textarea:focus-visible,
   object-fit: contain;
   background: #fff;
   padding: 6px;
+}
+.vote-guide-access-line {
+  font-size: 13px;
+  font-weight: 600;
+  color: #822F00;
+  margin: -8px 0 14px;
+  line-height: 1.4;
 }
 .vote-guide-eyebrow {
   font-size: 13px;
