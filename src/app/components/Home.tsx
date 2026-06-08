@@ -584,7 +584,7 @@ function PoolUnlocks({
             {" "}
             <button
               type="button"
-              className="pool-widget__reveal-toggle pool-widget__reveal-toggle--inline"
+              className="pool-widget__reveal-toggle pool-widget__reveal-toggle-inline"
               aria-expanded={open}
               onClick={() => setOpen((v) => !v)}
             >
