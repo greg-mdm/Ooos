@@ -181,9 +181,26 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             <span className="vote-guide-access"> &middot; Exclusive Access</span>
           </div>
           <p className="vote-guide-body">
-            Join our interactive workshop to co-play with 200 innovators! Explore the digital economy, exchange perspectives on AI, and examine opportunities for funding innovation.
+            Explore the digital economy, exchange perspectives on AI, and examine opportunities for funding innovation.
           </p>
         </div>
+
+        <a
+          className="vote-qr-card"
+          href="https://kahoot.it/challenge/03428365"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div className="vote-qr-card__text">
+            <p className="vote-qr-card__headline">Join our interactive workshop to co-play with 200 innovators!</p>
+            <span className="vote-qr-card__btn">VOTE ON KAHOOT →</span>
+          </div>
+          <img
+            className="vote-qr-card__qr"
+            src={`${import.meta.env.BASE_URL}assets/images/Ooo-Kahoot-QR.png`}
+            alt="Scan QR code to join Kahoot"
+          />
+        </a>
         <div className="vote-stage">
           <div className="vote-source-label">
             POLYMARKET · <span className="vote-volume">$29.05M LIVE VOLUME</span> · EXPIRES 2026-06-30
@@ -206,11 +223,11 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           </div>
           <a
             className="vote-cta-btn"
-            href="https://kahoot.it/challenge/01297559"
+            href="https://kahoot.it/challenge/03428365"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Vote on Kahoot →
+            VOTE ON KAHOOT →
           </a>
         </div>
       </section>
