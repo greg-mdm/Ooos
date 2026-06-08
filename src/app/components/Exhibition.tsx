@@ -164,7 +164,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             <p className="exhibit-reach__section-name">Ooo Canadian Co-marketers <span className="exhibit-reach__section-abbr">(OCC)</span></p>
             <p className="exhibit-reach__hint">Click a team to preview our gameplan</p>
             <div className="exhibit-reach__plays">
-              <PlayItem title="Power Play" meta="Six strategic partners · Two related sectors">
+              <PlayItem title="Power Play" meta={<><strong className="exhibit-play-num">6</strong> strategic partners in two related sectors</>}>
                 <p>
                   A unified market-entry strategy designed for optimal impact.
                   Join forces with six allies across two related fields to
@@ -173,7 +173,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
                   our dream team up for success!
                 </p>
               </PlayItem>
-              <PlayItem title="Spread Eagle" meta="Solo mission for a marketing maven">
+              <PlayItem title="Spread Eagle" meta={<>Solo mission for <strong className="exhibit-play-num">1</strong> marketing maven</>}>
                 <p>
                   For courageous community builders who cover ground others
                   can&rsquo;t. Two campaigns run in parallel: one courts donors
@@ -183,13 +183,12 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
                   directly translate into real-world impact.
                 </p>
               </PlayItem>
-              <PlayItem title="Give &amp; Receive" meta="2 Player · Seasonal plan">
+              <PlayItem title="Give &amp; Receive" meta={<><strong className="exhibit-play-num">2</strong> player &middot; Seasonal plan or annual agreement</>}>
                 <p>
-                  Mutual commitments sharpen your strategic edge. By exchanging
-                  credibility-confirming signals with a trustworthy partner, both
-                  consistently build category authority that algorithms can&rsquo;t
-                  ignore. Leverage shared values, common goals, and distinct roles
-                  to create a powerful reciprocal dynamic.
+                  Mutual commitments sharpen your strategic advantage. Our systematic approach establishes category authority that algorithms cannot overlook. Utilize shared values, common goals, and well-defined roles to create a strong reciprocal dynamic.
+                </p>
+                <p>
+                  By exchanging online signals that confirm credibility and expertise, co-marketers collaborate to establish category authority that algorithms cannot ignore.
                 </p>
               </PlayItem>
               <PlayItem title="Double Bumper" meta="2 Player · Quick launch · Booster packs">
@@ -200,7 +199,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
                   Ooo optimizes your campaign to achieve key objectives and provides progress reports.
                 </p>
               </PlayItem>
-              <PlayItem title="Hat-Tricks" meta="Three allies · One contract with a shared playbook.">
+              <PlayItem title="Hat-Tricks" meta={<><strong className="exhibit-play-num">3</strong> allies &middot; Confidential contracts with a shared playbook</>}>
                 <p>
                   Accelerate outreach with a trio of promotional partners
                   aligned with your nonprofit&rsquo;s niche. Our game plan
@@ -375,7 +374,7 @@ function PlayItem({
   children,
 }: {
   title: string;
-  meta?: string;
+  meta?: ReactNode;
   children: ReactNode;
 }) {
   const [open, setOpen] = useState(false);

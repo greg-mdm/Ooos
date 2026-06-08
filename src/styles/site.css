@@ -3176,6 +3176,12 @@ textarea:focus-visible,
   opacity: 0.75;
   font-size: 13px;
 }
+.exhibit-play-num {
+  font-weight: 800;
+  color: var(--ruby, #822F00);
+  opacity: 1;
+}
+.exhibit-play-meta .exhibit-play-num { opacity: 1; }
 .exhibit-play-arrow {
   flex: 0 0 auto;
   font-size: 18px;
