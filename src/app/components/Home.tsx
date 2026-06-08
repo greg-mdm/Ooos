@@ -88,7 +88,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           <ul className="hero-bullets">
             <li>Based in Ontario's innovation ecosystem</li>
             <li>Working in partnership with Canadian entrepreneurs</li>
-            <li>Building with a global network of digital media partners</li>
+            <li>Building a global network of digital media partners</li>
             <li>Growing with our creative community</li>
           </ul>
         </div>
@@ -370,7 +370,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           <div className="path-feature__grid">
             <div className="path-feature__narrative">
               <p className="path-feature__body">
-                Canadian nonprofits share real-world challenges. Artists transform them into interactive public experiences. Two funding pools, two public milestones — each pool fills openly so supporters can watch momentum build.
+                Canadian nonprofits share real-world challenges and community insights, matching with digital artists to design virtual experiences that bring these diverse narratives to life. Collaborating from ideation to execution, our teams develop interactive experiences that engage the public, build understanding and foster dialogue about solutions.
               </p>
             </div>
             <div className="pool-board" role="group" aria-label="Project funding pools">
