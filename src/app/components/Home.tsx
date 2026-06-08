@@ -196,8 +196,8 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             <div className="vote-qr-card__text">
               <p className="vote-qr-card__headline">Join our Kahoot workshop to exchange insights and have fun!</p>
               <ul className="vote-qr-card__bullets">
-                <li>Asynchronous interaction anytime during our session</li>
-                <li>A collective exploration lasting 31 days in July 2026</li>
+                <li>Asynchronous interaction anytime until our session closes on July 31, 2026</li>
+                <li>A collective exploration lasting 31 days</li>
               </ul>
             </div>
             <img
