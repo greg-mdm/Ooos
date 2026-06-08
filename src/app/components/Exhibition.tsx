@@ -194,8 +194,10 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               </PlayItem>
               <PlayItem title="Double Bumper" meta="2 Player · Quick launch · Booster packs">
                 <p>
-                  Co-sponsor a 3-week campaign to launch an effective but
-                  quick and easy ad-buy alliance.
+                  Start targeting together with two easy steps. Step 1: Co-sponsor a 3-week campaign to form an ad-buy alliance quickly. Step 2: Customize an effective multi-channel digital advertising plan.
+                </p>
+                <p>
+                  Ooo optimizes your campaign to achieve key objectives and provides progress reports.
                 </p>
               </PlayItem>
               <PlayItem title="Hat-Tricks" meta="Three allies · One contract with a shared playbook.">

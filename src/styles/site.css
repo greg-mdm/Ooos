@@ -265,9 +265,9 @@ a:hover { color: var(--electric); }
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--dark-indigo, #19007D);
+  background: #312583;
 }
-.hero-bullets li:nth-child(2)::before { background: var(--dark-indigo, #19007D); }
+.hero-bullets li:nth-child(2)::before { background: #312583; }
 .hero-bullets li:nth-child(3)::before { background: #312583; }
 .hero-bullets li:nth-child(4)::before { background: var(--electric, #5B04DE); }
 .hero-cta {
@@ -1265,6 +1265,19 @@ a:hover { color: var(--electric); }
   font-weight: 700;
   color: var(--dark-indigo);
   margin: 0 0 10px;
+}
+.path-feature__title-band {
+  background: linear-gradient(90deg, #6B2500 0%, #822F00 60%, #5A1E00 100%);
+  color: #ffffff;
+  font-family: 'Lovelo', 'Impact', 'Arial Black', sans-serif;
+  font-weight: 900;
+  font-size: 18px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 14px 24px;
+  margin: -22px -22px 18px;
+  border-radius: 10px 10px 0 0;
 }
 .path-feature__body {
   font-size: 14px;

@@ -366,14 +366,11 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           <div className="path-feature__eyebrow">Featured project</div>
           <div className="path-feature__grid">
             <div className="path-feature__narrative">
-              <h3 className="path-feature__title">Canadian Interactive Exhibition</h3>
+              <div className="path-feature__title-band">
+                CANADIAN INTERACTIVE EXHIBITION
+              </div>
               <p className="path-feature__body">
-                Canadian nonprofits share real-world challenges. Artists
-                transform them into interactive public experiences.
-              </p>
-              <p className="path-feature__body">
-                Two funding pools, two public milestones. Each pool fills
-                openly so supporters can watch momentum build.
+                Canadian nonprofits share real-world challenges. Artists transform them into interactive public experiences. Two funding pools, two public milestones — each pool fills openly so supporters can watch momentum build.
               </p>
             </div>
             <div className="pool-board" role="group" aria-label="Project funding pools">
