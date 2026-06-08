@@ -94,7 +94,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
         </div>
       </section>
 
-      <section className="section section-tinted">
+      <section className="section section-tinted section--featured">
         <div className="section-header">
           <div className="section-eyebrow">★ Featured Experiences</div>
         </div>
