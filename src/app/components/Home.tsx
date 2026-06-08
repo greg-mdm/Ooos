@@ -387,7 +387,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
 
         <div className="path-feature">
           <div className="path-feature__title-band">
-            <span className="path-feature__title-band-eyebrow">Featured project</span>
+            <span className="path-feature__title-band-eyebrow">Featured project: CIX</span>
             <span className="path-feature__title-band-name">CANADIAN INTERACTIVE EXHIBITION</span>
           </div>
           <div className="path-feature__grid">
