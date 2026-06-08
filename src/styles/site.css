@@ -1975,7 +1975,7 @@ a:hover { color: var(--electric); }
 }
 .cid-scope .cid-split {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.95fr);
   gap: 28px;
   align-items: stretch;
 }
@@ -1993,7 +1993,6 @@ a:hover { color: var(--electric); }
   color: var(--ink);
   border-radius: 12px;
   padding: 22px 26px;
-  margin-top: auto;
   box-shadow: 0 18px 40px -18px rgba(25, 0, 125, 0.45),
               0 8px 18px -10px rgba(25, 0, 125, 0.35);
   border: 1px solid rgba(25, 0, 125, 0.08);
@@ -2404,27 +2403,24 @@ a:hover { color: var(--electric); }
   border-bottom: 1px solid var(--border-soft);
 }
 
-/* Founding quote — now lives inside the teal case-hero band */
+/* Founding quote — sits flat inside the teal case-hero band, no inner card. */
 .exhibit-founding-quote__block--hero {
-  margin: 32px auto 8px;
-  max-width: 680px;
-  padding: 28px 32px;
+  margin: 18px auto 4px;
+  max-width: 820px;
+  padding: 0;
   border: 0;
+  background: transparent;
   text-align: center;
-  background: rgba(0, 0, 0, 0.22);
-  border-radius: 12px;
-  backdrop-filter: blur(2px);
 }
 .exhibit-founding-quote__block--hero .exhibit-founding-quote__text {
   color: #ffffff;
-  text-shadow: 0 1px 6px rgba(0,0,0,0.45);
 }
 .exhibit-founding-quote__block--hero .exhibit-founding-quote__source {
-  color: rgba(255,255,255,0.9);
+  color: rgba(255,255,255,0.92);
   opacity: 1;
 }
 .exhibit-founding-quote__block--hero .exhibit-founding-quote__fine {
-  color: rgba(255,255,255,0.65);
+  color: rgba(255,255,255,0.7);
   opacity: 1;
 }
 /* Founding quote — standalone bone section (kept as fallback) */
