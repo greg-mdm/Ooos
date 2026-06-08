@@ -4079,6 +4079,7 @@ textarea:focus-visible,
   align-items: center;
   gap: 20px;
   transition: background 160ms;
+  box-shadow: 0 10px 48px rgba(0,0,0,0.5), 0 2px 10px rgba(0,0,0,0.3), 0 0 0 2px #F0C040, 0 0 24px 4px rgba(240,192,64,0.55);
 }
 .vote-qr-card:hover { background: rgba(255,255,255,0.11); }
 .vote-qr-card__text {

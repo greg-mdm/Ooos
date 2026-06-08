@@ -401,7 +401,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 label="Pool 1 · Launch"
                 goal={10000}
                 raised={7}
-                unlocks="Help us reach this funding goal to launch an interactive event with 7 nonprofit partners. Ten digital art influencers will transform real-world challenges into interactive experiences that the public can explore for free."
+                unlocks="Help us hit this funding goal to launch an experimental event with seven nonprofit partners! Ten digital art influencers will help test our vision for meaningful virtual engagement by creating interactive experiences that the public can explore for free."
                 cta="Join our mission"
                 onSupport={onSupport}
               />
@@ -409,7 +409,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 label="Pool 2 · National"
                 goal={25000}
                 raised={7}
-                unlocks="Activates our national grant proposal for the next-level exhibition! Supporters help bring diverse stories and serious issues into a shared public space while enjoying perks like personalizing a signature on the donor wall in the virtual exhibition."
+                unlocks="Let’s elevate our exhibition! Rally behind our national grant proposal today. Your donation will help bring diverse stories and serious issues into a shared public space. Plus, you can enjoy perks like personalizing your signature on the donor wall in the virtual exhibition."
                 revealLabel="Peek behind the national stage"
                 reveal={<>
                   <p>With a transparent pool of public support, Ooo Digital Media Studio will apply to the Canada Council for the Arts as the project's Creative Director in pursuit of Sector Support, Innovation and Development funding to help expand the exhibition nationally.</p>
