@@ -3956,8 +3956,14 @@ textarea:focus-visible,
 .exh-descriptor--cie .cie-prefix {
   font-family: 'Poppins', var(--sans), sans-serif;
   font-weight: 600;
-  font-size: 11px;
+  font-size: 13px;
   color: var(--dark-indigo, #19007D);
+}
+.exh-descriptor--cie .cie-prefix-hyphen {
+  letter-spacing: -0.03em;
+}
+.exh-descriptor--cie .cie-prefix-show {
+  letter-spacing: normal;
 }
 /* Segment 2: bold ruby */
 .exh-descriptor--cie .cie-name {

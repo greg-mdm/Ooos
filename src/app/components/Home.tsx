@@ -145,7 +145,10 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             </div>
             <div className="exh-pill-bar">
               <span className="exh-descriptor exh-descriptor--cie exh-descriptor--cie-full">
-                <span className="cie-prefix">State-of-the-Art Show:</span>{' '}
+                <span className="cie-prefix">
+                  <span className="cie-prefix-hyphen">State-of-the-Art</span>{' '}
+                  <span className="cie-prefix-show">Show:</span>
+                </span>{' '}
                 <span className="cie-name">Canadian Interactive Exhibition</span>
               </span>
               <span className="exh-label"><span className="exh-label-main">Immersive</span><span className="exh-label-sub">experiences</span></span>
