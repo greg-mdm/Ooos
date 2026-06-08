@@ -297,16 +297,11 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
           <div className="case-hero-meta-row case-hero-meta-row--inline">
             <p className="case-hero-slogan">Share your mission. Join the exhibition!</p>
             <div className="case-meta case-meta--inline">
-              <span className="chip">Active Public Participation</span>
+              <span className="chip">Active public participation</span>
               <span className="chip">Cross-sector collaboration</span>
             </div>
           </div>
-        </div>
-      </section>
-
-      <section className="exhibit-founding-quote">
-        <div className="container">
-          <blockquote className="exhibit-founding-quote__block">
+          <blockquote className="exhibit-founding-quote__block exhibit-founding-quote__block--hero">
             <p className="exhibit-founding-quote__text">
               &ldquo;Public is not a passive, fixed idea; it must be
               vigilantly invented and reconstructed by each generation.&rdquo;
