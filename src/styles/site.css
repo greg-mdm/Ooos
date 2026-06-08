@@ -237,6 +237,36 @@ a:hover { color: var(--electric); }
   color: var(--ink);
   text-align: left;
 }
+.hero-bullets {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 760px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+.hero-bullets li {
+  position: relative;
+  padding-left: 22px;
+  font-family: var(--sans);
+  font-size: clamp(0.95rem, 1.4vw, 1.2rem);
+  line-height: 1.5;
+  color: var(--ink);
+}
+.hero-bullets li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--dark-indigo, #19007D);
+}
+.hero-bullets li:nth-child(2)::before { background: #312583; }
+.hero-bullets li:nth-child(3)::before { background: var(--electric, #5B04DE); }
 .hero-cta {
   display: grid;
   grid-template-columns: 1fr 1fr;
