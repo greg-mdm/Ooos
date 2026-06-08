@@ -1309,8 +1309,8 @@ a:hover { color: var(--electric); }
   padding: 0 22px;
 }
 .path-feature__narrative {
-  text-align: center;
-  max-width: 720px;
+  text-align: left;
+  max-width: 880px;
   margin: 0 auto;
   padding: 0 22px;
 }
@@ -1319,7 +1319,7 @@ a:hover { color: var(--electric); }
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px;
-  max-width: 760px;
+  max-width: 960px;
   margin: 0 auto;
   width: 100%;
 }
