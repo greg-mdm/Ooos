@@ -230,9 +230,9 @@ a:hover { color: var(--electric); }
 }
 .hero p.lead {
   font-family: var(--sans);
-  font-size: clamp(1rem, 1.6vw, 1.5rem);
+  font-size: clamp(0.92rem, 1.4vw, 1.3rem);
   line-height: 1.45;
-  max-width: 1000px;
+  max-width: 1080px;
   margin: 0 auto;
   color: var(--ink);
   text-align: left;
