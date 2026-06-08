@@ -5,7 +5,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
   return (
     <div className="cid-scope">
       <section className="case-hero">
-        <div className="container">
+        <div className="container cid-hero-container">
           <Link to="/" className="back">← All projects</Link>
           <h1>Canadian Innovation Dimension</h1>
           <div className="cid-hero-summary">
@@ -18,13 +18,15 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               and capital market activity across emerging technologies. The Innovation Watchlist is the first tool
               offering access to this dimension.
             </p>
-            <p className="summary">
-              Ostara empowers innovators, researchers, entrepreneurs, and curious minds to collaboratively explore diverse sectors, policy trends, and market dynamics. It analyzes real-world signals, enables experimentation, and offers a platform for comparing verified information and assessing competing interpretations. <strong>Ostara and the experimental Canadian Innovation Dimension (CID) do not provide future predictions or financial advice.</strong>
-            </p>
-          </div>
-          <div className="case-meta">
-            <span className="chip">Research dimension</span>
-            <span className="chip">MNPI excluded</span>
+            <div className="cid-hero-summary-right">
+              <p className="summary">
+                Ostara empowers innovators, researchers, entrepreneurs, and curious minds to collaboratively explore diverse sectors, policy trends, and market dynamics. It analyzes real-world signals, enables experimentation, and offers a platform for comparing verified information and assessing competing interpretations. <strong>Ostara and the experimental Canadian Innovation Dimension (CID) do not provide future predictions or financial advice.</strong>
+              </p>
+              <div className="case-meta cid-hero-chips">
+                <span className="chip">Research dimension</span>
+                <span className="chip">MNPI excluded</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>

@@ -88,7 +88,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           <ul className="hero-bullets">
             <li>Based in Ontario's innovation ecosystem</li>
             <li>Working in partnership with Canadian entrepreneurs</li>
-            <li>Building a global network of digital media partners</li>
+            <li>Building with a global network of digital media partners</li>
             <li>Growing with our creative community</li>
           </ul>
         </div>
@@ -174,38 +174,15 @@ export function Home({ onSupport }: { onSupport: () => void }) {
       </section>
 
       <section className="section vote-feature">
-        <div className="vote-top-row">
-          <div className="vote-guide-box">
-            <div className="vote-guide-eyebrow">
-              <span className="vote-guide-star">&#9733;</span>
-              <span className="vote-guide-title"> Choosing Our Digital Destiny</span>
-              <span className="vote-guide-access"> &bull; Workshop</span>
-            </div>
-            <p className="vote-guide-access-line">&bull; Exclusive access for 200 innovators and visionary thinkers</p>
-            <p className="vote-guide-body">
-              Explore the digital economy, exchange perspectives on AI, and examine opportunities for funding innovation.
-            </p>
+        <div className="vote-guide-box">
+          <div className="vote-guide-eyebrow">
+            <span className="vote-guide-star">&#9733;</span>
+            <span className="vote-guide-title"> Choosing Our Digital Destiny</span>
+            <span className="vote-guide-access"> &middot; Exclusive Access</span>
           </div>
-
-          <a
-            className="vote-qr-card"
-            href="https://kahoot.it/challenge/03428365"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <div className="vote-qr-card__text">
-              <p className="vote-qr-card__headline">Join our Kahoot workshop to exchange insights and have fun!</p>
-              <ul className="vote-qr-card__bullets">
-                <li>Asynchronous interaction anytime until our session closes on July 31, 2026</li>
-                <li>A collective exploration lasting 31 days</li>
-              </ul>
-            </div>
-            <img
-              className="vote-qr-card__qr"
-              src={`${import.meta.env.BASE_URL}assets/Ooo%20Kahoot%20QR.png`}
-              alt="Scan QR code to join Kahoot"
-            />
-          </a>
+          <p className="vote-guide-body">
+            Join our interactive workshop to co-play with 200 innovators! Explore the digital economy, exchange perspectives on AI, and examine opportunities for funding innovation.
+          </p>
         </div>
         <div className="vote-stage">
           <div className="vote-source-label">
@@ -229,11 +206,11 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           </div>
           <a
             className="vote-cta-btn"
-            href="https://kahoot.it/challenge/03428365"
+            href="https://kahoot.it/challenge/01297559"
             target="_blank"
             rel="noopener noreferrer"
           >
-            VOTE ON KAHOOT →
+            Vote on Kahoot →
           </a>
         </div>
       </section>
@@ -387,13 +364,13 @@ export function Home({ onSupport }: { onSupport: () => void }) {
 
         <div className="path-feature">
           <div className="path-feature__title-band">
-            <span className="path-feature__title-band-eyebrow">Featured project: CIX</span>
+            <span className="path-feature__title-band-eyebrow">Featured project</span>
             <span className="path-feature__title-band-name">CANADIAN INTERACTIVE EXHIBITION</span>
           </div>
           <div className="path-feature__grid">
             <div className="path-feature__narrative">
-              <p className="path-feature__body path-feature__body--wide">
-                Canadian nonprofits share real-world challenges and community insights, matching with digital artists to design virtual experiences that bring these diverse narratives to life. Collaborating from ideation to execution, our teams develop interactive experiences that engage the public, build understanding and foster dialogue about solutions.
+              <p className="path-feature__body">
+                Canadian nonprofits share real-world challenges. Artists transform them into interactive public experiences. Two funding pools, two public milestones — each pool fills openly so supporters can watch momentum build.
               </p>
             </div>
             <div className="pool-board" role="group" aria-label="Project funding pools">
@@ -401,7 +378,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 label="Pool 1 · Launch"
                 goal={10000}
                 raised={7}
-                unlocks="Help us hit this funding goal to launch an experimental event with seven nonprofit partners! Ten digital art influencers will help test our vision for meaningful virtual engagement by creating interactive experiences that the public can explore for free."
+                unlocks="Help us reach this funding goal to launch an interactive event with 7 nonprofit partners. Ten digital art influencers will transform real-world challenges into interactive experiences that the public can explore for free."
                 cta="Join our mission"
                 onSupport={onSupport}
               />
@@ -409,7 +386,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 label="Pool 2 · National"
                 goal={25000}
                 raised={7}
-                unlocks="Let’s elevate our exhibition! Rally behind our national grant proposal today. Your donation will help bring diverse stories and serious issues into a shared public space. Plus, you can enjoy perks like personalizing your signature on the donor wall in the virtual exhibition."
+                unlocks="Activates our national grant proposal for the next-level exhibition! Supporters help bring diverse stories and serious issues into a shared public space while enjoying perks like personalizing a signature on the donor wall in the virtual exhibition."
                 revealLabel="Peek behind the national stage"
                 reveal={<>
                   <p>With a transparent pool of public support, Ooo Digital Media Studio will apply to the Canada Council for the Arts as the project's Creative Director in pursuit of Sector Support, Innovation and Development funding to help expand the exhibition nationally.</p>
@@ -575,10 +552,7 @@ function PoolWidget({
         />
         <span className="pool-widget__pct">{pctLabel}%</span>
       </div>
-      <p className="pool-widget__unlocks">{unlocks}</p>
-      {reveal && (
-        <PoolReveal label={revealLabel ?? "Read more"}>{reveal}</PoolReveal>
-      )}
+      <PoolUnlocks unlocks={unlocks} reveal={reveal} revealLabel={revealLabel} />
       <button
         type="button"
         className="pool-widget__cta"
@@ -587,6 +561,45 @@ function PoolWidget({
         {cta} →
       </button>
     </div>
+  );
+}
+
+function PoolUnlocks({
+  unlocks,
+  reveal,
+  revealLabel,
+}: {
+  unlocks: ReactNode;
+  reveal?: ReactNode;
+  revealLabel?: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const label = revealLabel ?? "Read more";
+  return (
+    <>
+      <p className="pool-widget__unlocks">
+        {unlocks}
+        {reveal && (
+          <>
+            {" "}
+            <button
+              type="button"
+              className="pool-widget__reveal-toggle pool-widget__reveal-toggle--inline"
+              aria-expanded={open}
+              onClick={() => setOpen((v) => !v)}
+            >
+              {open ? "Hide details" : label}
+              <span aria-hidden="true">{open ? " ↑" : " ↓"}</span>
+            </button>
+          </>
+        )}
+      </p>
+      {reveal && (
+        <div className="pool-widget__reveal-body" hidden={!open}>
+          {reveal}
+        </div>
+      )}
+    </>
   );
 }
 
