@@ -174,33 +174,35 @@ export function Home({ onSupport }: { onSupport: () => void }) {
       </section>
 
       <section className="section vote-feature">
-        <div className="vote-guide-box">
-          <div className="vote-guide-eyebrow">
-            <span className="vote-guide-star">&#9733;</span>
-            <span className="vote-guide-title"> Choosing Our Digital Destiny</span>
-            <span className="vote-guide-access"> &middot; Exclusive Access</span>
+        <div className="vote-top-row">
+          <div className="vote-guide-box">
+            <div className="vote-guide-eyebrow">
+              <span className="vote-guide-star">&#9733;</span>
+              <span className="vote-guide-title"> Choosing Our Digital Destiny</span>
+              <span className="vote-guide-access"> &middot; Exclusive Access</span>
+            </div>
+            <p className="vote-guide-body">
+              Explore the digital economy, exchange perspectives on AI, and examine opportunities for funding innovation.
+            </p>
           </div>
-          <p className="vote-guide-body">
-            Explore the digital economy, exchange perspectives on AI, and examine opportunities for funding innovation.
-          </p>
-        </div>
 
-        <a
-          className="vote-qr-card"
-          href="https://kahoot.it/challenge/03428365"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <div className="vote-qr-card__text">
-            <p className="vote-qr-card__headline">Join our interactive workshop to co-play with 200 innovators!</p>
-            <span className="vote-qr-card__btn">VOTE ON KAHOOT →</span>
-          </div>
-          <img
-            className="vote-qr-card__qr"
-            src={`${import.meta.env.BASE_URL}assets/images/Ooo-Kahoot-QR.png`}
-            alt="Scan QR code to join Kahoot"
-          />
-        </a>
+          <a
+            className="vote-qr-card"
+            href="https://kahoot.it/challenge/03428365"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div className="vote-qr-card__text">
+              <p className="vote-qr-card__headline">Join our interactive workshop to co-play with 200 innovators!</p>
+              <span className="vote-qr-card__btn">VOTE ON KAHOOT →</span>
+            </div>
+            <img
+              className="vote-qr-card__qr"
+              src={`${import.meta.env.BASE_URL}assets/images/Ooo-Kahoot-QR.png`}
+              alt="Scan QR code to join Kahoot"
+            />
+          </a>
+        </div>
         <div className="vote-stage">
           <div className="vote-source-label">
             POLYMARKET · <span className="vote-volume">$29.05M LIVE VOLUME</span> · EXPIRES 2026-06-30
