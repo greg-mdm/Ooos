@@ -369,7 +369,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           </div>
           <div className="path-feature__grid">
             <div className="path-feature__narrative">
-              <p className="path-feature__body">
+              <p className="path-feature__body path-feature__body--wide">
                 Canadian nonprofits share real-world challenges and community insights, matching with digital artists to design virtual experiences that bring these diverse narratives to life. Collaborating from ideation to execution, our teams develop interactive experiences that engage the public, build understanding and foster dialogue about solutions.
               </p>
             </div>

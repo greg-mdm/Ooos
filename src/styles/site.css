@@ -1294,6 +1294,13 @@ a:hover { color: var(--electric); }
   margin: 0 0 12px;
   line-height: 1.55;
 }
+.path-feature__body--wide {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #1a1a1a;
+  font-size: 15px;
+}
 .path-feature__grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -1303,7 +1310,7 @@ a:hover { color: var(--electric); }
 }
 .path-feature__narrative {
   text-align: center;
-  max-width: 860px;
+  max-width: 720px;
   margin: 0 auto;
   padding: 0 22px;
 }
