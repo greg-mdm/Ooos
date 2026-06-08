@@ -88,7 +88,8 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           <ul className="hero-bullets">
             <li>Based in Ontario's innovation ecosystem</li>
             <li>Working in partnership with Canadian entrepreneurs</li>
-            <li>Building with a global network of digital engagement partners</li>
+            <li>Building with a global network of digital media partners</li>
+            <li>Growing with our creative community</li>
           </ul>
           <div className="hero-cta">
             <Link to="/ostara" className="btn-ostara">Ostara: Collective Intelligence System</Link>

@@ -269,6 +269,7 @@ a:hover { color: var(--electric); }
 }
 .hero-bullets li:nth-child(2)::before { background: #312583; }
 .hero-bullets li:nth-child(3)::before { background: var(--electric, #5B04DE); }
+.hero-bullets li:nth-child(4)::before { background: var(--gold, #F0C040); }
 .hero-cta {
   display: grid;
   grid-template-columns: 1fr 1fr;
