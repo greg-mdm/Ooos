@@ -183,7 +183,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
                   directly translate into real-world impact.
                 </p>
               </PlayItem>
-              <PlayItem title="Give &amp; Receive" meta={<><strong className="exhibit-play-num">2</strong> player &middot; Seasonal plan or annual agreement</>}>
+              <PlayItem title="Give &amp; Receive" meta={<><strong className="exhibit-play-num">2</strong> players &middot; Seasonal plan or annual agreement</>}>
                 <p>
                   Mutual commitments sharpen your strategic advantage. Our systematic approach establishes category authority that algorithms cannot overlook. Utilize shared values, common goals, and well-defined roles to create a strong reciprocal dynamic.
                 </p>
@@ -191,7 +191,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
                   By exchanging online signals that confirm credibility and expertise, co-marketers collaborate to establish category authority that algorithms cannot ignore.
                 </p>
               </PlayItem>
-              <PlayItem title="Double Bumper" meta="2 Player · Quick launch · Booster packs">
+              <PlayItem title="Double Bumper" meta={<><strong className="exhibit-play-num">2</strong> players &middot; Quick launch or booster packs</>}>
                 <p>
                   Start targeting together with two easy steps. Step 1: Co-sponsor a 3-week campaign to form an ad-buy alliance quickly. Step 2: Customize an effective multi-channel digital advertising plan.
                 </p>
