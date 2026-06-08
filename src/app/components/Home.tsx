@@ -91,16 +91,17 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             <li>Building with a global network of digital media partners</li>
             <li>Growing with our creative community</li>
           </ul>
-          <div className="hero-cta">
-            <Link to="/ostara" className="btn-ostara">Ostara: Collective Intelligence System</Link>
-            <Link to="/exhibition" className="btn-exhibition">Canadian Interactive Exhibition</Link>
-          </div>
         </div>
       </section>
 
       <section className="section section-tinted">
         <div className="section-header">
           <div className="section-eyebrow">★ Featured Experiences</div>
+        </div>
+
+        <div className="hero-cta">
+          <Link to="/ostara" className="btn-ostara">Ostara: Collective Intelligence System</Link>
+          <Link to="/exhibition" className="btn-exhibition">Canadian Interactive Exhibition</Link>
         </div>
 
         <div className="featured">
