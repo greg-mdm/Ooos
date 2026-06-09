@@ -276,6 +276,10 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
 
       <div className="case-body exhibit-includes-section">
         <p className="exhibit-includes-eyebrow">What the Exhibition Includes</p>
+        <div className="exhibit-includes-pills">
+          <span className="chip chip--exhibit-pill">Active public participation</span>
+          <span className="chip chip--exhibit-pill">Cross-sector collaboration</span>
+        </div>
         <div className="outcome-grid">
           <div className="outcome-item">
             <strong>Nonprofit and artist collaborations</strong> from across Canada
@@ -296,14 +300,8 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
         <div className="container">
           <div className="exhibit-hero-split">
             <div className="exhibit-hero-split__left">
-              <div className="exhibit-hero-slogan-row">
-                <p className="case-hero-slogan">Share your mission.</p>
-                <span className="chip chip--glass">Active public participation</span>
-              </div>
-              <div className="exhibit-hero-slogan-row">
-                <p className="case-hero-slogan">Join the exhibition!</p>
-                <span className="chip chip--glass">Cross-sector collaboration</span>
-              </div>
+              <p className="case-hero-slogan">Share your mission.</p>
+              <p className="case-hero-slogan">Join the exhibition!</p>
             </div>
             <div className="exhibit-hero-split__right">
           <blockquote className="exhibit-founding-quote__block exhibit-founding-quote__block--hero">

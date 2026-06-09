@@ -2463,12 +2463,10 @@ a:hover { color: var(--electric); }
   padding: 14px 0;
 }
 .exhibit-hero-split__left {
-  display: grid;
-  grid-template-columns: auto auto;
-  column-gap: 18px;
-  row-gap: 14px;
-  align-items: center;
-  justify-content: start;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
 }
 .exhibit-hero-slogan-row {
   display: contents;
@@ -2477,6 +2475,9 @@ a:hover { color: var(--electric); }
   margin: 0;
   font-size: clamp(18px, 2.1vw, 26px);
   white-space: nowrap;
+}
+.exhibit-hero-split__left .case-hero-slogan {
+  margin: 0;
 }
 /* Glassmorphic chips on the teal/indigo blend — keep AA contrast. */
 .case-hero--mid .chip--glass {
@@ -3738,6 +3739,31 @@ textarea:focus-visible,
   text-transform: uppercase;
   color: var(--mist, #8A8A9A);
   margin: 0 0 12px;
+}
+/* Pills positioned above the 2-column outcome grid: left over left column,
+   right over right column. Mirrors the grid's columns/gap exactly. */
+.exhibit-includes-pills {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 0 0 12px;
+}
+.chip--exhibit-pill {
+  justify-self: start;
+  background: linear-gradient(135deg, #19007D 0%, #4B00B6 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(25, 0, 125, 0.25);
+}
+@media (max-width: 640px) {
+  .exhibit-includes-pills { grid-template-columns: 1fr; }
 }
 .outcome-grid {
   display: grid;
