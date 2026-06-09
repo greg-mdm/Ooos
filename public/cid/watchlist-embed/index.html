@@ -80,10 +80,12 @@
       color: #822F00;
     }
 
-    /* TITLE BANNER — red as highlight, not dominant */
+    /* TITLE BANNER — lock to 2:1 grid so it mirrors the 2 + 1 of the
+       three regional cards directly below. */
     .title-banner-wrap {
       margin: 2rem 3rem;
-      display: flex;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
       align-items: stretch;
       gap: 0.6rem;
     }
@@ -92,7 +94,6 @@
       display: flex;
       flex-direction: column;
       gap: 0.6rem;
-      flex: 2 1 720px;
       min-width: 0;
     }
 
@@ -130,7 +131,6 @@
     .title-banner-white p strong { font-weight: 700; }
 
     .title-banner-compass {
-      flex: 1 1 auto;
       min-width: 0;
       background: transparent;
       border: 1px solid rgba(31, 206, 203, 0.35);
@@ -152,7 +152,7 @@
     @media (max-width: 900px) {
       .title-banner-wrap {
         margin: 2rem 1.5rem;
-        flex-direction: column;
+        grid-template-columns: 1fr;
         gap: 1rem;
       }
       .title-banner-compass { display: none; }
