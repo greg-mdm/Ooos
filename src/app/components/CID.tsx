@@ -7,7 +7,13 @@ export function CID({ onSupport }: { onSupport: () => void }) {
       <section className="case-hero">
         <div className="container cid-hero-container">
           <Link to="/" className="back">← All projects</Link>
-          <h1>Canadian Innovation Dimension</h1>
+          <div className="cid-hero-title-row">
+            <h1>Canadian Innovation Dimension</h1>
+            <div className="case-meta cid-hero-chips">
+              <span className="chip">Research dimension</span>
+              <span className="chip">MNPI excluded</span>
+            </div>
+          </div>
           <div className="cid-hero-summary">
             <p className="summary">
               A research dimension tracking sovereign innovation across Canada
@@ -22,10 +28,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               <p className="summary">
                 Ostara empowers innovators, researchers, entrepreneurs, and curious minds to collaboratively explore diverse sectors, policy trends, and market dynamics. It analyzes real-world signals, enables experimentation, and offers a platform for comparing verified information and assessing competing interpretations. <strong>Ostara and the experimental Canadian Innovation Dimension (CID) do not provide future predictions or financial advice.</strong>
               </p>
-              <div className="case-meta cid-hero-chips">
-                <span className="chip">Research dimension</span>
-                <span className="chip">MNPI excluded</span>
-              </div>
             </div>
           </div>
         </div>
