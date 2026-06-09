@@ -294,13 +294,18 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
 
       <section className="case-hero case-hero--mid">
         <div className="container">
-          <div className="case-hero-meta-row case-hero-meta-row--inline">
-            <p className="case-hero-slogan">Share your mission. Join the exhibition!</p>
-            <div className="case-meta case-meta--inline">
-              <span className="chip">Active public participation</span>
-              <span className="chip">Cross-sector collaboration</span>
+          <div className="exhibit-hero-split">
+            <div className="exhibit-hero-split__left">
+              <div className="exhibit-hero-slogan-row">
+                <p className="case-hero-slogan">Share your mission.</p>
+                <span className="chip chip--glass">Active public participation</span>
+              </div>
+              <div className="exhibit-hero-slogan-row">
+                <p className="case-hero-slogan">Join the exhibition!</p>
+                <span className="chip chip--glass">Cross-sector collaboration</span>
+              </div>
             </div>
-          </div>
+            <div className="exhibit-hero-split__right">
           <blockquote className="exhibit-founding-quote__block exhibit-founding-quote__block--hero">
             <p className="exhibit-founding-quote__text">
               &ldquo;Public is not a passive, fixed idea; it must be
@@ -315,6 +320,8 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               </span>
             </footer>
           </blockquote>
+            </div>
+          </div>
         </div>
       </section>
 

@@ -80,8 +80,15 @@
       color: #822F00;
     }
 
-    /* TITLE BANNER — lock to 2:1 grid so it mirrors the 2 + 1 of the
-       three regional cards directly below. */
+    /* ============================================================
+       LOCKED LAYOUT — do not change `.title-banner-wrap` to flex.
+       The compass image's intrinsic 1832x1080 wins flex negotiation
+       and squashes the left stack. Grid 2fr 1fr is the only way to
+       mirror the 2 + 1 ratio of the three regional cards below.
+       `.title-banner-stack` and `.title-banner-compass` must NOT
+       carry flex sizing props (flex: ...) — the grid drives sizing.
+       See /memories/repo/ooos_site_polish.md for the full rationale.
+       ============================================================ */
     .title-banner-wrap {
       margin: 2rem 3rem;
       display: grid;
