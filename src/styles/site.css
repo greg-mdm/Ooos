@@ -2497,7 +2497,16 @@ a:hover { color: var(--electric); }
     inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 .exhibit-hero-split__right {
-  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.exhibit-founding-quote-art {
+  display: block;
+  width: min(100%, 920px);
+  height: auto;
+  object-fit: contain;
+  background: transparent;
 }
 @media (max-width: 880px) {
   .exhibit-hero-split {
@@ -2510,6 +2519,9 @@ a:hover { color: var(--electric); }
     justify-content: start;
   }
   .exhibit-hero-split__left .case-hero-slogan { white-space: normal; }
+  .exhibit-hero-split__right {
+    justify-content: center;
+  }
 }
 
 /* Founding quote — flows freely inside the right cell, no forced breaks. */

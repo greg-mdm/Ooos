@@ -304,20 +304,12 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               <p className="case-hero-slogan">Join the exhibition!</p>
             </div>
             <div className="exhibit-hero-split__right">
-          <blockquote className="exhibit-founding-quote__block exhibit-founding-quote__block--hero">
-            <p className="exhibit-founding-quote__text">
-              &ldquo;Public is not a passive, fixed idea; it must be
-              vigilantly invented and reconstructed by each generation.&rdquo;
-            </p>
-            <footer className="exhibit-founding-quote__footer">
-              <cite className="exhibit-founding-quote__source">
-                <em>But Is It Art? The Spirit of Art as Activism</em>
-              </cite>
-              <span className="exhibit-founding-quote__fine">
-                Art anthology, edited by Nina Felshin, p. 305 (1995)
-              </span>
-            </footer>
-          </blockquote>
+                <img
+                  className="exhibit-founding-quote-art"
+                  src="/assets/Activist Art-Block.png"
+                  alt="Public is not a passive, fixed idea; it must be vigilantly invented and reconstructed by each generation. But Is It Art? The Spirit of Art as Activism. Art anthology edited by Nina Felshin, p. 305 (1995)."
+                  loading="lazy"
+                />
             </div>
           </div>
         </div>
