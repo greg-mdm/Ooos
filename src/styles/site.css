@@ -4298,7 +4298,7 @@ textarea:focus-visible,
   font-family: 'Poppins', var(--sans, system-ui), sans-serif;
   letter-spacing: 0.04em;
 }
-.exh-descriptor:hover {
+.exh-descriptor:not(.exh-descriptor--cie):hover {
   background: var(--ruby);
   color: #FFFFFF;
   border-color: var(--ruby);
