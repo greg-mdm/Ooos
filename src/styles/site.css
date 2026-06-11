@@ -21,6 +21,33 @@
   --teal: #008080;
   --ruby: #822F00;
   --gold: #F0C040;
+
+  /* Core surface/text tokens used across pages */
+  --white: #FFFFFF;
+  --bg: #F0F4F5;
+  --bone: #F6F2EC;
+  --ink: #1A0033;
+  --slate: #5A5A6E;
+  --charcoal: #2A2340;
+  --mist: rgba(255, 255, 255, 0.9);
+  --border-soft: rgba(26, 0, 51, 0.12);
+  --teal-deep: #006B57;
+  --robin: #00D4AA;
+  --faint: rgba(25, 0, 125, 0.08);
+}
+
+body {
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--bg);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--ink);
+}
+
+p, li, button, input, textarea, select {
+  font-family: var(--sans);
 }
 .exhibit-cta-art {
   display: block;
