@@ -18,11 +18,9 @@
 .exhibit-cta-art {
   display: block;
   width: min(100%, 560px);
-  aspect-ratio: 820 / 338;
-  background-image: url('/assets/CTA-MIssion-Ooo.png');
-  background-repeat: no-repeat;
-  background-position: left top;
-  background-size: contain;
+  height: auto;
+  object-fit: contain;
+  background: transparent;
   margin-top: 30px;
 }
 .exhibit-hero-cta-stack {
