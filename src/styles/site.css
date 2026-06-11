@@ -273,7 +273,7 @@ a:hover { color: var(--electric); }
   line-height: 1.2;
   letter-spacing: -0.012em;
   margin: 0 auto 20px;
-  color: var(--ink) !important;
+  color: var(--dark-indigo) !important;
   max-width: 880px;
   text-align: left;
   text-wrap: balance;
