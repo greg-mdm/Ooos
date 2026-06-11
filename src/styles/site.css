@@ -948,10 +948,9 @@ a:hover { color: var(--electric); }
 }
 .studio-ad__eyebrow {
   font-family: var(--font-elevated);
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
   color: var(--resolution);
   margin-bottom: 6px;
 }
@@ -1018,16 +1017,15 @@ a:hover { color: var(--electric); }
 }
 .shop-ad__eyebrow {
   font-family: var(--font-elevated);
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
   color: var(--electric);
   margin-bottom: 6px;
 }
 .shop-ad__status {
   color: var(--ruby);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.01em;
 }
 .shop-ad__text {
   font-size: 13px;
