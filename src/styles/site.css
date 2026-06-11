@@ -414,11 +414,12 @@ a:hover { color: var(--electric); }
   max-width: 920px;
 }
 .section-eyebrow {
+  font-family: var(--font-elevated);
   font-size: clamp(1.25rem, 2.2vw, 2rem);
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--electric);
-  font-weight: 900;
+  font-weight: 800;
   margin-bottom: 12px;
 }
 .pane-wordmark {
@@ -774,10 +775,10 @@ a:hover { color: var(--electric); }
   .dual { grid-template-columns: 1fr; gap: 18px; }
 }
 .pane h3 {
-  font-family: var(--serif);
+  font-family: var(--font-elevated);
   font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  font-weight: 800;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   margin: 0 0 12px;
   color: var(--dark-indigo);
@@ -858,9 +859,10 @@ a:hover { color: var(--electric); }
   border-radius: 0 8px 8px 0;
 }
 .studio-testimonial__eyebrow {
+  font-family: var(--font-elevated);
   font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-weight: 800;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--electric);
   margin: 0 0 10px;
