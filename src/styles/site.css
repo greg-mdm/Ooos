@@ -2532,10 +2532,11 @@ a:hover { color: var(--electric); }
 }
 .exhibit-cta-art {
   display: block;
-  width: min(100%, 520px);
+  width: min(100%, 320px);
   height: auto;
   object-fit: contain;
   background: transparent;
+  margin-top: 64px;
 }
 /* Glassmorphic chips on the teal/indigo blend — keep AA contrast. */
 .case-hero--mid .chip--glass {
@@ -2575,7 +2576,8 @@ a:hover { color: var(--electric); }
     justify-content: center;
   }
   .exhibit-cta-art {
-    width: min(100%, 360px);
+    width: min(100%, 300px);
+    margin-top: 28px;
   }
   .exhibit-hero-split__right {
     justify-content: center;
