@@ -11,10 +11,21 @@
   --portal: #4B00B6;         /* Portal Indigo */
   --electric: #5B04DE;       /* Electric Indigo */
 
-  /* Font stack variables */
-  --serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
-  --sans: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --research: 'Poppins', system-ui, sans-serif;
+  /* Typography system
+     Elevated wordmark : Montserrat (DIGITAL MEDIA STUDIO and brand wordmarks)
+     Friendly headings : Poppins (h1..h3 narrative)
+     Body and cards    : Inter (global accessibility-first reading face) */
+  --font-elevated: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-heading:  'Poppins',    system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body:     'Inter',      system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Back-compat aliases used across the codebase.
+     --serif (historically Playfair) now resolves to the friendly heading face.
+     --sans  (historically Montserrat) now resolves to the body face. */
+  --serif:    var(--font-heading);
+  --sans:     var(--font-body);
+  --research: var(--font-heading);
+  --elevated: var(--font-elevated);
 
   /* Colour aliases for layout code (resolved to parent palette) */
   --indigo: var(--dark-indigo);
@@ -43,11 +54,12 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
   color: var(--ink);
 }
 
 p, li, button, input, textarea, select {
-  font-family: var(--sans);
+  font-family: var(--font-body);
 }
 .exhibit-cta-art {
   display: block;
@@ -177,7 +189,7 @@ a:hover { color: var(--electric); }
   text-decoration: none;
 }
 .nav-brand-mark {
-  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  font-family: var(--font-heading);
   font-style: italic;
   font-weight: 700;
   font-size: 30px;
@@ -186,7 +198,7 @@ a:hover { color: var(--electric); }
   letter-spacing: 0;
 }
 .nav-brand-text {
-  font-family: "Montserrat", system-ui, sans-serif;
+  font-family: var(--font-elevated);
   font-weight: 800;
   font-size: 16px;
   letter-spacing: 0.18em;
@@ -254,19 +266,22 @@ a:hover { color: var(--electric); }
   text-align: center;
 }
 .hero h1 {
-  font-family: var(--serif);
+  font-family: var(--font-heading);
   font-size: clamp(1.65rem, 3vw, 2.5rem);
-  font-weight: 400;
-  line-height: 1.25;
-  letter-spacing: -0.012em;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
   margin: 0 auto 20px;
-  color: var(--ink);
-  max-width: 960px;
-  text-align: left;
+  color: var(--dark-indigo);
+  max-width: 880px;
+  text-align: center;
+  text-wrap: balance;
 }
 .hero h1 strong {
+  font-family: var(--font-elevated);
   font-weight: 700;
-  color: #312583;
+  letter-spacing: 0.005em;
+  color: var(--resolution);
 }
 .hero p.lead {
   font-family: var(--sans);
@@ -413,7 +428,7 @@ a:hover { color: var(--electric); }
 }
 .pane-wordmark h3 {
   margin: 0;
-  font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-elevated);
   font-weight: 700;
   font-size: 16px;
   letter-spacing: 0.14em;
@@ -422,7 +437,7 @@ a:hover { color: var(--electric); }
   line-height: 1.2;
 }
 .pane-wordmark__ooo {
-  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  font-family: var(--font-heading);
   font-size: 28px;
   font-weight: 700;
   font-style: italic;
@@ -488,7 +503,7 @@ a:hover { color: var(--electric); }
   .pane-wordmark__ahh:focus .xk { animation: none; color: var(--xk-tone); }
 }
 .pane-wordmark__ahh {
-  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  font-family: var(--font-heading);
   font-size: 28px;
   font-weight: 700;
   font-style: italic;
@@ -3919,7 +3934,7 @@ textarea:focus-visible,
   outline: none;
 }
 .kahoot-poster__brand {
-  font-family: 'Montserrat', system-ui, sans-serif;
+  font-family: var(--font-elevated);
   font-weight: 900;
   font-size: 2.2rem;
   letter-spacing: 0.02em;
