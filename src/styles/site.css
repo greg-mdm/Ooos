@@ -189,7 +189,7 @@ a:hover { color: var(--electric); }
   text-decoration: none;
 }
 .nav-brand-mark {
-  font-family: var(--font-heading);
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
   font-style: italic;
   font-weight: 700;
   font-size: 30px;
@@ -198,12 +198,12 @@ a:hover { color: var(--electric); }
   letter-spacing: 0;
 }
 .nav-brand-text {
-  font-family: var(--font-elevated);
-  font-weight: 800;
-  font-size: 16px;
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 15px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.92);
 }
 .nav-links {
   display: flex;
