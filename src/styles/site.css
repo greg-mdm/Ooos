@@ -274,12 +274,12 @@ a:hover { color: var(--electric); }
   margin: 0 auto 20px;
   color: var(--dark-indigo);
   max-width: 880px;
-  text-align: center;
+  text-align: left;
   text-wrap: balance;
 }
 .hero h1 strong {
   font-family: var(--font-elevated);
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.005em;
   color: var(--resolution);
 }
