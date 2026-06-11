@@ -61,87 +61,6 @@ h1, h2, h3, h4, h5, h6 {
 p, li, button, input, textarea, select {
   font-family: var(--font-body);
 }
-.exhibit-cta-art {
-  display: block;
-  width: min(100%, 380px);
-  height: auto;
-  object-fit: contain;
-  background: transparent;
-  margin-top: 30px;
-  margin-left: -18px;
-}
-.exhibit-hero-cta-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-.exhibit-hero-slogan-row {
-  display: contents;
-}
-.exhibit-hero-slogan-row .case-hero-slogan,
-.exhibit-hero-cta-stack .case-hero-slogan {
-  margin: 0;
-  font-size: clamp(30px, 3.6vw, 46px);
-  line-height: 1.08;
-  letter-spacing: 0.05em;
-  white-space: nowrap;
-}
-.exhibit-hero-split__left .case-hero-slogan {
-  margin: 0;
-}
-.exhibit-issue-icon {
-  display: block;
-  width: clamp(42px, 5.2vw, 68px);
-  height: auto;
-  object-fit: contain;
-  background: transparent;
-}
-/* Glassmorphic chips on the teal/indigo blend — keep AA contrast. */
-.case-hero--mid .chip--glass {
-  background: rgba(255, 255, 255, 0.18);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  border-radius: 999px;
-  padding: 9px 18px;
-  font-size: 12.5px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-  backdrop-filter: blur(10px) saturate(140%);
-  -webkit-backdrop-filter: blur(10px) saturate(140%);
-  box-shadow:
-    0 4px 14px rgba(0, 0, 0, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.25);
-}
-.exhibit-hero-split__right {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-.exhibit-founding-quote-art {
-  display: block;
-  width: min(100%, 920px);
-  height: auto;
-  object-fit: contain;
-  background: transparent;
-}
-@media (max-width: 880px) {
-  .exhibit-hero-split {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-  .exhibit-hero-split__left {
-    justify-content: center;
-  }
-  .exhibit-cta-art {
-    width: min(100%, 340px);
-    margin-top: 16px;
-    margin-left: -18px;
-  }
-  .exhibit-hero-split__right {
-    justify-content: center;
-  }
-}
 
 a { color: var(--indigo); text-decoration: none; }
 a:hover { color: var(--electric); }
@@ -2924,7 +2843,7 @@ textarea:focus-visible,
   vertical-align: -0.05em;
 }
 .exhibit-intro-text p {
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.7;
   color: var(--ink);
   opacity: 0.82;
@@ -2963,7 +2882,7 @@ textarea:focus-visible,
 .exhibit-match-bullets li {
   position: relative;
   padding-left: 18px;
-  font-size: 14px;
+  font-size: 17px;
   line-height: 1.55;
   color: var(--ink);
 }
