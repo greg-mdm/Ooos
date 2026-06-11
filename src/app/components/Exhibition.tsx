@@ -300,8 +300,16 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
         <div className="container">
           <div className="exhibit-hero-split">
             <div className="exhibit-hero-split__left">
-              <p className="case-hero-slogan">Share your mission.</p>
-              <p className="case-hero-slogan">Join the exhibition!</p>
+              <div className="exhibit-hero-cta-stack">
+                <p className="case-hero-slogan">Share your mission.</p>
+                <p className="case-hero-slogan">Join the exhibition!</p>
+              </div>
+              <img
+                className="exhibit-issue-icon"
+                src="/assets/Issue-Icon-Ooo.png"
+                alt="Issue warning icon"
+                loading="lazy"
+              />
             </div>
             <div className="exhibit-hero-split__right">
                 <img
