@@ -2532,7 +2532,7 @@ a:hover { color: var(--electric); }
 }
 .exhibit-cta-art {
   display: block;
-  width: min(100%, 250px);
+  width: min(100%, 400px);
   height: auto;
   object-fit: contain;
   background: transparent;
@@ -2577,7 +2577,7 @@ a:hover { color: var(--electric); }
     justify-content: center;
   }
   .exhibit-cta-art {
-    width: min(100%, 230px);
+    width: min(100%, 320px);
     margin-top: 28px;
     margin-left: 0;
   }
