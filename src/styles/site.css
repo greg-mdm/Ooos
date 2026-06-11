@@ -439,7 +439,7 @@ a:hover { color: var(--electric); }
   line-height: 1.15;
 }
 .pane-wordmark__ooo {
-  font-family: var(--font-heading);
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif !important;
   font-size: 28px;
   font-weight: 700;
   font-style: italic;
@@ -452,6 +452,9 @@ a:hover { color: var(--electric); }
 }
 .pane-wordmark__ooo,
 .pane-wordmark__ahh {
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif !important;
+  font-style: italic !important;
+  font-weight: 700 !important;
   margin-right: 6px;
   padding-right: 4px;
   cursor: pointer;
