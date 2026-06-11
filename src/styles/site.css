@@ -266,20 +266,22 @@ a:hover { color: var(--electric); }
   text-align: center;
 }
 .hero h1 {
-  font-family: var(--font-elevated);
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif !important;
   font-size: clamp(1.65rem, 3vw, 2.5rem);
-  font-weight: 600;
-  line-height: 1.3;
-  letter-spacing: -0.005em;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.2;
+  letter-spacing: -0.012em;
   margin: 0 auto 20px;
-  color: var(--dark-indigo) !important;
+  color: var(--ink) !important;
   max-width: 880px;
   text-align: left;
   text-wrap: balance;
 }
 .hero h1 strong {
-  font-family: var(--font-elevated);
+  font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
   font-weight: 800;
+  font-style: normal;
   letter-spacing: 0.005em;
   color: var(--resolution) !important;
 }
