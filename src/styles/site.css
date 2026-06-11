@@ -3684,9 +3684,28 @@ textarea:focus-visible,
 .exhibit-support .tier.t3::before { background: var(--dark-indigo); }
 .exhibit-support .tier.t4::before { background: var(--ruby); }
 /* Label, amount, desc inherit ink/slate from the white card */
-.exhibit-support .tier-name { color: var(--electric); }
-.exhibit-support .tier-amt  { color: var(--ink); }
-.exhibit-support .tier-desc { color: var(--slate); }
+.exhibit-support .tier-name {
+  display: block;
+  color: #5B04DE;
+  font-family: var(--research);
+}
+.exhibit-support .tier-amt {
+  display: block;
+  margin-top: 2px;
+  color: #1A0033;
+  font-family: var(--serif);
+  font-size: 31px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.exhibit-support .tier-desc {
+  display: block;
+  margin-top: 6px;
+  color: #4A3A6E;
+  font-family: var(--research);
+  font-size: 12.5px;
+  line-height: 1.45;
+}
 
 .exhibit-cta-arrow {
   font-size: 1.55em;
