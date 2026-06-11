@@ -300,11 +300,10 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
         <div className="container">
           <div className="exhibit-hero-split">
             <div className="exhibit-hero-split__left">
-              <img
+              <div
                 className="exhibit-cta-art"
-                src="/assets/CTA-MIssion-Ooo.png"
-                alt="Share your mission. Join the exhibition."
-                loading="lazy"
+                role="img"
+                aria-label="Share your mission. Join the exhibition."
               />
             </div>
             <div className="exhibit-hero-split__right">
