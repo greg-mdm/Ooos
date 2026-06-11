@@ -12,83 +12,85 @@
   --electric: #5B04DE;       /* Electric Indigo */
 
   /* Aliases for layout code (resolved to parent palette) */
-  --indigo: var(--portal);
-  --indigo-deep: var(--dark-indigo);
-
-  /* Ostara accents (allowed for cross-brand callouts) */
-  --gold: #F0C040;
-  --solar: #FFD76A;
-  --teal: #008080;
-  --teal-deep: #006666;
-  --exec-green: #00E676;
-  --risk-red: #FF4444;
-
-  /* Canadian Innovation Dimension surface system */
-  --ruby: #822F00;
-  --white: #FFFFFF;
-  --bone: #F5F0EA;
-  --faint: #F8F7F5;
-  --border-soft: #E5E3DF;
-  --ink: #1A0033;
-  --charcoal: #1A0033;
-  --slate: #4A3A6E;
-  --mist: #6A5A8A;
-
-  /* Robin's Egg Blue — studio surface, ties to Ostara spring equinox identity */
-  --robin: #F0F4F5;
-  --bg: var(--robin);
-
-  /* Legacy alias retained for any older rule */
-  --red: var(--ruby);
-
-  /* Type system — three fonts only.
-     --sans      Poppins      friendly first, body default
-     --serif     Montserrat   elevated display (headings, "DIGITAL MEDIA STUDIO")
-     --research  Inter        accessibility first, used in CID / Research / Ostara scopes */
-  --sans: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --serif: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --research: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  justify-content: flex-start;
+  align-items: center;
 }
-
-/* Ostara case-study scope — switches the page to the Oracle palette */
-.ostara-scope {
-  --indigo: #13103A;
-  --indigo-deep: #07051A;
-  --bg: #05030F;
-  --ink: #FFFFFF;
-  --charcoal: #E5E3DF;
-  --slate: #8A8A9A;
-  --mist: #5A5A6E;
-  --border-soft: #2A2060;
-  --white: #0D0A28;
-  --faint: #13103A;
-  --bone: #07051A;
-  --sans: var(--research);
-  --serif: var(--research);
-  font-family: var(--research);
+.exhibit-cta-art {
+  display: block;
+  width: min(100%, 860px);
+  height: auto;
+  object-fit: contain;
+  background: transparent;
 }
-
-/* Canadian Innovation Dimension scope — ruby hero + teal-tinted body */
-.cid-scope {
-  --indigo: #822F00;
-  --indigo-deep: #5a2000;
-  --bg: #E6F7F2; /* pale teal — pairs with ruby + teal accent #00D4AA */
-  --sans: var(--research);
-  font-family: var(--research);
+.exhibit-hero-cta-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
-
-* { box-sizing: border-box; }
-html, body, #root { height: 100%; }
-/* Global: keep any anchor-targeted heading clear of the sticky nav. */
-html { scroll-padding-top: 88px; }
-:is(h1, h2, h3, h4, h5, h6) { scroll-margin-top: 88px; }
-body {
+.exhibit-hero-slogan-row {
+  display: contents;
+}
+.exhibit-hero-slogan-row .case-hero-slogan,
+.exhibit-hero-cta-stack .case-hero-slogan {
   margin: 0;
-  font-family: var(--sans);
-  background: var(--bg);
-  color: var(--charcoal);
-  line-height: 1.7;
-  -webkit-font-smoothing: antialiased;
+  font-size: clamp(30px, 3.6vw, 46px);
+  line-height: 1.08;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+.exhibit-hero-split__left .case-hero-slogan {
+  margin: 0;
+}
+.exhibit-issue-icon {
+  display: block;
+  width: clamp(42px, 5.2vw, 68px);
+  height: auto;
+  object-fit: contain;
+  background: transparent;
+}
+/* Glassmorphic chips on the teal/indigo blend — keep AA contrast. */
+.case-hero--mid .chip--glass {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 999px;
+  padding: 9px 18px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  box-shadow:
+    0 4px 14px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+.exhibit-hero-split__right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.exhibit-founding-quote-art {
+  display: block;
+  width: min(100%, 920px);
+  height: auto;
+  object-fit: contain;
+  background: transparent;
+}
+@media (max-width: 880px) {
+  .exhibit-hero-split {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .exhibit-hero-split__left {
+    justify-content: center;
+  }
+  .exhibit-cta-art {
+    width: min(100%, 760px);
+  }
+  .exhibit-hero-split__right {
+    justify-content: center;
+  }
 }
 
 a { color: var(--indigo); text-decoration: none; }
@@ -2464,33 +2466,12 @@ a:hover { color: var(--electric); }
 }
 .exhibit-hero-split__left {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
-  height: 100%;
 }
-.exhibit-hero-cta-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-.exhibit-hero-slogan-row {
-  display: contents;
-}
-.exhibit-hero-slogan-row .case-hero-slogan,
-.exhibit-hero-cta-stack .case-hero-slogan {
-  margin: 0;
-  font-size: clamp(30px, 3.6vw, 46px);
-  line-height: 1.08;
-  letter-spacing: 0.05em;
-  white-space: nowrap;
-}
-.exhibit-hero-split__left .case-hero-slogan {
-  margin: 0;
-}
-.exhibit-issue-icon {
+.exhibit-cta-art {
   display: block;
-  width: clamp(42px, 5.2vw, 68px);
+  width: min(100%, 860px);
   height: auto;
   object-fit: contain;
   background: transparent;
@@ -2530,15 +2511,10 @@ a:hover { color: var(--electric); }
     gap: 24px;
   }
   .exhibit-hero-split__left {
-    gap: 14px;
-    height: auto;
-    justify-content: start;
+    justify-content: center;
   }
-  .exhibit-hero-split__left .case-hero-slogan {
-    white-space: normal;
-  }
-  .exhibit-issue-icon {
-    width: clamp(38px, 10vw, 56px);
+  .exhibit-cta-art {
+    width: min(100%, 760px);
   }
   .exhibit-hero-split__right {
     justify-content: center;
