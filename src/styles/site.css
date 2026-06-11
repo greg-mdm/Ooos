@@ -429,12 +429,12 @@ a:hover { color: var(--electric); }
 .pane-wordmark h3 {
   margin: 0;
   font-family: var(--font-elevated);
-  font-weight: 700;
-  font-size: 16px;
-  letter-spacing: 0.14em;
+  font-weight: 800;
+  font-size: clamp(18px, 1.9vw, 24px);
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--indigo, #312583);
-  line-height: 1.2;
+  line-height: 1.15;
 }
 .pane-wordmark__ooo {
   font-family: var(--font-heading);
@@ -940,9 +940,10 @@ a:hover { color: var(--electric); }
   filter: drop-shadow(0 4px 12px rgba(49, 37, 131, 0.22));
 }
 .studio-ad__eyebrow {
-  font-size: 12px;
+  font-family: var(--font-elevated);
+  font-size: 15px;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--resolution);
   margin-bottom: 6px;
@@ -1009,9 +1010,11 @@ a:hover { color: var(--electric); }
   z-index: 1;
 }
 .shop-ad__eyebrow {
-  font-size: 12px;
+  font-family: var(--font-elevated);
+  font-size: 15px;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--electric);
   margin-bottom: 6px;
 }
