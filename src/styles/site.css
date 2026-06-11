@@ -11,9 +11,16 @@
   --portal: #4B00B6;         /* Portal Indigo */
   --electric: #5B04DE;       /* Electric Indigo */
 
-  /* Aliases for layout code (resolved to parent palette) */
-  justify-content: flex-start;
-  align-items: center;
+  /* Font stack variables */
+  --serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --sans: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --research: 'Poppins', system-ui, sans-serif;
+
+  /* Colour aliases for layout code (resolved to parent palette) */
+  --indigo: var(--dark-indigo);
+  --teal: #008080;
+  --ruby: #822F00;
+  --gold: #F0C040;
 }
 .exhibit-cta-art {
   display: block;
