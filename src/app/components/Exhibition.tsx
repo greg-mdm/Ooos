@@ -310,7 +310,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             <div className="exhibit-hero-split__right">
                 <img
                   className="exhibit-founding-quote-art"
-                  src="/assets/Activist Art-Block.png"
+                  src="/assets/Tight-Quote.png"
                   alt="Public is not a passive, fixed idea; it must be vigilantly invented and reconstructed by each generation. But Is It Art? The Spirit of Art as Activism. Art anthology edited by Nina Felshin, p. 305 (1995)."
                   loading="lazy"
                 />

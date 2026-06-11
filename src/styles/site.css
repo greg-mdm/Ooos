@@ -116,7 +116,7 @@ p, li, button, input, textarea, select {
 .exhibit-hero-split__right {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: flex-end;
 }
 .exhibit-founding-quote-art {
   display: block;
@@ -2532,11 +2532,12 @@ a:hover { color: var(--electric); }
 }
 .exhibit-cta-art {
   display: block;
-  width: min(100%, 320px);
+  width: min(100%, 250px);
   height: auto;
   object-fit: contain;
   background: transparent;
   margin-top: 64px;
+  margin-left: 0;
 }
 /* Glassmorphic chips on the teal/indigo blend — keep AA contrast. */
 .case-hero--mid .chip--glass {
@@ -2558,7 +2559,7 @@ a:hover { color: var(--electric); }
 .exhibit-hero-split__right {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: flex-end;
 }
 .exhibit-founding-quote-art {
   display: block;
@@ -2576,8 +2577,9 @@ a:hover { color: var(--electric); }
     justify-content: center;
   }
   .exhibit-cta-art {
-    width: min(100%, 300px);
+    width: min(100%, 230px);
     margin-top: 28px;
+    margin-left: 0;
   }
   .exhibit-hero-split__right {
     justify-content: center;
