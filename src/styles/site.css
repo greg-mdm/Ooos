@@ -4239,6 +4239,11 @@ textarea:focus-visible,
   transition: color 160ms, background 160ms, border-color 160ms;
 }
 .exh-descriptor--ruby {
+  background: #FFFFFF;
+  color: var(--ruby);
+  border-color: var(--ruby);
+}
+.exh-descriptor--ruby:hover {
   background: var(--ruby);
   color: #FFFFFF;
   border-color: var(--ruby);
@@ -4250,16 +4255,20 @@ textarea:focus-visible,
   font-size: 12px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  background: var(--ruby);
+  border-color: var(--ruby);
+  gap: 4px;
+}
+.exh-descriptor--cie:hover {
   background: #ffffff;
   border-color: rgba(130, 47, 0, 0.35);
-  gap: 4px;
 }
 /* Segment 1: semi-bold deep indigo */
 .exh-descriptor--cie .cie-prefix {
   font-family: 'Poppins', var(--sans), sans-serif;
   font-weight: 600;
   font-size: 13px;
-  color: var(--dark-indigo, #19007D);
+  color: #ffffff;
 }
 .exh-descriptor--cie .cie-prefix-hyphen {
   letter-spacing: -0.03em;
@@ -4272,12 +4281,14 @@ textarea:focus-visible,
   font-family: 'Lovelo', 'Impact', 'Arial Black', sans-serif;
   font-weight: 900;
   font-size: 13px;
-  color: var(--ruby, #822F00);
+  color: #ffffff;
 }
-/* Hover: both segments go white */
-.exh-descriptor--cie:hover .cie-prefix,
+/* Hover: prefix indigo, CIE name ruby (was rest state) */
+.exh-descriptor--cie:hover .cie-prefix {
+  color: var(--dark-indigo, #19007D);
+}
 .exh-descriptor--cie:hover .cie-name {
-  color: #fff;
+  color: var(--ruby, #822F00);
 }
 /* Full-width top row: CIE chip spans the entire pill-bar width, left-aligned */
 .exh-descriptor--cie-full {
