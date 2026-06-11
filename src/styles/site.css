@@ -17,7 +17,7 @@
 }
 .exhibit-cta-art {
   display: block;
-  width: min(100%, 860px);
+  width: min(100%, 700px);
   height: auto;
   object-fit: contain;
   background: transparent;
@@ -86,7 +86,7 @@
     justify-content: center;
   }
   .exhibit-cta-art {
-    width: min(100%, 760px);
+    width: min(100%, 620px);
   }
   .exhibit-hero-split__right {
     justify-content: center;
