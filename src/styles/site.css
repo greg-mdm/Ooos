@@ -268,8 +268,8 @@ a:hover { color: var(--electric); }
 .hero h1 {
   font-family: 'Playfair Display', Georgia, 'Times New Roman', serif !important;
   font-size: clamp(1.65rem, 3vw, 2.5rem);
-  font-weight: 400;
-  font-style: normal;
+  font-weight: 400 !important;
+  font-style: normal !important;
   line-height: 1.2;
   letter-spacing: -0.012em;
   margin: 0 auto 20px;
