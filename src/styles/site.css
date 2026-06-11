@@ -543,7 +543,7 @@ a:hover { color: var(--electric); }
 .feature-card {
   background: #fff;
   border-radius: 14px;
-  border: 1px solid var(--border-soft);
+  border: 2px solid var(--portal);
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   display: flex;
@@ -551,8 +551,8 @@ a:hover { color: var(--electric); }
 }
 .feature-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 16px 40px rgba(75,0,130,0.12);
-  border-color: rgba(108,1,244,0.3);
+  box-shadow: 0 16px 40px rgba(75,0,182,0.22);
+  border-color: var(--electric);
 }
 .feature-thumb {
   aspect-ratio: 16 / 9;
