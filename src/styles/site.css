@@ -17,11 +17,12 @@
 }
 .exhibit-cta-art {
   display: block;
-  width: min(100%, 560px);
+  width: min(100%, 380px);
   height: auto;
   object-fit: contain;
   background: transparent;
   margin-top: 30px;
+  margin-left: 0;
 }
 .exhibit-hero-cta-stack {
   display: flex;
@@ -87,8 +88,9 @@
     justify-content: center;
   }
   .exhibit-cta-art {
-    width: min(100%, 480px);
+    width: min(100%, 340px);
     margin-top: 16px;
+    margin-left: 0;
   }
   .exhibit-hero-split__right {
     justify-content: center;
