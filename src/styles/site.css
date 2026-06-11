@@ -2536,7 +2536,7 @@ a:hover { color: var(--electric); }
   height: auto;
   object-fit: contain;
   background: transparent;
-  margin-top: 64px;
+  margin-top: 48px;
   margin-left: 0;
 }
 /* Glassmorphic chips on the teal/indigo blend — keep AA contrast. */
