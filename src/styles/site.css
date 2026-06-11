@@ -2465,15 +2465,18 @@ a:hover { color: var(--electric); }
 .exhibit-hero-split__left {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 18px;
   justify-content: center;
+  align-items: flex-end;
 }
 .exhibit-hero-slogan-row {
   display: contents;
 }
 .exhibit-hero-slogan-row .case-hero-slogan {
   margin: 0;
-  font-size: clamp(18px, 2.1vw, 26px);
+  font-size: clamp(30px, 3.6vw, 46px);
+  line-height: 1.08;
+  letter-spacing: 0.05em;
   white-space: nowrap;
 }
 .exhibit-hero-split__left .case-hero-slogan {
@@ -2518,7 +2521,9 @@ a:hover { color: var(--electric); }
     row-gap: 10px;
     justify-content: start;
   }
-  .exhibit-hero-split__left .case-hero-slogan { white-space: normal; }
+  .exhibit-hero-split__left .case-hero-slogan {
+    white-space: normal;
+  }
   .exhibit-hero-split__right {
     justify-content: center;
   }
