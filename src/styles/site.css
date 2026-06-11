@@ -22,7 +22,7 @@
   object-fit: contain;
   background: transparent;
   margin-top: 30px;
-  margin-left: 0;
+  margin-left: -18px;
 }
 .exhibit-hero-cta-stack {
   display: flex;
@@ -90,7 +90,7 @@
   .exhibit-cta-art {
     width: min(100%, 340px);
     margin-top: 16px;
-    margin-left: 0;
+    margin-left: -18px;
   }
   .exhibit-hero-split__right {
     justify-content: center;
