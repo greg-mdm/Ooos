@@ -24,12 +24,6 @@ export function Ostara({ onSupport }: { onSupport: () => void }) {
             />
           </h1>
           <p className="ostara-hero-tagline">Enter the world of strategic foresight</p>
-          <p className="summary">
-            A locally hosted, AI-assisted, integrated system that uses a
-            workshop interface, a signal pipeline, and a role-separated agent
-            architecture to make probabilistic reasoning visible,
-            participatory, and interpretable.
-          </p>
           <div className="ostara-descriptors" role="list" aria-label="Ostara system functions">
             <div className="ostara-descriptor" role="listitem">Aggregates signals</div>
             <div className="ostara-descriptor" role="listitem">Routes intent</div>
