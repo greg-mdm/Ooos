@@ -40,15 +40,10 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             <p>
               A curated watchlist monitoring Space, AI, Defence, Energy,
               Maritime, and Quantum across Canada, the EU, the Nordic countries,
-              and the Indo-Pacific.
+              and the Indo-Pacific. Each signal card presents an analysis of
+              policy triggers across procurement, regulation, sovereignty,
+              investment, and strategic priorities.
             </p>
-            <p>Each signal card includes:</p>
-            <ul className="cid-watchlist-list">
-              <li>HOLD, SHIFT, or BREAK classifications</li>
-              <li>a 1–5 tulip score showing signal strength, alignment, and momentum</li>
-              <li>linked organizations categorized as Public Stock, Public Org, Non-Profit, or Private</li>
-              <li>policy triggers connected to procurement, regulation, sovereignty, investment, and published strategic priorities</li>
-            </ul>
             <p>
               Signals can be filtered by region, sector, status, organization
               type, and signal strength. Inspired by gamestorming concepts, the
