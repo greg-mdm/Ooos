@@ -17,10 +17,10 @@ export function Ostara({ onSupport }: { onSupport: () => void }) {
           <h1 className="ostara-hero-h1">
             <img
               className="ostara-hero-logo"
-              src={`${import.meta.env.BASE_URL}assets/ostara-hero.jpg`}
+              src={`${import.meta.env.BASE_URL}assets/ostara-hero2.jpg`}
               alt="Ostara — Collective Intelligence System"
-              width={1920}
-              height={1080}
+              width={1791}
+              height={654}
             />
           </h1>
           <p className="ostara-hero-tagline">Enter the world of strategic foresight</p>
