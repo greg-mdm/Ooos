@@ -1750,8 +1750,28 @@ a:hover { color: var(--electric); }
 }
 .ostara-scope .case-hero {
   background:
-    radial-gradient(circle at 70% 20%, rgba(240,192,64,0.12), transparent 50%),
-    linear-gradient(180deg, #05030F 0%, #0D0A28 60%, #13103A 100%);
+    radial-gradient(circle at 50% 28%, rgba(240,192,64,0.10), transparent 55%),
+    linear-gradient(180deg, #000 0%, #05030F 50%, #0D0A28 100%);
+  padding-bottom: 40px;
+}
+/* Ostara hero: logo banner replaces the text heading, plus tagline */
+.ostara-scope .case-hero h1.ostara-hero-h1 { margin: 4px 0 18px; max-width: none; }
+.ostara-hero-logo {
+  display: block;
+  width: 100%;
+  max-width: 860px;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+.ostara-hero-tagline {
+  font-family: var(--font-elevated);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  font-size: clamp(18px, 2vw, 26px);
+  color: #F0C040;
+  margin: 0 0 20px;
 }
 .cid-scope .case-hero {
   background: linear-gradient(180deg, var(--ruby) 0%, #5a2000 100%);
