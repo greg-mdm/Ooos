@@ -106,9 +106,9 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           </aside>
           <div className="cid-note-card">
             <p>
-              Examine interconnected signals across public, private, nonprofit,
-              government, financial, and research sectors to identify emerging
-              opportunities for strategic alignment.
+              Examine interconnected signals across <strong>public, private,
+              nonprofit, government, financial, and research</strong> sectors to
+              identify emerging opportunities for strategic alignment.
             </p>
           </div>
           </div>
