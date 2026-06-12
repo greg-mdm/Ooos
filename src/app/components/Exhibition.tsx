@@ -55,6 +55,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
                 <li>Personalized guidance</li>
                 <li>Customized solutions</li>
                 <li>Reusable creative content</li>
+                <li>Rally support for your cause!</li>
               </ul>
             </div>
             <div className="exhibit-match-box">
@@ -230,10 +231,6 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
                 public support for expanding access to immersive digital
                 environments.
               </p>
-              <p className="tier-note tier-note--demand">
-                We demand to expand public access to digital environments!
-              </p>
-
               <div className="support-tiers">
                 <button type="button" onClick={onSupport} className="tier t1">
                   <div className="tier-name">Supporter</div>
@@ -263,6 +260,9 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             </div>
 
             <div className="exhibit-support-image">
+              <p className="tier-note tier-note--demand">
+                We demand expanded public access to immersive digital environments!
+              </p>
               <img
                 src={`${import.meta.env.BASE_URL}assets/images/donor-wall-square.png`}
                 alt="Exhibition contributor wall — your name displayed here"
