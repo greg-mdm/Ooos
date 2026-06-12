@@ -3591,12 +3591,15 @@ textarea:focus-visible,
   color: #fff;
   padding: 56px 24px;
 }
-.exhibit-support .container { max-width: 1100px; }
+.exhibit-support .container { max-width: 1200px; padding: 0 40px; }
 
-/* Two-column layout: content left, donor wall image right */
+/* Two-column layout: content left, donor wall image right.
+   Width matches .exhibit-intro-row (1200/40px) so the block aligns to
+   the same left+right margins as the section above; wider gap separates
+   the funding cards from the image. */
 .exhibit-support-inner {
   display: flex;
-  gap: 36px;
+  gap: 72px;
   align-items: flex-start;
 }
 .exhibit-support-content {
