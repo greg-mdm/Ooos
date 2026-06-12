@@ -14,7 +14,16 @@ export function Ostara({ onSupport }: { onSupport: () => void }) {
       <section className="case-hero">
         <div className="container">
           <Link to="/" className="back">← All projects</Link>
-          <h1>Ostara. A decision-support environment for reasoning under uncertainty.</h1>
+          <h1 className="ostara-hero-h1">
+            <img
+              className="ostara-hero-logo"
+              src={`${import.meta.env.BASE_URL}assets/ostara-hero.jpg`}
+              alt="Ostara — Collective Intelligence System"
+              width={1920}
+              height={1080}
+            />
+          </h1>
+          <p className="ostara-hero-tagline">Enter the world of strategic foresight</p>
           <p className="summary">
             A locally hosted, AI-assisted, integrated system that uses a
             workshop interface, a signal pipeline, and a role-separated agent
