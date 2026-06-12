@@ -1755,6 +1755,7 @@ a:hover { color: var(--electric); }
 }
 .cid-scope .case-hero {
   background: linear-gradient(180deg, var(--ruby) 0%, #5a2000 100%);
+  padding-bottom: 48px;
 }
 .exhibit-scope .case-hero {
   background:
@@ -1784,6 +1785,8 @@ a:hover { color: var(--electric); }
 /* CID hero uses width better: 2-column flow across the 4 summary paragraphs */
 .cid-hero-container { max-width: 1240px; }
 .cid-scope .case-hero h1 {
+  font-family: var(--font-elevated);
+  color: #fff;
   font-size: clamp(36px, 4.4vw, 56px);
   white-space: nowrap;
   margin: 0;
