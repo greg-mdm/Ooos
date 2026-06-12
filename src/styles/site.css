@@ -1808,6 +1808,7 @@ a:hover { color: var(--electric); }
   font-family: var(--font-elevated);
   color: #fff;
   font-size: clamp(36px, 4.4vw, 56px);
+  line-height: 1.2;
   white-space: nowrap;
   margin: 0;
 }
@@ -1862,6 +1863,7 @@ a:hover { color: var(--electric); }
 .cid-scope .case-hero .cid-hero-summary p.summary {
   max-width: none;
   margin-top: 0;
+  line-height: 1.45;
   break-inside: avoid;
 }
 .cid-scope .case-hero .cid-hero-summary p.summary + p.summary {
@@ -2014,6 +2016,11 @@ a:hover { color: var(--electric); }
   background: #E6F7F2;
   color: #1A0033;
 }
+/* Accessibility: CID headings use the elevated face (Montserrat), never Poppins */
+.cid-scope h1, .cid-scope h2, .cid-scope h3,
+.cid-scope h4, .cid-scope h5, .cid-scope h6 {
+  font-family: var(--font-elevated);
+}
 .cid-scope .case-body h2,
 .cid-scope .case-body h3,
 .cid-scope .case-body h4,
@@ -2062,12 +2069,13 @@ a:hover { color: var(--electric); }
 .cid-scope .cid-note-card p {
   margin: 0;
   font-size: 15px;
-  line-height: 1.6;
+  line-height: 1.45;
   color: var(--ink);
 }
 .cid-scope .cid-watchlist-title {
   letter-spacing: 0.04em;
   font-size: 28px;
+  line-height: 1.25;
   text-transform: uppercase;
 }
 
@@ -2210,7 +2218,7 @@ a:hover { color: var(--electric); }
 }
 .cid-scope .cid-watchlist-card h2 { color: #822F00; margin-top: 0; }
 .cid-scope .cid-watchlist-card p,
-.cid-scope .cid-watchlist-card li { color: #1A0033; }
+.cid-scope .cid-watchlist-card li { color: #1A0033; line-height: 1.45; max-width: 54ch; }
 .cid-scope .cid-watchlist-card .cid-watchlist-list {
   margin: 0 0 12px 1.25rem;
   padding: 0;
@@ -2218,7 +2226,7 @@ a:hover { color: var(--electric); }
 }
 .cid-scope .cid-watchlist-card .cid-watchlist-list li {
   margin-bottom: 6px;
-  line-height: 1.55;
+  line-height: 1.45;
 }
 .cid-scope .cid-watchlist-card a { color: #006B57; text-decoration: underline; }
 .cid-scope .cid-watchlist-card a.btn { text-decoration: none; }
