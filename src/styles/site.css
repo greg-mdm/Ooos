@@ -2595,7 +2595,8 @@ a:hover { color: var(--electric); }
 }
 .radio-card {
   background: #fff;
-  border: 1px solid var(--border-soft);
+  border: 1.5px solid var(--portal);
+  border-left: 3px solid var(--portal);
   border-radius: 12px;
   overflow: hidden;
   transition: box-shadow 0.18s ease, border-color 0.18s ease;
@@ -2647,7 +2648,7 @@ a:hover { color: var(--electric); }
   border-radius: 50%;
   background: transparent;
   color: var(--ink);
-  border: 1px solid var(--border-soft);
+  border: 1px solid var(--portal);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -2866,7 +2867,7 @@ textarea:focus-visible,
 .exhibit-match-lead {
   font-family: var(--serif);
   font-weight: 700;
-  font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+  font-size: 18px;
   color: var(--ink);
   margin: 14px 0 10px;
   line-height: 1.3;
@@ -2882,9 +2883,13 @@ textarea:focus-visible,
 .exhibit-match-bullets li {
   position: relative;
   padding-left: 18px;
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.55;
   color: var(--ink);
+}
+/* Indent the "Transform your cause" bullet list (direct child of intro text only) */
+.exhibit-intro-text > .exhibit-match-bullets {
+  padding-left: 22px;
 }
 .exhibit-match-bullets li::before {
   content: "";
@@ -2922,12 +2927,17 @@ textarea:focus-visible,
   margin: 0 0 8px;
   font-family: var(--sans);
   font-weight: 700;
-  font-size: 14px;
+  font-size: 18px;
   letter-spacing: 0.04em;
   color: var(--ink);
 }
 .exhibit-match-box .exhibit-match-bullets {
   margin: 0;
+}
+/* Compact one-line bullets inside the Advantages/Benefits boxes */
+.exhibit-match-box .exhibit-match-bullets--after li {
+  font-size: 13.5px;
+  line-height: 1.45;
 }
 @media (max-width: 720px) {
   .exhibit-match-table { grid-template-columns: 1fr; }
@@ -3162,7 +3172,7 @@ textarea:focus-visible,
 }
 .exhibit-reach__feature-text {
   margin: 0;
-  font-size: 13px;
+  font-size: 14.5px;
   line-height: 1.55;
   color: var(--ink);
 }
@@ -3173,7 +3183,7 @@ textarea:focus-visible,
   margin: 0 0 12px;
   padding: 5px 12px;
   font-family: var(--sans);
-  font-size: 0.7rem;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -3186,7 +3196,7 @@ textarea:focus-visible,
 .exhibit-reach__pill-date { font-weight: 500; letter-spacing: 0.08em; }
 .exhibit-reach__intro {
   margin: 0 0 14px;
-  font-size: 14px;
+  font-size: 15.5px;
   line-height: 1.6;
   color: var(--ink);
   opacity: 0.88;
@@ -3194,7 +3204,7 @@ textarea:focus-visible,
 .exhibit-reach__hint {
   margin: 2px 0 10px;
   font-family: var(--sans);
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -3206,7 +3216,7 @@ textarea:focus-visible,
   margin: 0 0 4px;
   font-family: var(--serif);
   font-style: italic;
-  font-size: 15px;
+  font-size: 16.5px;
   font-weight: 600;
   color: var(--ink);
   opacity: 0.85;
@@ -3270,16 +3280,18 @@ textarea:focus-visible,
 .exhibit-play-title {
   font-weight: 700;
   color: var(--ink);
+  font-size: 15px;
 }
 .exhibit-play-sep {
   color: var(--ink);
   opacity: 0.45;
+  font-size: 15px;
 }
 .exhibit-play-meta {
   font-weight: 500;
   color: var(--ink);
   opacity: 0.75;
-  font-size: 13px;
+  font-size: 13.5px;
 }
 .exhibit-play-num {
   font-weight: 800;
@@ -3595,21 +3607,22 @@ textarea:focus-visible,
 .exhibit-support-image {
   flex: 1;
   min-width: 0;
+  align-self: flex-start;
   border-radius: 14px;
   overflow: hidden;
   box-shadow: 0 24px 60px rgba(0,0,0,0.45);
-  aspect-ratio: 1 / 1;
 }
 .exhibit-donor-wall {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 10 / 7;
   object-fit: cover;
-  object-position: center;
+  object-position: center bottom;
+  border-radius: 14px;
   display: block;
 }
 
 .exhibit-support .tiers-label {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -3624,12 +3637,14 @@ textarea:focus-visible,
   max-width: 540px;
 }
 .exhibit-support .tier-note--demand {
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  text-align: center;
   color: var(--gold, #F0C040);
-  margin: 0 0 28px;
-  line-height: 1.5;
-  max-width: 540px;
+  margin: 0 0 14px;
+  line-height: 1.25;
+  max-width: 100%;
 }
 .exhibit-support .support-tiers {
   grid-template-columns: repeat(2, 1fr);
@@ -3743,7 +3758,7 @@ textarea:focus-visible,
 
 @media (max-width: 860px) {
   .exhibit-support-inner { flex-direction: column; }
-  .exhibit-support-image { width: 100%; aspect-ratio: 4 / 3; }
+  .exhibit-support-image { width: 100%; }
   .exhibit-support .support-tiers { grid-template-columns: repeat(2, 1fr); }
 }
 
@@ -3752,12 +3767,14 @@ textarea:focus-visible,
 .exhibit-includes-section {
   margin-top: 36px;
 }
-.exhibit-includes-eyebrow {
-  font-size: 10px;
+/* Scoped under .exhibit-scope so it beats the global `.case-body p`
+   rule (~line 2224) that otherwise overrides this eyebrow. */
+.exhibit-scope .exhibit-includes-eyebrow {
+  font-size: 19px;
   font-weight: 700;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: var(--mist, #8A8A9A);
+  color: var(--charcoal, #2A2340);
   margin: 0 0 12px;
 }
 /* Pills positioned above the 2-column outcome grid: left over left column,
@@ -3793,7 +3810,7 @@ textarea:focus-visible,
 }
 .outcome-item {
   background: #F8F7F5;
-  border: 1px solid rgba(26,0,51,0.07);
+  border: 1.5px solid var(--portal, #4B00B6);
   border-left: 3px solid transparent;
   border-radius: 8px;
   padding: 14px 16px;
