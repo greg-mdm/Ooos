@@ -2025,8 +2025,15 @@ a:hover { color: var(--electric); }
 .cid-scope .cid-watchlist-embed { background: #05030F; }
 
 /* CID body that breaks out of the 760px max-width to allow side-by-side */
+/* CID body full-bleed (Clay-style): mint background spans edge-to-edge,
+   content centered at a wide max-width instead of a narrow column. */
 .cid-scope .case-body.cid-body-wide {
-  max-width: 1240px;
+  max-width: none;
+  margin: 0;
+}
+.cid-scope .cid-body-wide .cid-split {
+  max-width: 1440px;
+  margin: 0 auto;
 }
 .cid-scope .cid-split {
   display: grid;
