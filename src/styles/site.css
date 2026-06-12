@@ -2069,7 +2069,7 @@ a:hover { color: var(--electric); }
 }
 .cid-scope .cid-note-card p {
   margin: 0;
-  font-size: 17px;
+  font-size: 18px;
   line-height: 1.45;
   color: var(--ink);
 }
