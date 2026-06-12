@@ -1863,6 +1863,7 @@ a:hover { color: var(--electric); }
 .cid-scope .case-hero .cid-hero-summary p.summary {
   max-width: none;
   margin-top: 0;
+  font-size: 18px;
   line-height: 1.45;
   break-inside: avoid;
 }
@@ -2068,7 +2069,7 @@ a:hover { color: var(--electric); }
 }
 .cid-scope .cid-note-card p {
   margin: 0;
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.45;
   color: var(--ink);
 }
@@ -2211,14 +2212,17 @@ a:hover { color: var(--electric); }
   color: #1A0033;
   border: 1px solid rgba(15, 90, 90, 0.22);
   border-radius: 14px;
-  padding: 36px 40px;
+  padding: 36px;
+  align-self: start;
+  width: fit-content;
+  max-width: 100%;
   box-shadow:
     0 12px 32px rgba(15, 90, 90, 0.28),
     0 2px 8px rgba(15, 90, 90, 0.18);
 }
 .cid-scope .cid-watchlist-card h2 { color: #822F00; margin-top: 0; }
 .cid-scope .cid-watchlist-card p,
-.cid-scope .cid-watchlist-card li { color: #1A0033; line-height: 1.45; max-width: 54ch; }
+.cid-scope .cid-watchlist-card li { color: #1A0033; font-size: 17px; line-height: 1.45; max-width: 40rem; }
 .cid-scope .cid-watchlist-card .cid-watchlist-list {
   margin: 0 0 12px 1.25rem;
   padding: 0;
