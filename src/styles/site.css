@@ -2222,7 +2222,7 @@ a:hover { color: var(--electric); }
 }
 .cid-scope .cid-watchlist-card h2 { color: #822F00; margin-top: 0; }
 .cid-scope .cid-watchlist-card p,
-.cid-scope .cid-watchlist-card li { color: #1A0033; font-size: 17px; line-height: 1.45; max-width: 40rem; margin: 0 0 16px; }
+.cid-scope .cid-watchlist-card li { color: #1A0033; font-size: 18px; line-height: 1.45; max-width: 40rem; margin: 0 0 16px; }
 .cid-scope .cid-watchlist-card .cid-watchlist-list {
   margin: 0 0 12px 1.25rem;
   padding: 0;
