@@ -122,11 +122,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           {[
             [
               ["Australia", "Canadian Australian Chamber of Commerce"],
-              ["Mexico", "CanCham Mexico"],
-              ["Sweden", "Swedish Canadian Chamber of Commerce"],
-              ["Slovenia", "Canadian Slovenian Chamber of Commerce"],
-            ],
-            [
               ["China (Shanghai)", "CanCham Shanghai"],
               ["China (Beijing)", "Canada China Business Council"],
               ["Hong Kong", "CanCham Hong Kong"],
@@ -134,10 +129,13 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               ["Singapore", "CanCham Singapore"],
             ],
             [
-              ["Southern Africa", "Southern Africa\u2013Canada Chamber of Commerce"],
-              ["Pan-Africa", "Canada\u2013Africa Chamber of Business"],
+              ["Mexico", "CanCham Mexico"],
+              ["Southern Africa", "Southern Africa–Canada Chamber of Commerce"],
+              ["Pan-Africa", "Canada–Africa Chamber of Business"],
               ["Ghana", "Canada Ghana Chamber of Commerce"],
               ["Egypt", "CanCham Egypt"],
+              ["Sweden", "Swedish Canadian Chamber of Commerce"],
+              ["Slovenia", "Canadian Slovenian Chamber of Commerce"],
             ],
           ].map((row, i) => (
             <div className="cid-np-row" key={i}>
