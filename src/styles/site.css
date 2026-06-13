@@ -4550,38 +4550,32 @@ textarea:focus-visible,
   padding: 56px 24px 64px;
   text-align: center;
 }
-.cid-scope .cid-np-eyebrow {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-style: italic;
-  font-weight: 400;
-  font-size: 18px;
-  color: #B8860B;
-  margin: 0 0 6px;
-}
 .cid-scope .cid-np-heading {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-style: italic;
+  font-family: var(--font-elevated);
+  font-style: normal;
   font-weight: 700;
   font-size: 34px;
   line-height: 1.15;
   color: #1A0033;
-  margin: 0 0 12px;
+  margin: 0 0 6px;
 }
-.cid-scope .cid-np-intro {
-  font-family: var(--font-body);
-  font-size: 17px;
-  line-height: 1.45;
+.cid-scope .cid-np-subhead {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 19px;
   color: #1A0033;
-  max-width: 62ch;
-  margin: 0 auto 30px;
+  margin: 0 0 30px;
 }
 .cid-scope .cid-np-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(20, 1fr);
   gap: 14px;
   max-width: 1040px;
   margin: 0 auto;
 }
+.cid-scope .cid-np-item { grid-column: span 5; }            /* rows 2-3: 4 per row */
+.cid-scope .cid-np-item:nth-child(-n + 5) { grid-column: span 4; } /* row 1: 5 */
 .cid-scope .cid-np-item {
   background: #fff;
   border: 1.5px solid #F0C040;
@@ -4619,7 +4613,7 @@ textarea:focus-visible,
   letter-spacing: 0.16em;
   font-weight: 700;
   font-size: 11px;
-  color: #B8860B;
+  color: #1A0033;
 }
 .cid-scope .cid-np-tag {
   font-family: var(--font-elevated);
@@ -4627,8 +4621,8 @@ textarea:focus-visible,
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #B8860B;
-  border: 1px solid rgba(184, 134, 11, 0.45);
+  color: #1A0033;
+  border: 1px solid rgba(184, 134, 11, 0.55);
   border-radius: 999px;
   padding: 6px 14px;
 }
@@ -4639,9 +4633,11 @@ textarea:focus-visible,
   color: #4b00b6;
   text-decoration: none;
 }
-@media (max-width: 600px) {
+@media (max-width: 720px) {
   .cid-scope .cid-np-heading { font-size: 28px; }
   .cid-scope .cid-np-grid { grid-template-columns: 1fr 1fr; }
+  .cid-scope .cid-np-item,
+  .cid-scope .cid-np-item:nth-child(-n + 5) { grid-column: auto; }
 }
 
 /* ===== CID INLINE WATCHLIST ===== */
