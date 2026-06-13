@@ -120,26 +120,39 @@ export function CID({ onSupport }: { onSupport: () => void }) {
         <p className="cid-np-subhead">Canadian Commerce. Global Engagement.</p>
         <div className="cid-np-grid">
           {[
-            ["Vietnam", "CanCham Vietnam"],
-            ["Hong Kong", "CanCham Hong Kong"],
-            ["Singapore", "CanCham Singapore"],
-            ["Sweden", "Swedish Canadian Chamber of Commerce"],
-            ["Slovenia", "Canadian Slovenian Chamber of Commerce"],
-            ["Southern Africa", "Southern Africa\u2013Canada Chamber of Commerce"],
-            ["Pan-Africa", "Canada\u2013Africa Chamber of Business"],
-            ["Ghana", "Canada Ghana Chamber of Commerce"],
-            ["Egypt", "CanCham Egypt"],
-            ["Australia", "Canadian Australian Chamber of Commerce"],
-            ["Mexico", "CanCham Mexico"],
-            ["Shanghai", "CanCham Shanghai"],
-            ["Beijing", "Canada China Business Council"],
-          ].map(([country, chamber]) => (
-            <div className="cid-np-item" key={country}>
-              <span className="country">{country}</span>
-              <span className="chamber">{chamber}</span>
+            [
+              ["Australia", "Canadian Australian Chamber of Commerce"],
+              ["Mexico", "CanCham Mexico"],
+              ["Sweden", "Swedish Canadian Chamber of Commerce"],
+              ["Slovenia", "Canadian Slovenian Chamber of Commerce"],
+            ],
+            [
+              ["China (Shanghai)", "CanCham Shanghai"],
+              ["China (Beijing)", "Canada China Business Council"],
+              ["Hong Kong", "CanCham Hong Kong"],
+              ["Vietnam", "CanCham Vietnam"],
+              ["Singapore", "CanCham Singapore"],
+            ],
+            [
+              ["Southern Africa", "Southern Africa\u2013Canada Chamber of Commerce"],
+              ["Pan-Africa", "Canada\u2013Africa Chamber of Business"],
+              ["Ghana", "Canada Ghana Chamber of Commerce"],
+              ["Egypt", "CanCham Egypt"],
+            ],
+          ].map((row, i) => (
+            <div className="cid-np-row" key={i}>
+              {row.map(([country, chamber]) => (
+                <div className="cid-np-item" key={country}>
+                  <div className="cid-np-circle">
+                    <span className="country">{country}</span>
+                  </div>
+                  <span className="chamber">{chamber}</span>
+                </div>
+              ))}
             </div>
           ))}
         </div>
+
         <div className="cid-np-foot">
           <span className="cid-np-brand">Radical Strategic Intelligence</span>
           <span className="cid-np-tag">Embrace the struggle</span>
