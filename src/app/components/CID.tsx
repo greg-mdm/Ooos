@@ -115,6 +115,45 @@ export function CID({ onSupport }: { onSupport: () => void }) {
         </div>
       </div>
 
+      <section className="cid-nonprofit">
+        <p className="cid-np-eyebrow">Canadian Commerce. Global Engagement.</p>
+        <h2 className="cid-np-heading">International Non-Profit Network</h2>
+        <p className="cid-np-intro">
+          Canadian Chambers of Commerce abroad &mdash; non-profit organizations
+          advancing Canada&rsquo;s internationalization, using digital
+          infrastructure to collaborate, innovate, and build a purpose-driven,
+          inclusive economy.
+        </p>
+        <div className="cid-np-grid">
+          {[
+            ["Vietnam", "CanCham Vietnam"],
+            ["Hong Kong", "CanCham Hong Kong"],
+            ["Singapore", "CanCham Singapore"],
+            ["Sweden", "Swedish Canadian Chamber of Commerce"],
+            ["Slovenia", "Canadian Slovenian Chamber of Commerce"],
+            ["Southern Africa", "Southern Africa\u2013Canada Chamber of Commerce"],
+            ["Pan-Africa", "Canada\u2013Africa Chamber of Business"],
+            ["Ghana", "Canada Ghana Chamber of Commerce"],
+            ["Egypt", "CanCham Egypt"],
+            ["Australia", "Canadian Australian Chamber of Commerce"],
+            ["Mexico", "CanCham Mexico"],
+            ["Shanghai", "CanCham Shanghai"],
+            ["Beijing", "Canada China Business Council"],
+          ].map(([country, chamber]) => (
+            <div className="cid-np-item" key={country}>
+              <span className="country">{country}</span>
+              <span className="chamber">{chamber}</span>
+            </div>
+          ))}
+        </div>
+        <div className="cid-np-foot">
+          <span className="cid-np-brand">Radical Strategic Intelligence</span>
+          <span className="cid-np-tag">Embrace the struggle</span>
+          <span className="cid-np-tag">Drive joy</span>
+          <Link className="cid-np-link" to="/exhibition">Explore the full network &rarr;</Link>
+        </div>
+      </section>
+
       <section className="cid-watchlist-embed">
         <iframe
           src={`${base}cid/watchlist-embed/`}
