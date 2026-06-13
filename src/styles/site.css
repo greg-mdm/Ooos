@@ -4570,8 +4570,8 @@ textarea:focus-visible,
 .cid-scope .cid-np-grid {
   display: flex;
   flex-direction: column;
-  gap: 22px;
-  max-width: 900px;
+  gap: 26px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 .cid-scope .cid-np-row {
