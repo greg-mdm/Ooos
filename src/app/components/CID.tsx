@@ -116,14 +116,8 @@ export function CID({ onSupport }: { onSupport: () => void }) {
       </div>
 
       <section className="cid-nonprofit">
-        <p className="cid-np-eyebrow">Canadian Commerce. Global Engagement.</p>
         <h2 className="cid-np-heading">International Non-Profit Network</h2>
-        <p className="cid-np-intro">
-          Canadian Chambers of Commerce abroad &mdash; non-profit organizations
-          advancing Canada&rsquo;s internationalization, using digital
-          infrastructure to collaborate, innovate, and build a purpose-driven,
-          inclusive economy.
-        </p>
+        <p className="cid-np-subhead">Canadian Commerce. Global Engagement.</p>
         <div className="cid-np-grid">
           {[
             ["Vietnam", "CanCham Vietnam"],
