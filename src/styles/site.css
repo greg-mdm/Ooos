@@ -4542,6 +4542,108 @@ textarea:focus-visible,
   .big-vote-card { transition: none; }
 }
 
+.cid-scope .cid-nonprofit {
+  background:
+    radial-gradient(ellipse 70% 60% at 50% -8%, rgba(240,192,64,0.22), transparent 60%),
+    #ffffff;
+  border-top: 3px solid #F0C040;
+  padding: 56px 24px 64px;
+  text-align: center;
+}
+.cid-scope .cid-np-eyebrow {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 18px;
+  color: #B8860B;
+  margin: 0 0 6px;
+}
+.cid-scope .cid-np-heading {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 1.15;
+  color: #1A0033;
+  margin: 0 0 12px;
+}
+.cid-scope .cid-np-intro {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.45;
+  color: #1A0033;
+  max-width: 62ch;
+  margin: 0 auto 30px;
+}
+.cid-scope .cid-np-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+.cid-scope .cid-np-item {
+  background: #fff;
+  border: 1.5px solid #F0C040;
+  border-radius: 12px;
+  padding: 14px 16px;
+  text-align: left;
+  box-shadow: 0 0 14px rgba(240, 192, 64, 0.30), 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+.cid-scope .cid-np-item .country {
+  display: block;
+  font-family: var(--font-elevated);
+  font-weight: 700;
+  font-size: 15px;
+  color: #1A0033;
+}
+.cid-scope .cid-np-item .chamber {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: #5A5A6E;
+  margin-top: 3px;
+}
+.cid-scope .cid-np-foot {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 32px;
+}
+.cid-scope .cid-np-brand {
+  font-family: var(--font-elevated);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+  font-size: 11px;
+  color: #B8860B;
+}
+.cid-scope .cid-np-tag {
+  font-family: var(--font-elevated);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #B8860B;
+  border: 1px solid rgba(184, 134, 11, 0.45);
+  border-radius: 999px;
+  padding: 6px 14px;
+}
+.cid-scope .cid-np-link {
+  font-family: var(--font-elevated);
+  font-weight: 700;
+  font-size: 14px;
+  color: #4b00b6;
+  text-decoration: none;
+}
+@media (max-width: 600px) {
+  .cid-scope .cid-np-heading { font-size: 28px; }
+  .cid-scope .cid-np-grid { grid-template-columns: 1fr 1fr; }
+}
+
 /* ===== CID INLINE WATCHLIST ===== */
 .cid-watchlist-embed {
   background: #05030F;
