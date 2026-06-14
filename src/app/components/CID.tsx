@@ -121,30 +121,30 @@ export function CID({ onSupport }: { onSupport: () => void }) {
         <div className="cid-np-grid">
           {[
             [
-              ["Australia", "Canadian Australian Chamber of Commerce"],
-              ["China (Shanghai)", "CanCham Shanghai"],
-              ["China (Beijing)", "Canada China Business Council"],
-              ["Hong Kong", "CanCham Hong Kong"],
-              ["Vietnam", "CanCham Vietnam"],
-              ["Singapore", "CanCham Singapore"],
+              ["Canadian Australian", "Chamber of Commerce", "l1"],
+              ["CanCham", "Shanghai", "l2"],
+              ["Canada China", "Business Council", "l1"],
+              ["CanCham", "Hong Kong", "l2"],
+              ["CanCham", "Vietnam", "l2"],
+              ["CanCham", "Singapore", "l2"],
             ],
             [
-              ["Mexico", "CanCham Mexico"],
-              ["Southern Africa", "Southern Africa–Canada Chamber of Commerce"],
-              ["Pan-Africa", "Canada–Africa Chamber of Business"],
-              ["Ghana", "Canada Ghana Chamber of Commerce"],
-              ["Egypt", "CanCham Egypt"],
-              ["Sweden", "Swedish Canadian Chamber of Commerce"],
-              ["Slovenia", "Canadian Slovenian Chamber of Commerce"],
+              ["CanCham", "Mexico", "l2"],
+              ["Southern Africa", "Chamber of Commerce", "l1"],
+              ["Canada-Africa", "Chamber of Business", "l1"],
+              ["Canada Ghana", "Chamber of Commerce", "l1"],
+              ["CanCham", "Egypt", "l2"],
+              ["Swedish Canadian", "Chamber of Commerce", "l1"],
+              ["Canadian Slovenian", "Chamber of Commerce", "l1"],
             ],
           ].map((row, i) => (
             <div className="cid-np-row" key={i}>
-              {row.map(([country, chamber]) => (
-                <div className="cid-np-item" key={country}>
+              {row.map(([line1, line2, emph]) => (
+                <div className="cid-np-item" key={line1 + line2}>
                   <div className="cid-np-circle">
-                    <span className="country">{country}</span>
+                    <span className={emph === "l1" ? "np-big" : "np-small"}>{line1}</span>
+                    <span className={emph === "l2" ? "np-big" : "np-small"}>{line2}</span>
                   </div>
-                  <span className="chamber">{chamber}</span>
                 </div>
               ))}
             </div>
