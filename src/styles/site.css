@@ -4585,36 +4585,37 @@ textarea:focus-visible,
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 150px;
+  width: 144px;
 }
 .cid-scope .cid-np-circle {
-  width: 140px;
-  height: 140px;
+  width: 144px;
+  height: 144px;
   border-radius: 50%;
   background: #fff;
   border: 1.5px solid #F0C040;
   box-shadow: 0 0 16px rgba(240, 192, 64, 0.40), 0 1px 4px rgba(0, 0, 0, 0.08);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 14px;
+  gap: 2px;
+  padding: 12px;
   box-sizing: border-box;
 }
-.cid-scope .cid-np-item .country {
+.cid-scope .cid-np-circle .np-big {
   font-family: var(--font-elevated);
   font-weight: 700;
-  font-size: 14px;
-  line-height: 1.2;
+  font-size: 15px;
+  line-height: 1.12;
   color: #1A0033;
 }
-.cid-scope .cid-np-item .chamber {
-  margin-top: 10px;
+.cid-scope .cid-np-circle .np-small {
   font-family: var(--font-body);
-  font-size: 11.5px;
-  line-height: 1.3;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 1.2;
   color: #5A5A6E;
-  text-align: center;
 }
 .cid-scope .cid-np-foot {
   display: flex;
