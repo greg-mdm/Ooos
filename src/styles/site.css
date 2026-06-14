@@ -4603,19 +4603,13 @@ textarea:focus-visible,
   padding: 12px;
   box-sizing: border-box;
 }
-.cid-scope .cid-np-circle .np-big {
-  font-family: var(--font-elevated);
-  font-weight: 700;
-  font-size: 15px;
-  line-height: 1.12;
-  color: #1A0033;
-}
+.cid-scope .cid-np-circle .np-big,
 .cid-scope .cid-np-circle .np-small {
-  font-family: var(--font-body);
-  font-weight: 500;
-  font-size: 10px;
-  line-height: 1.2;
-  color: #5A5A6E;
+  font-family: var(--font-elevated);
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1.25;
+  color: #1A0033;
 }
 .cid-scope .cid-np-foot {
   display: flex;
