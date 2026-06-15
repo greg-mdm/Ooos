@@ -996,11 +996,17 @@
     }
 
     .trigger-list li::before {
-      content: '–';
+      content: '\2022';
       position: absolute;
       left: 0;
+      font-size: 1rem;
+      line-height: 1.6;
       color: #4b5563;
     }
+    .card[data-signal="5"] .trigger-list li::before { color: #E8453C; }
+    .card[data-signal="4"] .trigger-list li::before { color: #6C01F4; }
+    .card[data-signal="3"] .trigger-list li::before { color: #E8890C; }
+    .card[data-signal="2"] .trigger-list li::before { color: #D4B83D; }
 
     .company-chips {
       display: flex;
