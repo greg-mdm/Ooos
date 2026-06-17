@@ -170,20 +170,24 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: #ffffff;
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.9rem;
       white-space: nowrap;
       font-weight: 700;
       line-height: 1.05;
       text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      display: flex;
+      align-items: baseline;
+      gap: 0.8rem;
     }
 
-    .cid-name {
-      font-size: 0.9rem;
+    .title-source {
+      font-size: 0.85rem;
       letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #1fcecb;
-      font-weight: 700;
-      margin-bottom: 0.9rem;
+      color: var(--cid-azure);
+      white-space: nowrap;
+      font-weight: 500;
+      opacity: 0.9;
+      text-transform: none;
       text-shadow: none;
     }
 
@@ -672,64 +676,105 @@
     }
 
     .signal-box {
-      background: rgba(255,255,255,0.93);
-      border: 1px solid rgba(31,206,203,0.35);
-      border-left: 4px solid #1fcecb;
+      background: rgba(19, 16, 58, 0.6);
+      border: 1px solid rgba(108, 1, 244, 0.2);
       border-radius: 10px;
       overflow: hidden;
-      height: auto;
-      min-height: 84px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.22);
+      display: flex;
+      flex-direction: row;
+      height: 200px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.35);
     }
 
-    .signal-box.level-5 { border-left-color: #822F00; }
-    .signal-box.level-4 { border-left-color: #6C01F4; }
-    .signal-box.level-3 { border-left-color: #1FCECB; }
-    .signal-box.level-2 { border-left-color: #7FA7B3; }
-
     /* IMAGE SIDE — left 60% */
-    .signal-box-img-wrap { display: none !important; }
+    .signal-box-img-wrap {
+      position: relative;
+      width: 50%;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .signal-box-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.65) brightness(0.7);
+    }
 
     /* Colour tint overlay */
-    .signal-box-img-wrap::after { content: none; }
+    .signal-box-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .signal-box.level-5 .signal-box-img-wrap::after {
+      background: linear-gradient(135deg, rgba(108,1,244,0.35), rgba(0,0,0,0.45));
+    }
+    .signal-box.level-4 .signal-box-img-wrap::after {
+      background: linear-gradient(135deg, rgba(75,45,191,0.35), rgba(0,0,0,0.45));
+    }
+    .signal-box.level-3 .signal-box-img-wrap::after {
+      background: linear-gradient(135deg, rgba(31,206,203,0.3), rgba(0,0,0,0.4));
+    }
+    .signal-box.level-2 .signal-box-img-wrap::after {
+      background: linear-gradient(135deg, rgba(127,167,179,0.3), rgba(0,0,0,0.4));
+    }
 
     /* DIVIDER LINE — between image and panel */
-    .signal-box-divider { display:none !important; }
+    .signal-box-divider {
+      width: 4px;
+      flex-shrink: 0;
+    }
+    .signal-box.level-5 .signal-box-divider { background: #6C01F4; }
+    .signal-box.level-4 .signal-box-divider { background: #4B2DBF; }
+    .signal-box.level-3 .signal-box-divider { background: #1FCECB; }
+    .signal-box.level-2 .signal-box-divider { background: #7FA7B3; }
 
     /* RIGHT PANEL — light text area */
     .signal-box-panel {
-      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(241,249,249,0.93));
+      flex: 1;
+      background: rgba(240, 242, 245, 0.95);
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.82rem 0.85rem;
-      min-height: 84px;
+      flex-direction: row;
+      align-items: stretch;
+      padding: 1.2rem 1rem 1.2rem 0.8rem;
+      gap: 0.6rem;
     }
 
     /* Vertical flower column — anchored to divider */
-    .signal-box-flowers { display:none !important; }
+    .signal-box-flowers {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding-top: 0.2rem;
+      flex-shrink: 0;
+    }
 
     /* Text area */
     .signal-box-text {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 0.22rem;
+      gap: 0.3rem;
     }
 
     .signal-box-label {
       font-weight: 700;
-      font-size: 1rem;
-      color: #1b2a2d;
-      letter-spacing: 0.02em;
+      font-size: 1.1rem;
+      color: #2d3436;
+      letter-spacing: 0.04em;
       line-height: 1.3;
     }
 
-    .signal-box-sublabel {
+        .signal-box-sublabel {
       font-weight: 700;
-      font-size: 0.95rem;
-      color: #34656c;
-      letter-spacing: 0.02em;
+      font-size: 1.25rem;
+      color: #4a5568;
+      letter-spacing: 0.03em;
       line-height: 1.3;
     }
 
@@ -1404,27 +1449,6 @@
       padding-top: 0;
     }
 
-    /* Live Data Observatory host (embedded OEA explorer for in-context refinement) */
-    .cid-observatory-wrap {
-      margin: 1.25rem 3rem 2rem;
-      border: 1px solid rgba(31, 206, 203, 0.35);
-      border-radius: 14px;
-      background: rgba(255,255,255,0.03);
-      box-shadow: 0 10px 28px rgba(0,0,0,0.28);
-      overflow: hidden;
-    }
-    .cid-observatory-frame {
-      width: 100%;
-      border: 0;
-      display: block;
-      min-height: 1460px;
-      background: #fff;
-    }
-    @media (max-width: 900px) {
-      .cid-observatory-wrap { margin: 1rem 1rem 1.3rem; }
-      .cid-observatory-frame { min-height: 1640px; }
-    }
-
     /* === EMBED OVERRIDES (sit-below-header variant) === */
     body { background: #05030F; }
     canvas#bg { display: none; }
@@ -1433,6 +1457,37 @@
     .page-wrap { padding-top: 24px; padding-bottom: 24px; }
     /* Auto-fit min-heights; the parent React page handles outer scroll */
     html, body { overflow-x: hidden; }
+
+    /* ===== CID LIVE DATA STRIP (preview wiring) ===== */
+    .cid-live-strip { margin: 0 auto 1.6rem; max-width: 1200px; padding: 1rem 1.1rem;
+      border: 1px solid rgba(31,206,203,0.32); border-radius: 12px;
+      background: linear-gradient(180deg, rgba(31,206,203,0.06), rgba(13,17,23,0.2)); }
+    .cid-live-head { display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+    .cid-live-dot { width: 8px; height: 8px; border-radius: 50%; background: #1fcecb;
+      box-shadow: 0 0 8px #1fcecb; flex: 0 0 auto; align-self: center; }
+    .cid-live-title { font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; color: #e6edf3; }
+    .cid-live-updated { font-size: 0.7rem; color: #8b949e; font-family: 'Courier New', monospace; }
+    .cid-live-tiles { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .cid-live-tile { flex: 1 1 220px; min-width: 200px; padding: 0.75rem 0.9rem; border-radius: 9px;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); }
+    .cid-live-value { font-family: 'Courier New', monospace; font-size: 1.5rem; font-weight: 700; color: #1fcecb; }
+    .cid-live-label { font-size: 0.76rem; color: #c9d4df; margin-top: 0.2rem; line-height: 1.35; }
+    .cid-live-src { font-size: 0.64rem; color: #8b949e; margin-top: 0.35rem; line-height: 1.35; }
+    .cid-live-attr { font-size: 0.66rem; color: #8b949e; margin-top: 0.85rem; line-height: 1.45; }
+
+
+    /* ===== CID DEEP-DIVE EMBEDS (preview) ===== */
+    .cid-embeds { margin: 0 auto 1.6rem; max-width: 1200px; }
+    .cid-embed-head { display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; margin: 0.4rem 0 0.6rem; }
+    .cid-embed-title { font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; color: #e6edf3; }
+    .cid-embed-sub { font-size: 0.72rem; color: #8b949e; }
+    .cid-embed-frame { width: 100%; height: 700px; border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; background: #fff; }
+    .cid-embed-actions { margin-top: 0.7rem; display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .cid-embed-link { display: inline-block; padding: 0.5rem 0.95rem; border-radius: 8px; font-size: 0.8rem;
+      font-weight: 600; color: #0d1117; background: #1fcecb; text-decoration: none; }
+    .cid-embed-note { font-size: 0.68rem; color: #8b949e; margin-top: 0.5rem; line-height: 1.45; }
+
   </style>
 </head>
 <body>
@@ -1450,8 +1505,7 @@
     <div class="title-banner-wrap">
       <div class="title-banner-stack">
       <div class="title-banner">
-        <div class="title-eyebrow">Innovation Watchlist</div>
-        <div class="cid-name">Canadian Innovation Dimension (CID)</div>
+        <div class="title-eyebrow">Innovation Watchlist<span class="title-source">&#42; Canadian Innovation Dimension</span></div>
         <ul class="title-banner-bullets">
           <li>Harness signal intelligence to illuminate Canada’s technology innovation ecosystem.</li>
           <li>Monitor industrial strategy, bilateral partnerships, and capital market activity.</li>
@@ -1472,16 +1526,6 @@
         <img src="/assets/INNOVATION-IEP.png" alt="Innovation · Entrepreneurship · Partnership">
       </div>
     </div>
-
-    <!-- LIVE DATA OBSERVATORY (embedded for CID-page refinement) -->
-    <section class="cid-observatory-wrap" aria-label="Live Data Observatory">
-      <iframe
-        class="cid-observatory-frame"
-        src="/cid/data-preview/oea-explorer.html?v=10"
-        title="Live Data Observatory — Ontario's Economic Activity"
-        loading="lazy">
-      </iframe>
-    </section>
 
     <!-- INTRO — 3 separate column containers -->
     <div class="intro-row">
@@ -1585,8 +1629,20 @@
       <div style="display:flex; align-items:flex-start; gap:1.2rem;">
         <div class="signal-boxes-grid" style="flex:1;">
 
+          <!-- Very Strong -->
           <div class="signal-box level-5">
+            <div class="signal-box-img-wrap">
+              <img src="/cid/watchlist-embed/images/signal-very-strong.jpg" alt="Red tulips — Very Strong signal">
+            </div>
+            <div class="signal-box-divider"></div>
             <div class="signal-box-panel">
+              <div class="signal-box-flowers">
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8453C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8453C"/></svg>
+              </div>
               <div class="signal-box-text">
                 <div class="signal-box-label">Established</div>
                 <div class="signal-box-sublabel">5 / 5</div>
@@ -1594,8 +1650,19 @@
             </div>
           </div>
 
+          <!-- Strong -->
           <div class="signal-box level-4">
+            <div class="signal-box-img-wrap">
+              <img src="/cid/watchlist-embed/images/signal-strong.jpg" alt="Purple tulips — Strong signal">
+            </div>
+            <div class="signal-box-divider"></div>
             <div class="signal-box-panel">
+              <div class="signal-box-flowers">
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#6C01F4" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#6C01F4"/></svg>
+              </div>
               <div class="signal-box-text">
                 <div class="signal-box-label">Accelerating</div>
                 <div class="signal-box-sublabel">4 / 5</div>
@@ -1603,8 +1670,18 @@
             </div>
           </div>
 
+          <!-- Moderate -->
           <div class="signal-box level-3">
+            <div class="signal-box-img-wrap">
+              <img src="/cid/watchlist-embed/images/signal-moderate.jpg" alt="Tulip farm — Moderate signal">
+            </div>
+            <div class="signal-box-divider"></div>
             <div class="signal-box-panel">
+              <div class="signal-box-flowers">
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8890C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8890C"/></svg>
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8890C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8890C"/></svg>
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#E8890C" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#E8890C"/></svg>
+              </div>
               <div class="signal-box-text">
                 <div class="signal-box-label">Developing</div>
                 <div class="signal-box-sublabel">3 / 5</div>
@@ -1612,8 +1689,17 @@
             </div>
           </div>
 
+          <!-- Early -->
           <div class="signal-box level-2">
+            <div class="signal-box-img-wrap">
+              <img src="/cid/watchlist-embed/images/signal-early.jpg" alt="Yellow tulips — Early signal">
+            </div>
+            <div class="signal-box-divider"></div>
             <div class="signal-box-panel">
+              <div class="signal-box-flowers">
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#D4B83D" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#D4B83D"/></svg>
+                <svg class="flower-icon" width="22" height="22" viewBox="0 0 16 30"><rect x="7" y="16" width="2" height="12" rx="1" fill="#D4B83D" opacity="0.6"/><path d="M8 3C4.5 3 2 7 2 11.5C2 14.5 4.5 16.5 8 16.5C11.5 16.5 14 14.5 14 11.5C14 7 11.5 3 8 3Z" fill="#D4B83D"/></svg>
+              </div>
               <div class="signal-box-text">
                 <div class="signal-box-label">Early Stage</div>
                 <div class="signal-box-sublabel">2 / 5</div>
@@ -1867,6 +1953,34 @@
         </div>
       </div>
     </div>
+
+    <!-- LIVE DATA STRIP (populated from /cid/data/signals.json) -->
+    <section id="cid-live-strip" class="cid-live-strip" hidden aria-live="polite">
+      <div class="cid-live-head">
+        <span class="cid-live-dot"></span>
+        <span class="cid-live-title">Live national indicators</span>
+        <span class="cid-live-updated" id="cid-live-updated"></span>
+      </div>
+      <div class="cid-live-tiles" id="cid-live-tiles"></div>
+      <div class="cid-live-attr" id="cid-live-attr"></div>
+    </section>
+
+    <!-- DEEP-DIVE EMBEDS: official StatCan interactive app + provincial OEA explorer -->
+    <section class="cid-embeds">
+      <div class="cid-embed-head">
+        <span class="cid-embed-title">Labour Force Survey — interactive app</span>
+        <span class="cid-embed-sub">Statistics Canada · the live tile above aggregates this same source</span>
+      </div>
+      <iframe class="cid-embed-frame" title="Statistics Canada Labour Force Survey in brief"
+        src="https://dv-vd.cloud.statcan.ca/142000012018001_en" loading="lazy"></iframe>
+      <div class="cid-embed-actions">
+        <a class="cid-embed-link" href="/cid/data-preview/oea-explorer.html">Open the Ontario Economic Accounts explorer →</a>
+      </div>
+      <div class="cid-embed-note">The aggregator tile streams the headline employment number from the Labour
+        Force Survey (LFS); this embedded app and the Ontario Economic Accounts (OEA) explorer let you drill
+        into the same data. National series: Statistics Canada — Web Data Service (WDS). Provincial series:
+        Ontario Economic Accounts, Ontario Ministry of Finance.</div>
+    </section>
 
     <!-- CARDS GRID -->
     <div class="cards-grid">
@@ -2455,6 +2569,53 @@ function setView(mode) {
   checkOverlap();
 })();
 </script>
+
+  <!-- CID live-data wiring (preview). Fails silently if signals.json is absent,
+       so it is safe to mirror verbatim into the production watchlist pages. -->
+  <script>
+  (function () {
+    var nf = new Intl.NumberFormat('en-CA');
+    function formatValue(s) {
+      if (s.unit === 'dollars') return '$' + nf.format(s.value);
+      if (s.unit === 'percent') return nf.format(s.value) + '%';
+      return nf.format(s.value);
+    }
+    fetch('/cid/data/signals.json', { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (data) {
+        var signals = (data && data.signals) || [];
+        if (!signals.length) return;
+        var tiles = document.getElementById('cid-live-tiles');
+        if (!tiles) return;
+        signals.forEach(function (s) {
+          var tile = document.createElement('div');
+          tile.className = 'cid-live-tile';
+          tile.innerHTML =
+            '<div class="cid-live-value"></div>' +
+            '<div class="cid-live-label"></div>' +
+            '<div class="cid-live-src"></div>';
+          tile.querySelector('.cid-live-value').textContent = formatValue(s);
+          tile.querySelector('.cid-live-label').textContent = s.label;
+          // Source line, acronyms spelled out: "Statistics Canada — Web Data Service (WDS)
+          //  · Canadian Income Survey (CIS) · Table 11-10-0190-01 · 2024"
+          tile.querySelector('.cid-live-src').textContent =
+            s.source + ' · ' + s.programFull + ' (' + s.program + ') · Table ' + s.table + ' · ' + s.refPeriod;
+          tiles.appendChild(tile);
+        });
+        var upd = document.getElementById('cid-live-updated');
+        if (upd && data.updated) upd.textContent = 'updated ' + data.updated;
+        var attr = document.getElementById('cid-live-attr');
+        if (attr) {
+          attr.textContent =
+            (data.attribution || '') +
+            '  ·  Licence: Open Government Licence (OGL) – Canada.';
+        }
+        var strip = document.getElementById('cid-live-strip');
+        if (strip) strip.hidden = false;
+      })
+      .catch(function (err) { console.warn('CID live data unavailable:', err.message); });
+  })();
+  </script>
 
 </body>
 </html>

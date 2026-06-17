@@ -1,0 +1,58 @@
+{
+  "updated": "2026-06-16T09:40:22Z",
+  "source": "Statistics Canada — Web Data Service (WDS)",
+  "attribution": "Contains information licensed under the Open Government Licence – Canada",
+  "signals": [
+    {
+      "id": "employment-ca",
+      "label": "Employment, 15 years and over, seasonally adjusted — Canada",
+      "source": "Statistics Canada — Web Data Service (WDS)",
+      "program": "LFS",
+      "programFull": "Labour Force Survey",
+      "table": "14-10-0287-03",
+      "pid": 14100287,
+      "coordinate": "1.3.1.1.1.1",
+      "vector": "v2062811",
+      "unit": "count",
+      "uom": "persons",
+      "value": 21121500,
+      "refPeriod": "2026-05",
+      "frequency": "Monthly",
+      "pestle": "Economic"
+    },
+    {
+      "id": "median-after-tax-income-ca",
+      "label": "Median after-tax income, families and unattached individuals — Canada",
+      "source": "Statistics Canada — Web Data Service (WDS)",
+      "program": "CIS",
+      "programFull": "Canadian Income Survey",
+      "table": "11-10-0190-01",
+      "pid": 11100190,
+      "coordinate": "1.12.1",
+      "vector": "v96412011",
+      "unit": "dollars",
+      "uom": "constant dollars",
+      "value": 75500,
+      "refPeriod": "2024",
+      "frequency": "Annual",
+      "pestle": "Economic"
+    },
+    {
+      "id": "internet-use-ca",
+      "label": "Internet use, 15 years and over — Canada",
+      "source": "Statistics Canada — Web Data Service (WDS)",
+      "program": "CIUS",
+      "programFull": "Canadian Internet Use Survey",
+      "table": "22-10-0135-01",
+      "pid": 22100135,
+      "coordinate": "1.1.1",
+      "vector": "v1277760990",
+      "unit": "percent",
+      "uom": "percent",
+      "value": 94.5,
+      "refPeriod": "2022",
+      "frequency": "Occasional",
+      "pestle": "Technological"
+    }
+  ]
+}

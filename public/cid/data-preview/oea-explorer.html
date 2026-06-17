@@ -1,0 +1,624 @@
+<!-- ============================================================================
+  OEA EXPLORER — self-contained embeddable block (3 story views).
+  Everything between <section class="oea-explorer"> … </section> is the block.
+  Paste that section into any page (a watchlist HTML file, or render it in
+  CID.tsx via dangerouslySetInnerHTML). It carries its own scoped <style>,
+  its own <script>, and loads Chart.js on demand — no globals, no page styles
+  touched. It reads /cid/data/oea.json at runtime.
+
+  Three views, each built for practical storytelling (data sourced from
+  OEA Table 16 — Ontario Production by Industry, annual, chained 2017 $):
+    1. Goods-Producing   — the physical economy, top 5 lines shown by default.
+    2. Services-Producing — the services economy, top 5 lines shown by default.
+    3. Trends · Top Gainers — cross-sector movers only; weak/flat industries
+       filtered out; indexed to 100 so sectors of any size compare on one scale;
+       interactive (rank by % growth or $ added, choose how many to compare).
+
+  The <!DOCTYPE>/<html> wrapper here exists ONLY so the block can be previewed
+  on its own at /cid/data-preview/oea-explorer.html — it is not part of the block.
+============================================================================ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OEA Explorer block — preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+</head>
+<body style="margin:0;background:#ececed;">
+
+<!-- ===================== BEGIN OEA EXPLORER BLOCK ===================== -->
+<section class="oea-explorer">
+  <style>
+    .oea-explorer { --oea-red:#822F00; --oea-red-d:#5e2200; --oea-accent:#822F00;
+      --oea-teal:#1fcecb; --oea-teal-d:#17a8a5; --oea-teal-lt:#5fe0dd;
+      --oea-bg:#ffffff; --oea-card:#ffffff; --oea-soft:#f7efe9;
+      --oea-line:#e3d3c7; --oea-text:#1c1c1e; --oea-mut:#6a6a70;
+      --oea-dark:#0d1117; --oea-dark-2:#11161d; --oea-dark-line:rgba(255,255,255,0.08);
+      --oea-dark-text:#e6edf3; --oea-dark-mut:#8b949e;
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      color:var(--oea-text); background:var(--oea-bg); line-height:1.45;
+      border-radius:14px; padding:1.15rem 1.25rem; display:block;
+      border:2px solid var(--oea-red); box-shadow:0 1px 3px rgba(0,0,0,0.08);
+      contain:layout paint; }
+    .oea-explorer * , .oea-explorer *::before, .oea-explorer *::after { box-sizing:border-box; }
+    .oea-explorer .oea-eyebrow { letter-spacing:0.1em; text-transform:uppercase;
+      font-size:0.64rem; color:var(--oea-red); font-weight:700; }
+    .oea-explorer .oea-label { margin-top:0.2rem; font-size:0.68rem; font-weight:700;
+      letter-spacing:0.08em; text-transform:uppercase; color:var(--oea-red); }
+    .oea-explorer .oea-h { font-family:'Playfair Display',serif; font-weight:600;
+      font-size:1.25rem; color:#1c1c1e; margin:0.1rem 0 0; }
+    .oea-explorer .oea-sub { font-size:0.78rem; color:var(--oea-mut); margin-top:0.2rem; max-width:none; }
+    .oea-explorer .oea-sub-tag { font-size:0.72rem; color:#5b5b61; font-weight:600; }
+    .oea-explorer .oea-pills { display:flex; flex-wrap:wrap; gap:0.35rem; margin-top:0.55rem; }
+    .oea-explorer .oea-pill { font-size:0.62rem; font-weight:700; letter-spacing:0.02em;
+      color:var(--oea-red); border:1px solid var(--oea-line); background:#fff;
+      border-radius:999px; padding:0.22rem 0.5rem; }
+    @media (min-width:1100px) {
+      .oea-explorer .oea-h { font-size:1.95rem; }
+      .oea-explorer .oea-sub { font-size:1rem; line-height:1.5; }
+      .oea-explorer .oea-sub-tag { font-size:0.9rem; }
+      .oea-explorer .oea-pills { margin-top:0.8rem; }
+      .oea-explorer .oea-pill { font-size:0.72rem; padding:0.28rem 0.6rem; }
+    }
+
+    .oea-explorer .oea-panel { margin-top:0.85rem; padding:0.85rem 0.9rem; border-radius:12px;
+      background:var(--oea-card); border:1px solid var(--oea-line);
+      border-top:3px solid var(--oea-red); contain:layout paint; }
+    .oea-explorer .oea-tabs { display:flex; gap:0.4rem; margin-bottom:0.6rem; flex-wrap:wrap; }
+    .oea-explorer .oea-tab { cursor:pointer; padding:0.35rem 0.75rem; border-radius:7px;
+      font-size:0.75rem; font-weight:600; color:var(--oea-red); background:#fff;
+      border:1px solid var(--oea-red); }
+    .oea-explorer .oea-tab[aria-selected="true"] { color:#fff; background:var(--oea-red);
+      border-color:var(--oea-red); }
+
+    .oea-explorer .oea-head { display:flex; flex-wrap:wrap; align-items:baseline; gap:0.25rem 0.7rem;
+      padding:0.4rem 0.65rem; margin-bottom:0.5rem; border-radius:8px;
+      background:var(--oea-soft); border-left:3px solid var(--oea-red); }
+    .oea-explorer .oea-th-title { font-weight:700; color:#1c1c1e; font-size:0.86rem; }
+    .oea-explorer .oea-th-unit { font-size:0.73rem; color:var(--oea-red); font-weight:600; }
+    .oea-explorer .oea-th-meta { font-size:0.67rem; color:var(--oea-mut); margin-left:auto; }
+    .oea-explorer .oea-cap { font-size:0.74rem; color:#3a3a3e; margin-bottom:0.5rem; line-height:1.5; }
+    .oea-explorer .oea-cap b { color:#1c1c1e; font-weight:600; }
+    .oea-explorer .oea-gloss { font-size:0.66rem; color:var(--oea-mut); margin-bottom:0.6rem; line-height:1.5; }
+    .oea-explorer .oea-gloss b { color:#3a3a3e; font-weight:600; }
+
+    .oea-explorer .oea-opts { display:flex; flex-wrap:wrap; gap:0.4rem 0.9rem; align-items:center;
+      margin-bottom:0.6rem; padding:0.5rem 0.6rem; border-radius:8px;
+      background:#fafafa; border:1px solid var(--oea-line);
+      font-size:0.68rem; color:var(--oea-mut); }
+    .oea-explorer .oea-opts[hidden] { display:none; }
+    .oea-explorer .oea-opt-label { font-weight:700; color:#3a3a3e; }
+    .oea-explorer .oea-seg { display:inline-flex; border:1px solid var(--oea-red);
+      border-radius:7px; overflow:hidden; }
+    .oea-explorer .oea-seg button { cursor:pointer; border:0; background:#fff; color:var(--oea-red);
+      font:inherit; font-weight:600; padding:0.26rem 0.58rem; }
+    .oea-explorer .oea-seg button[aria-pressed="true"] { background:var(--oea-red); color:#fff; font-weight:700; }
+
+    .oea-explorer .oea-layout { display:grid; grid-template-columns:230px 1fr; gap:0.7rem; align-items:start;
+      background:var(--oea-dark); border:1.5px solid var(--oea-teal); border-radius:10px; padding:0.7rem;
+      box-shadow:0 0 0 1px rgba(31,206,203,0.18) inset; }
+    @media (max-width:720px) { .oea-explorer .oea-layout { grid-template-columns:1fr; } }
+
+    .oea-explorer .oea-ctrls { display:flex; gap:0.4rem; margin-bottom:0.45rem; flex-wrap:wrap; }
+    .oea-explorer .oea-btn { cursor:pointer; font-size:0.67rem; font-weight:700; padding:0.3rem 0.6rem;
+      border-radius:6px; color:#062626; background:var(--oea-teal); border:1px solid var(--oea-teal); }
+    .oea-explorer .oea-btn:hover { background:var(--oea-teal-d); border-color:var(--oea-teal-d); }
+
+    .oea-explorer .oea-list { height:360px; overflow-y:auto; border:1px solid var(--oea-dark-line);
+      border-radius:8px; padding:0.35rem 0.45rem; background:var(--oea-dark-2); }
+    .oea-explorer .oea-grp { position:sticky; top:0; z-index:1; background:var(--oea-dark-2);
+      letter-spacing:0.07em; text-transform:uppercase; font-size:0.61rem; font-weight:700;
+      color:var(--oea-teal-lt); padding:0.35rem 0.2rem 0.25rem; margin-top:0.35rem;
+      border-bottom:1px solid var(--oea-dark-line); }
+    .oea-explorer .oea-grp:first-child { margin-top:0; }
+    .oea-explorer .oea-item { display:flex; align-items:center; gap:0.4rem; padding:0.14rem 0.2rem;
+      font-size:0.72rem; color:#c9d4df; cursor:pointer; border-radius:4px; }
+    .oea-explorer .oea-item:hover { background:rgba(255,255,255,0.05); }
+    .oea-explorer .oea-item.lvl0 { font-weight:700; color:#e6edf3; }
+    .oea-explorer .oea-item.lvl1 { padding-left:0.85rem; }
+    .oea-explorer .oea-item.lvl2 { padding-left:1.6rem; color:#9fb0bd; font-size:0.7rem; }
+    .oea-explorer .oea-item.lvl3 { padding-left:2.4rem; color:#8b9aa6; font-size:0.68rem; }
+    .oea-explorer .oea-item input { accent-color:var(--oea-teal); flex:0 0 auto; }
+    .oea-explorer .oea-sw { width:9px; height:9px; border-radius:2px; flex:0 0 auto; visibility:hidden; }
+    .oea-explorer .oea-item.on .oea-sw { visibility:visible; }
+    .oea-explorer .oea-item.on { color:#fff; font-weight:600; }
+    .oea-explorer .oea-name { flex:1 1 auto; min-width:0; }
+    .oea-explorer .oea-val { flex:0 0 auto; font-variant-numeric:tabular-nums; font-size:0.66rem;
+      color:#8b949e; }
+    .oea-explorer .oea-item.on .oea-val { color:#e6edf3; }
+    .oea-explorer .oea-val.up { color:#27C499; }
+    .oea-explorer .oea-val.down { color:#FF6B61; }
+
+    .oea-explorer .oea-chart { position:relative; height:360px; background:var(--oea-dark-2);
+      border:1px solid rgba(31,206,203,0.35); border-radius:8px; padding:0.35rem; }
+    .oea-explorer .oea-chart canvas { position:absolute; inset:0.35rem; width:calc(100% - 0.7rem) !important; height:calc(100% - 0.7rem) !important; }
+    .oea-explorer .oea-load { color:var(--oea-dark-mut); font-size:0.8rem; padding:2rem 0; }
+
+    .oea-explorer .oea-chartwrap { display:flex; flex-direction:column; gap:0.5rem; min-width:0; }
+    .oea-explorer .oea-readout { background:var(--oea-dark-2); border:1px solid var(--oea-dark-line);
+      border-radius:8px; padding:0.5rem 0.6rem; min-height:2.5rem; font-size:0.7rem; color:#c9d4df;
+      display:flex; flex-wrap:wrap; align-items:center; gap:0.3rem 0.85rem; }
+    .oea-explorer .oea-ro-year { font-weight:700; color:#fff; font-size:0.74rem; margin-right:0.2rem; }
+    .oea-explorer .oea-ro-item { display:inline-flex; align-items:center; gap:0.35rem;
+      font-variant-numeric:tabular-nums; }
+    .oea-explorer .oea-ro-sw { width:9px; height:9px; border-radius:2px; display:inline-block; flex:0 0 auto; }
+    .oea-explorer .oea-ro-nm { color:#9fb0bd; }
+    .oea-explorer .oea-ro-item b { color:#fff; font-weight:600; }
+    .oea-explorer .oea-ro-hint { color:#8b949e; font-style:italic; }
+
+    .oea-explorer .oea-level { display:flex; flex-wrap:wrap; align-items:center; gap:0.45rem 0.6rem;
+      margin-bottom:0.55rem; font-size:0.7rem; }
+    .oea-explorer .oea-level .oea-opt-label { font-weight:700; color:#3a3a3e; }
+    .oea-explorer .oea-lvl-note { color:var(--oea-mut); font-size:0.66rem; font-style:italic; }
+
+    .oea-explorer .oea-glossary { margin-top:0.75rem; border:1px solid var(--oea-line);
+      border-left:3px solid var(--oea-teal); border-radius:8px; background:#fcfaf8; }
+    .oea-explorer .oea-glossary > summary { cursor:pointer; list-style:none; padding:0.5rem 0.7rem;
+      font-size:0.72rem; font-weight:700; color:var(--oea-red); display:flex; align-items:center; gap:0.4rem; }
+    .oea-explorer .oea-glossary > summary::-webkit-details-marker { display:none; }
+    .oea-explorer .oea-glossary > summary::before { content:'+'; color:var(--oea-teal-d); font-weight:700;
+      font-size:0.9rem; line-height:1; }
+    .oea-explorer .oea-glossary[open] > summary::before { content:'\2212'; }
+    .oea-explorer .oea-gl-body { padding:0 0.7rem 0.6rem; }
+    .oea-explorer .oea-gl-row { padding:0.4rem 0; border-top:1px solid var(--oea-line);
+      font-size:0.71rem; line-height:1.5; color:#3a3a3e; }
+    .oea-explorer .oea-gl-row:first-child { border-top:0; }
+    .oea-explorer .oea-gl-term { font-weight:700; color:#1c1c1e; }
+    .oea-explorer .oea-gl-abbr { color:var(--oea-red); font-weight:600; }
+    .oea-explorer .oea-gl-body a { color:var(--oea-teal-d); }
+
+    .oea-explorer .oea-attr { margin-top:0.8rem; font-size:0.63rem; color:var(--oea-mut); line-height:1.5; }
+    .oea-explorer .oea-attr a { color:var(--oea-red); }
+    .oea-explorer .oea-source-brand { margin-top:0.45rem; font-size:0.64rem; color:#636369; line-height:1.45; }
+    .oea-explorer .oea-source-tag { margin-top:0.2rem; font-size:0.63rem; color:#585860; font-weight:600; }
+    .oea-explorer .oea-disclaimer { margin-top:0.55rem; font-size:0.64rem; color:#5d5d63;
+      padding:0.45rem 0.55rem; border:1px solid var(--oea-line); border-radius:6px; background:#fff; }
+  </style>
+
+  <div class="oea-eyebrow">Canadian Innovation &amp; Partnership · Provincial layer</div>
+  <div class="oea-label">Live Data Observatory</div>
+  <h3 class="oea-h">Ontario's Economic Activity</h3>
+  <div class="oea-sub">Open access to live data provides valuable insights into Ontario's economy. The province's
+    working population of over 8.3 million people drives measurable progress every day. Adjust the
+    tool to chart new paths to sustainable development in a data-driven economy.</div>
+  <div class="oea-pills" aria-label="Trust pills">
+    <span class="oea-pill">Public data</span>
+    <span class="oea-pill">MNPI excluded</span>
+    <span class="oea-pill">OEA Table 16</span>
+    <span class="oea-pill">1997–2025</span>
+    <span class="oea-pill">No predictions</span>
+  </div>
+
+  <div class="oea-panel">
+    <div class="oea-tabs" data-oea="tabs" role="tablist"></div>
+    <div class="oea-head" data-oea="head"></div>
+    <div class="oea-level" data-oea="level"></div>
+    <div class="oea-cap" data-oea="cap"></div>
+    <div class="oea-opts" data-oea="opts" hidden></div>
+    <div class="oea-gloss" data-oea="gloss"></div>
+    <div class="oea-layout">
+      <div>
+        <div class="oea-ctrls">
+          <button class="oea-btn" type="button" data-oea="clear">Clear all</button>
+          <button class="oea-btn" type="button" data-oea="reset">Reset to default</button>
+        </div>
+        <div class="oea-list" data-oea="list"></div>
+      </div>
+      <div class="oea-chartwrap">
+        <div class="oea-chart">
+          <div class="oea-load" data-oea="load">Loading Ontario Economic Accounts data…</div>
+          <canvas data-oea="canvas" hidden></canvas>
+        </div>
+        <div class="oea-readout" data-oea="readout"></div>
+      </div>
+    </div>
+    <details class="oea-glossary">
+      <summary>Key terms (glossary)</summary>
+      <div class="oea-gl-body">
+        <div class="oea-gl-row"><span class="oea-gl-term">Real vs. nominal.</span>
+          Real removes price change (volume). Nominal is measured at each year\'s prices.</div>
+        <div class="oea-gl-row"><span class="oea-gl-term">Chained (2017) dollars.</span>
+          An inflation-adjustment method using continuously updated price weights anchored to 2017,
+          so years can be compared. <a href="https://en.wikipedia.org/wiki/Chained_dollars" target="_blank" rel="noopener">Reference</a></div>
+        <div class="oea-gl-row"><span class="oea-gl-term">Index (1997 = 100).</span>
+          Each series rebased so 1997 = 100. 200 = doubled.</div>
+        <div class="oea-gl-row"><span class="oea-gl-term">Basic prices.</span>
+          Output valued before taxes and subsidies on products.</div>
+        <div class="oea-gl-row"><span class="oea-gl-abbr">GDP</span>, production by industry.
+          Total value of goods and services produced, split by industry, this is what Table 16 holds.</div>
+        <div class="oea-gl-row"><span class="oea-gl-abbr">OEA</span>, Ontario Economic Accounts.
+          Ontario Ministry of Finance data compiled with Statistics Canada.
+          Table 16 is Ontario Production by Industry, annual, chained (2017) dollars.</div>
+        <div class="oea-gl-row"><span class="oea-gl-abbr">CID</span>, Canadian Innovation Dimension.
+          This is the host page context for the module.</div>
+        <div class="oea-gl-row"><span class="oea-gl-abbr">MNPI</span>, Material Non-Public Information.
+          Deliberately excluded from every CID view.</div>
+        <div class="oea-gl-row"><span class="oea-gl-term">% growth vs. $ added.</span>
+          Percent growth ranks fast risers of any size. Dollars added ranks what moved the economy most in raw terms.</div>
+      </div>
+    </details>
+    <div class="oea-attr" data-oea="attr"></div>
+    <div class="oea-source-brand">Ooo is a Toronto studio and connector within Ontario's innovation ecosystem,
+      championing new ideas and strategically executing initiatives that drive progress.</div>
+    <div class="oea-source-tag">Radical strategic intelligence · Interconnected work · Collective impact · Canadian innovation.</div>
+    <div class="oea-disclaimer">Verified public data only. Material Non-Public Information (MNPI) excluded.
+      No predictions, not financial advice. Highlighted connection points are research prompts, not proof of causation.</div>
+  </div>
+
+  <script>
+  (function () {
+    var root = (document.currentScript && document.currentScript.closest('.oea-explorer'));
+    if (!root) { var all = document.querySelectorAll('.oea-explorer'); root = all[all.length - 1]; }
+    if (!root || root.dataset.oeaInit) return;
+    root.dataset.oeaInit = '1';
+    var $ = function (n) { return root.querySelector('[data-oea="' + n + '"]'); };
+
+    var PALETTE = ['#FF5247','#22D3EE','#FBBF24','#A78BFA','#34D399','#60A5FA',
+                   '#F472B6','#FB923C','#2DD4BF','#C084FC','#FACC15','#4ADE80'];
+    var SRC = 'table16';                 // all three views read OEA Table 16 (annual, real $)
+    var AGG = { 'Goods Producing Industries':1, 'Services Producing Industries':1, 'Total Production':1 };
+    var GAIN_FLOOR = 5000;               // ignore industries under ~$5B — cut weak/noise signals
+
+    var VIEWS = [
+      { id:'goods', tab:'Goods-Producing', group:'goods' },
+      { id:'services', tab:'Services-Producing', group:'services' },
+      { id:'gainers', tab:'Trends · Top Gainers', gainers:true },
+    ];
+
+    // ---- audience / reading level (swaps the explanatory copy) ----
+    var LEVELS = [
+      { id:'plain',   label:'Plain (15)',  note:'Plain-language, no jargon.' },
+      { id:'business', label:'Business',   note:'For a business and industry audience.' },
+      { id:'expert', label:'Expert',      note:'Assumes high financial literacy.' },
+    ];
+    var LEVEL = 'business';
+
+    // What each view is, written for three audiences.
+    var COPY = {
+      goods: {
+        plain:'The "making and building" side of the economy: factories, construction crews, ' +
+          'power and water utilities, farms and mines. Each line is one industry, the higher the line, ' +
+          'the more it produced that year. The five biggest are shown to start.',
+        business:'Goods-producing industries: manufacturing, construction, utilities, and resource extraction. ' +
+             'Each line is one industry\'s real output over time. The five largest by latest output are shown; ' +
+             'add or remove industries to compare.',
+        expert:'Goods-producing sector disaggregated by industry (Table 16, real output at basic prices, ' +
+               'chained 2017 $). Defaults to the five largest by terminal-year output; toggle constituents to ' +
+               'recompose the panel.'
+      },
+      services: {
+        plain:'The "doing things for people" side of the economy: banks, shops, hospitals, schools, ' +
+          'law and design firms, hotels and restaurants. This is now the biggest part of Ontario\'s economy. ' +
+          'The five biggest industries are shown to start.',
+        business:'Services-producing industries: finance, real estate, professional services, health care, retail ' +
+             'and more. Now the majority of Ontario\'s output. The five largest by latest output are shown.',
+        expert:'Services-producing sector by industry (Table 16, chained 2017 $). Defaults to the five largest by ' +
+           'terminal-year output. Note the sector\'s rising share of aggregate provincial output across the sample.'
+      },
+      gainers: {
+        plain:'Which industries grew the most since 1997? Every line starts from the same point so you can race them ' +
+          'fairly. Very small industries are left out to keep it readable. Choose how to rank them and how many to show.',
+        business:'Cross-sector growth ranking since 1997. Industries under $5 billion in latest output are excluded to focus ' +
+             'on material movers. Rank by percentage growth or dollars added, and choose how many to compare.',
+        expert:'Industry growth league table, 1997 to latest, filtered to terminal-year output >= $5B. Rank metric ' +
+               'toggles between cumulative percent change and absolute chained-dollar change; comparison cardinality is adjustable.'
+      },
+      creative: {
+        plain:'Six parts of Ontario\'s economy that work closely together: culture and media, the arts, health and social services, ' +
+          'government, professional and office work, and education. Each line shows how much each one produced in a year. ' +
+          'Press ADD FINANCE to see how money and banking moves right alongside them.',
+        business:'A curated cluster of six interconnected sectors (Information & Culture, Arts, Entertainment & Recreation, ' +
+             'Health Care & Social Services, Public Administration, Professional & Administrative Services, and Education) ' +
+             'that together form a connected innovation base. Add Finance and Insurance to see how capital infrastructure moves alongside the cluster.',
+        expert:'A non-standard composite of six service industries (Table 16, real output, chained 2017 $) selected to surface ' +
+           'cross-sector interdependence across Ontario\'s knowledge, public, and creative economy. Finance and Insurance is introduced on demand to test co-movement and proximity against the cluster.'
+      },
+      smallpond: {
+        plain:'Big industries are so large they flatten the small ones on a normal chart. Small Pond View gives each smaller industry ' +
+          'its own space, so you can actually see how it is moving and spot ones that are starting to climb.',
+        business:'Large industries dominate the main chart. Small Pond View gives smaller industries their own scale, so emerging or ' +
+             'overlooked signals can be read clearly. Switch to economy scale to restore their true relative size.',
+        expert:'Small-multiple panel for sub-scale industries, each rendered on its own (or indexed) axis to expose intra-series dynamics ' +
+           'otherwise masked by aggregate magnitude. Toggle to a shared economy scale to restore true relative size.'
+      }
+    };
+
+    // How to read the numbers, for three audiences (indexed vs dollar views).
+    var METHOD = {
+      indexed: {
+        plain:'<b>Every line starts at 100 in 1997.</b> If a line reaches 200, that industry produces twice as much ' +
+              'as it did in 1997; 150 means half-again as much. Starting everyone at 100 lets a giant industry and a ' +
+              'small one be compared on the same chart. Price increases are already removed, so this is real growth, ' +
+              'not just higher prices.',
+        business:'<b>Each industry is rebased to 100 at its 1997 level</b>, so all industries share one scale regardless of ' +
+                 'size. 200 = real output doubled since 1997; 150 = +50%. Figures are inflation-adjusted (chained 2017 dollars), ' +
+                 'so movement reflects real volume, not price changes.',
+        expert:'<b>Series indexed to 1997 = 100</b>, enabling cross-industry comparison independent of absolute scale ' +
+               '(index 200 = 100% cumulative real growth from base). Underlying data are chained (2017) dollars, ' +
+               'isolating volume growth net of price effects.'
+      },
+      dollar: {
+        plain:'<b>Numbers are in millions of dollars,</b> with price increases already taken out, so a higher line ' +
+              'really means more was produced, not just costlier. "$60,000M" means 60 billion dollars.',
+        business:'<b>Values are in millions of chained (2017) dollars</b>, inflation removed, so changes reflect ' +
+                 'real output, not price inflation. $60,000M = $60 billion.',
+        expert:'<b>Real output in millions of chained (2017) dollars</b> (volume measure at basic prices). Chain-linking ' +
+               'removes price effects; level additivity carries the usual chained-index caveats.'
+      }
+    };
+    function view() { return VIEWS.find(function (v) { return v.id === current; }); }
+    function table() { return DATA.tables[SRC]; }
+
+    var nf = new Intl.NumberFormat('en-CA');
+    var DATA = null, current = 'goods', chart = null;
+    var selected = {};                                   // id -> [names]
+    var gOpts = { metric:'pct', indexed:true, topN:5 };  // gainers controls
+
+    function ends(vals) { var f=null,l=null; for (var i=0;i<vals.length;i++){ if(vals[i]!=null){ if(f===null)f=vals[i]; l=vals[i]; } } return { first:f, last:l }; }
+    function latest(s) { return ends(s.values).last; }
+
+    // ---- candidate sets per view ----
+    function groupSeries(grp) {
+      return table().series.filter(function (s) { return s.group === grp; });
+    }
+    function gainerRows() {
+      var rows = table().series
+        .filter(function (s) { return s.level >= 1 && !AGG[s.name]; })
+        .map(function (s) { var e = ends(s.values);
+          return { name:s.name, group:s.group, last:e.last,
+                   pct:(e.last - e.first) / e.first, add:e.last - e.first }; })
+        .filter(function (r) { return r.last >= GAIN_FLOOR; });
+      rows.sort(function (a, b) { return b[gOpts.metric] - a[gOpts.metric]; });
+      return rows;
+    }
+
+    // ---- defaults: never blank — show the top 5 lines ----
+    function defaultsFor(v) {
+      if (v.gainers) return gainerRows().slice(0, gOpts.topN).map(function (r) { return r.name; });
+      return groupSeries(v.group)
+        .filter(function (s) { return s.level >= 1; })
+        .map(function (s) { return { n:s.name, val:latest(s) }; })
+        .sort(function (a, b) { return b.val - a.val; })
+        .slice(0, 5).map(function (r) { return r.n; });
+    }
+    function sel() {
+      if (!selected[current]) selected[current] = defaultsFor(view());
+      return selected[current];
+    }
+
+    function buildTabs() {
+      var tabs = $('tabs'); tabs.innerHTML = '';
+      VIEWS.forEach(function (v) {
+        var b = document.createElement('button');
+        b.className = 'oea-tab'; b.type = 'button'; b.setAttribute('role','tab');
+        b.setAttribute('aria-selected', v.id === current);
+        b.textContent = v.tab;
+        b.onclick = function () { current = v.id; render(); };
+        tabs.appendChild(b);
+      });
+    }
+
+    function buildLevel() {
+      var box = $('level');
+      var note = (LEVELS.find(function (l) { return l.id === LEVEL; }) || {}).note || '';
+      box.innerHTML =
+        '<span class="oea-opt-label">Explain for</span>' +
+        '<span class="oea-seg" data-oea="seg-level">' +
+          LEVELS.map(function (l) { return '<button type="button" data-v="' + l.id + '" aria-pressed="' +
+            (LEVEL === l.id) + '">' + l.label + '</button>'; }).join('') +
+        '</span>' +
+        '<span class="oea-lvl-note">' + note + '</span>';
+      box.querySelector('[data-oea="seg-level"]').onclick = function (e) {
+        var b = e.target.closest('button'); if (!b) return;
+        LEVEL = b.dataset.v; render();
+      };
+    }
+
+    function buildHead() {
+      var t = table(), v = view();
+      var unit = (v.gainers && gOpts.indexed) ? 'Indexed · 1997 = 100' : t.unit;
+      $('head').innerHTML =
+        '<span class="oea-th-title">' + (v.gainers ? 'Top Gainers' : (v.tab + ' industries')) + '</span>' +
+        '<span class="oea-th-unit">' + unit + '</span>' +
+        '<span class="oea-th-meta">OEA Table 16 · Annual · ' +
+        t.periods[0] + '–' + t.periods[t.periods.length - 1] + '</span>';
+      $('cap').innerHTML = COPY[current][LEVEL];
+      $('gloss').innerHTML = (v.gainers && gOpts.indexed) ? METHOD.indexed[LEVEL] : METHOD.dollar[LEVEL];
+    }
+
+    function buildOpts() {
+      var box = $('opts');
+      if (!view().gainers) { box.hidden = true; box.innerHTML = ''; return; }
+      box.hidden = false;
+      box.innerHTML =
+        '<span class="oea-opt-label">Rank by</span>' +
+        '<span class="oea-seg" data-oea="seg-metric">' +
+          '<button type="button" data-v="pct" aria-pressed="' + (gOpts.metric==='pct') + '">% growth</button>' +
+          '<button type="button" data-v="add" aria-pressed="' + (gOpts.metric==='add') + '">$ added</button>' +
+        '</span>' +
+        '<span class="oea-opt-label">View</span>' +
+        '<span class="oea-seg" data-oea="seg-view">' +
+          '<button type="button" data-v="idx" aria-pressed="' + (gOpts.indexed) + '">Indexed</button>' +
+          '<button type="button" data-v="abs" aria-pressed="' + (!gOpts.indexed) + '">Actual $</button>' +
+        '</span>' +
+        '<span class="oea-opt-label">Compare top</span>' +
+        '<span class="oea-seg" data-oea="seg-top">' +
+          [3,5,8].map(function (n) { return '<button type="button" data-v="' + n + '" aria-pressed="' +
+            (gOpts.topN===n) + '">' + n + '</button>'; }).join('') +
+        '</span>';
+      box.querySelector('[data-oea="seg-metric"]').onclick = function (e) {
+        var b = e.target.closest('button'); if (!b) return;
+        gOpts.metric = b.dataset.v; selected[current] = defaultsFor(view()); render();
+      };
+      box.querySelector('[data-oea="seg-view"]').onclick = function (e) {
+        var b = e.target.closest('button'); if (!b) return;
+        gOpts.indexed = (b.dataset.v === 'idx'); render();
+      };
+      box.querySelector('[data-oea="seg-top"]').onclick = function (e) {
+        var b = e.target.closest('button'); if (!b) return;
+        gOpts.topN = Number(b.dataset.v); selected[current] = defaultsFor(view()); render();
+      };
+    }
+
+    function metricStr(r) {
+      if (gOpts.metric === 'pct') return (r.pct>=0?'+':'') + Math.round(r.pct*100) + '%';
+      return (r.add>=0?'+$':'-$') + nf.format(Math.abs(Math.round(r.add))) + 'M';
+    }
+
+    function buildList() {
+      var box = $('list'); box.innerHTML = '';
+      var s = sel(), v = view();
+
+      if (v.gainers) {
+        var rows = gainerRows();
+        rows.forEach(function (r) {
+          var on = s.indexOf(r.name) >= 0;
+          var color = PALETTE[s.indexOf(r.name) % PALETTE.length];
+          var label = document.createElement('label');
+          label.className = 'oea-item lvl1' + (on ? ' on' : '');
+          var cb = document.createElement('input'); cb.type='checkbox'; cb.checked=on;
+          cb.onchange = function () { toggle(s, r.name, cb.checked); render(); };
+          var sw = document.createElement('span'); sw.className='oea-sw';
+          sw.style.background = on ? color : 'transparent';
+          var nm = document.createElement('span'); nm.className='oea-name'; nm.textContent = r.name;
+          var val = document.createElement('span');
+          val.className = 'oea-val ' + (r[gOpts.metric] >= 0 ? 'up' : 'down');
+          val.textContent = metricStr(r);
+          label.appendChild(cb); label.appendChild(sw); label.appendChild(nm); label.appendChild(val);
+          box.appendChild(label);
+        });
+        return;
+      }
+
+      // goods / services: grouped header + hierarchy + latest value as context
+      var head = document.createElement('div'); head.className = 'oea-grp';
+      head.textContent = (table().groupLabels && table().groupLabels[v.group]) || v.group;
+      box.appendChild(head);
+      groupSeries(v.group).forEach(function (sr) {
+        var on = s.indexOf(sr.name) >= 0;
+        var color = PALETTE[s.indexOf(sr.name) % PALETTE.length];
+        var label = document.createElement('label');
+        label.className = 'oea-item lvl' + (sr.level || 0) + (on ? ' on' : '');
+        var cb = document.createElement('input'); cb.type='checkbox'; cb.checked=on;
+        cb.onchange = function () { toggle(s, sr.name, cb.checked); render(); };
+        var sw = document.createElement('span'); sw.className='oea-sw';
+        sw.style.background = on ? color : 'transparent';
+        var nm = document.createElement('span'); nm.className='oea-name'; nm.textContent = sr.name;
+        var val = document.createElement('span'); val.className='oea-val';
+        val.textContent = '$' + nf.format(latest(sr)) + 'M';
+        label.appendChild(cb); label.appendChild(sw); label.appendChild(nm); label.appendChild(val);
+        box.appendChild(label);
+      });
+    }
+
+    function toggle(arr, name, on) {
+      var i = arr.indexOf(name);
+      if (on && i < 0) arr.push(name);
+      else if (!on && i >= 0) arr.splice(i, 1);
+    }
+
+    function seriesByName(name) { return table().series.find(function (x) { return x.name === name; }); }
+
+    function readoutHint() {
+      return '<span class="oea-ro-hint">Hover the chart to read each industry\u2019s value for a year.</span>';
+    }
+    function renderReadout(context, indexed) {
+      var box = $('readout'); if (!box) return;
+      var tt = context.tooltip;
+      if (!tt || tt.opacity === 0) { box.innerHTML = readoutHint(); return; }
+      var year = (tt.title && tt.title[0]) || '';
+      var pts = (tt.dataPoints || []).slice().sort(function (a, b) { return b.parsed.y - a.parsed.y; });
+      var items = pts.map(function (dp) {
+        var color = dp.dataset.borderColor;
+        var val = indexed ? String(Math.round(dp.parsed.y))
+                          : '$' + nf.format(Math.round(dp.parsed.y)) + 'M';
+        return '<span class="oea-ro-item"><i class="oea-ro-sw" style="background:' + color + '"></i>' +
+          '<span class="oea-ro-nm">' + dp.dataset.label + '</span>&nbsp;<b>' + val + '</b></span>';
+      }).join('');
+      box.innerHTML = '<span class="oea-ro-year">' + year + (indexed ? ' · index (1997 = 100)' : '') + '</span>' + items;
+    }
+
+    function draw() {
+      var t = table(), v = view(), s = sel();
+      var indexed = v.gainers && gOpts.indexed;
+      var datasets = s.map(function (name, i) {
+        var sr = seriesByName(name);
+        var vals = sr ? sr.values : [];
+        if (indexed) { var base = ends(vals).first;
+          vals = vals.map(function (x) { return x == null || !base ? null : (x / base) * 100; }); }
+        var color = PALETTE[i % PALETTE.length];
+        return { label:name, data:vals, borderColor:color, backgroundColor:color,
+          borderWidth:2, pointRadius:0, pointHoverRadius:4, tension:0.15, spanGaps:true };
+      });
+      var canvas = $('canvas'); canvas.hidden = false; $('load').hidden = true;
+      if (chart) chart.destroy();
+      chart = new Chart(canvas.getContext('2d'), {
+        type:'line',
+        data:{ labels:t.periods, datasets:datasets },
+        options:{
+          responsive:true, maintainAspectRatio:false, animation:false, resizeDelay:120,
+          interaction:{ mode:'index', intersect:false },
+          plugins:{
+            legend:{ labels:{ color:'#c9d4df', font:{ size:11 }, boxWidth:12 } },
+            tooltip:{ enabled:false, external:function (context) { renderReadout(context, indexed); } },
+          },
+          scales:{
+            x:{ ticks:{ color:'#8b949e', maxRotation:0, autoSkip:false,
+                  callback:function (val, index, ticks) {
+                    var n = ticks.length, stride = Math.max(1, Math.ceil(n / 8));
+                    return ((n - 1 - index) % stride === 0) ? t.periods[index] : '';
+                  } },
+                grid:{ color:'rgba(255,255,255,0.06)' } },
+            y:{ ticks:{ color:'#8b949e', callback:function (val) {
+                  return indexed ? val : '$' + nf.format(val) + 'M'; } },
+                grid:{ color:'rgba(255,255,255,0.06)' },
+                title:{ display:true, color:'#8b949e', font:{ size:10 },
+                  text: indexed ? ('Index (100 = ' + t.periods[0] + ')') : t.unitShort } },
+          },
+        },
+      });
+      $('readout').innerHTML = readoutHint();
+    }
+
+    function render() {
+      sel();
+      root.querySelectorAll('.oea-tab').forEach(function (el, i) {
+        el.setAttribute('aria-selected', VIEWS[i].id === current);
+      });
+      buildLevel(); buildHead(); buildOpts(); buildList(); draw();
+    }
+
+    $('clear').onclick = function () { selected[current] = []; render(); };
+    $('reset').onclick = function () { selected[current] = defaultsFor(view()); render(); };
+
+    function start() {
+      fetch('/cid/data/oea.json', { cache:'no-store' })
+        .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+        .then(function (data) {
+          DATA = data;
+          $('attr').innerHTML = 'Source: Ontario Economic Accounts (OEA), Office of Economic Policy, Ontario Ministry of Finance, and Statistics Canada.<br>' +
+            'Contains information licensed under the Open Government Licence – Ontario. ' +
+            '<a href="' + data.catalogue + '" target="_blank" rel="noopener">Ontario Economic Accounts</a>';
+          buildTabs(); render();
+        })
+        .catch(function (err) { $('load').textContent = 'Could not load OEA data: ' + err.message; });
+    }
+
+    if (window.Chart) { start(); }
+    else {
+      var sc = document.createElement('script');
+      sc.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js';
+      sc.onload = start;
+      sc.onerror = function () { $('load').textContent = 'Could not load the charting library (needs network).'; };
+      document.head.appendChild(sc);
+    }
+  })();
+  </script>
+</section>
+<!-- ====================== END OEA EXPLORER BLOCK ====================== -->
+
+</body>
+</html>
