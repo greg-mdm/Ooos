@@ -94,7 +94,7 @@ export function Nav() {
           <span className="nav-brand-text">DIGITAL MEDIA STUDIO</span>
         </Link>
         <div className="nav-links">
-          <Link to="/ostara" className="nav-link--collapse">Ostara</Link>
+          <Link to="/ostara" className="nav-link--collapse">Research</Link>
           <Link to="/cid">Innovation</Link>
           <Link to="/exhibition" className="nav-link--collapse">Exhibition</Link>
           <Link to="/about">Design</Link>

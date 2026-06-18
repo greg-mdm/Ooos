@@ -1556,7 +1556,7 @@
     <section class="cid-observatory-wrap" aria-label="Live Data Observatory">
       <iframe
         class="cid-observatory-frame"
-        src="/cid/data-preview/oea-explorer.html?v=13"
+        src="/cid/data-preview/oea-explorer.html?v=14"
         title="Live Data Observatory — Ontario's Economic Activity"
         loading="lazy">
       </iframe>
@@ -2533,6 +2533,20 @@ function setView(mode) {
   window.addEventListener('scroll', checkOverlap, { passive: true });
   checkOverlap();
 })();
+</script>
+
+<script>
+  /* Size the Live Data Observatory iframe to its content (removes empty space below the graph). */
+  (function () {
+    window.addEventListener('message', function (e) {
+      if (e.origin !== window.location.origin) return;
+      if (!e.data || e.data.type !== 'oea-explorer-height' || !e.data.height) return;
+      var frame = document.querySelector('.cid-observatory-frame');
+      if (!frame) return;
+      frame.style.minHeight = '0';
+      frame.style.height = e.data.height + 'px';
+    });
+  })();
 </script>
 
 </body>

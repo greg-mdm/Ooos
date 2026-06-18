@@ -681,5 +681,26 @@
 </section>
 <!-- ====================== END OEA EXPLORER BLOCK ====================== -->
 
+<script>
+  /* Report content height to the host page so the iframe can size to fit (no empty space). */
+  (function () {
+    function postHeight() {
+      var h = Math.max(
+        document.documentElement.scrollHeight,
+        document.body ? document.body.scrollHeight : 0
+      );
+      parent.postMessage({ type: 'oea-explorer-height', height: h }, '*');
+    }
+    window.addEventListener('load', postHeight);
+    window.addEventListener('resize', postHeight);
+    if (window.ResizeObserver) {
+      try { new ResizeObserver(postHeight).observe(document.documentElement); } catch (e) {}
+    }
+    // Charts and async data settle after first paint
+    setTimeout(postHeight, 400);
+    setTimeout(postHeight, 1500);
+  })();
+</script>
+
 </body>
 </html>
