@@ -49,11 +49,16 @@ export function About() {
                 unique creative environment, centrally guided by the studio's
                 founder and creative director. Consistency in spacing,
                 typography, contrast, consent and disclosure reinforces all
-                creative environments. Ooos universe emphasizes participatory
-                design, informed exploration, and clearly marked steps for
-                e-consent, ensuring inclusive access across three levels of
-                engagement. We are offering a range of digital media
-                experiences, from <strong>observation</strong> to <strong>exploration</strong> and <strong>engagement</strong>.
+                creative environments.
+              </p>
+              <p className="ds-lede">
+                Ooos universe emphasizes participatory design, informed
+                exploration, and clearly marked steps for e-consent, ensuring
+                inclusive access across three levels of engagement.
+              </p>
+              <p className="ds-lede">
+                We are offering a range of digital media experiences, from{" "}
+                <strong>observation</strong> to <strong>exploration</strong> and <strong>engagement</strong>.
               </p>
 
               <div className="commit-text" aria-labelledby="commit-heading">

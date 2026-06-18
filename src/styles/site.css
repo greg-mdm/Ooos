@@ -1791,6 +1791,7 @@ a:hover { color: var(--electric); }
 }
 .case-hero h1 {
   font-family: var(--serif);
+  color: #fff;
   font-size: clamp(40px, 6vw, 72px);
   margin: 0 0 14px;
   line-height: 1.1;
