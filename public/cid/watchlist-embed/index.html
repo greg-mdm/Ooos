@@ -1428,6 +1428,9 @@
     }
     .cid-observatory-kicker {
       flex: 1 1 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
       color: #9cf8f6;
       text-transform: uppercase;
       letter-spacing: 0.14em;
@@ -1435,18 +1438,38 @@
       font-weight: 700;
       text-align: left;
     }
+    .cid-observatory-icon {
+      flex: 0 0 auto;
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      border-radius: 50%;
+      filter: drop-shadow(0 1px 4px rgba(0,0,0,0.45));
+    }
     .cid-observatory-title {
       flex: 1 1 0;
+      display: flex;
+      justify-content: center;
+    }
+    .cid-observatory-oval {
+      display: inline-block;
+      padding: 0.42rem 1.5rem;
+      border: 1.5px solid rgba(31, 206, 203, 0.6);
+      border-radius: 999px;
       color: #d6ffff;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       font-size: 1.55rem;
       font-weight: 800;
       line-height: 1.05;
-      text-align: center;
+      white-space: nowrap;
     }
     .cid-observatory-viewing {
       flex: 1 1 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.6rem;
       color: rgba(214, 255, 255, 0.85);
       font-size: 1.02rem;
       font-weight: 600;
@@ -1461,8 +1484,10 @@
       background: #fff;
     }
     @media (max-width: 900px) {
-      .cid-observatory-header { margin: 0 1rem 0.55rem; flex-direction: column; align-items: stretch; gap: 0.5rem; }
-      .cid-observatory-kicker, .cid-observatory-title, .cid-observatory-viewing { flex: 1 1 auto; text-align: left; }
+      .cid-observatory-header { margin: 0 1rem 0.55rem; flex-direction: column; align-items: stretch; gap: 0.6rem; }
+      .cid-observatory-kicker, .cid-observatory-viewing { flex: 1 1 auto; justify-content: flex-start; text-align: left; }
+      .cid-observatory-title { flex: 1 1 auto; justify-content: flex-start; }
+      .cid-observatory-oval { white-space: normal; }
       .cid-observatory-wrap { margin: 1rem 1rem 1.3rem; }
       .cid-observatory-frame { min-height: 1640px; }
     }
@@ -1515,9 +1540,15 @@
     </div>
 
     <section class="cid-observatory-header" aria-label="CID Live Data Observatory header">
-      <div class="cid-observatory-kicker">Canadian Innovation Dimension</div>
-      <div class="cid-observatory-title">Live Data Observatory</div>
-      <div class="cid-observatory-viewing">Viewing: Ontario [East-central Canada]</div>
+      <div class="cid-observatory-kicker">
+        <img class="cid-observatory-icon" src="/assets/images/brand/compass.png" alt="" aria-hidden="true">
+        <span>Canadian Innovation Dimension</span>
+      </div>
+      <div class="cid-observatory-title"><span class="cid-observatory-oval">Live Data Observatory</span></div>
+      <div class="cid-observatory-viewing">
+        <img class="cid-observatory-icon" src="/assets/images/brand/telescope.png" alt="" aria-hidden="true">
+        <span>Viewing: Ontario [East-central Canada]</span>
+      </div>
     </section>
 
     <!-- LIVE DATA OBSERVATORY (embedded for CID-page refinement) -->
