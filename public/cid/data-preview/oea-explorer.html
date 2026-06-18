@@ -44,12 +44,8 @@
       border:2px solid var(--oea-red); box-shadow:0 1px 3px rgba(0,0,0,0.08);
       contain:layout paint; }
     .oea-explorer * , .oea-explorer *::before, .oea-explorer *::after { box-sizing:border-box; }
-    .oea-explorer .oea-eyebrow { letter-spacing:0.1em; text-transform:uppercase;
-      font-size:0.64rem; color:var(--oea-red); font-weight:700; }
-    .oea-explorer .oea-label { margin-top:0.2rem; font-size:0.68rem; font-weight:700;
-      letter-spacing:0.08em; text-transform:uppercase; color:var(--oea-red); }
     .oea-explorer .oea-h { font-family:'Playfair Display',serif; font-weight:600;
-      font-size:1.25rem; color:#1c1c1e; margin:0.1rem 0 0; }
+      font-size:1.25rem; color:#1c1c1e; margin:0 0 0; }
     .oea-explorer .oea-sub { font-size:0.78rem; color:var(--oea-mut); margin-top:0.2rem; max-width:none; }
     .oea-explorer .oea-sub-tag { font-size:0.72rem; color:#5b5b61; font-weight:600; }
     .oea-explorer .oea-pills { display:flex; flex-wrap:wrap; gap:0.35rem; margin-top:0.55rem; }
@@ -96,6 +92,15 @@
     .oea-explorer .oea-seg button { cursor:pointer; border:0; background:#fff; color:var(--oea-red);
       font:inherit; font-weight:600; padding:0.26rem 0.58rem; }
     .oea-explorer .oea-seg button[aria-pressed="true"] { background:var(--oea-red); color:#fff; font-weight:700; }
+    .oea-explorer .oea-finance {
+      cursor:pointer; border:1px solid var(--oea-red); background:var(--oea-red);
+      color:#fff; border-radius:999px; font-size:0.66rem; font-weight:700;
+      letter-spacing:0.08em; text-transform:uppercase; line-height:1;
+      padding:0.45rem 0.75rem;
+    }
+    .oea-explorer .oea-finance.off {
+      background:#fff; color:var(--oea-red);
+    }
 
     .oea-explorer .oea-layout { display:grid; grid-template-columns:230px 1fr; gap:0.7rem; align-items:start;
       background:var(--oea-dark); border:1.5px solid var(--oea-teal); border-radius:10px; padding:0.7rem;
@@ -178,12 +183,10 @@
       padding:0.45rem 0.55rem; border:1px solid var(--oea-line); border-radius:6px; background:#fff; }
   </style>
 
-  <div class="oea-eyebrow">Canadian Innovation &amp; Partnership · Provincial layer</div>
-  <div class="oea-label">Live Data Observatory</div>
   <h3 class="oea-h">Ontario's Economic Activity</h3>
   <div class="oea-sub">Open access to live data provides valuable insights into Ontario's economy. The province's
     working population of over 8.3 million people drives measurable progress every day. Adjust the
-    tool to chart new paths to sustainable development in a data-driven economy.</div>
+    tool to chart new paths to sustainable development in our data-driven economy.</div>
   <div class="oea-pills" aria-label="Trust pills">
     <span class="oea-pill">Public data</span>
     <span class="oea-pill">MNPI excluded</span>
@@ -243,7 +246,7 @@
     <div class="oea-attr" data-oea="attr"></div>
     <div class="oea-source-brand">Ooo is a Toronto studio and connector within Ontario's innovation ecosystem,
       championing new ideas and strategically executing initiatives that drive progress.</div>
-    <div class="oea-source-tag">Radical strategic intelligence · Interconnected work · Collective impact · Canadian innovation.</div>
+    <div class="oea-source-tag">Radical Strategic Intelligence: Advancing innovation with interconnected work · Canadian Partnerships · Community Action</div>
     <div class="oea-disclaimer">Verified public data only. Material Non-Public Information (MNPI) excluded.
       No predictions, not financial advice. Highlighted connection points are research prompts, not proof of causation.</div>
   </div>
@@ -265,8 +268,21 @@
     var VIEWS = [
       { id:'goods', tab:'Goods-Producing', group:'goods' },
       { id:'services', tab:'Services-Producing', group:'services' },
+      { id:'creative', tab:'Creative Cluster', creative:true },
       { id:'gainers', tab:'Trends · Top Gainers', gainers:true },
     ];
+
+    var CLUSTER = {
+      industries: [
+        'Information & Culture (including Telecommunications)',
+        'Arts, Entertainment & Recreation',
+        'Health Care and Social Services',
+        'Public Administration',
+        'Professional and Administrative Services',
+        'Education'
+      ],
+      financeLabel: 'Finance and Insurance'
+    };
 
     // ---- audience / reading level (swaps the explanatory copy) ----
     var LEVELS = [
@@ -283,7 +299,7 @@
           'power and water utilities, farms and mines. Each line is one industry, the higher the line, ' +
           'the more it produced that year. The five biggest are shown to start.',
         business:'Goods-producing industries: manufacturing, construction, utilities, and resource extraction. ' +
-             'Each line is one industry\'s real output over time. The five largest by latest output are shown; ' +
+             'Each line tracks the actual performance of Ontario\'s business and industry over time. The five largest by latest output are shown; ' +
              'add or remove industries to compare.',
         expert:'Goods-producing sector disaggregated by industry (Table 16, real output at basic prices, ' +
                'chained 2017 $). Defaults to the five largest by terminal-year output; toggle constituents to ' +
@@ -307,14 +323,14 @@
                'toggles between cumulative percent change and absolute chained-dollar change; comparison cardinality is adjustable.'
       },
       creative: {
-        plain:'Six parts of Ontario\'s economy that work closely together: culture and media, the arts, health and social services, ' +
-          'government, professional and office work, and education. Each line shows how much each one produced in a year. ' +
-          'Press ADD FINANCE to see how money and banking moves right alongside them.',
-        business:'A curated cluster of six interconnected sectors (Information & Culture, Arts, Entertainment & Recreation, ' +
-             'Health Care & Social Services, Public Administration, Professional & Administrative Services, and Education) ' +
-             'that together form a connected innovation base. Add Finance and Insurance to see how capital infrastructure moves alongside the cluster.',
-        expert:'A non-standard composite of six service industries (Table 16, real output, chained 2017 $) selected to surface ' +
-           'cross-sector interdependence across Ontario\'s knowledge, public, and creative economy. Finance and Insurance is introduced on demand to test co-movement and proximity against the cluster.'
+         plain:'Snapshot: Six parts of Ontario\'s economy that work closely together: culture and media, the arts, health and social services, ' +
+        'government, professional and office work, and education. Each line shows how much each one produced in a year. ' +
+        'Press ADD FINANCE to see how money and banking moves right alongside them.',
+         business:'Business Focus: A curated cluster of six interconnected sectors (Information & Culture, Arts, Entertainment & Recreation, ' +
+           'Health Care & Social Services, Public Administration, Professional & Administrative Services, and Education) ' +
+           'that together form a connected innovation base. Add Finance and Insurance to see how capital infrastructure moves alongside the cluster.',
+         expert:'Expert: Precision Lens. A non-standard composite of six service industries (Table 16, real output, chained 2017 $) selected to surface ' +
+         'cross-sector interdependence across Ontario\'s knowledge, public, and creative economy. Finance and Insurance is introduced on demand to test co-movement and proximity against the cluster.'
       },
       smallpond: {
         plain:'Big industries are so large they flatten the small ones on a normal chart. Small Pond View gives each smaller industry ' +
@@ -356,12 +372,18 @@
     var DATA = null, current = 'goods', chart = null;
     var selected = {};                                   // id -> [names]
     var gOpts = { metric:'pct', indexed:true, topN:5 };  // gainers controls
+    var cOpts = { finance:false };
 
     function ends(vals) { var f=null,l=null; for (var i=0;i<vals.length;i++){ if(vals[i]!=null){ if(f===null)f=vals[i]; l=vals[i]; } } return { first:f, last:l }; }
     function latest(s) { return ends(s.values).last; }
 
     // ---- candidate sets per view ----
     function groupSeries(grp) {
+      if (grp === 'creative') {
+        var wanted = CLUSTER.industries.slice();
+        if (cOpts.finance) wanted.push(CLUSTER.financeLabel);
+        return table().series.filter(function (s) { return wanted.indexOf(s.name) >= 0; });
+      }
       return table().series.filter(function (s) { return s.group === grp; });
     }
     function gainerRows() {
@@ -378,6 +400,11 @@
     // ---- defaults: never blank — show the top 5 lines ----
     function defaultsFor(v) {
       if (v.gainers) return gainerRows().slice(0, gOpts.topN).map(function (r) { return r.name; });
+      if (v.creative) {
+        var names = CLUSTER.industries.slice();
+        if (cOpts.finance) names.push(CLUSTER.financeLabel);
+        return names;
+      }
       return groupSeries(v.group)
         .filter(function (s) { return s.level >= 1; })
         .map(function (s) { return { n:s.name, val:latest(s) }; })
@@ -420,8 +447,9 @@
     function buildHead() {
       var t = table(), v = view();
       var unit = (v.gainers && gOpts.indexed) ? 'Indexed · 1997 = 100' : t.unit;
+      var title = v.gainers ? 'Top Gainers' : (v.creative ? 'Creative Cluster' : (v.tab + ' industries'));
       $('head').innerHTML =
-        '<span class="oea-th-title">' + (v.gainers ? 'Top Gainers' : (v.tab + ' industries')) + '</span>' +
+        '<span class="oea-th-title">' + title + '</span>' +
         '<span class="oea-th-unit">' + unit + '</span>' +
         '<span class="oea-th-meta">OEA Table 16 · Annual · ' +
         t.periods[0] + '–' + t.periods[t.periods.length - 1] + '</span>';
@@ -431,6 +459,20 @@
 
     function buildOpts() {
       var box = $('opts');
+      if (view().creative) {
+        box.hidden = false;
+        box.innerHTML =
+          '<span class="oea-opt-label">Cluster tools</span>' +
+          '<button type="button" class="oea-finance ' + (cOpts.finance ? '' : 'off') + '" data-oea="finance">' +
+            (cOpts.finance ? 'Remove Finance' : 'Add Finance') +
+          '</button>';
+        box.querySelector('[data-oea="finance"]').onclick = function () {
+          cOpts.finance = !cOpts.finance;
+          selected[current] = defaultsFor(view());
+          render();
+        };
+        return;
+      }
       if (!view().gainers) { box.hidden = true; box.innerHTML = ''; return; }
       box.hidden = false;
       box.innerHTML =
@@ -487,6 +529,25 @@
           var val = document.createElement('span');
           val.className = 'oea-val ' + (r[gOpts.metric] >= 0 ? 'up' : 'down');
           val.textContent = metricStr(r);
+          label.appendChild(cb); label.appendChild(sw); label.appendChild(nm); label.appendChild(val);
+          box.appendChild(label);
+        });
+        return;
+      }
+
+      if (v.creative) {
+        groupSeries('creative').forEach(function (sr) {
+          var on = s.indexOf(sr.name) >= 0;
+          var color = PALETTE[s.indexOf(sr.name) % PALETTE.length];
+          var label = document.createElement('label');
+          label.className = 'oea-item lvl1' + (on ? ' on' : '');
+          var cb = document.createElement('input'); cb.type='checkbox'; cb.checked=on;
+          cb.onchange = function () { toggle(s, sr.name, cb.checked); render(); };
+          var sw = document.createElement('span'); sw.className='oea-sw';
+          sw.style.background = on ? color : 'transparent';
+          var nm = document.createElement('span'); nm.className='oea-name'; nm.textContent = sr.name;
+          var val = document.createElement('span'); val.className='oea-val';
+          val.textContent = '$' + nf.format(latest(sr)) + 'M';
           label.appendChild(cb); label.appendChild(sw); label.appendChild(nm); label.appendChild(val);
           box.appendChild(label);
         });
