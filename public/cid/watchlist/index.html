@@ -1496,8 +1496,14 @@
       border-radius: 12px;
       background: linear-gradient(180deg, rgba(11, 18, 26, 0.94), rgba(9, 15, 22, 0.92));
       box-shadow: 0 8px 22px rgba(0,0,0,0.24);
-      padding: 1.15rem 1.4rem;
+      padding: 1.15rem 1.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
     }
+    .cid-observatory-headmain { flex: 1 1 auto; min-width: 0; }
     .cid-observatory-kicker {
       color: #9cf8f6;
       text-transform: uppercase;
@@ -1513,13 +1519,15 @@
       font-size: 1.55rem;
       font-weight: 800;
       line-height: 1.05;
-      margin-bottom: 0.34rem;
+      margin-bottom: 0;
     }
     .cid-observatory-viewing {
       color: rgba(214, 255, 255, 0.85);
       font-size: 1.02rem;
       font-weight: 600;
       letter-spacing: 0.02em;
+      text-align: right;
+      flex: 0 0 auto;
     }
     .cid-observatory-frame {
       width: 100%;
@@ -1584,8 +1592,10 @@
     </div>
 
     <section class="cid-observatory-header" aria-label="CID Live Data Observatory header">
-      <div class="cid-observatory-kicker">Canadian Innovation Dimension</div>
-      <div class="cid-observatory-title">Live Data Observatory</div>
+      <div class="cid-observatory-headmain">
+        <div class="cid-observatory-kicker">Canadian Innovation Dimension</div>
+        <div class="cid-observatory-title">Live Data Observatory</div>
+      </div>
       <div class="cid-observatory-viewing">Viewing: Ontario [East-central Canada]</div>
     </section>
 
