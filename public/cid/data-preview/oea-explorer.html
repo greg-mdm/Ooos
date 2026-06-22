@@ -264,8 +264,8 @@
     var SRC = 'table16';                 // all three views read OEA Table 16 (annual, real $)
     var AGG = { 'Goods Producing Industries':1, 'Services Producing Industries':1, 'Total Production':1 };
     var GAIN_FLOOR = 5000;               // ignore industries under ~$5B — cut weak/noise signals
-    var SMALL_CEIL = 20000;              // Small Pond: industries under ~$20B (the ones the giants flatten)
-    var SMALL_DEFAULT_N = 6;             // Small Pond: how many to show by default
+    var SMALL_CEIL = 45000;              // Small Pond: industries under ~$45B — everything except the mega-giants
+    var SMALL_DEFAULT_N = 8;             // Small Pond: how many to show by default (the largest non-giants)
 
     var VIEWS = [
       { id:'goods', tab:'Goods-Producing', group:'goods' },
