@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="40 -18 560 172" width="1120" height="344">
+  
+  <defs>
+    <filter id="ooGlow" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.4" result="b1"></feGaussianBlur>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3.5" result="b2"></feGaussianBlur>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="b3"></feGaussianBlur>
+      <feMerge>
+        <feMergeNode in="b3"></feMergeNode>
+        <feMergeNode in="b2"></feMergeNode>
+        <feMergeNode in="b1"></feMergeNode>
+        <feMergeNode in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <filter id="ooTextShadow" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="1.1" dy="1.1" stdDeviation="0.5" flood-color="#0F031C" flood-opacity="0.7"></feDropShadow>
+    </filter>
+    <linearGradient id="ooTube" gradientUnits="userSpaceOnUse" x1="320" y1="26" x2="320" y2="128">
+      <stop offset="0" stop-color="#4B00B6"></stop><stop offset="0.18" stop-color="#2a0a6e"></stop>
+      <stop offset="0.42" stop-color="#06021C"></stop><stop offset="1" stop-color="#0F031C"></stop>
+    </linearGradient>
+    <linearGradient id="ooTip" gradientUnits="userSpaceOnUse" x1="320" y1="34" x2="320" y2="4">
+      <stop offset="0" stop-color="#4B00B6"></stop><stop offset="1" stop-color="#5B04DE"></stop>
+    </linearGradient>
+    <radialGradient id="ooVignette" gradientUnits="userSpaceOnUse" cx="320" cy="58" r="275" fx="320" fy="40">
+      <stop offset="0" stop-color="#0F031C" stop-opacity="0"></stop><stop offset="0.62" stop-color="#0F031C" stop-opacity="0"></stop>
+      <stop offset="0.86" stop-color="#0F031C" stop-opacity="0.32"></stop><stop offset="1" stop-color="#0F031C" stop-opacity="0.6"></stop>
+    </radialGradient>
+  </defs>
+
+  
+  <path d="M 320 34 C 382.4 35 429.2 36 460.4 37 C 497.8 38 524.4 36 538.4 26 C 546.2 34 546.2 48 546.2 62 C 546.2 84 546.2 98 543.1 108 C 540 110 535.3 110 525.9 110 C 460.4 110 421.4 109 390.2 109 C 384 109 380.8 113 380.8 119 C 380.8 124 379.3 126 374.6 127 C 366.8 128 343.4 128 320 128 C 296.6 128 273.2 128 265.4 127 C 260.7 126 259.2 124 259.2 119 C 259.2 113 256 109 249.8 109 C 218.6 109 179.6 110 114.1 110 C 104.7 110 100 110 96.9 108 C 93.8 98 93.8 84 93.8 62 C 93.8 48 93.8 34 101.6 26 C 115.6 36 142.2 38 179.6 37 C 210.8 36 257.6 35 320 34 Z" fill="#F0F4F5"></path>
+
+  <g filter="url(#ooGlow)" fill="none" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M 320 4 C 312 13 310 18 314 22 C 317 25 323 25 326 22 C 330 18 328 13 320 4 Z" stroke="url(#ooTip)" stroke-width="6"></path>
+    <line x1="320" y1="24" x2="320" y2="34" stroke="url(#ooTip)" stroke-width="6"></line>
+    <path d="M 320 34 C 382.4 35 429.2 36 460.4 37 C 497.8 38 524.4 36 538.4 26 C 546.2 34 546.2 48 546.2 62 C 546.2 84 546.2 98 543.1 108 C 540 110 535.3 110 525.9 110 C 460.4 110 421.4 109 390.2 109 C 384 109 380.8 113 380.8 119 C 380.8 124 379.3 126 374.6 127 C 366.8 128 343.4 128 320 128 C 296.6 128 273.2 128 265.4 127 C 260.7 126 259.2 124 259.2 119 C 259.2 113 256 109 249.8 109 C 218.6 109 179.6 110 114.1 110 C 104.7 110 100 110 96.9 108 C 93.8 98 93.8 84 93.8 62 C 93.8 48 93.8 34 101.6 26 C 115.6 36 142.2 38 179.6 37 C 210.8 36 257.6 35 320 34 Z" stroke="url(#ooTube)" stroke-width="8"></path>
+    <path d="M 320 4 C 312 13 310 18 314 22 C 317 25 323 25 326 22 C 330 18 328 13 320 4 Z" stroke="url(#ooVignette)" stroke-width="6"></path>
+    <line x1="320" y1="24" x2="320" y2="34" stroke="url(#ooVignette)" stroke-width="6"></line>
+    <path d="M 320 34 C 382.4 35 429.2 36 460.4 37 C 497.8 38 524.4 36 538.4 26 C 546.2 34 546.2 48 546.2 62 C 546.2 84 546.2 98 543.1 108 C 540 110 535.3 110 525.9 110 C 460.4 110 421.4 109 390.2 109 C 384 109 380.8 113 380.8 119 C 380.8 124 379.3 126 374.6 127 C 366.8 128 343.4 128 320 128 C 296.6 128 273.2 128 265.4 127 C 260.7 126 259.2 124 259.2 119 C 259.2 113 256 109 249.8 109 C 218.6 109 179.6 110 114.1 110 C 104.7 110 100 110 96.9 108 C 93.8 98 93.8 84 93.8 62 C 93.8 48 93.8 34 101.6 26 C 115.6 36 142.2 38 179.6 37 C 210.8 36 257.6 35 320 34 Z" stroke="url(#ooVignette)" stroke-width="8"></path>
+    <path d="M 320 4 C 312 13 310 18 314 22 C 317 25 323 25 326 22 C 330 18 328 13 320 4 Z" stroke="#caa6ff" stroke-width="2"></path>
+    <line x1="320" y1="24" x2="320" y2="34" stroke="#caa6ff" stroke-width="2"></line>
+    <path d="M 320 34 C 382.4 35 429.2 36 460.4 37 C 497.8 38 524.4 36 538.4 26 C 546.2 34 546.2 48 546.2 62 C 546.2 84 546.2 98 543.1 108 C 540 110 535.3 110 525.9 110 C 460.4 110 421.4 109 390.2 109 C 384 109 380.8 113 380.8 119 C 380.8 124 379.3 126 374.6 127 C 366.8 128 343.4 128 320 128 C 296.6 128 273.2 128 265.4 127 C 260.7 126 259.2 124 259.2 119 C 259.2 113 256 109 249.8 109 C 218.6 109 179.6 110 114.1 110 C 104.7 110 100 110 96.9 108 C 93.8 98 93.8 84 93.8 62 C 93.8 48 93.8 34 101.6 26 C 115.6 36 142.2 38 179.6 37 C 210.8 36 257.6 35 320 34 Z" stroke="#caa6ff" stroke-width="2.4"></path>
+  </g>
+
+  <text x="320" y="74" text-anchor="middle" dominant-baseline="central" font-size="27" fill="#06021C" filter="url(#ooTextShadow)" style="font-family:&#39;Lovelo&#39;,sans-serif;font-weight:900;letter-spacing:0.02em;">Toronto, Canada</text>
+</svg>
