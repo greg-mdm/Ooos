@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { PathwayModal } from "./PathwayModal";
+import { OooDivisions } from "./OooDivisions";
 
 const PALETTE = ['#f0c040','#00d4aa','#ff4444','#00e676','#6C01F4','#4488ff'];
 
@@ -93,6 +94,8 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           </ul>
         </div>
       </section>
+
+      <OooDivisions />
 
       <section className="section section-tinted section--featured">
         <div className="section-header">
