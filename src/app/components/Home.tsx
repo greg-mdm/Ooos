@@ -118,7 +118,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             </h1>
             <img
               className="ot-bigbox__leaf"
-              src={`${import.meta.env.BASE_URL}assets/LEAF%20asset.png`}
+              src={`${import.meta.env.BASE_URL}assets/LEAF%20asset.webp`}
               alt=""
               aria-hidden="true"
             />
