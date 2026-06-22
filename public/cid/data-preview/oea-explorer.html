@@ -264,10 +264,13 @@
     var SRC = 'table16';                 // all three views read OEA Table 16 (annual, real $)
     var AGG = { 'Goods Producing Industries':1, 'Services Producing Industries':1, 'Total Production':1 };
     var GAIN_FLOOR = 5000;               // ignore industries under ~$5B — cut weak/noise signals
+    var SMALL_CEIL = 20000;              // Small Pond: industries under ~$20B (the ones the giants flatten)
+    var SMALL_DEFAULT_N = 6;             // Small Pond: how many to show by default
 
     var VIEWS = [
       { id:'goods', tab:'Goods-Producing', group:'goods' },
       { id:'services', tab:'Services-Producing', group:'services' },
+      { id:'smallpond', tab:'Small Pond', smallpond:true },
       { id:'creative', tab:'Creative Cluster', creative:true },
       { id:'gainers', tab:'Trends · Top Gainers', gainers:true },
     ];
@@ -373,6 +376,7 @@
     var selected = {};                                   // id -> [names]
     var gOpts = { metric:'pct', indexed:true, topN:5 };  // gainers controls
     var cOpts = { finance:false };
+    var spOpts = { scale:'own' };                        // Small Pond: 'own' = auto scale, 'economy' = true relative size
 
     function ends(vals) { var f=null,l=null; for (var i=0;i<vals.length;i++){ if(vals[i]!=null){ if(f===null)f=vals[i]; l=vals[i]; } } return { first:f, last:l }; }
     function latest(s) { return ends(s.values).last; }
@@ -397,9 +401,27 @@
       return rows;
     }
 
+    // ---- Small Pond: the smaller industries the giants flatten on a shared axis ----
+    function smallRows() {
+      return table().series
+        .filter(function (s) { return s.level >= 1 && !AGG[s.name]; })
+        .map(function (s) { return { name:s.name, group:s.group, last:latest(s) }; })
+        .filter(function (r) { return r.last != null && r.last < SMALL_CEIL; })
+        .sort(function (a, b) { return b.last - a.last; });
+    }
+    // Largest single-industry value across the whole sample — the "economy scale" ceiling.
+    function economyMax() {
+      var m = 0;
+      table().series.forEach(function (s) {
+        if (s.level >= 1 && !AGG[s.name]) s.values.forEach(function (x) { if (x != null && x > m) m = x; });
+      });
+      return m;
+    }
+
     // ---- defaults: never blank — show the top 5 lines ----
     function defaultsFor(v) {
       if (v.gainers) return gainerRows().slice(0, gOpts.topN).map(function (r) { return r.name; });
+      if (v.smallpond) return smallRows().slice(0, SMALL_DEFAULT_N).map(function (r) { return r.name; });
       if (v.creative) {
         var names = CLUSTER.industries.slice();
         if (cOpts.finance) names.push(CLUSTER.financeLabel);
@@ -446,8 +468,9 @@
 
     function buildHead() {
       var t = table(), v = view();
-      var unit = (v.gainers && gOpts.indexed) ? 'Indexed · 1997 = 100' : t.unit;
-      var title = v.gainers ? 'Top Gainers' : (v.creative ? 'Creative Cluster' : (v.tab + ' industries'));
+      var unit = (v.gainers && gOpts.indexed) ? 'Indexed · 1997 = 100'
+               : (v.smallpond ? (t.unit + (spOpts.scale === 'economy' ? ' · economy scale' : ' · own scale')) : t.unit);
+      var title = v.gainers ? 'Top Gainers' : (v.creative ? 'Creative Cluster' : (v.smallpond ? 'Smaller industries' : (v.tab + ' industries')));
       $('head').innerHTML =
         '<span class="oea-th-title">' + title + '</span>' +
         '<span class="oea-th-unit">' + unit + '</span>' +
@@ -470,6 +493,20 @@
           cOpts.finance = !cOpts.finance;
           selected[current] = defaultsFor(view());
           render();
+        };
+        return;
+      }
+      if (view().smallpond) {
+        box.hidden = false;
+        box.innerHTML =
+          '<span class="oea-opt-label">Scale</span>' +
+          '<span class="oea-seg" data-oea="seg-scale">' +
+            '<button type="button" data-v="own" aria-pressed="' + (spOpts.scale === 'own') + '">Own scale</button>' +
+            '<button type="button" data-v="economy" aria-pressed="' + (spOpts.scale === 'economy') + '">Economy scale</button>' +
+          '</span>';
+        box.querySelector('[data-oea="seg-scale"]').onclick = function (e) {
+          var b = e.target.closest('button'); if (!b) return;
+          spOpts.scale = b.dataset.v; render();
         };
         return;
       }
@@ -554,6 +591,25 @@
         return;
       }
 
+      if (v.smallpond) {
+        smallRows().forEach(function (r) {
+          var on = s.indexOf(r.name) >= 0;
+          var color = PALETTE[s.indexOf(r.name) % PALETTE.length];
+          var label = document.createElement('label');
+          label.className = 'oea-item lvl1' + (on ? ' on' : '');
+          var cb = document.createElement('input'); cb.type='checkbox'; cb.checked=on;
+          cb.onchange = function () { toggle(s, r.name, cb.checked); render(); };
+          var sw = document.createElement('span'); sw.className='oea-sw';
+          sw.style.background = on ? color : 'transparent';
+          var nm = document.createElement('span'); nm.className='oea-name'; nm.textContent = r.name;
+          var val = document.createElement('span'); val.className='oea-val';
+          val.textContent = '$' + nf.format(r.last) + 'M';
+          label.appendChild(cb); label.appendChild(sw); label.appendChild(nm); label.appendChild(val);
+          box.appendChild(label);
+        });
+        return;
+      }
+
       // goods / services: grouped header + hierarchy + latest value as context
       var head = document.createElement('div'); head.className = 'oea-grp';
       head.textContent = (table().groupLabels && table().groupLabels[v.group]) || v.group;
@@ -605,6 +661,7 @@
     function draw() {
       var t = table(), v = view(), s = sel();
       var indexed = v.gainers && gOpts.indexed;
+      var yMax = (v.smallpond && spOpts.scale === 'economy') ? economyMax() : undefined;
       var datasets = s.map(function (name, i) {
         var sr = seriesByName(name);
         var vals = sr ? sr.values : [];
@@ -633,7 +690,7 @@
                     return ((n - 1 - index) % stride === 0) ? t.periods[index] : '';
                   } },
                 grid:{ color:'rgba(255,255,255,0.06)' } },
-            y:{ ticks:{ color:'#8b949e', callback:function (val) {
+            y:{ max: yMax, ticks:{ color:'#8b949e', callback:function (val) {
                   return indexed ? val : '$' + nf.format(val) + 'M'; } },
                 grid:{ color:'rgba(255,255,255,0.06)' },
                 title:{ display:true, color:'#8b949e', font:{ size:10 },
