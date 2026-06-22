@@ -1,0 +1,46 @@
+name: CID data refresh
+
+# PROTOTYPE PHASE: manual trigger only. The daily cron is intentionally commented
+# out until the wiring is finalized — see scripts/README-cid-data.md. When ready,
+# uncomment the schedule block (runs 14:00 UTC on business days, after StatCan's
+# 08:30 ET release).
+on:
+  workflow_dispatch:
+  # schedule:
+  #   - cron: '0 14 * * 1-5'
+
+# Least-privilege: only allow committing back to the repo.
+permissions:
+  contents: write
+
+# Never run two refreshes at once.
+concurrency:
+  group: cid-data
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch + normalize StatCan data
+        run: node scripts/fetch-cid-data.mjs
+
+      - name: Commit signals.json if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- public/cid/data/signals.json; then
+            echo "No change in signals.json — nothing to commit."
+          else
+            git add public/cid/data/signals.json
+            git commit -m "chore(cid): refresh StatCan signals.json [skip ci]"
+            git push
+          fi
