@@ -1,0 +1,11 @@
+/* Site nav top-panel gradient (midnight-black -> electric-violet).
+   Loaded after site.css to override the previous flat .nav background.
+   Uses the committed vector /ooos-top-panel-gradient.svg, which has
+   preserveAspectRatio="none" so it stretches to fill the bar exactly. */
+.nav {
+  background-color: #19007D; /* fallback while the SVG loads */
+  background-image: url("/ooos-top-panel-gradient.svg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
