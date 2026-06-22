@@ -20,14 +20,14 @@
 }
 .ooos-top *, .ooos-top *::before, .ooos-top *::after { box-sizing: border-box; }
 
-.ot-content { max-width: 1100px; margin-inline: auto; }
+.ot-content { max-width: 1240px; margin-inline: auto; }
 
 /* logo orb on its matching light-blue background plate (no blend needed) */
 .ot-logo { width: 230px; height: 230px; display: inline-block; }
 
 /* locked 3-block layout: text-left / orb-center / sign-right */
 .ot-trio { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
-  gap: clamp(16px, 3vw, 44px); max-width: 1080px; margin: 0 auto; }
+  gap: clamp(16px, 3vw, 44px); max-width: 1240px; margin: 0 auto; }
 .ot-trio__side { color: var(--ot-dark-indigo); font-weight: 500;
   font-size: clamp(1rem, 1.55vw, 1.32rem); line-height: 1.5; }
 .ot-trio__left { text-align: left; align-self: center; padding-left: clamp(1.5rem, 3vw, 2.4rem); }
@@ -58,7 +58,7 @@
 @media (prefers-reduced-motion: reduce) { .ot-arrival .w { animation: none; opacity: 1; transform: none; } }
 
 .ot-bigbox { background: #F0F4F5; border: 1px solid rgba(91,4,222,0.12); border-radius: 18px;
-  padding: clamp(1.5rem, 3vw, 2.4rem); max-width: 1080px; margin: 0 auto 18px;
+  padding: clamp(1.5rem, 3vw, 2.4rem); max-width: 1240px; margin: 0 auto 18px;
   box-shadow: 0 14px 44px rgba(91,4,222,0.14); }
 .ot-bigbox h1 { font-family: 'Playfair Display', Georgia, serif; font-weight: 600;
   font-size: clamp(1.6rem, 2.8vw, 2.4rem); line-height: 1.2; letter-spacing: -0.012em;
