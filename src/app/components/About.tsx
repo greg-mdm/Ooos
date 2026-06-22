@@ -340,6 +340,8 @@ export function About() {
             </article>
           </div>
 
+          <section className="ds-palette">
+            <div className="ds-palette-inner">
           <h3 className="ds-section-title">Colour system</h3>
           <p className="ds-section-lede">
             Core semantic anchors and the Tailwind spectrums they generate. Each
@@ -387,6 +389,8 @@ export function About() {
               </section>
             ))}
           </div>
+            </div>
+          </section>
 
           <h3 className="ds-section-title ds-section-title--quiet">Component primitives</h3>
           <div className="ds-quadrant ds-quadrant--quiet">
