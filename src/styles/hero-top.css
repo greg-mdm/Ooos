@@ -58,14 +58,15 @@
   animation: otWordRise 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 @media (prefers-reduced-motion: reduce) { .ot-arrival .w { animation: none; opacity: 1; transform: none; } }
 
-/* two-column: blurb on the left, maple leaf icon on the right.
-   White tinted/shaded card; sizes kept in scale with the rest of the page
-   (blurb just above the arrival line; leaf a ~100px icon, not a hero image). */
-.ot-bigbox { display: flex; align-items: center; gap: clamp(1.25rem, 2.5vw, 2rem);
+/* two-column: blurb on the left, maple leaf icon on the right. The card hugs
+   its content (width: fit-content, centered) so the leaf sits next to the text
+   instead of being pushed to a far edge. Sizes kept in scale with the page. */
+.ot-bigbox { display: flex; align-items: center; gap: clamp(1rem, 2vw, 1.5rem);
+  width: fit-content; max-width: 100%; box-sizing: border-box;
   background: rgba(255,255,255,0.75); border: 1px solid rgba(91,4,222,0.12); border-radius: 18px;
-  padding: clamp(1.1rem, 2.2vw, 1.6rem); max-width: 1240px; margin: 0 auto 18px;
+  padding: clamp(1.1rem, 2.2vw, 1.6rem); margin: 0 auto 18px;
   box-shadow: 0 14px 44px rgba(91,4,222,0.14); }
-.ot-bigbox h1 { flex: 1 1 auto; font-family: 'Playfair Display', Georgia, serif; font-weight: 600;
+.ot-bigbox h1 { flex: 0 1 auto; max-width: 56rem; font-family: 'Playfair Display', Georgia, serif; font-weight: 600;
   font-size: clamp(1.2rem, 1.95vw, 1.65rem); line-height: 1.25; letter-spacing: -0.012em;
   color: var(--ot-ink); margin: 0; text-align: left; text-wrap: balance; }
 .ot-bigbox h1 strong { font-weight: 700; color: var(--ot-dark-indigo); }
