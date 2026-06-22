@@ -1,6 +1,114 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
+/* Core semantic anchors — the named colours the whole system is built on. */
+const CORE_COLOURS = [
+  { name: "Midnight Black", hex: "#0F031C", ink: "#FFFFFF", token: "--color-midnight-black" },
+  { name: "Darkest Indigo", hex: "#06021C", ink: "#FFFFFF", token: "--color-darkest-indigo" },
+  { name: "Dark Indigo", hex: "#19007D", ink: "#FFFFFF", token: "--color-dark-indigo" },
+  { name: "Portal", hex: "#4B00B6", ink: "#FFFFFF", token: "--color-portal" },
+  { name: "Electric", hex: "#5B04DE", ink: "#FFFFFF", token: "--color-electric" },
+  { name: "Teal", hex: "#008080", ink: "#FFFFFF", token: "--color-teal" },
+  { name: "Robin's Egg", hex: "#F0F4F5", ink: "#0A0614", token: "--color-robins-egg" },
+  { name: "Ruby", hex: "#822F00", ink: "#FFFFFF", token: "--color-ruby" },
+  { name: "Gold", hex: "#F0C040", ink: "#0A0614", token: "--color-gold" },
+  { name: "Sunshine", hex: "#FFF3B0", ink: "#0A0614", token: "--color-sunshine" },
+  { name: "Suncloud White", hex: "#FFFDF4", ink: "#0A0614", token: "--color-suncloud-white" },
+  { name: "Bright Silver", hex: "#E8ECF4", ink: "#0A0614", token: "--color-bright-silver" },
+  { name: "Chrome Silver", hex: "#D8DBDE", ink: "#0A0614", token: "--color-chrome-silver" },
+] as const;
+
+/* The five selected Tailwind ramps. Each blends its 11 stops into one smooth
+   gradient; stops are listed in display order (gold ramp runs 950 → 50). */
+type Stop = { w: string; hex: string; ink: string; anchor?: boolean };
+type Spectrum = { name: string; badge?: string; stops: Stop[] };
+
+const SPECTRA: Spectrum[] = [
+  {
+    name: "Midnight Violet",
+    stops: [
+      { w: "50", hex: "#F2E8FD", ink: "#0A0614" },
+      { w: "100", hex: "#E5D1FA", ink: "#0A0614" },
+      { w: "200", hex: "#CBA3F5", ink: "#0A0614" },
+      { w: "300", hex: "#B075F0", ink: "#FFFFFF" },
+      { w: "400", hex: "#9646EC", ink: "#FFFFFF" },
+      { w: "500", hex: "#7C18E7", ink: "#FFFFFF" },
+      { w: "600", hex: "#6313B9", ink: "#FFFFFF" },
+      { w: "700", hex: "#4A0F8A", ink: "#FFFFFF" },
+      { w: "800", hex: "#320A5C", ink: "#FFFFFF" },
+      { w: "900", hex: "#19052E", ink: "#FFFFFF" },
+      { w: "950", hex: "#110320", ink: "#FFFFFF" },
+    ],
+  },
+  {
+    name: "Dark Amethyst",
+    stops: [
+      { w: "50", hex: "#F0E7FE", ink: "#0A0614" },
+      { w: "100", hex: "#E2CEFD", ink: "#0A0614" },
+      { w: "200", hex: "#C49EFA", ink: "#FFFFFF" },
+      { w: "300", hex: "#A76DF8", ink: "#FFFFFF" },
+      { w: "400", hex: "#8A3CF6", ink: "#FFFFFF" },
+      { w: "500", hex: "#6C0BF4", ink: "#FFFFFF" },
+      { w: "600", hex: "#5709C3", ink: "#FFFFFF" },
+      { w: "700", hex: "#410792", ink: "#FFFFFF" },
+      { w: "800", hex: "#2B0561", ink: "#FFFFFF" },
+      { w: "900", hex: "#160231", ink: "#FFFFFF" },
+      { w: "950", hex: "#0F0222", ink: "#FFFFFF" },
+    ],
+  },
+  {
+    name: "Teal",
+    badge: "Exact anchor · 700",
+    stops: [
+      { w: "50", hex: "#F0FDFD", ink: "#0A0614" },
+      { w: "100", hex: "#D6F8F7", ink: "#0A0614" },
+      { w: "200", hex: "#ADEEED", ink: "#0A0614" },
+      { w: "300", hex: "#79DEDD", ink: "#0A0614" },
+      { w: "400", hex: "#3DC8C7", ink: "#0A0614" },
+      { w: "500", hex: "#1AADAD", ink: "#FFFFFF" },
+      { w: "600", hex: "#039393", ink: "#FFFFFF" },
+      { w: "700", hex: "#008080", ink: "#FFFFFF", anchor: true },
+      { w: "800", hex: "#005F5F", ink: "#FFFFFF" },
+      { w: "900", hex: "#034747", ink: "#FFFFFF" },
+      { w: "950", hex: "#002828", ink: "#FFFFFF" },
+    ],
+  },
+  {
+    name: "Robin's Egg",
+    badge: "Exact anchor · 100",
+    stops: [
+      { w: "50", hex: "#F9FAFB", ink: "#0A0614" },
+      { w: "100", hex: "#F0F4F5", ink: "#0A0614", anchor: true },
+      { w: "200", hex: "#DAE1E3", ink: "#0A0614" },
+      { w: "300", hex: "#C2CDCF", ink: "#0A0614" },
+      { w: "400", hex: "#A6B4B7", ink: "#0A0614" },
+      { w: "500", hex: "#8B9CA0", ink: "#FFFFFF" },
+      { w: "600", hex: "#728488", ink: "#FFFFFF" },
+      { w: "700", hex: "#5C6C70", ink: "#FFFFFF" },
+      { w: "800", hex: "#485559", ink: "#FFFFFF" },
+      { w: "900", hex: "#353F42", ink: "#FFFFFF" },
+      { w: "950", hex: "#1C2325", ink: "#FFFFFF" },
+    ],
+  },
+  {
+    name: "Gold → Sunshine → Suncloud White → White",
+    badge: "Opaque ramp · 950 → 50",
+    stops: [
+      { w: "950", hex: "#F0C040", ink: "#1A1203", anchor: true },
+      { w: "900", hex: "#F3CA5C", ink: "#1A1203" },
+      { w: "800", hex: "#F6D573", ink: "#1A1203" },
+      { w: "700", hex: "#F9DF88", ink: "#1A1203" },
+      { w: "600", hex: "#FCE99C", ink: "#1A1203" },
+      { w: "500", hex: "#FFF3B0", ink: "#1A1203", anchor: true },
+      { w: "400", hex: "#FFF6C2", ink: "#1A1203" },
+      { w: "300", hex: "#FFF8D3", ink: "#1A1203" },
+      { w: "200", hex: "#FFFBE4", ink: "#1A1203" },
+      { w: "100", hex: "#FFFDF4", ink: "#1A1203", anchor: true },
+      { w: "50", hex: "#FFFFFF", ink: "#1A1203", anchor: true },
+    ],
+  },
+];
+
 export function About() {
   const [orbitActive, setOrbitActive] = useState(false);
   const stopTimer = useRef<number | null>(null);
@@ -230,6 +338,54 @@ export function About() {
                 <li><span className="ds-sw" style={{ background: "#4B00B6" }} aria-hidden="true" /><code>#4B00B6</code><span>Portal</span></li>
               </ul>
             </article>
+          </div>
+
+          <h3 className="ds-section-title">Colour system</h3>
+          <p className="ds-section-lede">
+            Core semantic anchors and the Tailwind spectrums they generate. Each
+            ramp blends its eleven stops into one smooth gradient — the same
+            gradient logic used across surfaces, accents, and transitions
+            throughout the Ooos universe.
+          </p>
+
+          <ul className="ds-anchors" aria-label="Core semantic colours">
+            {CORE_COLOURS.map((c) => (
+              <li className="ds-anchor" key={c.token}>
+                <span className="ds-anchor__colour" style={{ background: c.hex, color: c.ink }}>
+                  <strong>{c.name}</strong>
+                  <span>{c.hex}</span>
+                </span>
+                <code>{c.token}</code>
+              </li>
+            ))}
+          </ul>
+
+          <div className="ds-spectra">
+            {SPECTRA.map((s) => (
+              <section className="ds-spectrum" key={s.name} aria-label={`${s.name} spectrum`}>
+                <div className="ds-spectrum-head">
+                  <h4>{s.name}</h4>
+                  {s.badge && <span className="ds-spectrum-badge">{s.badge}</span>}
+                </div>
+                <div
+                  className="ds-ramp"
+                  aria-hidden="true"
+                  style={{ backgroundImage: `linear-gradient(90deg, ${s.stops.map((p) => p.hex).join(", ")})` }}
+                />
+                <ul className="ds-stops" aria-label={`${s.name} stops`}>
+                  {s.stops.map((p) => (
+                    <li
+                      className={`ds-stop${p.anchor ? " is-anchor" : ""}`}
+                      key={p.w}
+                      style={{ background: p.hex, color: p.ink }}
+                    >
+                      <strong>{p.w}</strong>
+                      <span>{p.hex}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
           </div>
 
           <h3 className="ds-section-title ds-section-title--quiet">Component primitives</h3>
