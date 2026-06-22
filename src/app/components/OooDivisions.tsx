@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AuroraField } from "./AuroraField";
-import "../../styles/ooo-divisions2.css";
+import "../../styles/ooodivisions2.css";
 
 // ----- data -----------------------------------------------------------------
 type Tone = "sun" | "ruby" | "teal" | "indigo";
