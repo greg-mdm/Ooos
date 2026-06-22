@@ -116,6 +116,12 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             <h1>
               <strong>Ooo Digital Media Studio</strong> designs interactive experiences and creative campaigns for founders, organizations, and communities.
             </h1>
+            <img
+              className="ot-bigbox__leaf"
+              src={`${import.meta.env.BASE_URL}assets/LEAF%20asset.png`}
+              alt=""
+              aria-hidden="true"
+            />
           </div>
         </div>
       </section>
