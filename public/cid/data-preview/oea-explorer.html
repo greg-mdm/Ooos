@@ -378,6 +378,11 @@
       var p = new URLSearchParams(location.search), v = p.get('view');
       if (v) { for (var i = 0; i < VIEWS.length; i++) { if (VIEWS[i].id === v) { current = v; break; } } }
       SOLO = p.get('solo') === '1';
+      if (SOLO) {  // lean second pool: drop chrome that the first pool already shows
+        ['.oea-h', '.oea-sub', '.oea-pills', '.oea-glossary', '.oea-attr',
+         '.oea-source-brand', '.oea-source-tag', '.oea-disclaimer']
+          .forEach(function (s) { var el = root.querySelector(s); if (el) el.style.display = 'none'; });
+      }
     })();
     var selected = {};                                   // id -> [names]
     var gOpts = { metric:'pct', indexed:true, topN:5 };  // gainers controls
