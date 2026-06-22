@@ -80,11 +80,12 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           <div className="ot-trio">
             <div className="ot-trio__side ot-trio__left">
               <span className="ot-pill ot-pill--welcome">
-                <svg className="ot-pill__ico" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <circle cx="12" cy="12" r="9.25" stroke="currentColor" strokeWidth="1.6" />
-                  <ellipse cx="12" cy="12" rx="4.1" ry="9.25" stroke="currentColor" strokeWidth="1.6" />
-                  <path d="M2.9 9.2h18.2M2.9 14.8h18.2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-                </svg>
+                <img
+                  className="ot-pill__ico"
+                  src={`${import.meta.env.BASE_URL}assets/Ooo-Global-Network-Electric.png`}
+                  alt=""
+                  aria-hidden="true"
+                />
                 Everyone is welcome here.
               </span>
             </div>
