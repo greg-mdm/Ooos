@@ -94,8 +94,8 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 className="ot-logo"
                 src={`${import.meta.env.BASE_URL}assets/Final%20Logo%20-%20Ooo%20-%20Light%20Blue%20Background.png`}
                 alt="Ooo Digital Media Studio"
-                width="230"
-                height="230"
+                width="300"
+                height="300"
               />
             </div>
             <div className="ot-trio__side ot-trio__right">
@@ -116,6 +116,12 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             <h1>
               <strong>Ooo Digital Media Studio</strong> designs interactive experiences and creative campaigns for founders, organizations, and communities.
             </h1>
+            <img
+              className="ot-bigbox__leaf"
+              src={`${import.meta.env.BASE_URL}assets/LEAF%20asset.webp`}
+              alt=""
+              aria-hidden="true"
+            />
           </div>
         </div>
       </section>
@@ -454,12 +460,6 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           <span className="path-links__label">Other project links</span>
           <Link to="/ostara" className="path-links__link">Ostara: Collective Intelligence System</Link>
           <Link to="/cid" className="path-links__link">Canadian Innovation Dimension (CID)</Link>
-        </div>
-
-        <div style={{ textAlign: "center", marginTop: 20 }}>
-          <button onClick={onSupport} className="btn btn-gold" type="button">
-            Support a shared vision!
-          </button>
         </div>
 
         <p className="support-disclosure">

@@ -10,7 +10,7 @@
   font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
   color:var(--ood-ink);
   background:#F0F4F5;
-  padding:56px 24px 88px;
+  padding:16px 24px 88px;
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
   /* full-bleed: span the page width regardless of the parent container */
@@ -40,7 +40,9 @@
 .ood-col--cid .ood-head{background:linear-gradient(180deg,#FFEBE4 0%,#FFF1EC 100%);}
 .ood-col--ra .ood-head{background:linear-gradient(180deg,#D6F8F7 0%,#E6FBFA 100%);}
 .ood-name{margin:0 0 8px;font-family:Poppins,sans-serif;font-weight:600;font-size:1.06rem;line-height:1.25;color:var(--ood-ink);text-wrap:balance;}
-.ood-kind{margin:0;font-family:'Lovelo','Poppins',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.22em;color:#0F031C;}
+/* Lovelo Black is a single 900-weight face — request 900 (not 700) or the
+   browser distorts the glyphs (uneven letter heights). Matches the other titles. */
+.ood-kind{margin:0;font-family:'Lovelo','Poppins',sans-serif;font-size:.72rem;font-weight:900;letter-spacing:.22em;color:#0F031C;}
 .ood-keys{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
 .ood-key-wrap{margin:0;}
 .ood-key{appearance:none;-webkit-appearance:none;border:0;width:100%;text-align:left;display:flex;align-items:center;min-height:72px;border-radius:13px;padding:.95rem 1.05rem;cursor:pointer;font:inherit;transition:background .2s,box-shadow .2s,transform .12s;}

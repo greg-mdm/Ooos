@@ -10,8 +10,8 @@ type Division = {
   name: string;
   kind: string;
   keys: Key[];
-  products: Pill[];
   /** each entry is one pill, or an array of pills rendered side-by-side on one row */
+  products: (Pill | Pill[])[];
   services: (Pill | Pill[])[];
 };
 
@@ -57,7 +57,7 @@ const DIVISIONS: Division[] = [
     ],
     products: [
       { label: "Radical strategic intelligence", tone: "ruby" },
-      [{ label: "Experiments", tone: "ruby" }, { label: "Workshops", tone: "ruby" }],
+      [{ label: "Workshops", tone: "ruby" }, { label: "Experiments", tone: "ruby" }],
       { label: "Research design", tone: "ruby" },
     ],
     services: [
@@ -93,6 +93,24 @@ function PillTag({ pill }: { pill: Pill }) {
   return <span className={`ood-pill ood-pill--${pill.tone}`}>{pill.label}</span>;
 }
 
+function PillList({ items }: { items: (Pill | Pill[])[] }) {
+  return (
+    <div className="ood-pills">
+      {items.map((item, i) =>
+        Array.isArray(item) ? (
+          <div className="ood-pillrow" key={i}>
+            {item.map((p, j) => (
+              <PillTag key={j} pill={p} />
+            ))}
+          </div>
+        ) : (
+          <PillTag key={i} pill={item} />
+        )
+      )}
+    </div>
+  );
+}
+
 function ProductsKey({ d }: { d: Division }) {
   return (
     <li className="ood-key-wrap">
@@ -100,27 +118,11 @@ function ProductsKey({ d }: { d: Division }) {
         <div className="ood-prod-grid">
           <div className="ood-prod-col">
             <p className="ood-prod-h">Digital Products</p>
-            <div className="ood-pills">
-              {d.products.map((p, i) => (
-                <PillTag key={i} pill={p} />
-              ))}
-            </div>
+            <PillList items={d.products} />
           </div>
           <div className="ood-prod-col">
             <p className="ood-prod-h">Studio Services</p>
-            <div className="ood-pills">
-              {d.services.map((s, i) =>
-                Array.isArray(s) ? (
-                  <div className="ood-pillrow" key={i}>
-                    {s.map((p, j) => (
-                      <PillTag key={j} pill={p} />
-                    ))}
-                  </div>
-                ) : (
-                  <PillTag key={i} pill={s} />
-                )
-              )}
-            </div>
+            <PillList items={d.services} />
           </div>
         </div>
       </div>

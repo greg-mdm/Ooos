@@ -16,26 +16,27 @@
   --ot-font-body: 'Inter', system-ui, sans-serif;
   background: var(--ot-bg);
   color: var(--ot-ink);
-  padding: 48px 24px 56px;
+  padding: 56px 24px 28px;
 }
 .ooos-top *, .ooos-top *::before, .ooos-top *::after { box-sizing: border-box; }
 
 .ot-content { max-width: 1240px; margin-inline: auto; }
 
 /* logo orb on its matching light-blue background plate (no blend needed) */
-.ot-logo { width: 230px; height: 230px; display: inline-block; }
+/* central focal point — enlarged from 230 so the orb anchors the hero */
+.ot-logo { width: 300px; height: 300px; display: inline-block; }
 
 /* locked 3-block layout: text-left / orb-center / sign-right */
 .ot-trio { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
   gap: clamp(16px, 3vw, 44px); max-width: 1240px; margin: 0 auto; }
 .ot-trio__side { color: var(--ot-dark-indigo); font-weight: 500;
   font-size: clamp(1rem, 1.55vw, 1.32rem); line-height: 1.5; }
-.ot-trio__left { text-align: left; align-self: center; padding-left: clamp(1.5rem, 3vw, 2.4rem); }
+.ot-trio__left { text-align: left; align-self: center; padding-left: clamp(1rem, 2vw, 1.75rem); }
 .ot-trio__right { text-align: right; align-self: center; }
-.ot-trio__orb { text-align: center; transform: translateY(-40px); }
+.ot-trio__orb { text-align: center; transform: translateY(-16px); }
 
 /* Toronto / Canada neon sign — committed vector asset in /public */
-.ot-sign { width: 290px; margin: 0 80px 0 auto; transform: translateY(-3px);
+.ot-sign { width: 290px; margin: 0 10px 0 auto; transform: translateY(-3px);
   aspect-ratio: 2800 / 860; background-repeat: no-repeat; background-position: center;
   background-size: contain; background-image: url("/Ooo-St.svg.svg"); }
 
@@ -57,13 +58,18 @@
   animation: otWordRise 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 @media (prefers-reduced-motion: reduce) { .ot-arrival .w { animation: none; opacity: 1; transform: none; } }
 
-.ot-bigbox { background: #F0F4F5; border: 1px solid rgba(91,4,222,0.12); border-radius: 18px;
+/* two-column: blurb on the left (wraps to ~3 lines), maple leaf on the right.
+   Blends into the page — same robin's-egg background, no border/shadow lines. */
+.ot-bigbox { display: flex; align-items: center; gap: clamp(1.5rem, 3vw, 2.8rem);
+  background: transparent; border: 0; border-radius: 18px;
   padding: clamp(1.5rem, 3vw, 2.4rem); max-width: 1240px; margin: 0 auto 18px;
-  box-shadow: 0 14px 44px rgba(91,4,222,0.14); }
-.ot-bigbox h1 { font-family: 'Playfair Display', Georgia, serif; font-weight: 600;
+  box-shadow: none; }
+.ot-bigbox h1 { flex: 1 1 auto; font-family: 'Playfair Display', Georgia, serif; font-weight: 600;
   font-size: clamp(1.6rem, 2.8vw, 2.4rem); line-height: 1.2; letter-spacing: -0.012em;
   color: var(--ot-ink); margin: 0; text-align: left; text-wrap: balance; }
 .ot-bigbox h1 strong { font-weight: 700; color: var(--ot-dark-indigo); }
+.ot-bigbox__leaf { flex: 0 0 auto; align-self: center; width: clamp(140px, 16vw, 200px);
+  height: auto; display: block; }
 
 @media (max-width: 720px) {
   .ot-trio { grid-template-columns: 1fr; gap: 18px; }
@@ -72,6 +78,8 @@
   .ot-trio__orb { order: -1; transform: none; }
   .ot-sign { margin: 0 auto; transform: none; }
   .ot-arrival { position: static; left: auto; margin: 16px auto 18px; white-space: normal; }
+  .ot-bigbox { flex-direction: column; align-items: flex-start; }
+  .ot-bigbox__leaf { align-self: center; width: clamp(120px, 40vw, 180px); }
 }
 
 /* ===== Bullet / "piano-key" tile pattern — PRESERVED FOR REUSE ============
