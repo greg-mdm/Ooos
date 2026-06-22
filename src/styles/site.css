@@ -96,7 +96,9 @@ a:hover { color: var(--electric); }
   align-items: center;
   justify-content: space-between;
   padding: 14px 24px;
-  max-width: 1100px;
+  /* matches the hero top panel container (.ot-content / .ot-trio) so the
+     nav wordmark lines up over the homepage "Everyone is welcome" pill */
+  max-width: 1240px;
   margin: 0 auto;
   gap: 24px;
 }

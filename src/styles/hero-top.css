@@ -16,26 +16,27 @@
   --ot-font-body: 'Inter', system-ui, sans-serif;
   background: var(--ot-bg);
   color: var(--ot-ink);
-  padding: 48px 24px 56px;
+  padding: 56px 24px 28px;
 }
 .ooos-top *, .ooos-top *::before, .ooos-top *::after { box-sizing: border-box; }
 
 .ot-content { max-width: 1240px; margin-inline: auto; }
 
 /* logo orb on its matching light-blue background plate (no blend needed) */
-.ot-logo { width: 230px; height: 230px; display: inline-block; }
+/* central focal point — enlarged from 230 so the orb anchors the hero */
+.ot-logo { width: 300px; height: 300px; display: inline-block; }
 
 /* locked 3-block layout: text-left / orb-center / sign-right */
 .ot-trio { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
   gap: clamp(16px, 3vw, 44px); max-width: 1240px; margin: 0 auto; }
 .ot-trio__side { color: var(--ot-dark-indigo); font-weight: 500;
   font-size: clamp(1rem, 1.55vw, 1.32rem); line-height: 1.5; }
-.ot-trio__left { text-align: left; align-self: center; padding-left: clamp(1.5rem, 3vw, 2.4rem); }
+.ot-trio__left { text-align: left; align-self: center; padding-left: clamp(1rem, 2vw, 1.75rem); }
 .ot-trio__right { text-align: right; align-self: center; }
-.ot-trio__orb { text-align: center; transform: translateY(-40px); }
+.ot-trio__orb { text-align: center; transform: translateY(-16px); }
 
 /* Toronto / Canada neon sign — committed vector asset in /public */
-.ot-sign { width: 290px; margin: 0 80px 0 auto; transform: translateY(-3px);
+.ot-sign { width: 290px; margin: 0 10px 0 auto; transform: translateY(-3px);
   aspect-ratio: 2800 / 860; background-repeat: no-repeat; background-position: center;
   background-size: contain; background-image: url("/Ooo-St.svg.svg"); }
 
