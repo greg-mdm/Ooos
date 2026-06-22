@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1642"
+     height="366"
+     viewBox="0 0 1642 366"
+     preserveAspectRatio="none"
+     role="img"
+     aria-label="Smooth midnight black to electric violet vertical gradient panel">
+  <defs>
+    <linearGradient id="top-panel-gradient"
+                    x1="0" y1="0" x2="0" y2="1"
+                    color-interpolation="sRGB">
+      <stop offset="0%" stop-color="#0F031C"/>
+      <stop offset="1.52%" stop-color="#0C031C"/>
+      <stop offset="3.04%" stop-color="#09031B"/>
+      <stop offset="4.56%" stop-color="#07021B"/>
+      <stop offset="6.08%" stop-color="#06021C"/>
+      <stop offset="17.43%" stop-color="#07002B"/>
+      <stop offset="28.78%" stop-color="#0B0045"/>
+      <stop offset="40.13%" stop-color="#120063"/>
+      <stop offset="51.48%" stop-color="#19007D"/>
+      <stop offset="59.42%" stop-color="#22038B"/>
+      <stop offset="67.37%" stop-color="#310299"/>
+      <stop offset="75.32%" stop-color="#4000A7"/>
+      <stop offset="83.27%" stop-color="#4B00B6"/>
+      <stop offset="87.45%" stop-color="#4F02BF"/>
+      <stop offset="91.63%" stop-color="#5403C9"/>
+      <stop offset="95.82%" stop-color="#5703D3"/>
+      <stop offset="100%" stop-color="#5B04DE"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1642" height="366" fill="url(#top-panel-gradient)"/>
+</svg>
