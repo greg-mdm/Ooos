@@ -1635,8 +1635,18 @@
     <section class="cid-observatory-wrap" aria-label="Live Data Observatory">
       <iframe
         class="cid-observatory-frame"
-        src="/cid/data-preview/oea-explorer.html?v=17"
+        src="/cid/data-preview/oea-explorer.html?v=18"
         title="Live Data Observatory — Ontario's Economic Activity"
+        loading="lazy">
+      </iframe>
+    </section>
+
+    <!-- SECOND POOL — Small Pond (smaller industries, own scale) -->
+    <section class="cid-observatory-wrap" aria-label="Small Pond — smaller industries">
+      <iframe
+        class="cid-observatory-frame"
+        src="/cid/data-preview/oea-explorer.html?view=smallpond&solo=1&v=18"
+        title="Small Pond — smaller industries"
         loading="lazy">
       </iframe>
     </section>
@@ -2620,10 +2630,13 @@ function setView(mode) {
     window.addEventListener('message', function (e) {
       if (e.origin !== window.location.origin) return;
       if (!e.data || e.data.type !== 'oea-explorer-height' || !e.data.height) return;
-      var frame = document.querySelector('.cid-observatory-frame');
-      if (!frame) return;
-      frame.style.minHeight = '0';
-      frame.style.height = e.data.height + 'px';
+      var frames = document.querySelectorAll('.cid-observatory-frame');
+      for (var i = 0; i < frames.length; i++) {
+        if (frames[i].contentWindow === e.source) {
+          frames[i].style.minHeight = '0';
+          frames[i].style.height = e.data.height + 'px';
+        }
+      }
     });
   })();
 </script>

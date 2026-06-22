@@ -1,7 +1,21 @@
 import { Link } from "react-router-dom";
+import { useEffect, useRef } from "react";
 
 export function CID({ onSupport }: { onSupport: () => void }) {
   const base = import.meta.env.BASE_URL;
+  // Size the watchlist embed iframe to its content so the page scrolls as one
+  // (no nested-iframe scroll trap). The embed reports its height via postMessage.
+  const embedRef = useRef<HTMLIFrameElement>(null);
+  useEffect(() => {
+    function onMsg(e: MessageEvent) {
+      if (e.origin !== window.location.origin) return;
+      const d = e.data as { type?: string; height?: number };
+      if (!d || d.type !== "cid-watchlist-embed-height" || !d.height) return;
+      if (embedRef.current) embedRef.current.style.height = d.height + "px";
+    }
+    window.addEventListener("message", onMsg);
+    return () => window.removeEventListener("message", onMsg);
+  }, []);
   return (
     <div className="cid-scope">
       <section className="case-hero">
@@ -117,6 +131,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
 
       <section className="cid-watchlist-embed">
         <iframe
+          ref={embedRef}
           src={`${base}cid/watchlist-embed/`}
           title="Canadian Innovation Watchlist"
           loading="lazy"

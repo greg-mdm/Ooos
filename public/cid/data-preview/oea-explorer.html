@@ -373,6 +373,12 @@
 
     var nf = new Intl.NumberFormat('en-CA');
     var DATA = null, current = 'goods', chart = null;
+    var SOLO = false;
+    (function () {  // initial view + solo from the iframe URL (?view=smallpond&solo=1) for stacked pools
+      var p = new URLSearchParams(location.search), v = p.get('view');
+      if (v) { for (var i = 0; i < VIEWS.length; i++) { if (VIEWS[i].id === v) { current = v; break; } } }
+      SOLO = p.get('solo') === '1';
+    })();
     var selected = {};                                   // id -> [names]
     var gOpts = { metric:'pct', indexed:true, topN:5 };  // gainers controls
     var cOpts = { finance:false };
@@ -440,7 +446,9 @@
 
     function buildTabs() {
       var tabs = $('tabs'); tabs.innerHTML = '';
+      if (SOLO) { tabs.style.display = 'none'; return; }
       VIEWS.forEach(function (v) {
+        if (v.id === 'smallpond') return;  // shown as its own stacked pool, not a tab
         var b = document.createElement('button');
         b.className = 'oea-tab'; b.type = 'button'; b.setAttribute('role','tab');
         b.setAttribute('aria-selected', v.id === current);
@@ -742,16 +750,15 @@
   /* Report content height to the host page so the iframe can size to fit (no empty space). */
   (function () {
     function postHeight() {
-      var h = Math.max(
-        document.documentElement.scrollHeight,
-        document.body ? document.body.scrollHeight : 0
-      );
+      var el = document.querySelector('.oea-explorer');
+      var h = el ? Math.ceil(el.getBoundingClientRect().bottom + 8)
+                 : (document.body ? document.body.scrollHeight : 0);
       parent.postMessage({ type: 'oea-explorer-height', height: h }, '*');
     }
     window.addEventListener('load', postHeight);
     window.addEventListener('resize', postHeight);
     if (window.ResizeObserver) {
-      try { new ResizeObserver(postHeight).observe(document.documentElement); } catch (e) {}
+      try { new ResizeObserver(postHeight).observe(document.querySelector('.oea-explorer') || document.documentElement); } catch (e) {}
     }
     // Charts and async data settle after first paint
     setTimeout(postHeight, 400);
