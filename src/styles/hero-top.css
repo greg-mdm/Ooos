@@ -59,11 +59,12 @@
 @media (prefers-reduced-motion: reduce) { .ot-arrival .w { animation: none; opacity: 1; transform: none; } }
 
 /* two-column: blurb on the left (wraps to ~3 lines), maple leaf on the right.
-   Blends into the page — same robin's-egg background, no border/shadow lines. */
+   White tinted/shaded card; the leaf (transparent PNG) locks into the
+   right-side square of the card. */
 .ot-bigbox { display: flex; align-items: center; gap: clamp(1.5rem, 3vw, 2.8rem);
-  background: transparent; border: 0; border-radius: 18px;
+  background: rgba(255,255,255,0.75); border: 1px solid rgba(91,4,222,0.12); border-radius: 18px;
   padding: clamp(1.5rem, 3vw, 2.4rem); max-width: 1240px; margin: 0 auto 18px;
-  box-shadow: none; }
+  box-shadow: 0 14px 44px rgba(91,4,222,0.14); }
 .ot-bigbox h1 { flex: 1 1 auto; font-family: 'Playfair Display', Georgia, serif; font-weight: 600;
   font-size: clamp(1.6rem, 2.8vw, 2.4rem); line-height: 1.2; letter-spacing: -0.012em;
   color: var(--ot-ink); margin: 0; text-align: left; text-wrap: balance; }
