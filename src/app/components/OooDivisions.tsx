@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { AuroraField } from "./AuroraField";
 import "../../styles/ooo-divisions.css";
 
 // ----- data -----------------------------------------------------------------
@@ -37,13 +38,12 @@ const DIVISIONS: Division[] = [
       { label: "Storytelling", tone: "sun" },
       { label: "Community resources", tone: "sun" },
       { label: "Virtual events", tone: "sun" },
-      { label: "Custom chatbot solutions", tone: "sun" },
+      { label: "Chatbot solutions", tone: "sun" },
     ],
     services: [
       { label: "Strategic planning", tone: "indigo" },
-      [{ label: "SEO", tone: "indigo" }, { label: "Advertising", tone: "indigo" }],
-      { label: "Localization", tone: "indigo" },
-      { label: "User experience testing", tone: "indigo" },
+      { label: "Ad Localization", tone: "indigo" },
+      [{ label: "SEO", tone: "indigo" }, { label: "UX testing", tone: "indigo" }],
     ],
   },
   {
@@ -56,9 +56,10 @@ const DIVISIONS: Division[] = [
       { bg: grad("rgb(126,110,151)", "rgb(37,23,74)", "rgb(13,8,25)"), shadow: "0 13px 30px rgba(8,2,24,0.27)", text: "Design tools to support applied research experiments. Direct digital innovation projects." },
     ],
     products: [
-      { label: "Radical strategic intelligence", tone: "ruby" },
-      [{ label: "Workshops", tone: "ruby" }, { label: "Experiments", tone: "ruby" }],
-      { label: "Research design", tone: "ruby" },
+      { label: "Strategic intelligence", tone: "sun" },
+      { label: "Workshops", tone: "sun" },
+      { label: "Experiments", tone: "sun" },
+      { label: "Research design", tone: "sun" },
     ],
     services: [
       { label: "Market research", tone: "indigo" },
@@ -76,14 +77,14 @@ const DIVISIONS: Division[] = [
       { ...LIT_C, text: "Gain strength in numbers: increase collective bargaining power." },
     ],
     products: [
-      { label: "Data distribution", tone: "teal" },
-      { label: "Expert analysis", tone: "teal" },
-      { label: "Compliance training", tone: "teal" },
+      { label: "Data distribution", tone: "sun" },
+      { label: "Expert analysis", tone: "sun" },
+      { label: "Compliance training", tone: "sun" },
     ],
     services: [
       { label: "Confidential consulting", tone: "indigo" },
       { label: "Advocacy", tone: "indigo" },
-      { label: "Dark-pattern prevention", tone: "indigo" },
+      { label: "Dark-pattern defense", tone: "indigo" },
     ],
   },
 ];
@@ -114,15 +115,23 @@ function PillList({ items }: { items: (Pill | Pill[])[] }) {
 function ProductsKey({ d }: { d: Division }) {
   return (
     <li className="ood-key-wrap">
-      <div className="ood-prodkey">
-        <div className="ood-prod-grid">
-          <div className="ood-prod-col">
-            <p className="ood-prod-h">Digital Products</p>
-            <PillList items={d.products} />
+      {/* two carved silver "dice" — each owns its own pills (products = Sunshine,
+          services = Indigo), so the two sets never mix */}
+      <div className="ood-dice">
+        <div className="ood-diecell">
+          <p className="ood-die-h">Digital<br />Products</p>
+          <div className="ood-die has-img">
+            <div className="ood-die-face">
+              <PillList items={d.products} />
+            </div>
           </div>
-          <div className="ood-prod-col">
-            <p className="ood-prod-h">Studio Services</p>
-            <PillList items={d.services} />
+        </div>
+        <div className="ood-diecell">
+          <p className="ood-die-h">Studio<br />Services</p>
+          <div className="ood-die has-img">
+            <div className="ood-die-face">
+              <PillList items={d.services} />
+            </div>
           </div>
         </div>
       </div>
@@ -137,6 +146,8 @@ export function OooDivisions() {
 
   return (
     <section className="ood" aria-label="Ooo Divisions">
+      <AuroraField className="ood-bg" />
+      <div className="ood-scrim" aria-hidden="true" />
       <div className="ood-inner">
         <h2 className="ood-title">Ooo Divisions</h2>
         <div className="ood-stage">
