@@ -4789,7 +4789,9 @@ textarea:focus-visible,
 .ds-principles li strong, .ds-priorities li strong { color: var(--dark-indigo); font-weight: 700; }
 
 /* ===== DESIGN SYSTEM v2 — spatial pacing ===== */
-.ds { padding: 40px 24px 72px; }
+/* overflow-x: clip contains the full-bleed .ds-palette band (100vw) so it
+   never triggers a page-wide horizontal scrollbar. */
+.ds { padding: 40px 24px 72px; overflow-x: clip; }
 /* Wider canvas: stop squeezing the design-system content into a thin centre column. */
 .ds .container { max-width: 1280px; }
 .ds-header { max-width: 760px; margin-bottom: 64px; }
@@ -4936,7 +4938,7 @@ textarea:focus-visible,
   display: grid;
   grid-template-columns: 1.1fr 0.8fr 1.1fr;
   gap: 40px 44px;
-  align-items: start;
+  align-items: center;
   margin-bottom: 0;
 }
 .ds-intro-grid + .ds-section-title { margin-top: 40px; }
@@ -4983,9 +4985,9 @@ textarea:focus-visible,
 .commit-graphic {
   position: relative;
   width: 100%;
-  max-width: 480px;
+  max-width: 360px;
   margin: 0 auto;
-  padding: 20px 20px 36px;
+  padding: 12px 12px 24px;
   outline: none;
   align-self: center;
   cursor: pointer;
@@ -5123,7 +5125,7 @@ textarea:focus-visible,
 @media (max-width: 980px) {
   .ds-intro-grid { grid-template-columns: 1fr; gap: 32px; }
   .commit-text { margin-top: 8px; }
-  .commit-graphic { max-width: 380px; }
+  .commit-graphic { max-width: 320px; }
 }
 @media (max-width: 720px) {
   .commit-word { font-size: 17px; }

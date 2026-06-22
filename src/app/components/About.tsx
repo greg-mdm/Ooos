@@ -153,20 +153,14 @@ export function About() {
               <p className="ds-eyebrow">Design system</p>
               <h2 id="ds-heading">Creative Environments</h2>
               <p className="ds-lede">
-                Each project creates space for meaningful engagement within a
-                unique creative environment, centrally guided by the studio's
-                founder and creative director. Consistency in spacing,
-                typography, contrast, consent and disclosure reinforces all
-                creative environments.
-              </p>
-              <p className="ds-lede">
-                Ooos universe emphasizes participatory design, informed
-                exploration, and clearly marked steps for e-consent, ensuring
-                inclusive access across three levels of engagement.
-              </p>
-              <p className="ds-lede">
-                We are offering a range of digital media experiences, from{" "}
-                <strong>observation</strong> to <strong>exploration</strong> and <strong>engagement</strong>.
+                Each project provides an opportunity for meaningful engagement
+                within a distinctive creative environment, centrally guided by
+                the studio's founder and creative director. The Ooos universe
+                promotes participatory design, informed exploration, and clear
+                pathways at decision points. We offer a variety of inclusive
+                digital media experiences, ranging from{" "}
+                <strong>observation</strong> to <strong>exploration</strong> and{" "}
+                <strong>active engagement</strong>.
               </p>
             </div>
 
