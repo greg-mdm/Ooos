@@ -1,0 +1,214 @@
+/* ===========================================================
+   Ooo Digital Media Studio — Design-system palette & spectrums
+   Core semantic anchors + the five selected Tailwind ramps,
+   rendered as smooth gradients on the /about design-system page
+   (<ul class="ds-anchors"> + <div class="ds-spectra">).
+
+   Token names mirror the canonical Tailwind @theme so every ramp
+   stop is reusable across the site as a CSS custom property,
+   e.g. background: var(--color-midnight-violet-500).
+   =========================================================== */
+:root {
+  /* ---- Core semantic anchors ---- */
+  --color-midnight-black: #0F031C;
+  --color-darkest-indigo: #06021C;
+  --color-dark-indigo: #19007D;
+  --color-portal: #4B00B6;
+  --color-electric: #5B04DE;
+  --color-teal: #008080;
+  --color-robins-egg: #F0F4F5;
+  --color-ruby: #822F00;
+  --color-gold: #F0C040;
+  --color-sunshine: #FFF3B0;
+  --color-suncloud-white: #FFFDF4;
+  --color-bright-silver: #E8ECF4;
+  --color-chrome-silver: #D8DBDE;
+
+  /* ---- Midnight Violet · 50 → 950 ---- */
+  --color-midnight-violet-50: #F2E8FD;
+  --color-midnight-violet-100: #E5D1FA;
+  --color-midnight-violet-200: #CBA3F5;
+  --color-midnight-violet-300: #B075F0;
+  --color-midnight-violet-400: #9646EC;
+  --color-midnight-violet-500: #7C18E7;
+  --color-midnight-violet-600: #6313B9;
+  --color-midnight-violet-700: #4A0F8A;
+  --color-midnight-violet-800: #320A5C;
+  --color-midnight-violet-900: #19052E;
+  --color-midnight-violet-950: #110320;
+
+  /* ---- Dark Amethyst · 50 → 950 ---- */
+  --color-dark-amethyst-50: #F0E7FE;
+  --color-dark-amethyst-100: #E2CEFD;
+  --color-dark-amethyst-200: #C49EFA;
+  --color-dark-amethyst-300: #A76DF8;
+  --color-dark-amethyst-400: #8A3CF6;
+  --color-dark-amethyst-500: #6C0BF4;
+  --color-dark-amethyst-600: #5709C3;
+  --color-dark-amethyst-700: #410792;
+  --color-dark-amethyst-800: #2B0561;
+  --color-dark-amethyst-900: #160231;
+  --color-dark-amethyst-950: #0F0222;
+
+  /* ---- Teal · 50 → 950 (exact anchor 700 = #008080) ---- */
+  --color-teal-50: #F0FDFD;
+  --color-teal-100: #D6F8F7;
+  --color-teal-200: #ADEEED;
+  --color-teal-300: #79DEDD;
+  --color-teal-400: #3DC8C7;
+  --color-teal-500: #1AADAD;
+  --color-teal-600: #039393;
+  --color-teal-700: #008080;
+  --color-teal-800: #005F5F;
+  --color-teal-900: #034747;
+  --color-teal-950: #002828;
+
+  /* ---- Robin's Egg · 50 → 950 (exact anchor 100 = #F0F4F5) ---- */
+  --color-robins-egg-50: #F9FAFB;
+  --color-robins-egg-100: #F0F4F5;
+  --color-robins-egg-200: #DAE1E3;
+  --color-robins-egg-300: #C2CDCF;
+  --color-robins-egg-400: #A6B4B7;
+  --color-robins-egg-500: #8B9CA0;
+  --color-robins-egg-600: #728488;
+  --color-robins-egg-700: #5C6C70;
+  --color-robins-egg-800: #485559;
+  --color-robins-egg-900: #353F42;
+  --color-robins-egg-950: #1C2325;
+
+  /* ---- Gold → Sunshine → Suncloud White → White · opaque ramp ----
+     950 = Gold, 500 = Sunshine, 100 = Suncloud White, 50 = White.
+     Every stop is opaque so darker surfaces cannot tint the ramp. */
+  --color-gold-sunshine-50: #FFFFFF;
+  --color-gold-sunshine-100: #FFFDF4;
+  --color-gold-sunshine-200: #FFFBE4;
+  --color-gold-sunshine-300: #FFF8D3;
+  --color-gold-sunshine-400: #FFF6C2;
+  --color-gold-sunshine-500: #FFF3B0;
+  --color-gold-sunshine-600: #FCE99C;
+  --color-gold-sunshine-700: #F9DF88;
+  --color-gold-sunshine-800: #F6D573;
+  --color-gold-sunshine-900: #F3CA5C;
+  --color-gold-sunshine-950: #F0C040;
+}
+
+/* ---- Core semantic anchor tiles ---- */
+.ds-anchors {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+}
+.ds-anchor {
+  border: 1px solid rgba(25, 0, 125, 0.10);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+}
+.ds-anchor__colour {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 84px;
+  padding: 12px 14px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+.ds-anchor__colour strong { font-size: 0.9rem; line-height: 1.2; }
+.ds-anchor__colour span {
+  margin-top: 4px;
+  font-size: 0.72rem;
+  opacity: 0.86;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.ds-anchor code {
+  display: block;
+  padding: 9px 14px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.68rem;
+  color: var(--slate);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---- Spectrum cards: smooth gradient bar + discrete stops ---- */
+.ds-spectra {
+  display: grid;
+  gap: 20px;
+  margin-top: 28px;
+}
+.ds-spectrum {
+  background: #fff;
+  border: 1px solid rgba(25, 0, 125, 0.08);
+  border-radius: 14px;
+  padding: 20px;
+}
+.ds-spectrum-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.ds-spectrum-head h4 {
+  font-family: var(--serif);
+  font-size: 1.0625rem;
+  margin: 0;
+  color: var(--dark-indigo);
+}
+.ds-spectrum-badge {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--electric);
+  background: rgba(91, 4, 222, 0.10);
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+.ds-ramp {
+  height: 64px;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+.ds-stops {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(11, minmax(0, 1fr));
+  gap: 6px;
+}
+.ds-stop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 62px;
+  padding: 8px 6px;
+  border-radius: 9px;
+  text-align: center;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+.ds-stop strong { font-size: 0.78rem; }
+.ds-stop span {
+  margin-top: 3px;
+  font-size: 0.62rem;
+  opacity: 0.86;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.ds-stop.is-anchor {
+  outline: 2px solid var(--dark-indigo);
+  outline-offset: 2px;
+}
+
+@media (max-width: 1050px) {
+  .ds-stops { grid-template-columns: repeat(6, 1fr); }
+}
+@media (max-width: 640px) {
+  .ds-anchors { grid-template-columns: repeat(2, 1fr); }
+  .ds-stops { grid-template-columns: repeat(3, 1fr); }
+}
