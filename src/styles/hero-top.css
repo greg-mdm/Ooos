@@ -22,8 +22,8 @@
 
 .ot-content { max-width: 1100px; margin-inline: auto; }
 
-/* reused site logo orb (assets/images/brand/ooo-logo.png) blends on the light bg */
-.ot-logo { width: 230px; height: 230px; display: inline-block; mix-blend-mode: multiply; }
+/* logo orb on its matching light-blue background plate (no blend needed) */
+.ot-logo { width: 230px; height: 230px; display: inline-block; }
 
 /* locked 3-block layout: text-left / orb-center / sign-right */
 .ot-trio { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;

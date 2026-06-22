@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { type ReactNode, useEffect, useRef, useState } from "react";
+import { Fragment, type ReactNode, useEffect, useRef, useState } from "react";
 import { PathwayModal } from "./PathwayModal";
 import { OooDivisions } from "./OooDivisions";
 import "../../styles/hero-top.css";
@@ -92,7 +92,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             <div className="ot-trio__orb">
               <img
                 className="ot-logo"
-                src={`${import.meta.env.BASE_URL}assets/images/brand/ooo-logo.png`}
+                src={`${import.meta.env.BASE_URL}assets/Final%20Logo%20-%20Ooo%20-%20Light%20Blue%20Background.png`}
                 alt="Ooo Digital Media Studio"
                 width="230"
                 height="230"
@@ -105,9 +105,10 @@ export function Home({ onSupport }: { onSupport: () => void }) {
 
           <p className="ot-arrival">
             {ARRIVAL_WORDS.map((word, i) => (
-              <span key={i} className="w" style={{ animationDelay: `${(0.6 + i * 0.1).toFixed(2)}s` }}>
-                {word}{i < ARRIVAL_WORDS.length - 1 ? " " : ""}
-              </span>
+              <Fragment key={i}>
+                <span className="w" style={{ animationDelay: `${(0.6 + i * 0.1).toFixed(2)}s` }}>{word}</span>
+                {i < ARRIVAL_WORDS.length - 1 ? " " : ""}
+              </Fragment>
             ))}
           </p>
 
