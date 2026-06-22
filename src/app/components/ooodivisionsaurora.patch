@@ -1,0 +1,473 @@
+From f72778477743e868ab5f6e2426f4720481e5519f Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Mon, 22 Jun 2026 21:47:44 +0000
+Subject: [PATCH] Ooo Divisions: Aurora background + carved dice
+
+- AuroraField: reusable WebGL Aurora canvas (de-blued, dimmed), pointer
+  tracking, click-bloom, IntersectionObserver pause, reduced-motion safe.
+- OooDivisions: aurora as the true section background; consistent silver
+  cards with electric-violet headings; indigo objective keys unchanged.
+- Products/Services rendered as two carved silver "dice" (public/assets/1die.png),
+  white pills with neutral midnight-black text, headings above each die.
+- Full dark-indigo card border; AODA-safe contrast throughout.
+
+Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01CXfQ5H6HxwhxaeGahurs1n
+---
+ src/app/components/AuroraField.tsx  | 209 ++++++++++++++++++++++++++++
+ src/app/components/OooDivisions.tsx |  49 ++++---
+ src/styles/ooo-divisions.css        | 100 ++++++++-----
+ 3 files changed, 304 insertions(+), 54 deletions(-)
+ create mode 100644 src/app/components/AuroraField.tsx
+
+diff --git a/src/app/components/AuroraField.tsx b/src/app/components/AuroraField.tsx
+new file mode 100644
+index 0000000..a643cae
+--- /dev/null
++++ b/src/app/components/AuroraField.tsx
+@@ -0,0 +1,209 @@
++import { useEffect, useRef } from "react";
++
++/* ============================================================
++   AuroraField — de-blued, interactive Aurora shader on a <canvas>.
++   Reusable background layer: section backgrounds, the display card,
++   and the design-system display case all mount this.
++
++   - pointer-events:none by default, so content above stays clickable.
++   - tracks the pointer at the window level (works behind cards).
++   - click-to-bloom fires on empty background only (never on .ood-* cards).
++   - pauses when offscreen (IntersectionObserver) and honours
++     prefers-reduced-motion (renders a single static frame).
++   ============================================================ */
++
++const FRAG = `
++precision highp float;
++uniform vec2 u_res; uniform float u_time; uniform vec2 u_mouse; uniform vec2 u_mvel;
++uniform vec3 u_clicks[8];
++uniform float u_dim;
++const vec3 DARKEST=vec3(0.024,0.008,0.110);
++const vec3 PORTAL=vec3(0.294,0.000,0.714);
++const vec3 ELECTRIC=vec3(0.357,0.016,0.871);
++const vec3 TEAL=vec3(0.000,0.502,0.502);
++const vec3 ROBIN=vec3(0.941,0.957,0.961);
++const vec3 EMBER=vec3(0.62,0.18,0.42);
++mat2 rot(float a){ float c=cos(a),s=sin(a); return mat2(c,-s,s,c); }
++float hash21(vec2 p){ p=fract(p*vec2(123.34,345.45)); p+=dot(p,p+34.345); return fract(p.x*p.y); }
++float noise(vec2 p){ vec2 i=floor(p),f=fract(p); vec2 u=f*f*(3.0-2.0*f);
++  float a=hash21(i),b=hash21(i+vec2(1,0)),c=hash21(i+vec2(0,1)),d=hash21(i+vec2(1,1));
++  return mix(mix(a,b,u.x),mix(c,d,u.x),u.y); }
++float fbm(vec2 p){ float v=0.0,a=0.5; for(int i=0;i<6;i++){ v+=a*noise(p); p=rot(0.5)*p*2.0+11.3; a*=0.5; } return v; }
++float ripples(vec2 uv,float sp,float wd,float dc){ float s=0.0;
++  for(int i=0;i<8;i++){ vec3 c=u_clicks[i]; if(c.z<0.0) continue; float age=u_time-c.z;
++    if(age<0.0||age>6.0) continue; float d=distance(uv,c.xy);
++    float ring=sin((d-age*sp)*40.0*wd); float band=smoothstep(wd,0.0,abs(d-age*sp));
++    s+=ring*band*exp(-age*dc); } return s; }
++void main(){
++  vec2 uv=gl_FragCoord.xy/u_res; float asp=u_res.x/u_res.y;
++  vec2 p=uv; p.x*=asp; vec2 m=u_mouse; m.x*=asp; float t=u_time*0.07;
++  vec3 col=DARKEST; vec2 toM=p-m; float md=length(toM); float push=exp(-md*md*2.4);
++  float acc=0.0;
++  for(int i=0;i<3;i++){ float fi=float(i); float depth=1.0+fi*0.6;
++    vec2 q=(p-vec2(0.5*asp,0.5))/depth+vec2(0.5*asp,0.5);
++    q+=(m-vec2(0.5*asp,0.5))*(0.045*fi); q*=1.7; q.y-=t*(0.6+fi*0.25);
++    q+=normalize(toM+1e-4)*push*0.26*(1.0+length(u_mvel)*3.0);
++    vec2 w=vec2(fbm(q+vec2(0.0,t)),fbm(q+vec2(3.1,-t)));
++    float dens=fbm(q+3.0*w); dens=smoothstep(0.32,0.96,dens);
++    float layerA=dens*(0.55/depth);
++    vec3 lc=mix(PORTAL,ELECTRIC,smoothstep(0.35,1.0,dens));
++    lc=mix(lc,EMBER,smoothstep(0.2,0.75,w.x)*0.45);
++    col=mix(col,lc,layerA); acc+=layerA; }
++  float g1=exp(-distance(p,vec2(0.72*asp,0.30)+0.10*vec2(sin(t*2.0),cos(t*1.7)))*2.8);
++  col+=EMBER*g1*0.55*acc;
++  float g2=exp(-distance(p,vec2(0.26*asp,0.74)+0.10*vec2(cos(t*1.3),sin(t*1.9)))*3.2);
++  col+=TEAL*g2*0.40*acc;
++  col+=(ELECTRIC*0.45+ROBIN*0.28)*push*0.5;
++  float r=ripples(p,0.5,0.16,1.0);
++  col+=(ROBIN*0.5+ELECTRIC*0.45)*max(r,0.0)*0.8;
++  col+=(hash21(gl_FragCoord.xy+u_time)-0.5)*0.012;
++  col*=u_dim;
++  gl_FragColor=vec4(col,1.0);
++}`;
++
++const VERT = "attribute vec2 a_pos; void main(){ gl_Position=vec4(a_pos,0.0,1.0); }";
++
++type Props = {
++  /** overall brightness multiplier (background use is dimmed) */
++  dim?: number;
++  /** CSS selector for elements that should NOT trigger a click-bloom */
++  ignoreClicksOn?: string;
++  className?: string;
++};
++
++export function AuroraField({ dim = 0.82, ignoreClicksOn = ".ood-col", className }: Props) {
++  const canvasRef = useRef<HTMLCanvasElement>(null);
++
++  useEffect(() => {
++    const canvas = canvasRef.current;
++    if (!canvas) return;
++    const gl = canvas.getContext("webgl", {
++      antialias: false,
++      premultipliedAlpha: false,
++      preserveDrawingBuffer: true,
++    });
++    if (!gl) return;
++
++    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
++    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
++
++    const comp = (s: string, type: number) => {
++      const o = gl.createShader(type)!;
++      gl.shaderSource(o, s);
++      gl.compileShader(o);
++      if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)) {
++        throw new Error(gl.getShaderInfoLog(o) || "shader compile failed");
++      }
++      return o;
++    };
++
++    const prog = gl.createProgram()!;
++    gl.attachShader(prog, comp(VERT, gl.VERTEX_SHADER));
++    gl.attachShader(prog, comp(FRAG, gl.FRAGMENT_SHADER));
++    gl.linkProgram(prog);
++    gl.useProgram(prog);
++
++    const buf = gl.createBuffer();
++    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
++    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
++    const la = gl.getAttribLocation(prog, "a_pos");
++    gl.enableVertexAttribArray(la);
++    gl.vertexAttribPointer(la, 2, gl.FLOAT, false, 0, 0);
++
++    const U = (n: string) => gl.getUniformLocation(prog, n);
++    const u_res = U("u_res"),
++      u_time = U("u_time"),
++      u_mouse = U("u_mouse"),
++      u_mvel = U("u_mvel"),
++      u_clicks = U("u_clicks"),
++      u_dim = U("u_dim");
++
++    const start = performance.now();
++    let mouse = [0.5, 0.5];
++    let target = [0.5, 0.5];
++    let mvel = [0, 0];
++    const clicks = new Float32Array(24).fill(-1);
++    let head = 0;
++
++    const resize = () => {
++      const w = Math.max(1, Math.floor(canvas.clientWidth * dpr));
++      const h = Math.max(1, Math.floor(canvas.clientHeight * dpr));
++      if (canvas.width !== w || canvas.height !== h) {
++        canvas.width = w;
++        canvas.height = h;
++      }
++    };
++
++    const render = () => {
++      resize();
++      const ox = mouse[0],
++        oy = mouse[1];
++      mouse[0] += (target[0] - mouse[0]) * 0.1;
++      mouse[1] += (target[1] - mouse[1]) * 0.1;
++      mvel[0] = mvel[0] * 0.85 + (mouse[0] - ox) * 0.15;
++      mvel[1] = mvel[1] * 0.85 + (mouse[1] - oy) * 0.15;
++      const t = (performance.now() - start) / 1000;
++      gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
++      gl.uniform2f(u_res, gl.drawingBufferWidth, gl.drawingBufferHeight);
++      gl.uniform1f(u_time, t);
++      gl.uniform2f(u_mouse, mouse[0], mouse[1]);
++      gl.uniform2f(u_mvel, mvel[0], mvel[1]);
++      gl.uniform3fv(u_clicks, clicks);
++      gl.uniform1f(u_dim, dim);
++      gl.drawArrays(gl.TRIANGLES, 0, 3);
++    };
++
++    const onMove = (e: PointerEvent) => {
++      const r = canvas.getBoundingClientRect();
++      target = [(e.clientX - r.left) / r.width, 1.0 - (e.clientY - r.top) / r.height];
++      if (reduce) render();
++    };
++    const onDown = (e: PointerEvent) => {
++      if (ignoreClicksOn && (e.target as Element)?.closest?.(ignoreClicksOn)) return;
++      const r = canvas.getBoundingClientRect();
++      const i = head * 3;
++      clicks[i] = (e.clientX - r.left) / r.width;
++      clicks[i + 1] = 1.0 - (e.clientY - r.top) / r.height;
++      clicks[i + 2] = (performance.now() - start) / 1000;
++      head = (head + 1) % 8;
++      if (reduce) render();
++    };
++    window.addEventListener("pointermove", onMove);
++    window.addEventListener("pointerdown", onDown);
++
++    let raf = 0;
++    let vis = true;
++    const loop = () => {
++      raf = requestAnimationFrame(loop);
++      if (vis) render();
++    };
++    const io = new IntersectionObserver((es) => (vis = es[0].isIntersecting), { threshold: 0.02 });
++    if (reduce) {
++      resize();
++      render();
++    } else {
++      io.observe(canvas);
++      loop();
++    }
++    const onResize = () => {
++      resize();
++      render();
++    };
++    window.addEventListener("resize", onResize);
++    render();
++
++    return () => {
++      cancelAnimationFrame(raf);
++      io.disconnect();
++      window.removeEventListener("pointermove", onMove);
++      window.removeEventListener("pointerdown", onDown);
++      window.removeEventListener("resize", onResize);
++      const ext = gl.getExtension("WEBGL_lose_context");
++      ext?.loseContext();
++    };
++  }, [dim, ignoreClicksOn]);
++
++  return <canvas ref={canvasRef} className={className} aria-hidden="true" />;
++}
++
++export default AuroraField;
+diff --git a/src/app/components/OooDivisions.tsx b/src/app/components/OooDivisions.tsx
+index 28998ca..030f3da 100644
+--- a/src/app/components/OooDivisions.tsx
++++ b/src/app/components/OooDivisions.tsx
+@@ -1,4 +1,5 @@
+ import { useState } from "react";
++import { AuroraField } from "./AuroraField";
+ import "../../styles/ooo-divisions.css";
+ 
+ // ----- data -----------------------------------------------------------------
+@@ -37,13 +38,12 @@ const DIVISIONS: Division[] = [
+       { label: "Storytelling", tone: "sun" },
+       { label: "Community resources", tone: "sun" },
+       { label: "Virtual events", tone: "sun" },
+-      { label: "Custom chatbot solutions", tone: "sun" },
++      { label: "Chatbot solutions", tone: "sun" },
+     ],
+     services: [
+       { label: "Strategic planning", tone: "indigo" },
+-      [{ label: "SEO", tone: "indigo" }, { label: "Advertising", tone: "indigo" }],
+-      { label: "Localization", tone: "indigo" },
+-      { label: "User experience testing", tone: "indigo" },
++      { label: "Ad Localization", tone: "indigo" },
++      [{ label: "SEO", tone: "indigo" }, { label: "UX testing", tone: "indigo" }],
+     ],
+   },
+   {
+@@ -56,9 +56,10 @@ const DIVISIONS: Division[] = [
+       { bg: grad("rgb(126,110,151)", "rgb(37,23,74)", "rgb(13,8,25)"), shadow: "0 13px 30px rgba(8,2,24,0.27)", text: "Design tools to support applied research experiments. Direct digital innovation projects." },
+     ],
+     products: [
+-      { label: "Radical strategic intelligence", tone: "ruby" },
+-      [{ label: "Workshops", tone: "ruby" }, { label: "Experiments", tone: "ruby" }],
+-      { label: "Research design", tone: "ruby" },
++      { label: "Strategic intelligence", tone: "sun" },
++      { label: "Workshops", tone: "sun" },
++      { label: "Experiments", tone: "sun" },
++      { label: "Research design", tone: "sun" },
+     ],
+     services: [
+       { label: "Market research", tone: "indigo" },
+@@ -76,14 +77,14 @@ const DIVISIONS: Division[] = [
+       { ...LIT_C, text: "Gain strength in numbers: increase collective bargaining power." },
+     ],
+     products: [
+-      { label: "Data distribution", tone: "teal" },
+-      { label: "Expert analysis", tone: "teal" },
+-      { label: "Compliance training", tone: "teal" },
++      { label: "Data distribution", tone: "sun" },
++      { label: "Expert analysis", tone: "sun" },
++      { label: "Compliance training", tone: "sun" },
+     ],
+     services: [
+       { label: "Confidential consulting", tone: "indigo" },
+       { label: "Advocacy", tone: "indigo" },
+-      { label: "Dark-pattern prevention", tone: "indigo" },
++      { label: "Dark-pattern defense", tone: "indigo" },
+     ],
+   },
+ ];
+@@ -114,15 +115,23 @@ function PillList({ items }: { items: (Pill | Pill[])[] }) {
+ function ProductsKey({ d }: { d: Division }) {
+   return (
+     <li className="ood-key-wrap">
+-      <div className="ood-prodkey">
+-        <div className="ood-prod-grid">
+-          <div className="ood-prod-col">
+-            <p className="ood-prod-h">Digital Products</p>
+-            <PillList items={d.products} />
++      {/* two carved silver "dice" — each owns its own pills (products = Sunshine,
++          services = Indigo), so the two sets never mix */}
++      <div className="ood-dice">
++        <div className="ood-diecell">
++          <p className="ood-die-h">Digital<br />Products</p>
++          <div className="ood-die has-img">
++            <div className="ood-die-face">
++              <PillList items={d.products} />
++            </div>
+           </div>
+-          <div className="ood-prod-col">
+-            <p className="ood-prod-h">Studio Services</p>
+-            <PillList items={d.services} />
++        </div>
++        <div className="ood-diecell">
++          <p className="ood-die-h">Studio<br />Services</p>
++          <div className="ood-die has-img">
++            <div className="ood-die-face">
++              <PillList items={d.services} />
++            </div>
+           </div>
+         </div>
+       </div>
+@@ -137,6 +146,8 @@ export function OooDivisions() {
+ 
+   return (
+     <section className="ood" aria-label="Ooo Divisions">
++      <AuroraField className="ood-bg" />
++      <div className="ood-scrim" aria-hidden="true" />
+       <div className="ood-inner">
+         <h2 className="ood-title">Ooo Divisions</h2>
+         <div className="ood-stage">
+diff --git a/src/styles/ooo-divisions.css b/src/styles/ooo-divisions.css
+index bdcc14e..edad2ad 100644
+--- a/src/styles/ooo-divisions.css
++++ b/src/styles/ooo-divisions.css
+@@ -9,7 +9,8 @@
+   --ood-ink:#1A0033;
+   font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+   color:var(--ood-ink);
+-  background:#F0F4F5;
++  /* aurora is the section background; this dark base shows before the canvas paints */
++  background:#06021C;
+   padding:16px 24px 88px;
+   -webkit-font-smoothing:antialiased;
+   text-rendering:optimizeLegibility;
+@@ -20,29 +21,40 @@
+   right:50%;
+   margin-left:-50vw;
+   margin-right:-50vw;
++  overflow:hidden;
+ }
+ .ood *,.ood *::before,.ood *::after{box-sizing:border-box;}
+-.ood-inner{max-width:1180px;margin:0 auto;}
+-.ood-title{font-family:Poppins,sans-serif;font-weight:700;font-size:clamp(2rem,4.4vw,3rem);line-height:1.04;letter-spacing:-.01em;text-align:center;margin:0 0 46px;color:var(--ood-ink);}
++/* live Aurora Field — true section background; pointer-events:none keeps keys clickable */
++.ood-bg{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;z-index:0;}
++/* scrim calms the aurora so text and cards stay readable */
++.ood-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
++  background:
++    radial-gradient(120% 80% at 50% 40%,transparent 0%,rgba(6,2,28,0.42) 70%,rgba(3,1,12,0.72) 100%),
++    linear-gradient(180deg,rgba(6,2,28,0.55) 0%,rgba(6,2,28,0.22) 32%,rgba(6,2,28,0.5) 100%);}
++.ood-inner{position:relative;z-index:2;max-width:1180px;margin:0 auto;}
++.ood-title{font-family:Poppins,sans-serif;font-weight:700;font-size:clamp(2rem,4.4vw,3rem);line-height:1.04;letter-spacing:-.01em;text-align:center;margin:0 0 46px;color:#E8ECF4;text-shadow:0 6px 40px rgba(91,4,222,0.45);}
+ .ood-stage{position:relative;}
+-.ood-pool,.ood-floor{position:absolute;left:50%;transform:translateX(-50%);pointer-events:none;}
+-.ood-pool{top:-30px;width:min(760px,92%);height:300px;background:radial-gradient(60% 100% at 50% 0%,rgba(255,250,242,0.55) 0%,rgba(160,120,240,0) 70%);}
+-.ood-floor{bottom:-34px;width:90%;height:150px;background:radial-gradient(70% 100% at 50% 100%,rgba(20,8,46,.10) 0%,rgba(20,8,46,0) 72%);}
++/* the light-section glow/shadow helpers are not used over the aurora */
++.ood-pool,.ood-floor{display:none;}
+ .ood-grid{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,26px);align-items:start;}
+-.ood-col{position:relative;overflow:hidden;border-radius:22px;padding:24px 18px 26px;box-shadow:0 1px 2px rgba(26,0,51,.05),0 18px 40px -28px rgba(20,8,46,.28);}
+-/* faint body tints — significantly lighter than the heading bands */
+-.ood-col--mic{background:#F8F4FF;}
+-.ood-col--cid{background:#F5F8F8;}
+-.ood-col--ra{background:#F1FBFA;}
+-.ood-head{position:relative;margin:-24px -18px 22px;padding:24px 18px 16px;border-radius:22px 22px 0 0;text-align:center;}
+-/* heading bands keep the fuller colour tint */
+-.ood-col--mic .ood-head{background:linear-gradient(180deg,#FFF6C2 0%,#FFFAE2 55%,#FFFDF4 100%);}
+-.ood-col--cid .ood-head{background:linear-gradient(180deg,#FFEBE4 0%,#FFF1EC 100%);}
+-.ood-col--ra .ood-head{background:linear-gradient(180deg,#D6F8F7 0%,#E6FBFA 100%);}
+-.ood-name{margin:0 0 8px;font-family:Poppins,sans-serif;font-weight:600;font-size:1.06rem;line-height:1.25;color:var(--ood-ink);text-wrap:balance;}
+-/* Lovelo Black is a single 900-weight face — request 900 (not 700) or the
+-   browser distorts the glyphs (uneven letter heights). Matches the other titles. */
+-.ood-kind{margin:0;font-family:'Lovelo','Poppins',sans-serif;font-size:.72rem;font-weight:900;letter-spacing:.22em;color:#0F031C;}
++/* Card body: ONE consistent silver gradient for all three divisions
++   (Robin's Egg -> Silver: 50 -> 300 -> 500). Neutral, multi-dimensional,
++   no pastel; reads as a bright card floating over the aurora. */
++.ood-col{position:relative;border-radius:22px;padding:24px 18px 26px;
++  border:1px solid #19007D;
++  background:linear-gradient(180deg,#F7F9FA 0%,#E8ECF4 46%,#DCE3E8 100%);
++  box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 1px 2px rgba(6,2,28,.35),0 24px 50px -26px rgba(6,2,28,.7);}
++.ood-head{position:relative;margin:-24px -18px 22px;padding:24px 18px 18px;border-radius:22px 22px 0 0;text-align:center;}
++/* Heading band: ONE consistent rich saturated electric violet for all three.
++   Bright Silver text stays >=7:1 (Portal/Electric per the design system).
++   Thin dark-indigo border frames the title block (rounded top preserved). */
++.ood-head{background:linear-gradient(180deg,#4B00B6 0%,#5B04DE 100%);
++  border:1px solid #19007D;
++  box-shadow:0 1px 0 rgba(232,236,244,.18) inset,0 10px 22px -14px rgba(75,0,182,.7);}
++.ood-name{margin:0 0 10px;font-family:Poppins,sans-serif;font-weight:600;font-size:1.06rem;line-height:1.25;color:#E8ECF4;text-wrap:balance;text-shadow:0 1px 2px rgba(6,2,28,.45);}
++/* Subheading: a clean Bright Silver kicker — no box, so it doesn't nest inside
++   the title block. AODA-safe (~7:1 on the violet); hierarchy via size/tracking. */
++.ood-kind{display:block;margin:0;font-family:'Lovelo','Poppins',sans-serif;font-size:.74rem;font-weight:900;letter-spacing:.24em;color:#E8ECF4;text-shadow:0 1px 2px rgba(6,2,28,.5);}
+ .ood-keys{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
+ .ood-key-wrap{margin:0;}
+ .ood-key{appearance:none;-webkit-appearance:none;border:0;width:100%;text-align:left;display:flex;align-items:center;min-height:72px;border-radius:13px;padding:.95rem 1.05rem;cursor:pointer;font:inherit;transition:background .2s,box-shadow .2s,transform .12s;}
+@@ -54,24 +66,42 @@
+ .ood-key.is-on{box-shadow:inset 0 2px 0 rgba(255,255,255,.30),0 0 0 1px rgba(91,4,222,.72),0 0 16px rgba(91,4,222,.55),0 6px 16px rgba(75,0,182,.42);transform:translateY(2px);}
+ .ood-key.is-on .ood-label{color:#fff;text-shadow:0 1px 2px rgba(20,0,60,.7);}
+ .ood-key-wrap:has(.ood-key.is-on){filter:drop-shadow(0 6px 16px rgba(75,0,182,.32))!important;}
+-/* white "products" key — secondary detail, deliberately miniature */
+-.ood-prodkey{background:#fff;border-radius:13px;padding:14px 14px 15px;box-shadow:0 1px 2px rgba(26,0,51,.06),0 8px 20px -12px rgba(20,8,46,.18);}
+-.ood-prod-grid{display:flex;gap:12px;text-align:left;}
+-.ood-prod-col{min-width:0;}
+-.ood-prod-col:first-child{flex:0 0 auto;}
+-.ood-prod-col:last-child{flex:1 1 auto;}
+-.ood-prod-col + .ood-prod-col{position:relative;padding-left:16px;}
+-.ood-prod-col + .ood-prod-col::before{content:'';position:absolute;left:0;top:3px;bottom:3px;width:3.5px;background:var(--dc,#bbb);clip-path:polygon(50% 0%,50% 0%,100% 100%,0% 100%);}
+-.ood-col--mic .ood-prod-col + .ood-prod-col::before{--dc:#EFB609;}
+-.ood-col--cid .ood-prod-col + .ood-prod-col::before{--dc:#DA4527;}
+-.ood-col--ra .ood-prod-col + .ood-prod-col::before{--dc:#12A89C;}
+-.ood-prod-h{margin:0 0 8px;font-family:Poppins,sans-serif;font-weight:600;font-size:.7rem;color:#0F031C;white-space:nowrap;}
+-.ood-pills{display:flex;flex-direction:column;align-items:flex-start;gap:5px;}
++/* Two carved silver "dice" replace the old white products/services key.
++   Each die = a metallic rim + a recessed face that holds its own pills, so
++   products (Sunshine) and services (Indigo) can never cross over.
++
++   ART: both dice reuse ONE transparent Canva PNG. Drop the file in, set
++   --die-img to its url, and add the `has-img` class to each .ood-die — the
++   CSS metallic fallback below then steps aside. The PNG already carries its
++   own transparent padding + chrome rim, so `has-img` insets the face padding
++   to land the pills inside the rim (not over the bevel). */
++.ood-dice{display:flex;gap:10px;align-items:flex-start;--die-img:url("/assets/1die.png");}
++/* each cell stacks a two-line heading ABOVE its die */
++.ood-diecell{flex:1 1 0;min-width:0;display:flex;flex-direction:column;}
++/* heading now sits outside the die, on the silver body (one word per line) */
++.ood-die-h{margin:0 0 5px;font-family:Poppins,sans-serif;font-weight:700;font-size:.92rem;line-height:1.12;letter-spacing:.01em;color:#19007D;text-align:center;}
++.ood-die{width:100%;position:relative;border-radius:18px;padding:5px;
++  background:var(--die-img,none) center/100% 100% no-repeat,
++    linear-gradient(145deg,#F7F9FA 0%,#A6A7A7 47%,#CCCDCF 53%,#F0F4F5 100%);
++  box-shadow:0 1px 0 rgba(255,255,255,.85) inset,0 0 0 1px rgba(153,155,155,.55),0 10px 20px -10px rgba(6,2,28,.5);}
++.ood-die.has-img{aspect-ratio:1/1;box-shadow:none;border-radius:0;background:var(--die-img) center/contain no-repeat;}
++.ood-die-face{position:relative;height:100%;border-radius:14px;padding:13px 12px 15px;text-align:center;
++  background:linear-gradient(135deg,#F7F9FA 0%,#E8ECF4 38%,#DCE3E8 68%,#F0F4F5 100%);
++  box-shadow:0 1px 2px rgba(6,2,28,.20) inset,0 1px 0 rgba(255,255,255,.9) inset;}
++/* with the real art, the die holds ONLY pills now (heading moved out), so they
++   are distributed to fill the freed face height */
++.ood-die.has-img .ood-die-face{background:none;box-shadow:none;border-radius:0;padding:11%;display:flex;}
++.ood-die.has-img .ood-pills{flex:1;justify-content:space-evenly;gap:4px;}
++.ood-die.has-img .ood-pill{white-space:normal;padding:5px 9px;}
++.ood-pills{display:flex;flex-direction:column;align-items:center;gap:6px;}
+ .ood-pillrow{display:flex;gap:5px;}
+ .ood-pill{font-size:.55rem;font-weight:600;line-height:1.3;padding:3px 8px;border-radius:999px;white-space:nowrap;max-width:100%;}
+-.ood-pill--sun{background:#FCEFBE;color:#0F031C;}
++/* white pills with neutral midnight-black text — references real dice (black
++   pips on white). Products + services share the look; the two dice + headings
++   already do the separating. Neutral ink (not the indigo #0F031C) so the text
++   doesn't read blue on white. */
++.ood-pill--sun,.ood-pill--indigo{background:#fff;color:#141414;box-shadow:0 0 0 1px rgba(150,155,162,.55),0 1px 2px rgba(6,2,28,.28);}
+ .ood-pill--ruby{background:#FBE0D8;color:#0F031C;}
+ .ood-pill--teal{background:#CDEFEA;color:#0F031C;}
+-.ood-pill--indigo{background:#E7E0FA;color:#19007D;}
+ @media (max-width:760px){.ood-grid{grid-template-columns:1fr;}.ood{padding:40px 18px 64px;}}
+ @media (prefers-reduced-motion:reduce){.ood-key{transition:none;}}
+-- 
+2.43.0
+
