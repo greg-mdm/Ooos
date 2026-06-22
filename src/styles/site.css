@@ -4790,7 +4790,8 @@ textarea:focus-visible,
 
 /* ===== DESIGN SYSTEM v2 — spatial pacing ===== */
 .ds { padding: 40px 24px 72px; }
-.ds .container { max-width: 1180px; }
+/* Wider canvas: stop squeezing the design-system content into a thin centre column. */
+.ds .container { max-width: 1280px; }
 .ds-header { max-width: 760px; margin-bottom: 64px; }
 .ds-header h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); margin-bottom: 18px; }
 .ds-header .ds-lede + .ds-lede { margin-top: 14px; }
@@ -4933,8 +4934,8 @@ textarea:focus-visible,
 /* ===== Commitments — orbital layout ===== */
 .ds-intro-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px 64px;
+  grid-template-columns: 1.1fr 0.8fr 1.1fr;
+  gap: 40px 44px;
   align-items: start;
   margin-bottom: 0;
 }
@@ -4944,7 +4945,8 @@ textarea:focus-visible,
 .ds-intro-text > .ds-lede { margin-bottom: 18px; }
 .ds-intro-text > .ds-lede:last-of-type { margin-bottom: 0; }
 
-.commit-text { margin-top: 40px; }
+/* Principles in motion is now its own (middle) column, top-aligned. */
+.commit-text { margin-top: 0; }
 .commit-text .ds-eyebrow { margin-bottom: 16px; }
 
 .commit-graphic { margin-top: -24px; }
@@ -4953,29 +4955,28 @@ textarea:focus-visible,
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 14px;
-}
-.commit-list-row {
-  display: grid;
-  grid-template-columns: 130px 1fr;
-  align-items: baseline;
   gap: 16px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(25, 0, 125, 0.12);
 }
-.commit-list-row:last-child { border-bottom: none; padding-bottom: 0; }
-.commit-list dt {
-  font-family: var(--serif);
-  font-size: 1.25rem;
-  font-weight: 400;
-  color: var(--dark-indigo);
+/* Each principle reads as one natural sentence: a big, highlighted first
+   word sitting inline with its description — no column gap, no dividers. */
+.commit-list-row {
   margin: 0;
+  line-height: 1.4;
+}
+.commit-list dt {
+  display: inline;
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--electric);
+  margin: 0 0.4em 0 0;
 }
 .commit-list dd {
+  display: inline;
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.0625rem;
   color: var(--ink);
-  opacity: 0.78;
+  opacity: 0.82;
 }
 
 /* Graphic panel */
@@ -5118,13 +5119,13 @@ textarea:focus-visible,
   .commit-graphic.is-active .commit-counter { animation: none !important; }
 }
 
-/* Mobile: stack text above graphic */
-@media (max-width: 860px) {
+/* Tablet & below: stack the three intro columns */
+@media (max-width: 980px) {
   .ds-intro-grid { grid-template-columns: 1fr; gap: 32px; }
+  .commit-text { margin-top: 8px; }
   .commit-graphic { max-width: 380px; }
 }
 @media (max-width: 720px) {
   .commit-word { font-size: 17px; }
   .commit-center-word { font-size: 18px; }
-  .commit-list-row { grid-template-columns: 110px 1fr; }
 }
