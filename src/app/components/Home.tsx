@@ -2,6 +2,10 @@ import { Link } from "react-router-dom";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { PathwayModal } from "./PathwayModal";
 import { OooDivisions } from "./OooDivisions";
+import "../../styles/hero-top.css";
+
+const ARRIVAL_WORDS =
+  "You have arrived at a gateway to Ontario's vibrant innovation ecosystem.".split(" ");
 
 const PALETTE = ['#f0c040','#00d4aa','#ff4444','#00e676','#6C01F4','#4488ff'];
 
@@ -71,27 +75,46 @@ export function Home({ onSupport }: { onSupport: () => void }) {
   const [pathwayOpen, setPathwayOpen] = useState(false);
   return (
     <>
-      <section className="hero">
-        <div className="hero-content">
-          <div className="hero-logo-wrap">
-            <img
-              src={`${import.meta.env.BASE_URL}assets/images/brand/ooo-logo.png`}
-              alt=""
-              className="hero-logo"
-              width="120"
-              height="120"
-              aria-hidden="true"
-            />
+      <section className="ooos-top" aria-label="Welcome">
+        <div className="ot-content">
+          <div className="ot-trio">
+            <div className="ot-trio__side ot-trio__left">
+              <span className="ot-pill ot-pill--welcome">
+                <svg className="ot-pill__ico" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9.25" stroke="currentColor" strokeWidth="1.6" />
+                  <ellipse cx="12" cy="12" rx="4.1" ry="9.25" stroke="currentColor" strokeWidth="1.6" />
+                  <path d="M2.9 9.2h18.2M2.9 14.8h18.2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                </svg>
+                Everyone is welcome here.
+              </span>
+            </div>
+            <div className="ot-trio__orb">
+              <img
+                className="ot-logo"
+                src={`${import.meta.env.BASE_URL}assets/images/brand/ooo-logo.png`}
+                alt="Ooo Digital Media Studio"
+                width="230"
+                height="230"
+              />
+            </div>
+            <div className="ot-trio__side ot-trio__right">
+              <div className="ot-sign" role="img" aria-label="Toronto, Canada" />
+            </div>
           </div>
-          <h1>
-            <strong>Ooo Digital Media Studio</strong> designs interactive experiences and creative campaigns for founders, organizations, and communities.
-          </h1>
-          <ul className="hero-bullets">
-            <li>Based in Ontario's innovation ecosystem</li>
-            <li>Working in partnership with Canadian entrepreneurs</li>
-            <li>Building a global network of digital media partners</li>
-            <li>Growing with our creative community</li>
-          </ul>
+
+          <p className="ot-arrival">
+            {ARRIVAL_WORDS.map((word, i) => (
+              <span key={i} className="w" style={{ animationDelay: `${(0.6 + i * 0.1).toFixed(2)}s` }}>
+                {word}{i < ARRIVAL_WORDS.length - 1 ? " " : ""}
+              </span>
+            ))}
+          </p>
+
+          <div className="ot-bigbox">
+            <h1>
+              <strong>Ooo Digital Media Studio</strong> designs interactive experiences and creative campaigns for founders, organizations, and communities.
+            </h1>
+          </div>
         </div>
       </section>
 
