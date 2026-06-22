@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { PathwayModal } from "./PathwayModal";
+import { OooDivisions } from "./OooDivisions";
 
 const PALETTE = ['#f0c040','#00d4aa','#ff4444','#00e676','#6C01F4','#4488ff'];
 
@@ -91,6 +92,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             <li>Building a global network of digital media partners</li>
             <li>Growing with our creative community</li>
           </ul>
+          <OooDivisions />
         </div>
       </section>
 
