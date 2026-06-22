@@ -168,24 +168,24 @@ export function About() {
                 We are offering a range of digital media experiences, from{" "}
                 <strong>observation</strong> to <strong>exploration</strong> and <strong>engagement</strong>.
               </p>
+            </div>
 
-              <div className="commit-text" aria-labelledby="commit-heading">
-                <h3 id="commit-heading" className="ds-eyebrow">Principles in motion</h3>
-                <dl className="commit-list">
-                  <div className="commit-list-row">
-                    <dt>Clarity</dt>
-                    <dd>where it matters</dd>
-                  </div>
-                  <div className="commit-list-row">
-                    <dt>Curiosity</dt>
-                    <dd>that leads to knowledge exchange</dd>
-                  </div>
-                  <div className="commit-list-row">
-                    <dt>Freedom</dt>
-                    <dd>to choose your level of participation</dd>
-                  </div>
-                </dl>
-              </div>
+            <div className="commit-text" aria-labelledby="commit-heading">
+              <h3 id="commit-heading" className="ds-eyebrow">Principles in motion</h3>
+              <dl className="commit-list">
+                <div className="commit-list-row">
+                  <dt>Clarity</dt>
+                  <dd>where it matters</dd>
+                </div>
+                <div className="commit-list-row">
+                  <dt>Curiosity</dt>
+                  <dd>that leads to knowledge exchange</dd>
+                </div>
+                <div className="commit-list-row">
+                  <dt>Freedom</dt>
+                  <dd>to choose your level of participation</dd>
+                </div>
+              </dl>
             </div>
 
             <div
