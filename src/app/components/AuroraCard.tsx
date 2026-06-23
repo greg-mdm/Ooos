@@ -12,8 +12,8 @@ import { useEffect, useRef } from "react";
    - DPR capped at 1.6, IntersectionObserver pause when offscreen,
      prefers-reduced-motion renders a single static frame.
 
-   The carved frame is a PNG with a transparent center
-   (public/assets/Ooo-card-frame-AF.png); the live aurora window
+   The carved frame is a PNG with a true transparent center
+   (public/Ooo-card-true.png); the live aurora window
    sits behind it and the shelf label is locked into the frame's
    bottom-right shelf. Styles live in `src/styles/aurora-card.css`.
    ============================================================ */
@@ -287,7 +287,7 @@ export function AuroraCard({
         </div>
         <img
           className="ac-frame"
-          src={`${import.meta.env.BASE_URL}assets/Ooo-card-frame-AF.png`}
+          src={`${import.meta.env.BASE_URL}Ooo-card-true.png`}
           alt="Aurora Field display card frame"
         />
         <div className="ac-shelf-label" aria-hidden="true">
