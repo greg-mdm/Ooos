@@ -11,12 +11,12 @@ const CORE_COLOURS = [
   { name: "Electric", hex: "#5B04DE", ink: "#FFFFFF", token: "--color-electric" },
   { name: "Teal", hex: "#008080", ink: "#FFFFFF", token: "--color-teal" },
   { name: "Robin's Egg", hex: "#F0F4F5", ink: "#0A0614", token: "--color-robins-egg" },
+  { name: "Bright Silver", hex: "#E8ECF4", ink: "#0A0614", token: "--color-bright-silver" },
+  { name: "Chrome Silver", hex: "#D8DBDE", ink: "#0A0614", token: "--color-chrome-silver" },
+  { name: "Suncloud White", hex: "#FFFDF4", ink: "#0A0614", token: "--color-suncloud-white" },
   { name: "Ruby", hex: "#822F00", ink: "#FFFFFF", token: "--color-ruby" },
   { name: "Gold", hex: "#F0C040", ink: "#0A0614", token: "--color-gold" },
   { name: "Sunshine", hex: "#FFF3B0", ink: "#0A0614", token: "--color-sunshine" },
-  { name: "Suncloud White", hex: "#FFFDF4", ink: "#0A0614", token: "--color-suncloud-white" },
-  { name: "Bright Silver", hex: "#E8ECF4", ink: "#0A0614", token: "--color-bright-silver" },
-  { name: "Chrome Silver", hex: "#D8DBDE", ink: "#0A0614", token: "--color-chrome-silver" },
 ] as const;
 
 /* The five selected Tailwind ramps. Each blends its 11 stops into one smooth
