@@ -1,0 +1,67 @@
+/* Ooo — Water Tanks (directional streams)
+   Homepage "Find Your Path" trio: WebGL caustic water with directional flow.
+   All selectors scoped under .water-tanks to avoid global collisions. */
+
+.water-tanks{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:34px;
+  max-width:1180px;width:100%;margin:0 auto;
+}
+@media (max-width:880px){
+  .water-tanks{grid-template-columns:1fr;max-width:460px;gap:46px;}
+}
+
+.water-tanks .tank-wrap{position:relative;}
+
+.water-tanks .tank-pill{
+  position:absolute;top:0;left:50%;transform:translate(-50%,-50%);z-index:5;
+  color:#E8ECF4;font-family:Poppins,sans-serif;font-weight:700;
+  font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;
+  padding:9px 20px;border-radius:999px;box-shadow:0 6px 16px rgba(6,2,28,.35);
+}
+.water-tanks .tank-pill--portal{background:#4B00B6;}                                    /* Portal */
+.water-tanks .tank-pill--electric{background:#5B04DE;color:#D8DBDE;}                    /* Electric violet; Chrome Silver text balances the brighter bg */
+.water-tanks .tank-pill--indigo{background:linear-gradient(0deg,#19007D 0%,#4B00B6 100%);} /* dark indigo (bottom) -> portal (top): lighter upward = up-momentum */
+
+.water-tanks .tank{
+  min-height:430px;display:flex;flex-direction:column;cursor:pointer;
+  border-radius:22px;overflow:hidden;border:1px solid rgba(43,5,97,.7);
+  background:#0F0222;box-shadow:0 1px 0 rgba(255,255,255,.12) inset,0 24px 50px -26px rgba(6,2,28,.8);
+}
+
+.water-tanks .tank-head{
+  flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:30px 22px 24px;background:linear-gradient(180deg,#19052E 0%,#110320 100%);
+}
+.water-tanks .tank-head h3{
+  font-family:Poppins,sans-serif;font-weight:700;font-size:1.5rem;line-height:1.15;
+  color:#E8ECF4;margin:0 0 10px;text-wrap:balance;
+}
+.water-tanks .tank-head p{
+  font-size:.95rem;line-height:1.5;color:#E8ECF4;margin:0 0 18px;text-wrap:pretty;
+}
+.water-tanks .tank-head p b{color:#E8ECF4;font-weight:700;}
+.water-tanks .tank-head p b.t-accent{color:#E5D1FA;}                       /* light violet accent — ~14:1 on the dark heading, still reads brand-purple */
+.water-tanks .tank-head p b.t-accent-semi{color:#E5D1FA;font-weight:600;}  /* same Midnight Violet AAA accent, semi-bold */
+
+.water-tanks .tank-detail{
+  font-size:.88rem;line-height:1.5;color:#E8ECF4;margin:0 0 18px;text-wrap:pretty;
+  border-top:1px solid rgba(232,236,244,.16);padding-top:14px;
+}
+
+.water-tanks .tank-cta{
+  display:inline-flex;align-items:center;gap:7px;cursor:pointer;
+  font-family:Poppins,sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;
+  color:#EFB609;background:rgba(239,182,9,.06);text-decoration:none;
+  padding:10px 18px;border-radius:9px;border:1px solid rgba(239,182,9,.6);transition:background .18s,transform .12s;
+}
+.water-tanks .tank-cta:hover{background:rgba(239,182,9,.16);transform:translateY(-1px);}
+
+.water-tanks .tank-water{position:relative;height:172px;flex:none;}
+.water-tanks .tank-water canvas{
+  position:absolute;inset:0;width:100%;height:100%;display:block;
+  background:linear-gradient(0deg,#110320 0%,#0c7d7d 65%,#c7f2f2 100%);
+}
+.water-tanks .tank-water::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;z-index:2;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(232,236,244,.55),transparent);
+}
