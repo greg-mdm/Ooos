@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { AuroraHeader } from "./AuroraHeader";
 
 export function SkipLink() {
   return (
@@ -7,68 +8,8 @@ export function SkipLink() {
   );
 }
 
-function playWordmark(el: HTMLElement | null) {
-  if (!el) return;
-  el.classList.remove("is-playing");
-  // force reflow so the animation can restart
-  void el.offsetWidth;
-  el.classList.add("is-playing");
-  window.setTimeout(() => el.classList.remove("is-playing"), 1400);
-}
-
-function scrollToFindYourPath() {
-  const target = document.getElementById("find-your-path");
-  if (!target) return;
-  const navOffset = 72;
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const targetY = target.getBoundingClientRect().top + window.scrollY - navOffset;
-  if (reduce) {
-    window.scrollTo(0, targetY);
-    return;
-  }
-  const startY = window.scrollY;
-  const distance = targetY - startY;
-  if (Math.abs(distance) < 4) return;
-  // slow + steady: reading pace, ~0.35 px per ms, clamped 5s–12s
-  const duration = Math.min(12000, Math.max(5000, Math.abs(distance) / 0.35));
-  const startTime = performance.now();
-  const ooo = document.querySelector<HTMLElement>(".pane-wordmark__ooo");
-  const ahh = document.querySelector<HTMLElement>(".pane-wordmark__ahh");
-  let oooPlayed = false;
-  let ahhPlayed = false;
-  function step(now: number) {
-    const t = Math.min(1, (now - startTime) / duration);
-    const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-    window.scrollTo(0, startY + distance * eased);
-    if (!oooPlayed && ooo) {
-      const r = ooo.getBoundingClientRect();
-      if (r.top < window.innerHeight * 0.7 && r.bottom > 0) {
-        oooPlayed = true;
-        playWordmark(ooo);
-        window.setTimeout(() => {
-          if (!ahhPlayed) {
-            ahhPlayed = true;
-            playWordmark(ahh);
-          }
-        }, 750);
-      }
-    }
-    if (!ahhPlayed && ahh) {
-      const r = ahh.getBoundingClientRect();
-      if (r.top < window.innerHeight * 0.7 && r.bottom > 0) {
-        ahhPlayed = true;
-        playWordmark(ahh);
-      }
-    }
-    if (t < 1) requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
-}
-
 export function Nav() {
   const navRef = useRef<HTMLElement | null>(null);
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
 
   // Nav is permanently dark indigo (matches the footer band). No over-dark swap needed.
   useEffect(() => {
@@ -77,17 +18,11 @@ export function Nav() {
     nav.classList.remove("over-dark");
   }, []);
 
-  const handleExplore = () => {
-    if (pathname !== "/") {
-      navigate("/");
-      window.setTimeout(scrollToFindYourPath, 280);
-    } else {
-      scrollToFindYourPath();
-    }
-  };
-
   return (
     <nav ref={navRef} className="nav" aria-label="Primary">
+      {/* live aurora behind the bar; the nav-gradient is the fallback underneath */}
+      <AuroraHeader />
+      <div className="nav-scrim" aria-hidden="true" />
       <div className="nav-inner">
         <Link to="/" className="nav-brand" aria-label="Ooo Digital Media Studio home">
           <span className="nav-brand-mark">Ooo!</span>
@@ -98,9 +33,6 @@ export function Nav() {
           <Link to="/cid">Innovation</Link>
           <Link to="/exhibition" className="nav-link--collapse">Exhibition</Link>
           <Link to="/about">Design</Link>
-          <button onClick={handleExplore} className="nav-cta nav-cta--collapse" type="button">
-            Explore
-          </button>
         </div>
       </div>
     </nav>
