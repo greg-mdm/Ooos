@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuroraCard } from "./AuroraCard";
 
 /* Core semantic anchors — the named colours the whole system is built on. */
 const CORE_COLOURS = [
@@ -10,12 +11,12 @@ const CORE_COLOURS = [
   { name: "Electric", hex: "#5B04DE", ink: "#FFFFFF", token: "--color-electric" },
   { name: "Teal", hex: "#008080", ink: "#FFFFFF", token: "--color-teal" },
   { name: "Robin's Egg", hex: "#F0F4F5", ink: "#0A0614", token: "--color-robins-egg" },
+  { name: "Bright Silver", hex: "#E8ECF4", ink: "#0A0614", token: "--color-bright-silver" },
+  { name: "Chrome Silver", hex: "#D8DBDE", ink: "#0A0614", token: "--color-chrome-silver" },
+  { name: "Suncloud White", hex: "#FFFDF4", ink: "#0A0614", token: "--color-suncloud-white" },
   { name: "Ruby", hex: "#822F00", ink: "#FFFFFF", token: "--color-ruby" },
   { name: "Gold", hex: "#F0C040", ink: "#0A0614", token: "--color-gold" },
   { name: "Sunshine", hex: "#FFF3B0", ink: "#0A0614", token: "--color-sunshine" },
-  { name: "Suncloud White", hex: "#FFFDF4", ink: "#0A0614", token: "--color-suncloud-white" },
-  { name: "Bright Silver", hex: "#E8ECF4", ink: "#0A0614", token: "--color-bright-silver" },
-  { name: "Chrome Silver", hex: "#D8DBDE", ink: "#0A0614", token: "--color-chrome-silver" },
 ] as const;
 
 /* The five selected Tailwind ramps. Each blends its 11 stops into one smooth
@@ -336,25 +337,50 @@ export function About() {
 
           <section className="ds-palette">
             <div className="ds-palette-inner">
-          <h3 className="ds-section-title">Colour system</h3>
-          <p className="ds-section-lede">
-            Core semantic anchors and the Tailwind spectrums they generate. Each
-            ramp blends its eleven stops into one smooth gradient — the same
-            gradient logic used across surfaces, accents, and transitions
-            throughout the Ooos universe.
-          </p>
+          <div className="ds-palette-top">
+            <div className="ds-palette-main">
+              <div className="ds-intro-card">
+                <h3 className="ds-section-title">Colour system</h3>
+                <p className="ds-section-lede">
+                  Core semantic anchors and the Tailwind spectrums they generate.
+                  Each ramp blends its eleven stops into one smooth gradient — the
+                  same gradient logic used across surfaces, accents, and
+                  transitions throughout the Ooos universe.
+                </p>
+              </div>
 
-          <ul className="ds-anchors" aria-label="Core semantic colours">
-            {CORE_COLOURS.map((c) => (
-              <li className="ds-anchor" key={c.token}>
-                <span className="ds-anchor__colour" style={{ background: c.hex, color: c.ink }}>
-                  <strong>{c.name}</strong>
-                  <span>{c.hex}</span>
-                </span>
-                <code>{c.token}</code>
-              </li>
-            ))}
-          </ul>
+              <ul className="ds-anchors" aria-label="Core semantic colours">
+                {CORE_COLOURS.map((c) => (
+                  <li className="ds-anchor" key={c.token}>
+                    <span className="ds-anchor__colour" style={{ background: c.hex, color: c.ink }}>
+                      <strong>{c.name}</strong>
+                      <span>{c.hex}</span>
+                    </span>
+                    <code>{c.token}</code>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <aside className="ds-featured" aria-label="Featured asset">
+              <p className="ds-featured-eyebrow">Featured Asset</p>
+              <AuroraCard />
+              <dl className="ds-featured-meta">
+                <div>
+                  <dt>Name</dt>
+                  <dd>Aurora Field — Display Card</dd>
+                </div>
+                <div>
+                  <dt>Edition</dt>
+                  <dd>Nº 001 · Plasma</dd>
+                </div>
+                <div>
+                  <dt>Engine</dt>
+                  <dd>De-blued Aurora · WebGL</dd>
+                </div>
+              </dl>
+            </aside>
+          </div>
 
           <div className="ds-spectra">
             {SPECTRA.map((s) => (
