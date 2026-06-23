@@ -1057,177 +1057,6 @@ a:hover { color: var(--electric); }
   border: none;
   box-shadow: none;
 }
-.path-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  margin: 0;
-}
-.path-pool {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.path-pool__tag {
-  display: inline-block;
-  background: #ffffff;
-  color: var(--dark-indigo);
-  border: 2px solid transparent;
-  background-image:
-    linear-gradient(#ffffff, #ffffff),
-    linear-gradient(135deg, var(--dark-indigo) 0%, var(--electric) 100%);
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
-  border-radius: 999px;
-  padding: 7px 18px;
-  margin-bottom: -16px;
-  font-size: 11.5px;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  box-shadow:
-    0 0 0 1px rgba(91,4,222,0.15),
-    0 8px 18px rgba(91,4,222,0.30);
-  position: relative;
-  z-index: 3;
-}
-.path-pool .path-card {
-  width: 100%;
-}
-.path-card {
-  position: relative;
-  background:
-    linear-gradient(
-      0deg,
-      #19007D 0%,
-      #19007D 78%,
-      #312583 88%,
-      #008080 96%,
-      #F0F4F5 100%
-    );
-  border: 1px solid rgba(25,0,125,0.35);
-  border-radius: 14px;
-  padding: 26px 14px 18px;
-  text-align: center;
-  overflow: hidden;
-  box-shadow:
-    inset 0 2px 0 rgba(255,255,255,0.22),
-    inset 0 -10px 24px rgba(0,0,0,0.32),
-    0 10px 24px rgba(25,0,125,0.28);
-  transition: transform 0.15s ease, box-shadow 0.2s ease;
-}
-.path-card::before {
-  content: '';
-  position: absolute;
-  inset: 6px 14px auto 14px;
-  height: 10px;
-  border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0) 70%);
-  pointer-events: none;
-  z-index: 1;
-}
-.path-card__label {
-  position: relative;
-  background: linear-gradient(180deg, rgba(25,0,125,0.62) 0%, rgba(8,0,40,0.72) 100%);
-  backdrop-filter: blur(8px) saturate(120%);
-  -webkit-backdrop-filter: blur(8px) saturate(120%);
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 10px;
-  padding: 18px 14px 16px;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.22),
-    inset 0 -1px 0 rgba(0,0,0,0.32);
-  z-index: 2;
-}
-.path-card:hover {
-  transform: translateY(-2px);
-  box-shadow:
-    inset 0 2px 0 rgba(255,255,255,0.28),
-    inset 0 -10px 24px rgba(0,0,0,0.36),
-    0 14px 28px rgba(25,0,125,0.38);
-}
-.path-card {
-  text-align: center;
-}
-.path-card__title {
-  font-family: var(--serif);
-  font-size: 26px;
-  font-weight: 700;
-  color: #fff;
-  margin: 4px 0 12px;
-  line-height: 1.15;
-  letter-spacing: 0.005em;
-}
-.path-card__tag {
-  display: inline-block;
-  background: #ffffff;
-  color: var(--dark-indigo);
-  border: 2px solid transparent;
-  background-image:
-    linear-gradient(#ffffff, #ffffff),
-    linear-gradient(135deg, var(--dark-indigo) 0%, var(--electric) 100%);
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
-  border-radius: 999px;
-  padding: 6px 16px;
-  margin: 0 auto 14px;
-  font-size: 11.5px;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  box-shadow:
-    0 0 0 1px rgba(91,4,222,0.15),
-    0 6px 16px rgba(91,4,222,0.28);
-}
-.path-card__body {
-  font-size: 13.5px;
-  color: rgba(255,255,255,0.88);
-  margin: 0;
-  line-height: 1.55;
-}
-.path-card__body strong {
-  color: #fff;
-  font-weight: 700;
-}
-.path-card__detail {
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid rgba(240,192,64,0.25);
-}
-.path-card__detail p {
-  font-size: 13.5px;
-  color: rgba(255,255,255,0.92);
-  margin: 0;
-  line-height: 1.55;
-}
-.path-card__toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 12px;
-  padding: 6px 10px;
-  background: transparent;
-  border: 1px solid rgba(240,192,64,0.55);
-  border-radius: 6px;
-  color: var(--gold);
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
-}
-.path-card__toggle:hover,
-.path-card__toggle:focus-visible {
-  background: var(--gold);
-  color: var(--dark-indigo);
-  border-color: var(--gold);
-  outline: none;
-}
-.path-card__toggle-arrow {
-  font-size: 12px;
-  line-height: 1;
-}
 .path-feature {
   max-width: 1040px;
   margin: 8px auto 18px;
@@ -1549,7 +1378,6 @@ a:hover { color: var(--electric); }
 }
 
 @media (max-width: 900px) {
-  .path-grid { grid-template-columns: 1fr; }
   .path-tank { padding: 20px 16px; }
 }
 
@@ -2075,20 +1903,6 @@ a:hover { color: var(--electric); }
   font-size: 18px;
   line-height: 1.45;
   color: var(--ink);
-}
-/* Kahoot engagement invite — plain text on the page background (no container) */
-.cid-scope .cid-engagement-lede {
-  grid-column: 1;
-  align-self: start;
-  margin: 8px 4px 0;
-  max-width: 40rem;
-  color: #1A0033;
-  font-size: 18px;
-  line-height: 1.5;
-}
-.cid-scope .cid-engagement-lede strong { color: #822F00; font-weight: 700; }
-@media (max-width: 980px) {
-  .cid-scope .cid-engagement-lede { grid-column: auto; }
 }
 .cid-scope .cid-watchlist-title {
   letter-spacing: 0.04em;
