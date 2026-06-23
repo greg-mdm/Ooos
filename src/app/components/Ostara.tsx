@@ -1,14 +1,7 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
-
-// Live Kahoot challenge embed. Admin: greg@ooos.ca.
-// Generated from Kahoot share dialog ("Embed" option), assignment-style URL.
-const KAHOOT_EMBED =
-  "https://kahoot.it/challenge/09524505?challenge-id=403b6d09-7c09-4def-94ce-5fb7aa8db66b_1778197641699&embed=true";
-const KAHOOT_PLAY = "https://kahoot.it/challenge/09524505";
+import { KahootSection } from "./KahootSection";
 
 export function Ostara({ onSupport }: { onSupport: () => void }) {
-  const [kahootActive, setKahootActive] = useState(false);
   return (
     <div className="ostara-scope">
       <section className="case-hero">
@@ -126,57 +119,7 @@ export function Ostara({ onSupport }: { onSupport: () => void }) {
           participant, and turns a workshop into a collective-intelligence
           system where every disposition is captured, timestamped, and visible.
         </p>
-        <p>
-          Try the live game below. Same questions used in the TMU sessions,
-          same five-step inquiry arc. Word-cloud and open-input rounds are
-          being added on the Kahoot 365 Gold tier so future workshops collect
-          qualitative insight alongside the multiple-choice signal reads.
-        </p>
-        <div className="kahoot-embed">
-          <div className="kahoot-frame-wrap">
-            {kahootActive ? (
-              <iframe
-                src={KAHOOT_EMBED}
-                title="Ostara workshop Kahoot"
-                name="kahoot-embed"
-                scrolling="no"
-                frameBorder={0}
-                allowFullScreen
-                allow="fullscreen"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            ) : (
-              <button
-                type="button"
-                className="kahoot-poster"
-                onClick={() => setKahootActive(true)}
-                aria-label="Launch the Ostara workshop Kahoot"
-              >
-                <span className="kahoot-poster__brand">Kahoot!</span>
-                <span className="kahoot-poster__title">
-                  Ostara workshop · Assignment by Ooo.Play
-                </span>
-                <span className="kahoot-poster__cta">▶ Click to launch</span>
-                <span className="kahoot-poster__meta">
-                  Loads only when you activate it. Won't auto-play on page load.
-                </span>
-              </button>
-            )}
-          </div>
-          <div className="kahoot-actions">
-            <a
-              className="btn btn-secondary"
-              href={KAHOOT_PLAY}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Play in a new tab →
-            </a>
-            <span className="kahoot-meta">
-              Admin: greg@ooos.ca · Tier: Kahoot 365 Gold (workshop edition)
-            </span>
-          </div>
-        </div>
+        <KahootSection />
 
         <h2>The four layers</h2>
         <h3>Workshop layer</h3>

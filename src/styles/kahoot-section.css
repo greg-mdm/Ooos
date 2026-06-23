@@ -1,0 +1,260 @@
+/* ===== Kahoot Gravity Grid section — scoped under .kgrid ===== */
+/* Mirrors the OooDivisions conventions: a single scoped root, Poppins
+   for headings, Inter/system body. Ported from the
+   `Kahoot Gravity Grid Section.html` mockup; the flat purple banner is
+   replaced by the WebGL "gravity grid" lattice. */
+
+.kgrid {
+  --kg-darkest: #06021C;
+  --kg-midnight: #0F031C;
+  --kg-ink: #19007D;
+  --kg-silver: #E8ECF4;
+  color: var(--kg-ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  margin: 12px 0 8px;
+}
+.kgrid *,
+.kgrid *::before,
+.kgrid *::after {
+  box-sizing: border-box;
+}
+.kgrid-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* ---- intro: copy left, inquiry arc right ---- */
+.kgrid-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 58ch) 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.kgrid-copy {
+  min-width: 0;
+}
+.kgrid-title {
+  font-family: Poppins, "Helvetica Neue", sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.6rem, 3.4vw, 30px);
+  letter-spacing: -0.01em;
+  color: var(--kg-ink);
+  margin: 0 0 6px;
+}
+.kgrid-kicker {
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: #7C5BD6;
+  margin: 0 0 18px;
+}
+.kgrid-lede {
+  color: #3a2b73;
+  line-height: 1.55;
+  font-size: 16px;
+}
+.kgrid-lede p {
+  margin: 0 0 14px;
+}
+.kgrid-lede p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---- inquiry arc: vertical stack beside the copy ---- */
+.kgrid-arc {
+  align-self: center;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+.kgrid-arc-group {
+  text-align: center;
+}
+.kgrid-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.kgrid-steps span {
+  font-family: Poppins, "Helvetica Neue", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.08em;
+  color: var(--kg-ink);
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+.kgrid-arc-arrow {
+  width: 2px;
+  height: 24px;
+  position: relative;
+  margin: 9px 0;
+  background: linear-gradient(180deg, #7C5BD6, #4B00B6);
+}
+.kgrid-arc-arrow::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -1px;
+  width: 7px;
+  height: 7px;
+  border-bottom: 2px solid #4B00B6;
+  border-right: 2px solid #4B00B6;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* ---- the banner: Gravity Grid lattice ---- */
+.kgrid-banner {
+  position: relative;
+  margin-top: 34px;
+  border-radius: 20px;
+  overflow: hidden;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--kg-darkest); /* fallback before GL paints */
+  box-shadow: 0 30px 60px -28px rgba(15, 3, 28, 0.7);
+}
+.kgrid-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+  pointer-events: none;
+}
+.kgrid-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(60% 70% at 50% 50%, rgba(6, 2, 28, 0.55) 0%, transparent 70%);
+}
+
+/* ---- centre launch panel ---- */
+.kgrid-card {
+  position: relative;
+  z-index: 2;
+  width: min(420px, 64%);
+  padding: 54px 40px 46px;
+  border-radius: 18px;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(75, 0, 182, 0.55), rgba(75, 0, 182, 0.32) 55%, rgba(6, 2, 28, 0.40));
+  border: 1px solid rgba(123, 60, 214, 0.5);
+  backdrop-filter: blur(10px) saturate(1.1);
+  -webkit-backdrop-filter: blur(10px) saturate(1.1);
+  box-shadow: 0 20px 50px -22px rgba(75, 0, 182, 0.7), 0 0 0 1px rgba(75, 0, 182, 0.25) inset;
+}
+.kgrid-word {
+  font-family: var(--font-elevated, "Poppins", sans-serif);
+  font-style: italic;
+  font-weight: 800;
+  font-size: 40px;
+  color: #fff;
+  letter-spacing: -0.01em;
+  margin-bottom: 18px;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+}
+.kgrid-sub {
+  font-weight: 700;
+  color: #F0F4F5;
+  font-size: 15px;
+  line-height: 1.35;
+  margin-bottom: 26px;
+}
+.kgrid-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  background: #4B00B6;
+  border: none;
+  cursor: pointer;
+  padding: 15px 26px;
+  border-radius: 999px;
+  box-shadow: 0 8px 22px -6px rgba(75, 0, 182, 0.85);
+  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+.kgrid-btn:hover {
+  transform: translateY(-1px);
+  background: #5B04DE;
+  box-shadow: 0 10px 26px -6px rgba(91, 4, 222, 0.9);
+}
+.kgrid-btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+.kgrid-note {
+  margin-top: 18px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #E8ECF4;
+  line-height: 1.4;
+  text-shadow: 0 1px 3px rgba(6, 2, 28, 0.6);
+}
+
+/* ---- the real Kahoot embed (loaded on launch) ---- */
+.kgrid-frame-wrap {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  padding: 22px 16px;
+}
+.kgrid-frame-wrap iframe {
+  display: block;
+  width: 400px;
+  max-width: 100%;
+  height: 584px;
+  border: 0;
+  border-radius: 10px;
+  background: #000;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* ---- actions + attribution ---- */
+.kgrid-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-top: 18px;
+}
+.kgrid-meta {
+  font-size: 0.82rem;
+  color: #6b5ca0;
+}
+.kgrid-credit {
+  margin-top: 22px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #6b5ca0;
+}
+.kgrid-credit a {
+  color: #4B00B6;
+  font-weight: 600;
+  text-decoration: none;
+}
+.kgrid-credit a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 760px) {
+  .kgrid-intro {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kgrid-btn {
+    transition: none;
+  }
+}
