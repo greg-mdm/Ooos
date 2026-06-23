@@ -227,7 +227,7 @@ export function KahootSection() {
                 safeguards such as multi-agent moderation, strict role
                 separation, and consistent human oversight and analysis. Try the
                 live game below, featuring structured inquiry guided by a Master
-                of Digital Media.
+                of{"\u00A0"}Digital{"\u00A0"}Media.
               </p>
               <p>
                 Kahoot increases participation by allowing everyone to share
