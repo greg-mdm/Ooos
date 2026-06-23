@@ -58,20 +58,20 @@ const SPECTRA: Spectrum[] = [
     ],
   },
   {
-    name: "Teal",
-    badge: "Exact anchor · 700",
+    name: "Robin's Egg → Teal → Cyan",
+    badge: "Exact anchors · 50 · 700 · 950",
     stops: [
-      { w: "50", hex: "#F0FDFD", ink: "#0A0614" },
-      { w: "100", hex: "#D6F8F7", ink: "#0A0614" },
-      { w: "200", hex: "#ADEEED", ink: "#0A0614" },
-      { w: "300", hex: "#79DEDD", ink: "#0A0614" },
-      { w: "400", hex: "#3DC8C7", ink: "#0A0614" },
-      { w: "500", hex: "#1AADAD", ink: "#FFFFFF" },
-      { w: "600", hex: "#039393", ink: "#FFFFFF" },
+      { w: "50", hex: "#F0F4F5", ink: "#0A0614", anchor: true },
+      { w: "100", hex: "#D3E3E4", ink: "#0A0614" },
+      { w: "200", hex: "#B7D2D2", ink: "#0A0614" },
+      { w: "300", hex: "#9AC1C1", ink: "#0A0614" },
+      { w: "400", hex: "#7DB1B1", ink: "#0A0614" },
+      { w: "500", hex: "#5FA0A0", ink: "#0A0614" },
+      { w: "600", hex: "#3D9090", ink: "#0A0614" },
       { w: "700", hex: "#008080", ink: "#FFFFFF", anchor: true },
-      { w: "800", hex: "#005F5F", ink: "#FFFFFF" },
-      { w: "900", hex: "#034747", ink: "#FFFFFF" },
-      { w: "950", hex: "#002828", ink: "#FFFFFF" },
+      { w: "800", hex: "#07999A", ink: "#0A0614" },
+      { w: "900", hex: "#12B4B4", ink: "#0A0614" },
+      { w: "950", hex: "#1FCECB", ink: "#0A0614", anchor: true },
     ],
   },
   {
@@ -376,7 +376,6 @@ export function About() {
                         <strong>{c.name}</strong>
                         <span>{c.hex}</span>
                       </span>
-                      <code>{c.token}</code>
                     </li>
                   ))}
                 </ul>
