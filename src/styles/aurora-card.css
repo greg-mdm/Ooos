@@ -1,0 +1,202 @@
+/* ============================================================
+   Aurora Card — scoped styles for <AuroraCard/>.
+   Ported from `Aurora Field Card v3.html`; class names prefixed
+   `ac-` so the generic v3 names (.card/.window/.glass/.bib/
+   .placard/.stage/.spotlight) never collide with site.css.
+   ============================================================ */
+.ac-stage {
+  --ac-midnight: #0F031C;
+  --ac-darkest: #06021C;
+  --ac-silver: #E8ECF4;
+  --ac-silver-dim: rgba(232, 236, 244, 0.45);
+  --ac-hairline: rgba(232, 236, 244, 0.16);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  perspective: 1400px;
+  padding: 20px;
+  color: var(--ac-silver);
+  font-family: "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ac-spotlight {
+  position: absolute;
+  left: 50%;
+  top: 38%;
+  transform: translate(-50%, -50%);
+  width: min(86%, 1000px);
+  height: min(70%, 720px);
+  background: radial-gradient(closest-side, rgba(91, 4, 222, 0.16), rgba(75, 0, 182, 0.06) 45%, transparent 72%);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.ac-card {
+  position: relative;
+  width: min(100%, 420px);
+  aspect-ratio: 760 / 500;
+  border-radius: 22px;
+  background:
+    radial-gradient(140% 120% at 18% 100%, rgba(91, 4, 222, 0.26), transparent 42%),
+    linear-gradient(135deg, #160a26 0%, var(--ac-midnight) 38%, var(--ac-darkest) 100%);
+  padding: 26px;
+  box-shadow:
+    0 1px 0 rgba(232, 236, 244, 0.08) inset,
+    0 0 0 1px rgba(0, 0, 0, 0.6),
+    0 40px 80px -20px rgba(0, 0, 0, 0.8),
+    0 10px 30px -10px rgba(75, 0, 182, 0.35);
+  transform-style: preserve-3d;
+  transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
+  will-change: transform;
+}
+
+.ac-window {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 7px 24px 7px 24px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px var(--ac-hairline),
+    0 0 0 5px rgba(6, 2, 28, 0.9),
+    0 0 0 6px rgba(232, 236, 244, 0.05),
+    0 20px 40px -16px rgba(0, 0, 0, 0.9) inset;
+  background: var(--ac-darkest);
+  transform: translateZ(28px);
+}
+
+.ac-gl {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.ac-glass {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    radial-gradient(120% 100% at 50% -10%, rgba(232, 236, 244, 0.10), transparent 40%),
+    radial-gradient(140% 120% at 50% 120%, rgba(0, 0, 0, 0.55), transparent 55%);
+  box-shadow: inset 0 0 60px rgba(6, 2, 28, 0.7);
+}
+
+/* ---- case "bibs": the solid case dips into the display to hold text ---- */
+.ac-bib {
+  position: absolute;
+  z-index: 6;
+  transform: translateZ(34px);
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  background: linear-gradient(160deg, #180d2a 0%, #0a0418 100%);
+  color: var(--ac-silver);
+  text-transform: uppercase;
+  pointer-events: none;
+  user-select: none;
+}
+
+.ac-bib-tl {
+  top: 18px;
+  left: 18px;
+  width: 46%;
+  height: 46px;
+  border-radius: 0 0 15px 0;
+  border-right: 1px solid var(--ac-hairline);
+  border-bottom: 1px solid var(--ac-hairline);
+  justify-content: flex-start;
+  padding-left: 14px;
+  box-shadow: 6px 7px 18px rgba(0, 0, 0, 0.55);
+}
+
+.ac-bib-br {
+  bottom: 18px;
+  right: 18px;
+  width: 46%;
+  height: 46px;
+  border-radius: 15px 0 0 0;
+  border-left: 1px solid var(--ac-hairline);
+  border-top: 1px solid var(--ac-hairline);
+  justify-content: flex-end;
+  padding-right: 14px;
+  box-shadow: -6px -7px 18px rgba(0, 0, 0, 0.55);
+}
+
+.ac-bib-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+}
+
+.ac-bib-br .ac-bib-text {
+  color: var(--ac-silver-dim);
+  font-weight: 500;
+  letter-spacing: 0.30em;
+}
+
+.ac-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #1AADAD;
+  box-shadow: 0 0 8px #1AADAD;
+  animation: ac-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes ac-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.ac-placard {
+  margin-top: 22px;
+  text-align: center;
+  white-space: nowrap;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ac-silver-dim);
+}
+
+.ac-placard b {
+  color: var(--ac-silver);
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ac-dot {
+    animation: none;
+  }
+  .ac-card {
+    transition: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .ac-card {
+    padding: 22px;
+  }
+  .ac-bib-tl,
+  .ac-bib-br {
+    height: 44px;
+    width: 52%;
+  }
+  .ac-bib-text {
+    font-size: 8.5px;
+    letter-spacing: 0.24em;
+  }
+}
