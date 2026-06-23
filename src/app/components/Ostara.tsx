@@ -110,15 +110,6 @@ export function Ostara({ onSupport }: { onSupport: () => void }) {
           </div>
         </div>
 
-        <h2>Kahoot as the participatory layer</h2>
-        <p>
-          Ostara's complexity, probabilistic signals, abstention as a valid
-          position, role-separated agents, only works if the room can input in
-          parallel without one voice dominating. Kahoot is the instrument that
-          makes that possible. It collapses the gap between facilitator and
-          participant, and turns a workshop into a collective-intelligence
-          system where every disposition is captured, timestamped, and visible.
-        </p>
         <KahootSection />
 
         <h2>The four layers</h2>
