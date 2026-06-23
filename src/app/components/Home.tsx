@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Fragment, type ReactNode, useEffect, useRef, useState } from "react";
 import { PathwayModal } from "./PathwayModal";
 import { OooDivisions } from "./OooDivisions";
+import { WaterTanks } from "./WaterTanks";
 import "../../styles/hero-top.css";
 
 const ARRIVAL_WORDS =
@@ -394,29 +395,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
         </div>
 
         <div className="path-tank">
-          <div className="path-grid">
-            <PathCard
-              title="Join our stream"
-              tag="Public access"
-              cta="Learn more"
-              summary="Explore open resources and downloadable content."
-              detail="If you remix or republish Ooo media, keep an active link to Ooos.ca anywhere on your site while the media is up."
-            />
-            <PathCard
-              title="Flow into the current"
-              tag="Community members"
-              cta="Get inside access"
-              summary={<>Access premium creative assets, research reports, workshop and strategy kits, and early releases from <strong>Ooos universe</strong>.</>}
-              detail="The waitlist for the Ooo token is now open!"
-            />
-            <PathCard
-              title="Donate to support a shared vision!"
-              tag="Project partners"
-              cta="Create a wave!"
-              summary={<><strong>Choose</strong> a project that inspires you, benefits your community, or reflects your values. <strong>Every contribution adds to a visible pool of public support!</strong></>}
-              detail="Watch and share as the total grows and the project advances toward its next public milestone!"
-            />
-          </div>
+          <WaterTanks />
         </div>
 
         <div className="path-feature">
@@ -470,53 +449,6 @@ export function Home({ onSupport }: { onSupport: () => void }) {
       </section>
       {pathwayOpen && <PathwayModal onClose={() => setPathwayOpen(false)} />}
     </>
-  );
-}
-
-function PathCard({
-  title,
-  tag,
-  summary,
-  detail,
-  cta = "Create a wave!",
-}: {
-  title: string;
-  tag?: string;
-  summary: ReactNode;
-  detail: ReactNode;
-  cta?: string;
-}) {
-  const [open, setOpen] = useState(false);
-  const detailId = `path-detail-${title.replace(/\s+/g, "-").toLowerCase()}`;
-  return (
-    <div className="path-pool">
-      {tag && <div className="path-pool__tag">{tag}</div>}
-      <article className={`path-card ${open ? "is-open" : ""}`}>
-        <div className="path-card__label">
-          <h3 className="path-card__title">{title}</h3>
-          <p className="path-card__body">{summary}</p>
-          <div
-            id={detailId}
-            className="path-card__detail"
-            hidden={!open}
-          >
-            <p>{detail}</p>
-          </div>
-          <button
-            type="button"
-            className="path-card__toggle"
-            aria-expanded={open}
-            aria-controls={detailId}
-            onClick={() => setOpen((v) => !v)}
-          >
-            {open ? "Show less" : cta}
-            <span aria-hidden="true" className="path-card__toggle-arrow">
-              {open ? "↑" : "↓"}
-            </span>
-          </button>
-        </div>
-      </article>
-    </div>
   );
 }
 
