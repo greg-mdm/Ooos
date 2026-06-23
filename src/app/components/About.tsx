@@ -335,6 +335,25 @@ export function About() {
             </article>
           </div>
 
+          <section className="ds-card-hero" aria-label="Featured asset">
+            <p className="ds-card-hero-eyebrow">Featured Asset</p>
+            <AuroraCard />
+            <dl className="ds-card-hero-meta">
+              <div>
+                <dt>Name</dt>
+                <dd>Aurora Field — Display Card</dd>
+              </div>
+              <div>
+                <dt>Edition</dt>
+                <dd>Nº 001 · Plasma</dd>
+              </div>
+              <div>
+                <dt>Engine</dt>
+                <dd>De-blued Aurora · WebGL</dd>
+              </div>
+            </dl>
+          </section>
+
           <section className="ds-palette">
             <div className="ds-palette-inner">
           <div className="ds-palette-top">
@@ -361,25 +380,6 @@ export function About() {
                 ))}
               </ul>
             </div>
-
-            <aside className="ds-featured" aria-label="Featured asset">
-              <p className="ds-featured-eyebrow">Featured Asset</p>
-              <AuroraCard />
-              <dl className="ds-featured-meta">
-                <div>
-                  <dt>Name</dt>
-                  <dd>Aurora Field — Display Card</dd>
-                </div>
-                <div>
-                  <dt>Edition</dt>
-                  <dd>Nº 001 · Plasma</dd>
-                </div>
-                <div>
-                  <dt>Engine</dt>
-                  <dd>De-blued Aurora · WebGL</dd>
-                </div>
-              </dl>
-            </aside>
           </div>
 
           <div className="ds-spectra">

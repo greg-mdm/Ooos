@@ -12,9 +12,10 @@ import { useEffect, useRef } from "react";
    - DPR capped at 1.6, IntersectionObserver pause when offscreen,
      prefers-reduced-motion renders a single static frame.
 
-   Self-contained: the notched "smart-card" frame, case bibs and
-   placard are CSS-drawn (no image asset). Styles live in
-   `src/styles/aurora-card.css`.
+   The carved frame is a PNG with a true transparent center
+   (public/Ooo-card-true.png); the live aurora window
+   sits behind it and the shelf label is locked into the frame's
+   bottom-right shelf. Styles live in `src/styles/aurora-card.css`.
    ============================================================ */
 
 const FRAG = `
@@ -98,17 +99,14 @@ void main(){
 const VERT = `attribute vec2 a_pos; void main(){ gl_Position=vec4(a_pos,0.0,1.0); }`;
 
 type AuroraCardProps = {
-  /** Top-left bib label. */
+  /** Label engraved on the frame's bottom-right shelf (split by spaces onto stacked lines). */
   title?: string;
-  /** Bottom-right bib label (after the pulsing dot). */
-  edition?: string;
   /** Placard line under the card. */
   caption?: string;
 };
 
 export function AuroraCard({
   title = "Aurora Field",
-  edition = "Nº 001 · Plasma",
   caption = "move to part the smoke · click to bloom",
 }: AuroraCardProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -287,18 +285,19 @@ export function AuroraCard({
           <canvas className="ac-gl" ref={canvasRef} />
           <div className="ac-glass" aria-hidden="true" />
         </div>
-        <div className="ac-bib ac-bib-tl">
-          <span className="ac-bib-text">{title}</span>
-        </div>
-        <div className="ac-bib ac-bib-br">
-          <span className="ac-bib-text">
-            <span className="ac-dot" />
-            {edition}
-          </span>
+        <img
+          className="ac-frame"
+          src={`${import.meta.env.BASE_URL}Ooo-card-true.png`}
+          alt="Aurora Field display card frame"
+        />
+        <div className="ac-shelf-label" aria-hidden="true">
+          {title.split(" ").map((word, i) => (
+            <span key={i}>{word}</span>
+          ))}
         </div>
       </div>
       <div className="ac-placard">
-        {title} — <b>{caption}</b>
+        <b>{caption}</b>
       </div>
     </div>
   );
