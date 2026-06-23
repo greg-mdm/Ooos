@@ -358,18 +358,32 @@ export function About() {
             <div className="ds-palette-inner">
           <div className="ds-palette-top">
             <div className="ds-palette-main">
-              <div className="ds-intro-card">
-                <h3 className="ds-section-title">Colour system</h3>
-                <p className="ds-section-lede">
-                  Core semantic anchors and the Tailwind spectrums they generate.
-                  Each ramp blends its eleven stops into one smooth gradient — the
-                  same gradient logic used across surfaces, accents, and
-                  transitions throughout the Ooos universe.
-                </p>
+              <div className="ds-intro-row">
+                <div className="ds-intro-card">
+                  <h3 className="ds-section-title">Colour system</h3>
+                  <p className="ds-section-lede">
+                    Core semantic anchors and the Tailwind spectrums they generate.
+                    Each ramp blends its eleven stops into one smooth gradient — the
+                    same gradient logic used across surfaces, accents, and
+                    transitions throughout the Ooos universe.
+                  </p>
+                </div>
+
+                <ul className="ds-anchors ds-anchors--chips" aria-label="Accent colours">
+                  {CORE_COLOURS.slice(10).map((c) => (
+                    <li className="ds-anchor" key={c.token}>
+                      <span className="ds-anchor__colour" style={{ background: c.hex, color: c.ink }}>
+                        <strong>{c.name}</strong>
+                        <span>{c.hex}</span>
+                      </span>
+                      <code>{c.token}</code>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               <ul className="ds-anchors" aria-label="Core semantic colours">
-                {CORE_COLOURS.map((c) => (
+                {CORE_COLOURS.slice(0, 10).map((c) => (
                   <li className="ds-anchor" key={c.token}>
                     <span className="ds-anchor__colour" style={{ background: c.hex, color: c.ink }}>
                       <strong>{c.name}</strong>

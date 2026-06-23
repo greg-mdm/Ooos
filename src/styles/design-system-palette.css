@@ -146,8 +146,27 @@
 }
 .ds-intro-card .ds-section-lede {
   color: #3A3550;
-  max-width: none;
+  /* accessibility: hard-cap the measure far under the 118-char ceiling */
+  max-width: 60ch;
   margin-bottom: 0;
+}
+
+/* Intro card fills the left half; the three accent chips square up in the right half */
+.ds-intro-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  align-items: center;
+}
+.ds-anchors--chips {
+  margin: 0;
+  grid-template-columns: repeat(3, minmax(0, 168px));
+  justify-content: center;
+  gap: 14px;
+}
+.ds-anchors--chips .ds-anchor__colour {
+  aspect-ratio: 1 / 1;
+  min-height: 0;
 }
 
 /* Featured asset rail on the right */
@@ -281,9 +300,9 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  min-height: 92px;
-  padding: 12px 14px;
-  border-radius: 12px;
+  min-height: clamp(150px, 13vw, 180px);
+  padding: 14px 16px;
+  border-radius: 14px;
   /* hairline keeps near-black anchors (Midnight Black, Darkest Indigo) legible on the band */
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
 }
@@ -385,11 +404,8 @@
     grid-template-columns: 1fr;
     gap: 28px;
   }
-  .ds-featured {
-    max-width: 420px;
-    width: 100%;
-    margin: 0 auto;
-  }
+  .ds-intro-row { grid-template-columns: 1fr; }
+  .ds-anchors--chips { grid-template-columns: repeat(3, 1fr); }
   .ds-anchors { grid-template-columns: repeat(4, 1fr); }
 }
 @media (max-width: 640px) {
