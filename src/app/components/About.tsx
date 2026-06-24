@@ -181,7 +181,7 @@ export function About() {
             <div className="gs-body">
               <p className="gs-eyebrow">Education</p>
               <div className="gs-edu">
-                <span className="gs-edu-dot" style={{ background: "var(--electric)", boxShadow: "0 0 9px var(--electric)" }} aria-hidden="true" />
+                <span className="gs-edu-dot" style={{ background: "var(--gold)", boxShadow: "0 0 9px var(--gold)" }} aria-hidden="true" />
                 <div className="gs-edu-head">
                   <p className="gs-edu-degree">Master of Digital Media</p>
                   <span className="gs-edu-year">2026</span>
@@ -227,31 +227,6 @@ export function About() {
               </span>
             </a>
           </aside>
-
-          <div className="gs-main">
-            <p className="gs-main-eyebrow">About the studio</p>
-            <h2 className="gs-main-title">The independent practice of Gregory Tyler Long</h2>
-            <p className="gs-main-lede">
-              An expert in creative digital strategy. The studio serves the
-              Information and Cultural Industries sector, in Canada and globally
-              — designing digital products, hosting interactive experiences, and
-              providing expert resources for managing artificial intelligence.
-            </p>
-            <div className="gs-cards">
-              <div className="gs-card">
-                <span className="gs-card-value">2</span>
-                <span className="gs-card-label">Graduate &amp; honours degrees</span>
-              </div>
-              <div className="gs-card">
-                <span className="gs-card-value">51</span>
-                <span className="gs-card-label">NAICS sector focus</span>
-              </div>
-              <div className="gs-card">
-                <span className="gs-card-value">∞</span>
-                <span className="gs-card-label">Communities served, globally</span>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 

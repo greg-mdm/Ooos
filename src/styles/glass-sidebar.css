@@ -53,20 +53,19 @@
   .gs-blob { animation: none; }
 }
 
-/* layout */
+/* layout — glass sidebar sits at the side; aligned to the site container */
 .gs-layout {
   position: relative;
   z-index: 2;
-  max-width: 1120px;
+  max-width: 1100px;
   margin-inline: auto;
-  display: grid;
-  grid-template-columns: 300px 1fr;
-  gap: 36px;
-  align-items: stretch;
 }
 
 /* ---------- sidebar ---------- */
 .gs-sidebar {
+  position: relative;
+  width: 320px;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   border-radius: 22px;
@@ -123,14 +122,14 @@
 .gs-body::-webkit-scrollbar-thumb { background: rgba(91, 4, 222, 0.4); border-radius: 3px; }
 .gs-body::-webkit-scrollbar-track { background: transparent; }
 
-/* section label — matches the site eyebrow treatment (electric, uppercase, tracked) */
+/* section label — Chrome Silver on dark (never blue/purple on blue) */
 .gs-eyebrow {
   font-family: var(--font-elevated);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--electric);
+  color: var(--chrome-silver);
   margin: 0;
   padding: 16px 0 4px;
 }
@@ -228,78 +227,7 @@
 .gs-contact-site { font-size: 12.5px; font-weight: 600; color: var(--bright-silver); }
 .gs-contact-email { font-size: 11px; color: var(--chrome-silver); }
 
-/* ---------- main context ---------- */
-.gs-main {
-  position: relative;
-  align-self: center;
-  padding: 8px 4px;
-}
-.gs-main-eyebrow {
-  font-family: var(--font-elevated);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--chrome-silver);
-  margin: 0 0 10px;
-}
-.gs-main-title {
-  font-family: var(--serif);
-  font-size: clamp(26px, 3.4vw, 34px);
-  font-weight: 700;
-  color: var(--bright-silver);
-  letter-spacing: -0.02em;
-  text-shadow: 0 6px 40px rgba(91, 4, 222, 0.45);
-  max-width: 640px;
-  line-height: 1.12;
-  margin: 0;
-}
-.gs-main-lede {
-  margin: 22px 0 0;
-  max-width: 600px;
-  font-size: 16px;
-  line-height: 1.65;
-  color: rgba(232, 236, 244, 0.72);
-}
-.gs-cards {
-  margin: 40px 0 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  max-width: 680px;
-}
-.gs-card {
-  border-radius: 18px;
-  background: linear-gradient(180deg, rgba(75, 0, 182, 0.18), rgba(6, 2, 28, 0.28));
-  border: 1px solid rgba(91, 4, 222, 0.3); /* electric */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: 20px;
-  min-height: 130px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.gs-card-value {
-  font-family: var(--serif);
-  font-size: 30px;
-  font-weight: 700;
-  color: var(--bright-silver);
-}
-.gs-card-label {
-  font-size: 12.5px;
-  color: rgba(232, 236, 244, 0.6);
-  font-weight: 500;
-  line-height: 1.35;
-}
-
 /* ---------- responsive ---------- */
-@media (max-width: 900px) {
-  .gs-layout { grid-template-columns: 1fr; gap: 28px; }
-  .gs-sidebar { max-width: 360px; }
-  .gs-main { align-self: start; }
-}
 @media (max-width: 560px) {
-  .gs-cards { grid-template-columns: 1fr; }
-  .gs-sidebar { max-width: none; }
+  .gs-sidebar { width: 100%; }
 }

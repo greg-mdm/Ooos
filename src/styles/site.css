@@ -4902,8 +4902,8 @@ textarea:focus-visible,
 @media (prefers-reduced-motion: reduce) {
   .commit-text::before { animation: none; }
 }
-.commit-text .ds-eyebrow { margin-bottom: 16px; color: #CBA3F5; }
-.commit-text .commit-list dt { color: #D9C6FF; }
+.commit-text .ds-eyebrow { margin-bottom: 16px; color: #FFF3B0; }
+.commit-text .commit-list dt { color: #FFF3B0; }
 .commit-text .commit-list dd { color: rgba(255, 255, 255, 0.88); opacity: 1; }
 
 .commit-graphic { margin-top: -24px; }
