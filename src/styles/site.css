@@ -4680,6 +4680,15 @@ textarea:focus-visible,
   font-weight: 600;
   color: var(--ink);
 }
+.business-info-row--note {
+  margin-top: 2px;
+}
+.business-info-row--note dd {
+  font-size: 13px;
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(26, 0, 51, 0.6);
+}
 .business-info-note {
   margin: 20px 0 0;
   font-size: 13px;
