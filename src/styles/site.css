@@ -1602,7 +1602,21 @@ a:hover { color: var(--electric); }
 .ostara-scope .case-hero {
   background:
     radial-gradient(circle at 50% 28%, rgba(240,192,64,0.10), transparent 55%),
-    linear-gradient(180deg, #000 0%, #05030F 50%, #0D0A28 100%);
+    /* Heart (banner) = darkest, easing outward to a lighter midnight violet so
+       the banner's near-black edge dissolves into the hero — no boxy seam.
+       Incremental stops keep the ramp smooth (darkest-indigo -> midnight-black
+       -> midnight-violet-950). */
+    radial-gradient(135% 105% at 50% 36%,
+      #06021C 0%,
+      #06021C 14%,
+      #08021C 22%,
+      #09021C 30%,
+      #0B021C 40%,
+      #0C031C 50%,
+      #0E031C 58%,
+      #0F031C 66%,
+      #100320 82%,
+      #110320 100%);
   padding-bottom: 40px;
 }
 /* Ostara hero: logo banner replaces the text heading, plus tagline */
@@ -1613,7 +1627,9 @@ a:hover { color: var(--electric); }
   max-width: 860px;
   height: auto;
   border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  /* soft, low-contrast glow only — avoids a hard outline ring against the
+     now-matching near-black hero background */
+  box-shadow: 0 10px 48px rgba(0,0,0,0.32);
 }
 .ostara-hero-tagline {
   font-family: var(--font-elevated);
