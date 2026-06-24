@@ -1485,7 +1485,7 @@ a:hover { color: var(--electric); }
 
 /* ===== FOOTER ===== */
 .footer {
-  background: var(--dark-indigo);
+  background: var(--darkest-indigo, #06021c);
   color: rgba(255,255,255,0.6);
   padding: 48px 24px 28px;
   font-size: 13px;
