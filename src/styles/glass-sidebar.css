@@ -57,24 +57,31 @@
 .gs-layout {
   position: relative;
   z-index: 2;
-  max-width: 1100px;
+  max-width: 1280px;
   margin-inline: auto;
   display: grid;
   grid-template-columns: 320px minmax(0, 1fr);
   gap: clamp(28px, 4vw, 64px);
   align-items: center;
 }
-@media (max-width: 880px) {
+@media (max-width: 900px) {
   .gs-layout { grid-template-columns: 1fr; gap: 36px; }
 }
 
-/* ---------- featured asset (Aurora card) — fills the right cell ---------- */
+/* ---------- featured asset: large Aurora card, details stacked to the right ---------- */
 .gs-feature {
+  display: flex;
+  align-items: center;
+  gap: clamp(24px, 3vw, 48px);
+  min-width: 0;
+}
+.gs-feature-main {
+  flex: 1 1 auto;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
-  min-width: 0;
+  gap: 14px;
 }
 .gs-feature-eyebrow {
   margin: 0;
@@ -83,38 +90,39 @@
   font-weight: 800;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: var(--electric, #5b04de);
+  color: #f0c040; /* gold — was purple-on-purple */
   text-align: center;
 }
-.gs-feature .ac-card { width: min(100%, 560px); }
+.gs-feature-main .ac-stage { width: 100%; padding: 0; }
+.gs-feature .ac-card { width: min(100%, 680px); }
+/* details stacked vertically beside the card — plain text, no box */
 .gs-feature-meta {
-  margin: 4px 0 0;
-  width: 100%;
-  max-width: 560px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0 24px;
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  min-width: 150px;
 }
 .gs-feature-meta > div {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  border-top: 1px solid rgba(232, 236, 244, 0.16);
-  padding-top: 10px;
 }
 .gs-feature-meta dt {
-  font-size: 0.64rem;
-  letter-spacing: 0.1em;
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--chrome-silver);
 }
 .gs-feature-meta dd {
   margin: 0;
-  font-size: 0.82rem;
+  font-size: 0.9rem;
   color: var(--bright-silver);
 }
-@media (max-width: 560px) {
-  .gs-feature-meta { grid-template-columns: 1fr; gap: 0; }
+@media (max-width: 760px) {
+  .gs-feature { flex-direction: column; align-items: stretch; }
+  .gs-feature-meta { flex-direction: row; flex-wrap: wrap; gap: 16px 28px; }
+  .gs-feature-meta > div { flex: 1 1 120px; }
 }
 
 /* ---------- sidebar ---------- */

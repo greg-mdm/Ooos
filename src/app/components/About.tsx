@@ -227,8 +227,10 @@ export function About() {
           </aside>
 
           <div className="gs-feature">
-            <p className="gs-feature-eyebrow">★ Featured Asset</p>
-            <AuroraCard />
+            <div className="gs-feature-main">
+              <p className="gs-feature-eyebrow">★ Featured Asset</p>
+              <AuroraCard />
+            </div>
             <dl className="gs-feature-meta">
               <div>
                 <dt>Name</dt>
