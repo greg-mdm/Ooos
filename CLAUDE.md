@@ -67,15 +67,45 @@ web sessions aren't in chat history, and those links/branch names are regenerate
 so they go stale immediately — this is what kept breaking. They're a convenience if a session
 happens to still be open, never the source of truth. A commit's `Claude-Session:` footer is a
 trace, not a dependency.
-Current state — 2026-06-22 (live on ooos.ca)
-Homepage refinements merged to `main` (PRs #4, #5) and deployed:
-Hero "top panel": larger logo orb, edge-aligned welcome / Toronto pills, tighter spacing,
-3-line blurb in the white tinted card with the WebP maple leaf in the right square.
-Ooo Divisions: CID "Workshops" / "Experiments" product pills now render (side-by-side row);
-Lovelo subtitles fixed to weight 900.
-Hero leaf optimized to WebP (~22 KB).
+
+Establishing edit access (push to main) — the proven pathway
+This is the part that historically broke (expired tokens, device-code loops). Follow in order:
+1. Verify identity + push reach (no auth prompts if already good):
+   `gh auth status` (should say "Logged in to github.com account greg-mdm")
+   `git ls-remote --heads origin main` (prints a SHA = you can reach the remote)
+2. If `gh` is NOT logged in, authenticate once via the web device flow:
+   `gh auth login --hostname github.com --git-protocol https --web`
+   (it prints an 8-char code like `XXXX-XXXX`; enter it at https://github.com/login/device — that
+   code is shown by the CLI, it is NOT emailed; never type a code someone else gives you), then:
+   `gh auth setup-git`
+3. Make edits, then ALWAYS `npm run build` (must be clean), then commit.
+4. Push straight to `main` (fast-forward) using gh as the credential helper — this is the command
+   that works even when the ambient codespace token has expired:
+   `git -c credential.helper='!gh auth git-credential' push origin HEAD:main`
+   Pushing to `main` auto-deploys to ooos.ca via `.github/workflows/deploy.yml`.
+   Alternative: open a PR from the session branch into `main` and merge.
+Gotchas:
+- The repo is often opened as a git WORKTREE on a `copilot/*` or `claude/*` branch; that's fine —
+  commit there and push with `HEAD:main`. Confirm with `git worktree list`.
+- VS Code's "Apply changes" button needs the open workspace folder to be a CLEAN git tree; if it
+  errors, run `git status` in EACH worktree (`git worktree list`) and commit/reset the dirty one.
+  Work that is already committed + pushed to `main` is safe regardless of that button.
+- `gh issue`/`gh pr` may fail with "missing required scopes [read:project]" — that does NOT affect
+  code pushes. For issues, use the GitHub API/MCP tools instead, or `gh auth refresh -s read:project`.
+
+Current state — 2026-06-24 (live on ooos.ca)
+About page rebuilt: studio intro, founder + credentials, business-information block. Credentials
+now STACK vertically (most recent first); royal-blue `#19007D` swapped for brand violet
+(`#2B0561` → Portal `#4B00B6`) so it no longer reads like TMU/Applyboard. Business info: business
+name on its own line (no "Studio" label), inline "Label: value" colons, NAICS definition beside
+the acronym. Design-system section: Ooo logo featured near the hero (optimized to a 10 KB WebP at
+`public/assets/brand/ooo-logo-ds.webp`); "Principles in motion" column is now an indigo
+glassmorphism + animated-gradient + noise panel (respects `prefers-reduced-motion`).
+Earlier in this run: CID watchlist embed made full-bleed with an indigo two-cell observatory bar
+(silver right cell, enlarged telescope); CID intro long lines capped (~58ch); Ostara hero given a
+smooth radial gradient so the banner blends into the background.
 Open / next
-Possible maple-leaf size/position tweak (currently `clamp(140px, 16vw, 200px)`, vertically centered).
-Original "remove grey background" request — needs the exact element identified (likely in the
-Ooo Divisions section); the white hero card was the wrong target and has been restored.
+Possible maple-leaf size/position tweak on the homepage hero (`clamp(140px, 16vw, 200px)`).
+Confirm which "sidebar" the glassmorphism treatment belongs on (applied to the design-system
+"Principles in motion" column for now — there is no slide-out nav drawer in the site).
 PR #3 (GitHub MCP write-access `.mcp.json`) is an optional draft.
