@@ -3844,12 +3844,13 @@ textarea:focus-visible,
   border-color: #F0C040;
 }
 .btn-exhibition {
-  background: transparent;
-  color: #19007D;
+  background: #822F00; /* ruby — Canadian Interactive Exhibition signature, filled at rest */
+  color: #FFFFFF;
+  border-color: #822F00;
 }
 .btn-exhibition:hover,
 .btn-exhibition:focus-visible {
-  background: #6B2500; /* muted dark ruby */
+  background: #6B2500; /* darker ruby on hover */
   color: #FFFFFF;
   border-color: #6B2500;
 }
