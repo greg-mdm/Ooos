@@ -456,6 +456,7 @@
         if (v.id === 'smallpond') return;  // shown as its own stacked pool, not a tab
         var b = document.createElement('button');
         b.className = 'oea-tab'; b.type = 'button'; b.setAttribute('role','tab');
+        b.dataset.view = v.id;
         b.setAttribute('aria-selected', v.id === current);
         b.textContent = v.tab;
         b.onclick = function () { current = v.id; render(); };
@@ -716,8 +717,8 @@
 
     function render() {
       sel();
-      root.querySelectorAll('.oea-tab').forEach(function (el, i) {
-        el.setAttribute('aria-selected', VIEWS[i].id === current);
+      root.querySelectorAll('.oea-tab').forEach(function (el) {
+        el.setAttribute('aria-selected', el.dataset.view === current);
       });
       buildLevel(); buildHead(); buildOpts(); buildList(); draw();
     }
