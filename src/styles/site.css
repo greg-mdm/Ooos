@@ -1600,23 +1600,15 @@ a:hover { color: var(--electric); }
   padding: 18px 24px 14px;
 }
 .ostara-scope .case-hero {
+  /* The hero banner photo (ostara-hero2.jpg) has a PURE-BLACK (#000) field, so
+     the hero core is pure black to dissolve the photo's edges, easing out to
+     Midnight Black (#0F031C) at the rim to tie into the site's dark tone. */
   background:
-    radial-gradient(circle at 50% 28%, rgba(240,192,64,0.10), transparent 55%),
-    /* Heart (banner) = darkest, easing outward to a lighter midnight violet so
-       the banner's near-black edge dissolves into the hero — no boxy seam.
-       Incremental stops keep the ramp smooth (darkest-indigo -> midnight-black
-       -> midnight-violet-950). */
-    radial-gradient(135% 105% at 50% 36%,
-      #06021C 0%,
-      #06021C 14%,
-      #08021C 22%,
-      #09021C 30%,
-      #0B021C 40%,
-      #0C031C 50%,
-      #0E031C 58%,
-      #0F031C 66%,
-      #100320 82%,
-      #110320 100%);
+    radial-gradient(150% 140% at 50% 40%,
+      #000000 0%,
+      #000000 56%,
+      #08020F 80%,
+      #0F031C 100%);
   padding-bottom: 40px;
 }
 /* Ostara hero: logo banner replaces the text heading, plus tagline */
@@ -1626,10 +1618,8 @@ a:hover { color: var(--electric); }
   width: 100%;
   max-width: 860px;
   height: auto;
-  border-radius: 16px;
-  /* soft, low-contrast glow only — avoids a hard outline ring against the
-     now-matching near-black hero background */
-  box-shadow: 0 10px 48px rgba(0,0,0,0.32);
+  /* No radius/shadow: the photo's pure-black field dissolves into the matching
+     black hero core, so the banner reads as part of the background. */
 }
 .ostara-hero-tagline {
   font-family: var(--font-elevated);
