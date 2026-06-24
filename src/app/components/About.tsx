@@ -134,38 +134,33 @@ export function About() {
 
   return (
     <>
-      <section className="case-hero">
-        <div className="container">
-          <Link to="/" className="back">← Home</Link>
-          <div className="about-hero-summary">
-            <div className="about-hero-col">
-              <p className="summary">
-                <strong>Ooo Digital Media Studio</strong> is the independent
-                practice of Gregory Tyler Long, an expert in the field of
-                creative digital strategy. He holds a{" "}
-                <strong>Master of Digital Media</strong> and a Bachelor of Arts
-                in <strong>Media, Information, and Technology</strong>.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className="about-brand" aria-label="Ooo">
-        <img
-          className="about-brand-logo"
-          src={`${import.meta.env.BASE_URL}assets/brand/ooo-logo-ds.webp`}
-          alt="Ooo Digital Media Studio logo"
-          width="160"
-          height="160"
-          loading="lazy"
-        />
-        <ul className="about-keys" aria-label="What Ooo does">
-          <li className="about-key">Connects entrepreneurs, artists, and activists</li>
-          <li className="about-key">Leads cross-sector collaboration</li>
-          <li className="about-key">Designs immersive digital experiences</li>
-          <li className="about-key">Directs applied research projects</li>
-        </ul>
+        <div className="about-brand-inner">
+          <Link to="/" className="about-back">← Home</Link>
+          <div className="about-intro">
+            <p className="about-intro-text">
+              <strong>Ooo Digital Media Studio</strong> is the independent
+              practice of Gregory Tyler Long, an expert in the field of
+              creative digital strategy. He holds a{" "}
+              <strong>Master of Digital Media</strong> and a Bachelor of Arts
+              in <strong>Media, Information, and Technology</strong>.
+            </p>
+            <img
+              className="about-brand-logo"
+              src={`${import.meta.env.BASE_URL}assets/brand/ooo-logo-ds.webp`}
+              alt="Ooo Digital Media Studio logo"
+              width="160"
+              height="160"
+              loading="lazy"
+            />
+          </div>
+          <ul className="about-keys" aria-label="What Ooo does">
+            <li className="about-key">Connects entrepreneurs, artists, and activists</li>
+            <li className="about-key">Leads cross-sector collaboration</li>
+            <li className="about-key">Designs immersive digital experiences</li>
+            <li className="about-key">Directs applied research projects</li>
+          </ul>
+        </div>
       </section>
 
       <section className="gs-band" aria-label="Founder and studio details">
