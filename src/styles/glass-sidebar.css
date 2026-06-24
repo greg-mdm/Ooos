@@ -1,20 +1,22 @@
 /* ===========================================================================
-   Glass profile sidebar — the "Claude design" panel integrated into /about.
-   A self-contained dark indigo band: glass sidebar (founder, education,
-   business info, contact) on the left, studio context on the right.
+   Glass profile sidebar — founder + studio band on /about.
+   Dark indigo band built on the Ooo brand tokens (site.css :root):
+   fonts  → --font-elevated (Montserrat), --serif (Poppins), --font-body (Inter)
+   text   → --bright-silver, --chrome-silver on dark
+   accent → --electric, --portal, --dark-indigo, --teal, --gold
    Class prefix: gs-
    =========================================================================== */
 
 .gs-band {
   position: relative;
   overflow: hidden;
-  background: #06021c;
-  color: #e8ecf4;
+  background: var(--darkest-indigo, #06021c);
+  color: var(--bright-silver);
   padding: 56px 24px;
   margin: 8px 0 0;
 }
 
-/* ambient violet field */
+/* ambient brand field — electric / portal / teal */
 .gs-blob {
   position: absolute;
   border-radius: 50%;
@@ -24,17 +26,17 @@
 }
 .gs-blob--1 {
   width: 560px; height: 560px; left: -160px; top: -140px;
-  background: radial-gradient(circle, rgba(91, 4, 222, 0.55), transparent 70%);
+  background: radial-gradient(circle, rgba(91, 4, 222, 0.5), transparent 70%); /* electric */
   animation: gsFloat1 22s ease-in-out infinite;
 }
 .gs-blob--2 {
   width: 520px; height: 520px; left: 18%; bottom: -240px;
-  background: radial-gradient(circle, rgba(75, 0, 182, 0.5), transparent 70%);
+  background: radial-gradient(circle, rgba(75, 0, 182, 0.46), transparent 70%); /* portal */
   animation: gsFloat2 26s ease-in-out infinite;
 }
 .gs-blob--3 {
   width: 440px; height: 440px; right: -100px; top: 120px;
-  background: radial-gradient(circle, rgba(12, 125, 125, 0.28), transparent 70%);
+  background: radial-gradient(circle, rgba(0, 128, 128, 0.26), transparent 70%); /* teal */
   animation: gsFloat3 30s ease-in-out infinite;
 }
 .gs-vignette {
@@ -71,7 +73,7 @@
   background: linear-gradient(180deg, rgba(75, 0, 182, 0.34), rgba(45, 5, 110, 0.34) 55%, rgba(20, 3, 46, 0.5));
   backdrop-filter: blur(18px) saturate(150%);
   -webkit-backdrop-filter: blur(18px) saturate(150%);
-  border: 1px solid rgba(123, 60, 214, 0.5);
+  border: 1px solid rgba(91, 4, 222, 0.45); /* electric */
   box-shadow:
     0 24px 60px -22px rgba(75, 0, 182, 0.7),
     0 0 0 1px rgba(75, 0, 182, 0.25) inset,
@@ -92,22 +94,22 @@
   padding: 24px 22px 20px;
 }
 .gs-founder-name {
-  font-family: var(--font-elevated, "Poppins", sans-serif);
+  font-family: var(--serif);
   font-weight: 700;
   font-size: 16px;
-  color: #e8ecf4;
+  color: var(--bright-silver);
   letter-spacing: -0.01em;
   line-height: 1.2;
   margin: 0;
 }
 .gs-founder-role {
+  font-family: var(--font-elevated);
   font-size: 10.5px;
-  color: #d8dbde;
+  color: var(--chrome-silver);
   font-weight: 600;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  font-family: var(--font-elevated, "Poppins", sans-serif);
-  margin: 5px 0 0;
+  margin: 6px 0 0;
 }
 
 /* scroll body */
@@ -118,15 +120,17 @@
   padding: 4px 22px 18px;
 }
 .gs-body::-webkit-scrollbar { width: 6px; }
-.gs-body::-webkit-scrollbar-thumb { background: rgba(157, 98, 249, 0.4); border-radius: 3px; }
+.gs-body::-webkit-scrollbar-thumb { background: rgba(91, 4, 222, 0.4); border-radius: 3px; }
 .gs-body::-webkit-scrollbar-track { background: transparent; }
 
+/* section label — matches the site eyebrow treatment (electric, uppercase, tracked) */
 .gs-eyebrow {
-  font-family: var(--font-elevated, "Poppins", sans-serif);
+  font-family: var(--font-elevated);
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.2em;
-  color: #d8dbde;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--electric);
   margin: 0;
   padding: 16px 0 4px;
 }
@@ -153,30 +157,31 @@
   gap: 10px;
 }
 .gs-edu-degree {
-  font-family: var(--font-elevated, "Poppins", sans-serif);
+  font-family: var(--serif);
   font-weight: 600;
   font-size: 13.5px;
-  color: #e8ecf4;
+  color: var(--bright-silver);
   line-height: 1.25;
   margin: 0;
 }
 .gs-edu-year {
   flex-shrink: 0;
-  font-family: var(--font-elevated, "Poppins", sans-serif);
+  font-family: var(--font-elevated);
   font-size: 10px;
   font-weight: 700;
-  color: #f0c040;
+  letter-spacing: 0.04em;
+  color: var(--gold);
 }
-.gs-edu-school { font-size: 12px; color: #d8dbde; margin: 3px 0 0; line-height: 1.35; }
-.gs-edu-detail { font-size: 11.5px; color: #d8dbde; margin: 3px 0 0; line-height: 1.4; }
+.gs-edu-school { font-size: 12px; color: var(--chrome-silver); margin: 3px 0 0; line-height: 1.35; }
+.gs-edu-detail { font-size: 11.5px; color: var(--chrome-silver); margin: 3px 0 0; line-height: 1.4; }
 
 /* business block */
 .gs-biz { border-top: 1px solid rgba(232, 236, 244, 0.1); padding-top: 13px; }
 .gs-biz-name {
-  font-family: var(--font-elevated, "Poppins", sans-serif);
+  font-family: var(--serif);
   font-weight: 700;
   font-size: 14px;
-  color: #e8ecf4;
+  color: var(--bright-silver);
   margin: 0 0 14px;
 }
 .gs-biz-rows {
@@ -186,15 +191,15 @@
   gap: 11px;
 }
 .gs-biz-row { font-size: 13px; line-height: 1.4; }
-.gs-biz-row dt { display: inline; color: #d8dbde; }
+.gs-biz-row dt { display: inline; color: var(--chrome-silver); }
 .gs-biz-row dt::after { content: ": "; }
-.gs-biz-row dd { display: inline; margin: 0; color: #e8ecf4; font-weight: 600; }
+.gs-biz-row dd { display: inline; margin: 0; color: var(--bright-silver); font-weight: 600; }
 .gs-biz-note {
   margin: 15px 0 0;
   padding-top: 13px;
   border-top: 1px solid rgba(232, 236, 244, 0.1);
   font-size: 11px;
-  color: #d8dbde;
+  color: var(--chrome-silver);
   line-height: 1.45;
   font-style: italic;
 }
@@ -217,11 +222,11 @@
   width: 32px; height: 32px;
   border-radius: 9px;
   flex-shrink: 0;
-  background: linear-gradient(135deg, #0c7d7d, #5b04de);
-  box-shadow: 0 0 0 1px rgba(157, 98, 249, 0.4) inset;
+  background: linear-gradient(135deg, var(--teal), var(--electric));
+  box-shadow: 0 0 0 1px rgba(91, 4, 222, 0.4) inset;
 }
-.gs-contact-site { font-size: 12.5px; font-weight: 600; color: #e8ecf4; }
-.gs-contact-email { font-size: 11px; color: #d8dbde; }
+.gs-contact-site { font-size: 12.5px; font-weight: 600; color: var(--bright-silver); }
+.gs-contact-email { font-size: 11px; color: var(--chrome-silver); }
 
 /* ---------- main context ---------- */
 .gs-main {
@@ -230,19 +235,19 @@
   padding: 8px 4px;
 }
 .gs-main-eyebrow {
-  font-family: var(--font-elevated, "Poppins", sans-serif);
+  font-family: var(--font-elevated);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(232, 236, 244, 0.42);
+  color: var(--chrome-silver);
   margin: 0 0 10px;
 }
 .gs-main-title {
-  font-family: var(--font-elevated, "Poppins", sans-serif);
+  font-family: var(--serif);
   font-size: clamp(26px, 3.4vw, 34px);
   font-weight: 700;
-  color: #e8ecf4;
+  color: var(--bright-silver);
   letter-spacing: -0.02em;
   text-shadow: 0 6px 40px rgba(91, 4, 222, 0.45);
   max-width: 640px;
@@ -254,7 +259,7 @@
   max-width: 600px;
   font-size: 16px;
   line-height: 1.65;
-  color: rgba(232, 236, 244, 0.7);
+  color: rgba(232, 236, 244, 0.72);
 }
 .gs-cards {
   margin: 40px 0 0;
@@ -266,7 +271,7 @@
 .gs-card {
   border-radius: 18px;
   background: linear-gradient(180deg, rgba(75, 0, 182, 0.18), rgba(6, 2, 28, 0.28));
-  border: 1px solid rgba(123, 60, 214, 0.32);
+  border: 1px solid rgba(91, 4, 222, 0.3); /* electric */
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   padding: 20px;
@@ -276,10 +281,10 @@
   justify-content: space-between;
 }
 .gs-card-value {
-  font-family: var(--font-elevated, "Poppins", sans-serif);
+  font-family: var(--serif);
   font-size: 30px;
   font-weight: 700;
-  color: #e8ecf4;
+  color: var(--bright-silver);
 }
 .gs-card-label {
   font-size: 12.5px;

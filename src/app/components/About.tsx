@@ -182,7 +182,7 @@ export function About() {
             <div className="gs-body">
               <p className="gs-eyebrow">Education</p>
               <div className="gs-edu">
-                <span className="gs-edu-dot" style={{ background: "#9d62f9", boxShadow: "0 0 9px #9d62f9" }} aria-hidden="true" />
+                <span className="gs-edu-dot" style={{ background: "var(--electric)", boxShadow: "0 0 9px var(--electric)" }} aria-hidden="true" />
                 <div className="gs-edu-head">
                   <p className="gs-edu-degree">Master of Digital Media</p>
                   <span className="gs-edu-year">2026</span>
@@ -190,7 +190,7 @@ export function About() {
                 <p className="gs-edu-school">Toronto Metropolitan University</p>
               </div>
               <div className="gs-edu">
-                <span className="gs-edu-dot" style={{ background: "#0c7d7d", boxShadow: "0 0 9px #0c7d7d" }} aria-hidden="true" />
+                <span className="gs-edu-dot" style={{ background: "var(--teal)", boxShadow: "0 0 9px var(--teal)" }} aria-hidden="true" />
                 <div className="gs-edu-head">
                   <p className="gs-edu-degree">Bachelor of Arts (Honours)</p>
                   <span className="gs-edu-year">2009</span>
