@@ -137,7 +137,6 @@ export function About() {
       <section className="case-hero">
         <div className="container">
           <Link to="/" className="back">← Home</Link>
-          <h1>About Ooos.</h1>
           <div className="about-hero-summary">
             <div className="about-hero-col">
               <p className="summary">
@@ -146,19 +145,6 @@ export function About() {
                 creative digital strategy. He holds a{" "}
                 <strong>Master of Digital Media</strong> and a Bachelor of Arts
                 in <strong>Media, Information, and Technology</strong>.
-              </p>
-              <p className="summary">
-                Our studio serves the Information and Cultural Industries
-                sector, both in Canada and globally. We design and distribute
-                digital products, host interactive experiences, and provide
-                expert resources for managing artificial intelligence.
-              </p>
-            </div>
-            <div className="about-hero-col">
-              <p className="summary">
-                We work with innovators, artists, and entrepreneurs to advance
-                Canadian Innovation and conduct applied research in cooperation
-                with industry partners and academic institutions.
               </p>
             </div>
           </div>
