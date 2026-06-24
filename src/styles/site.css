@@ -2064,7 +2064,7 @@ a:hover { color: var(--electric); }
   color: #1A0033;
   border: 1px solid rgba(15, 90, 90, 0.22);
   border-radius: 14px;
-  padding: 36px;
+  padding: 22px 36px 24px;
   align-self: start;
   width: fit-content;
   max-width: 100%;
@@ -2087,6 +2087,13 @@ a:hover { color: var(--electric); }
 .cid-scope .cid-watchlist-card a { color: #006B57; text-decoration: underline; }
 .cid-scope .cid-watchlist-card a.btn { text-decoration: none; }
 .cid-scope .cid-watchlist-card a:hover { color: #00A589; }
+.cid-scope .cid-engagement-lede {
+  max-width: 60ch;
+  margin: 4px 0 0;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #1A0033;
+}
 @media (max-width: 640px) {
   .cid-scope .cid-watchlist-card { padding: 24px 20px; }
 }
