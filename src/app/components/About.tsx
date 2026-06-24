@@ -173,11 +173,8 @@ export function About() {
 
           <div className="business-info">
             <h2 className="business-info-title">Business information</h2>
+            <p className="business-info-name">Ooo Digital Media Studio</p>
             <dl className="business-info-list">
-              <div className="business-info-row">
-                <dt>Studio</dt>
-                <dd>Ooo Digital Media Studio</dd>
-              </div>
               <div className="business-info-row">
                 <dt>Ontario business status</dt>
                 <dd>Active and Registered</dd>
