@@ -148,11 +148,10 @@ export function About() {
                 in <strong>Media, Information, and Technology</strong>.
               </p>
               <p className="summary">
-                Our studio serves diverse communities in the Information and
-                Cultural Industries sector, both in Canada and globally. We
-                design and distribute digital products, host interactive
-                experiences, and provide expert resources for managing
-                artificial intelligence.
+                Our studio serves the Information and Cultural Industries
+                sector, both in Canada and globally. We design and distribute
+                digital products, host interactive experiences, and provide
+                expert resources for managing artificial intelligence.
               </p>
             </div>
             <div className="about-hero-col">
@@ -233,11 +232,10 @@ export function About() {
             <p className="gs-main-eyebrow">About the studio</p>
             <h2 className="gs-main-title">The independent practice of Gregory Tyler Long</h2>
             <p className="gs-main-lede">
-              An expert in creative digital strategy. The studio serves diverse
-              communities in the Information and Cultural Industries sector, in
-              Canada and globally — designing digital products, hosting
-              interactive experiences, and providing expert resources for
-              managing artificial intelligence.
+              An expert in creative digital strategy. The studio serves the
+              Information and Cultural Industries sector, in Canada and globally
+              — designing digital products, hosting interactive experiences, and
+              providing expert resources for managing artificial intelligence.
             </p>
             <div className="gs-cards">
               <div className="gs-card">
