@@ -200,6 +200,15 @@ export function About() {
 
       <section className="ds" aria-labelledby="ds-heading">
         <div className="container">
+          <figure className="ds-logo">
+            <img
+              src={`${import.meta.env.BASE_URL}assets/brand/ooo-logo-ds.webp`}
+              alt="Ooo Digital Media Studio logo"
+              width="160"
+              height="160"
+              loading="lazy"
+            />
+          </figure>
           <div className="ds-intro-grid">
             <div className="ds-intro-text">
               <p className="ds-eyebrow">Design system</p>

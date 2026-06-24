@@ -1595,7 +1595,7 @@ a:hover { color: var(--electric); }
 }
 
 .case-hero {
-  background: linear-gradient(180deg, var(--dark-indigo) 0%, var(--portal) 100%);
+  background: linear-gradient(180deg, #2B0561 0%, #4B00B6 100%);
   color: #fff;
   padding: 18px 24px 14px;
 }
@@ -4548,12 +4548,12 @@ textarea:focus-visible,
   color: var(--ink);
   padding: 52px 24px 8px;
 }
-.about-profile .container { max-width: 1100px; margin-inline: auto; }
+.about-profile .container { max-width: 820px; margin-inline: auto; }
 
-/* three-card grid — cards top-aligned, equal padding */
+/* credentials stacked vertically (most recent at top) — cards top-aligned, equal padding */
 .profile-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 20px;
   align-items: start;
 }
@@ -4575,7 +4575,7 @@ textarea:focus-visible,
 .profile-name,
 .profile-credential {
   margin: 0 0 8px;
-  color: #19007D;
+  color: #2B0561;
   text-transform: uppercase;
   letter-spacing: 0.02em;
   line-height: 1.2;
@@ -4623,7 +4623,7 @@ textarea:focus-visible,
   font-size: 18px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #19007D;
+  color: #2B0561;
 }
 .business-info-list {
   margin: 0;
@@ -4659,6 +4659,17 @@ textarea:focus-visible,
   color: var(--ink);
 }
 .ds .container { max-width: 1100px; margin-inline: auto; }
+.ds-logo {
+  margin: 0 0 36px;
+  display: flex;
+  justify-content: center;
+}
+.ds-logo img {
+  width: clamp(120px, 14vw, 168px);
+  height: auto;
+  border-radius: 24px;
+  box-shadow: 0 16px 44px -22px rgba(43, 5, 97, 0.55);
+}
 .ds-header { max-width: 720px; margin-bottom: 40px; }
 .ds-eyebrow {
   font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
