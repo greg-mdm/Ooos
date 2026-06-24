@@ -139,11 +139,62 @@ export function About() {
           <Link to="/" className="back">← Home</Link>
           <h1>About Ooos.</h1>
           <p className="summary">
-            Ooo Digital Media Studio is the practice of Greg Long, MDM
-            candidate at TMU. The work spans decision-support systems,
-            participatory design, and the documentation of human authorship
-            alongside AI assistance.
+            <strong>Ooo Digital Media Studio</strong> is the independent
+            creative practice of Gregory Tyler Long, who holds a Master of
+            Digital Media degree. Our studio serves diverse communities and
+            partner organizations in the Information and Cultural Industries
+            sector, both in Canada and globally. We design and distribute
+            digital products, host interactive experiences, and collaborate on
+            applied research with academic and industry partners.
           </p>
+        </div>
+      </section>
+
+      <section className="about-profile" aria-label="Founder and studio details">
+        <div className="container">
+          <div className="profile-grid">
+            <article className="profile-card profile-card--founder">
+              <h2 className="profile-name">Gregory Tyler Long</h2>
+              <p className="profile-role">Founder • Creative Director</p>
+            </article>
+            <article className="profile-card">
+              <h3 className="profile-credential">Master of Digital Media</h3>
+              <p className="profile-inst">Toronto Metropolitan University</p>
+              <p className="profile-year">Conferred 2026</p>
+            </article>
+            <article className="profile-card">
+              <h3 className="profile-credential">Bachelor of Arts (Honours)</h3>
+              <p className="profile-inst">Western University</p>
+              <p className="profile-detail">Media, Information and Technoculture</p>
+              <p className="profile-detail">Minor in Creative Writing</p>
+              <p className="profile-year">Conferred 2009</p>
+            </article>
+          </div>
+
+          <div className="business-info">
+            <h2 className="business-info-title">Business information</h2>
+            <dl className="business-info-list">
+              <div className="business-info-row">
+                <dt>Studio</dt>
+                <dd>Ooo Digital Media Studio</dd>
+              </div>
+              <div className="business-info-row">
+                <dt>Ontario business status</dt>
+                <dd>Active and Registered</dd>
+              </div>
+              <div className="business-info-row">
+                <dt>Primary activity</dt>
+                <dd>Information and Cultural Industries</dd>
+              </div>
+              <div className="business-info-row">
+                <dt>NAICS sector</dt>
+                <dd>51</dd>
+              </div>
+            </dl>
+            <p className="business-info-note">
+              <em>NAICS means North American Industry Classification System.</em>
+            </p>
+          </div>
         </div>
       </section>
 

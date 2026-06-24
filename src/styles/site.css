@@ -4542,6 +4542,116 @@ textarea:focus-visible,
   .cid-watchlist-frame { height: 6800px; }
 }
 
+/* ===== ABOUT — FOUNDER PROFILE + BUSINESS DETAILS ===== */
+.about-profile {
+  background: var(--bg);
+  color: var(--ink);
+  padding: 52px 24px 8px;
+}
+.about-profile .container { max-width: 1100px; margin-inline: auto; }
+
+/* three-card grid — cards top-aligned, equal padding */
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+.profile-card {
+  background: #ffffff;
+  border: 1px solid rgba(25, 0, 125, 0.10);
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow:
+    0 12px 32px -18px rgba(25, 0, 125, 0.45),
+    0 2px 8px -4px rgba(25, 0, 125, 0.18);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+}
+/* main headings — the only uppercase text */
+.profile-name,
+.profile-credential {
+  margin: 0 0 8px;
+  color: #19007D;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+.profile-name { font-size: 22px; }
+.profile-credential { font-size: 18px; }
+.profile-role {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #4B00B6;
+}
+.profile-inst {
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.profile-detail {
+  margin: 0 0 2px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: rgba(26, 0, 51, 0.78);
+}
+.profile-year {
+  margin: 10px 0 0;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: rgba(26, 0, 51, 0.55);
+}
+
+/* business details — separate section below the grid */
+.business-info {
+  margin-top: 24px;
+  background: #ffffff;
+  border: 1px solid rgba(25, 0, 125, 0.10);
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow:
+    0 12px 32px -18px rgba(25, 0, 125, 0.45),
+    0 2px 8px -4px rgba(25, 0, 125, 0.18);
+}
+.business-info-title {
+  margin: 0 0 18px;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #19007D;
+}
+.business-info-list {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 32px;
+}
+.business-info-row dt {
+  margin: 0 0 2px;
+  font-size: 13px;
+  color: rgba(26, 0, 51, 0.55);
+}
+.business-info-row dd {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.business-info-note {
+  margin: 20px 0 0;
+  font-size: 13px;
+  color: rgba(26, 0, 51, 0.6);
+}
+@media (max-width: 760px) {
+  .profile-grid { grid-template-columns: 1fr; }
+  .business-info-list { grid-template-columns: 1fr; }
+}
+
 /* ===== DESIGN SYSTEM (about page) ===== */
 .ds {
   padding: 72px 24px 56px;
