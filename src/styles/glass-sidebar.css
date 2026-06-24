@@ -1,0 +1,300 @@
+/* ===========================================================================
+   Glass profile sidebar — the "Claude design" panel integrated into /about.
+   A self-contained dark indigo band: glass sidebar (founder, education,
+   business info, contact) on the left, studio context on the right.
+   Class prefix: gs-
+   =========================================================================== */
+
+.gs-band {
+  position: relative;
+  overflow: hidden;
+  background: #06021c;
+  color: #e8ecf4;
+  padding: 56px 24px;
+  margin: 8px 0 0;
+}
+
+/* ambient violet field */
+.gs-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(72px);
+  pointer-events: none;
+  z-index: 0;
+}
+.gs-blob--1 {
+  width: 560px; height: 560px; left: -160px; top: -140px;
+  background: radial-gradient(circle, rgba(91, 4, 222, 0.55), transparent 70%);
+  animation: gsFloat1 22s ease-in-out infinite;
+}
+.gs-blob--2 {
+  width: 520px; height: 520px; left: 18%; bottom: -240px;
+  background: radial-gradient(circle, rgba(75, 0, 182, 0.5), transparent 70%);
+  animation: gsFloat2 26s ease-in-out infinite;
+}
+.gs-blob--3 {
+  width: 440px; height: 440px; right: -100px; top: 120px;
+  background: radial-gradient(circle, rgba(12, 125, 125, 0.28), transparent 70%);
+  animation: gsFloat3 30s ease-in-out infinite;
+}
+.gs-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 80% at 50% 40%, transparent 0%, rgba(6, 2, 28, 0.42) 70%, rgba(3, 1, 12, 0.72) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+@keyframes gsFloat1 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(40px,-30px) scale(1.18)} }
+@keyframes gsFloat2 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-46px,38px) scale(1.22)} }
+@keyframes gsFloat3 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(30px,40px) scale(1.1)} }
+@media (prefers-reduced-motion: reduce) {
+  .gs-blob { animation: none; }
+}
+
+/* layout */
+.gs-layout {
+  position: relative;
+  z-index: 2;
+  max-width: 1120px;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 36px;
+  align-items: stretch;
+}
+
+/* ---------- sidebar ---------- */
+.gs-sidebar {
+  display: flex;
+  flex-direction: column;
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(75, 0, 182, 0.34), rgba(45, 5, 110, 0.34) 55%, rgba(20, 3, 46, 0.5));
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  border: 1px solid rgba(123, 60, 214, 0.5);
+  box-shadow:
+    0 24px 60px -22px rgba(75, 0, 182, 0.7),
+    0 0 0 1px rgba(75, 0, 182, 0.25) inset,
+    0 1px 0 rgba(232, 236, 244, 0.1) inset;
+  overflow: hidden;
+}
+.gs-sidebar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgba(232, 236, 244, 0.06), transparent 42%);
+  pointer-events: none;
+}
+
+/* founder header */
+.gs-founder {
+  position: relative;
+  padding: 24px 22px 20px;
+}
+.gs-founder-name {
+  font-family: var(--font-elevated, "Poppins", sans-serif);
+  font-weight: 700;
+  font-size: 16px;
+  color: #e8ecf4;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin: 0;
+}
+.gs-founder-role {
+  font-size: 10.5px;
+  color: #d8dbde;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  font-family: var(--font-elevated, "Poppins", sans-serif);
+  margin: 5px 0 0;
+}
+
+/* scroll body */
+.gs-body {
+  position: relative;
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 22px 18px;
+}
+.gs-body::-webkit-scrollbar { width: 6px; }
+.gs-body::-webkit-scrollbar-thumb { background: rgba(157, 98, 249, 0.4); border-radius: 3px; }
+.gs-body::-webkit-scrollbar-track { background: transparent; }
+
+.gs-eyebrow {
+  font-family: var(--font-elevated, "Poppins", sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #d8dbde;
+  margin: 0;
+  padding: 16px 0 4px;
+}
+.gs-eyebrow--biz { padding: 22px 0 8px; }
+
+/* education list */
+.gs-edu {
+  position: relative;
+  padding: 13px 0 13px 16px;
+  border-top: 1px solid rgba(232, 236, 244, 0.1);
+}
+.gs-edu-dot {
+  position: absolute;
+  left: 0;
+  top: 18px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+.gs-edu-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+.gs-edu-degree {
+  font-family: var(--font-elevated, "Poppins", sans-serif);
+  font-weight: 600;
+  font-size: 13.5px;
+  color: #e8ecf4;
+  line-height: 1.25;
+  margin: 0;
+}
+.gs-edu-year {
+  flex-shrink: 0;
+  font-family: var(--font-elevated, "Poppins", sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  color: #f0c040;
+}
+.gs-edu-school { font-size: 12px; color: #d8dbde; margin: 3px 0 0; line-height: 1.35; }
+.gs-edu-detail { font-size: 11.5px; color: #d8dbde; margin: 3px 0 0; line-height: 1.4; }
+
+/* business block */
+.gs-biz { border-top: 1px solid rgba(232, 236, 244, 0.1); padding-top: 13px; }
+.gs-biz-name {
+  font-family: var(--font-elevated, "Poppins", sans-serif);
+  font-weight: 700;
+  font-size: 14px;
+  color: #e8ecf4;
+  margin: 0 0 14px;
+}
+.gs-biz-rows {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+.gs-biz-row { font-size: 13px; line-height: 1.4; }
+.gs-biz-row dt { display: inline; color: #d8dbde; }
+.gs-biz-row dt::after { content: ": "; }
+.gs-biz-row dd { display: inline; margin: 0; color: #e8ecf4; font-weight: 600; }
+.gs-biz-note {
+  margin: 15px 0 0;
+  padding-top: 13px;
+  border-top: 1px solid rgba(232, 236, 244, 0.1);
+  font-size: 11px;
+  color: #d8dbde;
+  line-height: 1.45;
+  font-style: italic;
+}
+
+/* footer contact */
+.gs-contact {
+  position: relative;
+  border-top: 1px solid rgba(232, 236, 244, 0.12);
+  padding: 14px 22px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: inherit;
+  text-decoration: none;
+  transition: background 0.18s ease;
+}
+.gs-contact:hover,
+.gs-contact:focus-visible { background: rgba(91, 4, 222, 0.18); }
+.gs-contact-mark {
+  width: 32px; height: 32px;
+  border-radius: 9px;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #0c7d7d, #5b04de);
+  box-shadow: 0 0 0 1px rgba(157, 98, 249, 0.4) inset;
+}
+.gs-contact-site { font-size: 12.5px; font-weight: 600; color: #e8ecf4; }
+.gs-contact-email { font-size: 11px; color: #d8dbde; }
+
+/* ---------- main context ---------- */
+.gs-main {
+  position: relative;
+  align-self: center;
+  padding: 8px 4px;
+}
+.gs-main-eyebrow {
+  font-family: var(--font-elevated, "Poppins", sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(232, 236, 244, 0.42);
+  margin: 0 0 10px;
+}
+.gs-main-title {
+  font-family: var(--font-elevated, "Poppins", sans-serif);
+  font-size: clamp(26px, 3.4vw, 34px);
+  font-weight: 700;
+  color: #e8ecf4;
+  letter-spacing: -0.02em;
+  text-shadow: 0 6px 40px rgba(91, 4, 222, 0.45);
+  max-width: 640px;
+  line-height: 1.12;
+  margin: 0;
+}
+.gs-main-lede {
+  margin: 22px 0 0;
+  max-width: 600px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: rgba(232, 236, 244, 0.7);
+}
+.gs-cards {
+  margin: 40px 0 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  max-width: 680px;
+}
+.gs-card {
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(75, 0, 182, 0.18), rgba(6, 2, 28, 0.28));
+  border: 1px solid rgba(123, 60, 214, 0.32);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 20px;
+  min-height: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.gs-card-value {
+  font-family: var(--font-elevated, "Poppins", sans-serif);
+  font-size: 30px;
+  font-weight: 700;
+  color: #e8ecf4;
+}
+.gs-card-label {
+  font-size: 12.5px;
+  color: rgba(232, 236, 244, 0.6);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 900px) {
+  .gs-layout { grid-template-columns: 1fr; gap: 28px; }
+  .gs-sidebar { max-width: 360px; }
+  .gs-main { align-self: start; }
+}
+@media (max-width: 560px) {
+  .gs-cards { grid-template-columns: 1fr; }
+  .gs-sidebar { max-width: none; }
+}

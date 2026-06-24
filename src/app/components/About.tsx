@@ -166,49 +166,93 @@ export function About() {
         </div>
       </section>
 
-      <section className="about-profile" aria-label="Founder and studio details">
-        <div className="container">
-          <div className="profile-grid">
-            <article className="profile-card profile-card--founder">
-              <h2 className="profile-name">Gregory Tyler Long</h2>
-              <p className="profile-role">Founder • Creative Director</p>
-            </article>
-            <article className="profile-card">
-              <h3 className="profile-credential">Master of Digital Media</h3>
-              <p className="profile-inst">Toronto Metropolitan University</p>
-              <p className="profile-year">Conferred 2026</p>
-            </article>
-            <article className="profile-card">
-              <h3 className="profile-credential">Bachelor of Arts (Honours)</h3>
-              <p className="profile-inst">Western University</p>
-              <p className="profile-detail">Media, Information and Technoculture</p>
-              <p className="profile-detail">Minor in Creative Writing</p>
-              <p className="profile-year">Conferred 2009</p>
-            </article>
-          </div>
+      <section className="gs-band" aria-label="Founder and studio details">
+        <div className="gs-blob gs-blob--1" aria-hidden="true" />
+        <div className="gs-blob gs-blob--2" aria-hidden="true" />
+        <div className="gs-blob gs-blob--3" aria-hidden="true" />
+        <div className="gs-vignette" aria-hidden="true" />
 
-          <div className="business-info">
-            <h2 className="business-info-title">Business information</h2>
-            <p className="business-info-name">Ooo Digital Media Studio</p>
-            <dl className="business-info-list">
-              <div className="business-info-row">
-                <dt>Ontario business status</dt>
-                <dd>Active and Registered</dd>
+        <div className="gs-layout">
+          <aside className="gs-sidebar">
+            <div className="gs-founder">
+              <p className="gs-founder-name">Gregory Tyler Long</p>
+              <p className="gs-founder-role">Founder · Creative Director</p>
+            </div>
+
+            <div className="gs-body">
+              <p className="gs-eyebrow">Education</p>
+              <div className="gs-edu">
+                <span className="gs-edu-dot" style={{ background: "#9d62f9", boxShadow: "0 0 9px #9d62f9" }} aria-hidden="true" />
+                <div className="gs-edu-head">
+                  <p className="gs-edu-degree">Master of Digital Media</p>
+                  <span className="gs-edu-year">2026</span>
+                </div>
+                <p className="gs-edu-school">Toronto Metropolitan University</p>
               </div>
-              <div className="business-info-row">
-                <dt>Primary activity</dt>
-                <dd>Information and Cultural Industries</dd>
+              <div className="gs-edu">
+                <span className="gs-edu-dot" style={{ background: "#0c7d7d", boxShadow: "0 0 9px #0c7d7d" }} aria-hidden="true" />
+                <div className="gs-edu-head">
+                  <p className="gs-edu-degree">Bachelor of Arts (Honours)</p>
+                  <span className="gs-edu-year">2009</span>
+                </div>
+                <p className="gs-edu-school">Western University</p>
+                <p className="gs-edu-detail">Media, Information and Technoculture · Minor in Creative Writing</p>
               </div>
-              <div className="business-info-row">
-                <dt>NAICS sector</dt>
-                <dd>51</dd>
+
+              <p className="gs-eyebrow gs-eyebrow--biz">Business information</p>
+              <div className="gs-biz">
+                <p className="gs-biz-name">Ooo Digital Media Studio</p>
+                <dl className="gs-biz-rows">
+                  <div className="gs-biz-row">
+                    <dt>Ontario business status</dt>
+                    <dd>Active and Registered</dd>
+                  </div>
+                  <div className="gs-biz-row">
+                    <dt>Primary activity</dt>
+                    <dd>Information and Cultural Industries</dd>
+                  </div>
+                  <div className="gs-biz-row">
+                    <dt>NAICS sector</dt>
+                    <dd>51</dd>
+                  </div>
+                </dl>
+                <p className="gs-biz-note">NAICS means North American Industry Classification System</p>
               </div>
-              <div className="business-info-row business-info-row--note">
-                <dd>
-                  <em>NAICS means North American Industry Classification System</em>
-                </dd>
+            </div>
+
+            <a className="gs-contact" href="mailto:greg@ooos.ca">
+              <span className="gs-contact-mark" aria-hidden="true" />
+              <span>
+                <span className="gs-contact-site" style={{ display: "block" }}>ooos.ca</span>
+                <span className="gs-contact-email">greg@ooos.ca</span>
+              </span>
+            </a>
+          </aside>
+
+          <div className="gs-main">
+            <p className="gs-main-eyebrow">About the studio</p>
+            <h2 className="gs-main-title">The independent practice of Gregory Tyler Long</h2>
+            <p className="gs-main-lede">
+              An expert in creative digital strategy. The studio serves diverse
+              communities in the Information and Cultural Industries sector, in
+              Canada and globally — designing digital products, hosting
+              interactive experiences, and providing expert resources for
+              managing artificial intelligence.
+            </p>
+            <div className="gs-cards">
+              <div className="gs-card">
+                <span className="gs-card-value">2</span>
+                <span className="gs-card-label">Graduate &amp; honours degrees</span>
               </div>
-            </dl>
+              <div className="gs-card">
+                <span className="gs-card-value">51</span>
+                <span className="gs-card-label">NAICS sector focus</span>
+              </div>
+              <div className="gs-card">
+                <span className="gs-card-value">∞</span>
+                <span className="gs-card-label">Communities served, globally</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
