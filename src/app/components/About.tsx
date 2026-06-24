@@ -138,15 +138,21 @@ export function About() {
         <div className="container">
           <Link to="/" className="back">← Home</Link>
           <h1>About Ooos.</h1>
-          <p className="summary">
-            <strong>Ooo Digital Media Studio</strong> is the independent
-            creative practice of Gregory Tyler Long, who holds a Master of
-            Digital Media degree. Our studio serves diverse communities and
-            partner organizations in the Information and Cultural Industries
-            sector, both in Canada and globally. We design and distribute
-            digital products, host interactive experiences, and collaborate on
-            applied research with academic and industry partners.
-          </p>
+          <div className="about-hero-summary">
+            <p className="summary">
+              <strong>Ooo Digital Media Studio</strong> is the independent
+              creative practice of Gregory Tyler Long, who holds a Master of
+              Digital Media degree. The studio serves diverse communities and
+              partner organizations in the Information and Cultural Industries
+              sector, both in Canada and globally.
+            </p>
+            <p className="summary">
+              We design and distribute digital products, host interactive
+              experiences, and collaborate on applied research with academic
+              and industry partners — pairing creative practice with rigorous
+              method across every engagement.
+            </p>
+          </div>
         </div>
       </section>
 
