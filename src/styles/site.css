@@ -287,11 +287,6 @@ a:hover { color: var(--electric); }
   }
   .nav-link--collapse,
   .nav-cta--collapse { display: none !important; }
-  .pane-wordmark {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-  }
   .pane-wordmark__ooo,
   .pane-wordmark__ahh { white-space: nowrap; font-size: 26px; }
 }
