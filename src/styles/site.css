@@ -698,19 +698,26 @@ a:hover { color: var(--electric); }
   align-items: start;
 }
 .dual > .pane {
+  /* content sits in its own stacking context, always above the silver fill +
+     inset sheen below — keeps the copy crisp and on top, never washed out */
+  position: relative;
+  z-index: 0;
   padding: 32px 28px;
-  background: #fff;
-  border: 1px solid var(--border-soft);
+  /* Solid silver column — the SAME light silver as the Ooo Divisions dice/cards
+     above. Replaces the old flat-white box so each pane reads as one solid
+     surface, not a white card floating on the white section. */
+  background: linear-gradient(180deg, #F7F9FA 0%, #E8ECF4 46%, #DCE3E8 100%);
+  border: 1px solid rgba(25,0,125,0.14);
   border-radius: 14px;
-  box-shadow: 0 2px 8px rgba(25,0,125,0.04);
-  transition: transform 0.18s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  /* gentle metallic sheen + soft grounding shadow — solid, but no hard "box" frame */
+  box-shadow: 0 1px 0 rgba(255,255,255,.75) inset, 0 10px 30px -18px rgba(6,2,28,.45);
+  transition: transform 0.18s ease, box-shadow 0.22s ease;
 }
+.dual > .pane > * { position: relative; z-index: 1; }
 .dual > .pane:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 28px rgba(25,0,125,0.12);
-  border-color: rgba(91,4,222,0.35);
+  box-shadow: 0 1px 0 rgba(255,255,255,.85) inset, 0 16px 36px -18px rgba(6,2,28,.5);
 }
-.dual > .pane + .pane { border-left: 1px solid var(--border-soft); }
 @media (max-width: 860px) {
   .dual { grid-template-columns: 1fr; gap: 18px; }
 }
@@ -723,8 +730,9 @@ a:hover { color: var(--electric); }
   margin: 0 0 12px;
   color: var(--dark-indigo);
 }
-.pane p { font-size: 14px; color: var(--slate); margin: 0 0 18px; }
-.pane ul { padding-left: 18px; margin: 0; color: var(--slate); font-size: 14px; }
+/* crisp near-ink body copy on the silver pane (was --slate, which washed out) */
+.pane p { font-size: 14px; color: #26203F; margin: 0 0 18px; }
+.pane ul { padding-left: 18px; margin: 0; color: #26203F; font-size: 14px; }
 .pane ul li { margin-bottom: 6px; }
 .service-chips {
   display: grid;
@@ -789,14 +797,16 @@ a:hover { color: var(--electric); }
 }
 .pane-lead {
   font-size: 14px;
-  color: var(--slate);
+  color: #26203F;
   margin: 0 0 20px;
   line-height: 1.55;
 }
 .studio-testimonial {
   margin-top: 20px;
   padding: 18px 20px;
-  background: var(--bg);
+  /* transparent so it sits directly on the silver (one less nested box); the
+     electric left rule still marks it as a quote — silver + accent only */
+  background: transparent;
   border-left: 3px solid var(--electric);
   border-radius: 0 8px 8px 0;
 }
@@ -841,11 +851,11 @@ a:hover { color: var(--electric); }
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--slate);
+  color: #3A3556;
 }
 .studio-testimonial__pitch {
   font-size: 13px;
-  color: var(--slate);
+  color: #26203F;
   margin: 10px 0 0;
   line-height: 1.6;
   display: flex;
@@ -978,7 +988,6 @@ a:hover { color: var(--electric); }
 }
 @media (max-width: 720px) {
   .dual { grid-template-columns: 1fr; }
-  .dual > .pane + .pane { border-left: none; border-top: 1px solid var(--border-soft); }
 }
 
 /* ===== SUPPORT (DEMO DONATE) ===== */
