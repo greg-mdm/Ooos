@@ -336,7 +336,7 @@ export function About() {
           </div>
 
           <section className="ds-card-hero" aria-label="Featured asset">
-            <p className="ds-card-hero-eyebrow">Featured Asset</p>
+            <p className="ds-card-hero-eyebrow">★ Featured Asset</p>
             <AuroraCard />
             <dl className="ds-card-hero-meta">
               <div>

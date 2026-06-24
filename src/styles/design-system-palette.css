@@ -259,11 +259,12 @@
 }
 .ds-card-hero-eyebrow {
   margin: 0;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
+  font-family: var(--font-elevated, 'Montserrat', system-ui, sans-serif);
+  font-size: clamp(1.25rem, 2.2vw, 2rem);
+  font-weight: 800;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  color: #5C6C70;
+  color: var(--electric, #5B04DE);
 }
 .ds-card-hero .ac-stage {
   width: 100%;
