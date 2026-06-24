@@ -126,14 +126,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             </p>
           </div>
           </div>
-
-          <p className="cid-engagement-lede">
-            The first phase of public engagement involves an interactive
-            learning experience hosted by <strong>Ooo.Play</strong> on Kahoot.
-            Join us to exchange insights, explore entrepreneurial
-            opportunities, examine serious issues, deepen your understanding,
-            and expand your network!
-          </p>
         </div>
       </div>
 
