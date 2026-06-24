@@ -1684,6 +1684,11 @@ a:hover { color: var(--electric); }
   font-size: 18px;
   line-height: 1.55;
 }
+.about-hero-col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
 @media (max-width: 880px) {
   .about-hero-summary {
     grid-template-columns: 1fr;

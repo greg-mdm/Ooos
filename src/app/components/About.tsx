@@ -139,19 +139,30 @@ export function About() {
           <Link to="/" className="back">← Home</Link>
           <h1>About Ooos.</h1>
           <div className="about-hero-summary">
-            <p className="summary">
-              <strong>Ooo Digital Media Studio</strong> is the independent
-              creative practice of Gregory Tyler Long, who holds a Master of
-              Digital Media degree. The studio serves diverse communities and
-              partner organizations in the Information and Cultural Industries
-              sector, both in Canada and globally.
-            </p>
-            <p className="summary">
-              We design and distribute digital products, host interactive
-              experiences, and collaborate on applied research with academic
-              and industry partners — pairing creative practice with rigorous
-              method across every engagement.
-            </p>
+            <div className="about-hero-col">
+              <p className="summary">
+                <strong>Ooo Digital Media Studio</strong> is the independent
+                practice of Gregory Tyler Long, a leading expert in the field of
+                creative digital strategy. He holds a{" "}
+                <strong>Master of Digital Media</strong> degree and a Bachelor of
+                Arts in <strong>Media, Information, and Technology</strong>.
+              </p>
+              <p className="summary">
+                Our studio serves in the Information and Cultural Industries
+                sector, both in Canada and globally. We design and distribute
+                digital products, host interactive experiences, and provide
+                expert resources on digital media and artificial intelligence
+                management.
+              </p>
+            </div>
+            <div className="about-hero-col">
+              <p className="summary">
+                By partnering with innovators, artists, and entrepreneurs, we
+                promote cross-sector collaboration. We guide digital
+                transformation, support community initiatives, and spearhead
+                trade diversification efforts to enhance global competitiveness.
+              </p>
+            </div>
           </div>
         </div>
       </section>
