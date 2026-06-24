@@ -151,6 +151,23 @@ export function About() {
         </div>
       </section>
 
+      <section className="about-brand" aria-label="Ooo">
+        <img
+          className="about-brand-logo"
+          src={`${import.meta.env.BASE_URL}assets/brand/ooo-logo-ds.webp`}
+          alt="Ooo Digital Media Studio logo"
+          width="160"
+          height="160"
+          loading="lazy"
+        />
+        <ul className="about-keys" aria-label="What Ooo does">
+          <li className="about-key">Connects entrepreneurs, artists, and activists</li>
+          <li className="about-key">Leads cross-sector collaboration</li>
+          <li className="about-key">Designs immersive digital experiences</li>
+          <li className="about-key">Directs applied research projects</li>
+        </ul>
+      </section>
+
       <section className="gs-band" aria-label="Founder and studio details">
         <div className="gs-blob gs-blob--1" aria-hidden="true" />
         <div className="gs-blob gs-blob--2" aria-hidden="true" />
@@ -213,23 +230,35 @@ export function About() {
               </span>
             </a>
           </aside>
+
+          <div className="gs-feature">
+            <p className="gs-feature-eyebrow">★ Featured Asset</p>
+            <AuroraCard />
+            <dl className="gs-feature-meta">
+              <div>
+                <dt>Name</dt>
+                <dd>Aurora Field — Display Card</dd>
+              </div>
+              <div>
+                <dt>Edition</dt>
+                <dd>Nº 001 · Plasma</dd>
+              </div>
+              <div>
+                <dt>Engine</dt>
+                <dd>De-blued Aurora · WebGL</dd>
+              </div>
+            </dl>
+          </div>
         </div>
       </section>
 
       <section className="ds" aria-labelledby="ds-heading">
         <div className="container">
-          <figure className="ds-logo">
-            <img
-              src={`${import.meta.env.BASE_URL}assets/brand/ooo-logo-ds.webp`}
-              alt="Ooo Digital Media Studio logo"
-              width="160"
-              height="160"
-              loading="lazy"
-            />
-          </figure>
+          <div className="section-header">
+            <div className="section-eyebrow">★ Design System</div>
+          </div>
           <div className="ds-intro-grid">
             <div className="ds-intro-text">
-              <p className="ds-eyebrow">Design system</p>
               <h2 id="ds-heading">Creative Environments</h2>
               <p className="ds-lede">
                 Each project provides an opportunity for meaningful engagement
@@ -412,25 +441,6 @@ export function About() {
               </ul>
             </article>
           </div>
-
-          <section className="ds-card-hero" aria-label="Featured asset">
-            <p className="ds-card-hero-eyebrow">★ Featured Asset</p>
-            <AuroraCard />
-            <dl className="ds-card-hero-meta">
-              <div>
-                <dt>Name</dt>
-                <dd>Aurora Field — Display Card</dd>
-              </div>
-              <div>
-                <dt>Edition</dt>
-                <dd>Nº 001 · Plasma</dd>
-              </div>
-              <div>
-                <dt>Engine</dt>
-                <dd>De-blued Aurora · WebGL</dd>
-              </div>
-            </dl>
-          </section>
 
           <section className="ds-palette">
             <div className="ds-palette-inner">

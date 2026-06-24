@@ -59,6 +59,62 @@
   z-index: 2;
   max-width: 1100px;
   margin-inline: auto;
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 64px);
+  align-items: center;
+}
+@media (max-width: 880px) {
+  .gs-layout { grid-template-columns: 1fr; gap: 36px; }
+}
+
+/* ---------- featured asset (Aurora card) — fills the right cell ---------- */
+.gs-feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+.gs-feature-eyebrow {
+  margin: 0;
+  font-family: var(--font-elevated, "Montserrat", system-ui, sans-serif);
+  font-size: clamp(1.25rem, 2.2vw, 2rem);
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--electric, #5b04de);
+  text-align: center;
+}
+.gs-feature .ac-card { width: min(100%, 560px); }
+.gs-feature-meta {
+  margin: 4px 0 0;
+  width: 100%;
+  max-width: 560px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0 24px;
+}
+.gs-feature-meta > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-top: 1px solid rgba(232, 236, 244, 0.16);
+  padding-top: 10px;
+}
+.gs-feature-meta dt {
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--chrome-silver);
+}
+.gs-feature-meta dd {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--bright-silver);
+}
+@media (max-width: 560px) {
+  .gs-feature-meta { grid-template-columns: 1fr; gap: 0; }
 }
 
 /* ---------- sidebar ---------- */
@@ -190,9 +246,8 @@
   gap: 11px;
 }
 .gs-biz-row { font-size: 13px; line-height: 1.4; }
-.gs-biz-row dt { display: inline; color: var(--chrome-silver); }
-.gs-biz-row dt::after { content: ": "; }
-.gs-biz-row dd { display: inline; margin: 0; color: var(--bright-silver); font-weight: 600; }
+.gs-biz-row dt { display: block; color: var(--chrome-silver); }
+.gs-biz-row dd { display: block; margin: 2px 0 0; color: var(--bright-silver); font-weight: 600; text-wrap: balance; }
 .gs-biz-note {
   margin: 15px 0 0;
   padding-top: 13px;
