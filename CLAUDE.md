@@ -37,7 +37,7 @@ Layout & key files
 Others: `About`, `CID`, `Exhibition`, `Ostara`, `Layout`, modals, `RadioAd`.
 `src/styles/`:
 `hero-top.css` — homepage hero ("top panel"). Classes prefixed `ot-` under `.ooos-top`.
-`ooo-divisions.css` — the divisions section. Classes prefixed `ood-`.
+`ooo-divisions.css` (file: `ooodivisions2.css`) — the divisions section. Classes prefixed `ood-`.
 `site.css` — large global stylesheet (most of the site).
 `fonts.css` — `@font-face` + Google Fonts import.
 `nav-gradient.css`, `theme.css` (Tailwind layer), `globals.css`, `index.css`, `tailwind.css`.
@@ -76,6 +76,8 @@ Lovelo subtitles fixed to weight 900.
 Hero leaf optimized to WebP (~22 KB).
 Open / next
 Possible maple-leaf size/position tweak (currently `clamp(140px, 16vw, 200px)`, vertically centered).
-Original "remove grey background" request — needs the exact element identified (likely in the
-Ooo Divisions section); the white hero card was the wrong target and has been restored.
+"Remove grey background" request — DONE: the grey was the silver `.ood-col` card body in
+the Ooo Divisions section. Replaced with a dark translucent glass panel (`rgba(20,8,48,.55)`
+gradient + blur) so the cards read as part of the aurora; `.ood-die-h` headings relit to
+`#E8ECF4` to stay readable on the dark panel (`src/styles/ooodivisions2.css`).
 PR #3 (GitHub MCP write-access `.mcp.json`) is an optional draft.

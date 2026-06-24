@@ -37,13 +37,14 @@
 /* the light-section glow/shadow helpers are not used over the aurora */
 .ood-pool,.ood-floor{display:none;}
 .ood-grid{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,26px);align-items:start;}
-/* Card body: ONE consistent silver gradient for all three divisions
-   (Robin's Egg -> Silver: 50 -> 300 -> 500). Neutral, multi-dimensional,
-   no pastel; reads as a bright card floating over the aurora. */
+/* Card body: dark translucent "glass" so the card reads as part of the aurora
+   instead of a light grey block floating over it. The violet head still anchors
+   the top; a faint violet rim + inner highlight keep the panel defined. */
 .ood-col{position:relative;border-radius:22px;padding:24px 18px 26px;
-  border:1px solid #19007D;
-  background:linear-gradient(180deg,#F7F9FA 0%,#E8ECF4 46%,#DCE3E8 100%);
-  box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 1px 2px rgba(6,2,28,.35),0 24px 50px -26px rgba(6,2,28,.7);}
+  border:1px solid rgba(91,4,222,.42);
+  background:linear-gradient(180deg,rgba(20,8,48,.55) 0%,rgba(12,5,32,.58) 46%,rgba(8,3,24,.62) 100%);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  box-shadow:0 1px 0 rgba(232,236,244,.10) inset,0 1px 2px rgba(6,2,28,.35),0 24px 50px -26px rgba(6,2,28,.7);}
 .ood-head{position:relative;margin:-24px -18px 22px;padding:24px 18px 18px;border-radius:22px 22px 0 0;text-align:center;}
 /* Heading band: ONE consistent rich saturated electric violet for all three.
    Bright Silver text stays >=7:1 (Portal/Electric per the design system).
@@ -78,8 +79,8 @@
 .ood-dice{display:flex;gap:10px;align-items:flex-start;--die-img:url("/assets/1die.png");}
 /* each cell stacks a two-line heading ABOVE its die */
 .ood-diecell{flex:1 1 0;min-width:0;display:flex;flex-direction:column;}
-/* heading now sits outside the die, on the silver body (one word per line) */
-.ood-die-h{margin:0 0 5px;font-family:Poppins,sans-serif;font-weight:700;font-size:.92rem;line-height:1.12;letter-spacing:.01em;color:#19007D;text-align:center;}
+/* heading now sits outside the die, on the dark card body (one word per line) */
+.ood-die-h{margin:0 0 5px;font-family:Poppins,sans-serif;font-weight:700;font-size:.92rem;line-height:1.12;letter-spacing:.01em;color:#E8ECF4;text-align:center;text-shadow:0 1px 2px rgba(6,2,28,.5);}
 .ood-die{width:100%;position:relative;border-radius:18px;padding:5px;
   background:var(--die-img,none) center/100% 100% no-repeat,
     linear-gradient(145deg,#F7F9FA 0%,#A6A7A7 47%,#CCCDCF 53%,#F0F4F5 100%);
