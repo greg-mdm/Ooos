@@ -210,10 +210,9 @@ export function About() {
                   </div>
                   <div className="gs-biz-row">
                     <dt>NAICS sector</dt>
-                    <dd>51</dd>
+                    <dd>51 <span className="gs-biz-def">(NAICS means North American Industry Classification System)</span></dd>
                   </div>
                 </dl>
-                <p className="gs-biz-note">NAICS means North American Industry Classification System</p>
               </div>
             </div>
 
