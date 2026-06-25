@@ -138,6 +138,14 @@ function Dice({ d }: { d: Division }) {
 }
 
 // ----- section --------------------------------------------------------------
+// short haptic buzz when a shelf pops open — no-op on devices without the
+// Vibration API (desktop / iOS), and skipped when the user prefers reduced motion
+function buzz() {
+  if (typeof window === "undefined") return;
+  if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+  navigator.vibrate?.(20);
+}
+
 export function OooDivisions() {
   const [lit, setLit] = useState<Record<string, boolean>>({});
   const toggleKey = (id: string) => setLit((s) => ({ ...s, [id]: !s[id] }));
@@ -167,7 +175,10 @@ export function OooDivisions() {
               <div
                 key={d.mod}
                 className={`ood-col ood-col--${d.mod}`}
-                onClick={() => openShelf(d.mod)}
+                onClick={() => {
+                  if (!shelfOpen) buzz();
+                  openShelf(d.mod);
+                }}
               >
                 <div className="ood-head">
                   <h3 className="ood-name">{d.name}</h3>
@@ -202,6 +213,7 @@ export function OooDivisions() {
                       aria-controls={shelfId}
                       onClick={(e) => {
                         e.stopPropagation();
+                        if (!shelfOpen) buzz();
                         toggleShelf(d.mod);
                       }}
                     >
