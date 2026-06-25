@@ -1,29 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Audiowide&display=swap" rel="stylesheet">
+<script src="image-slot.js"></script>
+<style>
+  html, body { margin: 0; height: 100%; background: #07061a; }
+  *, *::before, *::after { box-sizing: border-box; }
 
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta name="description" content="Ooo Digital Media Studio. Decision-support and participatory design. Home of Ostara, the Canadian Innovation Dimension, and the Canadian Interactive Exhibition." />
-      <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.85em' font-size='75'>🟣</text></svg>" />
-      <title>Ooos · Ooo Digital Media Studio</title>
-      <style>html, body { height: 100%; margin: 0; } #root { height: 100%; }</style>
-      <script>
-        // GitHub Pages SPA shim: if 404.html redirected with ?p=/route,
-        // restore the path before React Router boots.
-        (function () {
-          var p = new URLSearchParams(location.search).get('p');
-          if (p) {
-            var q = new URLSearchParams(location.search).get('q');
-            history.replaceState(null, '', p + (q ? '?' + decodeURIComponent(q) : '') + location.hash);
-          }
-        })();
-      </script>
-    </head>
+  /* Immersive portal: fullscreen the bare screen, no bezel/chrome */
+  [data-portal]:fullscreen { border-radius: 0 !important; box-shadow: none !important; border: 0 !important; aspect-ratio: auto !important; width: 100vw !important; height: 100vh !important; cursor: default; }
+  [data-portal]:fullscreen.idle { cursor: none; }
+  [data-portal]:fullscreen [data-fsbar] { opacity: 1 !important; transform: translate(-50%, 0) !important; pointer-events: auto !important; }
+  [data-portal]:fullscreen.idle [data-fsbar] { opacity: 0 !important; transform: translate(-50%, 12px) !important; pointer-events: none !important; }
+  [data-portal]:fullscreen [data-fshint] { opacity: 1 !important; }
+  [data-portal]:fullscreen.idle [data-fshint] { opacity: 0 !important; }
 
-    <body>
-      <div id="root"></div>
-      <script type="module" src="/src/main.tsx"></script>
-    </body>
-  </html>
-  
+  :focus-visible { outline: 3px solid #F0C040; outline-offset: 3px; border-radius: 6px; }
+  [data-act]:focus-visible, [data-dot]:focus-visible, [data-iso]:focus-visible { outline: 3px solid #F0C040; outline-offset: 3px; }
+
+  @keyframes portalNeon {
+    0%   { text-shadow: 0 0 10px #fff, 0 0 15px #fff, 0 0 25px #fff, 0 0 40px #F0C040, 0 0 70px #F0C040, 0 0 90px #F0C040; }
+    100% { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 22px #F0C040, 0 0 35px #F0C040, 0 0 46px #F0C040; }
+  }
+  @keyframes portalRingPulse {
+    0%   { box-shadow: 0 0 0 2px rgba(240,192,64,0.9), 0 0 18px 3px rgba(240,192,64,0.65), inset 0 2px 5px rgba(255,255,255,0.35), inset 0 -5px 9px rgba(0,0,0,0.6); }
+    100% { box-shadow: 0 0 0 2px rgba(240,192,64,0.7), 0 0 30px 6px rgba(240,192,64,0.4),  inset 0 2px 5px rgba(255,255,255,0.35), inset 0 -5px 9px rgba(0,0,0,0.6); }
+  }
+  @keyframes bhRotate { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+</helmet>
+
+<div ref="{{ setRoot }}" style="--blue:#312583; --gold:#F0C040; min-height:100vh; width:100%; background:radial-gradient(125% 95% at 50% -15%, #3a2c93 0%, #241a63 30%, #120e36 62%, #07061a 100%); color:#eef0f6; font-family:'Space Grotesk', system-ui, sans-serif; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:clamp(10px,1.6vw,26px); gap:clamp(12px,1.7vh,20px);">
+
+  <!-- ===== Header ===== -->
+  <header style="width:min(1560px,95vw); display:flex; align-items:flex-end; justify-content:space-between; gap:20px; flex-wrap:wrap;">
+    <div style="display:flex; flex-direction:column; gap:8px;">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="var(--gold)" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 7.1-1.01z"/></svg>
+        <span style="font-size:11.5px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold);">Top 5 International Student Countries</span>
+      </div>
+      <h1 style="margin:0; font-size:clamp(24px,3.6vw,42px); font-weight:700; letter-spacing:-0.5px; line-height:1; white-space:nowrap;">TMU Metropolitan 2023-2024</h1>
+    </div>
+    <div style="text-align:right; display:flex; flex-direction:column; line-height:1.25;">
+      <span style="font-size:14px; font-weight:700; letter-spacing:2px; color:var(--gold); font-variant-numeric:tabular-nums;">{{ counterText }}</span>
+      <span style="font-size:10.5px; letter-spacing:2px; text-transform:uppercase; color:#7d83a6;">Interactive Series</span>
+    </div>
+  </header>
+
+  <!-- ===== Stage: screen + side light-switch ===== -->
+  <div class="cz-stage" style="width:min(1560px,96vw); display:flex; gap:clamp(16px,2.4vw,44px); align-items:flex-start; justify-content:center; flex-wrap:wrap;">
+
+  <!-- left column: screen + its controls (interact without entering the environment) -->
+  <div class="cz-left" style="flex:0 1 auto; display:flex; flex-direction:column; align-items:stretch; gap:14px; width:min(1080px,72vw, calc((100vh - 220px) * 1.62));">
+
+  <!-- ===== Device frame ===== -->
+  <div data-frame style="position:relative; width:100%; background:linear-gradient(158deg,#322b6b 0%,#1a1646 58%,#100c30 100%); border:1px solid rgba(240,192,64,0.16); border-radius:28px; padding:16px 16px 24px; box-shadow:0 1px 0 rgba(255,255,255,0.10) inset, 0 40px 90px -34px rgba(0,0,0,0.9), 0 0 0 1px rgba(0,0,0,0.45);">
+
+    <div class="cz-deco" aria-hidden="true" style="position:absolute; top:42px; right:28px; display:flex; flex-direction:column; gap:10px; z-index:3;">
+      <span style="width:10px; height:10px; border-radius:50%; background:radial-gradient(circle at 32% 28%, #fff4cf, var(--gold) 55%, #8a6e1e); box-shadow:0 0 9px 1px rgba(240,192,64,0.55);"></span>
+      <span style="width:10px; height:10px; border-radius:50%; background:radial-gradient(circle at 32% 28%, #fff4cf, var(--gold) 55%, #8a6e1e); opacity:.6;"></span>
+      <span style="width:10px; height:10px; border-radius:50%; background:radial-gradient(circle at 32% 28%, #fff4cf, var(--gold) 55%, #8a6e1e); opacity:.35;"></span>
+    </div>
+
+    <!-- screen (enters the immersive portal) -->
+    <div data-portal class="cz-screen {{ idleClass }}" role="group" aria-roledescription="carousel" aria-label="TMU international student visualization and research reports" style="position:relative; width:100%; aspect-ratio:16 / 10; border-radius:16px; overflow:hidden; background:#04050a; border:1px solid rgba(255,255,255,0.06); box-shadow:0 0 0 5px rgba(0,0,0,0.5) inset;">
+
+      <!-- declarative sliding track -->
+      <div data-track style="position:absolute; top:0; bottom:0; width:100%; height:100%; display:flex; flex-wrap:nowrap;">
+        <div data-slide data-screen-label="Slide 1 — Interactive 3D scene" role="group" aria-roledescription="slide" aria-label="1 of 6 — Interactive 3D visualization" style="position:relative; flex:0 0 100%; width:100%; height:100%; transform:translateX({{ slideShift }}); transition:{{ slideTransition }};">
+          <iframe data-scene title="Interactive 3D visualization of TMU international students" src="JellyBeanScene.html" loading="eager" style="width:100%; height:100%; border:0; display:block; background:#04050a;"></iframe>
+        </div>
+        <div data-slide data-screen-label="Slide 2 — Research report" role="group" aria-roledescription="slide" aria-label="2 of 6 — Research report" style="flex:0 0 100%; width:100%; height:100%; transform:translateX({{ slideShift }}); transition:{{ slideTransition }}; display:flex; align-items:center; justify-content:center; padding:4%; background:#0a0a1c;">
+          <image-slot id="cz-report-1" fit="contain" shape="rounded" radius="8" placeholder="Drop research report 1" style="width:100%; height:100%;"></image-slot>
+        </div>
+        <div data-slide data-screen-label="Slide 3 — Research report" role="group" aria-roledescription="slide" aria-label="3 of 6 — Research report" style="flex:0 0 100%; width:100%; height:100%; transform:translateX({{ slideShift }}); transition:{{ slideTransition }}; display:flex; align-items:center; justify-content:center; padding:4%; background:#0a0a1c;">
+          <image-slot id="cz-report-2" fit="contain" shape="rounded" radius="8" placeholder="Drop research report 2" style="width:100%; height:100%;"></image-slot>
+        </div>
+        <div data-slide data-screen-label="Slide 4 — Research report" role="group" aria-roledescription="slide" aria-label="4 of 6 — Research report" style="flex:0 0 100%; width:100%; height:100%; transform:translateX({{ slideShift }}); transition:{{ slideTransition }}; display:flex; align-items:center; justify-content:center; padding:4%; background:#0a0a1c;">
+          <image-slot id="cz-report-3" fit="contain" shape="rounded" radius="8" placeholder="Drop research report 3" style="width:100%; height:100%;"></image-slot>
+        </div>
+        <div data-slide data-screen-label="Slide 5 — Research report" role="group" aria-roledescription="slide" aria-label="5 of 6 — Research report" style="flex:0 0 100%; width:100%; height:100%; transform:translateX({{ slideShift }}); transition:{{ slideTransition }}; display:flex; align-items:center; justify-content:center; padding:4%; background:#0a0a1c;">
+          <image-slot id="cz-report-4" fit="contain" shape="rounded" radius="8" placeholder="Drop research report 4" style="width:100%; height:100%;"></image-slot>
+        </div>
+        <div data-slide data-screen-label="Slide 6 — References" role="group" aria-roledescription="slide" aria-label="6 of 6 — References" style="flex:0 0 100%; width:100%; height:100%; transform:translateX({{ slideShift }}); transition:{{ slideTransition }}; overflow:auto; padding:clamp(22px,4%,46px); background:radial-gradient(120% 90% at 80% -10%, #211a55 0%, #0c0925 60%, #07061a 100%);">
+          <div style="max-width:760px;">
+            <div style="display:flex; align-items:center; gap:9px; margin-bottom:6px;">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="var(--gold)" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 7.1-1.01z"/></svg>
+              <span style="font-size:10.5px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold);">Sources &amp; Tools</span>
+            </div>
+            <h2 style="margin:0 0 18px; font-size:clamp(22px,3vw,32px); font-weight:700; letter-spacing:-0.4px;">References</h2>
+            <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px; font-size:clamp(12.5px,1.4vw,14.5px); line-height:1.55; color:#d2d6ea;">
+              <li style="padding-left:18px; text-indent:-18px;">GreenSock. <em>GSAP: GreenSock Animation Platform</em>. Accessed 2026. <a href="https://gsap.com" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:none; border-bottom:1px solid rgba(240,192,64,0.4);">https://gsap.com</a>.</li>
+              <li style="padding-left:18px; text-indent:-18px;">IDEO U. &ldquo;Design Thinking.&rdquo; Accessed 2026. <a href="https://www.ideou.com/pages/design-thinking" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:none; border-bottom:1px solid rgba(240,192,64,0.4);">https://www.ideou.com/pages/design-thinking</a>.</li>
+              <li style="padding-left:18px; text-indent:-18px;">Parsons, Tom (PARSONSARTS). <em>Jellybean Mass</em>. 3D model. Sketchfab. <a href="https://sketchfab.com/3d-models/jellybean-mass-146c0d50f520431bb928a4d8ce0be982" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:none; border-bottom:1px solid rgba(240,192,64,0.4); word-break:break-all;">https://sketchfab.com/3d-models/jellybean-mass-146c0d50f520431bb928a4d8ce0be982</a>.</li>
+              <li style="padding-left:18px; text-indent:-18px;">Three.js Authors. <em>Three.js: JavaScript 3D Library</em>. Accessed 2026. <a href="https://threejs.org" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:none; border-bottom:1px solid rgba(240,192,64,0.4);">https://threejs.org</a>.</li>
+              <li style="padding-left:18px; text-indent:-18px;">Watson-Nolan, Ashley. &ldquo;A Bunch of Funky CSS3 Toggle Buttons.&rdquo; CodePen. <a href="https://codepen.io/ashleynolan/pen/wBppKz" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:none; border-bottom:1px solid rgba(240,192,64,0.4);">https://codepen.io/ashleynolan/pen/wBppKz</a>.</li>
+            </ul>
+            <p style="margin:20px 0 0; font-size:11px; color:#7d83a6; line-height:1.5;">Add your data source (TMU enrolment figures) and any course citations here to complete the list.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Immersive-mode floating controls -->
+      <div data-fsbar role="toolbar" aria-label="Immersive scene controls" style="position:absolute; left:50%; bottom:26px; transform:translate(-50%,12px); z-index:8; display:flex; align-items:center; gap:7px; padding:8px; border-radius:15px; background:rgba(10,8,32,0.66); border:1px solid rgba(240,192,64,0.2); backdrop-filter:blur(12px); box-shadow:0 16px 44px rgba(0,0,0,0.6); opacity:0; pointer-events:none; transition:opacity .45s ease, transform .45s ease;">
+        <button data-act="join" style="display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 18px; font:inherit; font-size:14px; font-weight:700; color:#1a1204; background:linear-gradient(180deg,#f7d05f,#e6b02f); border:0; border-radius:11px; cursor:pointer;">Join</button>
+        <button data-act="disperse" style="display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 16px; font:inherit; font-size:14px; font-weight:600; color:#eef0f6; background:rgba(255,255,255,0.05); border:1px solid rgba(240,192,64,0.4); border-radius:11px; cursor:pointer;">Disperse</button>
+        <button data-act="reset" aria-label="Reset view" style="width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:11px; border:1px solid transparent; background:rgba(255,255,255,0.05); color:#eef0f6; cursor:pointer;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9 9 0 0 0-6.7 3M3 3v4.5H7.5"/></svg></button>
+        <span style="width:1px; align-self:stretch; margin:5px 3px; background:rgba(255,255,255,0.14);" aria-hidden="true"></span>
+        <button data-act="fullscreen" aria-label="Exit the environment" style="display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 16px; font:inherit; font-size:13px; font-weight:600; color:#eef0f6; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.16); border-radius:11px; cursor:pointer;"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4M15 3h4a2 2 0 0 1 2 2v4M9 21H5a2 2 0 0 1-2-2v-4M15 21h4a2 2 0 0 0 2-2v-4"/></svg>Exit</button>
+      </div>
+      <div data-fshint aria-hidden="true" style="position:absolute; top:18px; left:50%; transform:translateX(-50%); z-index:8; font-size:11.5px; letter-spacing:1px; color:rgba(255,255,255,0.55); background:rgba(10,8,32,0.5); padding:5px 13px; border-radius:999px; opacity:0; transition:opacity .45s; pointer-events:none;">Drag to orbit · scroll to zoom · J join · K disperse · Esc to exit</div>
+    </div>
+
+    <div class="cz-wordmark" aria-hidden="true" style="position:absolute; right:24px; bottom:7px; font-family:ui-monospace,'SF Mono',Menlo,monospace; font-size:10px; letter-spacing:1.5px; color:#5b5f86;">data.ontario.ca</div>
+  </div>
+
+  <!-- scene controls — directly under the screen -->
+  <div data-scene-controls style="width:100%; display:flex; flex-direction:column; align-items:center; gap:13px; min-height:96px; transition:opacity .35s; opacity:{{ ctlOpacity }}; visibility:{{ ctlVis }}; pointer-events:{{ ctlPE }};">
+
+    <!-- 3D scene toolbar -->
+    <div role="toolbar" aria-label="3D scene controls" style="display:flex; align-items:center; gap:8px; padding:8px; border-radius:16px; background:rgba(12,10,40,0.72); border:1px solid rgba(240,192,64,0.16); backdrop-filter:blur(10px); box-shadow:0 12px 36px rgba(0,0,0,0.45); flex-wrap:nowrap; max-width:100%;">
+      <button data-act="join" aria-keyshortcuts="J" style="display:inline-flex; align-items:center; gap:9px; min-height:46px; padding:0 22px; font:inherit; font-size:15px; font-weight:700; letter-spacing:0.3px; color:#1a1204; background:linear-gradient(180deg,#f7d05f,#e6b02f); border:0; border-radius:12px; cursor:pointer; box-shadow:0 6px 18px -4px rgba(240,192,64,0.6);" style-hover="filter:brightness(1.06);">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h6M14 12h6M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg>Join
+      </button>
+      <button data-act="disperse" aria-keyshortcuts="K" style="display:inline-flex; align-items:center; gap:9px; min-height:46px; padding:0 20px; font:inherit; font-size:15px; font-weight:600; letter-spacing:0.3px; color:#eef0f6; background:rgba(255,255,255,0.04); border:1px solid rgba(240,192,64,0.4); border-radius:12px; cursor:pointer;" style-hover="background:rgba(240,192,64,0.12);">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12h-6M10 12H4M15 7l5 5-5 5M9 7l-5 5 5 5"/></svg>Disperse
+      </button>
+      <span style="width:1px; align-self:stretch; margin:6px 4px; background:rgba(255,255,255,0.12);" aria-hidden="true"></span>
+      <button data-act="zoomout" aria-label="Zoom out" style="width:46px; height:46px; display:flex; align-items:center; justify-content:center; border-radius:12px; border:1px solid transparent; background:rgba(255,255,255,0.05); color:#eef0f6; cursor:pointer;" style-hover="background:rgba(255,255,255,0.12);">
+        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M20 20l-3.5-3.5"/></svg>
+      </button>
+      <button data-act="zoomin" aria-label="Zoom in" style="width:46px; height:46px; display:flex; align-items:center; justify-content:center; border-radius:12px; border:1px solid transparent; background:rgba(255,255,255,0.05); color:#eef0f6; cursor:pointer;" style-hover="background:rgba(255,255,255,0.12);">
+        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M11 8v6M8 11h6M20 20l-3.5-3.5"/></svg>
+      </button>
+      <button data-act="rotate" aria-pressed="{{ rotPressed }}" aria-label="Toggle auto-rotate" style="width:46px; height:46px; display:flex; align-items:center; justify-content:center; border-radius:12px; border:1px solid {{ rotBorder }}; background:{{ rotBg }}; color:{{ rotColor }}; cursor:pointer;" style-hover="filter:brightness(1.15);">
+        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7M21 4v4h-4"/></svg>
+      </button>
+      <button data-act="reset" aria-keyshortcuts="R" aria-label="Reset to start view" style="width:46px; height:46px; display:flex; align-items:center; justify-content:center; border-radius:12px; border:1px solid transparent; background:rgba(255,255,255,0.05); color:#eef0f6; cursor:pointer;" style-hover="background:rgba(255,255,255,0.12);">
+        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9 9 0 0 0-6.7 3M3 3v4.5H7.5"/></svg>
+      </button>
+    </div>
+
+    <div role="group" aria-label="Isolate a country" style="display:flex; flex-wrap:wrap; gap:7px; justify-content:center;">
+      <sc-for list="{{ isos }}" as="c" hint-placeholder-count="5">
+        <button data-iso="{{ c.idx }}" aria-pressed="{{ c.cur }}" style="display:inline-flex; align-items:center; gap:7px; font:inherit; font-size:12px; font-weight:600; color:{{ c.color }}; background:{{ c.bg }}; border:1px solid {{ c.border }}; border-radius:999px; padding:5px 11px; cursor:pointer;">
+          <span style="width:9px; height:9px; border-radius:50%; background:{{ c.dot }}; box-shadow:0 0 7px {{ c.dot }};"></span>{{ c.name }} <span style="color:#7d83a6; font-weight:500; font-variant-numeric:tabular-nums;">{{ c.count }}</span>
+        </button>
+      </sc-for>
+    </div>
+  </div>
+
+    <!-- slide dots — centered under the screen -->
+    <div role="tablist" aria-label="Choose slide" style="display:flex; align-items:center; justify-content:center; gap:10px;">
+      <sc-for list="{{ dots }}" as="d" hint-placeholder-count="6">
+        <button data-dot data-i="{{ d.idx }}" role="tab" aria-current="{{ d.cur }}" aria-label="{{ d.label }}" style="height:9px; width:{{ d.width }}; border:0; border-radius:999px; background:{{ d.bg }}; cursor:pointer; padding:0; transition:width .3s, background .3s;"></button>
+      </sc-for>
+    </div>
+
+  </div><!-- /cz-left -->
+
+  <!-- ===== Side panel: heading + colourful black-hole switch ===== -->
+  <aside data-switchpanel style="flex:0 0 clamp(212px,24vw,292px); display:{{ panelDisplay }}; flex-direction:column; align-items:stretch; gap:18px; opacity:{{ ctlOpacity }}; transition:opacity .35s;">
+    <div>
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:9px;">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v9"/><path d="M6.4 6.4a8 8 0 1 0 11.2 0"/></svg>
+        <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:10px; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold);">Portal</span>
+      </div>
+      <h2 style="margin:0; font-family:'Audiowide',system-ui,sans-serif; font-size:clamp(16px,1.6vw,20px); letter-spacing:0.8px; line-height:1.28; color:#eef0f6;">Enter the Environment</h2>
+      <p style="margin:9px 0 0; font-family:'Space Grotesk',sans-serif; font-size:11.5px; line-height:1.55; color:#8b90ac;">Flip the switch to fill your screen and step inside the populations.</p>
+    </div>
+
+    <!-- colourful black hole — student light shining through the glowing rim -->
+    <button data-act="fullscreen" data-portal-toggle aria-pressed="{{ portalPressed }}" aria-label="Enter the environment — open immersive fullscreen" style="align-self:center; position:relative; width:clamp(188px,22vw,240px); height:clamp(188px,22vw,240px); margin:2px 0 10px; border:0; background:transparent; padding:0; cursor:pointer; overflow:visible;">
+      <span aria-hidden="true" style="position:absolute; inset:0; border-radius:50%; animation:{{ bhAnim }};">
+        <span style="position:absolute; inset:0; border-radius:50%; background:linear-gradient(#14ffe9,#ffeb3b,#ff00e0);"></span>
+        <span style="position:absolute; inset:0; border-radius:50%; background:linear-gradient(#14ffe9,#ffeb3b,#ff00e0); filter:blur(7px);"></span>
+        <span style="position:absolute; inset:0; border-radius:50%; background:linear-gradient(#14ffe9,#ffeb3b,#ff00e0); filter:blur(18px);"></span>
+        <span style="position:absolute; inset:0; border-radius:50%; background:linear-gradient(#14ffe9,#ffeb3b,#ff00e0); filter:blur(38px); opacity:.7;"></span>
+      </span>
+      <span aria-hidden="true" style="position:absolute; inset:9px; border-radius:50%; background:#04040a; z-index:2; box-shadow:inset 0 0 28px 6px rgba(0,0,0,0.88);"></span>
+      <span style="position:absolute; inset:0; z-index:3; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px; font-family:'Audiowide',system-ui,sans-serif; pointer-events:none;">
+        <span style="font-size:clamp(24px,2.7vw,34px); line-height:1; color:{{ onColor }}; animation:{{ onAnim }};">ON</span>
+        <span aria-hidden="true" style="width:60px; height:2px; border-radius:2px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.5),transparent);"></span>
+        <span style="font-size:clamp(24px,2.7vw,34px); line-height:1; color:{{ offColor }}; animation:{{ offAnim }};">OFF</span>
+      </span>
+    </button>
+  </aside>
+
+  </div><!-- /cz-stage -->
+
+  <!-- ===== Carousel nav — edge arrows ===== -->
+  <div style="width:min(1560px,96vw); display:flex; align-items:center; justify-content:space-between; gap:18px;">
+    <button data-act="prev" aria-label="Previous slide" style="width:46px; height:46px; flex:0 0 auto; display:flex; align-items:center; justify-content:center; border-radius:13px; border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.04); color:#eef0f6; cursor:pointer;" style-hover="background:rgba(255,255,255,0.1);">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button data-act="next" aria-label="Next slide" style="width:46px; height:46px; flex:0 0 auto; display:flex; align-items:center; justify-content:center; border-radius:13px; border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.04); color:#eef0f6; cursor:pointer;" style-hover="background:rgba(255,255,255,0.1);">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+  </div>
+
+  <p data-live aria-live="polite" style="position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;"></p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1240, &quot;height&quot;: 920 },
+  &quot;accentColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#F0C040&quot;, &quot;options&quot;: [&quot;#F0C040&quot;, &quot;#FFD479&quot;, &quot;#E8B400&quot;, &quot;#FFFFFF&quot;], &quot;tsType&quot;: &quot;string&quot; }
+}">
+class Component extends DCLogic {
+  COUNTRIES = [
+    { name: 'India',   count: '1,052', color: '#FFB84D' },
+    { name: 'China',   count: '697',   color: '#DE2910' },
+    { name: 'Iran',    count: '532',   color: '#3399FF' },
+    { name: 'Nigeria', count: '340',   color: '#008751' },
+    { name: 'Vietnam', count: '293',   color: '#FFFF66' }
+  ];
+  LABELS = ['interactive 3D visualization', 'research report', 'research report', 'research report', 'research report', 'references'];
+  COUNT = 6;
+  state = { active: 0, portalOn: false, idle: false, rotating: false, isolated: -1 };
+
+  setRoot = (el) => { this.root = el; };
+
+  componentDidMount() {
+    if (!this.root) return;
+    this.root.style.setProperty('--gold', this.props.accentColor || '#F0C040');
+    this.reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.portal = this.root.querySelector('[data-portal]');
+    this.iframe = this.root.querySelector('[data-scene]');
+
+    // delegated clicks (survive re-renders — root is stable)
+    this._click = (e) => {
+      const act = e.target.closest('[data-act]');
+      if (act && this.root.contains(act)) { this.act(act.dataset.act); return; }
+      const dot = e.target.closest('[data-dot]');
+      if (dot && this.root.contains(dot)) { this.go(+dot.dataset.i); return; }
+      const iso = e.target.closest('[data-iso]');
+      if (iso && this.root.contains(iso)) { this.scene('isolate', +iso.dataset.iso); return; }
+    };
+    this.root.addEventListener('click', this._click);
+
+    this._key = (e) => {
+      if (e.target.closest('input,textarea')) return;
+      if (e.key === 'ArrowLeft') this.prev();
+      else if (e.key === 'ArrowRight') this.next();
+    };
+    this.root.addEventListener('keydown', this._key);
+
+    this._msg = (e) => {
+      const d = e.data;
+      if (!d || d.source !== 'jellybean-scene' || d.type !== 'state') return;
+      this.setState({ rotating: !!d.rotating, isolated: typeof d.isolated === 'number' ? d.isolated : -1 });
+    };
+    window.addEventListener('message', this._msg);
+
+    this._fs = () => {
+      const on = document.fullscreenElement === this.portal;
+      this.setState({ portalOn: on, idle: false });
+      const live = this.root.querySelector('[data-live]');
+      if (live) live.textContent = on ? 'Entered the immersive environment. Press Escape to exit.' : 'Exited the environment.';
+      if (on) this.scheduleIdle();
+      else clearTimeout(this._idleT);
+    };
+    document.addEventListener('fullscreenchange', this._fs);
+
+    this._activity = () => this.poke();
+    this.portal.addEventListener('mousemove', this._activity);
+    this.portal.addEventListener('pointerdown', this._activity);
+  }
+
+  componentDidUpdate() {
+    this.root.style.setProperty('--gold', this.props.accentColor || '#F0C040');
+    // Smooth crossfade on slide change via WAAPI (survives frequent re-renders;
+    // CSS transitions get restarted every render so we can't rely on them here).
+    if (this._lastActive !== this.state.active) {
+      this._lastActive = this.state.active;
+      if (!this.reduce) {
+        const slides = this.root.querySelectorAll('[data-slide]');
+        const el = slides[this.state.active];
+        if (el && el.animate) el.animate([{ opacity: 0.25 }, { opacity: 1 }], { duration: 280, easing: 'ease-out' });
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('message', this._msg);
+    document.removeEventListener('fullscreenchange', this._fs);
+    if (this.root) { this.root.removeEventListener('click', this._click); this.root.removeEventListener('keydown', this._key); }
+    clearTimeout(this._idleT);
+  }
+
+  scene(fn, ...args) {
+    const api = this.iframe && this.iframe.contentWindow && this.iframe.contentWindow.SceneAPI;
+    if (api && typeof api[fn] === 'function') api[fn](...args);
+  }
+
+  act(name) {
+    switch (name) {
+      case 'join': this.scene('join'); break;
+      case 'disperse': this.scene('disperse'); break;
+      case 'zoomin': this.scene('zoomIn'); break;
+      case 'zoomout': this.scene('zoomOut'); break;
+      case 'rotate': this.scene('toggleRotate'); break;
+      case 'reset': this.scene('reset'); break;
+      case 'prev': this.prev(); break;
+      case 'next': this.next(); break;
+      case 'fullscreen': this.togglePortal(); break;
+    }
+  }
+
+  go(i) {
+    const n = ((i % this.COUNT) + this.COUNT) % this.COUNT;
+    if (n === this.state.active) return;
+    this.setState({ active: n });
+    const live = this.root.querySelector('[data-live]');
+    if (live) live.textContent = 'Slide ' + (n + 1) + ' of ' + this.COUNT + ', ' + this.LABELS[n];
+  }
+  prev() { this.go(this.state.active - 1); }
+  next() { this.go(this.state.active + 1); }
+
+  togglePortal() {
+    if (!document.fullscreenElement) {
+      if (this.state.active !== 0) this.setState({ active: 0 });
+      if (this.portal.requestFullscreen) this.portal.requestFullscreen().catch(() => {});
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  }
+
+  poke() {
+    if (document.fullscreenElement !== this.portal) return;
+    if (this.state.idle) this.setState({ idle: false });
+    this.scheduleIdle();
+  }
+  scheduleIdle() {
+    clearTimeout(this._idleT);
+    this._idleT = setTimeout(() => {
+      if (document.fullscreenElement === this.portal) this.setState({ idle: true });
+    }, 2800);
+  }
+
+  renderVals() {
+    const a = this.state.active;
+    const reduce = this.reduce;
+    const on = this.state.portalOn;
+    const dots = [];
+    for (let i = 0; i < this.COUNT; i++) {
+      dots.push({
+        idx: i,
+        width: i === a ? '28px' : '9px',
+        bg: i === a ? 'var(--gold)' : '#4a4f6e',
+        cur: i === a ? 'true' : 'false',
+        label: 'Slide ' + (i + 1) + ', ' + this.LABELS[i]
+      });
+    }
+    const isos = this.COUNTRIES.map((c, i) => {
+      const sel = this.state.isolated === i;
+      return {
+        idx: i, name: c.name, count: c.count, dot: c.color,
+        cur: sel ? 'true' : 'false',
+        color: sel ? '#fff' : '#c9cde0',
+        bg: sel ? 'rgba(240,192,64,0.12)' : 'transparent',
+        border: sel ? '#F0C040' : 'rgba(255,255,255,0.12)'
+      };
+    });
+    const rot = this.state.rotating;
+    return {
+      setRoot: this.setRoot,
+      slideShift: (-a * 100) + '%',
+      slideTransition: 'none',
+      counterText: String(a + 1).padStart(2, '0') + ' / ' + String(this.COUNT).padStart(2, '0'),
+      ctlOpacity: a === 0 ? '1' : '0',
+      ctlVis: a === 0 ? 'visible' : 'hidden',
+      ctlPE: a === 0 ? 'auto' : 'none',
+      panelDisplay: a === 0 ? 'flex' : 'none',
+      idleClass: this.state.idle ? 'idle' : '',
+      dots,
+      isos,
+      rotPressed: String(rot),
+      rotBg: rot ? 'rgba(240,192,64,0.18)' : 'rgba(255,255,255,0.05)',
+      rotBorder: rot ? 'rgba(240,192,64,0.6)' : 'transparent',
+      rotColor: rot ? '#F0C040' : '#eef0f6',
+      portalPressed: String(on),
+      portalBorder: on ? 'rgba(240,192,64,0.7)' : 'rgba(240,192,64,0.28)',
+      // current state glows white-gold neon; the other dims (authentic toggle behavior)
+      bhAnim: reduce ? 'none' : 'bhRotate 5s linear infinite',
+      offColor: on ? '#3a3563' : '#fdfdfd',
+      offAnim: (!on && !reduce) ? 'portalNeon 1.5s ease-in-out infinite alternate' : 'none',
+      onColor: on ? '#fdfdfd' : '#3a3563',
+      onAnim: (on && !reduce) ? 'portalNeon 1.5s ease-in-out infinite alternate' : 'none',
+      ringAnim: (on && !reduce) ? 'portalRingPulse 1.5s ease-in-out infinite alternate' : 'none',
+      knobStroke: on ? '#F0C040' : '#9a93cf'
+    };
+  }
+}
+</script>
+</body>
+</html>
