@@ -389,56 +389,6 @@ export function About() {
             </li>
           </ul>
 
-          <h3 className="ds-section-title">Projects</h3>
-          <div className="ds-quadrant" role="list" aria-label="Projects">
-            <article className="ds-surface ds-surface--ooo" role="listitem">
-              <p className="ds-surface-eyebrow">Studio</p>
-              <h4>Ooo Digital Media Studio</h4>
-              <p className="ds-surface-note">Teal and indigo spectrum. The studio environment for participatory design, digital development, and interactive systems.</p>
-              <ul className="ds-swatches" aria-label="Ooo palette">
-                <li><span className="ds-sw" style={{ background: "#19007D" }} aria-hidden="true" /><code>#19007D</code><span>Dark Indigo</span></li>
-                <li><span className="ds-sw" style={{ background: "#312583" }} aria-hidden="true" /><code>#312583</code><span>Resolution</span></li>
-                <li><span className="ds-sw" style={{ background: "#5B04DE" }} aria-hidden="true" /><code>#5B04DE</code><span>Electric</span></li>
-                <li><span className="ds-sw" style={{ background: "#008080" }} aria-hidden="true" /><code>#008080</code><span>Teal</span></li>
-                <li><span className="ds-sw ds-sw--bordered" style={{ background: "#F0F4F5" }} aria-hidden="true" /><code>#F0F4F5</code><span>Robin's egg</span></li>
-              </ul>
-            </article>
-
-            <article className="ds-surface ds-surface--ostara" role="listitem">
-              <p className="ds-surface-eyebrow">System</p>
-              <h4>Ostara: Collective Intelligence System</h4>
-              <p className="ds-surface-note">Indigo with gold. Designed for collective reasoning, uncertainty, and signal exploration.</p>
-              <ul className="ds-swatches" aria-label="Ostara palette">
-                <li><span className="ds-sw" style={{ background: "#19007D" }} aria-hidden="true" /><code>#19007D</code><span>Dark Indigo</span></li>
-                <li><span className="ds-sw" style={{ background: "#4B00B6" }} aria-hidden="true" /><code>#4B00B6</code><span>Portal</span></li>
-                <li><span className="ds-sw" style={{ background: "#F0C040" }} aria-hidden="true" /><code>#F0C040</code><span>Gold</span></li>
-              </ul>
-            </article>
-
-            <article className="ds-surface ds-surface--cid" role="listitem">
-              <p className="ds-surface-eyebrow">Research</p>
-              <h4>Canadian Innovation Dimension (CID)</h4>
-              <p className="ds-surface-note">Muted ruby red and teal on robin's egg. Research-forward.</p>
-              <ul className="ds-swatches" aria-label="CID palette">
-                <li><span className="ds-sw" style={{ background: "#822F00" }} aria-hidden="true" /><code>#822F00</code><span>Ruby</span></li>
-                <li><span className="ds-sw" style={{ background: "#008080" }} aria-hidden="true" /><code>#008080</code><span>Teal</span></li>
-                <li><span className="ds-sw ds-sw--bordered" style={{ background: "#F0F4F5" }} aria-hidden="true" /><code>#F0F4F5</code><span>Robin's egg</span></li>
-              </ul>
-            </article>
-
-            <article className="ds-surface ds-surface--exhibition" role="listitem">
-              <p className="ds-surface-eyebrow">Exhibition</p>
-              <h4>Canadian Interactive Exhibition</h4>
-              <p className="ds-surface-note">Ruby red and white flowing through the Ooo indigo spectrum. Designed for public interaction, artist-created digital worlds, and nonprofit participation.</p>
-              <ul className="ds-swatches" aria-label="Exhibition palette">
-                <li><span className="ds-sw" style={{ background: "#822F00" }} aria-hidden="true" /><code>#822F00</code><span>Ruby</span></li>
-                <li><span className="ds-sw ds-sw--bordered" style={{ background: "#FFFFFF" }} aria-hidden="true" /><code>#FFFFFF</code><span>White</span></li>
-                <li><span className="ds-sw" style={{ background: "#19007D" }} aria-hidden="true" /><code>#19007D</code><span>Dark Indigo</span></li>
-                <li><span className="ds-sw" style={{ background: "#4B00B6" }} aria-hidden="true" /><code>#4B00B6</code><span>Portal</span></li>
-              </ul>
-            </article>
-          </div>
-
           <section className="ds-palette">
             <div className="ds-palette-inner">
           <div className="ds-palette-top">
@@ -509,6 +459,56 @@ export function About() {
           </div>
             </div>
           </section>
+
+          <h3 className="ds-section-title">Projects</h3>
+          <div className="ds-quadrant" role="list" aria-label="Projects">
+            <article className="ds-surface ds-surface--ooo" role="listitem">
+              <p className="ds-surface-eyebrow">Studio</p>
+              <h4>Ooo Digital Media Studio</h4>
+              <p className="ds-surface-note">Teal and indigo spectrum. The studio environment for participatory design, digital development, and interactive systems.</p>
+              <ul className="ds-swatches" aria-label="Ooo palette">
+                <li><span className="ds-sw" style={{ background: "#19007D" }} aria-hidden="true" /><code>#19007D</code><span>Dark Indigo</span></li>
+                <li><span className="ds-sw" style={{ background: "#312583" }} aria-hidden="true" /><code>#312583</code><span>Resolution</span></li>
+                <li><span className="ds-sw" style={{ background: "#5B04DE" }} aria-hidden="true" /><code>#5B04DE</code><span>Electric</span></li>
+                <li><span className="ds-sw" style={{ background: "#008080" }} aria-hidden="true" /><code>#008080</code><span>Teal</span></li>
+                <li><span className="ds-sw ds-sw--bordered" style={{ background: "#F0F4F5" }} aria-hidden="true" /><code>#F0F4F5</code><span>Robin's egg</span></li>
+              </ul>
+            </article>
+
+            <article className="ds-surface ds-surface--ostara" role="listitem">
+              <p className="ds-surface-eyebrow">System</p>
+              <h4>Ostara: Collective Intelligence System</h4>
+              <p className="ds-surface-note">Indigo with gold. Designed for collective reasoning, uncertainty, and signal exploration.</p>
+              <ul className="ds-swatches" aria-label="Ostara palette">
+                <li><span className="ds-sw" style={{ background: "#19007D" }} aria-hidden="true" /><code>#19007D</code><span>Dark Indigo</span></li>
+                <li><span className="ds-sw" style={{ background: "#4B00B6" }} aria-hidden="true" /><code>#4B00B6</code><span>Portal</span></li>
+                <li><span className="ds-sw" style={{ background: "#F0C040" }} aria-hidden="true" /><code>#F0C040</code><span>Gold</span></li>
+              </ul>
+            </article>
+
+            <article className="ds-surface ds-surface--cid" role="listitem">
+              <p className="ds-surface-eyebrow">Research</p>
+              <h4>Canadian Innovation Dimension (CID)</h4>
+              <p className="ds-surface-note">Muted ruby red and teal on robin's egg. Research-forward.</p>
+              <ul className="ds-swatches" aria-label="CID palette">
+                <li><span className="ds-sw" style={{ background: "#822F00" }} aria-hidden="true" /><code>#822F00</code><span>Ruby</span></li>
+                <li><span className="ds-sw" style={{ background: "#008080" }} aria-hidden="true" /><code>#008080</code><span>Teal</span></li>
+                <li><span className="ds-sw ds-sw--bordered" style={{ background: "#F0F4F5" }} aria-hidden="true" /><code>#F0F4F5</code><span>Robin's egg</span></li>
+              </ul>
+            </article>
+
+            <article className="ds-surface ds-surface--exhibition" role="listitem">
+              <p className="ds-surface-eyebrow">Exhibition</p>
+              <h4>Canadian Interactive Exhibition</h4>
+              <p className="ds-surface-note">Ruby red and white flowing through the Ooo indigo spectrum. Designed for public interaction, artist-created digital worlds, and nonprofit participation.</p>
+              <ul className="ds-swatches" aria-label="Exhibition palette">
+                <li><span className="ds-sw" style={{ background: "#822F00" }} aria-hidden="true" /><code>#822F00</code><span>Ruby</span></li>
+                <li><span className="ds-sw ds-sw--bordered" style={{ background: "#FFFFFF" }} aria-hidden="true" /><code>#FFFFFF</code><span>White</span></li>
+                <li><span className="ds-sw" style={{ background: "#19007D" }} aria-hidden="true" /><code>#19007D</code><span>Dark Indigo</span></li>
+                <li><span className="ds-sw" style={{ background: "#4B00B6" }} aria-hidden="true" /><code>#4B00B6</code><span>Portal</span></li>
+              </ul>
+            </article>
+          </div>
 
           <h3 className="ds-section-title ds-section-title--quiet">Component primitives</h3>
           <div className="ds-quadrant ds-quadrant--quiet">
