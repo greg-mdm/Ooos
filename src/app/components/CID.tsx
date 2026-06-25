@@ -18,7 +18,56 @@ const SC = {
   openGov: "https://open.canada.ca/en/open-data",
   ontario: "https://www.ontario.ca/document/ontario-employment-reports",
   start: "https://www.statcan.gc.ca/en/start",
+  // Ontario observatory + underground layer
+  onReport: "https://www.ontario.ca/document/ontario-employment-reports/january-march-2026",
+  onRegions: "https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4",
+  jobbankScan: "https://www.jobbank.gc.ca/trend-analysis/job-market-reports/ontario/environmental-scan",
+  caps: "https://www.lioapplications.lrc.gov.on.ca/Pits_And_Quarries/index.html?viewer=Pits_and_Quarries.Pits_and_Quarries&locale=en-CA",
+  forceOfNature: "https://www.canada.ca/en/services/environment/nature/nature-strategy.html#toc6",
+  radarDsm: "https://data.ontario.ca/dataset/ontario-radar-digital-surface-model",
 };
+
+// Ontario's eleven Statistics Canada economic regions (the units used in the
+// Ontario Employment Reports' regional map).
+const ON_REGIONS = [
+  "Ottawa",
+  "Kingston–Pembroke",
+  "Muskoka–Kawarthas",
+  "Toronto",
+  "Kitchener–Waterloo–Barrie",
+  "Hamilton–Niagara Peninsula",
+  "London",
+  "Windsor–Sarnia",
+  "Stratford–Bruce Peninsula",
+  "Northeast",
+  "Northwest",
+];
+
+// Underground / terrain layer — the page floor. Plain link cards (these gov
+// viewers block cross-origin framing, so they open in a new tab).
+const UNDERGROUND = [
+  {
+    tag: "Interactive map",
+    title: "Explore Pits and Quarries Online (CAPS)",
+    blurb: "Map every licensed pit, quarry and aggregate site across Ontario — Land Information Ontario's CAPS viewer.",
+    href: SC.caps,
+    hero: true,
+  },
+  {
+    tag: "National strategy",
+    title: "A Force of Nature: Canada's Strategy to Protect Nature",
+    blurb: "Canada's plan to halt and reverse biodiversity loss and protect the land and water above the bedrock.",
+    href: SC.forceOfNature,
+    hero: false,
+  },
+  {
+    tag: "Elevation dataset",
+    title: "Ontario radar digital surface model",
+    blurb: "Province-wide radar-derived elevation surface (DSM) from the Ontario Data Catalogue.",
+    href: SC.radarDsm,
+    hero: false,
+  },
+];
 
 type AccessRoute = {
   key: string;
@@ -259,6 +308,8 @@ function DataAccessContinuum() {
                 <span>Search datasets and information published by federal departments and agencies beyond Statistics Canada.</span></li>
               <li><a href={SC.ontario} target="_blank" rel="noopener noreferrer">Ontario Employment Reports</a>
                 <span>A practical example of public evidence organized across employment, industries, regions, age, education, immigration and wages.</span></li>
+              <li><a href={SC.jobbankScan} target="_blank" rel="noopener noreferrer">Ontario environmental scan — Job Bank</a>
+                <span>A regional read on Ontario's labour market: outlooks, in-demand occupations and the trends shaping employment.</span></li>
             </ul>
           </Disclosure>
 
@@ -292,6 +343,94 @@ function DataAccessContinuum() {
           research needs.
           <span className="cid-continuum-source">Source: Statistics Canada, Continuum of Data Access.</span>
         </p>
+      </div>
+    </section>
+  );
+}
+
+/** Zoom the continuum onto one province: an embedded interactive map of
+ *  Ontario beside its eleven economic regions and the Ontario data links. */
+function OntarioObservatory() {
+  return (
+    <section className="cid-observatory" aria-labelledby="cid-observatory-title">
+      <div className="cid-continuum-inner">
+        <p className="cid-continuum-eyebrow">Zoom in · Ontario</p>
+        <h2 id="cid-observatory-title" className="cid-continuum-title">Ontario Data Observatory</h2>
+        <p className="cid-observatory-lede">
+          Turn the continuum on a single province. Ontario&rsquo;s public record tracks
+          employment, industries, wages, education and immigration across eleven economic
+          regions&mdash;evidence you can map, compare and revisit over time.
+        </p>
+
+        <div className="cid-observatory-grid">
+          <figure className="cid-map">
+            <div className="cid-map-shell">
+              <div className="cid-map-fallback" aria-hidden="true">Ontario</div>
+              <iframe
+                className="cid-map-frame"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=-95.2%2C41.6%2C-74.3%2C56.9&layer=mapnik"
+                title="Interactive map of Ontario"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+            <figcaption className="cid-map-cap">
+              Interactive base map of Ontario (OpenStreetMap). For the official boundaries, see the{" "}
+              <a href={SC.onRegions} target="_blank" rel="noopener noreferrer">map of economic regions ↗</a>{" "}
+              in the Ontario Employment Report (§4).
+            </figcaption>
+          </figure>
+
+          <div className="cid-observatory-side">
+            <h3 className="cid-observatory-h3">Economic regions</h3>
+            <ul className="cid-region-list">
+              {ON_REGIONS.map((r) => (
+                <li key={r}>{r}</li>
+              ))}
+            </ul>
+            <h3 className="cid-observatory-h3">Ontario data</h3>
+            <div className="cid-observatory-links">
+              <a href={SC.onReport} target="_blank" rel="noopener noreferrer">Ontario Employment Reports ↗</a>
+              <a href={SC.onRegions} target="_blank" rel="noopener noreferrer">Map of regions — Report §4 ↗</a>
+              <a href={SC.jobbankScan} target="_blank" rel="noopener noreferrer">Ontario environmental scan — Job Bank ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** The page floor — the "underground" layer of the public record. Sits flush
+ *  above the site footer with a deep subsurface field and terrain link cards. */
+function Underground() {
+  return (
+    <section className="cid-underground" aria-labelledby="cid-underground-title">
+      <div className="cid-continuum-inner">
+        <p className="cid-underground-eyebrow">
+          <span aria-hidden="true">▼</span> Below the surface
+        </p>
+        <h2 id="cid-underground-title" className="cid-underground-title">Underground &amp; terrain</h2>
+        <p className="cid-underground-lede">
+          The deepest layer of the public record&mdash;what lies beneath the map. Aggregate
+          sites, elevation surfaces and the national strategy to protect the nature above them.
+        </p>
+        <div className="cid-underground-grid">
+          {UNDERGROUND.map((l) => (
+            <a
+              key={l.title}
+              className={`cid-ug-card${l.hero ? " is-hero" : ""}`}
+              href={l.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="cid-ug-tag">{l.tag}</span>
+              <span className="cid-ug-title">{l.title}</span>
+              <span className="cid-ug-blurb">{l.blurb}</span>
+              <span className="cid-ug-go" aria-hidden="true">Open ↗</span>
+            </a>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -436,6 +575,8 @@ export function CID({ onSupport }: { onSupport: () => void }) {
       </section>
 
       <DataAccessContinuum />
+      <OntarioObservatory />
+      <Underground />
 
     </div>
   );

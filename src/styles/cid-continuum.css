@@ -6,13 +6,18 @@
    Scoped under .cid-scope; light text on a deep navy field that echoes the
    official StatsCan "Continuum of Data Access" graphic.
    =========================================================================== */
-.cid-scope .cid-continuum {
+/* Shared palette for the three dark CID footer sections (continuum,
+   Ontario observatory, underground). Defined on .cid-scope so all inherit. */
+.cid-scope {
   --c-teal: #00D4AA;
   --c-ink: #EAF1FB;
   --c-muted: #A9BBD6;
   --c-line: rgba(255, 255, 255, 0.12);
   --c-card: rgba(255, 255, 255, 0.045);
   --c-gold: #F0C040;
+  --c-earth: #E8A06A;
+}
+.cid-scope .cid-continuum {
   position: relative;
   padding: clamp(48px, 7vw, 96px) 24px;
   background:
@@ -470,4 +475,275 @@
 @media (prefers-reduced-motion: reduce) {
   .cid-scope .cid-route,
   .cid-scope .cid-disc { transition: none; }
+}
+
+/* ===========================================================================
+   Ontario Data Observatory  —  zoom the continuum onto one province
+   Shares the navy field; a teal hairline separates it from the continuum.
+   =========================================================================== */
+.cid-scope .cid-observatory {
+  position: relative;
+  padding: clamp(44px, 6vw, 84px) 24px;
+  background:
+    radial-gradient(900px 480px at 88% -10%, rgba(0, 212, 170, 0.10), transparent 58%),
+    linear-gradient(180deg, #081026 0%, #0A1530 100%);
+  color: var(--c-ink);
+}
+.cid-scope .cid-observatory::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: min(1080px, calc(100% - 48px));
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 212, 170, 0.5), transparent);
+}
+.cid-scope .cid-observatory-lede {
+  max-width: 64ch;
+  margin: 0 0 26px;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: var(--c-ink);
+}
+.cid-scope .cid-observatory-grid {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: 22px;
+  align-items: start;
+}
+.cid-scope .cid-map { margin: 0; }
+/* Fixed-height shell with a CSS map fallback behind the live OSM iframe, so
+   the area looks intentional while the embed loads (or if it is unavailable). */
+.cid-scope .cid-map-shell {
+  position: relative;
+  height: 380px;
+  border: 1px solid var(--c-line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.cid-scope .cid-map-fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(160px 160px at 32% 42%, rgba(0, 212, 170, 0.14), transparent 70%),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 28px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 28px),
+    #0a1430;
+  color: rgba(233, 241, 251, 0.45);
+  font-family: var(--font-elevated, var(--sans));
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.cid-scope .cid-map-frame {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 380px;
+  display: block;
+  border: 0;
+  background: transparent;
+  filter: saturate(0.92);
+}
+.cid-scope .cid-map-cap {
+  margin-top: 10px;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--c-muted);
+}
+.cid-scope .cid-map-cap a {
+  color: var(--c-teal) !important;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.cid-scope .cid-map-cap a:hover { color: #ffffff !important; }
+.cid-scope .cid-observatory-side {
+  padding: 20px;
+  border: 1px solid var(--c-line);
+  border-radius: 14px;
+  background: var(--c-card);
+}
+.cid-scope .cid-observatory-h3 {
+  margin: 0 0 12px;
+  font-family: var(--font-elevated, var(--sans));
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-teal);
+}
+.cid-scope .cid-observatory-h3 + .cid-region-list { margin-bottom: 18px; }
+.cid-scope .cid-observatory-side .cid-observatory-h3:nth-of-type(2) { margin-top: 4px; }
+.cid-scope .cid-region-list {
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 14px;
+}
+.cid-scope .cid-region-list li {
+  position: relative;
+  padding-left: 16px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: var(--c-ink);
+}
+.cid-scope .cid-region-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c-teal);
+  opacity: 0.7;
+}
+.cid-scope .cid-observatory-links {
+  display: grid;
+  gap: 10px;
+}
+.cid-scope .cid-observatory-links a {
+  width: fit-content;
+  font-weight: 700;
+  font-size: 0.94rem;
+  color: var(--c-teal) !important;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 212, 170, 0.4);
+  padding-bottom: 2px;
+}
+.cid-scope .cid-observatory-links a:hover { color: #ffffff !important; border-color: #ffffff; }
+
+/* ===========================================================================
+   Underground & terrain  —  the page floor, flush above the footer.
+   Deep subsurface field with faint strata + an earth/mineral accent.
+   =========================================================================== */
+.cid-scope .cid-underground {
+  position: relative;
+  padding: clamp(48px, 6vw, 88px) 24px clamp(56px, 7vw, 104px);
+  background:
+    radial-gradient(800px 420px at 50% 118%, rgba(184, 115, 51, 0.20), transparent 60%),
+    linear-gradient(180deg, #0A1530 0%, #0b0a16 58%, #090611 100%);
+  color: var(--c-ink);
+  overflow: hidden;
+}
+.cid-scope .cid-underground::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    180deg,
+    transparent 0 46px,
+    rgba(255, 255, 255, 0.025) 46px 47px
+  );
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 38%);
+  mask-image: linear-gradient(180deg, transparent, #000 38%);
+}
+.cid-scope .cid-underground .cid-continuum-inner {
+  position: relative;
+  z-index: 1;
+}
+.cid-scope .cid-underground-eyebrow {
+  margin: 0 0 12px;
+  font-family: var(--font-elevated, var(--sans));
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--c-earth);
+}
+.cid-scope .cid-underground-eyebrow span { margin-right: 6px; }
+.cid-scope .cid-underground-title {
+  margin: 0 0 16px;
+  font-family: var(--font-elevated, var(--sans));
+  font-size: clamp(1.7rem, 3.6vw, 2.6rem);
+  line-height: 1.05;
+  font-weight: 800;
+  color: #ffffff;
+}
+.cid-scope .cid-underground-lede {
+  max-width: 60ch;
+  margin: 0 0 28px;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--c-muted);
+}
+.cid-scope .cid-underground-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.cid-scope .cid-ug-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 22px 20px;
+  border: 1px solid rgba(232, 160, 106, 0.22);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  text-decoration: none !important;
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 220ms ease, background 160ms ease;
+}
+.cid-scope .cid-ug-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(232, 160, 106, 0.55);
+  box-shadow: 0 24px 52px -26px rgba(232, 160, 106, 0.6);
+  background: linear-gradient(180deg, rgba(232, 160, 106, 0.10), rgba(255, 255, 255, 0.02));
+}
+.cid-scope .cid-ug-card:focus-visible {
+  outline: 2px solid var(--c-earth);
+  outline-offset: 3px;
+}
+.cid-scope .cid-ug-card.is-hero {
+  grid-column: 1 / -1;
+  border-color: rgba(232, 160, 106, 0.4);
+  background: linear-gradient(120deg, rgba(232, 160, 106, 0.14), rgba(255, 255, 255, 0.02));
+}
+.cid-scope .cid-ug-tag {
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-earth);
+}
+.cid-scope .cid-ug-title {
+  font-family: var(--font-elevated, var(--sans));
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #ffffff;
+}
+.cid-scope .cid-ug-card.is-hero .cid-ug-title { font-size: 1.4rem; }
+.cid-scope .cid-ug-blurb {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--c-muted);
+}
+.cid-scope .cid-ug-go {
+  margin-top: 4px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: var(--c-earth);
+}
+
+/* ---- responsive (observatory + underground) --------------------------- */
+@media (max-width: 760px) {
+  .cid-scope .cid-observatory-grid { grid-template-columns: 1fr; }
+  .cid-scope .cid-map-shell,
+  .cid-scope .cid-map-frame { height: 320px; }
+}
+@media (max-width: 820px) {
+  .cid-scope .cid-underground-grid { grid-template-columns: 1fr; }
+  .cid-scope .cid-ug-card.is-hero { grid-column: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cid-scope .cid-ug-card { transition: none; }
 }
