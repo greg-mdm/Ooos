@@ -67,8 +67,8 @@
   padding: clamp(1.1rem, 2.2vw, 1.6rem); margin: 0 auto 18px;
   box-shadow: 0 14px 44px rgba(91,4,222,0.14); }
 .ot-bigbox h1 { flex: 0 1 auto; max-width: 56rem; font-family: 'Playfair Display', Georgia, serif; font-weight: 600;
-  font-size: clamp(1.2rem, 1.95vw, 1.65rem); line-height: 1.25; letter-spacing: -0.012em;
-  color: var(--ot-ink); margin: 0; text-align: left; text-wrap: balance; }
+  font-size: clamp(1.45rem, 2.3vw, 2rem); line-height: 1.32; letter-spacing: -0.012em;
+  color: var(--ot-ink); margin: 0; text-align: left; text-wrap: pretty; }
 .ot-bigbox h1 strong { font-weight: 700; color: #06021c; }
 .ot-bigbox__leaf { flex: 0 0 auto; align-self: center; width: clamp(72px, 8vw, 100px);
   height: auto; display: block; }
