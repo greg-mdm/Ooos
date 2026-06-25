@@ -9,7 +9,7 @@
 /* Shared palette for the three dark CID footer sections (continuum,
    Ontario observatory, underground). Defined on .cid-scope so all inherit. */
 .cid-scope {
-  --c-teal: #00D4AA;
+  --c-teal: #1FCECB;
   --c-ink: #EAF1FB;
   --c-muted: #A9BBD6;
   --c-line: rgba(255, 255, 255, 0.12);
@@ -21,7 +21,7 @@
   position: relative;
   padding: clamp(48px, 7vw, 96px) 24px;
   background:
-    radial-gradient(1200px 520px at 12% -8%, rgba(0, 212, 170, 0.10), transparent 60%),
+    radial-gradient(1200px 520px at 12% -8%, rgba(31, 206, 203, 0.10), transparent 60%),
     radial-gradient(1000px 600px at 100% 0%, rgba(46, 90, 134, 0.35), transparent 55%),
     linear-gradient(168deg, #0B1A3C 0%, #0A1430 52%, #081026 100%);
   color: var(--c-ink);
@@ -62,7 +62,7 @@
   margin-top: 18px !important;
   padding: 14px 18px;
   border-left: 3px solid var(--c-teal);
-  background: rgba(0, 212, 170, 0.08);
+  background: rgba(31, 206, 203, 0.08);
   border-radius: 0 10px 10px 0;
   font-weight: 600;
   color: #ffffff !important;
@@ -119,13 +119,13 @@
   transition: border-color 160ms ease, background 160ms ease, box-shadow 200ms ease;
 }
 .cid-scope .cid-route:hover {
-  border-color: rgba(0, 212, 170, 0.5);
+  border-color: rgba(31, 206, 203, 0.5);
   background: rgba(255, 255, 255, 0.06);
 }
 .cid-scope .cid-route.is-open {
-  border-color: rgba(0, 212, 170, 0.55);
-  background: rgba(0, 212, 170, 0.06);
-  box-shadow: 0 18px 40px -22px rgba(0, 212, 170, 0.6);
+  border-color: rgba(31, 206, 203, 0.55);
+  background: rgba(31, 206, 203, 0.06);
+  box-shadow: 0 18px 40px -22px rgba(31, 206, 203, 0.6);
 }
 .cid-scope .cid-route-toggle {
   width: 100%;
@@ -152,8 +152,8 @@
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: rgba(0, 212, 170, 0.14);
-  border: 1px solid rgba(0, 212, 170, 0.5);
+  background: rgba(31, 206, 203, 0.14);
+  border: 1px solid rgba(31, 206, 203, 0.5);
   color: var(--c-teal);
   font-weight: 800;
   font-size: 0.95rem;
@@ -183,8 +183,8 @@
   padding: 3px 8px;
   border-radius: 999px;
   color: var(--c-teal);
-  background: rgba(0, 212, 170, 0.12);
-  border: 1px solid rgba(0, 212, 170, 0.4);
+  background: rgba(31, 206, 203, 0.12);
+  border: 1px solid rgba(31, 206, 203, 0.4);
 }
 .cid-scope .cid-route-blurb {
   font-size: 0.92rem;
@@ -231,7 +231,7 @@
   font-size: 0.92rem;
   color: var(--c-teal) !important;
   text-decoration: none !important;
-  border-bottom: 1px solid rgba(0, 212, 170, 0.5);
+  border-bottom: 1px solid rgba(31, 206, 203, 0.5);
   padding-bottom: 1px;
 }
 .cid-scope .cid-route-link:hover { color: #ffffff !important; border-color: #ffffff; }
@@ -257,7 +257,7 @@
 }
 .cid-scope .cid-disc:hover { border-color: rgba(255, 255, 255, 0.22); }
 .cid-scope .cid-disc.is-open {
-  border-color: rgba(0, 212, 170, 0.4);
+  border-color: rgba(31, 206, 203, 0.4);
   background: rgba(255, 255, 255, 0.05);
 }
 .cid-scope .cid-disc-toggle {
@@ -370,7 +370,7 @@
   flex-direction: column;
   gap: 3px;
   padding-left: 16px;
-  border-left: 2px solid rgba(0, 212, 170, 0.4);
+  border-left: 2px solid rgba(31, 206, 203, 0.4);
 }
 .cid-scope .cid-resources li a {
   font-weight: 700;
@@ -485,7 +485,7 @@
   position: relative;
   padding: clamp(44px, 6vw, 84px) 24px;
   background:
-    radial-gradient(900px 480px at 88% -10%, rgba(0, 212, 170, 0.10), transparent 58%),
+    radial-gradient(900px 480px at 88% -10%, rgba(31, 206, 203, 0.10), transparent 58%),
     linear-gradient(180deg, #081026 0%, #0A1530 100%);
   color: var(--c-ink);
 }
@@ -497,7 +497,7 @@
   transform: translateX(-50%);
   width: min(1080px, calc(100% - 48px));
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(0, 212, 170, 0.5), transparent);
+  background: linear-gradient(90deg, transparent, rgba(31, 206, 203, 0.5), transparent);
 }
 .cid-scope .cid-observatory-lede {
   max-width: 64ch;
@@ -529,7 +529,7 @@
   display: grid;
   place-items: center;
   background:
-    radial-gradient(160px 160px at 32% 42%, rgba(0, 212, 170, 0.14), transparent 70%),
+    radial-gradient(160px 160px at 32% 42%, rgba(31, 206, 203, 0.14), transparent 70%),
     repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 28px),
     repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 28px),
     #0a1430;
@@ -615,7 +615,7 @@
   font-size: 0.94rem;
   color: var(--c-teal) !important;
   text-decoration: none;
-  border-bottom: 1px solid rgba(0, 212, 170, 0.4);
+  border-bottom: 1px solid rgba(31, 206, 203, 0.4);
   padding-bottom: 2px;
 }
 .cid-scope .cid-observatory-links a:hover { color: #ffffff !important; border-color: #ffffff; }
