@@ -41,22 +41,24 @@
 </style>
 </helmet>
 
-<div ref="{{ setRoot }}" style="--blue:#312583; --gold:#F0C040; min-height:100vh; width:100%; background:radial-gradient(125% 95% at 50% -15%, #3a2c93 0%, #241a63 30%, #120e36 62%, #07061a 100%); color:#eef0f6; font-family:'Space Grotesk', system-ui, sans-serif; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:clamp(10px,1.6vw,26px); gap:clamp(12px,1.7vh,20px);">
+<div ref="{{ setRoot }}" style="--blue:#312583; --gold:#F0C040; min-height:100vh; width:100%; background:radial-gradient(125% 95% at 50% -15%, #3a2c93 0%, #241a63 30%, #120e36 62%, #07061a 100%); color:#eef0f6; font-family:'Space Grotesk', system-ui, sans-serif; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding:0 clamp(10px,1.6vw,26px) clamp(10px,1.6vw,26px); gap:clamp(12px,1.7vh,20px);">
 
-  <!-- ===== Header ===== -->
+  <!-- ===== Header — robin's-egg band (#F0F4F5), full-bleed, ties to the ooos.ca hero ===== -->
+  <div style="align-self:stretch; margin:0 calc(-1 * clamp(10px,1.6vw,26px)); padding:clamp(14px,2vw,22px) clamp(16px,4vw,44px); background:#F0F4F5; box-shadow:0 1px 0 rgba(0,0,0,0.06); display:flex; justify-content:center;">
   <header style="width:min(1560px,95vw); display:flex; align-items:flex-end; justify-content:space-between; gap:20px; flex-wrap:wrap;">
     <div style="display:flex; flex-direction:column; gap:8px;">
       <div style="display:flex; align-items:center; gap:10px;">
-        <svg viewBox="0 0 24 24" width="15" height="15" fill="var(--gold)" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 7.1-1.01z"/></svg>
-        <span style="font-size:11.5px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold);">Top 5 International Student Countries</span>
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="#4B00B6" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 7.1-1.01z"/></svg>
+        <span style="font-size:11.5px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:#4B00B6;">Top 5 International Student Countries</span>
       </div>
-      <h1 style="margin:0; font-size:clamp(24px,3.6vw,42px); font-weight:700; letter-spacing:-0.5px; line-height:1; white-space:nowrap;">TMU Metropolitan 2023-2024</h1>
+      <h1 style="margin:0; font-size:clamp(24px,3.6vw,42px); font-weight:700; letter-spacing:-0.5px; line-height:1; white-space:nowrap; color:#1a1646;">TMU Metropolitan 2023-2024</h1>
     </div>
     <div style="text-align:right; display:flex; flex-direction:column; line-height:1.25;">
-      <span style="font-size:14px; font-weight:700; letter-spacing:2px; color:var(--gold); font-variant-numeric:tabular-nums;">{{ counterText }}</span>
-      <span style="font-size:10.5px; letter-spacing:2px; text-transform:uppercase; color:#7d83a6;">Interactive Series</span>
+      <span style="font-size:14px; font-weight:700; letter-spacing:2px; color:#4B00B6; font-variant-numeric:tabular-nums;">{{ counterText }}</span>
+      <span style="font-size:10.5px; letter-spacing:2px; text-transform:uppercase; color:#5b5f86;">Interactive Series</span>
     </div>
   </header>
+  </div>
 
   <!-- ===== Stage: screen + side light-switch ===== -->
   <div class="cz-stage" style="width:min(1560px,96vw); display:flex; gap:clamp(16px,2.4vw,44px); align-items:flex-start; justify-content:center; flex-wrap:wrap;">
@@ -103,11 +105,13 @@
             <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px; font-size:clamp(12.5px,1.4vw,14.5px); line-height:1.55; color:#d2d6ea;">
               <li style="padding-left:18px; text-indent:-18px;">GreenSock. <em>GSAP: GreenSock Animation Platform</em>. Accessed 2026. <a href="https://gsap.com" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:none; border-bottom:1px solid rgba(240,192,64,0.4);">https://gsap.com</a>.</li>
               <li style="padding-left:18px; text-indent:-18px;">IDEO U. &ldquo;Design Thinking.&rdquo; Accessed 2026. <a href="https://www.ideou.com/pages/design-thinking" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:none; border-bottom:1px solid rgba(240,192,64,0.4);">https://www.ideou.com/pages/design-thinking</a>.</li>
+              <li style="padding-left:18px; text-indent:-18px;">Leo Burnett. &ldquo;The Time We Have Left.&rdquo; 2015. Campaign film. Vimeo. <a href="https://vimeo.com/135011802" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:none; border-bottom:1px solid rgba(240,192,64,0.4);">https://vimeo.com/135011802</a>.</li>
+              <li style="padding-left:18px; text-indent:-18px;">Ontario Ministry of Colleges and Universities. &ldquo;University Enrolment, 2023&ndash;2024.&rdquo; Ontario Data Catalogue. Accessed 2026. <a href="https://data.ontario.ca/dataset/university-enrolment" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:none; border-bottom:1px solid rgba(240,192,64,0.4); word-break:break-all;">https://data.ontario.ca/dataset/university-enrolment</a>.</li>
               <li style="padding-left:18px; text-indent:-18px;">Parsons, Tom (PARSONSARTS). <em>Jellybean Mass</em>. 3D model. Sketchfab. <a href="https://sketchfab.com/3d-models/jellybean-mass-146c0d50f520431bb928a4d8ce0be982" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:none; border-bottom:1px solid rgba(240,192,64,0.4); word-break:break-all;">https://sketchfab.com/3d-models/jellybean-mass-146c0d50f520431bb928a4d8ce0be982</a>.</li>
               <li style="padding-left:18px; text-indent:-18px;">Three.js Authors. <em>Three.js: JavaScript 3D Library</em>. Accessed 2026. <a href="https://threejs.org" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:none; border-bottom:1px solid rgba(240,192,64,0.4);">https://threejs.org</a>.</li>
               <li style="padding-left:18px; text-indent:-18px;">Watson-Nolan, Ashley. &ldquo;A Bunch of Funky CSS3 Toggle Buttons.&rdquo; CodePen. <a href="https://codepen.io/ashleynolan/pen/wBppKz" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:none; border-bottom:1px solid rgba(240,192,64,0.4);">https://codepen.io/ashleynolan/pen/wBppKz</a>.</li>
             </ul>
-            <p style="margin:20px 0 0; font-size:11px; color:#7d83a6; line-height:1.5;">Add your data source (TMU enrolment figures) and any course citations here to complete the list.</p>
+            <p style="margin:20px 0 0; font-size:11px; color:#7d83a6; line-height:1.5;">Figures visualize Toronto Metropolitan University&rsquo;s top five international sending countries, drawn from the 2023&ndash;2024 University Enrolment dataset (Ontario Data Catalogue).</p>
           </div>
         </div>
       </div>
@@ -127,34 +131,34 @@
   </div>
 
   <!-- scene controls — directly under the screen -->
-  <div data-scene-controls style="width:100%; display:flex; flex-direction:column; align-items:center; gap:13px; min-height:96px; transition:opacity .35s; opacity:{{ ctlOpacity }}; visibility:{{ ctlVis }}; pointer-events:{{ ctlPE }};">
+  <div data-scene-controls style="width:100%; display:flex; flex-direction:column; align-items:stretch; gap:13px; min-height:96px; padding:0 16px; transition:opacity .35s; opacity:{{ ctlOpacity }}; visibility:{{ ctlVis }}; pointer-events:{{ ctlPE }};">
 
     <!-- 3D scene toolbar -->
-    <div role="toolbar" aria-label="3D scene controls" style="display:flex; align-items:center; gap:8px; padding:8px; border-radius:16px; background:rgba(12,10,40,0.72); border:1px solid rgba(240,192,64,0.16); backdrop-filter:blur(10px); box-shadow:0 12px 36px rgba(0,0,0,0.45); flex-wrap:nowrap; max-width:100%;">
-      <button data-act="join" aria-keyshortcuts="J" style="display:inline-flex; align-items:center; gap:9px; min-height:46px; padding:0 22px; font:inherit; font-size:15px; font-weight:700; letter-spacing:0.3px; color:#1a1204; background:linear-gradient(180deg,#f7d05f,#e6b02f); border:0; border-radius:12px; cursor:pointer; box-shadow:0 6px 18px -4px rgba(240,192,64,0.6);" style-hover="filter:brightness(1.06);">
+    <div role="toolbar" aria-label="3D scene controls" style="display:flex; align-items:center; justify-content:center; gap:10px; padding:10px; border-radius:16px; background:rgba(12,10,40,0.72); border:1px solid rgba(240,192,64,0.16); backdrop-filter:blur(10px); box-shadow:0 12px 36px rgba(0,0,0,0.45); flex-wrap:nowrap; max-width:100%;">
+      <button data-act="join" aria-keyshortcuts="J" style="display:inline-flex; align-items:center; gap:9px; min-height:54px; padding:0 28px; font:inherit; font-size:16.5px; font-weight:700; letter-spacing:0.3px; color:#1a1204; background:linear-gradient(180deg,#f7d05f,#e6b02f); border:0; border-radius:12px; cursor:pointer; box-shadow:0 6px 18px -4px rgba(240,192,64,0.6);" style-hover="filter:brightness(1.06);">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h6M14 12h6M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg>Join
       </button>
-      <button data-act="disperse" aria-keyshortcuts="K" style="display:inline-flex; align-items:center; gap:9px; min-height:46px; padding:0 20px; font:inherit; font-size:15px; font-weight:600; letter-spacing:0.3px; color:#eef0f6; background:rgba(255,255,255,0.04); border:1px solid rgba(240,192,64,0.4); border-radius:12px; cursor:pointer;" style-hover="background:rgba(240,192,64,0.12);">
+      <button data-act="disperse" aria-keyshortcuts="K" style="display:inline-flex; align-items:center; gap:9px; min-height:54px; padding:0 24px; font:inherit; font-size:16.5px; font-weight:600; letter-spacing:0.3px; color:#eef0f6; background:rgba(255,255,255,0.04); border:1px solid rgba(240,192,64,0.4); border-radius:12px; cursor:pointer;" style-hover="background:rgba(240,192,64,0.12);">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12h-6M10 12H4M15 7l5 5-5 5M9 7l-5 5 5 5"/></svg>Disperse
       </button>
       <span style="width:1px; align-self:stretch; margin:6px 4px; background:rgba(255,255,255,0.12);" aria-hidden="true"></span>
-      <button data-act="zoomout" aria-label="Zoom out" style="width:46px; height:46px; display:flex; align-items:center; justify-content:center; border-radius:12px; border:1px solid transparent; background:rgba(255,255,255,0.05); color:#eef0f6; cursor:pointer;" style-hover="background:rgba(255,255,255,0.12);">
-        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M20 20l-3.5-3.5"/></svg>
+      <button data-act="zoomout" aria-label="Zoom out" style="width:54px; height:54px; display:flex; align-items:center; justify-content:center; border-radius:13px; border:1px solid transparent; background:rgba(255,255,255,0.05); color:#eef0f6; cursor:pointer;" style-hover="background:rgba(255,255,255,0.12);">
+        <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M20 20l-3.5-3.5"/></svg>
       </button>
-      <button data-act="zoomin" aria-label="Zoom in" style="width:46px; height:46px; display:flex; align-items:center; justify-content:center; border-radius:12px; border:1px solid transparent; background:rgba(255,255,255,0.05); color:#eef0f6; cursor:pointer;" style-hover="background:rgba(255,255,255,0.12);">
-        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M11 8v6M8 11h6M20 20l-3.5-3.5"/></svg>
+      <button data-act="zoomin" aria-label="Zoom in" style="width:54px; height:54px; display:flex; align-items:center; justify-content:center; border-radius:13px; border:1px solid transparent; background:rgba(255,255,255,0.05); color:#eef0f6; cursor:pointer;" style-hover="background:rgba(255,255,255,0.12);">
+        <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M11 8v6M8 11h6M20 20l-3.5-3.5"/></svg>
       </button>
-      <button data-act="rotate" aria-pressed="{{ rotPressed }}" aria-label="Toggle auto-rotate" style="width:46px; height:46px; display:flex; align-items:center; justify-content:center; border-radius:12px; border:1px solid {{ rotBorder }}; background:{{ rotBg }}; color:{{ rotColor }}; cursor:pointer;" style-hover="filter:brightness(1.15);">
-        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7M21 4v4h-4"/></svg>
+      <button data-act="rotate" aria-pressed="{{ rotPressed }}" aria-label="Toggle auto-rotate" style="width:54px; height:54px; display:flex; align-items:center; justify-content:center; border-radius:13px; border:1px solid {{ rotBorder }}; background:{{ rotBg }}; color:{{ rotColor }}; cursor:pointer;" style-hover="filter:brightness(1.15);">
+        <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7M21 4v4h-4"/></svg>
       </button>
-      <button data-act="reset" aria-keyshortcuts="R" aria-label="Reset to start view" style="width:46px; height:46px; display:flex; align-items:center; justify-content:center; border-radius:12px; border:1px solid transparent; background:rgba(255,255,255,0.05); color:#eef0f6; cursor:pointer;" style-hover="background:rgba(255,255,255,0.12);">
-        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9 9 0 0 0-6.7 3M3 3v4.5H7.5"/></svg>
+      <button data-act="reset" aria-keyshortcuts="R" aria-label="Reset to start view" style="width:54px; height:54px; display:flex; align-items:center; justify-content:center; border-radius:13px; border:1px solid transparent; background:rgba(255,255,255,0.05); color:#eef0f6; cursor:pointer;" style-hover="background:rgba(255,255,255,0.12);">
+        <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9 9 0 0 0-6.7 3M3 3v4.5H7.5"/></svg>
       </button>
     </div>
 
     <div role="group" aria-label="Isolate a country" style="display:flex; flex-wrap:wrap; gap:7px; justify-content:center;">
       <sc-for list="{{ isos }}" as="c" hint-placeholder-count="5">
-        <button data-iso="{{ c.idx }}" aria-pressed="{{ c.cur }}" style="display:inline-flex; align-items:center; gap:7px; font:inherit; font-size:12px; font-weight:600; color:{{ c.color }}; background:{{ c.bg }}; border:1px solid {{ c.border }}; border-radius:999px; padding:5px 11px; cursor:pointer;">
+        <button data-iso="{{ c.idx }}" aria-pressed="{{ c.cur }}" style="display:inline-flex; align-items:center; gap:7px; font:inherit; font-size:13px; font-weight:600; color:{{ c.color }}; background:{{ c.bg }}; border:1px solid {{ c.border }}; border-radius:999px; padding:7px 14px; cursor:pointer;">
           <span style="width:9px; height:9px; border-radius:50%; background:{{ c.dot }}; box-shadow:0 0 7px {{ c.dot }};"></span>{{ c.name }} <span style="color:#7d83a6; font-weight:500; font-variant-numeric:tabular-nums;">{{ c.count }}</span>
         </button>
       </sc-for>

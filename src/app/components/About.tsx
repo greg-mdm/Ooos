@@ -140,10 +140,11 @@ export function About() {
           <div className="about-intro">
             <p className="about-intro-text">
               <strong>Ooo Digital Media Studio</strong> is the independent
-              practice of Gregory Tyler Long, an expert in the field of
-              creative digital strategy. He holds a{" "}
-              <strong>Master of Digital Media</strong> and a Bachelor of Arts
-              in <strong>Media, Information, and Technology</strong>.
+              practice of Gregory Tyler Long, a Canadian trailblazer with 17+
+              years of experience leading creative digital strategy. He holds a{" "}
+              <strong>MASTER OF DIGITAL MEDIA</strong> and a Bachelor of Arts
+              (<strong>BA</strong>) in{" "}
+              <strong>MEDIA, INFORMATION, AND TECHNOLOGY</strong>.
             </p>
             <img
               className="about-brand-logo"
