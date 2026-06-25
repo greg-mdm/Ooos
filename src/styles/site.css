@@ -1750,7 +1750,7 @@ a:hover { color: var(--electric); }
   max-width: 640px;
   color: #06021c; /* darkest indigo on robin's egg */
   font-size: clamp(18px, 1.9vw, 22px);
-  line-height: 1.5;
+  line-height: 1.75;
 }
 .about-brand-logo {
   flex-shrink: 0;
