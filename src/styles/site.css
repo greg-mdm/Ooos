@@ -990,6 +990,28 @@ a:hover { color: var(--electric); }
   .dual { grid-template-columns: 1fr; }
 }
 
+/* ===== JellyBean Journeys — full-bleed immersive hero =====
+   Iframe to the self-contained experience in public/jellybean-journeys/.
+   Same 100vw break-out as .ood so it spans edge-to-edge regardless of container. */
+.jbj-hero {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background: #07061a; /* matches the experience backdrop — no white flash while it boots */
+  line-height: 0;      /* drop the inline-iframe baseline gap */
+  overflow: hidden;
+}
+.jbj-frame {
+  display: block;
+  width: 100%;
+  height: 100vh;
+  border: 0;
+  margin: 0;
+}
+
 /* ===== SUPPORT (DEMO DONATE) ===== */
 .support {
   background: #F0F4F5;

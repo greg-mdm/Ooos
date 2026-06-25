@@ -129,6 +129,18 @@ export function Home({ onSupport }: { onSupport: () => void }) {
 
       <OooDivisions />
 
+      {/* JellyBean Journeys — full-bleed immersive data-viz hero, served as a
+          self-contained experience from public/jellybean-journeys/ */}
+      <section className="jbj-hero" aria-label="JellyBean Journeys — Immersive Data Visualization">
+        <iframe
+          className="jbj-frame"
+          src={`${import.meta.env.BASE_URL}jellybean-journeys/index.html`}
+          title="JellyBean Journeys — Immersive Data Visualization"
+          loading="lazy"
+          allowFullScreen
+        />
+      </section>
+
       <section className="section section-tinted section--featured">
         <div className="section-header">
           <div className="section-eyebrow">★ Featured Experiences</div>
