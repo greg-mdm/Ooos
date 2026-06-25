@@ -1,0 +1,473 @@
+/* ===========================================================================
+   Canada's Continuum of Data Access  —  CID page block
+   A self-contained "data observatory" panel at the foot of the CID page.
+   Progressive disclosure throughout (route cards + section panels) so the
+   StatsCan map is revealed on interaction rather than dumped all at once.
+   Scoped under .cid-scope; light text on a deep navy field that echoes the
+   official StatsCan "Continuum of Data Access" graphic.
+   =========================================================================== */
+.cid-scope .cid-continuum {
+  --c-teal: #00D4AA;
+  --c-ink: #EAF1FB;
+  --c-muted: #A9BBD6;
+  --c-line: rgba(255, 255, 255, 0.12);
+  --c-card: rgba(255, 255, 255, 0.045);
+  --c-gold: #F0C040;
+  position: relative;
+  padding: clamp(48px, 7vw, 96px) 24px;
+  background:
+    radial-gradient(1200px 520px at 12% -8%, rgba(0, 212, 170, 0.10), transparent 60%),
+    radial-gradient(1000px 600px at 100% 0%, rgba(46, 90, 134, 0.35), transparent 55%),
+    linear-gradient(168deg, #0B1A3C 0%, #0A1430 52%, #081026 100%);
+  color: var(--c-ink);
+  overflow: hidden;
+}
+.cid-scope .cid-continuum-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+/* ---- header / lede ---------------------------------------------------- */
+.cid-scope .cid-continuum-eyebrow {
+  margin: 0 0 12px;
+  font-family: var(--font-elevated, var(--sans));
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--c-teal);
+}
+.cid-scope .cid-continuum-title {
+  margin: 0 0 22px;
+  font-family: var(--font-elevated, var(--sans));
+  font-size: clamp(1.9rem, 4.4vw, 3.05rem);
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+}
+.cid-scope .cid-continuum-lede { max-width: 64ch; }
+.cid-scope .cid-continuum-lede p {
+  margin: 0 0 14px;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: var(--c-ink);
+}
+.cid-scope .cid-continuum-pull {
+  margin-top: 18px !important;
+  padding: 14px 18px;
+  border-left: 3px solid var(--c-teal);
+  background: rgba(0, 212, 170, 0.08);
+  border-radius: 0 10px 10px 0;
+  font-weight: 600;
+  color: #ffffff !important;
+}
+
+/* ---- the scale / map -------------------------------------------------- */
+.cid-scope .cid-continuum-scale { margin-top: 42px; }
+.cid-scope .cid-continuum-ends {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.cid-scope .cid-continuum-end--open { color: var(--c-teal); }
+.cid-scope .cid-continuum-end--secure { color: var(--c-gold); }
+.cid-scope .cid-continuum-end-mid {
+  color: var(--c-muted);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  font-size: 0.64rem;
+  text-align: center;
+}
+.cid-scope .cid-continuum-track {
+  height: 8px;
+  margin: 10px 0 16px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--c-teal) 0%, #2E6CA8 50%, var(--c-gold) 100%);
+  opacity: 0.85;
+}
+.cid-scope .cid-continuum-howto {
+  margin: 0 0 14px;
+  font-size: 0.92rem;
+  color: var(--c-muted);
+}
+.cid-scope .cid-continuum-howto strong { color: #ffffff; }
+
+.cid-scope .cid-continuum-routes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+/* ---- a single route (progressive disclosure) -------------------------- */
+.cid-scope .cid-route {
+  border: 1px solid var(--c-line);
+  border-radius: 14px;
+  background: var(--c-card);
+  transition: border-color 160ms ease, background 160ms ease, box-shadow 200ms ease;
+}
+.cid-scope .cid-route:hover {
+  border-color: rgba(0, 212, 170, 0.5);
+  background: rgba(255, 255, 255, 0.06);
+}
+.cid-scope .cid-route.is-open {
+  border-color: rgba(0, 212, 170, 0.55);
+  background: rgba(0, 212, 170, 0.06);
+  box-shadow: 0 18px 40px -22px rgba(0, 212, 170, 0.6);
+}
+.cid-scope .cid-route-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 18px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+}
+.cid-scope .cid-route-toggle:focus-visible {
+  outline: 2px solid var(--c-teal);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+.cid-scope .cid-route-num {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(0, 212, 170, 0.14);
+  border: 1px solid rgba(0, 212, 170, 0.5);
+  color: var(--c-teal);
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+.cid-scope .cid-route-head {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.cid-scope .cid-route-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-family: var(--font-elevated, var(--sans));
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #ffffff;
+}
+.cid-scope .cid-route-tag {
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 999px;
+  color: var(--c-teal);
+  background: rgba(0, 212, 170, 0.12);
+  border: 1px solid rgba(0, 212, 170, 0.4);
+}
+.cid-scope .cid-route-blurb {
+  font-size: 0.92rem;
+  color: var(--c-muted);
+}
+.cid-scope .cid-route-arrow {
+  flex: 0 0 auto;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--c-teal);
+}
+.cid-scope .cid-route-body {
+  padding: 2px 18px 18px 68px;
+}
+.cid-scope .cid-route-meta {
+  margin: 0 0 14px;
+  display: grid;
+  gap: 10px;
+}
+.cid-scope .cid-route-meta > div {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 12px;
+}
+.cid-scope .cid-route-meta dt {
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--c-teal);
+  padding-top: 2px;
+}
+.cid-scope .cid-route-meta dd {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--c-ink);
+}
+.cid-scope .cid-route-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--c-teal) !important;
+  text-decoration: none !important;
+  border-bottom: 1px solid rgba(0, 212, 170, 0.5);
+  padding-bottom: 1px;
+}
+.cid-scope .cid-route-link:hover { color: #ffffff !important; border-color: #ffffff; }
+
+.cid-scope .cid-continuum-foot {
+  margin: 16px 0 0;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--c-muted);
+}
+
+/* ---- disclosure panels (choose / terms / resources / indicators) ------ */
+.cid-scope .cid-continuum-panels {
+  margin-top: 30px;
+  display: grid;
+  gap: 10px;
+}
+.cid-scope .cid-disc {
+  border: 1px solid var(--c-line);
+  border-radius: 14px;
+  background: var(--c-card);
+  transition: border-color 160ms ease, background 160ms ease;
+}
+.cid-scope .cid-disc:hover { border-color: rgba(255, 255, 255, 0.22); }
+.cid-scope .cid-disc.is-open {
+  border-color: rgba(0, 212, 170, 0.4);
+  background: rgba(255, 255, 255, 0.05);
+}
+.cid-scope .cid-disc-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 18px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+}
+.cid-scope .cid-disc-toggle:focus-visible {
+  outline: 2px solid var(--c-teal);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+.cid-scope .cid-disc-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-family: var(--font-elevated, var(--sans));
+  font-weight: 700;
+  font-size: 1.08rem;
+  color: #ffffff;
+}
+.cid-scope .cid-disc-tag {
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 999px;
+  color: var(--c-gold);
+  background: rgba(240, 192, 64, 0.12);
+  border: 1px solid rgba(240, 192, 64, 0.4);
+}
+.cid-scope .cid-disc-arrow {
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--c-teal);
+  flex-shrink: 0;
+}
+.cid-scope .cid-disc-body {
+  padding: 4px 18px 20px;
+}
+.cid-scope .cid-disc-body a {
+  color: var(--c-teal) !important;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.cid-scope .cid-disc-body a:hover { color: #ffffff !important; }
+
+/* choose your starting point */
+.cid-scope .cid-start-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+.cid-scope .cid-start-list li {
+  position: relative;
+  padding-left: 26px;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--c-ink);
+}
+.cid-scope .cid-start-list li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--c-teal);
+  font-weight: 800;
+}
+
+/* key terms */
+.cid-scope .cid-terms { margin: 0; }
+.cid-scope .cid-terms dt {
+  font-family: var(--font-elevated, var(--sans));
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--c-teal);
+  margin-top: 14px;
+}
+.cid-scope .cid-terms dt:first-child { margin-top: 0; }
+.cid-scope .cid-terms dd {
+  margin: 4px 0 0;
+  font-size: 0.96rem;
+  line-height: 1.6;
+  color: var(--c-ink);
+}
+
+/* web resources */
+.cid-scope .cid-resources {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 14px;
+}
+.cid-scope .cid-resources li {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-left: 16px;
+  border-left: 2px solid rgba(0, 212, 170, 0.4);
+}
+.cid-scope .cid-resources li a {
+  font-weight: 700;
+  font-size: 1rem;
+}
+.cid-scope .cid-resources li span {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--c-muted);
+}
+
+/* ---- key indicators snapshot (StatsCan "red box") --------------------- */
+.cid-scope .cid-keyind-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.cid-scope .cid-keyind-card {
+  padding: 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--c-line);
+}
+.cid-scope .cid-keyind-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--c-teal);
+  line-height: 1.3;
+  margin-bottom: 10px;
+  min-height: 2.4em;
+}
+.cid-scope .cid-keyind-value {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-family: var(--font-elevated, var(--sans));
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1;
+}
+.cid-scope .cid-keyind-arrow { font-size: 0.85rem; }
+.cid-scope .cid-keyind-arrow--up { color: #FF8A65; }
+.cid-scope .cid-keyind-arrow--down { color: var(--c-teal); }
+.cid-scope .cid-keyind-arrow--flat { color: var(--c-muted); }
+.cid-scope .cid-keyind-change {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--c-muted);
+}
+.cid-scope .cid-keyind-period {
+  margin-top: 8px;
+  font-size: 0.84rem;
+  color: var(--c-ink);
+}
+.cid-scope .cid-keyind-note {
+  font-size: 0.78rem;
+  color: var(--c-muted);
+}
+.cid-scope .cid-keyind-foot {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.84rem;
+  color: var(--c-muted);
+}
+.cid-scope .cid-keyind-foot a { font-weight: 700; white-space: nowrap; }
+
+/* ---- caption / source ------------------------------------------------- */
+.cid-scope .cid-continuum-caption {
+  margin: 30px 0 0;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--c-muted);
+  font-style: italic;
+}
+.cid-scope .cid-continuum-source {
+  display: block;
+  margin-top: 4px;
+  font-style: normal;
+  font-weight: 700;
+  color: var(--c-ink);
+}
+
+/* ---- responsive ------------------------------------------------------- */
+@media (max-width: 820px) {
+  .cid-scope .cid-keyind-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .cid-scope .cid-route-body { padding-left: 18px; }
+  .cid-scope .cid-route-meta > div { grid-template-columns: 1fr; gap: 2px; }
+  .cid-scope .cid-continuum-end-mid { display: none; }
+}
+@media (max-width: 460px) {
+  .cid-scope .cid-keyind-grid { grid-template-columns: 1fr; }
+  .cid-scope .cid-keyind-name { min-height: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cid-scope .cid-route,
+  .cid-scope .cid-disc { transition: none; }
+}
