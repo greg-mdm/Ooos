@@ -112,37 +112,43 @@ function PillList({ items }: { items: (Pill | Pill[])[] }) {
   );
 }
 
-function ProductsKey({ d }: { d: Division }) {
+function Dice({ d }: { d: Division }) {
   return (
-    <li className="ood-key-wrap">
-      {/* two carved silver "dice" — each owns its own pills (products = Sunshine,
-          services = Indigo), so the two sets never mix */}
-      <div className="ood-dice">
-        <div className="ood-diecell">
-          <p className="ood-die-h">Digital<br />Products</p>
-          <div className="ood-die has-img">
-            <div className="ood-die-face">
-              <PillList items={d.products} />
-            </div>
-          </div>
-        </div>
-        <div className="ood-diecell">
-          <p className="ood-die-h">Studio<br />Services</p>
-          <div className="ood-die has-img">
-            <div className="ood-die-face">
-              <PillList items={d.services} />
-            </div>
+    // two carved silver "dice" — each owns its own pills (products = Sunshine,
+    // services = Indigo), so the two sets never mix
+    <div className="ood-dice">
+      <div className="ood-diecell">
+        <p className="ood-die-h">Digital<br />Products</p>
+        <div className="ood-die has-img">
+          <div className="ood-die-face">
+            <PillList items={d.products} />
           </div>
         </div>
       </div>
-    </li>
+      <div className="ood-diecell">
+        <p className="ood-die-h">Studio<br />Services</p>
+        <div className="ood-die has-img">
+          <div className="ood-die-face">
+            <PillList items={d.services} />
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
 // ----- section --------------------------------------------------------------
 export function OooDivisions() {
   const [lit, setLit] = useState<Record<string, boolean>>({});
-  const toggle = (id: string) => setLit((s) => ({ ...s, [id]: !s[id] }));
+  const toggleKey = (id: string) => setLit((s) => ({ ...s, [id]: !s[id] }));
+  // products/services dice stay tucked until the user shows interest in a
+  // division (taps its heading, a key, the card, or the reveal toggle). Opening
+  // is one-way; only the toggle button collapses the shelf again.
+  const [open, setOpen] = useState<Record<string, boolean>>({});
+  const openShelf = (mod: string) =>
+    setOpen((s) => (s[mod] ? s : { ...s, [mod]: true }));
+  const toggleShelf = (mod: string) =>
+    setOpen((s) => ({ ...s, [mod]: !s[mod] }));
 
   return (
     <section className="ood" aria-label="Ooo Divisions">
@@ -154,8 +160,15 @@ export function OooDivisions() {
           <div className="ood-pool" aria-hidden="true" />
           <div className="ood-floor" aria-hidden="true" />
           <div className="ood-grid">
-            {DIVISIONS.map((d) => (
-              <div key={d.mod} className={`ood-col ood-col--${d.mod}`}>
+            {DIVISIONS.map((d) => {
+              const shelfOpen = !!open[d.mod];
+              const shelfId = `ood-shelf-${d.mod}`;
+              return (
+              <div
+                key={d.mod}
+                className={`ood-col ood-col--${d.mod}`}
+                onClick={() => openShelf(d.mod)}
+              >
                 <div className="ood-head">
                   <h3 className="ood-name">{d.name}</h3>
                   <p className="ood-kind">{d.kind}</p>
@@ -170,7 +183,7 @@ export function OooDivisions() {
                           type="button"
                           className={`ood-key${on ? " is-on" : ""}`}
                           aria-pressed={on}
-                          onClick={() => toggle(id)}
+                          onClick={() => toggleKey(id)}
                           style={{ background: k.bg }}
                         >
                           <span className="ood-label">{k.text}</span>
@@ -178,10 +191,38 @@ export function OooDivisions() {
                       </li>
                     );
                   })}
-                  <ProductsKey d={d} />
+                  <li className="ood-key-wrap ood-shelf-wrap">
+                    {/* affordance + accessible control: opens/closes the dice shelf.
+                        stopPropagation so closing isn't re-opened by the card's
+                        open-on-interest click handler. */}
+                    <button
+                      type="button"
+                      className="ood-shelf-toggle"
+                      aria-expanded={shelfOpen}
+                      aria-controls={shelfId}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleShelf(d.mod);
+                      }}
+                    >
+                      <span className="ood-shelf-toggle__label">Products &amp; Services</span>
+                      <span className="ood-shelf-toggle__chev" aria-hidden="true">▾</span>
+                    </button>
+                    <div
+                      id={shelfId}
+                      className="ood-shelf"
+                      data-open={shelfOpen}
+                      aria-hidden={!shelfOpen}
+                    >
+                      <div className="ood-shelf__inner">
+                        <Dice d={d} />
+                      </div>
+                    </div>
+                  </li>
                 </ul>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
