@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Audiowide&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Space+Grotesk:wght@400;500;600;700&family=Audiowide&display=swap" rel="stylesheet">
 <script src="image-slot.js"></script>
 <style>
   html, body { margin: 0; height: 100%; background: #07061a; }
@@ -44,7 +44,9 @@
 <div ref="{{ setRoot }}" style="--blue:#312583; --gold:#F0C040; min-height:100vh; width:100%; background:radial-gradient(125% 95% at 50% -15%, #3a2c93 0%, #241a63 30%, #120e36 62%, #07061a 100%); color:#eef0f6; font-family:'Space Grotesk', system-ui, sans-serif; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding:0 clamp(10px,1.6vw,26px) clamp(10px,1.6vw,26px); gap:clamp(12px,1.7vh,20px);">
 
   <!-- ===== Header — robin's-egg band (#F0F4F5), full-bleed, ties to the ooos.ca hero ===== -->
-  <div style="align-self:stretch; margin:0 calc(-1 * clamp(10px,1.6vw,26px)); padding:clamp(14px,2vw,22px) clamp(16px,4vw,44px); background:#F0F4F5; box-shadow:0 1px 0 rgba(0,0,0,0.06); display:flex; justify-content:center;">
+  <div style="align-self:stretch; margin:0 calc(-1 * clamp(10px,1.6vw,26px)); padding:clamp(14px,2vw,22px) clamp(16px,4vw,44px); background:#F0F4F5; box-shadow:0 1px 0 rgba(0,0,0,0.06); display:flex; flex-direction:column; align-items:center; gap:clamp(8px,1.4vh,14px);">
+    <!-- section title — matches the site's "FEATURED EXPERIENCES" eyebrow (Montserrat 800 / Electric Indigo) -->
+    <div style="font-family:'Montserrat',system-ui,-apple-system,sans-serif; font-size:clamp(1.25rem,2.2vw,2rem); letter-spacing:3px; text-transform:uppercase; color:#5B04DE; font-weight:800; text-align:center; line-height:1.1;">&#9733; Featured Data Visualization</div>
   <header style="width:min(1560px,95vw); display:flex; align-items:flex-end; justify-content:space-between; gap:20px; flex-wrap:wrap;">
     <div style="display:flex; flex-direction:column; gap:8px;">
       <div style="display:flex; align-items:center; gap:10px;">
@@ -54,8 +56,8 @@
       <h1 style="margin:0; font-size:clamp(24px,3.6vw,42px); font-weight:700; letter-spacing:-0.5px; line-height:1; white-space:nowrap; color:#1a1646;">TMU Metropolitan 2023-2024</h1>
     </div>
     <div style="text-align:right; display:flex; flex-direction:column; line-height:1.25;">
-      <span style="font-size:14px; font-weight:700; letter-spacing:2px; color:#4B00B6; font-variant-numeric:tabular-nums;">{{ counterText }}</span>
-      <span style="font-size:10.5px; letter-spacing:2px; text-transform:uppercase; color:#5b5f86;">Interactive Series</span>
+      <span style="font-size:20px; font-weight:700; letter-spacing:2px; color:#4B00B6; font-variant-numeric:tabular-nums;">{{ counterText }}</span>
+      <span style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#5b5f86;">Interactive Series</span>
     </div>
   </header>
   </div>
@@ -64,7 +66,7 @@
   <div class="cz-stage" style="width:min(1560px,96vw); display:flex; gap:clamp(16px,2.4vw,44px); align-items:flex-start; justify-content:center; flex-wrap:wrap;">
 
   <!-- left column: screen + its controls (interact without entering the environment) -->
-  <div class="cz-left" style="flex:0 1 auto; display:flex; flex-direction:column; align-items:stretch; gap:14px; width:min(1080px,72vw, calc((100vh - 220px) * 1.62));">
+  <div class="cz-left" style="flex:0 1 auto; display:flex; flex-direction:column; align-items:stretch; gap:14px; width:min(1000px,68vw, calc((100vh - 290px) * 1.62)); margin-top:clamp(24px,3.6vh,44px);">
 
   <!-- ===== Device frame ===== -->
   <div data-frame style="position:relative; width:100%; background:linear-gradient(158deg,#322b6b 0%,#1a1646 58%,#100c30 100%); border:1px solid rgba(240,192,64,0.16); border-radius:28px; padding:16px 16px 24px; box-shadow:0 1px 0 rgba(255,255,255,0.10) inset, 0 40px 90px -34px rgba(0,0,0,0.9), 0 0 0 1px rgba(0,0,0,0.45);">
@@ -181,12 +183,12 @@
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v9"/><path d="M6.4 6.4a8 8 0 1 0 11.2 0"/></svg>
         <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:10px; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold);">Portal</span>
       </div>
-      <h2 style="margin:0; font-family:'Audiowide',system-ui,sans-serif; font-size:clamp(16px,1.6vw,20px); letter-spacing:0.8px; line-height:1.28; color:#eef0f6;">Enter the Environment</h2>
+      <h2 style="margin:0; font-family:'Audiowide',system-ui,sans-serif; font-size:clamp(20px,2.1vw,28px); letter-spacing:0.8px; line-height:1.28; color:#eef0f6;">Enter the Environment</h2>
       <p style="margin:9px 0 0; font-family:'Space Grotesk',sans-serif; font-size:11.5px; line-height:1.55; color:#8b90ac;">Flip the switch to fill your screen and step inside the populations.</p>
     </div>
 
     <!-- colourful black hole — student light shining through the glowing rim -->
-    <button data-act="fullscreen" data-portal-toggle aria-pressed="{{ portalPressed }}" aria-label="Enter the environment — open immersive fullscreen" style="align-self:center; position:relative; width:clamp(188px,22vw,240px); height:clamp(188px,22vw,240px); margin:2px 0 10px; border:0; background:transparent; padding:0; cursor:pointer; overflow:visible;">
+    <button data-act="fullscreen" data-portal-toggle aria-pressed="{{ portalPressed }}" aria-label="Enter the environment — open immersive fullscreen" style="align-self:center; position:relative; width:clamp(188px,22vw,240px); height:clamp(188px,22vw,240px); margin:clamp(24px,7vh,82px) 0 10px; border:0; background:transparent; padding:0; cursor:pointer; overflow:visible;">
       <span aria-hidden="true" style="position:absolute; inset:0; border-radius:50%; animation:{{ bhAnim }};">
         <span style="position:absolute; inset:0; border-radius:50%; background:linear-gradient(#14ffe9,#ffeb3b,#ff00e0);"></span>
         <span style="position:absolute; inset:0; border-radius:50%; background:linear-gradient(#14ffe9,#ffeb3b,#ff00e0); filter:blur(7px);"></span>
