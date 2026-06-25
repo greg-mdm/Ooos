@@ -114,6 +114,17 @@ export function About() {
   const [orbitActive, setOrbitActive] = useState(false);
   const stopTimer = useRef<number | null>(null);
 
+  // Click/tap-to-copy (hex codes, tokens, contact details) with brief "Copied!" feedback
+  const [copied, setCopied] = useState<string | null>(null);
+  const copy = (text: string) => {
+    if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        setCopied(text);
+        window.setTimeout(() => setCopied((c) => (c === text ? null : c)), 1300);
+      }).catch(() => {});
+    }
+  };
+
   const wake = () => {
     if (stopTimer.current !== null) {
       window.clearTimeout(stopTimer.current);
@@ -217,13 +228,37 @@ export function About() {
               </div>
             </div>
 
-            <a className="gs-contact" href="mailto:greg@ooos.ca">
+            <div className="gs-contact">
               <span className="gs-contact-mark" aria-hidden="true" />
-              <span>
-                <span className="gs-contact-site" style={{ display: "block" }}>ooos.ca</span>
-                <span className="gs-contact-email">greg@ooos.ca</span>
+              <span style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
+                <span
+                  className="gs-contact-site"
+                  role="button"
+                  tabIndex={0}
+                  title="Tap to copy ooos.ca"
+                  aria-label="Copy website ooos.ca"
+                  onClick={() => copy("ooos.ca")}
+                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); copy("ooos.ca"); } }}
+                  style={{ display: "flex", alignItems: "center", gap: "6px", cursor: "pointer" }}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M3 12h18" /><path d="M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18" /></svg>
+                  {copied === "ooos.ca" ? "Copied!" : "ooos.ca"}
+                </span>
+                <span
+                  className="gs-contact-email"
+                  role="button"
+                  tabIndex={0}
+                  title="Tap to copy greg@ooos.ca"
+                  aria-label="Copy email greg@ooos.ca"
+                  onClick={() => copy("greg@ooos.ca")}
+                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); copy("greg@ooos.ca"); } }}
+                  style={{ display: "flex", alignItems: "center", gap: "6px", cursor: "pointer" }}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></svg>
+                  {copied === "greg@ooos.ca" ? "Copied!" : "greg@ooos.ca"}
+                </span>
               </span>
-            </a>
+            </div>
           </aside>
 
           <div className="gs-feature">
@@ -407,9 +442,9 @@ export function About() {
                 <ul className="ds-anchors ds-anchors--chips" aria-label="Accent colours">
                   {CORE_COLOURS.slice(10).map((c) => (
                     <li className="ds-anchor" key={c.token}>
-                      <span className="ds-anchor__colour" style={{ background: c.hex, color: c.ink }}>
+                      <span className="ds-anchor__colour" style={{ background: c.hex, color: c.ink, cursor: "pointer" }} role="button" tabIndex={0} title={`Tap to copy ${c.hex}`} aria-label={`Copy hex ${c.hex} for ${c.name}`} onClick={() => copy(c.hex)} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); copy(c.hex); } }}>
                         <strong>{c.name}</strong>
-                        <span>{c.hex}</span>
+                        <span>{copied === c.hex ? "Copied!" : c.hex}</span>
                       </span>
                     </li>
                   ))}
@@ -419,11 +454,11 @@ export function About() {
               <ul className="ds-anchors" aria-label="Core semantic colours">
                 {CORE_COLOURS.slice(0, 10).map((c) => (
                   <li className="ds-anchor" key={c.token}>
-                    <span className="ds-anchor__colour" style={{ background: c.hex, color: c.ink }}>
+                    <span className="ds-anchor__colour" style={{ background: c.hex, color: c.ink, cursor: "pointer" }} role="button" tabIndex={0} title={`Tap to copy ${c.hex}`} aria-label={`Copy hex ${c.hex} for ${c.name}`} onClick={() => copy(c.hex)} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); copy(c.hex); } }}>
                       <strong>{c.name}</strong>
-                      <span>{c.hex}</span>
+                      <span>{copied === c.hex ? "Copied!" : c.hex}</span>
                     </span>
-                    <code>{c.token}</code>
+                    <code role="button" tabIndex={0} title={`Tap to copy ${c.token}`} style={{ cursor: "pointer" }} onClick={() => copy(c.token)} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); copy(c.token); } }}>{copied === c.token ? "Copied!" : c.token}</code>
                   </li>
                 ))}
               </ul>
