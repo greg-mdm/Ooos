@@ -27,22 +27,6 @@ const SC = {
   radarDsm: "https://data.ontario.ca/dataset/ontario-radar-digital-surface-model",
 };
 
-// Ontario's eleven Statistics Canada economic regions (the units used in the
-// Ontario Employment Reports' regional map).
-const ON_REGIONS = [
-  "Ottawa",
-  "Kingston–Pembroke",
-  "Muskoka–Kawarthas",
-  "Toronto",
-  "Kitchener–Waterloo–Barrie",
-  "Hamilton–Niagara Peninsula",
-  "London",
-  "Windsor–Sarnia",
-  "Stratford–Bruce Peninsula",
-  "Northeast",
-  "Northwest",
-];
-
 // Underground / terrain layer — the page floor. Plain link cards (these gov
 // viewers block cross-origin framing, so they open in a new tab).
 const UNDERGROUND = [
@@ -348,60 +332,6 @@ function DataAccessContinuum() {
   );
 }
 
-/** Zoom the continuum onto one province: an embedded interactive map of
- *  Ontario beside its eleven economic regions and the Ontario data links. */
-function OntarioObservatory() {
-  return (
-    <section className="cid-observatory" aria-labelledby="cid-observatory-title">
-      <div className="cid-continuum-inner">
-        <p className="cid-continuum-eyebrow">Zoom in · Ontario</p>
-        <h2 id="cid-observatory-title" className="cid-continuum-title">Ontario Data Observatory</h2>
-        <p className="cid-observatory-lede">
-          Turn the continuum on a single province. Ontario&rsquo;s public record tracks
-          employment, industries, wages, education and immigration across eleven economic
-          regions&mdash;evidence you can map, compare and revisit over time.
-        </p>
-
-        <div className="cid-observatory-grid">
-          <figure className="cid-map">
-            <div className="cid-map-shell">
-              <div className="cid-map-fallback" aria-hidden="true">Ontario</div>
-              <iframe
-                className="cid-map-frame"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=-95.2%2C41.6%2C-74.3%2C56.9&layer=mapnik"
-                title="Interactive map of Ontario"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                sandbox="allow-scripts allow-same-origin"
-              />
-            </div>
-            <figcaption className="cid-map-cap">
-              Interactive base map of Ontario (OpenStreetMap). For the official boundaries, see the{" "}
-              <a href={SC.onRegions} target="_blank" rel="noopener noreferrer">map of economic regions ↗</a>{" "}
-              in the Ontario Employment Report (§4).
-            </figcaption>
-          </figure>
-
-          <div className="cid-observatory-side">
-            <h3 className="cid-observatory-h3">Economic regions</h3>
-            <ul className="cid-region-list">
-              {ON_REGIONS.map((r) => (
-                <li key={r}>{r}</li>
-              ))}
-            </ul>
-            <h3 className="cid-observatory-h3">Ontario data</h3>
-            <div className="cid-observatory-links">
-              <a href={SC.onReport} target="_blank" rel="noopener noreferrer">Ontario Employment Reports ↗</a>
-              <a href={SC.onRegions} target="_blank" rel="noopener noreferrer">Map of regions — Report §4 ↗</a>
-              <a href={SC.jobbankScan} target="_blank" rel="noopener noreferrer">Ontario environmental scan — Job Bank ↗</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /** The page floor — the "underground" layer of the public record. Sits flush
  *  above the site footer with a deep subsurface field and terrain link cards. */
 function Underground() {
@@ -576,7 +506,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
       </section>
 
       <DataAccessContinuum />
-      <OntarioObservatory />
       <Underground />
 
     </div>

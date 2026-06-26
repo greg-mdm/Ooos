@@ -1572,6 +1572,93 @@
       </iframe>
     </section>
 
+    <!-- ONTARIO DATA OBSERVATORY — below the data pools, above the partnership blocks -->
+    <style>
+      .on-obs { margin: 1.5rem 3rem 2.2rem; }
+      .on-obs-kicker {
+        color: #9cf8f6; text-transform: uppercase; letter-spacing: 0.14em;
+        font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem;
+      }
+      .on-obs-title {
+        color: #1fcecb; font-size: 2.4rem; font-weight: 800; line-height: 1.1;
+        margin: 0 0 0.8rem; letter-spacing: 0.01em;
+      }
+      .on-obs-lede { color: #d0d7de; font-size: 1.35rem; line-height: 1.6; max-width: 62ch; margin: 0 0 1.5rem; }
+      .on-obs-grid { display: grid; grid-template-columns: 1.45fr 1fr; gap: 1.8rem; align-items: start; }
+      .on-obs-map { margin: 0; }
+      .on-obs-mapframe {
+        width: 100%; height: 440px; display: block; border: 1px solid rgba(31,206,203,0.35);
+        border-radius: 14px; background: #0a1430;
+      }
+      .on-obs-cap { margin-top: 0.7rem; color: #8b949e; font-size: 1.02rem; line-height: 1.55; }
+      .on-obs-cap a { color: #1fcecb; text-decoration: underline; }
+      .on-obs-side {
+        background: rgba(16,22,30,0.85); border: 1px solid rgba(31,206,203,0.3);
+        border-top: 3px solid #1fcecb; border-radius: 10px; padding: 1.8rem 1.6rem;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+      }
+      .on-obs-side-label {
+        color: #1fcecb; text-transform: uppercase; letter-spacing: 0.12em;
+        font-size: 0.95rem; font-weight: 800; margin: 0 0 0.8rem;
+      }
+      .on-obs-regions {
+        list-style: none; margin: 0 0 1.5rem; padding: 0;
+        display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1rem;
+      }
+      .on-obs-regions li { position: relative; padding-left: 1rem; color: #d0d7de; font-size: 1.05rem; line-height: 1.4; }
+      .on-obs-regions li::before {
+        content: ""; position: absolute; left: 0; top: 0.55em; width: 6px; height: 6px;
+        border-radius: 50%; background: #1fcecb; opacity: 0.75;
+      }
+      .on-obs-links { display: grid; gap: 0.7rem; }
+      .on-obs-links a {
+        color: #1fcecb; font-weight: 700; font-size: 1.08rem; text-decoration: none;
+        border-bottom: 1px solid rgba(31,206,203,0.4); padding-bottom: 2px; width: fit-content;
+      }
+      .on-obs-links a:hover { color: #fff; border-color: #fff; }
+      @media (max-width: 760px) {
+        .on-obs { margin: 1.5rem 1rem 2.2rem; }
+        .on-obs-grid { grid-template-columns: 1fr; }
+        .on-obs-mapframe { height: 320px; }
+      }
+    </style>
+    <section class="on-obs" aria-label="Ontario Data Observatory">
+      <div class="on-obs-kicker">Zoom in · Ontario</div>
+      <h2 class="on-obs-title">Ontario Data Observatory</h2>
+      <p class="on-obs-lede">Turn the continuum on a single province. Ontario's public record tracks employment, industries, wages, education and immigration across eleven economic regions — evidence you can map, compare and revisit over time.</p>
+      <div class="on-obs-grid">
+        <figure class="on-obs-map">
+          <iframe class="on-obs-mapframe"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=-95.2%2C41.6%2C-74.3%2C56.9&layer=mapnik"
+            title="Interactive map of Ontario" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade" sandbox="allow-scripts allow-same-origin"></iframe>
+          <figcaption class="on-obs-cap">Interactive base map of Ontario (OpenStreetMap). For the official boundaries, see the <a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">map of economic regions ↗</a> in the Ontario Employment Report (§4).</figcaption>
+        </figure>
+        <div class="on-obs-side">
+          <div class="on-obs-side-label">Economic regions</div>
+          <ul class="on-obs-regions">
+            <li>Ottawa</li>
+            <li>Kingston–Pembroke</li>
+            <li>Muskoka–Kawarthas</li>
+            <li>Toronto</li>
+            <li>Kitchener–Waterloo–Barrie</li>
+            <li>Hamilton–Niagara Peninsula</li>
+            <li>London</li>
+            <li>Windsor–Sarnia</li>
+            <li>Stratford–Bruce Peninsula</li>
+            <li>Northeast</li>
+            <li>Northwest</li>
+          </ul>
+          <div class="on-obs-side-label">Ontario data</div>
+          <div class="on-obs-links">
+            <a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026" target="_blank" rel="noopener noreferrer">Ontario Employment Reports ↗</a>
+            <a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">Map of regions — Report §4 ↗</a>
+            <a href="https://www.jobbank.gc.ca/trend-analysis/job-market-reports/ontario/environmental-scan" target="_blank" rel="noopener noreferrer">Ontario environmental scan — Job Bank ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- INTRO — 3 separate column containers -->
     <div class="intro-row">
       <div class="intro-col-card">
