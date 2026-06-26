@@ -313,7 +313,7 @@ function DataAccessContinuum() {
             </ul>
           </Disclosure>
 
-          <Disclosure title="Key indicators" tag="Live snapshot">
+          <Disclosure title="Key indicators" tag="Snapshot · 2026">
             <div className="cid-keyind">
               <div className="cid-keyind-grid">
                 {INDICATORS.map((k) => (
@@ -330,7 +330,7 @@ function DataAccessContinuum() {
                 ))}
               </div>
               <div className="cid-keyind-foot">
-                <span>Snapshot of Statistics Canada key indicators (latest 2026 releases).</span>
+                <span>Static snapshot &mdash; Statistics Canada key indicators, April&ndash;May 2026 and Q1 2026 releases. Not live data; newer figures may be available.</span>
                 <a href={SC.start} target="_blank" rel="noopener noreferrer">View live key indicators ↗</a>
               </div>
             </div>
@@ -372,6 +372,7 @@ function OntarioObservatory() {
                 title="Interactive map of Ontario"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
+                sandbox="allow-scripts allow-same-origin"
               />
             </div>
             <figcaption className="cid-map-cap">
