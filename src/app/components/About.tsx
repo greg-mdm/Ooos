@@ -235,7 +235,7 @@ export function About() {
                 alt=""
                 aria-hidden="true"
               />
-              <span style={{ display: "flex", flexDirection: "column", gap: "3px", flex: 1 }}>
+              <span style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
                 <span
                   className="gs-contact-site"
                   role="button"
@@ -244,7 +244,7 @@ export function About() {
                   aria-label="Copy website ooos.ca"
                   onClick={() => copy("ooos.ca")}
                   onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); copy("ooos.ca"); } }}
-                  style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "6px", cursor: "pointer" }}
+                  style={{ display: "flex", alignItems: "center", gap: "6px", cursor: "pointer" }}
                 >
                   {copied === "ooos.ca" ? "Copied!" : "ooos.ca"}
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M3 12h18" /><path d="M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18" /></svg>
@@ -257,7 +257,7 @@ export function About() {
                   aria-label="Copy email greg@ooos.ca"
                   onClick={() => copy("greg@ooos.ca")}
                   onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); copy("greg@ooos.ca"); } }}
-                  style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "6px", cursor: "pointer" }}
+                  style={{ display: "flex", alignItems: "center", gap: "6px", cursor: "pointer" }}
                 >
                   {copied === "greg@ooos.ca" ? "Copied!" : "greg@ooos.ca"}
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></svg>
