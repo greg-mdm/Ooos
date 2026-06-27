@@ -153,27 +153,33 @@ function Disclosure({ title, tag, children }: { title: string; tag?: string; chi
   );
 }
 
-// Spectrum built ONLY from the section's existing brand anchors — cyan/teal
-// (#1FCECB), gold (#F0C040), ruby (#822F00). Stages 2 and 4 are 50/50 blends of
-// the neighbouring anchors (cyan→gold, gold→ruby), so no new hues are
-// introduced. `ink` is the number colour on the filled circle.
-const SPECTRUM: { fill: string; ink: string }[] = [
-  { fill: "#1FCECB", ink: "#06231F" }, // 1 open — cyan/teal
-  { fill: "#88C786", ink: "#0E2A14" }, // 2 — cyan + gold blend
-  { fill: "#F0C040", ink: "#3A2D00" }, // 3 caution — gold
-  { fill: "#B97820", ink: "#2A1500" }, // 4 — gold + ruby blend (sunrise/amber)
-  { fill: "#822F00", ink: "#FFFFFF" }, // 5 restricted — ruby
+// Stages 1–3 stay vibrant (accessible) on the brand cyan→gold ramp; stages 4–5
+// are "greyed out" using the robin's-egg neutrals (600 #728488 / 700 #5C6C70)
+// so they read as restricted. Stage 5 keeps the ruby as a RING around a grey
+// circle, not a fill. accent = left edge / tag / underline · fill = circle bg ·
+// ring = circle border · ink = number (kept dark, like 1–3).
+const SPECTRUM: { accent: string; fill: string; ring: string; ink: string }[] = [
+  { accent: "#1FCECB", fill: "#1FCECB", ring: "transparent", ink: "#06231F" }, // 1 cyan
+  { accent: "#88C786", fill: "#88C786", ring: "transparent", ink: "#0E2A14" }, // 2 cyan + gold
+  { accent: "#F0C040", fill: "#F0C040", ring: "transparent", ink: "#3A2D00" }, // 3 gold
+  { accent: "#5C6C70", fill: "#728488", ring: "#5C6C70",     ink: "#0A1430" }, // 4 greyed out (600 fill / 700 ring)
+  { accent: "#822F00", fill: "#728488", ring: "#822F00",     ink: "#0A1430" }, // 5 grey fill + ruby ring
 ];
 
 /** One route on the continuum. The route name is the disclosure trigger;
  *  opening it reveals the StatsCan access card + a link to that program. */
-function RouteItem({ route, index, tone }: { route: AccessRoute; index: number; tone: { fill: string; ink: string } }) {
+function RouteItem({ route, index, tone }: { route: AccessRoute; index: number; tone: { accent: string; fill: string; ring: string; ink: string } }) {
   const [open, setOpen] = useState(false);
   const id = `cid-route-${route.key}`;
   return (
     <li
       className={`cid-route ${open ? "is-open" : ""}`}
-      style={{ ["--route-accent"]: tone.fill, ["--route-ink"]: tone.ink } as CSSProperties}
+      style={{
+        ["--route-accent"]: tone.accent,
+        ["--route-fill"]: tone.fill,
+        ["--route-ring"]: tone.ring,
+        ["--route-ink"]: tone.ink,
+      } as CSSProperties}
     >
       <button
         type="button"
