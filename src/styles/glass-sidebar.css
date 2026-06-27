@@ -284,11 +284,11 @@
 .gs-contact:hover,
 .gs-contact:focus-visible { background: rgba(91, 4, 222, 0.18); }
 .gs-contact-mark {
-  width: 32px; height: 32px;
-  border-radius: 9px;
+  height: 40px;
+  width: auto;
+  border-radius: 10px;
   flex-shrink: 0;
-  background: linear-gradient(135deg, var(--teal), var(--electric));
-  box-shadow: 0 0 0 1px rgba(91, 4, 222, 0.4) inset;
+  display: block;
 }
 .gs-contact-site { font-size: 12.5px; font-weight: 600; color: var(--bright-silver); }
 .gs-contact-email { font-size: 11px; color: var(--chrome-silver); }
