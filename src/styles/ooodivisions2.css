@@ -11,7 +11,10 @@
   color:var(--ood-ink);
   /* aurora is the section background; this dark base shows before the canvas paints */
   background:#06021C;
-  padding:16px 24px 88px;
+  /* top balanced against the heading→CID gap (the CID card is elevated, so
+     only ~14px sits below the heading); a touch more for breathing room.
+     bottom stays 88px to preserve the dice-slam landing space */
+  padding:24px 24px 88px;
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
   /* full-bleed: span the page width regardless of the parent container */
