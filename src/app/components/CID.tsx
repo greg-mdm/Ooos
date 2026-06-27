@@ -153,15 +153,16 @@ function Disclosure({ title, tag, children }: { title: string; tag?: string; chi
   );
 }
 
-// Risk spectrum across the continuum: teal (open) → gold (caution) → ruby
-// (restricted). Each route's circle + accents take its stage colour; stage 4 is
-// the sunrise-orange hand-off. `ink` is the number colour on the filled circle.
+// Spectrum built ONLY from the section's existing brand anchors — cyan/teal
+// (#1FCECB), gold (#F0C040), ruby (#822F00). Stages 2 and 4 are 50/50 blends of
+// the neighbouring anchors (cyan→gold, gold→ruby), so no new hues are
+// introduced. `ink` is the number colour on the filled circle.
 const SPECTRUM: { fill: string; ink: string }[] = [
-  { fill: "#1FCECB", ink: "#06231F" }, // 1 self-serve — teal
-  { fill: "#74D06A", ink: "#0C2A12" }, // 2 — green
-  { fill: "#F0C040", ink: "#3A2D00" }, // 3 — gold (caution)
-  { fill: "#F2913D", ink: "#2A1500" }, // 4 — sunrise orange
-  { fill: "#822F00", ink: "#FFFFFF" }, // 5 secure — brand ruby
+  { fill: "#1FCECB", ink: "#06231F" }, // 1 open — cyan/teal
+  { fill: "#88C786", ink: "#0E2A14" }, // 2 — cyan + gold blend
+  { fill: "#F0C040", ink: "#3A2D00" }, // 3 caution — gold
+  { fill: "#B97820", ink: "#2A1500" }, // 4 — gold + ruby blend (sunrise/amber)
+  { fill: "#822F00", ink: "#FFFFFF" }, // 5 restricted — ruby
 ];
 
 /** One route on the continuum. The route name is the disclosure trigger;
