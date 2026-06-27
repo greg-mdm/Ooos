@@ -162,8 +162,8 @@ const SPECTRUM: { accent: string; fill: string; ring: string; ink: string }[] = 
   { accent: "#1FCECB", fill: "#1FCECB", ring: "transparent", ink: "#06231F" }, // 1 cyan
   { accent: "#88C786", fill: "#88C786", ring: "transparent", ink: "#0E2A14" }, // 2 cyan + gold
   { accent: "#F0C040", fill: "#F0C040", ring: "transparent", ink: "#3A2D00" }, // 3 gold
-  { accent: "#5C6C70", fill: "#728488", ring: "#5C6C70",     ink: "#0A1430" }, // 4 greyed out (600 fill / 700 ring)
-  { accent: "#822F00", fill: "#728488", ring: "#822F00",     ink: "#0A1430" }, // 5 grey fill + ruby ring
+  { accent: "#5C6C70", fill: "#D8DBDE", ring: "#5C6C70",     ink: "#0F031C" }, // 4 chrome-silver fill + grey ring · midnight-black text
+  { accent: "#822F00", fill: "#D8DBDE", ring: "#822F00",     ink: "#0F031C" }, // 5 chrome-silver fill + ruby ring · midnight-black text
 ];
 
 /** One route on the continuum. The route name is the disclosure trigger;
