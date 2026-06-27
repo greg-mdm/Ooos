@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode, type CSSProperties } from "react";
 import "../../styles/cid-continuum.css";
 
 // --- Canada's Continuum of Data Access -------------------------------------
@@ -153,13 +153,27 @@ function Disclosure({ title, tag, children }: { title: string; tag?: string; chi
   );
 }
 
+// Risk spectrum across the continuum: teal (open) → gold (caution) → ruby
+// (restricted). Each route's circle + accents take its stage colour; stage 4 is
+// the sunrise-orange hand-off. `ink` is the number colour on the filled circle.
+const SPECTRUM: { fill: string; ink: string }[] = [
+  { fill: "#1FCECB", ink: "#06231F" }, // 1 self-serve — teal
+  { fill: "#74D06A", ink: "#0C2A12" }, // 2 — green
+  { fill: "#F0C040", ink: "#3A2D00" }, // 3 — gold (caution)
+  { fill: "#F2913D", ink: "#2A1500" }, // 4 — sunrise orange
+  { fill: "#822F00", ink: "#FFFFFF" }, // 5 secure — brand ruby
+];
+
 /** One route on the continuum. The route name is the disclosure trigger;
  *  opening it reveals the StatsCan access card + a link to that program. */
-function RouteItem({ route, index }: { route: AccessRoute; index: number }) {
+function RouteItem({ route, index, tone }: { route: AccessRoute; index: number; tone: { fill: string; ink: string } }) {
   const [open, setOpen] = useState(false);
   const id = `cid-route-${route.key}`;
   return (
-    <li className={`cid-route ${open ? "is-open" : ""}`}>
+    <li
+      className={`cid-route ${open ? "is-open" : ""}`}
+      style={{ ["--route-accent"]: tone.fill, ["--route-ink"]: tone.ink } as CSSProperties}
+    >
       <button
         type="button"
         className="cid-route-toggle"
@@ -240,7 +254,7 @@ function DataAccessContinuum() {
           </p>
           <ol className="cid-continuum-routes">
             {ROUTES.map((r, i) => (
-              <RouteItem key={r.key} route={r} index={i + 1} />
+              <RouteItem key={r.key} route={r} index={i + 1} tone={SPECTRUM[i]} />
             ))}
           </ol>
           <p className="cid-continuum-foot">

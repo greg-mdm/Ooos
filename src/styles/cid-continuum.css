@@ -81,10 +81,10 @@
   text-transform: uppercase;
 }
 .cid-scope .cid-continuum-end--open { color: var(--c-teal); }
-.cid-scope .cid-continuum-end--secure { color: var(--c-gold); }
+.cid-scope .cid-continuum-end--secure { color: #CE4A30; }
 .cid-scope .cid-continuum-end-mid {
-  color: var(--c-muted);
-  font-weight: 700;
+  color: #F0C040;
+  font-weight: 800;
   letter-spacing: 0.1em;
   font-size: 0.64rem;
   text-align: center;
@@ -93,8 +93,8 @@
   height: 8px;
   margin: 10px 0 16px;
   border-radius: 999px;
-  background: linear-gradient(90deg, var(--c-teal) 0%, #2E6CA8 50%, var(--c-gold) 100%);
-  opacity: 0.85;
+  background: linear-gradient(90deg, #1FCECB 0%, #74D06A 27%, #F0C040 52%, #F2913D 76%, #CE4A30 100%);
+  opacity: 0.95;
 }
 .cid-scope .cid-continuum-howto {
   margin: 0 0 14px;
@@ -113,19 +113,18 @@
 
 /* ---- a single route (progressive disclosure) -------------------------- */
 .cid-scope .cid-route {
-  border: 1px solid var(--c-line);
+  border: 1px solid rgba(10, 20, 48, 0.12);
+  border-left: 4px solid var(--route-accent, var(--c-teal));
   border-radius: 14px;
-  background: var(--c-card);
-  transition: border-color 160ms ease, background 160ms ease, box-shadow 200ms ease;
+  background: #F0F4F5; /* robin's egg — uniform across every tab (cohesion) */
+  transition: box-shadow 200ms ease, transform 160ms ease;
 }
 .cid-scope .cid-route:hover {
-  border-color: rgba(31, 206, 203, 0.5);
-  background: rgba(255, 255, 255, 0.06);
+  transform: translateY(-1px);
+  box-shadow: 0 16px 32px -20px rgba(0, 0, 0, 0.55);
 }
 .cid-scope .cid-route.is-open {
-  border-color: rgba(31, 206, 203, 0.55);
-  background: rgba(31, 206, 203, 0.06);
-  box-shadow: 0 18px 40px -22px rgba(31, 206, 203, 0.6);
+  box-shadow: 0 20px 44px -22px color-mix(in srgb, var(--route-accent, var(--c-teal)) 55%, rgba(0, 0, 0, 0.55));
 }
 .cid-scope .cid-route-toggle {
   width: 100%;
@@ -152,11 +151,11 @@
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: rgba(31, 206, 203, 0.14);
-  border: 1px solid rgba(31, 206, 203, 0.5);
-  color: var(--c-teal);
+  background: var(--route-accent, var(--c-teal)); /* the stage's assigned colour — the visual anchor */
+  color: var(--route-ink, #06231F);
   font-weight: 800;
-  font-size: 0.95rem;
+  font-size: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 .cid-scope .cid-route-head {
   flex: 1 1 auto;
@@ -173,7 +172,7 @@
   font-family: var(--font-elevated, var(--sans));
   font-weight: 700;
   font-size: 1.05rem;
-  color: #ffffff;
+  color: #0A1430;
 }
 .cid-scope .cid-route-tag {
   font-size: 0.6rem;
@@ -182,19 +181,19 @@
   text-transform: uppercase;
   padding: 3px 8px;
   border-radius: 999px;
-  color: var(--c-teal);
-  background: rgba(31, 206, 203, 0.12);
-  border: 1px solid rgba(31, 206, 203, 0.4);
+  color: #0A1430;
+  background: color-mix(in srgb, var(--route-accent, var(--c-teal)) 22%, #F0F4F5);
+  border: 1.5px solid var(--route-accent, var(--c-teal));
 }
 .cid-scope .cid-route-blurb {
   font-size: 0.92rem;
-  color: var(--c-muted);
+  color: #4A5568;
 }
 .cid-scope .cid-route-arrow {
   flex: 0 0 auto;
   font-size: 1.4rem;
   line-height: 1;
-  color: var(--c-teal);
+  color: #5A6B85;
 }
 .cid-scope .cid-route-body {
   padding: 2px 18px 18px 68px;
@@ -214,14 +213,14 @@
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--c-teal);
+  color: #1A2B4A;
   padding-top: 2px;
 }
 .cid-scope .cid-route-meta dd {
   margin: 0;
   font-size: 0.95rem;
   line-height: 1.55;
-  color: var(--c-ink);
+  color: #374151;
 }
 .cid-scope .cid-route-link {
   display: inline-flex;
@@ -229,12 +228,12 @@
   gap: 6px;
   font-weight: 700;
   font-size: 0.92rem;
-  color: var(--c-teal) !important;
+  color: #0A1430 !important;
   text-decoration: none !important;
-  border-bottom: 1px solid rgba(31, 206, 203, 0.5);
+  border-bottom: 2px solid var(--route-accent, var(--c-teal));
   padding-bottom: 1px;
 }
-.cid-scope .cid-route-link:hover { color: #ffffff !important; border-color: #ffffff; }
+.cid-scope .cid-route-link:hover { border-bottom-width: 3px; }
 
 .cid-scope .cid-continuum-foot {
   margin: 16px 0 0;
