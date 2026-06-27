@@ -66,16 +66,6 @@ type AccessRoute = {
 
 const ROUTES: AccessRoute[] = [
   {
-    key: "ingestion",
-    name: "Automated data ingestion",
-    blurb: "Connect to aggregate data and metadata through an API.",
-    tag: "API",
-    href: SC.api,
-    access: "Application Programming Interface (API)",
-    location: "StatCan Web Data Service",
-    data: "Social and economic data",
-  },
-  {
     key: "products",
     name: "Data products",
     blurb: "Explore tables, publications, visualizations and downloads.",
@@ -83,6 +73,16 @@ const ROUTES: AccessRoute[] = [
     href: SC.data,
     access: "View or download data tables · visualize key data sets · consult articles and publications",
     location: "StatCan website · StatsCAN app",
+    data: "Social and economic data",
+  },
+  {
+    key: "ingestion",
+    name: "Automated data ingestion",
+    blurb: "Connect to aggregate data and metadata through an API.",
+    tag: "API",
+    href: SC.api,
+    access: "Application Programming Interface (API)",
+    location: "StatCan Web Data Service",
     data: "Social and economic data",
   },
   {
