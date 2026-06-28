@@ -1586,10 +1586,18 @@
       .on-obs-lede { color: #d0d7de; font-size: 1.35rem; line-height: 1.6; max-width: 62ch; margin: 0 0 1.5rem; }
       .on-obs-grid { display: grid; grid-template-columns: 1.45fr 1fr; gap: 1.8rem; align-items: start; }
       .on-obs-map { margin: 0; }
-      .on-obs-mapframe {
-        width: 100%; height: 440px; display: block; border: 1px solid rgba(31,206,203,0.35);
-        border-radius: 14px; background: #0a1430;
+      .on-obs-mapwrap {
+        position: relative; display: block; overflow: hidden; border-radius: 14px;
+        border: 1px solid rgba(31,206,203,0.35); background: #0a1430; text-decoration: none;
       }
+      .on-obs-mapimg { width: 100%; height: auto; display: block; aspect-ratio: 1200 / 675; object-fit: cover; }
+      .on-obs-maptitle {
+        position: absolute; top: 0; left: 0; right: 0; z-index: 1; padding: 0.8rem 1.1rem 1.6rem;
+        background: linear-gradient(180deg, rgba(8,14,24,0.92) 0%, rgba(8,14,24,0) 100%);
+        color: #fff; font-weight: 800; font-size: 1.2rem; letter-spacing: 0.01em;
+        text-shadow: 0 1px 8px rgba(0,0,0,0.7);
+      }
+      .on-obs-mapwrap:hover .on-obs-maptitle { color: #1fcecb; }
       .on-obs-cap { margin-top: 0.7rem; color: #8b949e; font-size: 1.02rem; line-height: 1.55; }
       .on-obs-cap a { color: #1fcecb; text-decoration: underline; }
       .on-obs-side {
@@ -1619,7 +1627,6 @@
       @media (max-width: 760px) {
         .on-obs { margin: 1.5rem 1rem 2.2rem; }
         .on-obs-grid { grid-template-columns: 1fr; }
-        .on-obs-mapframe { height: 320px; }
       }
     </style>
     <section class="on-obs" aria-label="Ontario Data Observatory">
@@ -1628,11 +1635,11 @@
       <p class="on-obs-lede">Turn the continuum on a single province. Ontario's public record tracks employment, industries, wages, education and immigration across eleven economic regions — evidence you can map, compare and revisit over time.</p>
       <div class="on-obs-grid">
         <figure class="on-obs-map">
-          <iframe class="on-obs-mapframe"
-            src="https://www.openstreetmap.org/export/embed.html?bbox=-95.2%2C41.6%2C-74.3%2C56.9&layer=mapnik"
-            title="Interactive map of Ontario" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade" sandbox="allow-scripts allow-same-origin"></iframe>
-          <figcaption class="on-obs-cap">Interactive base map of Ontario (OpenStreetMap). For the official boundaries, see the <a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">map of economic regions ↗</a> in the Ontario Employment Report (§4).</figcaption>
+          <a class="on-obs-mapwrap" href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">
+            <span class="on-obs-maptitle">Ontario&rsquo;s Five Economic Regions</span>
+            <img class="on-obs-mapimg" src="/assets/Regions-ON.png" alt="Map of Ontario's five economic regions — Northern, Eastern, Southwestern, GTA and Central — with employment change shown in thousands and as a percentage" loading="lazy">
+          </a>
+          <figcaption class="on-obs-cap">Ontario&rsquo;s five economic regions, with employment change. Source: <a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">Ontario Employment Report (§4) ↗</a>.</figcaption>
         </figure>
         <div class="on-obs-side">
           <div class="on-obs-side-label">Economic regions</div>
