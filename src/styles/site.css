@@ -2064,6 +2064,26 @@ a:hover { color: var(--electric); }
   line-height: 1.45;
   color: var(--ink);
 }
+/* "First phase of public engagement" (Kahoot) — full-width card grouped with
+   the watchlist + vote widget above the dark embed. */
+.cid-scope .cid-body-wide .cid-kahoot-card {
+  max-width: 1440px;
+  margin: 24px auto 0;
+  background: #ffffff;
+  color: var(--ink);
+  border-radius: 12px;
+  padding: 22px 28px;
+  box-shadow: 0 18px 40px -18px rgba(25, 0, 125, 0.45),
+              0 8px 18px -10px rgba(25, 0, 125, 0.35);
+  border: 1px solid rgba(25, 0, 125, 0.08);
+}
+.cid-scope .cid-kahoot-card p {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.cid-scope .cid-kahoot-card strong { color: #4B00B6; font-weight: 700; }
 .cid-scope .cid-watchlist-title {
   letter-spacing: 0.04em;
   font-size: 28px;
