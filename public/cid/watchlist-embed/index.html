@@ -1583,8 +1583,10 @@
         color: #1fcecb; text-transform: uppercase; letter-spacing: 0.14em;
         font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem;
       }
-      .on-obs-lede { color: #16222b; font-size: 1.26rem; line-height: 1.55; max-width: 60ch; margin: 0 0 1.4rem; text-wrap: pretty; }
-      .on-obs-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 1.6rem; align-items: stretch; }
+      .on-obs-top { display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start; justify-content: space-between; margin-bottom: 1.6rem; }
+      .on-obs-lede { color: #16222b; font-size: 1.26rem; line-height: 1.55; max-width: 58ch; margin: 0; text-wrap: pretty; flex: 1 1 520px; }
+      .on-obs-toplinks { flex: 0 0 auto; min-width: 280px; padding-top: 0.2rem; }
+      .on-obs-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 1.6rem; align-items: stretch; }
       .on-obs-map { margin: 0; display: flex; flex-direction: column; }
       .on-obs-mapwrap {
         position: relative; display: block; overflow: hidden; border-radius: 14px;
@@ -1597,7 +1599,7 @@
         background: #ffffff; border: 1px solid rgba(11,110,107,0.16);
         border-top: 3px solid #C8102E; border-radius: 12px; padding: 1.4rem 1.4rem 1.5rem;
         box-shadow: 0 6px 22px rgba(15,40,40,0.12);
-        display: flex; flex-direction: column; justify-content: space-between; gap: 0.6rem;
+        display: flex; flex-direction: column; justify-content: center; gap: 1.3rem;
       }
       .on-obs-group { display: block; }
       .on-obs-side-label {
@@ -1629,7 +1631,17 @@
     </style>
     <section class="on-obs" aria-label="Ontario data">
       <div class="on-obs-inner">
-      <p class="on-obs-lede"><span class="on-obs-ca">Ontario</span> is <span class="on-obs-ca">Canada&rsquo;s</span> largest province by population and has the highest GDP per capita. It actively monitors public records on employment, industries, wages, education, and immigration across its 11 economic regions. This data can be mapped, compared, and analyzed over time.</p>
+      <div class="on-obs-top">
+        <p class="on-obs-lede"><span class="on-obs-ca">Ontario</span> is <span class="on-obs-ca">Canada&rsquo;s</span> largest province by population and has the highest GDP per capita. It actively monitors public records on employment, industries, wages, education, and immigration across its 11 economic regions. This data can be mapped, compared, and analyzed over time.</p>
+        <div class="on-obs-toplinks">
+          <div class="on-obs-side-label">Ontario data</div>
+          <div class="on-obs-links">
+            <a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026" target="_blank" rel="noopener noreferrer">Ontario Employment Reports ↗</a>
+            <a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">Map of regions — Report §4 ↗</a>
+            <a href="https://www.jobbank.gc.ca/trend-analysis/job-market-reports/ontario/environmental-scan" target="_blank" rel="noopener noreferrer">Ontario environmental scan — Job Bank ↗</a>
+          </div>
+        </div>
+      </div>
       <div class="on-obs-grid">
         <div class="on-obs-side">
           <div class="on-obs-group">
@@ -1657,14 +1669,6 @@
               <li>Northeast</li>
               <li>Northwest</li>
             </ul>
-          </div>
-          <div class="on-obs-group">
-            <div class="on-obs-side-label">Ontario data</div>
-            <div class="on-obs-links">
-              <a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026" target="_blank" rel="noopener noreferrer">Ontario Employment Reports ↗</a>
-              <a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">Map of regions — Report §4 ↗</a>
-              <a href="https://www.jobbank.gc.ca/trend-analysis/job-market-reports/ontario/environmental-scan" target="_blank" rel="noopener noreferrer">Ontario environmental scan — Job Bank ↗</a>
-            </div>
           </div>
         </div>
         <figure class="on-obs-map">
