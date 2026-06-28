@@ -1540,6 +1540,8 @@
       </div>
     </div>
 
+    <div class="on-obs-kicker" style="margin: 0.4rem 0.75rem 0.5rem;">Zoom in · Ontario Data</div>
+
     <section class="cid-observatory-header" aria-label="CID Live Data Observatory header">
       <div class="cid-observatory-kicker">
         <img class="cid-observatory-icon" src="/assets/images/brand/LEAF-transp.png" alt="" aria-hidden="true">
@@ -1584,20 +1586,16 @@
         margin: 0 0 0.8rem; letter-spacing: 0.01em;
       }
       .on-obs-lede { color: #d0d7de; font-size: 1.35rem; line-height: 1.6; max-width: 62ch; margin: 0 0 1.5rem; }
-      .on-obs-grid { display: grid; grid-template-columns: 1.45fr 1fr; gap: 1.8rem; align-items: start; }
+      .on-obs-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 1.8rem; align-items: start; }
       .on-obs-map { margin: 0; }
       .on-obs-mapwrap {
         position: relative; display: block; overflow: hidden; border-radius: 14px;
         border: 1px solid rgba(31,206,203,0.35); background: #0a1430; text-decoration: none;
       }
       .on-obs-mapimg { width: 100%; height: auto; display: block; aspect-ratio: 1200 / 675; object-fit: cover; }
-      .on-obs-maptitle {
-        position: absolute; top: 0; left: 0; right: 0; z-index: 1; padding: 0.8rem 1.1rem 1.6rem;
-        background: linear-gradient(180deg, rgba(8,14,24,0.92) 0%, rgba(8,14,24,0) 100%);
-        color: #fff; font-weight: 800; font-size: 1.2rem; letter-spacing: 0.01em;
-        text-shadow: 0 1px 8px rgba(0,0,0,0.7);
-      }
-      .on-obs-mapwrap:hover .on-obs-maptitle { color: #1fcecb; }
+      .on-obs-regions5 { margin: 0 0 1.5rem; padding-left: 1.5rem; display: grid; gap: 0.5rem; color: #d0d7de; }
+      .on-obs-regions5 li { font-size: 1.1rem; line-height: 1.45; padding-left: 0.25rem; }
+      .on-obs-regions5 li::marker { color: #1fcecb; font-weight: 800; }
       .on-obs-cap { margin-top: 0.7rem; color: #8b949e; font-size: 1.02rem; line-height: 1.55; }
       .on-obs-cap a { color: #1fcecb; text-decoration: underline; }
       .on-obs-side {
@@ -1629,33 +1627,18 @@
         .on-obs-grid { grid-template-columns: 1fr; }
       }
     </style>
-    <section class="on-obs" aria-label="Ontario Data Observatory">
-      <div class="on-obs-kicker">Zoom in · Ontario</div>
-      <h2 class="on-obs-title">Ontario Data Observatory</h2>
-      <p class="on-obs-lede">Turn the continuum on a single province. Ontario's public record tracks employment, industries, wages, education and immigration across eleven economic regions — evidence you can map, compare and revisit over time.</p>
+    <section class="on-obs" aria-label="Ontario data">
+      <p class="on-obs-lede">Ontario is Canada&rsquo;s largest province by population and has the highest GDP per capita. It actively monitors public records on employment, industries, wages, education, and immigration across its 11 economic regions. This data can be mapped, compared, and analyzed over time.</p>
       <div class="on-obs-grid">
-        <figure class="on-obs-map">
-          <a class="on-obs-mapwrap" href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">
-            <span class="on-obs-maptitle">Ontario&rsquo;s Five Economic Regions</span>
-            <img class="on-obs-mapimg" src="/assets/Regions-ON.png" alt="Map of Ontario's five economic regions — Northern, Eastern, Southwestern, GTA and Central — with employment change shown in thousands and as a percentage" loading="lazy">
-          </a>
-          <figcaption class="on-obs-cap">Ontario&rsquo;s five economic regions, with employment change. Source: <a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">Ontario Employment Report (§4) ↗</a>.</figcaption>
-        </figure>
         <div class="on-obs-side">
-          <div class="on-obs-side-label">Economic regions</div>
-          <ul class="on-obs-regions">
-            <li>Ottawa</li>
-            <li>Kingston–Pembroke</li>
-            <li>Muskoka–Kawarthas</li>
-            <li>Toronto</li>
-            <li>Kitchener–Waterloo–Barrie</li>
-            <li>Hamilton–Niagara Peninsula</li>
-            <li>London</li>
-            <li>Windsor–Sarnia</li>
-            <li>Stratford–Bruce Peninsula</li>
-            <li>Northeast</li>
-            <li>Northwest</li>
-          </ul>
+          <div class="on-obs-side-label">Ontario&rsquo;s five regions</div>
+          <ol class="on-obs-regions5">
+            <li>Northern Ontario</li>
+            <li>Eastern Ontario</li>
+            <li>Southwestern Ontario</li>
+            <li>Central Ontario</li>
+            <li>The Greater Toronto Area (GTA)</li>
+          </ol>
           <div class="on-obs-side-label">Ontario data</div>
           <div class="on-obs-links">
             <a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026" target="_blank" rel="noopener noreferrer">Ontario Employment Reports ↗</a>
@@ -1663,6 +1646,12 @@
             <a href="https://www.jobbank.gc.ca/trend-analysis/job-market-reports/ontario/environmental-scan" target="_blank" rel="noopener noreferrer">Ontario environmental scan — Job Bank ↗</a>
           </div>
         </div>
+        <figure class="on-obs-map">
+          <a class="on-obs-mapwrap" href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">
+            <img class="on-obs-mapimg" src="/assets/Regions-ON.png" alt="Map of Ontario's five economic regions — Northern, Eastern, Southwestern, Central and the Greater Toronto Area — with employment change shown in thousands and as a percentage" loading="lazy">
+          </a>
+          <figcaption class="on-obs-cap">Ontario&rsquo;s five economic regions, with employment change. Source: <a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">Ontario Employment Report (§4) ↗</a>.</figcaption>
+        </figure>
       </div>
     </section>
 
