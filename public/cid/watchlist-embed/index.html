@@ -1596,7 +1596,7 @@
       .on-obs-cap { margin-top: 0.6rem; color: #51606a; font-size: 0.96rem; line-height: 1.5; }
       .on-obs-cap a { color: #006B57; text-decoration: underline; }
       .on-obs-side {
-        display: flex; flex-direction: column; justify-content: flex-start; gap: 1.7rem;
+        display: flex; flex-direction: row; gap: 2.8rem; align-items: flex-start;
         padding-top: 0.15rem;
       }
       .on-obs-group { display: block; }
@@ -1604,18 +1604,12 @@
         color: #C8102E; text-transform: uppercase; letter-spacing: 0.12em;
         font-size: 0.86rem; font-weight: 800; margin: 0 0 0.6rem;
       }
-      .on-obs-regions5 { margin: 0; padding-left: 1.3rem; display: grid; gap: 0.3rem; color: #1f2a30; }
-      .on-obs-regions5 li { font-size: 0.98rem; line-height: 1.3; padding-left: 0.2rem; }
+      .on-obs-regions5 { margin: 0; padding-left: 1.5rem; display: grid; gap: 0.5rem; color: #1f2a30; }
+      .on-obs-regions5 li { font-size: 1.25rem; line-height: 1.4; padding-left: 0.25rem; }
       .on-obs-regions5 li::marker { color: #0B6E6B; font-weight: 800; }
-      .on-obs-regions {
-        list-style: none; margin: 0; padding: 0;
-        display: grid; grid-template-columns: 1fr 1fr; gap: 0.3rem 1rem;
-      }
-      .on-obs-regions li { position: relative; padding-left: 0.85rem; color: #1f2a30; font-size: 0.9rem; line-height: 1.3; }
-      .on-obs-regions li::before {
-        content: ""; position: absolute; left: 0; top: 0.5em; width: 5px; height: 5px;
-        border-radius: 50%; background: #0B6E6B;
-      }
+      .on-obs-regions11 { margin: 0; padding-left: 1.6rem; display: grid; gap: 0.24rem; color: #45525c; }
+      .on-obs-regions11 li { font-size: 0.84rem; line-height: 1.35; padding-left: 0.1rem; }
+      .on-obs-regions11 li::marker { color: #0B6E6B; font-weight: 700; }
       .on-obs-links { display: grid; gap: 0.5rem; }
       .on-obs-links a {
         color: #006B57; font-weight: 700; font-size: 0.98rem; text-decoration: none;
@@ -1654,7 +1648,7 @@
           </div>
           <div class="on-obs-group">
             <div class="on-obs-side-label">11 economic regions</div>
-            <ul class="on-obs-regions">
+            <ol class="on-obs-regions11">
               <li>Ottawa</li>
               <li>Kingston&ndash;Pembroke</li>
               <li>Muskoka&ndash;Kawarthas</li>
@@ -1666,7 +1660,7 @@
               <li>Stratford&ndash;Bruce Peninsula</li>
               <li>Northeast</li>
               <li>Northwest</li>
-            </ul>
+            </ol>
           </div>
         </div>
         <figure class="on-obs-map">
