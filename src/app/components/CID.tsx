@@ -473,56 +473,14 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           </div>
 
           <div className="cid-right-col">
-          <aside className="cid-vote-panel" aria-label="Live polymarket vote">
-            <div className="vote-source-label">
-              POLYMARKET · <span className="vote-volume">$29.05M LIVE VOLUME</span>
+            <div className="cid-note-card">
+              <p>
+                Examine interconnected signals across <strong>public, private,
+                nonprofit, government, financial, and research</strong> sectors to
+                identify emerging opportunities for strategic alignment.
+              </p>
             </div>
-            <div className="vote-question-text">
-              Will the US and Iran reach<br />a permanent peace deal by June 30?
-            </div>
-            <div className="vote-cards-row">
-              <div className="big-vote-card yes-card">
-                <div className="bvc-label">YES</div>
-                <div className="bvc-price">18¢</div>
-              </div>
-              <div className="big-vote-card no-card">
-                <div className="bvc-label">NO</div>
-                <div className="bvc-price">82¢</div>
-              </div>
-              <div className="big-vote-card abstain-card">
-                <div className="bvc-label">ABSTAIN</div>
-              </div>
-            </div>
-            <a
-              className="vote-cta-btn"
-              href="https://kahoot.it/challenge/01297559"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Vote on Kahoot →
-            </a>
-            <div className="vote-meta">
-              Game Pin: 01297559 · EXPIRES 2026-06-01
-            </div>
-          </aside>
-          <div className="cid-note-card">
-            <p>
-              Examine interconnected signals across <strong>public, private,
-              nonprofit, government, financial, and research</strong> sectors to
-              identify emerging opportunities for strategic alignment.
-            </p>
           </div>
-          </div>
-        </div>
-
-        <div className="cid-kahoot-card">
-          <p>
-            The first phase of public engagement involves an interactive
-            learning experience hosted by <strong>Ooo.Play</strong> on Kahoot.
-            Join us to exchange insights, explore entrepreneurial
-            opportunities, examine serious issues, deepen your understanding,
-            and expand your network!
-          </p>
         </div>
       </div>
 
