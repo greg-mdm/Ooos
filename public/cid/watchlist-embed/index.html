@@ -1675,9 +1675,12 @@
 
     <style>
       /* ===== Ontario → global transition: FIFA World Cup 2026 + live vote ===== */
-      .ck-transition { margin: 1.8rem 3rem 0; }
+      .ck-transition {
+        margin: 1.5rem 3rem 2.2rem; padding: 1.9rem 2rem 2.1rem;
+        background: #F0F4F5; border-radius: 16px; box-shadow: 0 10px 36px rgba(0,0,0,0.3);
+      }
       .ck-kicker {
-        color: #1fcecb; text-transform: uppercase; letter-spacing: 0.16em;
+        color: #0B6E6B; text-transform: uppercase; letter-spacing: 0.16em;
         font-weight: 800; font-size: 0.95rem; margin: 0 0 0.9rem;
       }
       .ck-grid {
@@ -1685,27 +1688,27 @@
         gap: 1.8rem; align-items: stretch;
       }
       .ck-text {
-        background: rgba(16,22,30,0.85);
-        border: 1px solid rgba(31,206,203,0.3); border-top: 3px solid #1fcecb;
-        border-radius: 10px; padding: 1.9rem 2rem;
+        background: #ffffff;
+        border: 1px solid rgba(11,110,107,0.16); border-top: 3px solid #1fcecb;
+        border-radius: 12px; padding: 1.9rem 2rem;
         display: flex; flex-direction: column; justify-content: center;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+        box-shadow: 0 6px 22px rgba(15,40,40,0.12);
       }
-      .ck-lede { color: #e6edf3; font-size: 1.3rem; line-height: 1.6; margin: 0; }
-      .ck-lede strong { color: #1fcecb; font-weight: 800; }
+      .ck-lede { color: #16222b; font-size: 1.3rem; line-height: 1.6; margin: 0; }
+      .ck-lede strong { color: #0B6E6B; font-weight: 800; }
       .ck-stat-row { display: flex; align-items: baseline; gap: 0.7rem; margin: 1.3rem 0; }
       .ck-stat-num {
         font-family: 'Courier New', Courier, monospace; font-size: 2.8rem;
-        font-weight: 900; color: #F0C040; line-height: 1;
+        font-weight: 900; color: #B26A00; line-height: 1;
       }
-      .ck-stat-label { color: #d0d7de; font-size: 1.1rem; letter-spacing: 0.1em; text-transform: uppercase; }
-      .ck-note { color: #aeb6bf; font-size: 1.02rem; line-height: 1.55; margin: 0; }
-      .ck-note strong { color: #cdd5dc; font-weight: 700; }
+      .ck-stat-label { color: #51606a; font-size: 1.1rem; letter-spacing: 0.1em; text-transform: uppercase; }
+      .ck-note { color: #51606a; font-size: 1.02rem; line-height: 1.55; margin: 0; }
+      .ck-note strong { color: #16222b; font-weight: 700; }
 
       /* Polymarket "World Cup Winner" live embed + Kahoot CTA */
       .ck-vote { display: flex; flex-direction: column; gap: 0.85rem; min-width: 0; }
       .ck-vote-label {
-        color: #1fcecb; text-transform: uppercase; letter-spacing: 0.16em;
+        color: #0B6E6B; text-transform: uppercase; letter-spacing: 0.16em;
         font-weight: 800; font-size: 0.8rem; margin: 0;
       }
       .ck-market {
@@ -1732,11 +1735,11 @@
         font-weight: 800; font-size: 1rem;
         letter-spacing: 0.01em; text-align: center; line-height: 1.4;
         color: #fff !important; text-decoration: none !important; padding: 14px 22px;
-        border: 2px solid rgba(108,1,244,0.85); border-radius: 8px; background: rgba(108,1,244,0.16);
+        border: 2px solid #5B1FB8; border-radius: 8px; background: #5B1FB8;
         display: block; animation: voteBtnGlow 2.5s ease infinite; transition: background 160ms;
       }
       .ck-vote-cta:hover, .ck-vote-cta:focus-visible {
-        background: rgba(108,1,244,0.3); outline: 3px solid #F0C040; outline-offset: 3px;
+        background: #4A0FA0; border-color: #4A0FA0; outline: 3px solid #F0C040; outline-offset: 3px;
       }
       @keyframes voteBtnGlow { 0%,100% { box-shadow: 0 0 18px rgba(108,1,244,0.35); } 50% { box-shadow: 0 0 40px rgba(108,1,244,0.7); } }
 
