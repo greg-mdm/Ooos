@@ -1581,8 +1581,8 @@
         color: #1fcecb; text-transform: uppercase; letter-spacing: 0.14em;
         font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem;
       }
-      .on-obs-lede { color: #16222b; font-size: 1.26rem; line-height: 1.55; max-width: 64ch; margin: 0 0 1.4rem; }
-      .on-obs-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 1.6rem; align-items: stretch; }
+      .on-obs-lede { color: #16222b; font-size: 1.26rem; line-height: 1.55; max-width: 60ch; margin: 0 0 1.4rem; text-wrap: pretty; }
+      .on-obs-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 1.6rem; align-items: stretch; }
       .on-obs-map { margin: 0; display: flex; flex-direction: column; }
       .on-obs-mapwrap {
         position: relative; display: block; overflow: hidden; border-radius: 14px;
@@ -1593,27 +1593,28 @@
       .on-obs-cap a { color: #006B57; text-decoration: underline; }
       .on-obs-side {
         background: #ffffff; border: 1px solid rgba(11,110,107,0.16);
-        border-top: 3px solid #1fcecb; border-radius: 12px; padding: 1.3rem 1.4rem;
+        border-top: 3px solid #1fcecb; border-radius: 12px; padding: 1.4rem 1.4rem 1.5rem;
         box-shadow: 0 6px 22px rgba(15,40,40,0.12);
-        display: flex; flex-direction: column;
+        display: flex; flex-direction: column; justify-content: space-between; gap: 0.6rem;
       }
+      .on-obs-group { display: block; }
       .on-obs-side-label {
         color: #0B6E6B; text-transform: uppercase; letter-spacing: 0.12em;
         font-size: 0.86rem; font-weight: 800; margin: 0 0 0.6rem;
       }
-      .on-obs-regions5 { margin: 0 0 1rem; padding-left: 1.3rem; display: grid; gap: 0.28rem; color: #1f2a30; }
+      .on-obs-regions5 { margin: 0; padding-left: 1.3rem; display: grid; gap: 0.3rem; color: #1f2a30; }
       .on-obs-regions5 li { font-size: 0.98rem; line-height: 1.3; padding-left: 0.2rem; }
       .on-obs-regions5 li::marker { color: #0B6E6B; font-weight: 800; }
       .on-obs-regions {
-        list-style: none; margin: 0 0 1rem; padding: 0;
-        display: grid; grid-template-columns: 1fr 1fr; gap: 0.26rem 1rem;
+        list-style: none; margin: 0; padding: 0;
+        display: grid; grid-template-columns: 1fr 1fr; gap: 0.3rem 1rem;
       }
       .on-obs-regions li { position: relative; padding-left: 0.85rem; color: #1f2a30; font-size: 0.9rem; line-height: 1.3; }
       .on-obs-regions li::before {
         content: ""; position: absolute; left: 0; top: 0.5em; width: 5px; height: 5px;
         border-radius: 50%; background: #0B6E6B;
       }
-      .on-obs-links { display: grid; gap: 0.5rem; margin-top: auto; padding-top: 0.5rem; }
+      .on-obs-links { display: grid; gap: 0.5rem; }
       .on-obs-links a {
         color: #006B57; font-weight: 700; font-size: 0.98rem; text-decoration: none;
         border-bottom: 1px solid rgba(0,107,87,0.35); padding-bottom: 2px; width: fit-content;
@@ -1628,33 +1629,39 @@
       <p class="on-obs-lede">Ontario is Canada&rsquo;s largest province by population and has the highest GDP per capita. It actively monitors public records on employment, industries, wages, education, and immigration across its 11 economic regions. This data can be mapped, compared, and analyzed over time.</p>
       <div class="on-obs-grid">
         <div class="on-obs-side">
-          <div class="on-obs-side-label">5 geographic regions</div>
-          <ol class="on-obs-regions5">
-            <li>Northern Ontario</li>
-            <li>Eastern Ontario</li>
-            <li>Southwestern Ontario</li>
-            <li>Central Ontario</li>
-            <li>The Greater Toronto Area (GTA)</li>
-          </ol>
-          <div class="on-obs-side-label">11 economic regions</div>
-          <ul class="on-obs-regions">
-            <li>Ottawa</li>
-            <li>Kingston&ndash;Pembroke</li>
-            <li>Muskoka&ndash;Kawarthas</li>
-            <li>Toronto</li>
-            <li>Kitchener&ndash;Waterloo&ndash;Barrie</li>
-            <li>Hamilton&ndash;Niagara Peninsula</li>
-            <li>London</li>
-            <li>Windsor&ndash;Sarnia</li>
-            <li>Stratford&ndash;Bruce Peninsula</li>
-            <li>Northeast</li>
-            <li>Northwest</li>
-          </ul>
-          <div class="on-obs-side-label">Ontario data</div>
-          <div class="on-obs-links">
-            <a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026" target="_blank" rel="noopener noreferrer">Ontario Employment Reports ↗</a>
-            <a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">Map of regions — Report §4 ↗</a>
-            <a href="https://www.jobbank.gc.ca/trend-analysis/job-market-reports/ontario/environmental-scan" target="_blank" rel="noopener noreferrer">Ontario environmental scan — Job Bank ↗</a>
+          <div class="on-obs-group">
+            <div class="on-obs-side-label">5 geographic regions</div>
+            <ol class="on-obs-regions5">
+              <li>Northern Ontario</li>
+              <li>Eastern Ontario</li>
+              <li>Southwestern Ontario</li>
+              <li>Central Ontario</li>
+              <li>The Greater Toronto Area (GTA)</li>
+            </ol>
+          </div>
+          <div class="on-obs-group">
+            <div class="on-obs-side-label">11 economic regions</div>
+            <ul class="on-obs-regions">
+              <li>Ottawa</li>
+              <li>Kingston&ndash;Pembroke</li>
+              <li>Muskoka&ndash;Kawarthas</li>
+              <li>Toronto</li>
+              <li>Kitchener&ndash;Waterloo&ndash;Barrie</li>
+              <li>Hamilton&ndash;Niagara Peninsula</li>
+              <li>London</li>
+              <li>Windsor&ndash;Sarnia</li>
+              <li>Stratford&ndash;Bruce Peninsula</li>
+              <li>Northeast</li>
+              <li>Northwest</li>
+            </ul>
+          </div>
+          <div class="on-obs-group">
+            <div class="on-obs-side-label">Ontario data</div>
+            <div class="on-obs-links">
+              <a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026" target="_blank" rel="noopener noreferrer">Ontario Employment Reports ↗</a>
+              <a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">Map of regions — Report §4 ↗</a>
+              <a href="https://www.jobbank.gc.ca/trend-analysis/job-market-reports/ontario/environmental-scan" target="_blank" rel="noopener noreferrer">Ontario environmental scan — Job Bank ↗</a>
+            </div>
           </div>
         </div>
         <figure class="on-obs-map">
@@ -1701,20 +1708,31 @@
         color: #1fcecb; text-transform: uppercase; letter-spacing: 0.16em;
         font-weight: 800; font-size: 0.8rem; margin: 0;
       }
-      .polymarket-embed {
-        position: relative; width: 100%; margin: 0; border-radius: 12px; overflow: hidden;
-        border: 1px solid rgba(108,1,244,0.45); background: #0d0a28;
+      .ck-market {
+        display: flex; flex-direction: column; text-decoration: none; border-radius: 14px;
+        padding: 1.4rem 1.5rem 1.5rem;
+        background: radial-gradient(120% 80% at 50% 0%, rgba(108,1,244,0.18) 0%, transparent 60%), linear-gradient(180deg, #0d0a28 0%, #05030F 100%);
+        border: 1px solid rgba(108,1,244,0.45); color: #e8eaf0;
         box-shadow: 0 14px 36px rgba(0,0,0,0.45), 0 0 0 1px rgba(108,1,244,0.15);
+        transition: border-color 160ms, transform 160ms;
       }
-      .polymarket-embed iframe { display: block; width: 100%; height: 460px; border: 0; }
-      .ck-vote-cap { color: #aeb6bf; font-size: 0.95rem; line-height: 1.5; margin: 0; }
-      .ck-vote-cap strong { color: #00e676; font-weight: 700; }
-      .ck-vote-cap a { color: #1fcecb; text-decoration: underline; }
+      .ck-market:hover, .ck-market:focus-visible { border-color: rgba(108,1,244,0.9); transform: translateY(-2px); outline: none; }
+      .ck-market-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.9rem; font-family: 'Courier New', Courier, monospace; }
+      .ck-market-brand { font-size: 0.72rem; letter-spacing: 0.18em; color: #fff; }
+      .ck-market-live { font-size: 0.6rem; letter-spacing: 0.16em; color: #00e676; border: 1px solid rgba(0,230,118,0.35); background: rgba(0,230,118,0.08); padding: 3px 9px 3px 17px; border-radius: 999px; position: relative; }
+      .ck-market-live::before { content: ""; position: absolute; left: 7px; top: 50%; transform: translateY(-50%); width: 6px; height: 6px; border-radius: 50%; background: #00e676; box-shadow: 0 0 8px #00e676; animation: ckLive 1.8s ease-in-out infinite; }
+      @keyframes ckLive { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+      .ck-market-title { font-size: 1.3rem; font-weight: 800; line-height: 1.3; color: #fff; margin-bottom: 0.9rem; }
+      .ck-market-vol { font-family: 'Courier New', Courier, monospace; font-size: 0.96rem; color: #cdd5dc; margin-bottom: 0.5rem; }
+      .ck-market-vol strong { color: #00e676; font-weight: 700; }
+      .ck-market-note { font-size: 0.92rem; line-height: 1.5; color: #9aa3ad; margin: 0 0 1.1rem; }
+      .ck-market-link { align-self: flex-start; font-family: 'Courier New', Courier, monospace; font-weight: 900; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; border: 2px solid rgba(108,1,244,0.85); border-radius: 8px; padding: 11px 18px; background: rgba(108,1,244,0.18); transition: background 160ms; }
+      .ck-market:hover .ck-market-link { background: rgba(108,1,244,0.36); }
       .ck-vote-cta {
-        font-family: 'Courier New', Courier, monospace; font-weight: 900; font-size: 14px;
-        letter-spacing: 0.16em; text-transform: uppercase; text-align: center;
-        color: #fff !important; text-decoration: none !important; padding: 15px 24px;
-        border: 2px solid rgba(108,1,244,0.85); border-radius: 8px; background: rgba(108,1,244,0.14);
+        font-weight: 800; font-size: 1rem;
+        letter-spacing: 0.01em; text-align: center; line-height: 1.4;
+        color: #fff !important; text-decoration: none !important; padding: 14px 22px;
+        border: 2px solid rgba(108,1,244,0.85); border-radius: 8px; background: rgba(108,1,244,0.16);
         display: block; animation: voteBtnGlow 2.5s ease infinite; transition: background 160ms;
       }
       .ck-vote-cta:hover, .ck-vote-cta:focus-visible {
@@ -1743,13 +1761,17 @@
         </div>
         <div class="ck-vote">
           <p class="ck-vote-label">Prediction market · Vote: World Cup winner</p>
-          <figure class="polymarket-embed">
-            <iframe title="Polymarket — 2026 World Cup Winner market"
-              src="https://embed.polymarket.com/market.html?market=world-cup-winner&amp;features=volume&amp;theme=dark"
-              loading="lazy" frameborder="0" allowtransparency="true"></iframe>
-          </figure>
-          <p class="ck-vote-cap">Live on <a href="https://polymarket.com/event/world-cup-winner" target="_blank" rel="noopener noreferrer">Polymarket</a> — <strong>$3,306,992,257</strong> traded. Odds change in real time as new traders buy shares based on their predictions.</p>
-          <a class="ck-vote-cta" href="https://kahoot.it/challenge/01297559" target="_blank" rel="noopener noreferrer">Experiment with prediction markets — vote free on Kahoot →</a>
+          <a class="ck-market" href="https://polymarket.com/event/world-cup-winner" target="_blank" rel="noopener noreferrer">
+            <div class="ck-market-head">
+              <span class="ck-market-brand">POLYMARKET</span>
+              <span class="ck-market-live">LIVE</span>
+            </div>
+            <div class="ck-market-title">Who will win the FIFA World Cup 2026&trade;?</div>
+            <div class="ck-market-vol">Trading volume: <strong>$3,306,992,257</strong></div>
+            <p class="ck-market-note">Odds change in real time as new traders buy shares based on their predictions.</p>
+            <span class="ck-market-link">View the live board on Polymarket &#8599;</span>
+          </a>
+          <a class="ck-vote-cta" href="https://kahoot.it/challenge/01297559" target="_blank" rel="noopener noreferrer">Experiment with prediction markets by voting for free on Kahoot!</a>
         </div>
       </div>
     </section>
