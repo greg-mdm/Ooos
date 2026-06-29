@@ -51,11 +51,6 @@
     <h1 style="margin:0; font-size:clamp(22px,2.8vw,34px); font-weight:700; letter-spacing:-0.4px; line-height:1.12; color:#1a1646;">International Student Enrolment: Top 5 Countries (2023&ndash;2024)</h1>
     <!-- 3 · data source -->
     <span style="font-size:clamp(13px,1.3vw,15.5px); font-weight:500; letter-spacing:0.3px; color:#5b5f86;">(University Enrolment, Ontario Data Catalogue)</span>
-    <!-- 4 · slide counter + series -->
-    <div style="display:flex; flex-direction:column; align-items:center; line-height:1.3;">
-      <span style="font-size:20px; font-weight:700; letter-spacing:2px; color:#4B00B6; font-variant-numeric:tabular-nums;">{{ counterText }}</span>
-      <span style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#5b5f86;">Interactive Series</span>
-    </div>
   </div>
 
   <!-- ===== Stage: screen + side light-switch ===== -->
@@ -78,22 +73,54 @@
 
       <!-- declarative sliding track -->
       <div data-track style="position:absolute; top:0; bottom:0; width:100%; height:100%; display:flex; flex-wrap:nowrap;">
-        <div data-slide data-screen-label="Slide 1 — Interactive 3D scene" role="group" aria-roledescription="slide" aria-label="1 of 6 — Interactive 3D visualization" style="position:relative; flex:0 0 100%; width:100%; height:100%; transform:translateX({{ slideShift }}); transition:{{ slideTransition }};">
+        <div data-slide data-screen-label="Data viz — 3D scene" role="group" aria-roledescription="slide" aria-label="1 of 5 — Data viz" style="position:relative; flex:0 0 100%; width:100%; height:100%; transform:translateX({{ slideShift }}); transition:{{ slideTransition }};">
           <iframe data-scene title="Interactive 3D visualization of TMU international students" src="JellyBeanScene.html" loading="eager" style="width:100%; height:100%; border:0; display:block; background:#04050a;"></iframe>
         </div>
-        <div data-slide data-screen-label="Slide 2 — Research report" role="group" aria-roledescription="slide" aria-label="2 of 6 — Research report" style="flex:0 0 100%; width:100%; height:100%; transform:translateX({{ slideShift }}); transition:{{ slideTransition }}; display:flex; align-items:center; justify-content:center; padding:4%; background:#0a0a1c;">
-          <image-slot id="cz-report-1" fit="contain" shape="rounded" radius="8" placeholder="Drop research report 1" style="width:100%; height:100%;"></image-slot>
+        <div data-slide data-screen-label="Inspiration — video" role="group" aria-roledescription="slide" aria-label="2 of 5 — Inspiration video" style="flex:0 0 100%; width:100%; height:100%; transform:translateX({{ slideShift }}); transition:{{ slideTransition }}; display:flex; flex-direction:column; align-items:center; justify-content:center; overflow:auto; padding:clamp(18px,3.5%,40px); background:radial-gradient(120% 90% at 50% -10%, #211a55 0%, #0c0925 60%, #07061a 100%);">
+          <div style="width:100%; max-width:760px;">
+            <div style="display:flex; align-items:center; gap:9px; margin-bottom:12px;">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="var(--gold)" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+              <span style="font-size:10.5px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold);">Inspiration</span>
+            </div>
+            <div style="position:relative; padding:56.25% 0 0 0; border-radius:10px; overflow:hidden; box-shadow:0 24px 64px -22px rgba(0,0,0,0.85); border:1px solid rgba(240,192,64,0.16);">
+              <iframe src="https://player.vimeo.com/video/135011802?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute; top:0; left:0; width:100%; height:100%;" title="The Time You Have (In JellyBeans)"></iframe>
+            </div>
+            <p style="margin:12px 0 0; font-size:12px; color:#9a9fc0; line-height:1.5;">&ldquo;The Time You Have (In JellyBeans)&rdquo; &mdash; Leo Burnett, 2015 (Vimeo).</p>
+          </div>
         </div>
-        <div data-slide data-screen-label="Slide 3 — Research report" role="group" aria-roledescription="slide" aria-label="3 of 6 — Research report" style="flex:0 0 100%; width:100%; height:100%; transform:translateX({{ slideShift }}); transition:{{ slideTransition }}; display:flex; align-items:center; justify-content:center; padding:4%; background:#0a0a1c;">
-          <image-slot id="cz-report-2" fit="contain" shape="rounded" radius="8" placeholder="Drop research report 2" style="width:100%; height:100%;"></image-slot>
+        <div data-slide data-screen-label="Analysis — AI for XD" role="group" aria-roledescription="slide" aria-label="3 of 5 — Analysis: AI for XD" style="flex:0 0 100%; width:100%; height:100%; transform:translateX({{ slideShift }}); transition:{{ slideTransition }}; overflow:auto; padding:clamp(22px,4%,46px); background:radial-gradient(120% 90% at 80% -10%, #211a55 0%, #0c0925 60%, #07061a 100%);">
+          <div style="max-width:840px;">
+            <div style="display:flex; align-items:center; gap:9px; margin-bottom:6px;">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="var(--gold)" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 7.1-1.01z"/></svg>
+              <span style="font-size:10.5px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold);">Analysis &middot; AI for XD</span>
+            </div>
+            <h2 style="margin:0 0 14px; font-size:clamp(21px,2.8vw,30px); font-weight:700; letter-spacing:-0.4px;">Analysis: AI for XD</h2>
+            <p style="margin:0 0 14px; font-size:clamp(15px,1.7vw,18.5px); line-height:1.5; color:#fff;">Research question: <em>Can 3D immersion in demographic data shift perception from statistics to students?</em></p>
+            <p style="margin:0 0 18px; font-size:clamp(12.5px,1.35vw,14px); line-height:1.55; color:#a9aecb;">Assignment: Mini-Project 1 &nbsp;&middot;&nbsp; Course: Artificial Intelligence for Experiential Design</p>
+            <p style="margin:0 0 11px; font-size:clamp(13px,1.5vw,15.5px); line-height:1.55; color:#d2d6ea;">This experiment validates several design strategies for human-centred data visualization:</p>
+            <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; font-size:clamp(12.5px,1.4vw,14.5px); line-height:1.55; color:#d2d6ea;">
+              <li style="padding-left:20px; position:relative;"><span style="position:absolute; left:1px; color:var(--gold); font-weight:700;">&#8226;</span>1:1 scale in 3D brings individual visibility into view, while still enabling aggregate analysis.</li>
+              <li style="padding-left:20px; position:relative;"><span style="position:absolute; left:1px; color:var(--gold); font-weight:700;">&#8226;</span>Interactive controls allow the viewer to reposition themselves in relation to the dataset.</li>
+              <li style="padding-left:20px; position:relative;"><span style="position:absolute; left:1px; color:var(--gold); font-weight:700;">&#8226;</span>Immersive spatial navigation enhances individual recognition.</li>
+              <li style="padding-left:20px; position:relative;"><span style="position:absolute; left:1px; color:var(--gold); font-weight:700;">&#8226;</span>Rotate-and-orbit controls visualize demographic information from a personal perspective.</li>
+              <li style="padding-left:20px; position:relative;"><span style="position:absolute; left:1px; color:var(--gold); font-weight:700;">&#8226;</span>Zooming from different angles can reveal connections among individuals and groups in complex datasets.</li>
+            </ul>
+          </div>
         </div>
-        <div data-slide data-screen-label="Slide 4 — Research report" role="group" aria-roledescription="slide" aria-label="4 of 6 — Research report" style="flex:0 0 100%; width:100%; height:100%; transform:translateX({{ slideShift }}); transition:{{ slideTransition }}; display:flex; align-items:center; justify-content:center; padding:4%; background:#0a0a1c;">
-          <image-slot id="cz-report-3" fit="contain" shape="rounded" radius="8" placeholder="Drop research report 3" style="width:100%; height:100%;"></image-slot>
+        <div data-slide data-screen-label="Practical applications" role="group" aria-roledescription="slide" aria-label="4 of 5 — Practical applications" style="flex:0 0 100%; width:100%; height:100%; transform:translateX({{ slideShift }}); transition:{{ slideTransition }}; overflow:auto; padding:clamp(22px,4%,46px); background:radial-gradient(120% 90% at 80% -10%, #211a55 0%, #0c0925 60%, #07061a 100%);">
+          <div style="max-width:840px;">
+            <div style="display:flex; align-items:center; gap:9px; margin-bottom:6px;">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="var(--gold)" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 7.1-1.01z"/></svg>
+              <span style="font-size:10.5px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold);">Practical applications</span>
+            </div>
+            <h2 style="margin:0 0 16px; font-size:clamp(21px,2.8vw,30px); font-weight:700; letter-spacing:-0.4px;">Practical applications</h2>
+            <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:16px; font-size:clamp(13px,1.5vw,15.5px); line-height:1.6; color:#d2d6ea;">
+              <li style="padding-left:22px; position:relative;"><span style="position:absolute; left:1px; top:1px; color:var(--gold); font-weight:700;">&#8226;</span>Exploring 3D data visualization fosters empathy and highlights the intersection of individual identities within demographic population groups. By applying design thinking principles to create immersive visualizations, we can adopt a &ldquo;human-centered&rdquo; approach with the potential to &ldquo;drive innovation by deeply understanding&rdquo; demographic data (IDEO U, 2026).</li>
+              <li style="padding-left:22px; position:relative;"><span style="position:absolute; left:1px; top:1px; color:var(--gold); font-weight:700;">&#8226;</span>In both 2D and 3D environments, methods for <em>interpolating</em> the path of individual <em>instances</em> have exciting potential applications. To map student mobility patterns, containers can be correlated with schools or study destinations, and the instanced mesh class can effectively capture study levels, nationality, gender, languages, and more.</li>
+            </ul>
+          </div>
         </div>
-        <div data-slide data-screen-label="Slide 5 — Research report" role="group" aria-roledescription="slide" aria-label="5 of 6 — Research report" style="flex:0 0 100%; width:100%; height:100%; transform:translateX({{ slideShift }}); transition:{{ slideTransition }}; display:flex; align-items:center; justify-content:center; padding:4%; background:#0a0a1c;">
-          <image-slot id="cz-report-4" fit="contain" shape="rounded" radius="8" placeholder="Drop research report 4" style="width:100%; height:100%;"></image-slot>
-        </div>
-        <div data-slide data-screen-label="Slide 6 — References" role="group" aria-roledescription="slide" aria-label="6 of 6 — References" style="flex:0 0 100%; width:100%; height:100%; transform:translateX({{ slideShift }}); transition:{{ slideTransition }}; overflow:auto; padding:clamp(22px,4%,46px); background:radial-gradient(120% 90% at 80% -10%, #211a55 0%, #0c0925 60%, #07061a 100%);">
+        <div data-slide data-screen-label="References" role="group" aria-roledescription="slide" aria-label="5 of 5 — References" style="flex:0 0 100%; width:100%; height:100%; transform:translateX({{ slideShift }}); transition:{{ slideTransition }}; overflow:auto; padding:clamp(22px,4%,46px); background:radial-gradient(120% 90% at 80% -10%, #211a55 0%, #0c0925 60%, #07061a 100%);">
           <div style="max-width:760px;">
             <div style="display:flex; align-items:center; gap:9px; margin-bottom:6px;">
               <svg viewBox="0 0 24 24" width="13" height="13" fill="var(--gold)" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 7.1-1.01z"/></svg>
@@ -165,7 +192,7 @@
 
     <!-- slide dots — centered under the screen -->
     <div role="tablist" aria-label="Choose slide" style="display:flex; align-items:center; justify-content:center; gap:10px;">
-      <sc-for list="{{ dots }}" as="d" hint-placeholder-count="6">
+      <sc-for list="{{ dots }}" as="d" hint-placeholder-count="5">
         <button data-dot data-i="{{ d.idx }}" role="tab" aria-current="{{ d.cur }}" aria-label="{{ d.label }}" style="height:9px; width:{{ d.width }}; border:0; border-radius:999px; background:{{ d.bg }}; cursor:pointer; padding:0; transition:width .3s, background .3s;"></button>
       </sc-for>
     </div>
@@ -206,12 +233,17 @@
 
   </div><!-- /cz-stage -->
 
-  <!-- ===== Carousel nav — edge arrows ===== -->
-  <div style="width:min(1560px,96vw); display:flex; align-items:center; justify-content:space-between; gap:18px;">
-    <button data-act="prev" aria-label="Previous slide" style="width:54px; height:54px; flex:0 0 auto; display:flex; align-items:center; justify-content:center; border-radius:14px; border:1px solid rgba(240,192,64,0.5); background:#4B00B6; color:#fff; cursor:pointer; box-shadow:0 8px 22px -8px rgba(75,0,182,0.9);" style-hover="background:#5B04DE;">
+  <!-- ===== Carousel nav — edge arrows + section tabs ===== -->
+  <div style="width:min(1560px,96vw); display:flex; align-items:center; justify-content:space-between; gap:14px;">
+    <button data-act="prev" aria-label="Previous section" style="width:54px; height:54px; flex:0 0 auto; display:flex; align-items:center; justify-content:center; border-radius:14px; border:1px solid rgba(240,192,64,0.5); background:#4B00B6; color:#fff; cursor:pointer; box-shadow:0 8px 22px -8px rgba(75,0,182,0.9);" style-hover="background:#5B04DE;">
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
     </button>
-    <button data-act="next" aria-label="Next slide" style="width:54px; height:54px; flex:0 0 auto; display:flex; align-items:center; justify-content:center; border-radius:14px; border:1px solid rgba(240,192,64,0.5); background:#4B00B6; color:#fff; cursor:pointer; box-shadow:0 8px 22px -8px rgba(75,0,182,0.9);" style-hover="background:#5B04DE;">
+    <div role="tablist" aria-label="Jump to section" style="flex:1 1 auto; min-width:0; display:flex; gap:8px;">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
+        <button data-dot data-i="{{ t.idx }}" role="tab" aria-current="{{ t.cur }}" aria-label="{{ t.label }}" style="flex:1 1 0; min-width:0; height:54px; padding:0 10px; display:flex; align-items:center; justify-content:center; text-align:center; font:inherit; font-size:clamp(9.5px,0.92vw,12.5px); font-weight:{{ t.weight }}; letter-spacing:1.1px; text-transform:uppercase; line-height:1.14; color:{{ t.color }}; background:{{ t.bg }}; border:1px solid {{ t.border }}; border-radius:13px; cursor:pointer; transition:background .25s, color .25s, border-color .25s;">{{ t.label }}</button>
+      </sc-for>
+    </div>
+    <button data-act="next" aria-label="Next section" style="width:54px; height:54px; flex:0 0 auto; display:flex; align-items:center; justify-content:center; border-radius:14px; border:1px solid rgba(240,192,64,0.5); background:#4B00B6; color:#fff; cursor:pointer; box-shadow:0 8px 22px -8px rgba(75,0,182,0.9);" style-hover="background:#5B04DE;">
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
     </button>
   </div>
@@ -231,8 +263,8 @@ class Component extends DCLogic {
     { name: 'Nigeria', count: '340',   color: '#008751' },
     { name: 'Vietnam', count: '293',   color: '#FFFF66' }
   ];
-  LABELS = ['interactive 3D visualization', 'research report', 'research report', 'research report', 'research report', 'references'];
-  COUNT = 6;
+  LABELS = ['Data viz', 'Inspiration', 'Analysis: AI for XD', 'Practical applications', 'References'];
+  COUNT = 5;
   state = { active: 0, portalOn: false, idle: false, rotating: false, isolated: -1 };
 
   setRoot = (el) => { this.root = el; };
@@ -369,6 +401,19 @@ class Component extends DCLogic {
         label: 'Slide ' + (i + 1) + ', ' + this.LABELS[i]
       });
     }
+    const tabs = [];
+    for (let i = 0; i < this.COUNT; i++) {
+      const cur = i === a;
+      tabs.push({
+        idx: i,
+        label: this.LABELS[i],
+        cur: cur ? 'true' : 'false',
+        bg: cur ? 'rgba(240,192,64,0.16)' : 'rgba(255,255,255,0.03)',
+        color: cur ? '#F0C040' : '#aab0cf',
+        border: cur ? 'rgba(240,192,64,0.6)' : 'rgba(255,255,255,0.10)',
+        weight: cur ? '700' : '600'
+      });
+    }
     const isos = this.COUNTRIES.map((c, i) => {
       const sel = this.state.isolated === i;
       return {
@@ -391,6 +436,7 @@ class Component extends DCLogic {
       panelDisplay: a === 0 ? 'flex' : 'none',
       idleClass: this.state.idle ? 'idle' : '',
       dots,
+      tabs,
       isos,
       rotPressed: String(rot),
       rotBg: rot ? 'rgba(240,192,64,0.18)' : 'rgba(255,255,255,0.05)',
