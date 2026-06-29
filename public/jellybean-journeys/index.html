@@ -105,10 +105,10 @@
             </ul>
           </div>
         </div>
-        <div data-slide data-screen-label="Practical applications" role="group" aria-roledescription="slide" aria-label="4 of 5 — Practical applications" style="flex:0 0 100%; width:100%; height:100%; transform:translateX({{ slideShift }}); transition:{{ slideTransition }}; overflow:auto; padding:clamp(22px,4%,46px); background:#F0F4F5;">
+        <div data-slide data-screen-label="Practical Applications" role="group" aria-roledescription="slide" aria-label="4 of 5 — Practical Applications" style="flex:0 0 100%; width:100%; height:100%; transform:translateX({{ slideShift }}); transition:{{ slideTransition }}; overflow:auto; padding:clamp(22px,4%,46px); background:#F0F4F5;">
           <div style="max-width:860px;">
             <div style="width:100%; margin-bottom:22px; padding:17px 26px; background:#4A0F8A; border-radius:15px; box-shadow:0 16px 34px -16px rgba(74,15,138,0.7); text-align:center;">
-              <h2 style="margin:0; font-size:clamp(20px,2.7vw,28px); font-weight:700; letter-spacing:-0.2px; color:#fff;">Practical applications</h2>
+              <h2 style="margin:0; font-size:clamp(20px,2.7vw,28px); font-weight:700; letter-spacing:-0.2px; color:#fff;">Practical Applications</h2>
             </div>
             <ul style="list-style:none; margin:0; padding:18px 18px; background:#F0E7FE; border:1px solid #E2CEFD; border-radius:14px; display:flex; flex-direction:column; gap:16px; font-size:clamp(13px,1.5vw,15.5px); line-height:1.6; color:#3a3553;">
               <li style="padding-left:22px; position:relative;"><span style="position:absolute; left:1px; top:1px; color:#7C18E7; font-weight:700;">&#8226;</span>Exploring 3D data visualization fosters empathy and highlights the intersection of individual identities within demographic population groups. By applying design thinking principles to create immersive visualizations, we can adopt a &ldquo;human-centered&rdquo; approach with the potential to &ldquo;drive innovation by deeply understanding&rdquo; demographic data (IDEO U, 2026).</li>
@@ -257,9 +257,9 @@ class Component extends DCLogic {
     { name: 'Nigeria', count: '340',   color: '#008751' },
     { name: 'Vietnam', count: '293',   color: '#FFFF66' }
   ];
-  LABELS = ['Data viz', 'Inspiration', 'Analysis: AI for XD', 'Practical applications', 'References'];
-  // Midnight-violet spectrum across the 5 section tiles: lightest (400) → darkest (800)
-  TAB_SHADES = ['#9646EC', '#7C18E7', '#6313B9', '#4A0F8A', '#320A5C'];
+  LABELS = ['Data viz', 'Inspiration', 'Analysis: AI for XD', 'Practical Applications', 'References'];
+  // Section-tile spectrum: two light lavender tiles (dark text for AAA contrast) → midnight-violet 600–800
+  TAB_SHADES = ['#F2E8FD', '#E2CEFD', '#6313B9', '#4A0F8A', '#320A5C'];
   COUNT = 5;
   state = { active: 0, portalOn: false, idle: false, rotating: false, isolated: -1 };
 
