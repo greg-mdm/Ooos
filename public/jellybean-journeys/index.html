@@ -467,5 +467,29 @@ class Component extends DCLogic {
   }
 }
 </script>
+<script>
+  /* Embed self-sizing. When this page is framed same-origin (the homepage
+     "Featured Data Visualization" jbj-hero iframe), grow our own <iframe> to
+     fit the content height. That removes the nested/internal scroll that was
+     trapping the host page's scroll ("sticky elbow") — the page now scrolls
+     straight through the section. No-op when opened directly or cross-origin. */
+  (function () {
+    var fe;
+    try { fe = window.frameElement; } catch (e) { return; } /* cross-origin host */
+    if (!fe) return;                                         /* opened directly */
+    var last = 0, queued = false;
+    function apply() {
+      queued = false;
+      var d = document;
+      var h = Math.max(d.documentElement.scrollHeight, d.body ? d.body.scrollHeight : 0);
+      if (h && Math.abs(h - last) > 2) { last = h; fe.style.height = h + 'px'; }
+    }
+    function schedule() { if (!queued) { queued = true; requestAnimationFrame(apply); } }
+    window.addEventListener('load', schedule);
+    window.addEventListener('resize', schedule);
+    try { new ResizeObserver(schedule).observe(document.documentElement); } catch (e) {}
+    schedule();
+  })();
+</script>
 </body>
 </html>
