@@ -2004,8 +2004,12 @@ a:hover { color: var(--electric); }
 .ostara-scope .case-body a:hover { color: #5B04DE; }
 
 /* CID: light teal page body, ruby ink, teal-accent headings/links */
+/* CID light bands — bright silver (no red tint), tokenized so every
+   robin's-egg-family band on CID can move together. Same silver used on the
+   Ooo Divisions cards / studio panes / jellybean tiles for cohesion. */
+.cid-scope { --cid-band: linear-gradient(180deg, #F7F9FA 0%, #E8ECF4 46%, #DCE3E8 100%); }
 .cid-scope .case-body {
-  background: #E6F7F2;
+  background: var(--cid-band);
   color: #1A0033;
 }
 /* Accessibility: CID headings use the elevated face (Montserrat), never Poppins */
