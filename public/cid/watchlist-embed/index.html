@@ -1494,6 +1494,46 @@
       .cid-observatory-frame { min-height: 1640px; }
     }
 
+    /* Merged observatory title card — replaces the old red Innovation Watchlist banner.
+       Sits in the left grid cell beside the kept IEP image (locked 2fr/1fr layout). */
+    .title-banner.obs-card {
+      background: linear-gradient(180deg, rgba(11,18,26,0.94), rgba(9,15,22,0.92));
+      align-items: flex-start;
+      text-align: left;
+      gap: 0.5rem;
+    }
+    .obs-eyebrow {
+      color: #9cf8f6;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .obs-title-row { display: flex; align-items: center; gap: 0.65rem; }
+    .obs-bigtitle {
+      margin: 0;
+      color: #eaf6ff;
+      font-weight: 800;
+      letter-spacing: 0.015em;
+      font-size: clamp(1.5rem, 2.2vw, 2rem);
+      line-height: 1.08;
+    }
+    .obs-oval-row { margin: 0.1rem 0 0.15rem; }
+    .obs-card .cid-observatory-oval { font-size: clamp(1.35rem, 1.9vw, 1.7rem); }
+    .obs-viewing {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      color: rgba(214,255,255,0.9);
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .obs-viewing-icon { width: 32px; height: 32px; }
+    @media (max-width: 900px) {
+      .obs-bigtitle { font-size: 1.5rem; }
+    }
+
     /* === EMBED OVERRIDES (sit-below-header variant) === */
     body { background: #05030F; }
     canvas#bg { display: none; }
@@ -1515,41 +1555,26 @@
   </header>
 
   <main>
-    <!-- TITLE BANNER — nested in blue-bordered wrapper -->
+    <!-- CID · Live Data Observatory — IEP image + titles merged into one section -->
     <div class="title-banner-wrap">
       <div class="title-banner-stack">
-      <div class="title-banner">
-        <div class="title-eyebrow">Innovation Watchlist</div>
-        <ul class="title-banner-bullets">
-          <li>Signal intelligence to illuminate Canada’s technology innovation ecosystem.</li>
-          <li>Monitors industrial strategy, bilateral partnerships, and capital market activity.</li>
-        </ul>
-        <div class="title-sub-mobile" aria-hidden="false">
-          <ul class="tsm-bullets">
-            <li>Signal intelligence to illuminate Canada’s technology innovation ecosystem.</li>
-            <li>Monitors industrial strategy, bilateral partnerships, and capital market activity.</li>
-          </ul>
+        <div class="title-banner obs-card">
+          <div class="obs-eyebrow">Zoom in · Ontario Data</div>
+          <div class="obs-title-row">
+            <img class="cid-observatory-icon" src="/assets/images/brand/LEAF-transp.png" alt="" aria-hidden="true">
+            <h2 class="obs-bigtitle">Canadian Innovation Dimension</h2>
+          </div>
+          <div class="obs-oval-row"><span class="cid-observatory-oval">Live Data Observatory</span></div>
+          <div class="obs-viewing">
+            <img class="cid-observatory-icon obs-viewing-icon" src="/assets/telescope.png" alt="" aria-hidden="true">
+            <span>Viewing: Ontario [East-central Canada]</span>
+          </div>
         </div>
-      </div>
       </div>
       <div class="title-banner-compass" aria-hidden="true">
         <img src="/assets/INNOVATION-IEP.webp" alt="Innovation · Entrepreneurship · Partnership">
       </div>
     </div>
-
-    <div class="on-obs-kicker" style="margin: 0.4rem 0.75rem 0.5rem;">Zoom in · Ontario Data</div>
-
-    <section class="cid-observatory-header" aria-label="CID Live Data Observatory header">
-      <div class="cid-observatory-kicker">
-        <img class="cid-observatory-icon" src="/assets/images/brand/LEAF-transp.png" alt="" aria-hidden="true">
-        <span>Canadian Innovation Dimension</span>
-      </div>
-      <div class="cid-observatory-title"><span class="cid-observatory-oval">Live Data Observatory</span></div>
-      <div class="cid-observatory-viewing">
-        <img class="cid-observatory-icon" src="/assets/telescope.png" alt="" aria-hidden="true">
-        <span>Viewing: Ontario [East-central Canada]</span>
-      </div>
-    </section>
 
     <!-- LIVE DATA OBSERVATORY (embedded for CID-page refinement) -->
     <section class="cid-observatory-wrap" aria-label="Live Data Observatory">

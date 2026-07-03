@@ -454,14 +454,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
         >
           Open the watchlist (full screen) ↗
         </a>
-        <a
-          href="https://kahoot.it/challenge/01297559"
-          className="btn btn-kahoot"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Vote on Kahoot →
-        </a>
       </div>
 
       <section className="cid-watchlist-embed">
