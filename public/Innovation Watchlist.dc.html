@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:
+      radial-gradient(120% 90% at 18% 12%, rgba(150,18,44,0.30) 0%, rgba(150,18,44,0) 46%),
+      radial-gradient(120% 90% at 84% 88%, rgba(150,18,44,0.22) 0%, rgba(150,18,44,0) 50%),
+      radial-gradient(140% 120% at 50% 40%, #150625 0%, #0a021a 55%, #06021C 100%);
+    min-height:100vh;
+    font-family:'Archivo',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  @keyframes wl-sheen{
+    0%{transform:translateX(-160%) skewX(-16deg)}
+    100%{transform:translateX(320%) skewX(-16deg)}
+  }
+  @keyframes wl-bolt{
+    0%,100%{opacity:0}
+    2%{opacity:0.9}
+    4%{opacity:0.1}
+    6%{opacity:0.85}
+    9%{opacity:0}
+  }
+  @keyframes wl-bolt2{
+    0%,100%{opacity:0}
+    47%{opacity:0}
+    49%{opacity:0.85}
+    51%{opacity:0.15}
+    53%{opacity:0.75}
+    56%{opacity:0}
+  }
+  @keyframes wl-arc{
+    0%{stroke-dashoffset:340}
+    100%{stroke-dashoffset:0}
+  }
+</style>
+</helmet>
+
+<div id="watchblock" style="--kw:{{ kw }};--glow:{{ glow }};--shimmer:{{ shimmerState }};min-height:100vh;display:flex;align-items:center;justify-content:center;padding:56px 40px;">
+
+  <div style="width:min(1180px,94vw);padding:34px 34px 38px;border-radius:2px;position:relative;background:linear-gradient(165deg,rgba(28,10,44,0.62),rgba(10,3,24,0.55));backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid rgba(232,236,244,0.10);box-shadow:0 40px 120px -30px rgba(0,0,0,0.75),inset 0 1px 0 rgba(255,255,255,0.10);">
+
+    <!-- HEADER -->
+    <div style="display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:26px;">
+      <h1 style="margin:0;font-family:'Archivo',sans-serif;font-weight:700;font-size:clamp(30px,4.2vw,54px);letter-spacing:0.14em;text-transform:uppercase;background:linear-gradient(180deg,#ffffff 0%,#E8ECF4 55%,#b9c2d6 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 2px 30px rgba(232,236,244,0.14);">Innovation Watchlist</h1>
+      <div style="margin-top:16px;width:96px;height:4px;border-radius:4px;background:linear-gradient(90deg,rgba(198,22,54,0),#C61636 30%,#e23a58 50%,#C61636 70%,rgba(198,22,54,0));box-shadow:0 0 22px rgba(198,22,54,0.7);"></div>
+    </div>
+
+    <!-- FLAG BODY 1 : 2 : 1 -->
+    <div style="display:grid;grid-template-columns:1fr 2fr 1fr;gap:16px;min-height:440px;">
+
+      <!-- LEFT RUBY GLASS -->
+      <div style="position:relative;overflow:hidden;border-radius:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:34px 28px;background:linear-gradient(158deg,#B4102F 0%,#8A0C24 44%,#4E0714 100%);border:1px solid rgba(255,255,255,0.14);box-shadow:0 22px 60px -24px rgba(150,10,30,0.75),inset 0 1px 0 rgba(255,255,255,0.28),inset 0 -30px 60px -30px rgba(0,0,0,0.6);transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s ease,filter .5s ease,border-color .5s ease;" style-hover="transform:translateY(-4px);filter:brightness(1.08) saturate(1.05);border-color:rgba(255,255,255,0.4);box-shadow:0 32px 80px -20px rgba(198,22,54,var(--glow,0.6)),0 0 60px -6px rgba(226,58,88,var(--glow,0.6)),inset 0 1px 0 rgba(255,255,255,0.5),inset 0 -30px 60px -30px rgba(0,0,0,0.55);">
+        <div style="position:absolute;top:-20%;left:0;width:42%;height:140%;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.30),transparent);filter:blur(8px);animation:wl-sheen 7.5s linear infinite;animation-play-state:var(--shimmer,running);"></div>
+        <img src="assets/redbolt.png" alt="" style="position:absolute;top:-8%;left:-6%;width:78%;pointer-events:none;transform:scaleX(-1) rotate(4deg);filter:brightness(0) invert(1) drop-shadow(0 0 6px rgba(255,255,255,0.85)) drop-shadow(0 0 16px rgba(255,190,205,0.6));animation:wl-bolt 6.5s ease-in-out infinite;animation-play-state:var(--shimmer,running);"/>
+        <img src="assets/redbolt.png" alt="" style="position:absolute;top:-6%;right:-10%;width:70%;pointer-events:none;transform:rotate(6deg);filter:drop-shadow(0 0 5px rgba(255,70,100,0.9)) drop-shadow(0 0 14px rgba(255,43,77,0.7));animation:wl-bolt2 6.5s ease-in-out infinite;animation-play-state:var(--shimmer,running);"/>
+        <p style="position:relative;margin:0;min-width:0;max-width:100%;overflow-wrap:break-word;word-break:normal;hyphens:auto;font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(19px,2vw,30px);line-height:1.18;letter-spacing:0.01em;text-transform:uppercase;color:#E8ECF4;text-shadow:0 1px 2px rgba(60,4,14,0.55),0 0 26px rgba(232,236,244,0.12);">Signal intelligence to illuminate Canada&rsquo;s technology innovation ecosystem</p>
+      </div>
+
+      <!-- MIDDLE FROSTED WHITE -->
+      <div style="position:relative;overflow:hidden;border-radius:0;display:flex;align-items:center;padding:40px 44px;background:linear-gradient(160deg,rgba(255,255,255,0.97),rgba(240,243,249,0.92));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.7);box-shadow:0 22px 60px -26px rgba(120,130,160,0.55),inset 0 1px 0 rgba(255,255,255,0.9),inset 0 0 0 1px rgba(198,22,54,0.06);transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s ease,filter .5s ease,border-color .5s ease;" style-hover="transform:translateY(-4px);filter:brightness(1.04);border-color:rgba(198,22,54,0.35);box-shadow:0 34px 90px -24px rgba(150,20,44,var(--glow,0.6)),0 0 70px -10px rgba(232,236,244,var(--glow,0.6)),inset 0 1px 0 rgba(255,255,255,1),inset 0 0 0 1px rgba(198,22,54,0.18);">
+        <div style="position:absolute;top:-20%;left:0;width:46%;height:140%;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(198,22,54,0.10),transparent);filter:blur(10px);animation:wl-sheen 9s linear infinite;animation-delay:1.2s;animation-play-state:var(--shimmer,running);"></div>
+        <img src="assets/redbolt.png" alt="" style="position:absolute;top:-12%;left:-5%;width:62%;pointer-events:none;opacity:0.9;transform:scaleX(-1) rotate(3deg);filter:drop-shadow(0 0 4px rgba(225,29,72,0.55)) drop-shadow(0 0 12px rgba(255,95,122,0.45));animation:wl-bolt 7.5s ease-in-out infinite;animation-delay:2s;animation-play-state:var(--shimmer,running);"/>
+        <img src="assets/redbolt.png" alt="" style="position:absolute;top:-10%;right:-6%;width:58%;pointer-events:none;opacity:0.9;transform:rotate(4deg);filter:drop-shadow(0 0 4px rgba(225,29,72,0.55)) drop-shadow(0 0 12px rgba(255,95,122,0.45));animation:wl-bolt2 7.5s ease-in-out infinite;animation-delay:1s;animation-play-state:var(--shimmer,running);"/>
+        <p style="position:relative;margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(19px,1.9vw,26px);line-height:1.55;color:#0F031C;"><span style="display:block;">Watching <span style="color:var(--kw,#B31237);font-weight:600;">꩜ Space</span>, <span style="color:var(--kw,#B31237);font-weight:600;">AI</span>, <span style="color:var(--kw,#B31237);font-weight:600;">Defence</span>, <span style="color:var(--kw,#B31237);font-weight:600;">Energy</span>, <span style="color:var(--kw,#B31237);font-weight:600;">Maritime</span>, <span style="color:var(--kw,#B31237);font-weight:600;">Quantum</span>, and <span style="color:var(--kw,#B31237);font-weight:600;">Photonics</span>.</span><span style="display:block;margin-top:1.05em;">Advancing cooperation across <span style="color:#0F031C;font-weight:600;">Canada</span>, the <span style="color:#0F031C;font-weight:600;">EU</span>, <span style="color:#0F031C;font-weight:600;">Nordic countries</span>, and <span style="color:#0F031C;font-weight:600;">Indo-Pacific</span>.</span><span style="display:block;margin-top:1.05em;">Working with strategic partners in the <span style="color:#0F031C;font-weight:600;">Americas</span>, <span style="color:#0F031C;font-weight:600;">Africa</span>, and the <span style="color:#0F031C;font-weight:600;">Middle East</span>.</span></p>
+      </div>
+
+      <!-- RIGHT RUBY GLASS -->
+      <div style="position:relative;overflow:hidden;border-radius:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:34px 28px;background:linear-gradient(202deg,#B4102F 0%,#8A0C24 44%,#4E0714 100%);border:1px solid rgba(255,255,255,0.14);box-shadow:0 22px 60px -24px rgba(150,10,30,0.75),inset 0 1px 0 rgba(255,255,255,0.28),inset 0 -30px 60px -30px rgba(0,0,0,0.6);transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s ease,filter .5s ease,border-color .5s ease;" style-hover="transform:translateY(-4px);filter:brightness(1.08) saturate(1.05);border-color:rgba(255,255,255,0.4);box-shadow:0 32px 80px -20px rgba(198,22,54,var(--glow,0.6)),0 0 60px -6px rgba(226,58,88,var(--glow,0.6)),inset 0 1px 0 rgba(255,255,255,0.5),inset 0 -30px 60px -30px rgba(0,0,0,0.55);">
+        <div style="position:absolute;top:-20%;left:0;width:42%;height:140%;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.30),transparent);filter:blur(8px);animation:wl-sheen 8s linear infinite;animation-delay:0.6s;animation-play-state:var(--shimmer,running);"></div>
+        <img src="assets/redbolt.png" alt="" style="position:absolute;top:-8%;right:-6%;width:78%;pointer-events:none;transform:rotate(4deg);filter:brightness(0) invert(1) drop-shadow(0 0 6px rgba(255,255,255,0.85)) drop-shadow(0 0 16px rgba(255,190,205,0.6));animation:wl-bolt 7s ease-in-out infinite;animation-delay:0.8s;animation-play-state:var(--shimmer,running);"/>
+        <img src="assets/redbolt.png" alt="" style="position:absolute;top:-10%;left:-8%;width:72%;pointer-events:none;transform:scaleX(-1) rotate(6deg);filter:drop-shadow(0 0 5px rgba(255,70,100,0.9)) drop-shadow(0 0 14px rgba(255,43,77,0.7));animation:wl-bolt2 7s ease-in-out infinite;animation-delay:1.6s;animation-play-state:var(--shimmer,running);"/>
+        <p style="position:relative;margin:0;min-width:0;max-width:100%;overflow-wrap:break-word;word-break:normal;hyphens:auto;font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(19px,2vw,30px);line-height:1.18;letter-spacing:0.01em;text-transform:uppercase;color:#E8ECF4;text-shadow:0 1px 2px rgba(60,4,14,0.55),0 0 26px rgba(232,236,244,0.12);">Monitors:<span style="display:block;margin-top:14px;">Industrial strategy</span><span style="display:block;margin-top:10px;">Multilateral partnership</span><span style="display:block;margin-top:10px;">Capital market activity</span></p>
+      </div>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: {&quot;width&quot;: 1280, &quot;height&quot;: 760},
+  &quot;keywordColor&quot;: {&quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#8E0C28&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;options&quot;: [&quot;#B31237&quot;, &quot;#C8102E&quot;, &quot;#8E0C28&quot;, &quot;#A4093B&quot;], &quot;section&quot;: &quot;Theme&quot;},
+  &quot;glowIntensity&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 0.6, &quot;min&quot;: 0, &quot;max&quot;: 1, &quot;step&quot;: 0.05, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Theme&quot;},
+  &quot;shimmer&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Theme&quot;}
+}">
+class Component extends DCLogic {
+  renderVals() {
+    const kw = this.props.keywordColor ?? '#8E0C28';
+    const glow = this.props.glowIntensity ?? 0.6;
+    const shimmerState = (this.props.shimmer ?? true) ? 'running' : 'paused';
+    return { kw, glow, shimmerState };
+  }
+}
+</script>
+</body>
+</html>
