@@ -2021,7 +2021,7 @@ a:hover { color: var(--electric); }
   left: 50%; right: 50%;
   width: 100vw;
   margin-left: -50vw; margin-right: -50vw;
-  background: #06021C;
+  background: #E8ECF4;   /* bright silver — matches the block body behind the iframe */
   line-height: 0;
   overflow: hidden;
 }
@@ -2037,12 +2037,12 @@ a:hover { color: var(--electric); }
   left: 50%; right: 50%;
   width: 100vw;
   margin: 0 -50vw;
-  background: #06021C;
+  background: #E8ECF4;   /* bright silver — blends with the block above */
   display: flex;
   gap: 14px;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 2px 1.5rem 40px;
+  padding: 28px 1.5rem 44px;
 }
 /* Accessibility: CID headings use the elevated face (Montserrat), never Poppins */
 .cid-scope h1, .cid-scope h2, .cid-scope h3,
