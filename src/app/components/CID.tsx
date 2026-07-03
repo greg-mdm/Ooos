@@ -359,14 +359,16 @@ function Underground() {
   return (
     <section className="cid-underground" aria-labelledby="cid-underground-title">
       <div className="cid-continuum-inner">
-        <p className="cid-underground-eyebrow">
-          <span aria-hidden="true">▼</span> Below the surface
-        </p>
-        <h2 id="cid-underground-title" className="cid-underground-title">Underground &amp; terrain</h2>
-        <p className="cid-underground-lede">
-          The deepest layer of the public record&mdash;what lies beneath the map. Aggregate
-          sites, elevation surfaces and the national strategy to protect the nature above them.
-        </p>
+        <div className="cid-underground-head">
+          <p className="cid-underground-eyebrow">
+            <span aria-hidden="true">▼</span> Below the surface
+          </p>
+          <h2 id="cid-underground-title" className="cid-underground-title">Underground &amp; terrain</h2>
+          <p className="cid-underground-lede">
+            The deepest layer of the public record&mdash;what lies beneath the map. Aggregate
+            sites, elevation surfaces and the national strategy to protect the nature above them.
+          </p>
+        </div>
         <div className="cid-underground-grid">
           {UNDERGROUND.map((l) => (
             <a
