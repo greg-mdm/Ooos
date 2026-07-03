@@ -1646,11 +1646,9 @@
         border-bottom: 1px solid rgba(0,107,87,0.35); padding-bottom: 2px; width: fit-content;
       }
       .on-obs-links a:hover { color: #00A589; border-color: #00A589; }
-      .on-obs-figure { margin: 0; }
-      .on-obs-panel { display: block; max-width: 1240px; margin: 0 auto; text-decoration: none; }
+      /* The command-deck image IS the section (a mock) — full-bleed, no figure frame. */
+      .on-obs-panel { display: block; width: 100%; margin: 0; text-decoration: none; }
       .on-obs-panel img { width: 100%; height: auto; display: block; }
-      .on-obs-cap { margin: 0.7rem auto 0; max-width: 1240px; color: #51606a; font-size: 0.96rem; line-height: 1.5; text-align: center; }
-      .on-obs-cap a { color: #006B57; text-decoration: underline; }
       @media (max-width: 760px) {
         .on-obs { margin: 1.5rem 1rem 2.2rem; }
         .on-obs-inner { padding: 0 1rem; }
@@ -1669,18 +1667,15 @@
           </div>
         </div>
       </div>
-      <figure class="on-obs-figure">
-        <a class="on-obs-panel" href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">
-          <picture>
-            <source media="(max-width: 760px)" type="image/webp" srcset="/on-mobile.webp">
-            <source media="(max-width: 760px)" srcset="/on-mobile-png.png">
-            <source type="image/webp" srcset="/on-webp.webp">
-            <img src="/media-1783054854738.png" alt="Ontario regions command deck — provincial map with employment change for the five geographic zones (Greater Toronto Area +2.7K, Northern +4.9K, Eastern −33.8K, Southwestern −11.6K, Central +0.6K) and the 11 economic regions grouped by zone. Source: Statistics Canada, Labour Force Survey, Q2 2026." loading="lazy">
-          </picture>
-        </a>
-        <figcaption class="on-obs-cap">Ontario&rsquo;s five geographic regions and 11 economic regions, with employment change. Source: <a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">Ontario Employment Report (§4) ↗</a>.</figcaption>
-      </figure>
       </div>
+      <a class="on-obs-panel" href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">
+        <picture>
+          <source media="(max-width: 760px)" type="image/webp" srcset="/on-mobile.webp">
+          <source media="(max-width: 760px)" srcset="/on-mobile-png.png">
+          <source type="image/webp" srcset="/on-webp.webp">
+          <img src="/media-1783054854738.png" alt="Ontario regions command deck — provincial map with employment change for the five geographic zones (Greater Toronto Area +2.7K, Northern +4.9K, Eastern −33.8K, Southwestern −11.6K, Central +0.6K) and the 11 economic regions grouped by zone. Source: Statistics Canada, Labour Force Survey, Q2 2026." loading="lazy">
+        </picture>
+      </a>
     </section>
 
     <style>
