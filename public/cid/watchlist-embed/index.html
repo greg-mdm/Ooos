@@ -1515,9 +1515,16 @@
       min-width: 0;
     }
     .obs-block + .obs-block { border-left: 1px solid rgba(31,206,203,0.32); }
+    .obs-subrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+    }
     .obs-block-icon {
-      width: 42px;
-      height: 42px;
+      flex: 0 0 auto;
+      width: 36px;
+      height: 36px;
       object-fit: contain;
       border-radius: 50%;
       background: #fff;
@@ -1542,6 +1549,8 @@
       font-size: 0.98rem;
       font-weight: 600;
       letter-spacing: 0.04em;
+      line-height: 1.35;
+      text-align: left;
     }
     @media (max-width: 900px) {
       .title-banner.obs-card { grid-template-columns: 1fr; gap: 1.1rem; padding: 1.5rem 1.4rem; }
@@ -1576,14 +1585,18 @@
       <div class="title-banner-stack">
         <div class="title-banner obs-card">
           <div class="obs-block">
-            <img class="obs-block-icon" src="/assets/images/brand/LEAF-transp.png" alt="" aria-hidden="true">
             <h2 class="obs-bigtitle">Canadian Innovation Dimension</h2>
-            <div class="obs-sub">Zoom in · Ontario Data</div>
+            <div class="obs-subrow">
+              <img class="obs-block-icon" src="/assets/images/brand/LEAF-transp.png" alt="" aria-hidden="true">
+              <div class="obs-sub">Zoom in · Ontario Data</div>
+            </div>
           </div>
           <div class="obs-block">
-            <img class="obs-block-icon" src="/assets/telescope.png" alt="" aria-hidden="true">
             <h2 class="obs-bigtitle">Live Data Observatory</h2>
-            <div class="obs-sub">Viewing: Ontario [East-central Canada]</div>
+            <div class="obs-subrow">
+              <img class="obs-block-icon" src="/assets/telescope.png" alt="" aria-hidden="true">
+              <div class="obs-sub">Viewing: Ontario<br>[East-central Canada]</div>
+            </div>
           </div>
         </div>
       </div>
