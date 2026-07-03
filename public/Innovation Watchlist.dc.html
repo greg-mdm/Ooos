@@ -104,5 +104,28 @@ class Component extends DCLogic {
   }
 }
 </script>
+<script>
+  /* Embed self-sizing. Only when framed same-origin (the CID page hero):
+     collapse the 100vh hero to content height and grow our <iframe> to fit,
+     so the host page scrolls straight through. No-op when opened directly. */
+  (function () {
+    var fe; try { fe = window.frameElement; } catch (e) { return; }
+    if (!fe) return;
+    var s = document.createElement('style');
+    s.textContent = 'html,body,#watchblock{min-height:auto!important}';
+    (document.head || document.documentElement).appendChild(s);
+    var last = 0, queued = false;
+    function apply() {
+      queued = false;
+      var h = Math.max(document.documentElement.scrollHeight, document.body ? document.body.scrollHeight : 0);
+      if (h && Math.abs(h - last) > 2) { last = h; fe.style.height = h + 'px'; }
+    }
+    function schedule() { if (!queued) { queued = true; requestAnimationFrame(apply); } }
+    window.addEventListener('load', schedule);
+    window.addEventListener('resize', schedule);
+    try { new ResizeObserver(schedule).observe(document.documentElement); } catch (e) {}
+    schedule();
+  })();
+</script>
 </body>
 </html>

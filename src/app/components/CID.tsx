@@ -434,54 +434,34 @@ export function CID({ onSupport }: { onSupport: () => void }) {
         </div>
       </section>
 
-      <div className="case-body cid-body-wide">
-        <div className="cid-split">
-          <div className="cid-watchlist-card">
-            <h2 className="cid-watchlist-title"><strong>INNOVATION WATCHLIST</strong></h2>
-            <p>
-              A curated watchlist monitoring Space, AI, Defence, Energy,
-              Maritime, and Quantum across Canada, the EU, the Nordic countries,
-              and the Indo-Pacific. Each signal card presents an analysis of
-              policy triggers across procurement, regulation, sovereignty,
-              investment, and strategic priorities.
-            </p>
-            <p>
-              Signals can be filtered by region, sector, status, organization
-              type, and signal strength. Inspired by gamestorming concepts, the
-              watchlist empowers participants worldwide to explore signals,
-              compare perspectives, and make decisions under uncertainty.
-            </p>
+      {/* Innovation Watchlist hero — self-contained DC block from
+          public/Innovation Watchlist.dc.html (full-bleed, self-sizing iframe). */}
+      <section className="cid-wl-hero" aria-label="Innovation Watchlist">
+        <iframe
+          className="cid-wl-frame"
+          src={`${base}Innovation%20Watchlist.dc.html`}
+          title="Innovation Watchlist"
+          loading="lazy"
+        />
+      </section>
 
-            <p style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 24 }}>
-              <a
-                href={`${base}cid/watchlist/`}
-                className="btn btn-primary"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Open the watchlist (full screen) ↗
-              </a>
-              <a
-                href="https://kahoot.it/challenge/01297559"
-                className="btn btn-kahoot"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Vote on Kahoot →
-              </a>
-            </p>
-          </div>
-
-          <div className="cid-right-col">
-            <div className="cid-note-card">
-              <p>
-                Examine interconnected signals across <strong>public, private,
-                nonprofit, government, financial, and research</strong> sectors to
-                identify emerging opportunities for strategic alignment.
-              </p>
-            </div>
-          </div>
-        </div>
+      <div className="cid-wl-cta">
+        <a
+          href={`${base}cid/watchlist/`}
+          className="btn btn-primary"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Open the watchlist (full screen) ↗
+        </a>
+        <a
+          href="https://kahoot.it/challenge/01297559"
+          className="btn btn-kahoot"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Vote on Kahoot →
+        </a>
       </div>
 
       <section className="cid-watchlist-embed">
