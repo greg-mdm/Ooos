@@ -47,6 +47,8 @@
     .oea-explorer .oea-h { font-family:'Playfair Display',serif; font-weight:600;
       font-size:1.25rem; color:#1c1c1e; margin:0 0 0; }
     .oea-explorer .oea-sub { font-size:0.78rem; color:var(--oea-text); margin-top:0.2rem; max-width:58ch; }
+    .oea-explorer .oea-intro { display:grid; grid-template-columns:1fr; gap:0.2rem; }
+    .oea-explorer .oea-intro .oea-sub { max-width:none; }
     .oea-explorer .oea-sub-tag { font-size:0.72rem; color:#5b5b61; font-weight:600; }
     .oea-explorer .oea-pills { display:flex; flex-wrap:wrap; gap:0.35rem; margin-top:0.55rem; }
     .oea-explorer .oea-pill { font-size:0.62rem; font-weight:700; letter-spacing:0.02em;
@@ -55,6 +57,7 @@
     @media (min-width:1100px) {
       .oea-explorer .oea-h { font-size:1.95rem; }
       .oea-explorer .oea-sub { font-size:1rem; line-height:1.5; }
+      .oea-explorer .oea-intro { grid-template-columns:1fr 1fr; gap:0.6rem 3rem; align-items:start; }
       .oea-explorer .oea-sub-tag { font-size:0.9rem; }
       .oea-explorer .oea-pills { margin-top:0.8rem; }
       .oea-explorer .oea-pill { font-size:0.72rem; padding:0.28rem 0.6rem; }
@@ -184,9 +187,10 @@
   </style>
 
   <h3 class="oea-h">Ontario's Economic Activity</h3>
-  <div class="oea-sub">Open access to live data provides valuable insights into Ontario's economy. The province's
-    working population of over 8.3 million people drives measurable progress every day. Adjust the
-    tool to chart new paths to sustainable development in our data-driven economy.</div>
+  <div class="oea-intro">
+    <div class="oea-sub">Open access to live data provides valuable insights into Ontario's economy. The province's working population of over 8.3 million people drives measurable progress every day.</div>
+    <div class="oea-sub oea-sub-right">Adjust the tool to chart new paths to sustainable development in our data-driven economy.</div>
+  </div>
   <div class="oea-pills" aria-label="Trust pills">
     <span class="oea-pill">Public data</span>
     <span class="oea-pill">MNPI excluded</span>

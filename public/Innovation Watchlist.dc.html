@@ -10,14 +10,14 @@
 <helmet data-dc-atomics>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *{box-sizing:border-box}
   html,body{margin:0}
   body{
     background:#E8ECF4;               /* bright silver — outside the flags container */
     min-height:100vh;
-    font-family:'Archivo',system-ui,sans-serif;
+    font-family:'Inter',system-ui,sans-serif;
     -webkit-font-smoothing:antialiased;
   }
   @keyframes wl-sheen{
@@ -44,7 +44,7 @@
     100%{stroke-dashoffset:0}
   }
   /* Flag-panel labels: one word per line, centered, evenly filling the height. */
-  .wl-word{margin:0;position:relative;font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(15px,1.7vw,24px);line-height:1.1;letter-spacing:0.03em;text-transform:uppercase;color:#E8ECF4;text-shadow:0 1px 2px rgba(60,4,14,0.55),0 0 26px rgba(232,236,244,0.12);overflow-wrap:normal;word-break:keep-all;hyphens:none;}
+  .wl-word{margin:0;position:relative;font-family:'Montserrat',system-ui,sans-serif;font-weight:800;font-size:clamp(15px,1.7vw,24px);line-height:1.1;letter-spacing:0.03em;text-transform:uppercase;color:#E8ECF4;text-shadow:0 1px 2px rgba(60,4,14,0.55),0 0 26px rgba(232,236,244,0.12);overflow-wrap:normal;word-break:keep-all;hyphens:none;}
   .wl-grp{display:flex;flex-direction:column;align-items:center;gap:6px;width:100%;}
   /* Stack the red|white|red flag into one column on narrow screens so the
      bold uppercase labels are never clipped or forced to break mid-word. */
@@ -60,9 +60,9 @@
 
     <!-- HEADER -->
     <div style="display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:26px;">
-      <h1 style="margin:0;font-family:'Archivo',sans-serif;font-weight:700;font-size:clamp(30px,4.2vw,54px);letter-spacing:0.14em;text-transform:uppercase;background:linear-gradient(180deg,#241041 0%,#0B0620 58%,#2A0812 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;">Innovation Watchlist</h1>
+      <h1 style="margin:0;font-family:'Montserrat',system-ui,sans-serif;font-weight:800;font-size:clamp(30px,4.2vw,52px);letter-spacing:0.08em;text-transform:uppercase;color:#06021C;text-shadow:none;">Innovation Watchlist</h1>
       <div style="margin-top:16px;width:96px;height:4px;border-radius:4px;background:linear-gradient(90deg,rgba(198,22,54,0),#C61636 30%,#e23a58 50%,#C61636 70%,rgba(198,22,54,0));box-shadow:0 0 22px rgba(198,22,54,0.7);"></div>
-      <p style="margin:22px auto 0;max-width:880px;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(15px,1.55vw,19.5px);line-height:1.62;color:#2A2340;">The Innovation Watchlist is an interactive prototype created within a virtual research environment known as the <span style="color:#8A0C24;font-weight:700;">Canadian Innovation Dimension (CID)</span>. CID is powered by a collective intelligence system that channels strategic foresight in tandem with partners, enabling agile development in fast-paced technology ecosystems.</p>
+      <p style="margin:22px auto 0;max-width:760px;font-family:'Inter',system-ui,sans-serif;font-weight:400;font-size:clamp(15px,1.5vw,18px);line-height:1.55;color:#06021C;">The Innovation Watchlist is an interactive prototype created within a virtual research environment known as the <span style="color:#8A0C24;font-weight:700;">Canadian Innovation Dimension (CID)</span>. CID is powered by a collective intelligence system that channels strategic foresight in tandem with partners, enabling agile development in fast-paced technology ecosystems.</p>
     </div>
 
     <!-- FLAG BODY 1 : 2 : 1 -->
@@ -82,7 +82,7 @@
       <!-- MIDDLE FROSTED WHITE -->
       <div style="position:relative;overflow:hidden;border-radius:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px 44px;background:linear-gradient(160deg,rgba(255,255,255,0.97),rgba(240,243,249,0.92));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.7);box-shadow:0 22px 60px -26px rgba(120,130,160,0.55),inset 0 1px 0 rgba(255,255,255,0.9),inset 0 0 0 1px rgba(198,22,54,0.06);transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s ease,filter .5s ease,border-color .5s ease;" style-hover="transform:translateY(-4px);filter:brightness(1.04);border-color:rgba(198,22,54,0.35);box-shadow:0 34px 90px -24px rgba(150,20,44,var(--glow,0.6)),0 0 70px -10px rgba(232,236,244,var(--glow,0.6)),inset 0 1px 0 rgba(255,255,255,1),inset 0 0 0 1px rgba(198,22,54,0.18);">
         <div style="position:absolute;top:-20%;left:0;width:46%;height:140%;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(198,22,54,0.10),transparent);filter:blur(10px);animation:wl-sheen 9s linear infinite;animation-delay:1.2s;animation-play-state:var(--shimmer,running);"></div>
-        <p style="position:relative;width:100%;margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(19px,1.9vw,26px);line-height:1.55;color:#0F031C;"><span style="display:block;font-weight:600;font-size:clamp(21px,2vw,28px);letter-spacing:0.01em;">Monitors:</span><span style="display:block;margin-top:1.05em;"><span style="color:var(--kw,#B31237);font-weight:600;">Space</span>, <span style="color:var(--kw,#B31237);font-weight:600;">AI</span>, <span style="color:var(--kw,#B31237);font-weight:600;">Defence</span>, <span style="color:var(--kw,#B31237);font-weight:600;">Energy</span>, <span style="color:var(--kw,#B31237);font-weight:600;">Maritime</span>, <span style="color:var(--kw,#B31237);font-weight:600;">Photonics</span>, and <span style="color:var(--kw,#B31237);font-weight:600;">Quantum</span> sectors.</span><span style="display:block;margin-top:1.05em;">Cooperation across <span style="color:#0F031C;font-weight:600;">Canada</span>, the <span style="color:#0F031C;font-weight:600;">EU</span>, <span style="color:#0F031C;font-weight:600;">Nordic countries</span>, and <span style="color:#0F031C;font-weight:600;">Indo-Pacific</span>.</span><span style="display:block;margin-top:1.05em;">Strategic initiatives in the <span style="color:#0F031C;font-weight:600;">Americas</span>, <span style="color:#0F031C;font-weight:600;">Africa</span>, and the <span style="color:#0F031C;font-weight:600;">Middle East</span>.</span></p>
+        <p style="position:relative;width:100%;margin:0;font-family:'Inter',system-ui,sans-serif;font-weight:400;font-size:clamp(16px,1.6vw,20px);line-height:1.55;color:#06021C;"><span style="display:block;font-family:'Montserrat',system-ui,sans-serif;font-weight:700;font-size:clamp(20px,2vw,26px);letter-spacing:0.02em;">Monitors:</span><span style="display:block;margin-top:1.05em;"><span style="color:var(--kw,#B31237);font-weight:700;">Space</span>, <span style="color:var(--kw,#B31237);font-weight:700;">AI</span>, <span style="color:var(--kw,#B31237);font-weight:700;">Defence</span>, <span style="color:var(--kw,#B31237);font-weight:700;">Energy</span>, <span style="color:var(--kw,#B31237);font-weight:700;">Maritime</span>, <span style="color:var(--kw,#B31237);font-weight:700;">Photonics</span>, and <span style="color:var(--kw,#B31237);font-weight:700;">Quantum</span> sectors.</span><span style="display:block;margin-top:1.05em;">Cooperation across <span style="color:#06021C;font-weight:700;">Canada</span>, the <span style="color:#06021C;font-weight:700;">EU</span>, <span style="color:#06021C;font-weight:700;">Nordic countries</span>, and <span style="color:#06021C;font-weight:700;">Indo-Pacific</span>.</span><span style="display:block;margin-top:1.05em;">Strategic initiatives in the <span style="color:#06021C;font-weight:700;">Americas</span>, <span style="color:#06021C;font-weight:700;">Africa</span>, and the <span style="color:#06021C;font-weight:700;">Middle East</span>.</span></p>
       </div>
 
       <!-- RIGHT RUBY GLASS -->

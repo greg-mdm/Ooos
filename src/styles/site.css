@@ -2024,6 +2024,7 @@ a:hover { color: var(--electric); }
   background: #E8ECF4;   /* bright silver — matches the block body behind the iframe */
   line-height: 0;
   overflow: hidden;
+  padding-bottom: 40px;  /* balanced silver space below the flag (button removed) */
 }
 .cid-scope .cid-wl-frame {
   display: block;

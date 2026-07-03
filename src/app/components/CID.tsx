@@ -445,17 +445,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
         />
       </section>
 
-      <div className="cid-wl-cta">
-        <a
-          href={`${base}cid/watchlist/`}
-          className="btn btn-primary"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Open the watchlist (full screen) ↗
-        </a>
-      </div>
-
       <section className="cid-watchlist-embed">
         <iframe
           ref={embedRef}
