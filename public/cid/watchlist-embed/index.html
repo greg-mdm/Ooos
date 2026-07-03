@@ -1633,46 +1633,27 @@
       }
       .on-obs-inner { max-width: 1400px; margin: 0 auto; padding: 0 3rem; }
       .on-obs-ca { color: #C8102E; font-weight: 800; }
-      .on-obs-kicker {
-        color: #1fcecb; text-transform: uppercase; letter-spacing: 0.14em;
-        font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem;
-      }
       .on-obs-top { display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start; justify-content: space-between; margin-bottom: 1.6rem; }
       .on-obs-lede { color: #16222b; font-size: 1.26rem; line-height: 1.55; max-width: 72ch; margin: 0; text-wrap: balance; flex: 1 1 600px; }
       .on-obs-toplinks { flex: 0 0 auto; min-width: 280px; padding-top: 0.2rem; }
-      .on-obs-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 2.2rem; align-items: center; }
-      .on-obs-map { margin: 0; display: flex; flex-direction: column; }
-      .on-obs-mapwrap {
-        position: relative; display: block; overflow: hidden; border-radius: 14px;
-        border: 1px solid rgba(11,110,107,0.28); background: #0a1430; text-decoration: none;
-      }
-      .on-obs-mapimg { width: 100%; height: auto; display: block; aspect-ratio: 1200 / 675; object-fit: cover; }
-      .on-obs-cap { margin-top: 0.6rem; color: #51606a; font-size: 0.96rem; line-height: 1.5; }
-      .on-obs-cap a { color: #006B57; text-decoration: underline; }
-      .on-obs-side {
-        display: flex; flex-direction: row; gap: 2.8rem; align-items: flex-start;
-        padding-top: 0.15rem;
-      }
-      .on-obs-group { display: block; }
       .on-obs-side-label {
         color: #C8102E; text-transform: uppercase; letter-spacing: 0.12em;
         font-size: 0.86rem; font-weight: 800; margin: 0 0 0.6rem;
       }
-      .on-obs-regions5 { margin: 0; padding-left: 1.5rem; display: grid; gap: 0.5rem; color: #1f2a30; }
-      .on-obs-regions5 li { font-size: 1.25rem; line-height: 1.4; padding-left: 0.25rem; }
-      .on-obs-regions5 li::marker { color: #0B6E6B; font-weight: 800; }
-      .on-obs-regions11 { margin: 0; padding-left: 1.6rem; display: grid; gap: 0.24rem; color: #45525c; }
-      .on-obs-regions11 li { font-size: 0.84rem; line-height: 1.35; padding-left: 0.1rem; }
-      .on-obs-regions11 li::marker { color: #0B6E6B; font-weight: 700; }
       .on-obs-links { display: grid; gap: 0.5rem; }
       .on-obs-links a {
         color: #006B57; font-weight: 700; font-size: 0.98rem; text-decoration: none;
         border-bottom: 1px solid rgba(0,107,87,0.35); padding-bottom: 2px; width: fit-content;
       }
       .on-obs-links a:hover { color: #00A589; border-color: #00A589; }
+      .on-obs-figure { margin: 0; }
+      .on-obs-panel { display: block; max-width: 1240px; margin: 0 auto; text-decoration: none; }
+      .on-obs-panel img { width: 100%; height: auto; display: block; }
+      .on-obs-cap { margin: 0.7rem auto 0; max-width: 1240px; color: #51606a; font-size: 0.96rem; line-height: 1.5; text-align: center; }
+      .on-obs-cap a { color: #006B57; text-decoration: underline; }
       @media (max-width: 760px) {
         .on-obs { margin: 1.5rem 1rem 2.2rem; }
-        .on-obs-grid { grid-template-columns: 1fr; }
+        .on-obs-inner { padding: 0 1rem; }
       }
     </style>
     <section class="on-obs" aria-label="Ontario data">
@@ -1688,42 +1669,17 @@
           </div>
         </div>
       </div>
-      <div class="on-obs-grid">
-        <div class="on-obs-side">
-          <div class="on-obs-group">
-            <div class="on-obs-side-label">5 geographic regions</div>
-            <ol class="on-obs-regions5">
-              <li>Northern Ontario</li>
-              <li>Eastern Ontario</li>
-              <li>Southwestern Ontario</li>
-              <li>Central Ontario</li>
-              <li>The Greater Toronto Area (GTA)</li>
-            </ol>
-          </div>
-          <div class="on-obs-group">
-            <div class="on-obs-side-label">11 economic regions</div>
-            <ol class="on-obs-regions11">
-              <li>Ottawa</li>
-              <li>Kingston&ndash;Pembroke</li>
-              <li>Muskoka&ndash;Kawarthas</li>
-              <li>Toronto</li>
-              <li>Kitchener&ndash;Waterloo&ndash;Barrie</li>
-              <li>Hamilton&ndash;Niagara Peninsula</li>
-              <li>London</li>
-              <li>Windsor&ndash;Sarnia</li>
-              <li>Stratford&ndash;Bruce Peninsula</li>
-              <li>Northeast</li>
-              <li>Northwest</li>
-            </ol>
-          </div>
-        </div>
-        <figure class="on-obs-map">
-          <a class="on-obs-mapwrap" href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">
-            <img class="on-obs-mapimg" src="/assets/Regions-ON.png" alt="Map of Ontario's five geographic regions — Northern, Eastern, Southwestern, Central and the Greater Toronto Area — with employment change shown in thousands and as a percentage" loading="lazy">
-          </a>
-          <figcaption class="on-obs-cap">Ontario&rsquo;s five geographic regions, with employment change. Source: <a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">Ontario Employment Report (§4) ↗</a>.</figcaption>
-        </figure>
-      </div>
+      <figure class="on-obs-figure">
+        <a class="on-obs-panel" href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">
+          <picture>
+            <source media="(max-width: 760px)" type="image/webp" srcset="/on-mobile.webp">
+            <source media="(max-width: 760px)" srcset="/on-mobile-png.png">
+            <source type="image/webp" srcset="/on-webp.webp">
+            <img src="/media-1783054854738.png" alt="Ontario regions command deck — provincial map with employment change for the five geographic zones (Greater Toronto Area +2.7K, Northern +4.9K, Eastern −33.8K, Southwestern −11.6K, Central +0.6K) and the 11 economic regions grouped by zone. Source: Statistics Canada, Labour Force Survey, Q2 2026." loading="lazy">
+          </picture>
+        </a>
+        <figcaption class="on-obs-cap">Ontario&rsquo;s five geographic regions and 11 economic regions, with employment change. Source: <a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">Ontario Employment Report (§4) ↗</a>.</figcaption>
+      </figure>
       </div>
     </section>
 
