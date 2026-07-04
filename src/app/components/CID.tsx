@@ -25,6 +25,7 @@ const SC = {
   caps: "https://www.lioapplications.lrc.gov.on.ca/Pits_And_Quarries/index.html?viewer=Pits_and_Quarries.Pits_and_Quarries&locale=en-CA",
   forceOfNature: "https://www.canada.ca/en/services/environment/nature/nature-strategy.html#toc6",
   radarDsm: "https://data.ontario.ca/dataset/ontario-radar-digital-surface-model",
+  geohub: "https://geohub.lio.gov.on.ca",
 };
 
 // Underground / terrain layer — the page floor. Plain link cards (these gov
@@ -49,6 +50,13 @@ const UNDERGROUND = [
     title: "Ontario radar digital surface model",
     blurb: "Province-wide radar-derived elevation surface (DSM) from the Ontario Data Catalogue.",
     href: SC.radarDsm,
+    hero: false,
+  },
+  {
+    tag: "Geospatial hub",
+    title: "Ontario GeoHub",
+    blurb: "GeospatialOntario's authoritative GIS portal for provincial mapping and elevation data.",
+    href: SC.geohub,
     hero: false,
   },
 ];
@@ -358,17 +366,112 @@ function DataAccessContinuum() {
 function Underground() {
   return (
     <section className="cid-underground" aria-labelledby="cid-underground-title">
-      <div className="cid-continuum-inner">
-        <div className="cid-underground-head">
+      <div className="cid-continuum-inner cid-underground-inner">
+        <header className="cid-ug-head">
           <p className="cid-underground-eyebrow">
             <span aria-hidden="true">▼</span> Below the surface
           </p>
           <h2 id="cid-underground-title" className="cid-underground-title">Underground &amp; terrain</h2>
-          <p className="cid-underground-lede">
-            The deepest layer of the public record&mdash;what lies beneath the map. Aggregate
-            sites, elevation surfaces and the national strategy to protect the nature above them.
-          </p>
+          <div className="cid-ug-intro">
+            <p>
+              <strong>What lies beneath the map?</strong> Delve into the deepest layers of the
+              public record to find out how Canada protects its treasured resources.
+            </p>
+            <p>
+              With the second-largest landmass and the longest coastline in the world,
+              Canada&rsquo;s mighty size and expansive geography provide a strong foundation for
+              sustainable economic development.
+            </p>
+            <p>
+              Hyperscale growth in AI and digitization has exponentially increased demand for
+              data and critical minerals essential to modern technologies. Canada is now
+              capitalizing on sustainable resource management to gain a competitive edge in the
+              global market.
+            </p>
+          </div>
+        </header>
+
+        <div className="cid-ug-body">
+          <aside className="cid-ug-aside">
+            <figure className="cid-ug-quote">
+              <blockquote>&ldquo;The best offence is a strong defence.&rdquo;</blockquote>
+              <figcaption>&mdash; most hockey coaches agree.</figcaption>
+            </figure>
+            <div className="cid-ug-natcard">
+              <p className="cid-ug-natcard-head">
+                Canada is one of the most nature-rich countries on Earth.
+              </p>
+              <ul className="cid-ug-stats">
+                <li><span className="cid-ug-stat-n">20%</span> of the world&rsquo;s fresh water</li>
+                <li><span className="cid-ug-stat-n">25%</span> of global wetlands</li>
+              </ul>
+            </div>
+          </aside>
+
+          <div className="cid-ug-main">
+            <div className="cid-ug-nature">
+              <article className="cid-ug-nat">
+                <h3 className="cid-ug-nat-h">Wetlands</h3>
+                <p>
+                  Absorbing carbon and excess rainfall helps maintain ecological stability and
+                  resilience to severe weather impacts.
+                </p>
+                <p className="cid-ug-metric">
+                  <span className="cid-ug-metric-k">Value</span>$225&nbsp;billion, backed by our 25%
+                  share of the world&rsquo;s wetlands.
+                </p>
+                <p className="cid-ug-metric">
+                  <span className="cid-ug-metric-k">Strengths</span>Enhances water quality, absorbs
+                  carbon emissions, and mitigates the effects of climate change. Canada possesses
+                  20% of the world&rsquo;s fresh water.
+                </p>
+              </article>
+              <article className="cid-ug-nat">
+                <h3 className="cid-ug-nat-h">Boreal forests</h3>
+                <p>
+                  Canada stewards 54% of the world&rsquo;s boreal forests. This vast terrestrial
+                  storehouse greatly enhances carbon capture and storage (CCS).
+                </p>
+                <p className="cid-ug-metric">
+                  <span className="cid-ug-metric-k">Value</span>~$703&nbsp;billion.
+                </p>
+                <p className="cid-ug-metric">
+                  <span className="cid-ug-metric-k">Strengths</span>Carbon storage, flood and pest
+                  control.
+                </p>
+              </article>
+            </div>
+
+            <div className="cid-ug-invest">
+              <p className="cid-ug-invest-lead">
+                <strong>80% of the capital</strong> invested in Canada&rsquo;s conservation efforts
+                has come from the public purse.
+              </p>
+              <p>
+                We&rsquo;re attracting private investment for supply-chain conversions in line with
+                the <strong>Kunming-Montreal Global Biodiversity Framework (KMGBF)</strong>.
+                Canada&rsquo;s 2030 Nature Strategy aims to implement KMGBF through collaborative
+                efforts, active public participation, and proactive business leadership focused on
+                ESG (Environmental, Social, and Governance) principles.
+              </p>
+              <p>
+                The <strong>Global Partnerships Initiative (GPI)</strong> invests in international
+                alliances to enhance joint research, strengthen ESG standards, and address national
+                security priorities&mdash;a <strong>$135.6&nbsp;million</strong> investment
+                supporting stable, secure supply chains.
+              </p>
+              <div className="cid-ug-invest-links">
+                <a href="https://atlas.gc.ca/mins/en/index.html" target="_blank" rel="noopener noreferrer">
+                  Canada&rsquo;s Minerals &amp; Mining Map ↗
+                </a>
+                <a href="https://www.canada.ca/en/campaign/critical-minerals-in-canada/federal-support-for-critical-mineral-projects-and-value-chains/global-partnerships-initiative.html" target="_blank" rel="noopener noreferrer">
+                  Global Partnerships Initiative ↗
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
+
         <div className="cid-underground-grid">
           {UNDERGROUND.map((l) => (
             <a
