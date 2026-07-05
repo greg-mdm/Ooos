@@ -917,8 +917,35 @@
 }
 .cid-scope .cid-ug-invest p { margin: 0 0 12px; font-size: 0.95rem; line-height: 1.65; color: #C9D6EA; }
 .cid-scope .cid-ug-invest p strong { color: #fff; }
-.cid-scope .cid-ug-invest-lead { font-size: 1.06rem; color: #fff; }
+.cid-scope .cid-ug-invest-title {
+  margin: 0 0 14px;
+  font-family: var(--font-elevated, var(--sans));
+  font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+  line-height: 1.2;
+  font-weight: 800;
+  color: #fff;
+}
+.cid-scope .cid-ug-invest-subhead {
+  margin: 20px 0 10px;
+  font-family: var(--font-elevated, var(--sans));
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: var(--c-earth);
+}
+.cid-scope .cid-ug-invest-lead { font-size: 1.02rem; color: #fff; margin-bottom: 10px !important; }
 .cid-scope .cid-ug-invest-lead strong { color: var(--c-earth); }
+.cid-scope .cid-ug-esg-list {
+  margin: 0 0 14px;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 7px;
+}
+.cid-scope .cid-ug-esg-list li {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: #C9D6EA;
+}
+.cid-scope .cid-ug-esg-list li::marker { color: var(--c-earth); }
 .cid-scope .cid-ug-invest-links { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 4px; }
 .cid-scope .cid-ug-invest-links a {
   font-weight: 800;
@@ -950,3 +977,24 @@
 @media (prefers-reduced-motion: reduce) {
   .cid-scope .cid-ug-card { transition: none; }
 }
+
+/* ---- closing fundraising CTA — glows out of the underground floor -------- */
+.cid-scope .cid-join {
+  position: relative;
+  padding: clamp(52px, 7vw, 96px) 24px;
+  text-align: center;
+  background: linear-gradient(180deg, #090611 0%, #1A0033 42%, #4B00B6 100%);
+  color: #ffffff;
+}
+.cid-scope .cid-join-inner { max-width: 720px; margin: 0 auto; }
+.cid-scope .cid-join-title {
+  margin: 0 0 26px;
+  font-family: var(--font-elevated, var(--sans));
+  font-size: clamp(1.55rem, 3.6vw, 2.4rem);
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  text-wrap: balance;
+}
+.cid-scope .cid-join-cta { font-size: 15px; padding: 14px 30px; }

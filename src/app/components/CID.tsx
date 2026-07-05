@@ -374,8 +374,8 @@ function Underground() {
           <h2 id="cid-underground-title" className="cid-underground-title">Underground &amp; terrain</h2>
           <div className="cid-ug-intro">
             <p>
-              <strong>What lies beneath the map?</strong> Delve into the deepest layers of the
-              public record to find out how Canada protects its treasured resources.
+              <strong>What lies beneath the map?</strong>{" "}
+              <strong><em>Delve into the deepest layers of public records.</em></strong>
             </p>
             <p>
               With the second-largest landmass and the longest coastline in the world,
@@ -443,22 +443,34 @@ function Underground() {
             </div>
 
             <div className="cid-ug-invest">
-              <p className="cid-ug-invest-lead">
-                <strong>80% of the capital</strong> invested in Canada&rsquo;s conservation efforts
-                has come from the public purse.
-              </p>
+              <h3 className="cid-ug-invest-title">Naturally Wealthy: A Rock-Solid Investment Stack</h3>
               <p>
-                We&rsquo;re attracting private investment for supply-chain conversions in line with
-                the <strong>Kunming-Montreal Global Biodiversity Framework (KMGBF)</strong>.
-                Canada&rsquo;s 2030 Nature Strategy aims to implement KMGBF through collaborative
-                efforts, active public participation, and proactive business leadership focused on
-                ESG (Environmental, Social, and Governance) principles.
+                Building sustainable critical minerals supply chains in Canada means funding
+                projects at every stage, from early-stage infrastructure and project preparation to
+                the final steps needed to reach markets. Canada&rsquo;s federal funding programs
+                support strategic infrastructure, processing capacity, Indigenous-led development,
+                recycling, and global partnerships that connect Canadian resources to future
+                technologies.
               </p>
+              <h4 className="cid-ug-invest-subhead">The ESG Advantage</h4>
               <p>
-                The <strong>Global Partnerships Initiative (GPI)</strong> invests in international
-                alliances to enhance joint research, strengthen ESG standards, and address national
-                security priorities&mdash;a <strong>$135.6&nbsp;million</strong> investment
-                supporting stable, secure supply chains.
+                ESG stands for Environmental, Social, and Governance, and it helps companies show
+                how they manage risk, create value, and operate responsibly. Proactive ESG is not
+                just about compliance. It is a smarter way to build long-term value.
+              </p>
+              <p className="cid-ug-invest-lead"><strong>Strong ESG leadership creates clear business advantages.</strong></p>
+              <ul className="cid-ug-esg-list">
+                <li>Build stronger customer loyalty with sustainable practices.</li>
+                <li>Enhanced brand reputation through responsible sourcing and production.</li>
+                <li>Elevated access to financing by showing investors a future-ready business model.</li>
+                <li>Reduced operating costs through improved efficiency and waste management.</li>
+                <li>Improved talent acquisition and retention through a purpose-driven culture.</li>
+              </ul>
+              <p>
+                Businesses have a choice: invest now and help shape the future of the Canadian
+                economy or wait and risk losing influence through inaction. The opportunity is
+                clear: join a national movement to protect Canada&rsquo;s environmental heritage for
+                future generations!
               </p>
               <div className="cid-ug-invest-links">
                 <a href="https://atlas.gc.ca/mins/en/index.html" target="_blank" rel="noopener noreferrer">
@@ -562,6 +574,17 @@ export function CID({ onSupport }: { onSupport: () => void }) {
 
       <DataAccessContinuum />
       <Underground />
+
+      <section className="cid-join" aria-labelledby="cid-join-title">
+        <div className="cid-join-inner">
+          <h2 id="cid-join-title" className="cid-join-title">
+            Join the movement to protect Canada&rsquo;s valuable natural resources!
+          </h2>
+          <button type="button" onClick={onSupport} className="btn btn-primary cid-join-cta">
+            Support the work →
+          </button>
+        </div>
+      </section>
 
     </div>
   );
