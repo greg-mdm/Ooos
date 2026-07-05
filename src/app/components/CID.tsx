@@ -250,10 +250,6 @@ function DataAccessContinuum() {
             while stronger authorization and security procedures apply toward the secure end of
             the continuum.
           </p>
-          <p className="cid-continuum-pull">
-            This is not a ranking of data quality. It is a guide to choosing the right level of
-            access for the question you are asking.
-          </p>
         </div>
 
         <div className="cid-continuum-scale">
