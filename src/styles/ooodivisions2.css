@@ -28,7 +28,16 @@
 }
 .ood *,.ood *::before,.ood *::after{box-sizing:border-box;}
 /* live Aurora Field — true section background; pointer-events:none keeps keys clickable */
-.ood-bg{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;z-index:0;}
+/* The `background` is a static aurora fallback: it shows when WebGL is
+   unavailable (e.g. hardware acceleration disabled). When the shader runs it
+   paints opaque pixels over this gradient, so nothing changes for WebGL users. */
+.ood-bg{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(65% 55% at 72% 28%, rgba(158,46,107,0.42) 0%, rgba(158,46,107,0) 60%),
+    radial-gradient(55% 50% at 24% 76%, rgba(0,128,128,0.40) 0%, rgba(0,128,128,0) 62%),
+    radial-gradient(90% 75% at 50% 42%, rgba(91,4,222,0.45) 0%, rgba(75,0,182,0.24) 42%, rgba(75,0,182,0) 74%),
+    linear-gradient(180deg, #0A0430 0%, #06021C 60%, #050119 100%);
+}
 /* scrim calms the aurora so text and cards stay readable */
 .ood-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
   background:

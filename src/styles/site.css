@@ -4168,6 +4168,9 @@ textarea:focus-visible,
   aspect-ratio: 16 / 9;
   overflow: hidden;
   position: relative;
+  /* dark base behind the login image + particle canvas, so the card is never
+     blank if the image or the 2D canvas can't render */
+  background: linear-gradient(160deg, #12043A 0%, #06021C 70%);
 }
 .ostara-brand-image {
   position: absolute;
