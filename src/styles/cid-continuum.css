@@ -996,6 +996,7 @@
   .cid-scope .cid-ug-esg-wrap,
   .cid-scope .cid-ug-esg-arrow { transition: none; }
 }
+.cid-scope .cid-ug-gov-lead { color: #ffffff !important; font-weight: 600; margin: 2px 0 12px !important; }
 .cid-scope .cid-ug-invest-links { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 4px; }
 .cid-scope .cid-ug-invest-links a {
   font-weight: 800;

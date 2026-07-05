@@ -483,6 +483,19 @@ function Underground() {
                 recycling, and global partnerships that connect Canadian resources to future
                 technologies.
               </p>
+              <p className="cid-ug-gov-lead">
+                The Government of Canada provides extensive support for critical minerals projects
+                and value chains.
+              </p>
+              <div className="cid-ug-invest-links">
+                <a href="https://www.canada.ca/en/campaign/critical-minerals-in-canada/federal-support-for-critical-mineral-projects-and-value-chains.html" target="_blank" rel="noopener noreferrer">
+                  Programs and funding for critical minerals projects ↗
+                </a>
+                <a href="https://www.canada.ca/en/campaign/critical-minerals-in-canada/federal-support-for-critical-mineral-projects-and-value-chains/global-partnerships-initiative.html" target="_blank" rel="noopener noreferrer">
+                  Global Partnerships Initiative ↗
+                </a>
+              </div>
+
               <h4 className="cid-ug-invest-subhead">The ESG Advantage</h4>
               <p>
                 ESG stands for Environmental, Social, and Governance, and it helps companies show
@@ -498,14 +511,6 @@ function Underground() {
                 The opportunity is clear: join a national movement to protect Canada&rsquo;s
                 environmental heritage for future generations!
               </p>
-              <div className="cid-ug-invest-links">
-                <a href="https://atlas.gc.ca/mins/en/index.html" target="_blank" rel="noopener noreferrer">
-                  Canada&rsquo;s Minerals &amp; Mining Map ↗
-                </a>
-                <a href="https://www.canada.ca/en/campaign/critical-minerals-in-canada/federal-support-for-critical-mineral-projects-and-value-chains/global-partnerships-initiative.html" target="_blank" rel="noopener noreferrer">
-                  Global Partnerships Initiative ↗
-                </a>
-              </div>
             </div>
           </div>
         </div>
