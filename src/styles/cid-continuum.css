@@ -932,11 +932,49 @@
   font-weight: 800;
   color: var(--c-earth);
 }
-.cid-scope .cid-ug-invest-lead { font-size: 1.02rem; color: #fff; margin-bottom: 10px !important; }
-.cid-scope .cid-ug-invest-lead strong { color: var(--c-earth); }
+/* ESG advantages — progressive disclosure toggle + drop-down bullet list */
+.cid-scope .cid-ug-esg { margin: 4px 0 12px; }
+.cid-scope .cid-ug-esg-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 12px 15px;
+  background: rgba(232, 160, 106, 0.08);
+  border: 1px solid rgba(232, 160, 106, 0.28);
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 1.02rem;
+  font-weight: 700;
+  transition: background 160ms ease, border-color 160ms ease;
+}
+.cid-scope .cid-ug-esg-toggle:hover {
+  background: rgba(232, 160, 106, 0.14);
+  border-color: rgba(232, 160, 106, 0.5);
+}
+.cid-scope .cid-ug-esg-toggle:focus-visible { outline: 2px solid var(--c-earth); outline-offset: 3px; }
+.cid-scope .cid-ug-esg-arrow {
+  flex: 0 0 auto;
+  color: var(--c-earth);
+  font-size: 1.1rem;
+  line-height: 1;
+  transition: transform 240ms ease;
+}
+.cid-scope .cid-ug-esg-toggle.is-open .cid-ug-esg-arrow { transform: rotate(180deg); }
+.cid-scope .cid-ug-esg-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 260ms ease;
+}
+.cid-scope .cid-ug-esg-wrap.is-open { grid-template-rows: 1fr; }
+.cid-scope .cid-ug-esg-inner { overflow: hidden; min-height: 0; }
 .cid-scope .cid-ug-esg-list {
-  margin: 0 0 14px;
-  padding-left: 1.2rem;
+  margin: 12px 0 4px;
+  padding-left: 1.4rem;
   display: grid;
   gap: 7px;
 }
@@ -946,6 +984,18 @@
   color: #C9D6EA;
 }
 .cid-scope .cid-ug-esg-list li::marker { color: var(--c-earth); }
+.cid-scope .cid-ug-invest-close {
+  margin-top: 16px !important;
+  padding-top: 14px;
+  border-top: 1px solid rgba(232, 160, 106, 0.25);
+  font-size: 1.06rem !important;
+  font-weight: 700;
+  color: #ffffff !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cid-scope .cid-ug-esg-wrap,
+  .cid-scope .cid-ug-esg-arrow { transition: none; }
+}
 .cid-scope .cid-ug-invest-links { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 4px; }
 .cid-scope .cid-ug-invest-links a {
   font-weight: 800;

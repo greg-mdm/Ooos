@@ -363,6 +363,37 @@ function DataAccessContinuum() {
 
 /** The page floor — the "underground" layer of the public record. Sits flush
  *  above the site footer with a deep subsurface field and terrain link cards. */
+/** ESG advantages — progressive disclosure. The summary line is the trigger;
+ *  the arrow drops the bullet list in between the line and the closing copy. */
+function EsgAdvantages() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="cid-ug-esg">
+      <button
+        type="button"
+        className={`cid-ug-esg-toggle${open ? " is-open" : ""}`}
+        aria-expanded={open}
+        aria-controls="cid-ug-esg-list"
+        onClick={() => setOpen((v) => !v)}
+      >
+        <span>Strong ESG leadership creates clear business advantages</span>
+        <span className="cid-ug-esg-arrow" aria-hidden="true">↓</span>
+      </button>
+      <div className={`cid-ug-esg-wrap${open ? " is-open" : ""}`}>
+        <div className="cid-ug-esg-inner">
+          <ul id="cid-ug-esg-list" className="cid-ug-esg-list">
+            <li>Build stronger customer loyalty with sustainable practices.</li>
+            <li>Enhanced brand reputation through responsible sourcing and production.</li>
+            <li>Elevated access to financing by showing investors a future-ready business model.</li>
+            <li>Reduced operating costs through improved efficiency and waste management.</li>
+            <li>Improved talent acquisition and retention through a purpose-driven culture.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Underground() {
   return (
     <section className="cid-underground" aria-labelledby="cid-underground-title">
@@ -458,19 +489,14 @@ function Underground() {
                 how they manage risk, create value, and operate responsibly. Proactive ESG is not
                 just about compliance. It is a smarter way to build long-term value.
               </p>
-              <p className="cid-ug-invest-lead"><strong>Strong ESG leadership creates clear business advantages.</strong></p>
-              <ul className="cid-ug-esg-list">
-                <li>Build stronger customer loyalty with sustainable practices.</li>
-                <li>Enhanced brand reputation through responsible sourcing and production.</li>
-                <li>Elevated access to financing by showing investors a future-ready business model.</li>
-                <li>Reduced operating costs through improved efficiency and waste management.</li>
-                <li>Improved talent acquisition and retention through a purpose-driven culture.</li>
-              </ul>
+              <EsgAdvantages />
               <p>
                 Businesses have a choice: invest now and help shape the future of the Canadian
-                economy or wait and risk losing influence through inaction. The opportunity is
-                clear: join a national movement to protect Canada&rsquo;s environmental heritage for
-                future generations!
+                economy or wait and risk losing influence through inaction.
+              </p>
+              <p className="cid-ug-invest-close">
+                The opportunity is clear: join a national movement to protect Canada&rsquo;s
+                environmental heritage for future generations!
               </p>
               <div className="cid-ug-invest-links">
                 <a href="https://atlas.gc.ca/mins/en/index.html" target="_blank" rel="noopener noreferrer">
