@@ -267,11 +267,20 @@ function DataAccessContinuum() {
             <strong>How to read the continuum.</strong> Select a route to see how it works,
             where you reach it, and what data it covers.
           </p>
-          <ol className="cid-continuum-routes">
-            {ROUTES.map((r, i) => (
-              <RouteItem key={r.key} route={r} index={i + 1} tone={SPECTRUM[i]} />
-            ))}
-          </ol>
+          <div className="cid-continuum-routes-wrap">
+            <ol className="cid-continuum-routes">
+              {ROUTES.map((r, i) => (
+                <RouteItem key={r.key} route={r} index={i + 1} tone={SPECTRUM[i]} />
+              ))}
+            </ol>
+            <aside className="cid-continuum-aside">
+              <img
+                src={`${import.meta.env.BASE_URL}assets/images/Ooo-Rene.png`}
+                alt="This is not a ranking of data quality — it is a guide to choosing the right level of access for your question."
+                loading="lazy"
+              />
+            </aside>
+          </div>
           <p className="cid-continuum-foot">
             As you move from left to right, the data may become more detailed or sensitive, so
             the privacy, authorization and security requirements increase.
