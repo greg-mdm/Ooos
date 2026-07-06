@@ -235,7 +235,7 @@ function DataAccessContinuum() {
           <p>
             Statistics Canada holds over a century of trusted data that has fostered research,
             informed policy advancements, and helped illuminate public opinion as we navigate
-            profound social, economic, and environmental transformations that shape our world.
+            profound social, economic, and environmental transformations together.
           </p>
           <p>
             Statistics Canada provides secure access to a wide range of anonymized survey data,
