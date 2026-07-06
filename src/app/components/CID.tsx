@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState, type ReactNode, type CSSProperties } from "react";
 import "../../styles/cid-continuum.css";
+import "../../styles/cid-forest.css";
 
 // --- Canada's Continuum of Data Access -------------------------------------
 // Real StatsCan destinations behind each route on the official "Continuum of
@@ -609,6 +610,21 @@ export function CID({ onSupport }: { onSupport: () => void }) {
       </section>
 
       <DataAccessContinuum />
+
+      <section className="cid-forest" aria-label="Above the bedrock: Canada's living landscape">
+        <div className="cid-forest-inner">
+          <video
+            className="cid-forest-video"
+            src={`${import.meta.env.BASE_URL}assets/images/CID-Forest-Layer.mp4`}
+            autoPlay
+            loop
+            muted
+            playsInline
+            aria-hidden="true"
+          />
+        </div>
+      </section>
+
       <Underground />
 
       <section className="cid-join" aria-labelledby="cid-join-title">
