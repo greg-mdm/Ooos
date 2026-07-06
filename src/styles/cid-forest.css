@@ -1,25 +1,23 @@
 /* ===========================================================
    CID — Forest layer
-   The living-landscape banner that sits above the underground/cave
-   section. The clip is a web-optimized MP4 (converted from a 21 MB GIF
-   down to ~1.9 MB), 1000x300 native, autoplaying muted + looping.
+   The video IS the section: full-bleed, edge to edge, sitting as a
+   band between the continuum and the underground/cave (no card, no
+   margins). Clip is a web-optimized MP4 (converted from a 21MB GIF
+   to ~1.9MB), 1000x300 native, autoplaying muted + looping.
    =========================================================== */
 .cid-scope .cid-forest {
-  padding: 20px 0 8px;
+  /* dark base shows behind the clip while it loads and matches the
+     adjacent dark sections above/below */
+  background: #06021C;
+  line-height: 0; /* remove inline-media descender gap */
 }
 .cid-scope .cid-forest-inner {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 0 24px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 .cid-scope .cid-forest-video {
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 16px;
-  box-shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.60);
-}
-@media (max-width: 560px) {
-  .cid-scope .cid-forest-inner { padding: 0 14px; }
-  .cid-scope .cid-forest-video { border-radius: 12px; }
 }
