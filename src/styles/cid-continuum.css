@@ -52,6 +52,14 @@
   color: #ffffff;
 }
 .cid-scope .cid-continuum-lede { max-width: 64ch; }
+.cid-scope .cid-continuum-lede a {
+  color: var(--c-teal);
+  font-style: italic;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: filter 160ms ease;
+}
+.cid-scope .cid-continuum-lede a:hover { filter: brightness(1.18); }
 .cid-scope .cid-continuum-lede p {
   margin: 0 0 14px;
   font-size: 1.02rem;

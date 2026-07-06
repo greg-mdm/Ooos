@@ -244,12 +244,22 @@ function DataAccessContinuum() {
             support better research, services, policy and social development.
           </p>
           <p>
-            Use the map below as your way into this data ecosystem. Begin on the left with open,
-            self-serve tools. Move to the right when your question requires more detailed data or
-            a controlled research environment. Every route protects respondent confidentiality,
-            while stronger authorization and security procedures apply toward the secure end of
-            the continuum.
+            Statistics Canada provides secure access to a wide range of anonymized survey data,
+            as well as administrative and integrated data, to support research and statistical
+            analysis for project development, program management, and public understanding. The
+            available data covers topics like the digital economy, international trade, health,
+            wealth, and languages.
           </p>
+          <p>
+            Whether you want to know more about governing laws and policies or you&rsquo;re
+            searching for details on proactive disclosures,{" "}
+            <a href="https://www.statcan.gc.ca" target="_blank" rel="noopener noreferrer">
+              statcan.gc.ca
+            </a>{" "}
+            offers official statistics that accurately measure our society, our economy, and our
+            environmental factors.
+          </p>
+          <p>Use the guide below to navigate this data ecosystem.</p>
         </div>
 
         <div className="cid-continuum-scale">
