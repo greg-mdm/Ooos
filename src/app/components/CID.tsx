@@ -233,15 +233,9 @@ function DataAccessContinuum() {
 
         <div className="cid-continuum-lede">
           <p>
-            Canada&rsquo;s public record reaches far beyond innovation. It helps you explore
-            social, cultural, economic, technological and environmental change&mdash;and
-            understand how people, communities, institutions and industries evolve over time.
-          </p>
-          <p>
-            For more than a century, Statistics Canada has transformed protected information
-            into trusted public evidence. That long and consistent record gives data detectives
-            more opportunities to compare periods, identify patterns, test assumptions and
-            support better research, services, policy and social development.
+            Statistics Canada holds over a century of trusted data that has fostered research,
+            informed policy advancements, and helped illuminate public opinion as we navigate
+            profound social, economic, and environmental transformations that shape our world.
           </p>
           <p>
             Statistics Canada provides secure access to a wide range of anonymized survey data,
@@ -269,10 +263,6 @@ function DataAccessContinuum() {
             <span className="cid-continuum-end cid-continuum-end--secure">Secure access</span>
           </div>
           <div className="cid-continuum-track" aria-hidden="true" />
-          <p className="cid-continuum-howto">
-            <strong>How to read the continuum.</strong> Select a route to see how it works,
-            where you reach it, and what data it covers.
-          </p>
           <div className="cid-continuum-routes-wrap">
             <ol className="cid-continuum-routes">
               {ROUTES.map((r, i) => (
