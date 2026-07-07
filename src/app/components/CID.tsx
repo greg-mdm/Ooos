@@ -275,24 +275,24 @@ function DataAccessContinuum() {
         </figure>
 
         <div className="cid-continuum-scale">
-          <div className="cid-continuum-lede cid-continuum-guide-intro">
-            <p>
-              Statistics Canada offers secure access to anonymized survey data, administrative
-              records, and integrated datasets. These resources are designed to support research
-              and statistical analysis for project development, program management, and to improve
-              public understanding. The available data covers key topics such as the digital
-              economy, international trade, health, wealth, and languages.
-            </p>
-            <p className="cid-continuum-guide-lead">
-              Use the guide below to navigate this data ecosystem.
-            </p>
-          </div>
+          <h3 className="cid-continuum-guide-heading">
+            Use the guide below to navigate this data ecosystem.
+          </h3>
           <div className="cid-continuum-routes-wrap">
-            <ol className="cid-continuum-routes">
-              {ROUTES.map((r, i) => (
-                <RouteItem key={r.key} route={r} index={i + 1} tone={SPECTRUM[i]} />
-              ))}
-            </ol>
+            <div className="cid-continuum-routes-col">
+              <ol className="cid-continuum-routes">
+                {ROUTES.map((r, i) => (
+                  <RouteItem key={r.key} route={r} index={i + 1} tone={SPECTRUM[i]} />
+                ))}
+              </ol>
+              <p className="cid-continuum-guide-desc">
+                Statistics Canada offers secure access to anonymized survey data, administrative
+                records, and integrated datasets for research and statistical analysis. These
+                resources support project development and program management, while promoting
+                public understanding of key national issues like the digital economy, trade,
+                health, and languages.
+              </p>
+            </div>
             <aside className="cid-continuum-aside">
               <img
                 src={`${import.meta.env.BASE_URL}assets/images/Ooo-Rene.png`}
