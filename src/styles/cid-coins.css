@@ -1,0 +1,148 @@
+/* ===========================================================
+   CID — Gold-coin bullets for the ESG advantages list
+   Five co-designed Royal-Canadian-Mint-style coins replace the
+   list markers in the cave's "Strong ESG leadership…" dropdown.
+   Each coin is a small clickable token; clicking opens the coin
+   at full detail in a lightbox (portaled to <body>, so the CSS
+   below is intentionally NOT scoped to .cid-scope and uses
+   literal colours rather than the page's custom properties).
+   =========================================================== */
+
+/* ---- Coin-bullet list (in-tree, so scoped like its siblings) ---- */
+.cid-scope .cid-esg-coinlist {
+  margin: 16px 0 6px;
+  padding-left: 0;
+  list-style: none;
+  display: grid;
+  gap: 14px;
+}
+.cid-scope .cid-esg-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.cid-scope .cid-esg-text {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: #C9D6EA;
+}
+
+/* the coin itself — a transparent button wrapping the artwork */
+.cid-scope .cid-esg-coin {
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  line-height: 0;
+  transition: transform 180ms ease;
+}
+.cid-scope .cid-esg-coin img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  display: block;
+  transition: filter 180ms ease;
+}
+.cid-scope .cid-esg-coin:hover,
+.cid-scope .cid-esg-coin:focus-visible {
+  transform: translateY(-2px) scale(1.1);
+}
+.cid-scope .cid-esg-coin:hover img,
+.cid-scope .cid-esg-coin:focus-visible img {
+  filter: drop-shadow(0 0 8px rgba(232, 160, 106, 0.65));
+}
+.cid-scope .cid-esg-coin:focus-visible {
+  outline: 2px solid #E8A06A;
+  outline-offset: 3px;
+}
+
+/* ---- Lightbox (portaled to <body> — unscoped, literal values) ---- */
+.cid-coin-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(6, 8, 16, 0.78);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  animation: cidCoinFade 180ms ease;
+}
+.cid-coin-modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: min(92vw, 520px);
+  padding: clamp(22px, 3vw, 36px);
+  border-radius: 22px;
+  background: radial-gradient(120% 120% at 50% 0%, rgba(30, 26, 44, 0.97), rgba(9, 11, 24, 0.98));
+  border: 1px solid rgba(232, 160, 106, 0.35);
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.85);
+  animation: cidCoinPop 200ms cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+.cid-coin-big {
+  width: min(72vw, 400px);
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.55));
+}
+.cid-coin-cap {
+  text-align: center;
+  max-width: 42ch;
+}
+.cid-coin-name {
+  display: block;
+  font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: #E8A06A;
+  margin-bottom: 7px;
+}
+.cid-coin-point {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.5;
+  color: #EAF0F6;
+}
+.cid-coin-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 160ms ease;
+}
+.cid-coin-close:hover { background: rgba(232, 160, 106, 0.3); }
+.cid-coin-close:focus-visible { outline: 2px solid #E8A06A; outline-offset: 2px; }
+
+@keyframes cidCoinFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes cidCoinPop {
+  from { opacity: 0; transform: translateY(10px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cid-coin-backdrop,
+  .cid-coin-modal { animation: none; }
+  .cid-scope .cid-esg-coin,
+  .cid-scope .cid-esg-coin img { transition: none; }
+}
