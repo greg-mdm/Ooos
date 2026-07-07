@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
+import { createPortal } from "react-dom";
 import { useEffect, useRef, useState, type ReactNode, type CSSProperties } from "react";
 import "../../styles/cid-continuum.css";
 import "../../styles/cid-forest.css";
+import "../../styles/cid-coins.css";
 
 // --- Canada's Continuum of Data Access -------------------------------------
 // Real StatsCan destinations behind each route on the official "Continuum of
@@ -371,8 +373,69 @@ function DataAccessContinuum() {
  *  above the site footer with a deep subsurface field and terrain link cards. */
 /** ESG advantages — progressive disclosure. The summary line is the trigger;
  *  the arrow drops the bullet list in between the line and the closing copy. */
+type EsgCoin = { coin: string; name: string; point: string };
+
+// Five gold coins (co-designed) stand in for the bullet markers. Each is a
+// small clickable token; clicking opens the coin at full detail in a lightbox.
+const ESG_COINS: EsgCoin[] = [
+  { coin: "wolf", name: "The Wolf", point: "Build stronger customer loyalty with sustainable practices." },
+  { coin: "pearl", name: "The Pearl", point: "Enhanced brand reputation through responsible sourcing and production." },
+  { coin: "skyline", name: "The Skyline", point: "Elevated access to financing by showing investors a future-ready business model." },
+  { coin: "panner", name: "The Panner", point: "Reduced operating costs through improved efficiency and waste management." },
+  { coin: "worldcup", name: "The World Cup", point: "Improved talent acquisition and retention through a purpose-driven culture." },
+];
+
+function CoinModal({ coin, onClose }: { coin: EsgCoin; onClose: () => void }) {
+  const base = import.meta.env.BASE_URL;
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [onClose]);
+
+  return createPortal(
+    <div className="cid-coin-backdrop" onClick={onClose} role="presentation">
+      <div
+        className="cid-coin-modal"
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-label={`${coin.name} gold coin`}
+      >
+        <button
+          className="cid-coin-close"
+          onClick={onClose}
+          aria-label="Close coin viewer"
+          type="button"
+        >
+          ×
+        </button>
+        <img
+          className="cid-coin-big"
+          src={`${base}assets/images/coins/${coin.coin}.webp`}
+          alt={`${coin.name} gold coin, enlarged`}
+        />
+        <div className="cid-coin-cap">
+          <span className="cid-coin-name">{coin.name}</span>
+          <p className="cid-coin-point">{coin.point}</p>
+        </div>
+      </div>
+    </div>,
+    document.body,
+  );
+}
+
 function EsgAdvantages() {
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState<number | null>(null);
+  const base = import.meta.env.BASE_URL;
   return (
     <div className="cid-ug-esg">
       <button
@@ -387,15 +450,33 @@ function EsgAdvantages() {
       </button>
       <div className={`cid-ug-esg-wrap${open ? " is-open" : ""}`}>
         <div className="cid-ug-esg-inner">
-          <ul id="cid-ug-esg-list" className="cid-ug-esg-list">
-            <li>Build stronger customer loyalty with sustainable practices.</li>
-            <li>Enhanced brand reputation through responsible sourcing and production.</li>
-            <li>Elevated access to financing by showing investors a future-ready business model.</li>
-            <li>Reduced operating costs through improved efficiency and waste management.</li>
-            <li>Improved talent acquisition and retention through a purpose-driven culture.</li>
+          <ul id="cid-ug-esg-list" className="cid-ug-esg-list cid-esg-coinlist">
+            {ESG_COINS.map((c, i) => (
+              <li key={c.coin} className="cid-esg-item">
+                <button
+                  type="button"
+                  className="cid-esg-coin"
+                  onClick={() => setActive(i)}
+                  aria-label={`Enlarge the ${c.name} gold coin`}
+                  title={`${c.name} — click to enlarge`}
+                >
+                  <img
+                    src={`${base}assets/images/coins/${c.coin}.webp`}
+                    alt={`${c.name} gold coin`}
+                    loading="lazy"
+                    width={44}
+                    height={44}
+                  />
+                </button>
+                <span className="cid-esg-text">{c.point}</span>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
+      {active !== null && (
+        <CoinModal coin={ESG_COINS[active]} onClose={() => setActive(null)} />
+      )}
     </div>
   );
 }
