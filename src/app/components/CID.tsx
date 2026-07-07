@@ -558,10 +558,11 @@ function Underground() {
             </p>
             <h2 id="cid-underground-title" className="cid-underground-title">Underground &amp; terrain</h2>
             <div className="cid-ug-intro">
-              <p>
-                With the second-largest landmass and the longest coastline in the world,
-                Canada&rsquo;s mighty size and expansive geography provide a strong foundation for
-                sustainable economic development.
+              <p className="cid-ug-lede">
+                With the <strong>second-largest landmass</strong> and the{" "}
+                <strong>longest coastline in the world</strong>, Canada&rsquo;s mighty size and
+                expansive geography provide a{" "}
+                <strong>strong foundation for sustainable economic development.</strong>
               </p>
               <p>
                 Hyperscale growth in AI and digitization has exponentially increased demand for
@@ -579,7 +580,7 @@ function Underground() {
               loading="lazy"
               decoding="async"
               width={720}
-              height={1080}
+              height={951}
             />
           </figure>
         </header>

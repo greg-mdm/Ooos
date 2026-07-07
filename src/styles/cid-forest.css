@@ -190,7 +190,9 @@
    (right) with its subtitle. The poster replaces the old text lead line. ---- */
 .cid-scope .cid-ug-head--split {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) clamp(210px, 22vw, 288px);
+  /* poster column sized so the (now trimmed) poster sits about flush with the
+     left content instead of dropping below it */
+  grid-template-columns: minmax(0, 1fr) clamp(185px, 18vw, 232px);
   gap: clamp(24px, 3vw, 52px);
   align-items: center;
 }
@@ -220,6 +222,13 @@
   color: #E8DCC0; /* warm cream, echoing the poster's type */
   max-width: 42ch;
 }
+/* Lede paragraph: a touch narrower + balanced wrapping so the lines even out
+   instead of stranding "development." on a line of its own. */
+.cid-scope .cid-ug-lede {
+  max-width: 27em;
+  text-wrap: balance;
+}
+.cid-scope .cid-ug-lede strong { color: #fff; }
 @media (max-width: 900px) {
   /* stack; poster + subtitle sit under the intro text, centred */
   .cid-scope .cid-ug-head--split { grid-template-columns: 1fr; }
