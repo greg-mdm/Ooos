@@ -278,10 +278,23 @@
 .cid-scope .cid-continuum-gov .cid-continuum-foot { margin-top: 16px; }
 .cid-scope .cid-continuum-gov .cid-continuum-source { margin-top: 8px; }
 
-/* the guide's intro copy (moved below the graphic) sits above the 1–5 routes */
-.cid-scope .cid-continuum-guide-intro { margin-bottom: clamp(20px, 2.4vw, 30px); }
-.cid-scope .cid-continuum-guide-intro .cid-continuum-guide-lead {
+/* the guide heading (was the bold lead-in) sits above the 1–5 routes */
+.cid-scope .cid-continuum-guide-heading {
+  margin: 0 0 clamp(16px, 2vw, 22px);
+  font-family: var(--font-elevated, var(--sans));
+  font-size: clamp(1.18rem, 1.8vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.3;
   color: #ffffff;
-  font-weight: 600;
-  margin-bottom: 0;
+}
+/* the routes column wraps the 1–5 list + the descriptive copy tucked beneath
+   it, so the copy fills the space beside the taller (sticky) "not a ranking"
+   aside instead of leaving a gap under route 5 */
+.cid-scope .cid-continuum-routes-col { min-width: 0; }
+.cid-scope .cid-continuum-guide-desc {
+  margin: clamp(22px, 2.6vw, 34px) 0 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--c-ink);
+  max-width: 60ch;
 }
