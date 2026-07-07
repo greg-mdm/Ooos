@@ -185,3 +185,42 @@
   /* stacked: narrative first, resource cards after (their original order) */
   .cid-scope .cid-ug-rail { order: 2; }
 }
+
+/* ---- Underground header: text (left) + "What lies beneath the map?" poster
+   (right) with its subtitle. The poster replaces the old text lead line. ---- */
+.cid-scope .cid-ug-head--split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(210px, 22vw, 288px);
+  gap: clamp(24px, 3vw, 52px);
+  align-items: center;
+}
+.cid-scope .cid-ug-hero {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.cid-scope .cid-ug-hero-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  border: 1px solid rgba(232, 160, 106, 0.22);
+  box-shadow: 0 30px 64px -30px rgba(0, 0, 0, 0.8);
+}
+.cid-scope .cid-ug-hero-sub {
+  margin: 0;
+  text-align: center;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  line-height: 1.4;
+  color: #E8DCC0; /* warm cream, echoing the poster's type */
+  max-width: 34ch;
+}
+@media (max-width: 900px) {
+  /* stack; poster + subtitle sit under the intro text, centred */
+  .cid-scope .cid-ug-head--split { grid-template-columns: 1fr; }
+  .cid-scope .cid-ug-hero { max-width: 300px; margin: 4px auto 0; }
+}
