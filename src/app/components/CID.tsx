@@ -574,7 +574,26 @@ function Underground() {
           </div>
         </header>
 
-        <div className="cid-ug-body cid-ug-body--full">
+        <div className="cid-ug-body">
+          {/* Left rail — the terrain/data source cards, stacked beside the
+              investment content (moved up out of the row below) */}
+          <aside className="cid-ug-rail">
+            {UNDERGROUND.map((l) => (
+              <a
+                key={l.title}
+                className={`cid-ug-card${l.hero ? " is-hero" : ""}`}
+                href={l.href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="cid-ug-tag">{l.tag}</span>
+                <span className="cid-ug-title">{l.title}</span>
+                <span className="cid-ug-blurb">{l.blurb}</span>
+                <span className="cid-ug-go" aria-hidden="true">Open ↗</span>
+              </a>
+            ))}
+          </aside>
+
           <div className="cid-ug-main">
             <div className="cid-ug-invest">
               <h3 className="cid-ug-invest-title">Naturally Wealthy: A Rock-Solid Investment Stack</h3>
@@ -616,23 +635,6 @@ function Underground() {
               </p>
             </div>
           </div>
-        </div>
-
-        <div className="cid-underground-grid">
-          {UNDERGROUND.map((l) => (
-            <a
-              key={l.title}
-              className={`cid-ug-card${l.hero ? " is-hero" : ""}`}
-              href={l.href}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span className="cid-ug-tag">{l.tag}</span>
-              <span className="cid-ug-title">{l.title}</span>
-              <span className="cid-ug-blurb">{l.blurb}</span>
-              <span className="cid-ug-go" aria-hidden="true">Open ↗</span>
-            </a>
-          ))}
         </div>
       </div>
     </section>
