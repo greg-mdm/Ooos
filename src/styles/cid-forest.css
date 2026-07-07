@@ -29,9 +29,11 @@
   background: linear-gradient(160deg, #F0F4F5 0%, #008080 56%, #1FCECB 100%);
   padding: clamp(30px, 4vw, 60px) clamp(20px, 4vw, 56px);
 }
+/* Left tile | reserved middle gap | right tile. The middle column straddles
+   the video's centre divider and is held open for content TBD. */
 .cid-scope .cid-canopy-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* aligns with the video's centre divider */
+  grid-template-columns: 1fr minmax(240px, 0.8fr) 1fr;
   gap: clamp(20px, 3vw, 40px);
   max-width: 1400px;
   margin: 0 auto;
@@ -50,21 +52,11 @@
   box-shadow: 0 30px 64px -34px rgba(0, 0, 0, 0.55);
   color: #EAF3F4;
 }
-/* hero figure at the top-right — a rule-of-thirds point of interest */
-.cid-scope .cid-canopy-fig {
-  align-self: flex-end;
-  font-family: var(--serif);
-  font-weight: 800;
-  font-size: clamp(2.6rem, 6vw, 4.6rem);
-  line-height: 0.9;
-  letter-spacing: -0.02em;
-  background: linear-gradient(180deg, #FFFFFF 0%, #1FCECB 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
+/* Wetlands sits under the photo half (left); Boreal under the rain half (right) */
+.cid-scope .cid-canopy-tile--left { text-align: left; }
+.cid-scope .cid-canopy-tile--right { text-align: right; }
 .cid-scope .cid-canopy-h {
-  margin: 6px 0 8px;
+  margin: 0 0 8px;
   font-family: var(--serif);
   font-size: clamp(1.5rem, 2.6vw, 2.1rem);
   color: #FFFFFF;
@@ -76,6 +68,8 @@
   color: #D3E2E4;
   max-width: 48ch;
 }
+/* keep the capped-width copy under the correct video half */
+.cid-scope .cid-canopy-tile--right .cid-canopy-desc { margin-left: auto; }
 .cid-scope .cid-canopy-metric {
   margin: 0 0 12px;
   font-size: 0.92rem;
@@ -96,7 +90,54 @@
   color: #FFF3B0; /* gold emphasis on the % figures */
   font-weight: 700;
 }
+
+/* ---- Middle box: "nature-rich" summary, moved up from the cave ---- */
+/* Mirrors the old .cid-ug-natcard so the relocation reads identically. */
+.cid-scope .cid-canopy-mid {
+  align-self: center; /* float between the taller side tiles */
+  padding: clamp(22px, 2.4vw, 30px) clamp(22px, 2.4vw, 28px) clamp(24px, 2.6vw, 30px);
+  border: 1px solid rgba(232, 160, 106, 0.28);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(14, 17, 34, 0.90), rgba(9, 11, 24, 0.94));
+  -webkit-backdrop-filter: blur(20px) saturate(115%);
+  backdrop-filter: blur(20px) saturate(115%);
+  box-shadow: 0 20px 54px -32px rgba(0, 0, 0, 0.8);
+  text-align: left;
+}
+.cid-scope .cid-canopy-mid-lead {
+  margin: 0 0 14px;
+  font-family: var(--font-elevated, var(--sans));
+  font-size: clamp(1.02rem, 1.4vw, 1.22rem);
+  font-weight: 700;
+  line-height: 1.35;
+  color: #FFFFFF;
+}
+.cid-scope .cid-canopy-mid-stats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+.cid-scope .cid-canopy-mid-stats li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: #C9D6EA;
+}
+.cid-scope .cid-canopy-mid-n {
+  flex: 0 0 auto;
+  font-family: var(--font-elevated, var(--sans));
+  font-size: clamp(1.5rem, 2.2vw, 1.9rem);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--c-earth);
+}
 @media (max-width: 760px) {
+  /* stack; nature-rich summary reads first, then the two examples */
   .cid-scope .cid-canopy-grid { grid-template-columns: 1fr; }
-  .cid-scope .cid-canopy-fig { align-self: flex-start; }
+  .cid-scope .cid-canopy-mid { order: -1; align-self: stretch; }
+  .cid-scope .cid-canopy-tile--right { text-align: left; }
+  .cid-scope .cid-canopy-tile--right .cid-canopy-desc { margin-left: 0; }
 }
