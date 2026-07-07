@@ -209,15 +209,16 @@
   border: 1px solid rgba(232, 160, 106, 0.22);
   box-shadow: 0 30px 64px -30px rgba(0, 0, 0, 0.8);
 }
-.cid-scope .cid-ug-hero-sub {
-  margin: 0;
-  text-align: center;
+/* invitation lead — sits above the eyebrow/title: "delve" first, then the
+   section unfolds below */
+.cid-scope .cid-ug-invite {
+  margin: 0 0 16px;
   font-family: var(--serif);
   font-style: italic;
-  font-size: clamp(1rem, 1.3vw, 1.15rem);
-  line-height: 1.4;
+  font-size: clamp(1.15rem, 1.7vw, 1.45rem);
+  line-height: 1.35;
   color: #E8DCC0; /* warm cream, echoing the poster's type */
-  max-width: 34ch;
+  max-width: 42ch;
 }
 @media (max-width: 900px) {
   /* stack; poster + subtitle sit under the intro text, centred */
