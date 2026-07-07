@@ -550,28 +550,40 @@ function Underground() {
   return (
     <section className="cid-underground" aria-labelledby="cid-underground-title">
       <div className="cid-continuum-inner cid-underground-inner">
-        <header className="cid-ug-head">
-          <p className="cid-underground-eyebrow">
-            <span aria-hidden="true">▼</span> Below the surface
-          </p>
-          <h2 id="cid-underground-title" className="cid-underground-title">Underground &amp; terrain</h2>
-          <div className="cid-ug-intro">
-            <p>
-              <strong>What lies beneath the map?</strong>{" "}
-              <strong><em>Delve into the deepest layers of public records.</em></strong>
+        <header className="cid-ug-head cid-ug-head--split">
+          <div className="cid-ug-head-text">
+            <p className="cid-underground-eyebrow">
+              <span aria-hidden="true">▼</span> Below the surface
             </p>
-            <p>
-              With the second-largest landmass and the longest coastline in the world,
-              Canada&rsquo;s mighty size and expansive geography provide a strong foundation for
-              sustainable economic development.
-            </p>
-            <p>
-              Hyperscale growth in AI and digitization has exponentially increased demand for
-              data and critical minerals essential to modern technologies. Canada is now
-              capitalizing on sustainable resource management to gain a competitive edge in the
-              global market.
-            </p>
+            <h2 id="cid-underground-title" className="cid-underground-title">Underground &amp; terrain</h2>
+            <div className="cid-ug-intro">
+              <p>
+                With the second-largest landmass and the longest coastline in the world,
+                Canada&rsquo;s mighty size and expansive geography provide a strong foundation for
+                sustainable economic development.
+              </p>
+              <p>
+                Hyperscale growth in AI and digitization has exponentially increased demand for
+                data and critical minerals essential to modern technologies. Canada is now
+                capitalizing on sustainable resource management to gain a competitive edge in the
+                global market.
+              </p>
+            </div>
           </div>
+          <figure className="cid-ug-hero">
+            <img
+              className="cid-ug-hero-img"
+              src={`${import.meta.env.BASE_URL}assets/images/whatlies.webp`}
+              alt="What lies beneath the map?"
+              loading="lazy"
+              decoding="async"
+              width={720}
+              height={1080}
+            />
+            <figcaption className="cid-ug-hero-sub">
+              Delve into the deepest layers of public records.
+            </figcaption>
+          </figure>
         </header>
 
         <div className="cid-ug-body">
