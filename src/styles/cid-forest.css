@@ -1,15 +1,17 @@
 /* ===========================================================
-   CID — Forest layer
-   The video IS the section: full-bleed, edge to edge, sitting as a
-   band between the continuum and the underground/cave (no card, no
-   margins). Clip is a web-optimized MP4 (converted from a 21MB GIF
-   to ~1.9MB), 1000x300 native, autoplaying muted + looping.
+   CID — Forest layer + above-ground canopy
+   Forest layer: full-bleed video band (the video IS the section),
+   a web-optimized MP4 (converted from a 21MB GIF to ~1.9MB), 1000x300
+   native, autoplaying muted + looping.
+   Canopy: the above-ground stat section on a Robin's Egg -> Teal ->
+   Cyan gradient (teal ramp anchors 50 / 700 / 950), split into two
+   columns that line up with the video's centre divider.
    =========================================================== */
+
+/* ---- Forest layer: the video IS the section (full-bleed) ---- */
 .cid-scope .cid-forest {
-  /* dark base shows behind the clip while it loads and matches the
-     adjacent dark sections above/below */
   background: #06021C;
-  line-height: 0; /* remove inline-media descender gap */
+  line-height: 0;
 }
 .cid-scope .cid-forest-inner {
   width: 100%;
@@ -20,4 +22,81 @@
   display: block;
   width: 100%;
   height: auto;
+}
+
+/* ---- Above-ground canopy: RB -> Teal -> Cyan gradient ---- */
+.cid-scope .cid-canopy {
+  background: linear-gradient(160deg, #F0F4F5 0%, #008080 56%, #1FCECB 100%);
+  padding: clamp(30px, 4vw, 60px) clamp(20px, 4vw, 56px);
+}
+.cid-scope .cid-canopy-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* aligns with the video's centre divider */
+  gap: clamp(20px, 3vw, 40px);
+  max-width: 1400px;
+  margin: 0 auto;
+  align-items: stretch;
+}
+.cid-scope .cid-canopy-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(24px, 3vw, 40px);
+  border-radius: 20px;
+  background: rgba(6, 22, 26, 0.52);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  backdrop-filter: blur(16px) saturate(120%);
+  box-shadow: 0 30px 64px -34px rgba(0, 0, 0, 0.55);
+  color: #EAF3F4;
+}
+/* hero figure at the top-right — a rule-of-thirds point of interest */
+.cid-scope .cid-canopy-fig {
+  align-self: flex-end;
+  font-family: var(--serif);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  background: linear-gradient(180deg, #FFFFFF 0%, #1FCECB 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.cid-scope .cid-canopy-h {
+  margin: 6px 0 8px;
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  color: #FFFFFF;
+}
+.cid-scope .cid-canopy-desc {
+  margin: 0 0 16px;
+  font-size: 1rem;
+  line-height: 1.62;
+  color: #D3E2E4;
+  max-width: 48ch;
+}
+.cid-scope .cid-canopy-metric {
+  margin: 0 0 12px;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #B7CBCE;
+}
+.cid-scope .cid-canopy-metric:last-child { margin-bottom: 0; }
+.cid-scope .cid-canopy-k {
+  display: block;
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #1FCECB;
+  margin-bottom: 2px;
+}
+.cid-scope .cid-canopy-desc strong,
+.cid-scope .cid-canopy-metric strong {
+  color: #FFF3B0; /* gold emphasis on the % figures */
+  font-weight: 700;
+}
+@media (max-width: 760px) {
+  .cid-scope .cid-canopy-grid { grid-template-columns: 1fr; }
+  .cid-scope .cid-canopy-fig { align-self: flex-start; }
 }
