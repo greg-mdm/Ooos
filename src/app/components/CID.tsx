@@ -574,14 +574,7 @@ function Underground() {
           </div>
         </header>
 
-        <div className="cid-ug-body">
-          <aside className="cid-ug-aside">
-            <figure className="cid-ug-quote">
-              <blockquote>&ldquo;The best offence is a strong defence.&rdquo;</blockquote>
-              <figcaption>&mdash; most hockey coaches agree.</figcaption>
-            </figure>
-          </aside>
-
+        <div className="cid-ug-body cid-ug-body--full">
           <div className="cid-ug-main">
             <div className="cid-ug-invest">
               <h3 className="cid-ug-invest-title">Naturally Wealthy: A Rock-Solid Investment Stack</h3>
@@ -749,16 +742,22 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             </p>
           </article>
 
-          {/* Middle column — nature-rich summary, straddling the video's centre divider */}
-          <aside className="cid-canopy-mid">
-            <p className="cid-canopy-mid-lead">
-              Canada is one of the most nature-rich countries on Earth.
-            </p>
-            <ul className="cid-canopy-mid-stats">
-              <li><span className="cid-canopy-mid-n">20%</span> of the world&rsquo;s fresh water</li>
-              <li><span className="cid-canopy-mid-n">25%</span> of global wetlands</li>
-            </ul>
-          </aside>
+          {/* Middle column — nature-rich summary + the pull quote, straddling the divider */}
+          <div className="cid-canopy-midcol">
+            <aside className="cid-canopy-mid">
+              <p className="cid-canopy-mid-lead">
+                Canada is one of the most nature-rich countries on Earth.
+              </p>
+              <ul className="cid-canopy-mid-stats">
+                <li><span className="cid-canopy-mid-n">20%</span> of the world&rsquo;s fresh water</li>
+                <li><span className="cid-canopy-mid-n">25%</span> of global wetlands</li>
+              </ul>
+            </aside>
+            <figure className="cid-canopy-quote">
+              <blockquote>&ldquo;The best offence is a strong defence.&rdquo;</blockquote>
+              <figcaption>&mdash; most hockey coaches agree.</figcaption>
+            </figure>
+          </div>
 
           {/* Boreal forests — right column, under the raining-canopy half of the video above */}
           <article className="cid-canopy-tile cid-canopy-tile--right">
