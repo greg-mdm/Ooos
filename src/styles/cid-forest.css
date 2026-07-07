@@ -172,6 +172,16 @@
   .cid-scope .cid-canopy-tile--right .cid-canopy-desc { margin-left: 0; }
 }
 
-/* ---- Cave: the pull quote moved up to the canopy, so the body is now
-   single-column (was minmax(280,340) 1fr for the sticky quote aside) ---- */
-.cid-scope .cid-ug-body--full { grid-template-columns: 1fr; }
+/* ---- Cave: the terrain/data-source cards live in a left rail beside
+   "Naturally Wealthy" (the pull quote that used to sit here moved up to the
+   canopy). The 2-col .cid-ug-body grid (minmax(280,340) 1fr) puts the rail
+   in the narrow left column and the investment content in the wide right. ---- */
+.cid-scope .cid-ug-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+@media (max-width: 900px) {
+  /* stacked: narrative first, resource cards after (their original order) */
+  .cid-scope .cid-ug-rail { order: 2; }
+}
