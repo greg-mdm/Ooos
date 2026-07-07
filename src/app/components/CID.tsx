@@ -241,25 +241,22 @@ function DataAccessContinuum() {
             profound social, economic, and environmental transformations together.
           </p>
           <p>
-            Statistics Canada provides secure access to a wide range of anonymized survey data,
-            as well as administrative and integrated data, to support research and statistical
-            analysis for project development, program management, and public understanding. The
-            available data covers topics like the digital economy, international trade, health,
-            wealth, and languages.
-          </p>
-          <p>
-            Whether you want to know more about governing laws and policies or you&rsquo;re
-            searching for details on proactive disclosures,{" "}
+            For information on governing laws, policies, and proactive disclosures, visit{" "}
             <a href="https://www.statcan.gc.ca" target="_blank" rel="noopener noreferrer">
               statcan.gc.ca
-            </a>{" "}
-            offers official statistics that accurately measure our society, our economy, and our
-            environmental factors.
+            </a>.
           </p>
-          <p>Use the guide below to navigate this data ecosystem.</p>
         </div>
 
         <figure className="cid-continuum-gov">
+          {/* the cool -> hot gradient bar sits above the graphic, echoing its
+              Self-Serve -> Secure arrow */}
+          <div className="cid-continuum-ends" aria-hidden="true">
+            <span className="cid-continuum-end cid-continuum-end--open">Self-serve access</span>
+            <span className="cid-continuum-end-mid">more controlled access</span>
+            <span className="cid-continuum-end cid-continuum-end--secure">Secure access</span>
+          </div>
+          <div className="cid-continuum-track" aria-hidden="true" />
           <img
             className="cid-continuum-gov-img"
             src={`${import.meta.env.BASE_URL}assets/images/microdata-continuum-eng.webp`}
@@ -268,19 +265,28 @@ function DataAccessContinuum() {
             width={1140}
             height={667}
           />
-          {/* the cool -> hot gradient bar echoes the graphic's Self-Serve -> Secure arrow */}
-          <div className="cid-continuum-ends" aria-hidden="true">
-            <span className="cid-continuum-end cid-continuum-end--open">Self-serve access</span>
-            <span className="cid-continuum-end-mid">more controlled access</span>
-            <span className="cid-continuum-end cid-continuum-end--secure">Secure access</span>
-          </div>
-          <div className="cid-continuum-track" aria-hidden="true" />
+          <p className="cid-continuum-foot">
+            As you move from left to right, the data may become more detailed or sensitive, so
+            the privacy, authorization and security requirements increase.
+          </p>
           <figcaption className="cid-continuum-source">
             Source: Statistics Canada, Continuum of Data Access.
           </figcaption>
         </figure>
 
         <div className="cid-continuum-scale">
+          <div className="cid-continuum-lede cid-continuum-guide-intro">
+            <p>
+              Statistics Canada offers secure access to anonymized survey data, administrative
+              records, and integrated datasets. These resources are designed to support research
+              and statistical analysis for project development, program management, and to improve
+              public understanding. The available data covers key topics such as the digital
+              economy, international trade, health, wealth, and languages.
+            </p>
+            <p className="cid-continuum-guide-lead">
+              Use the guide below to navigate this data ecosystem.
+            </p>
+          </div>
           <div className="cid-continuum-routes-wrap">
             <ol className="cid-continuum-routes">
               {ROUTES.map((r, i) => (
@@ -295,10 +301,6 @@ function DataAccessContinuum() {
               />
             </aside>
           </div>
-          <p className="cid-continuum-foot">
-            As you move from left to right, the data may become more detailed or sensitive, so
-            the privacy, authorization and security requirements increase.
-          </p>
         </div>
 
         <div className="cid-continuum-panels">
