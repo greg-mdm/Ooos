@@ -446,39 +446,6 @@ function Underground() {
           </aside>
 
           <div className="cid-ug-main">
-            <div className="cid-ug-nature">
-              <article className="cid-ug-nat">
-                <h3 className="cid-ug-nat-h">Wetlands</h3>
-                <p>
-                  Absorbing carbon and excess rainfall helps maintain ecological stability and
-                  resilience to severe weather impacts.
-                </p>
-                <p className="cid-ug-metric">
-                  <span className="cid-ug-metric-k">Value</span>$225&nbsp;billion, backed by our 25%
-                  share of the world&rsquo;s wetlands.
-                </p>
-                <p className="cid-ug-metric">
-                  <span className="cid-ug-metric-k">Strengths</span>Enhances water quality, absorbs
-                  carbon emissions, and mitigates the effects of climate change. Canada possesses
-                  20% of the world&rsquo;s fresh water.
-                </p>
-              </article>
-              <article className="cid-ug-nat">
-                <h3 className="cid-ug-nat-h">Boreal forests</h3>
-                <p>
-                  Canada stewards 54% of the world&rsquo;s boreal forests. This vast terrestrial
-                  storehouse greatly enhances carbon capture and storage (CCS).
-                </p>
-                <p className="cid-ug-metric">
-                  <span className="cid-ug-metric-k">Value</span>~$703&nbsp;billion.
-                </p>
-                <p className="cid-ug-metric">
-                  <span className="cid-ug-metric-k">Strengths</span>Carbon storage, flood and pest
-                  control.
-                </p>
-              </article>
-            </div>
-
             <div className="cid-ug-invest">
               <h3 className="cid-ug-invest-title">Naturally Wealthy: A Rock-Solid Investment Stack</h3>
               <p>
@@ -622,6 +589,42 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             playsInline
             aria-hidden="true"
           />
+        </div>
+      </section>
+
+      <section className="cid-canopy" aria-label="Above ground: Canada's natural wealth">
+        <div className="cid-canopy-grid">
+          <article className="cid-canopy-tile">
+            <span className="cid-canopy-fig" aria-hidden="true">$225B</span>
+            <h3 className="cid-canopy-h">Wetlands</h3>
+            <p className="cid-canopy-desc">
+              Absorbing carbon and excess rainfall helps maintain ecological stability and
+              resilience to severe weather impacts.
+            </p>
+            <p className="cid-canopy-metric">
+              <span className="cid-canopy-k">Value</span>$225&nbsp;billion, backed by our{" "}
+              <strong>25%</strong> share of the world&rsquo;s wetlands.
+            </p>
+            <p className="cid-canopy-metric">
+              <span className="cid-canopy-k">Strengths</span>Enhances water quality, absorbs
+              carbon emissions, and mitigates the effects of climate change. Canada possesses{" "}
+              <strong>20%</strong> of the world&rsquo;s fresh water.
+            </p>
+          </article>
+          <article className="cid-canopy-tile">
+            <span className="cid-canopy-fig" aria-hidden="true">$703B</span>
+            <h3 className="cid-canopy-h">Boreal forests</h3>
+            <p className="cid-canopy-desc">
+              Canada stewards <strong>54%</strong> of the world&rsquo;s boreal forests. This
+              vast terrestrial storehouse greatly enhances carbon capture and storage (CCS).
+            </p>
+            <p className="cid-canopy-metric">
+              <span className="cid-canopy-k">Value</span>~$703&nbsp;billion.
+            </p>
+            <p className="cid-canopy-metric">
+              <span className="cid-canopy-k">Strengths</span>Carbon storage, flood and pest control.
+            </p>
+          </article>
         </div>
       </section>
 
