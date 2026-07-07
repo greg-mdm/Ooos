@@ -434,15 +434,6 @@ function Underground() {
               <blockquote>&ldquo;The best offence is a strong defence.&rdquo;</blockquote>
               <figcaption>&mdash; most hockey coaches agree.</figcaption>
             </figure>
-            <div className="cid-ug-natcard">
-              <p className="cid-ug-natcard-head">
-                Canada is one of the most nature-rich countries on Earth.
-              </p>
-              <ul className="cid-ug-stats">
-                <li><span className="cid-ug-stat-n">20%</span> of the world&rsquo;s fresh water</li>
-                <li><span className="cid-ug-stat-n">25%</span> of global wetlands</li>
-              </ul>
-            </div>
           </aside>
 
           <div className="cid-ug-main">
@@ -594,8 +585,8 @@ export function CID({ onSupport }: { onSupport: () => void }) {
 
       <section className="cid-canopy" aria-label="Above ground: Canada's natural wealth">
         <div className="cid-canopy-grid">
-          <article className="cid-canopy-tile">
-            <span className="cid-canopy-fig" aria-hidden="true">$225B</span>
+          {/* Wetlands — left column, under the wetlands photo half of the video above */}
+          <article className="cid-canopy-tile cid-canopy-tile--left">
             <h3 className="cid-canopy-h">Wetlands</h3>
             <p className="cid-canopy-desc">
               Absorbing carbon and excess rainfall helps maintain ecological stability and
@@ -611,8 +602,20 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               <strong>20%</strong> of the world&rsquo;s fresh water.
             </p>
           </article>
-          <article className="cid-canopy-tile">
-            <span className="cid-canopy-fig" aria-hidden="true">$703B</span>
+
+          {/* Middle column — nature-rich summary, straddling the video's centre divider */}
+          <aside className="cid-canopy-mid">
+            <p className="cid-canopy-mid-lead">
+              Canada is one of the most nature-rich countries on Earth.
+            </p>
+            <ul className="cid-canopy-mid-stats">
+              <li><span className="cid-canopy-mid-n">20%</span> of the world&rsquo;s fresh water</li>
+              <li><span className="cid-canopy-mid-n">25%</span> of global wetlands</li>
+            </ul>
+          </aside>
+
+          {/* Boreal forests — right column, under the raining-canopy half of the video above */}
+          <article className="cid-canopy-tile cid-canopy-tile--right">
             <h3 className="cid-canopy-h">Boreal forests</h3>
             <p className="cid-canopy-desc">
               Canada stewards <strong>54%</strong> of the world&rsquo;s boreal forests. This
