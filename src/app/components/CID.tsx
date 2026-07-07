@@ -373,59 +373,120 @@ function DataAccessContinuum() {
  *  above the site footer with a deep subsurface field and terrain link cards. */
 /** ESG advantages — progressive disclosure. The summary line is the trigger;
  *  the arrow drops the bullet list in between the line and the closing copy. */
-type EsgCoin = { coin: string; name: string; point: string };
+type EsgCoin = {
+  image: string;
+  title: string;
+  year: string;
+  meta: string;
+  detail: string;
+  point: string;
+};
 
-// Five gold coins (co-designed) stand in for the bullet markers. Each is a
-// small clickable token; clicking opens the coin at full detail in a lightbox.
+// The five co-designed Royal Canadian Mint coins ("Golden Dollar Bullets",
+// imported from Claude Design) are the bullet markers for the ESG advantages.
+// The row shows the business advantage; the coin's title / year / meta / story
+// live in the click-to-zoom lightbox.
 const ESG_COINS: EsgCoin[] = [
-  { coin: "wolf", name: "The Wolf", point: "Build stronger customer loyalty with sustainable practices." },
-  { coin: "pearl", name: "The Pearl", point: "Enhanced brand reputation through responsible sourcing and production." },
-  { coin: "skyline", name: "The Skyline", point: "Elevated access to financing by showing investors a future-ready business model." },
-  { coin: "panner", name: "The Panner", point: "Reduced operating costs through improved efficiency and waste management." },
-  { coin: "worldcup", name: "The World Cup", point: "Improved talent acquisition and retention through a purpose-driven culture." },
+  {
+    image: "wolf",
+    title: "The Arctic Wolf",
+    year: "2026",
+    meta: "1 oz · 99.99% Fine Gold",
+    detail:
+      "An Arctic wolf stands watch at the treeline as dawn rays fan out behind it — struck in a full ounce of pure Canadian gold.",
+    point: "Build stronger customer loyalty with sustainable practices.",
+  },
+  {
+    image: "pearl",
+    title: "The Freshwater Pearl",
+    year: "2026",
+    meta: "Pearl Inlay · Engraved",
+    detail:
+      "A genuine freshwater pearl rests at the heart of an intricate mandala of maple leaves and scrollwork — light and metal held in quiet balance.",
+    point: "Enhanced brand reputation through responsible sourcing and production.",
+  },
+  {
+    image: "skyline",
+    title: "Toronto at Fifty",
+    year: "1976–2026",
+    meta: "99.99% Pure Gold",
+    detail:
+      "The CN Tower, soaring above Toronto’s skyline, symbolizes Canadian ingenuity. Once the world’s tallest free-standing structure from 1975 to 2007, it was originally built by the Canadian National (CN) railroad as a telecommunications and observation tower. Since opening 50 years ago, the CN Tower has evolved into an iconic Canadian landmark and tourist attraction in Toronto, Ontario.",
+    point: "Elevated access to financing by showing investors a future-ready business model.",
+  },
+  {
+    image: "panner",
+    title: "The Great Gold Rush",
+    year: "2022",
+    meta: "Pure Gold · Klondike",
+    detail:
+      "A lone prospector cradles a sluice box on the banks of the Klondike, gold dust catching the current — a hand-tooled tribute to the rush that built the North.",
+    point: "Reduced operating costs through improved efficiency and waste management.",
+  },
+  {
+    image: "worldcup",
+    title: "FIFA World Cup 26",
+    year: "2026",
+    meta: "Official Coin · Trophy",
+    detail:
+      "The iconic trophy lifted skyward as fans erupt in celebration, struck for the tournament arriving on North American soil.",
+    point: "Improved talent acquisition and retention through a purpose-driven culture.",
+  },
 ];
 
 function CoinModal({ coin, onClose }: { coin: EsgCoin; onClose: () => void }) {
   const base = import.meta.env.BASE_URL;
+  const closeRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
+    const prevFocus = document.activeElement as HTMLElement | null;
+    closeRef.current?.focus();
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
+      // the dialog has a single focusable control — keep focus on it
+      if (e.key === "Tab") {
+        e.preventDefault();
+        closeRef.current?.focus();
+      }
     };
     document.addEventListener("keydown", onKey);
-    const prev = document.body.style.overflow;
+    const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
       document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prev;
+      document.body.style.overflow = prevOverflow;
+      prevFocus?.focus();
     };
   }, [onClose]);
 
   return createPortal(
-    <div className="cid-coin-backdrop" onClick={onClose} role="presentation">
+    <div className="gdb-root gdb-overlay" onClick={onClose} role="presentation">
       <div
-        className="cid-coin-modal"
+        className="gdb-card"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
-        aria-label={`${coin.name} gold coin`}
+        aria-label={`${coin.title} gold coin`}
       >
         <button
-          className="cid-coin-close"
+          ref={closeRef}
+          className="gdb-close"
           onClick={onClose}
-          aria-label="Close coin viewer"
+          aria-label="Close"
           type="button"
         >
           ×
         </button>
-        <img
-          className="cid-coin-big"
-          src={`${base}assets/images/coins/${coin.coin}.webp`}
-          alt={`${coin.name} gold coin, enlarged`}
-        />
-        <div className="cid-coin-cap">
-          <span className="cid-coin-name">{coin.name}</span>
-          <p className="cid-coin-point">{coin.point}</p>
+        <div className="gdb-zoom-wrap">
+          <span className="gdb-zoom-glow" aria-hidden="true" />
+          <img
+            className="gdb-zoom-img"
+            src={`${base}assets/images/coins/${coin.image}.webp`}
+            alt={`${coin.title} — gold coin, enlarged`}
+          />
         </div>
+        <div className="gdb-zoom-meta">{coin.year} · {coin.meta}</div>
+        <h3 className="gdb-zoom-title">{coin.title}</h3>
+        <p className="gdb-zoom-detail">{coin.detail}</p>
       </div>
     </div>,
     document.body,
@@ -449,28 +510,32 @@ function EsgAdvantages() {
         <span className="cid-ug-esg-arrow" aria-hidden="true">↓</span>
       </button>
       <div className={`cid-ug-esg-wrap${open ? " is-open" : ""}`}>
-        <div className="cid-ug-esg-inner">
-          <ul id="cid-ug-esg-list" className="cid-ug-esg-list cid-esg-coinlist">
+        <div className="cid-ug-esg-inner gdb-root">
+          <ul id="cid-ug-esg-list" className="gdb-v-list">
             {ESG_COINS.map((c, i) => (
-              <li key={c.coin} className="cid-esg-item">
+              <li key={c.image}>
                 <button
                   type="button"
-                  className="cid-esg-coin"
+                  className="gdb-v-btn"
                   onClick={() => setActive(i)}
-                  aria-label={`Enlarge the ${c.name} gold coin`}
-                  title={`${c.name} — click to enlarge`}
+                  aria-label={`${c.point} — enlarge the ${c.title} gold coin (${c.year})`}
                 >
-                  <img
-                    src={`${base}assets/images/coins/${c.coin}.webp`}
-                    alt={`${c.name} gold coin`}
-                    loading="lazy"
-                    width={44}
-                    height={44}
-                  />
+                  <span className="gdb-v-coin">
+                    <img
+                      className="gdb-v-img"
+                      src={`${base}assets/images/coins/${c.image}.webp`}
+                      alt={`${c.title} gold coin`}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </span>
+                  <span className="gdb-v-text">
+                    <span className="gdb-v-esg">{c.point}</span>
+                  </span>
                 </button>
-                <span className="cid-esg-text">{c.point}</span>
               </li>
             ))}
+            <li aria-hidden="true" />
           </ul>
         </div>
       </div>

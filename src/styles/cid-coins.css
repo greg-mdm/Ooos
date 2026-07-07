@@ -1,148 +1,171 @@
 /* ===========================================================
-   CID — Gold-coin bullets for the ESG advantages list
-   Five co-designed Royal-Canadian-Mint-style coins replace the
-   list markers in the cave's "Strong ESG leadership…" dropdown.
-   Each coin is a small clickable token; clicking opens the coin
-   at full detail in a lightbox (portaled to <body>, so the CSS
-   below is intentionally NOT scoped to .cid-scope and uses
-   literal colours rather than the page's custom properties).
+   CID — "Golden Dollar Bullets"
+   The five co-designed Royal Canadian Mint coins as the bullet
+   markers in the cave's ESG-advantages dropdown, with a
+   click-to-zoom lightbox. Vertical layout + zoom modal ported
+   verbatim from the Claude Design bundle (gdb-* classes), then
+   integrated into the React page:
+     - the row text is the ESG advantage (site content); the
+       coin's title / year / meta / story live in the zoom modal.
+     - the global resets from the standalone design (body/html/*,
+       body background + font) are intentionally DROPPED so they
+       can't leak onto the rest of the site.
+     - the modal is portaled to <body>, so these rules are
+       deliberately unscoped and self-contained; .gdb-root carries
+       the Jost/cream defaults to both the list and the portal.
    =========================================================== */
 
-/* ---- Coin-bullet list (in-tree, so scoped like its siblings) ---- */
-.cid-scope .cid-esg-coinlist {
-  margin: 16px 0 6px;
-  padding-left: 0;
-  list-style: none;
-  display: grid;
-  gap: 14px;
+.gdb-root { font-family: 'Jost', sans-serif; color: #f0e2c4; }
+
+@keyframes gdbCoinIn {
+  from { opacity: 0; transform: scale(.82) translateY(14px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
 }
-.cid-scope .cid-esg-item {
+
+/* ---- Vertical layout: the ESG bullets ---- */
+.gdb-v-list {
+  list-style: none;
+  margin: 10px 0 2px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.gdb-v-list li { border-top: 1px solid rgba(214, 170, 90, 0.22); }
+.gdb-v-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  color: inherit;
   display: flex;
   align-items: center;
   gap: 15px;
+  padding: 13px 6px;
+  transition: padding-left .22s ease, background .22s ease;
 }
-.cid-scope .cid-esg-text {
-  font-size: 0.95rem;
-  line-height: 1.55;
-  color: #C9D6EA;
-}
-
-/* the coin itself — a transparent button wrapping the artwork */
-.cid-scope .cid-esg-coin {
+.gdb-v-btn:hover,
+.gdb-v-btn:focus-visible { padding-left: 12px; background: rgba(214, 170, 90, 0.08); }
+.gdb-v-btn:focus-visible { outline: 2px solid rgba(214, 170, 90, 0.6); outline-offset: 2px; }
+.gdb-v-coin {
   flex: 0 0 auto;
-  width: 48px;
-  height: 48px;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background: transparent;
-  cursor: pointer;
-  line-height: 0;
-  transition: transform 180ms ease;
-}
-.cid-scope .cid-esg-coin img {
-  width: 48px;
-  height: 48px;
-  object-fit: contain;
-  display: block;
-  transition: filter 180ms ease;
-}
-.cid-scope .cid-esg-coin:hover,
-.cid-scope .cid-esg-coin:focus-visible {
-  transform: translateY(-2px) scale(1.1);
-}
-.cid-scope .cid-esg-coin:hover img,
-.cid-scope .cid-esg-coin:focus-visible img {
-  filter: drop-shadow(0 0 8px rgba(232, 160, 106, 0.65));
-}
-.cid-scope .cid-esg-coin:focus-visible {
-  outline: 2px solid #E8A06A;
-  outline-offset: 3px;
-}
-
-/* ---- Lightbox (portaled to <body> — unscoped, literal values) ---- */
-.cid-coin-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 120;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
-  background: rgba(6, 8, 16, 0.78);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
-  animation: cidCoinFade 180ms ease;
+  transition: transform .3s cubic-bezier(.2, .8, .3, 1);
 }
-.cid-coin-modal {
+.gdb-v-btn:hover .gdb-v-coin,
+.gdb-v-btn:focus-visible .gdb-v-coin { transform: scale(1.14); }
+.gdb-v-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  max-width: min(92vw, 520px);
-  padding: clamp(22px, 3vw, 36px);
-  border-radius: 22px;
-  background: radial-gradient(120% 120% at 50% 0%, rgba(30, 26, 44, 0.97), rgba(9, 11, 24, 0.98));
-  border: 1px solid rgba(232, 160, 106, 0.35);
-  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.85);
-  animation: cidCoinPop 200ms cubic-bezier(0.2, 0.8, 0.3, 1);
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
 }
-.cid-coin-big {
-  width: min(72vw, 400px);
-  height: auto;
+.gdb-v-text { flex: 1; min-width: 0; }
+/* the row keeps the ESG advantage (site copy), not the coin title */
+.gdb-v-esg {
   display: block;
-  filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.55));
-}
-.cid-coin-cap {
-  text-align: center;
-  max-width: 42ch;
-}
-.cid-coin-name {
-  display: block;
-  font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  color: #E8A06A;
-  margin-bottom: 7px;
-}
-.cid-coin-point {
-  margin: 0;
-  font-size: 1.02rem;
+  font-family: 'Jost', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
   line-height: 1.5;
-  color: #EAF0F6;
+  color: #ece0c4;
 }
-.cid-coin-close {
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  width: 34px;
-  height: 34px;
-  border: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
-  font-size: 1.4rem;
-  line-height: 1;
-  cursor: pointer;
-  transition: background 160ms ease;
-}
-.cid-coin-close:hover { background: rgba(232, 160, 106, 0.3); }
-.cid-coin-close:focus-visible { outline: 2px solid #E8A06A; outline-offset: 2px; }
 
-@keyframes cidCoinFade {
-  from { opacity: 0; }
-  to { opacity: 1; }
+/* ---- Zoom modal (portaled to <body>) ---- */
+.gdb-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  background: rgba(8, 14, 20, 0.78);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
 }
-@keyframes cidCoinPop {
-  from { opacity: 0; transform: translateY(10px) scale(0.96); }
-  to { opacity: 1; transform: none; }
+.gdb-card {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  background: linear-gradient(165deg, #141c24, #0c1218);
+  border: 1px solid rgba(214, 170, 90, 0.28);
+  border-radius: 22px;
+  padding: 40px 40px 38px;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+  text-align: center;
+  animation: gdbCoinIn .42s cubic-bezier(.2, .9, .25, 1) both;
 }
+.gdb-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(214, 170, 90, 0.32);
+  background: rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  font-size: 18px;
+  color: #d6aa5a;
+  line-height: 1;
+}
+.gdb-close:hover { background: rgba(214, 170, 90, 0.16); }
+.gdb-close:focus-visible { outline: 2px solid rgba(214, 170, 90, 0.7); outline-offset: 2px; }
+.gdb-zoom-wrap {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 0 auto 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+}
+.gdb-zoom-glow {
+  position: absolute;
+  inset: 6%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(224, 185, 104, 0.34), rgba(224, 185, 104, 0) 66%);
+}
+.gdb-zoom-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+  position: relative;
+  filter: drop-shadow(0 18px 34px rgba(0, 0, 0, 0.55));
+  animation: gdbCoinIn .5s cubic-bezier(.2, .9, .25, 1) both;
+}
+.gdb-zoom-meta { font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: #d6aa5a; }
+.gdb-zoom-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 1.05;
+  margin: 8px 0 14px;
+  color: #f6ecd4;
+}
+.gdb-zoom-detail {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  line-height: 1.55;
+  color: #cdbfa2;
+  margin: 0 auto;
+  max-width: 410px;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .cid-coin-backdrop,
-  .cid-coin-modal { animation: none; }
-  .cid-scope .cid-esg-coin,
-  .cid-scope .cid-esg-coin img { transition: none; }
+  .gdb-v-coin,
+  .gdb-v-btn,
+  .gdb-card,
+  .gdb-zoom-img { transition: none !important; animation: none !important; }
 }
