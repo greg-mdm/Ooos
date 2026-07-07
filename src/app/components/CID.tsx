@@ -259,13 +259,28 @@ function DataAccessContinuum() {
           <p>Use the guide below to navigate this data ecosystem.</p>
         </div>
 
-        <div className="cid-continuum-scale">
+        <figure className="cid-continuum-gov">
+          <img
+            className="cid-continuum-gov-img"
+            src={`${import.meta.env.BASE_URL}assets/images/microdata-continuum-eng.webp`}
+            alt="Statistics Canada — Continuum of Data Access: from Self-Serve (Automated Data Ingestion, Data Products) through Public Use Microdata Files and the Self-Serve Tabulation Tool to Secure Access (Confidential Microdata Files), listing each route's access solution, location of access and type of data."
+            loading="lazy"
+            width={1140}
+            height={667}
+          />
+          {/* the cool -> hot gradient bar echoes the graphic's Self-Serve -> Secure arrow */}
           <div className="cid-continuum-ends" aria-hidden="true">
             <span className="cid-continuum-end cid-continuum-end--open">Self-serve access</span>
             <span className="cid-continuum-end-mid">more controlled access</span>
             <span className="cid-continuum-end cid-continuum-end--secure">Secure access</span>
           </div>
           <div className="cid-continuum-track" aria-hidden="true" />
+          <figcaption className="cid-continuum-source">
+            Source: Statistics Canada, Continuum of Data Access.
+          </figcaption>
+        </figure>
+
+        <div className="cid-continuum-scale">
           <div className="cid-continuum-routes-wrap">
             <ol className="cid-continuum-routes">
               {ROUTES.map((r, i) => (
@@ -362,7 +377,6 @@ function DataAccessContinuum() {
           From self-serve tools with minimal restrictions to secure research environments with
           formal safeguards, Statistics Canada provides different access routes for different
           research needs.
-          <span className="cid-continuum-source">Source: Statistics Canada, Continuum of Data Access.</span>
         </p>
       </div>
     </section>
