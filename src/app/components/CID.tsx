@@ -552,6 +552,7 @@ function Underground() {
       <div className="cid-continuum-inner cid-underground-inner">
         <header className="cid-ug-head cid-ug-head--split">
           <div className="cid-ug-head-text">
+            <p className="cid-ug-invite">Delve into the deepest layers of public records.</p>
             <p className="cid-underground-eyebrow">
               <span aria-hidden="true">▼</span> Below the surface
             </p>
@@ -580,9 +581,6 @@ function Underground() {
               width={720}
               height={1080}
             />
-            <figcaption className="cid-ug-hero-sub">
-              Delve into the deepest layers of public records.
-            </figcaption>
           </figure>
         </header>
 
