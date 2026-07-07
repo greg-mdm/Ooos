@@ -267,6 +267,17 @@
   border: 1px solid rgba(255, 255, 255, 0.10);
   box-shadow: 0 26px 64px -32px rgba(0, 0, 0, 0.72);
 }
-/* the gradient bar rides just under the graphic, matching its width */
-.cid-scope .cid-continuum-gov .cid-continuum-ends { margin-top: 18px; }
-.cid-scope .cid-continuum-gov .cid-continuum-source { margin-top: 10px; }
+/* the gradient bar sits ABOVE the graphic (echoing its Self-Serve -> Secure
+   arrow); the "left to right" note + source sit below it */
+.cid-scope .cid-continuum-gov .cid-continuum-track { margin: 10px 0 16px; }
+.cid-scope .cid-continuum-gov-img { margin: 0; }
+.cid-scope .cid-continuum-gov .cid-continuum-foot { margin-top: 16px; }
+.cid-scope .cid-continuum-gov .cid-continuum-source { margin-top: 8px; }
+
+/* the guide's intro copy (moved below the graphic) sits above the 1–5 routes */
+.cid-scope .cid-continuum-guide-intro { margin-bottom: clamp(20px, 2.4vw, 30px); }
+.cid-scope .cid-continuum-guide-intro .cid-continuum-guide-lead {
+  color: #ffffff;
+  font-weight: 600;
+  margin-bottom: 0;
+}
