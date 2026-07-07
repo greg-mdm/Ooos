@@ -257,6 +257,10 @@
    guide then follows below (the gradient bar no longer heads it).
    =========================================================== */
 .cid-scope .cid-continuum-inner { max-width: 1320px; }
+/* relax the intro measure so paragraph 1 fits in 2 lines and the
+   statcan.gc.ca line fits on 1 (the guide-intro copy below keeps the
+   narrower 64ch reading measure) */
+.cid-scope .cid-continuum-title + .cid-continuum-lede { max-width: 120ch; }
 
 .cid-scope .cid-continuum-gov { margin: 36px 0 0; }
 .cid-scope .cid-continuum-gov-img {
