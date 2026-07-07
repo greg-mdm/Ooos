@@ -552,10 +552,12 @@ function Underground() {
       <div className="cid-continuum-inner cid-underground-inner">
         <header className="cid-ug-head cid-ug-head--split">
           <div className="cid-ug-head-text">
-            <p className="cid-ug-invite">Delve into the deepest layers of public records.</p>
-            <p className="cid-underground-eyebrow">
-              <span aria-hidden="true">▼</span> Below the surface
-            </p>
+            <div className="cid-ug-topline">
+              <p className="cid-ug-invite">Delve into the deepest layers of public records.</p>
+              <p className="cid-underground-eyebrow">
+                <span aria-hidden="true">▼</span> Below the surface
+              </p>
+            </div>
             <h2 id="cid-underground-title" className="cid-underground-title">Underground &amp; terrain</h2>
             <div className="cid-ug-intro">
               <p className="cid-ug-lede">

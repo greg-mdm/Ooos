@@ -222,6 +222,17 @@
   color: #E8DCC0; /* warm cream, echoing the poster's type */
   max-width: 42ch;
 }
+/* Topline: the invite (left) + "▼ Below the surface" eyebrow ride the same
+   row, the eyebrow sitting just to the right of the invite to fill the space. */
+.cid-scope .cid-ug-topline {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(18px, 3vw, 44px);
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.cid-scope .cid-ug-topline .cid-ug-invite { margin: 0; }
+.cid-scope .cid-ug-topline .cid-underground-eyebrow { margin: 0; white-space: nowrap; }
 /* Lede paragraph: a touch narrower + balanced wrapping so the lines even out
    instead of stranding "development." on a line of its own. */
 .cid-scope .cid-ug-lede {
@@ -233,4 +244,6 @@
   /* stack; poster + subtitle sit under the intro text, centred */
   .cid-scope .cid-ug-head--split { grid-template-columns: 1fr; }
   .cid-scope .cid-ug-hero { max-width: 300px; margin: 4px auto 0; }
+  /* stack the invite + eyebrow again on narrow screens */
+  .cid-scope .cid-ug-topline { flex-direction: column; align-items: flex-start; gap: 6px; }
 }
