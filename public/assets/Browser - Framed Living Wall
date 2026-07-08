@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<!--
+  Hilton/Halton Falls "Living Wall" — Framed Video Widget
+  ---------------------------------------------------------------------------
+  A single drop-in block: your looping conservation-area video plays through
+  the window of the purple wood/vine picture frame, with the frame drawn on
+  top so its leaves and edges overlap the footage naturally.
+
+  Why this approach (not a single pre-composited video):
+  Browsers do not reliably support real alpha-channel transparency in web
+  video codecs in every environment. Instead this keeps the two assets
+  separate — a plain rectangular looping video UNDER a transparent PNG frame
+  ON TOP — positioned with exact percentage math so the video always lines
+  up with the frame's inner window at any size. This is both more robust
+  and far lighter (no wasted encoding of pixels the frame covers anyway).
+
+  Files needed alongside this HTML:
+    - halton-falls-active.webm   (primary loop, plays behind the frame)
+    - halton-falls-active.mp4    (H.264 fallback)
+    - halton-falls-active-poster.jpg (first paint / reduced-motion fallback)
+    - frame-purple-vines.png     (the trimmed frame graphic, transparent bg)
+
+  Drop-in usage: copy the <div id="hf-framed-wall"> block plus the <style>
+  into the target page, in the Canadian Innovation Dimension section above
+  the wetlands/boreal content.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Halton Falls — Framed Living Wall (Preview)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  #hf-framed-wall, #hf-framed-wall * { box-sizing: border-box; }
+
+  #hf-framed-wall {
+    position: relative;
+    width: 100%;
+    max-width: 900px;         /* adjust to taste for the CID section */
+    margin: 0 auto;
+    aspect-ratio: 1428 / 1078; /* native frame canvas ratio — keeps the
+                                   video-to-frame alignment exact at any
+                                   display size */
+  }
+
+  /* The video sits UNDER the frame, cropped/positioned to exactly fill
+     the frame's inner window (computed from the frame PNG's true pixel
+     geometry: window at 11.975% / 25.046% of the canvas, 67.017% wide,
+     61.41% tall). */
+  #hf-framed-wall .hf-video-window {
+    position: absolute;
+    left: 11.975%;
+    top: 25.046%;
+    width: 67.017%;
+    height: 61.41%;
+    overflow: hidden;
+    background: #0b1512; /* shown briefly before the poster/video paints */
+    z-index: 1;
+  }
+
+  #hf-framed-wall .hf-video-window video,
+  #hf-framed-wall .hf-video-window img.hf-poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 55%;
+    display: block;
+  }
+
+  #hf-framed-wall .hf-poster { display: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    #hf-framed-wall .hf-video-window video { display: none; }
+    #hf-framed-wall .hf-poster { display: block !important; }
+  }
+
+  /* The frame graphic sits ON TOP, full-bleed over the whole component so
+     its leaf overhang and wood edges render above the video seam. */
+  #hf-framed-wall .hf-frame-art {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none; /* clicks pass through to whatever is beneath */
+    user-select: none;
+  }
+</style>
+</head>
+<body style="margin:0; background:#f4f1ea; padding:40px;">
+
+<div id="hf-framed-wall" aria-label="Live looping footage of Halton Falls Conservation Area, Ontario, framed with a decorative purple wood and vine border">
+  <div class="hf-video-window">
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      poster="halton-falls-active-poster.jpg"
+      aria-hidden="true"
+    >
+      <source src="halton-falls-active.webm" type="video/webm" />
+      <source src="halton-falls-active.mp4" type="video/mp4" />
+    </video>
+    <img class="hf-poster" src="halton-falls-active-poster.jpg" alt="" />
+  </div>
+
+  <img class="hf-frame-art" src="frame-purple-vines.png" alt="" />
+</div>
+
+</body>
+</html>
