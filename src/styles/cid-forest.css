@@ -182,9 +182,11 @@
    (window at 11.975% / 25.046% of a 1428x1078 canvas, 67.017% x 61.41%).
    =========================================================================== */
 .cid-scope .cid-livingwall {
-  background: #06021C;
-  /* tight top/bottom so the frame fills the band and reads large */
-  padding: clamp(14px, 2vw, 30px) 24px clamp(18px, 2.4vw, 36px);
+  /* blend from the continuum's dark-blue floor (#081026) into the forest's
+     #06021C so the data section flows gradually into this band */
+  background: linear-gradient(180deg, #081026 0%, #06021C 58%);
+  /* trimmed top/bottom so the band hugs the frame */
+  padding: clamp(6px, 1vw, 14px) 24px clamp(8px, 1.2vw, 18px);
 }
 .cid-scope .cid-lw-inner {
   max-width: 1240px;
@@ -248,14 +250,6 @@
   flex-direction: column;
   justify-content: center;
 }
-.cid-scope .cid-lw-eyebrow {
-  margin: 0 0 clamp(14px, 1.5vw, 20px);
-  font-size: 0.84rem;
-  font-weight: 800;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--c-earth);
-}
 .cid-scope .cid-lw-title {
   margin: 0 0 clamp(18px, 1.9vw, 26px);
   font-family: var(--font-elevated, var(--sans));
@@ -270,17 +264,23 @@
   line-height: 1.55;
   color: #C9D6EA;
 }
+/* combined eyebrow + link: one gold, uppercase "Open our National Strategy"
+   call-to-action prefixed with a chain-link glyph */
 .cid-scope .cid-lw-go {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  align-self: start;
+  gap: 9px;
   font-weight: 800;
-  font-size: 1.12rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
   color: var(--c-earth);
   text-decoration: none;
   transition: filter 160ms ease, transform 160ms ease;
 }
-.cid-scope .cid-lw-go span { display: inline-block; margin-left: 2px; }
-.cid-scope .cid-lw-go:hover { filter: brightness(1.12); transform: translateX(2px); }
-.cid-scope .cid-lw-go:hover span { transform: translate(1px, -1px); }
+.cid-scope .cid-lw-go-icon { width: 1.15em; height: 1.15em; flex: none; }
+.cid-scope .cid-lw-go:hover { filter: brightness(1.14); transform: translateX(2px); }
 
 /* stack on narrow screens — portrait on top, text below */
 @media (max-width: 760px) {

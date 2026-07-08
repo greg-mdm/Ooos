@@ -735,25 +735,12 @@ export function CID({ onSupport }: { onSupport: () => void }) {
 
       <DataAccessContinuum />
 
-      <section className="cid-forest" aria-label="Above the bedrock: Canada's living landscape">
-        <div className="cid-forest-inner">
-          <video
-            className="cid-forest-video"
-            src={`${import.meta.env.BASE_URL}assets/images/CID-Forest-Layer.mp4`}
-            autoPlay
-            loop
-            muted
-            playsInline
-            aria-hidden="true"
-          />
-        </div>
-      </section>
-
       {/* Framed Living Wall — a looping portrait of a Canadian conservation
           area (Halton Falls) behind the vine frame, paired with the National
-          Strategy link moved up out of the cave. Two assets kept separate: a
-          plain rectangular video UNDER a transparent PNG frame ON TOP, aligned
-          to the frame's inner window by exact percentage math. */}
+          Strategy link. Sits right below the dark continuum so the dark-to-dark
+          transition is gradual, ahead of the forest banner. Two assets kept
+          separate: a plain rectangular video UNDER a transparent PNG frame ON
+          TOP, aligned to the frame's inner window by exact percentage math. */}
       <section className="cid-livingwall" aria-labelledby="cid-lw-title">
         <div className="cid-lw-inner">
           <div
@@ -789,7 +776,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           </div>
 
           <div className="cid-lw-text">
-            <p className="cid-lw-eyebrow">National strategy</p>
             <h2 id="cid-lw-title" className="cid-lw-title">
               A Force of Nature: Canada&rsquo;s Strategy to Protect Nature
             </h2>
@@ -803,9 +789,36 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Open <span aria-hidden="true">↗</span>
+              <svg
+                className="cid-lw-go-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+              </svg>
+              Open our National Strategy
             </a>
           </div>
+        </div>
+      </section>
+
+      <section className="cid-forest" aria-label="Above the bedrock: Canada's living landscape">
+        <div className="cid-forest-inner">
+          <video
+            className="cid-forest-video"
+            src={`${import.meta.env.BASE_URL}assets/images/CID-Forest-Layer.mp4`}
+            autoPlay
+            loop
+            muted
+            playsInline
+            aria-hidden="true"
+          />
         </div>
       </section>
 
