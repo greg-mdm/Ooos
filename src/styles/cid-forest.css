@@ -172,6 +172,123 @@
   .cid-scope .cid-canopy-tile--right .cid-canopy-desc { margin-left: 0; }
 }
 
+/* ===========================================================================
+   Framed Living Wall — a looping portrait of Halton Falls behind the vine
+   frame, paired with the National Strategy link moved up out of the cave.
+   Sits on the dark forest backdrop (continuing the banner above) so it reads
+   as the header of the "living landscape" chapter, ahead of the teal canopy.
+   Two assets stay separate: a plain rectangular video UNDER a transparent PNG
+   frame ON TOP, aligned to the frame's inner window by exact percentage math
+   (window at 11.975% / 25.046% of a 1428x1078 canvas, 67.017% x 61.41%).
+   =========================================================================== */
+.cid-scope .cid-livingwall {
+  background: #06021C;
+  /* tight top/bottom so the frame fills the band and reads large */
+  padding: clamp(14px, 2vw, 30px) 24px clamp(18px, 2.4vw, 36px);
+}
+.cid-scope .cid-lw-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: clamp(26px, 4vw, 60px);
+  align-items: stretch;
+}
+
+/* the framed video widget */
+.cid-scope .hf-framed-wall {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  aspect-ratio: 1428 / 1078; /* native frame canvas ratio — keeps the video
+                                window locked to the frame at any size */
+}
+.cid-scope .hf-video-window {
+  position: absolute;
+  left: 11.975%;
+  top: 25.046%;
+  width: 67.017%;
+  height: 61.41%;
+  overflow: hidden;
+  background: #0b1512; /* shown briefly before the poster/video paints */
+  z-index: 1;
+}
+.cid-scope .hf-video-window video,
+.cid-scope .hf-video-window img.hf-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 55%;
+  display: block;
+}
+.cid-scope .hf-video-window img.hf-poster { display: none; }
+.cid-scope .hf-frame-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+  user-select: none;
+}
+/* reduced motion: freeze on the still poster instead of the loop */
+@media (prefers-reduced-motion: reduce) {
+  .cid-scope .hf-video-window video { display: none; }
+  .cid-scope .hf-video-window img.hf-poster { display: block; }
+}
+
+/* the National Strategy text block beside the portrait — sized up to fill
+   the height of the frame beside it, kept vertically centered */
+.cid-scope .cid-lw-text {
+  max-width: 42ch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.cid-scope .cid-lw-eyebrow {
+  margin: 0 0 clamp(14px, 1.5vw, 20px);
+  font-size: 0.84rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-earth);
+}
+.cid-scope .cid-lw-title {
+  margin: 0 0 clamp(18px, 1.9vw, 26px);
+  font-family: var(--font-elevated, var(--sans));
+  font-size: clamp(1.9rem, 3.4vw, 2.85rem);
+  font-weight: 700;
+  line-height: 1.14;
+  color: #ffffff;
+}
+.cid-scope .cid-lw-blurb {
+  margin: 0 0 clamp(22px, 2.2vw, 32px);
+  font-size: clamp(1.18rem, 1.7vw, 1.5rem);
+  line-height: 1.55;
+  color: #C9D6EA;
+}
+.cid-scope .cid-lw-go {
+  display: inline-block;
+  font-weight: 800;
+  font-size: 1.12rem;
+  color: var(--c-earth);
+  text-decoration: none;
+  transition: filter 160ms ease, transform 160ms ease;
+}
+.cid-scope .cid-lw-go span { display: inline-block; margin-left: 2px; }
+.cid-scope .cid-lw-go:hover { filter: brightness(1.12); transform: translateX(2px); }
+.cid-scope .cid-lw-go:hover span { transform: translate(1px, -1px); }
+
+/* stack on narrow screens — portrait on top, text below */
+@media (max-width: 760px) {
+  .cid-scope .cid-lw-inner { grid-template-columns: 1fr; gap: clamp(22px, 6vw, 34px); }
+  .cid-scope .cid-lw-text { max-width: none; }
+  .cid-scope .hf-framed-wall { max-width: 500px; }
+}
+
 /* ---- Cave: the terrain/data-source cards live in a left rail beside
    "Naturally Wealthy" (the pull quote that used to sit here moved up to the
    canopy). The 2-col .cid-ug-body grid (minmax(280,340) 1fr) puts the rail

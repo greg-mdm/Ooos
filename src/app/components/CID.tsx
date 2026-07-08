@@ -42,13 +42,6 @@ const UNDERGROUND = [
     hero: true,
   },
   {
-    tag: "National strategy",
-    title: "A Force of Nature: Canada's Strategy to Protect Nature",
-    blurb: "Canada's plan to halt and reverse biodiversity loss and protect the land and water above the bedrock.",
-    href: SC.forceOfNature,
-    hero: false,
-  },
-  {
     tag: "Elevation dataset",
     title: "Ontario radar digital surface model",
     blurb: "Province-wide radar-derived elevation surface (DSM) from the Ontario Data Catalogue.",
@@ -753,6 +746,66 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             playsInline
             aria-hidden="true"
           />
+        </div>
+      </section>
+
+      {/* Framed Living Wall — a looping portrait of a Canadian conservation
+          area (Halton Falls) behind the vine frame, paired with the National
+          Strategy link moved up out of the cave. Two assets kept separate: a
+          plain rectangular video UNDER a transparent PNG frame ON TOP, aligned
+          to the frame's inner window by exact percentage math. */}
+      <section className="cid-livingwall" aria-labelledby="cid-lw-title">
+        <div className="cid-lw-inner">
+          <div
+            className="hf-framed-wall"
+            role="img"
+            aria-label="Live looping footage of Halton Falls Conservation Area, Ontario, framed with a decorative purple wood and vine border"
+          >
+            <div className="hf-video-window">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster={`${base}assets/images/halton-falls-poster.webp`}
+                aria-hidden="true"
+              >
+                <source src={`${base}assets/ooo-halton-falls.webm`} type="video/webm" />
+                <source src={`${base}assets/Halton%20H.264%20fallback.mp4`} type="video/mp4" />
+              </video>
+              <img
+                className="hf-poster"
+                src={`${base}assets/images/halton-falls-poster.webp`}
+                alt="Still frame of Halton Falls Conservation Area, Ontario."
+              />
+            </div>
+            <img
+              className="hf-frame-art"
+              src={`${base}assets/Ooo-Digital-Frame.png`}
+              alt=""
+              aria-hidden="true"
+            />
+          </div>
+
+          <div className="cid-lw-text">
+            <p className="cid-lw-eyebrow">National strategy</p>
+            <h2 id="cid-lw-title" className="cid-lw-title">
+              A Force of Nature: Canada&rsquo;s Strategy to Protect Nature
+            </h2>
+            <p className="cid-lw-blurb">
+              Canada&rsquo;s plan to halt and reverse biodiversity loss and protect the land
+              and water above the bedrock.
+            </p>
+            <a
+              className="cid-lw-go"
+              href={SC.forceOfNature}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open <span aria-hidden="true">↗</span>
+            </a>
+          </div>
         </div>
       </section>
 
