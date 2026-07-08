@@ -270,7 +270,10 @@ function DataAccessContinuum() {
             the privacy, authorization and security requirements increase.
           </p>
           <figcaption className="cid-continuum-source">
-            Source: Statistics Canada, Continuum of Data Access.
+            Source: Statistics Canada, Continuum of Data Access.{" "}
+            <a href="https://www.statcan.gc.ca/en/microdata" target="_blank" rel="noopener noreferrer">
+              statcan.gc.ca/en/microdata
+            </a>
           </figcaption>
         </figure>
 
@@ -287,10 +290,10 @@ function DataAccessContinuum() {
               </ol>
               <p className="cid-continuum-guide-desc">
                 Statistics Canada offers secure access to anonymized survey data, administrative
-                records, and integrated datasets for research and statistical analysis. These
-                resources support project development and program management, while promoting
-                public understanding of key national issues like the digital economy, trade,
-                health, and languages.
+                records, and integrated datasets. These resources are designed to support research
+                and statistical analysis for project development, program management, and to improve
+                public understanding. The available data covers key topics such as the digital
+                economy, international trade, health, wealth, and languages.
               </p>
             </div>
             <aside className="cid-continuum-aside">

@@ -296,5 +296,14 @@
   font-size: 1rem;
   line-height: 1.7;
   color: var(--c-ink);
-  max-width: 60ch;
+  /* full routes-column width, matching the 1–5 tabs above */
 }
+/* direct-source link on the government graphic's citation */
+.cid-scope .cid-continuum-source a {
+  color: var(--c-teal);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: filter 160ms ease;
+}
+.cid-scope .cid-continuum-source a:hover { filter: brightness(1.18); }
