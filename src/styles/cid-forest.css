@@ -261,6 +261,9 @@
    statcan.gc.ca line fits on 1 (the guide-intro copy below keeps the
    narrower 64ch reading measure) */
 .cid-scope .cid-continuum-title + .cid-continuum-lede { max-width: 120ch; }
+/* balance the wrap so paragraph 1 reads as two even lines (not one full line
+   + a short 64%-width tail) and the statcan.gc.ca line stays on one */
+.cid-scope .cid-continuum-title + .cid-continuum-lede p { text-wrap: balance; }
 
 .cid-scope .cid-continuum-gov { margin: 36px 0 0; }
 .cid-scope .cid-continuum-gov-img {
@@ -297,6 +300,8 @@
   line-height: 1.7;
   color: var(--c-ink);
   /* full routes-column width, matching the 1–5 tabs above */
+  /* even the four lines so the last one isn't a lonely tail */
+  text-wrap: balance;
 }
 /* direct-source link on the government graphic's citation */
 .cid-scope .cid-continuum-source a {
