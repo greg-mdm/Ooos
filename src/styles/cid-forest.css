@@ -174,35 +174,43 @@
 
 /* ===========================================================================
    Framed Living Wall — a looping portrait of Halton Falls behind the vine
-   frame, paired with the National Strategy link moved up out of the cave.
-   Sits on the dark forest backdrop (continuing the banner above) so it reads
-   as the header of the "living landscape" chapter, ahead of the teal canopy.
+   frame, paired with the National Strategy link. Sits right below the dark
+   indigo data guide; its background bridges that indigo down through teal to
+   cyan at the foot. The frame is sized (column = 40vw) so its height tracks
+   the full-bleed wetlands/boreal banner below it (banner h = 100vw/3.333 =
+   30vw; frame h = 40vw * 1078/1428 = 30.2vw) — same canvas, matched heights.
    Two assets stay separate: a plain rectangular video UNDER a transparent PNG
    frame ON TOP, aligned to the frame's inner window by exact percentage math
    (window at 11.975% / 25.046% of a 1428x1078 canvas, 67.017% x 61.41%).
    =========================================================================== */
 .cid-scope .cid-livingwall {
-  /* blend from the continuum's dark-blue floor (#081026) into the forest's
-     #06021C so the data section flows gradually into this band */
-  background: linear-gradient(180deg, #081026 0%, #06021C 58%);
-  /* trimmed top/bottom so the band hugs the frame */
-  padding: clamp(6px, 1vw, 14px) 24px clamp(8px, 1.2vw, 18px);
+  /* bridge the dark indigo data guide above into teal -> cyan at the foot,
+     echoing the canopy's royal-blue -> teal -> cyan run. Kept dark through the
+     upper-middle where the text sits, brightening toward the bottom edge. */
+  background: linear-gradient(180deg,
+    #081026 0%, #09203C 38%, #0E5E70 74%, #17A6AC 90%, #1FCECB 100%);
+  /* comfortable padding above/below; slim side padding so the band reads
+     nearly edge-to-edge, on the same canvas as the full-bleed banner below */
+  padding: clamp(40px, 5vw, 76px) clamp(20px, 3.2vw, 56px);
 }
 .cid-scope .cid-lw-inner {
-  max-width: 1240px;
+  max-width: 1900px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
-  gap: clamp(26px, 4vw, 60px);
-  align-items: stretch;
+  /* frame column = 40vw makes the frame's height track the full-bleed banner
+     below it: banner height = 100vw / 3.333 = 30vw; frame height =
+     40vw * (1078/1428) = 30.2vw. The rest of the row is the text. */
+  grid-template-columns: minmax(0, 40vw) minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 72px);
+  align-items: center;
 }
 
-/* the framed video widget */
+/* the framed video widget — sized to match the banner's height */
 .cid-scope .hf-framed-wall {
   position: relative;
   width: 100%;
-  max-width: 700px;
-  margin: 0 auto;
+  max-width: 1000px;
+  margin: 0; /* flush to the left of its column, not floating in navy space */
   aspect-ratio: 1428 / 1078; /* native frame canvas ratio — keeps the video
                                 window locked to the frame at any size */
 }
@@ -242,27 +250,27 @@
   .cid-scope .hf-video-window img.hf-poster { display: block; }
 }
 
-/* the National Strategy text block beside the portrait — sized up to fill
-   the height of the frame beside it, kept vertically centered */
+/* the National Strategy text block — fills the whole side opposite the frame
+   (no narrow middle-panel cap), vertically centered against the tall frame */
 .cid-scope .cid-lw-text {
-  max-width: 42ch;
+  max-width: none;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 .cid-scope .cid-lw-title {
-  margin: 0 0 clamp(18px, 1.9vw, 26px);
+  margin: 0 0 clamp(18px, 1.9vw, 28px);
   font-family: var(--font-elevated, var(--sans));
-  font-size: clamp(1.9rem, 3.4vw, 2.85rem);
+  font-size: clamp(2.1rem, 3.4vw, 3.4rem);
   font-weight: 700;
-  line-height: 1.14;
+  line-height: 1.12;
   color: #ffffff;
 }
 .cid-scope .cid-lw-blurb {
-  margin: 0 0 clamp(22px, 2.2vw, 32px);
-  font-size: clamp(1.18rem, 1.7vw, 1.5rem);
-  line-height: 1.55;
-  color: #C9D6EA;
+  margin: 0 0 clamp(22px, 2.2vw, 34px);
+  font-size: clamp(1.22rem, 1.6vw, 1.7rem);
+  line-height: 1.5;
+  color: #EAF1FB;
 }
 /* combined eyebrow + link: one gold, uppercase "Open our National Strategy"
    call-to-action prefixed with a chain-link glyph */
@@ -270,23 +278,22 @@
   display: inline-flex;
   align-items: center;
   align-self: start;
-  gap: 9px;
+  gap: 10px;
   font-weight: 800;
-  font-size: 0.95rem;
+  font-size: clamp(0.98rem, 1vw, 1.12rem);
   letter-spacing: 0.13em;
   text-transform: uppercase;
-  color: var(--c-earth);
+  color: #F4B77A; /* a touch brighter than --c-earth for contrast on the teal foot */
   text-decoration: none;
   transition: filter 160ms ease, transform 160ms ease;
 }
 .cid-scope .cid-lw-go-icon { width: 1.15em; height: 1.15em; flex: none; }
-.cid-scope .cid-lw-go:hover { filter: brightness(1.14); transform: translateX(2px); }
+.cid-scope .cid-lw-go:hover { filter: brightness(1.12); transform: translateX(2px); }
 
 /* stack on narrow screens — portrait on top, text below */
 @media (max-width: 760px) {
   .cid-scope .cid-lw-inner { grid-template-columns: 1fr; gap: clamp(22px, 6vw, 34px); }
-  .cid-scope .cid-lw-text { max-width: none; }
-  .cid-scope .hf-framed-wall { max-width: 500px; }
+  .cid-scope .hf-framed-wall { max-width: 520px; margin: 0 auto; }
 }
 
 /* ---- Cave: the terrain/data-source cards live in a left rail beside
