@@ -33,8 +33,22 @@
   font-family: inherit;
   text-align: left;
   text-shadow: none;
+  overflow: hidden; /* clips the full-bleed lid to the rounded corners */
 }
 .pmm-card * { box-sizing: border-box; }
+
+/* --- the LID: a stable, full-bleed top bar. A branded image (from Canva)
+   drops in via LID_IMAGE and fills this slot edge-to-edge; otherwise the text
+   lockup shows on a faint tinted bar. Full-bleed via negative margins that
+   cancel the card padding, clipped to the card's top corners. --- */
+.pmm-lid {
+  margin: -15px -18px 12px;
+  padding: 12px 18px 10px;
+  background: linear-gradient(180deg, #f8f6fd 0%, #f1ecfa 100%);
+  border-bottom: 1px solid rgba(43, 5, 97, 0.14);
+}
+.pmm-lid--img { margin: -15px -18px 12px; padding: 0; background: none; border-bottom: 0; }
+.pmm-lid-img { display: block; width: 100%; height: auto; }
 
 /* campaign kicker above the branded name */
 .pmm-kicker {
@@ -159,6 +173,12 @@
 }
 .pmm-ring-label { font-size: 11px; font-weight: 700; color: var(--pmm-ink); }
 .pmm-ring-sub { font-size: 9px; color: var(--pmm-mut); font-variant-numeric: tabular-nums; }
+/* births / deaths / immigrants are the 3 KEY stats; the two net-drift streams
+   are secondary — slightly smaller and muted so the hierarchy reads. */
+.pmm-ring--secondary { flex: 0 1 auto; align-self: flex-start; }
+.pmm-ring--secondary .pmm-ring-dial { width: 44px; height: 44px; }
+.pmm-ring--secondary .pmm-ring-label { font-weight: 600; color: var(--pmm-mut); }
+.pmm-card--wide .pmm-ring--secondary .pmm-ring-dial { width: clamp(38px, 3.7vw, 62px); height: clamp(38px, 3.7vw, 62px); }
 
 .pmm-ringfoot { margin: 0 0 8px; font-size: 9.5px; line-height: 1.4; color: var(--pmm-mut); }
 
@@ -233,6 +253,14 @@
   max-width: none;
   padding: clamp(10px, 1vw, 20px) clamp(14px, 1.4vw, 28px) clamp(8px, 0.9vw, 16px);
   border-radius: clamp(10px, 0.9vw, 16px);
+}
+.pmm-card--wide .pmm-lid {
+  margin: calc(-1 * clamp(10px, 1vw, 20px)) calc(-1 * clamp(14px, 1.4vw, 28px)) clamp(6px, 0.7vw, 12px);
+  padding: clamp(9px, 0.9vw, 16px) clamp(14px, 1.4vw, 28px) clamp(8px, 0.8vw, 12px);
+}
+.pmm-card--wide .pmm-lid--img {
+  margin: calc(-1 * clamp(10px, 1vw, 20px)) calc(-1 * clamp(14px, 1.4vw, 28px)) clamp(6px, 0.7vw, 12px);
+  padding: 0;
 }
 .pmm-card--wide .pmm-kicker { font-size: clamp(8px, 0.66vw, 11px); margin-bottom: clamp(4px, 0.4vw, 8px); }
 .pmm-card--wide .pmm-h2 { gap: clamp(6px, 0.6vw, 12px); }

@@ -68,20 +68,42 @@ function useSecondTick(active: boolean) {
   }, [active]);
 }
 
-/** Electric-wordmark lockup: the Ooo! script is the brand part of the H2. */
-function PopClockHeader() {
+// The clock's LID — the branded top bar. Drop a single clean branded image
+// here (e.g. exported from Canva) and it replaces the text lockup below,
+// full-bleed across the top of the device, without shifting anything under it.
+// Keep the image's aspect stable so the body never moves. Path is relative to
+// the site base (import.meta.env.BASE_URL), e.g.:
+//   const LID_IMAGE = "assets/brand/pop-clock-lid.png";
+const LID_IMAGE: string | null = null;
+
+/** The lid: a branded image when supplied, otherwise the text lockup
+ *  (Humans of Canada · electric Ooo! wordmark + Pop Clock Mini · subtitle). */
+function PopClockLid() {
+  const base = import.meta.env.BASE_URL;
+  if (LID_IMAGE) {
+    return (
+      <div className="pmm-lid pmm-lid--img">
+        <img
+          className="pmm-lid-img"
+          src={`${base}${LID_IMAGE}`}
+          alt="Ooo! Pop Clock Mini — Automated Predictive Model, by Humans of Canada"
+        />
+      </div>
+    );
+  }
   return (
-    <>
+    <div className="pmm-lid">
+      <p className="pmm-kicker">Humans of Canada</p>
       <h2 className="pmm-h2">
         <img
           className="pmm-wordmark"
-          src={`${import.meta.env.BASE_URL}assets/brand/ooo-wordmark-portal-transparent.png`}
+          src={`${base}assets/brand/ooo-wordmark-portal-transparent.png`}
           alt="Ooo!"
         />
         <span className="pmm-h2-text">Pop Clock Mini</span>
       </h2>
       <h3 className="pmm-h3">Automated Predictive Model</h3>
-    </>
+    </div>
   );
 }
 
@@ -169,7 +191,7 @@ function DriftRing({ ring }: { ring: RingReading }) {
   const sign = ring.signedNet < 0 ? "−" : ring.signedNet > 0 ? "+" : "";
   return (
     <div
-      className="pmm-ring"
+      className="pmm-ring pmm-ring--secondary"
       role="img"
       aria-label={`${ring.label}: net ${sign}${formatMagnitude(ring.signedNet)} since midnight`}
     >
@@ -261,8 +283,7 @@ export function PopClockCard({
       className={`pmm-card${wide ? " pmm-card--wide" : ""}${detailed ? " pmm-card--full" : " pmm-card--mini"}`}
       aria-label="Ooo! Pop Clock Mini — automated predictive model"
     >
-      <p className="pmm-kicker">Humans of Canada</p>
-      <PopClockHeader />
+      <PopClockLid />
 
       {state.kind === "loading" && (
         <p className="pmm-status" role="status">
