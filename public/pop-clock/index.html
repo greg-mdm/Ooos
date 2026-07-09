@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ooo! Pop Clock Mini — standalone demo</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      gap: 18px;
+      padding: 32px 16px;
+      background: #F0F4F5; /* robin's-egg, ooos.ca page ground */
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: #5c6c70;
+    }
+    main { display: grid; gap: 14px; justify-items: center; }
+    p.note { margin: 0; font-size: 12.5px; max-width: 46ch; text-align: center; }
+    a { color: #26547c; }
+  </style>
+</head>
+<body>
+  <main>
+    <!-- The widget mounts here. That's the whole integration. -->
+    <div id="ooo-pop-clock"></div>
+    <p class="note">
+      Standalone demo of the Ooo! Pop Clock Mini. Fetches live from Statistics
+      Canada's Web Data Service on load. See <a href="README.md">README.md</a>
+      for how it works and how to embed it.
+    </p>
+  </main>
+  <script src="ooo-pop-clock.js"></script>
+</body>
+</html>
