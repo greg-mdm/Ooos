@@ -5,7 +5,9 @@ import "../../styles/cid-continuum.css";
 import "../../styles/cid-forest.css";
 import "../../styles/cid-coins.css";
 import {
-  PopulationClockCard,
+  PopClockCard,
+  PopClockDetailsCard,
+  PopulationMedallion,
   PopulationSourcesStrip,
   usePopulationModel,
   type PopulationModelState,
@@ -672,18 +674,29 @@ function Underground() {
   );
 }
 
-/** The living wall's white-panel slider — prime real estate shared by the
- *  National Strategy feature (slide 1) and the population mini model
- *  (slide 2). Auto-advances every 8s until the visitor interacts, pauses on
- *  hover/focus, and sits still under prefers-reduced-motion. Inactive slides
- *  are visibility:hidden (out of the tab order and a11y tree); the grid stack
+/** The living wall's white-panel slider — prime real estate rotating through
+ *  the Ooo! Pop Clock Mini (slide 1), its model details under the same
+ *  branded name (slide 2), and the National Strategy feature (slide 3).
+ *  Auto-advances every 8s until the visitor interacts, pauses on hover/focus,
+ *  and sits still under prefers-reduced-motion. Inactive slides are
+ *  visibility:hidden (out of the tab order and a11y tree); the grid stack
  *  keeps the panel height stable across slides. */
-const LW_SLIDES = ["National Strategy", "Population mini model"] as const;
+const LW_SLIDES = ["Ooo! Pop Clock Mini", "About the model", "National Strategy"] as const;
 
-function LivingWallSlider({ populationModel }: { populationModel: PopulationModelState }) {
+function LivingWallSlider({
+  populationModel,
+  onIndexChange,
+}: {
+  populationModel: PopulationModelState;
+  onIndexChange?: (index: number) => void;
+}) {
   const [index, setIndex] = useState(0);
   const [userTouched, setUserTouched] = useState(false);
   const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    onIndexChange?.(index);
+  }, [index, onIndexChange]);
 
   useEffect(() => {
     if (userTouched || paused) return;
@@ -692,12 +705,17 @@ function LivingWallSlider({ populationModel }: { populationModel: PopulationMode
     return () => window.clearInterval(id);
   }, [userTouched, paused]);
 
+  const goTo = (i: number) => {
+    setIndex(i);
+    setUserTouched(true);
+  };
+
   return (
     <div
       className="cid-lw-slider"
       role="group"
       aria-roledescription="carousel"
-      aria-label="Featured: Canada's National Strategy and the population mini model"
+      aria-label="Featured: the Ooo! Pop Clock Mini and Canada's National Strategy"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
@@ -705,6 +723,12 @@ function LivingWallSlider({ populationModel }: { populationModel: PopulationMode
     >
       <div className="cid-lw-slides">
         <div className={`cid-lw-slide${index === 0 ? " is-active" : ""}`}>
+          <PopClockCard state={populationModel} wide onMore={() => goTo(1)} />
+        </div>
+        <div className={`cid-lw-slide${index === 1 ? " is-active" : ""}`}>
+          <PopClockDetailsCard wide />
+        </div>
+        <div className={`cid-lw-slide${index === 2 ? " is-active" : ""}`}>
           <p className="cid-lw-blurb">
             Canada&rsquo;s plan to halt and reverse biodiversity loss and protect the land
             and water above the bedrock.
@@ -731,9 +755,6 @@ function LivingWallSlider({ populationModel }: { populationModel: PopulationMode
             Open our National Strategy
           </a>
         </div>
-        <div className={`cid-lw-slide${index === 1 ? " is-active" : ""}`}>
-          <PopulationClockCard state={populationModel} wide />
-        </div>
       </div>
       <div className="cid-lw-dots">
         {LW_SLIDES.map((name, i) => (
@@ -743,10 +764,7 @@ function LivingWallSlider({ populationModel }: { populationModel: PopulationMode
             className={`cid-lw-dot${index === i ? " is-active" : ""}`}
             aria-label={`Show ${name}`}
             aria-current={index === i}
-            onClick={() => {
-              setIndex(i);
-              setUserTouched(true);
-            }}
+            onClick={() => goTo(i)}
           />
         ))}
       </div>
@@ -756,9 +774,12 @@ function LivingWallSlider({ populationModel }: { populationModel: PopulationMode
 
 export function CID({ onSupport }: { onSupport: () => void }) {
   const base = import.meta.env.BASE_URL;
-  // One StatCan data load shared by the mini-model card (on the living-wall
-  // panel) and its sources strip (small text below the section).
+  // One StatCan data load shared by the pop clock cards, the medallion and
+  // the sources strip.
   const populationModel = usePopulationModel();
+  // Which living-wall slide is showing — the medallion fades out while the
+  // taller details slide (index 1) covers its spot in the art.
+  const [lwSlide, setLwSlide] = useState(0);
   // Size the watchlist embed iframe to its content so the page scrolls as one
   // (no nested-iframe scroll trap). The embed reports its height via postMessage.
   const embedRef = useRef<HTMLIFrameElement>(null);
@@ -872,10 +893,15 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             <h2 id="cid-lw-title" className="cid-lw-title">
               A Force of Nature: Canada&rsquo;s Strategy to Protect Nature
             </h2>
-            {/* Prime real estate: the National Strategy feature and the
-                population mini model share the panel via a slider. */}
-            <LivingWallSlider populationModel={populationModel} />
+            {/* Prime real estate: the Ooo! Pop Clock Mini, its model details
+                and the National Strategy feature share the panel via a slider. */}
+            <LivingWallSlider populationModel={populationModel} onIndexChange={setLwSlide} />
           </div>
+
+          {/* The live estimate floats in the pale misty circle of the cliff
+              art (hidden on the stacked mobile layout, where the card shows
+              the figure instead). */}
+          <PopulationMedallion state={populationModel} hidden={lwSlide === 1} />
         </div>
 
         {/* Sources for the mini model — small text kept off the white panel. */}

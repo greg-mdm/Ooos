@@ -1,12 +1,16 @@
-# Population Widget: Real-Time Mini Model
+# Ooo! Pop Clock Mini — Automated Predictive Model
 
-A small embeddable card — visible title **"Humans of Canada • Real-Time
-Population [Ooo! Mini-Model]"** — that shows a live, modelled Canada
-population figure and the change since the viewer's local midnight. It lives
-on the CID page (living-wall white panel, below the "Open our National
-Strategy" link); to keep that panel uncluttered, the meta rows (reference
-period, last refresh, rate basis) and the full attribution line render as a
-separate small-text strip below the section (`PopulationSourcesStrip`).
+A branded population-clock widget (electric Ooo! wordmark lockup) showing a
+live, modelled Canada population figure and the change since the viewer's
+local midnight. It's a custom-widget example of the innovative media Ooo
+builds with Canada's open data sources. On the CID page it occupies the
+living-wall slider: slide 1 is the clock card, slide 2 the model details
+under the same branded name, slide 3 the National Strategy feature. On
+desktop the live estimate floats in the pale misty circle of the cliff art
+(`PopulationMedallion`); on the stacked mobile layout the card carries the
+figure itself. The meta rows (reference period, last refresh, rate basis)
+and the full attribution line render as a separate small-text strip below
+the section (`PopulationSourcesStrip`).
 
 > This widget is a simplified mini model adapted from Statistics Canada's
 > Canada population clock concept. It uses public aggregate Statistics Canada
@@ -17,7 +21,7 @@ separate small-text strip below the section (`PopulationSourcesStrip`).
 
 | File | Role |
 |---|---|
-| `PopulationClockCard.tsx` | `usePopulationModel()` (one shared data load) + the card (title, animated hero number, "(a change of +N since midnight)", Ooo! Pop Clock blurb with disclaimer, loading/error states, link to the official clock) + `PopulationSourcesStrip` (meta rows and the required source line, below the section). |
+| `PopulationClockCard.tsx` | `usePopulationModel()` (one shared data load) + `PopClockCard` (branded header, eyebrow, live figure on mobile/standalone, "Find out more ›") + `PopClockDetailsCard` (same branded header, model description, source, official-clock link) + `PopulationMedallion` (live estimate over the art) + `PopulationSourcesStrip` (meta rows and the required source line, below the section). |
 | `statcanClient.ts` | Data service. Fetches Statistics Canada Web Data Service (WDS) tables, normalizes them to `{ basePopulation, baseReferenceDate, annualNetChange, netChangePerSecond, rateBasis, sourceTables, fetchedAt }`, caches in `localStorage`. |
 | `populationMiniModel.ts` | Pure model math: current modelled population, change since midnight, formatting. No I/O. |
 | `../../../styles/population-widget.css` | Styles (`pmm-` prefix). Base card is 320–420 px; `pmm-card--wide` is the fluid living-wall form. |
@@ -89,15 +93,21 @@ Within this site:
 
 ```tsx
 import {
-  PopulationClockCard,
+  PopClockCard,
+  PopClockDetailsCard,
+  PopulationMedallion,
   PopulationSourcesStrip,
   usePopulationModel,
 } from "./population/PopulationClockCard";
 
-const state = usePopulationModel();       // one fetch, shared
-<PopulationClockCard state={state} />     // standalone card, max-width 420px
-<PopulationClockCard state={state} wide />// fluid form (CID living wall)
-<PopulationSourcesStrip state={state} />  // sources/meta, below the section
+const state = usePopulationModel();        // one fetch, shared
+<PopClockCard state={state} />             // standalone card (shows the live
+                                           // figure), max-width 420px
+<PopClockCard state={state} wide onMore={goToDetails} /> // living-wall form
+<PopClockDetailsCard wide />               // the model, in more detail
+<PopulationMedallion state={state} />      // live estimate over stage art
+                                           // (host CSS positions it)
+<PopulationSourcesStrip state={state} />   // sources/meta, below the section
 ```
 
 On an external site: copy the three source files plus

@@ -336,6 +336,25 @@
   .cid-scope .cid-lw-slide.is-active { transition: none; }
 }
 .cid-scope .cid-lw-text .pmm-card--wide { margin-top: 0; }
+/* The live-estimate medallion sits in the pale misty circle of the cliff art,
+   below-right of the panel (center ≈ 81.5% / 70% of the stage). Position and
+   size live here (art-specific); its look lives in population-widget.css. */
+.cid-scope .cid-lw-stage .pmm-medallion {
+  position: absolute;
+  left: 75.25%;
+  top: 61%;
+  width: 12.5%;
+  aspect-ratio: 1;
+  z-index: 1; /* under .cid-lw-text (z 2) if a card runs long */
+}
+/* narrower stages are shorter, so the card reaches further down — drop the
+   medallion a touch to keep clear of the slide-1 card's bottom edge */
+@media (max-width: 1120px) {
+  .cid-scope .cid-lw-stage .pmm-medallion { top: 64%; }
+}
+@media (max-width: 900px) {
+  .cid-scope .cid-lw-stage .pmm-medallion { display: none; }
+}
 .cid-scope .cid-lw-dots {
   display: flex;
   gap: clamp(8px, 0.7vw, 12px);
