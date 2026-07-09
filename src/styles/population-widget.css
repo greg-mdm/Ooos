@@ -182,6 +182,40 @@
 
 .pmm-ringfoot { margin: 0 0 8px; font-size: 9.5px; line-height: 1.4; color: var(--pmm-mut); }
 
+/* --- slide-2 window face: the branded template is the device face; the live
+   readout sits in a translucent screen over its open top area. The overlay is
+   sized in cqw (container-query width) so it scales locked to the image. --- */
+.pmm-face {
+  position: relative;
+  container-type: inline-size;
+  margin: -15px -18px 12px; /* full-bleed to the card top + sides */
+}
+.pmm-face-img { display: block; width: 100%; }
+.pmm-face-screen {
+  position: absolute;
+  top: 5%;
+  left: 4%;
+  right: 4%;
+  background: rgba(255, 255, 255, 0.87);
+  border: 1px solid rgba(43, 5, 97, 0.16);
+  border-radius: 2.2cqw;
+  padding: 2.4cqw 2.8cqw;
+  box-shadow: 0 1cqw 3cqw rgba(8, 16, 38, 0.2);
+}
+.pmm-face .pmm-headline { margin: 0 0 1.6cqw; padding: 0; border-top: 0; gap: 0.6cqw 1.8cqw; }
+.pmm-face .pmm-big { font-size: 5cqw; }
+.pmm-face .pmm-big-g--live { border-radius: 0.8cqw; }
+.pmm-face .pmm-since { font-size: 2.2cqw; }
+.pmm-face .pmm-rings { gap: 1.4cqw 0.6cqw; margin: 0; }
+.pmm-face .pmm-ring { gap: 0.5cqw; min-width: 0; }
+.pmm-face .pmm-ring-dial { width: 8.2cqw; height: 8.2cqw; }
+.pmm-face .pmm-ring--secondary .pmm-ring-dial { width: 6.8cqw; height: 6.8cqw; }
+.pmm-face .pmm-ring-count { font-size: 2.5cqw; }
+.pmm-face .pmm-ring-count--net { font-size: 2cqw; }
+.pmm-face .pmm-ring-net { font-size: 1.2cqw; }
+.pmm-face .pmm-ring-label { font-size: 1.9cqw; }
+.pmm-face .pmm-ring-sub { font-size: 1.5cqw; }
+
 /* --- slide-1 compact: live estimate + a highly-visible advance arrow --- */
 .pmm-estline {
   margin: 0 0 12px;
@@ -261,6 +295,9 @@
 .pmm-card--wide .pmm-lid--img {
   margin: calc(-1 * clamp(10px, 1vw, 20px)) calc(-1 * clamp(14px, 1.4vw, 28px)) clamp(6px, 0.7vw, 12px);
   padding: 0;
+}
+.pmm-card--wide .pmm-face {
+  margin: calc(-1 * clamp(10px, 1vw, 20px)) calc(-1 * clamp(14px, 1.4vw, 28px)) clamp(6px, 0.7vw, 12px);
 }
 .pmm-card--wide .pmm-kicker { font-size: clamp(8px, 0.66vw, 11px); margin-bottom: clamp(4px, 0.4vw, 8px); }
 .pmm-card--wide .pmm-h2 { gap: clamp(6px, 0.6vw, 12px); }

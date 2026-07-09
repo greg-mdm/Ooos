@@ -76,6 +76,12 @@ function useSecondTick(active: boolean) {
 //   const LID_IMAGE = "assets/brand/pop-clock-lid.png";
 const LID_IMAGE: string | null = "pop-clock/ooo-popclock-lid.png";
 
+// Slide 2 (detailed) uses the full window template as the device face — a
+// branded gradient with the wordmark + bricks baked into the bottom and an
+// open "screen" area up top for the live readout (headline + rings). Set to
+// null to fall back to the lid-bar + plain body layout.
+const WINDOW_IMAGE: string | null = "pop-clock/popclock_window.png";
+
 /** The lid: a branded image when supplied, otherwise the text lockup
  *  (Humans of Canada · electric Ooo! wordmark + Pop Clock Mini · subtitle). */
 function PopClockLid() {
@@ -280,10 +286,14 @@ export function PopClockCard({
 
   return (
     <aside
-      className={`pmm-card${wide ? " pmm-card--wide" : ""}${detailed ? " pmm-card--full" : " pmm-card--mini"}`}
+      className={`pmm-card${wide ? " pmm-card--wide" : ""}${detailed ? " pmm-card--full" : " pmm-card--mini"}${
+        detailed && WINDOW_IMAGE ? " pmm-card--window" : ""
+      }`}
       aria-label="Ooo! Pop Clock Mini — automated predictive model"
     >
-      <PopClockLid />
+      {/* Slide 1 wears the lid bar; slide 2's branding is baked into the
+          window face, so it skips the lid. */}
+      {!(detailed && WINDOW_IMAGE) && <PopClockLid />}
 
       {state.kind === "loading" && (
         <p className="pmm-status" role="status">
@@ -312,20 +322,33 @@ export function PopClockCard({
         </>
       )}
 
-      {/* Slide 2 — the full differentiated ring embed. */}
+      {/* Slide 2 — the full differentiated ring embed. On the window face the
+          live readout sits in the branded template's open screen area; the
+          supporting text follows below. */}
       {detailed && r && (
         <>
-          <Headline r={r} />
-          <RingRow rings={r.rings} />
+          {WINDOW_IMAGE ? (
+            <div className="pmm-face">
+              <img
+                className="pmm-face-img"
+                src={`${import.meta.env.BASE_URL}${WINDOW_IMAGE}`}
+                alt="Ooo! Pop Clock Mini — Automated Predictive Model, by Humans of Canada"
+              />
+              <div className="pmm-face-screen">
+                <Headline r={r} />
+                <RingRow rings={r.rings} />
+              </div>
+            </div>
+          ) : (
+            <>
+              <Headline r={r} />
+              <RingRow rings={r.rings} />
+            </>
+          )}
           <p className="pmm-ringfoot">
             Solid rings fill toward the next event and reset. Dashed rings are net quantities —
             no single &ldquo;events,&rdquo; shown as daily drift. Interprovincial migration
             omitted (net zero nationally).
-          </p>
-          <p className="pmm-about">
-            Tracks Canada&rsquo;s population between StatCan&rsquo;s quarterly estimates, modelled
-            from the latest four quarters of demographic components. Experimental — not the
-            official StatCan clock, and not endorsed by Statistics Canada.
           </p>
           {/* The Johnny Cash lines that started the journey. (A pinwheel — the
               investment flywheel — waits later, hidden in the thorn tree.) */}
