@@ -1,0 +1,163 @@
+/* population-widget.css — "Canada population, real-time mini model" card.
+   Classes prefixed pmm-. Neutral government-data styling: white tinted card,
+   ink/secondary text tokens, no GoC branding. Two forms:
+     .pmm-card          — standalone stat card, 320–420px
+     .pmm-card--wide    — fluid form for the CID living-wall panel; sizes ride
+                          vw clamps so the card scales with the aspect-locked
+                          cliff art, and the figure/meta sit side by side. */
+
+.pmm-card {
+  --pmm-ink: #1f2a2e;
+  --pmm-mut: #5c6c70;          /* robin's-egg neutral 700 (site token) */
+  --pmm-line: rgba(31, 42, 46, 0.14);
+  --pmm-up: #0a6847;           /* signed glyph accompanies color (not color-alone) */
+  --pmm-down: #8f1d1d;
+  --pmm-link: #26547c;
+
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 420px;
+  padding: 18px 20px 16px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid var(--pmm-line);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(8, 16, 38, 0.1);
+  color: var(--pmm-ink);
+  font-family: inherit;
+  text-align: left;
+  text-shadow: none;
+}
+.pmm-card * { box-sizing: border-box; }
+
+.pmm-title {
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  color: var(--pmm-ink);
+}
+
+.pmm-body { margin: 0 0 10px; }
+
+.pmm-status {
+  margin: 0;
+  padding: 14px 0;
+  font-size: 13px;
+  color: var(--pmm-mut);
+}
+.pmm-status--error { color: var(--pmm-down); font-weight: 600; }
+
+.pmm-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--pmm-mut);
+  margin: 0 0 2px;
+}
+
+/* The per-second counter: tabular figures on purpose — every digit keeps the
+   same width, so the number doesn't wobble as it ticks. */
+.pmm-value {
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  color: var(--pmm-ink);
+}
+
+.pmm-delta {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--pmm-mut);
+}
+.pmm-delta-num {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--pmm-up);
+}
+.pmm-delta-num.is-down { color: var(--pmm-down); }
+
+.pmm-meta {
+  margin: 12px 0 0;
+  padding: 10px 0 0;
+  border-top: 1px solid var(--pmm-line);
+  display: grid;
+  gap: 6px;
+}
+.pmm-meta > div { margin: 0; }
+.pmm-meta dt {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--pmm-mut);
+  margin: 0;
+}
+.pmm-meta dd {
+  font-size: 12px;
+  color: var(--pmm-ink);
+  margin: 1px 0 0;
+  line-height: 1.35;
+}
+
+.pmm-note {
+  margin: 0 0 6px;
+  padding-top: 10px;
+  border-top: 1px solid var(--pmm-line);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--pmm-ink);
+}
+.pmm-source {
+  margin: 0 0 8px;
+  font-size: 10.5px;
+  line-height: 1.45;
+  color: var(--pmm-mut);
+}
+.pmm-link {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--pmm-link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.pmm-link:hover { filter: brightness(1.2); }
+
+/* ---- wide form: fills the living-wall white panel under the National
+   Strategy link; everything scales with the vw-sized stage. ---- */
+.pmm-card--wide {
+  max-width: none;
+  padding: clamp(10px, 1vw, 20px) clamp(14px, 1.4vw, 28px) clamp(8px, 0.9vw, 16px);
+  border-radius: clamp(10px, 0.9vw, 16px);
+}
+.pmm-card--wide .pmm-title { font-size: clamp(11px, 0.95vw, 16px); margin-bottom: clamp(4px, 0.5vw, 10px); }
+.pmm-card--wide .pmm-status { font-size: clamp(11px, 0.85vw, 14px); padding: clamp(8px, 0.8vw, 16px) 0; }
+.pmm-card--wide .pmm-body { margin-bottom: clamp(6px, 0.6vw, 10px); }
+.pmm-card--wide .pmm-label { font-size: clamp(9px, 0.72vw, 12px); }
+.pmm-card--wide .pmm-value { font-size: clamp(22px, 2.3vw, 42px); }
+.pmm-card--wide .pmm-delta { font-size: clamp(10px, 0.78vw, 13px); margin-top: 3px; }
+.pmm-card--wide .pmm-meta dt { font-size: clamp(8px, 0.62vw, 10.5px); }
+.pmm-card--wide .pmm-meta dd { font-size: clamp(9.5px, 0.74vw, 12.5px); }
+.pmm-card--wide .pmm-note { font-size: clamp(9px, 0.7vw, 11.5px); padding-top: clamp(5px, 0.5vw, 8px); margin-bottom: 4px; }
+.pmm-card--wide .pmm-source { font-size: clamp(8.5px, 0.66vw, 11px); margin-bottom: 6px; line-height: 1.35; }
+.pmm-card--wide .pmm-link { font-size: clamp(9.5px, 0.76vw, 12.5px); }
+
+/* side-by-side figure + meta once there's room (desktop stage) */
+@media (min-width: 761px) {
+  .pmm-card--wide .pmm-body--ready {
+    display: grid;
+    grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+    gap: clamp(12px, 1.6vw, 30px);
+    align-items: start;
+  }
+  .pmm-card--wide .pmm-meta {
+    margin-top: 0;
+    padding: 0 0 0 clamp(12px, 1.6vw, 30px);
+    border-top: 0;
+    border-left: 1px solid var(--pmm-line);
+    gap: clamp(4px, 0.45vw, 8px);
+  }
+}

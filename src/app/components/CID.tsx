@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type ReactNode, type CSSProperties } from 
 import "../../styles/cid-continuum.css";
 import "../../styles/cid-forest.css";
 import "../../styles/cid-coins.css";
+import { PopulationClockCard } from "./population/PopulationClockCard";
 
 // --- Canada's Continuum of Data Access -------------------------------------
 // Real StatsCan destinations behind each route on the official "Continuum of
@@ -806,6 +807,10 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               </svg>
               Open our National Strategy
             </a>
+
+            {/* Population mini model — fills the white panel below the
+                National Strategy link (StatCan WDS-fed, see ./population/). */}
+            <PopulationClockCard wide />
           </div>
         </div>
       </section>

@@ -309,9 +309,28 @@
 .cid-scope .cid-lw-go-icon { width: 1.5vw; height: 1.5vw; flex: none; }
 .cid-scope .cid-lw-go:hover { filter: brightness(1.12); transform: translateX(2px); }
 
+/* Population mini model card in the white panel, below the strategy link.
+   The stage is aspect-locked with overflow:hidden, so the card must fit the
+   panel's remaining height: on the narrow-desktop band the supplementary
+   meta rows are dropped (they return on mobile's stacked white card, which
+   has no height cap, and on full desktop). */
+.cid-scope .cid-lw-text .pmm-card--wide { margin-top: clamp(8px, 1.1vw, 20px); }
+@media (min-width: 901px) and (max-width: 1366px) {
+  .cid-scope .cid-lw-text .pmm-card--wide { margin-top: 4px; padding: 7px 12px 6px; }
+  .cid-scope .cid-lw-text .pmm-card--wide .pmm-meta { display: none; }
+  .cid-scope .cid-lw-text .pmm-card--wide .pmm-title { font-size: 10px; margin-bottom: 3px; }
+  .cid-scope .cid-lw-text .pmm-card--wide .pmm-body { margin-bottom: 4px; }
+  .cid-scope .cid-lw-text .pmm-card--wide .pmm-value { font-size: 20px; }
+  .cid-scope .cid-lw-text .pmm-card--wide .pmm-note { font-size: 8.5px; line-height: 1.3; padding-top: 4px; margin-bottom: 3px; }
+  .cid-scope .cid-lw-text .pmm-card--wide .pmm-source { font-size: 8px; line-height: 1.3; margin-bottom: 4px; }
+  .cid-scope .cid-lw-text .pmm-card--wide .pmm-link { font-size: 9px; }
+}
+
 /* MOBILE: the wide art is too short when stacked — drop it and lay the frame
-   above a white text card (red title + dark blurb + ruby link) on ink-blue */
-@media (max-width: 760px) {
+   above a white text card (red title + dark blurb + ruby link) on ink-blue.
+   (Raised 760 -> 900: with the population mini model in the panel, the
+   overlaid desktop layout runs out of stage height below ~900px.) */
+@media (max-width: 900px) {
   .cid-scope .cid-lw-stage {
     aspect-ratio: auto;
     background: linear-gradient(180deg, #081026 0%, #241a3a 46%, #4b3a63 100%);
