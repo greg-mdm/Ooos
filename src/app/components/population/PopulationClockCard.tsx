@@ -74,7 +74,7 @@ function useSecondTick(active: boolean) {
 // Keep the image's aspect stable so the body never moves. Path is relative to
 // the site base (import.meta.env.BASE_URL), e.g.:
 //   const LID_IMAGE = "assets/brand/pop-clock-lid.png";
-const LID_IMAGE: string | null = null;
+const LID_IMAGE: string | null = "pop-clock/ooo-popclock-lid.png";
 
 /** The lid: a branded image when supplied, otherwise the text lockup
  *  (Humans of Canada · electric Ooo! wordmark + Pop Clock Mini · subtitle). */
