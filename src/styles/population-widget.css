@@ -1,22 +1,18 @@
 /* population-widget.css — Ooo! Pop Clock Mini (Automated Predictive Model).
-   Classes prefixed pmm-. Branded with the electric (Portal violet) Ooo!
-   wordmark; otherwise neutral data-card styling — no GoC branding. Pieces:
-     .pmm-card          — the cards (slide 1 clock / slide 2 details);
-                          standalone form is 320–420px
-     .pmm-card--wide    — fluid form for the CID living-wall panel; sizes ride
-                          vw clamps so the card scales with the aspect-locked
-                          cliff art
-     .pmm-medallion     — the live estimate floated over the pale misty circle
-                          in the cliff art (positioned by the host section)
-     .pmm-sources       — small meta/attribution text below the section (dark
-                          ink-blue ground) */
+   Classes prefixed pmm-. The clock is a bordered, embeddable DEVICE (clear
+   indigo border + casing ring), never text that blends into the host page.
+     .pmm-card / --wide     — the device; --mini (slide 1) / --full (slide 2)
+     headline               — tally-counter estimate + day's move since open
+     rings                  — differentiated streams: solid ticking events
+                              (green adds / coral subtracts) + dashed net drift
+     .pmm-sources           — small meta/attribution below the section */
 
 .pmm-card {
   --pmm-ink: #1f2a2e;
-  --pmm-mut: #5c6c70;          /* robin's-egg neutral 700 (site token) */
+  --pmm-mut: #5c6c70;
   --pmm-line: rgba(31, 42, 46, 0.14);
-  --pmm-up: #0a6847;           /* signed glyph accompanies color (not color-alone) */
-  --pmm-down: #8f1d1d;
+  --pmm-add: #12925c;          /* green — grows the population */
+  --pmm-sub: #d1552f;          /* coral — shrinks it */
   --pmm-link: #26547c;
   --pmm-portal: #4B00B6;       /* electric wordmark violet (brand token) */
   --pmm-indigo: #2B0561;       /* brand indigo */
@@ -24,11 +20,15 @@
   box-sizing: border-box;
   width: 100%;
   max-width: 420px;
-  padding: 16px 20px 14px;
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid var(--pmm-line);
+  padding: 15px 18px 13px;
+  /* an embeddable clock DEVICE: solid ground + a defined indigo border and a
+     soft casing ring, so it reads as an installed module, not page text. */
+  background: #ffffff;
+  border: 1.5px solid var(--pmm-indigo);
   border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(8, 16, 38, 0.1);
+  box-shadow:
+    0 14px 34px rgba(8, 16, 38, 0.22),
+    0 0 0 3px rgba(43, 5, 97, 0.06);
   color: var(--pmm-ink);
   font-family: inherit;
   text-align: left;
@@ -47,22 +47,16 @@
 }
 
 /* --- branded header: electric Ooo! wordmark + Lovelo product name --- */
-.pmm-h2 {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0 0 2px;
-  line-height: 1;
-}
+.pmm-h2 { display: flex; align-items: center; gap: 10px; margin: 0 0 2px; line-height: 1; }
 .pmm-wordmark { height: 26px; width: auto; display: block; }
 .pmm-h2-text {
   font-family: 'Lovelo', 'Poppins', sans-serif;
-  font-weight: 900; /* Lovelo is a single 900-weight face */
+  font-weight: 900;
   font-size: 17px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--pmm-portal);
-  transform: translateY(1px); /* optical baseline against the script mark */
+  transform: translateY(1px);
 }
 .pmm-h3 {
   margin: 0 0 10px;
@@ -73,61 +67,158 @@
   color: var(--pmm-indigo);
 }
 
-.pmm-status {
-  margin: 0 0 8px;
-  padding: 8px 0;
+.pmm-status { margin: 0 0 8px; padding: 8px 0; font-size: 13px; color: var(--pmm-mut); }
+.pmm-status--error { color: var(--pmm-sub); font-weight: 600; }
+
+/* --- headline: tally-counter readout (uniform digits, active last group) --- */
+.pmm-headline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin: 0 0 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--pmm-line);
+}
+.pmm-big {
+  display: inline-flex;
+  align-items: baseline;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  font-size: 30px;
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  color: var(--pmm-ink);
+}
+.pmm-big-g { display: inline-flex; }
+.pmm-big-sp { display: inline-block; width: 0.26em; }
+/* the fast-moving trailing group — same size, highlighted as active */
+.pmm-big-g--live {
+  color: var(--pmm-portal);
+  background: rgba(75, 0, 182, 0.10);
+  border-radius: 5px;
+  padding: 0 0.14em;
+  box-shadow: inset 0 0 0 1px rgba(75, 0, 182, 0.14);
+}
+.pmm-since {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
   font-size: 13px;
-  color: var(--pmm-mut);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
 }
-.pmm-status--error { color: var(--pmm-down); font-weight: 600; }
+.pmm-since.is-up { color: var(--pmm-add); }
+.pmm-since.is-down { color: var(--pmm-sub); }
+.pmm-since-arrow { font-size: 0.82em; }
+.pmm-since-lbl { color: var(--pmm-mut); font-weight: 600; margin-left: 3px; }
 
-.pmm-figure { margin: 0 0 8px; }
-.pmm-label {
-  font-size: 11px;
+/* --- the differentiated rings --- */
+.pmm-rings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 4px;
+  justify-content: space-between;
+  margin: 0 0 8px;
+}
+.pmm-ring {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  flex: 1 1 0;
+  min-width: 54px;
+}
+.pmm-ring-dial { position: relative; width: 52px; height: 52px; }
+.pmm-ring-dial svg { width: 100%; height: 100%; display: block; }
+.pmm-ring-track { fill: none; stroke: #d6dbdf; stroke-width: 5; }
+.pmm-ring-track--dashed { stroke: #c6ced3; stroke-dasharray: 2.6 4; }
+.pmm-ring-prog { fill: none; stroke-width: 5; stroke-linecap: round; }
+.pmm-ring-add .pmm-ring-prog { stroke: var(--pmm-add); }
+.pmm-ring-subtract .pmm-ring-prog { stroke: var(--pmm-sub); }
+.pmm-ring-count {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--pmm-ink);
+}
+.pmm-ring-count--net { flex-direction: column; gap: 0; font-size: 13px; line-height: 1.05; }
+.pmm-ring-drift.pmm-ring-subtract .pmm-ring-count--net { color: var(--pmm-sub); }
+.pmm-ring-drift.pmm-ring-add .pmm-ring-count--net { color: var(--pmm-add); }
+.pmm-ring-net {
+  font-size: 7.5px;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--pmm-mut);
-  margin: 0 0 2px;
 }
+.pmm-ring-label { font-size: 11px; font-weight: 700; color: var(--pmm-ink); }
+.pmm-ring-sub { font-size: 9px; color: var(--pmm-mut); font-variant-numeric: tabular-nums; }
 
-/* The per-second counter: tabular figures on purpose — every digit keeps the
-   same width, so the number doesn't wobble as it ticks. */
-.pmm-value {
-  font-size: 34px;
-  font-weight: 700;
-  line-height: 1.1;
-  font-variant-numeric: tabular-nums;
+.pmm-ringfoot { margin: 0 0 8px; font-size: 9.5px; line-height: 1.4; color: var(--pmm-mut); }
+
+/* --- slide-1 compact: live estimate + a highly-visible advance arrow --- */
+.pmm-estline {
+  margin: 0 0 12px;
+  padding-top: 8px;
+  border-top: 1px solid var(--pmm-line);
+  font-size: 13px;
   color: var(--pmm-ink);
 }
-
-.pmm-delta {
-  margin-top: 4px;
-  font-size: 12px;
-  color: var(--pmm-mut);
-}
-.pmm-delta-num {
-  font-weight: 700;
+.pmm-estlabel { font-weight: 700; color: var(--pmm-mut); }
+.pmm-estnum {
+  font-weight: 800;
   font-variant-numeric: tabular-nums;
-  color: var(--pmm-up);
+  font-size: 22px;
+  letter-spacing: 0.01em;
+  color: var(--pmm-indigo);
+  white-space: nowrap;
 }
-.pmm-delta-num.is-down { color: var(--pmm-down); }
-
-/* --- the publishable details --- */
-.pmm-about {
-  margin: 0 0 8px;
+.pmm-advance {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+  padding: 8px 8px 8px 15px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--pmm-portal);
+  color: #fff;
+  font: inherit;
+  font-weight: 800;
   font-size: 11.5px;
-  line-height: 1.45;
-  color: var(--pmm-ink);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: filter 160ms ease, transform 160ms ease;
 }
-.pmm-about--example { color: var(--pmm-indigo); font-weight: 600; }
-.pmm-srcline {
-  margin: 0 0 8px;
-  font-size: 10px;
-  line-height: 1.45;
-  color: var(--pmm-mut);
+.pmm-advance:hover { filter: brightness(1.12); transform: translateX(2px); }
+.pmm-advance:focus-visible { outline: 2px solid var(--pmm-indigo); outline-offset: 2px; }
+.pmm-advance-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 18px;
+  line-height: 1;
 }
+
+/* --- publishable details (slide 2) --- */
+.pmm-about { margin: 0 0 8px; font-size: 11.5px; line-height: 1.45; color: var(--pmm-ink); }
+.pmm-epigraph { margin: 0 0 8px; padding: 6px 0 6px 12px; border-left: 2px solid var(--pmm-portal); }
+.pmm-epigraph blockquote { margin: 0; font-style: italic; font-size: 11px; line-height: 1.4; color: var(--pmm-indigo); }
+.pmm-epigraph figcaption { margin-top: 3px; font-size: 9.5px; color: var(--pmm-mut); }
 .pmm-link {
   display: inline-block;
+  margin-bottom: 8px;
   font-size: 12px;
   font-weight: 700;
   color: var(--pmm-link);
@@ -135,9 +226,9 @@
   text-underline-offset: 2px;
 }
 .pmm-link:hover { filter: brightness(1.2); }
+.pmm-srcline { margin: 0; font-size: 10px; line-height: 1.45; color: var(--pmm-mut); }
 
-/* ---- wide form: fills the living-wall white panel; everything scales with
-   the vw-sized stage. ---- */
+/* ---- wide form: fluid for the CID living-wall panel ---- */
 .pmm-card--wide {
   max-width: none;
   padding: clamp(10px, 1vw, 20px) clamp(14px, 1.4vw, 28px) clamp(8px, 0.9vw, 16px);
@@ -149,89 +240,27 @@
 .pmm-card--wide .pmm-h2-text { font-size: clamp(12px, 1.1vw, 21px); }
 .pmm-card--wide .pmm-h3 { font-size: clamp(7.5px, 0.62vw, 11px); margin-bottom: clamp(6px, 0.6vw, 12px); }
 .pmm-card--wide .pmm-status { font-size: clamp(11px, 0.85vw, 14px); padding: clamp(4px, 0.45vw, 8px) 0; }
-.pmm-card--wide .pmm-figure { margin-bottom: clamp(4px, 0.45vw, 8px); }
-.pmm-card--wide .pmm-label { font-size: clamp(9px, 0.72vw, 12px); }
-.pmm-card--wide .pmm-value { font-size: clamp(22px, 2.3vw, 42px); }
-.pmm-card--wide .pmm-delta { font-size: clamp(10px, 0.78vw, 13px); margin-top: 3px; }
+.pmm-card--wide .pmm-headline { margin-bottom: clamp(6px, 0.7vw, 12px); padding-top: clamp(5px, 0.5vw, 8px); }
+.pmm-card--wide .pmm-big { font-size: clamp(20px, 2vw, 38px); }
+.pmm-card--wide .pmm-since { font-size: clamp(10px, 0.85vw, 15px); }
+.pmm-card--wide .pmm-rings { gap: clamp(8px, 0.9vw, 14px) clamp(3px, 0.4vw, 8px); margin-bottom: clamp(6px, 0.6vw, 10px); }
+.pmm-card--wide .pmm-ring-dial { width: clamp(46px, 4.4vw, 74px); height: clamp(46px, 4.4vw, 74px); }
+.pmm-card--wide .pmm-ring-count { font-size: clamp(13px, 1.3vw, 22px); }
+.pmm-card--wide .pmm-ring-count--net { font-size: clamp(11px, 1.1vw, 18px); }
+.pmm-card--wide .pmm-ring-net { font-size: clamp(6.5px, 0.5vw, 9px); }
+.pmm-card--wide .pmm-ring-label { font-size: clamp(9px, 0.78vw, 13px); }
+.pmm-card--wide .pmm-ring-sub { font-size: clamp(7.5px, 0.6vw, 11px); }
+.pmm-card--wide .pmm-ringfoot { font-size: clamp(8px, 0.66vw, 11px); margin-bottom: clamp(5px, 0.5vw, 9px); }
+.pmm-card--wide .pmm-estline { font-size: clamp(11px, 0.9vw, 15px); margin-bottom: clamp(8px, 1vw, 16px); padding-top: clamp(5px, 0.5vw, 8px); }
+.pmm-card--wide .pmm-estnum { font-size: clamp(17px, 1.7vw, 30px); }
+.pmm-card--wide .pmm-advance { font-size: clamp(9.5px, 0.8vw, 13px); padding: clamp(6px, 0.6vw, 10px) clamp(6px, 0.6vw, 10px) clamp(6px, 0.6vw, 10px) clamp(11px, 1.1vw, 18px); }
+.pmm-card--wide .pmm-advance-arrow { width: clamp(18px, 1.7vw, 26px); height: clamp(18px, 1.7vw, 26px); font-size: clamp(15px, 1.4vw, 22px); }
 .pmm-card--wide .pmm-about { font-size: clamp(9px, 0.74vw, 12px); line-height: 1.4; margin-bottom: clamp(4px, 0.45vw, 8px); }
-.pmm-card--wide .pmm-srcline { font-size: clamp(8px, 0.64vw, 10.5px); margin-bottom: clamp(4px, 0.45vw, 8px); }
+.pmm-card--wide .pmm-epigraph { padding: clamp(4px, 0.5vw, 7px) 0 clamp(4px, 0.5vw, 7px) clamp(8px, 0.8vw, 12px); margin-bottom: clamp(4px, 0.45vw, 8px); }
+.pmm-card--wide .pmm-epigraph blockquote { font-size: clamp(9px, 0.74vw, 12px); }
+.pmm-card--wide .pmm-epigraph figcaption { font-size: clamp(8px, 0.64vw, 10.5px); }
 .pmm-card--wide .pmm-link { font-size: clamp(9.5px, 0.76vw, 12.5px); }
-
-/* the figure gets a hairline above it, separating it from the branded header */
-.pmm-figure { padding-top: 8px; border-top: 1px solid var(--pmm-line); }
-.pmm-card--wide .pmm-figure { padding-top: clamp(5px, 0.5vw, 8px); }
-
-/* ---- slide-1 teaser: branded name on the open white transparency (no card
-   chrome); the live estimate displays in the medallion circle to its right.
-   Sized in vw so it rides the stage; a soft white text-shadow lifts it off
-   the panel like the neighbouring blurb. ---- */
-.pmm-teaser {
-  margin-top: clamp(14px, 1.8vw, 34px);
-  max-width: 62%;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.65);
-}
-.pmm-teaser .pmm-kicker {
-  font-size: clamp(8px, 0.7vw, 12px);
-  margin-bottom: clamp(4px, 0.4vw, 8px);
-  color: #5c6c70;
-}
-.pmm-teaser .pmm-h2 { gap: clamp(7px, 0.7vw, 14px); }
-.pmm-teaser .pmm-wordmark { height: clamp(20px, 2vw, 38px); }
-.pmm-teaser .pmm-h2-text { font-size: clamp(13px, 1.3vw, 25px); color: #4B00B6; }
-.pmm-teaser .pmm-h3 {
-  font-size: clamp(8px, 0.72vw, 13px);
-  margin-bottom: clamp(6px, 0.7vw, 14px);
-  color: #2B0561;
-}
-.pmm-teaser .pmm-teaser-label {
-  margin: 0;
-  font-size: clamp(10px, 0.9vw, 16px);
-  font-weight: 700;
-  color: #3D1B0C;
-}
-@media (max-width: 900px) {
-  .pmm-teaser { display: none; } /* the pop clock slide's card carries it all */
-}
-
-/* ---- the medallion: live estimate in the pale misty circle of the art.
-   Look lives here; position/size are set by the host section's stylesheet. ---- */
-.pmm-medallion {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  border-radius: 50%;
-  /* fixed padding — a % here resolves against the STAGE width, not the
-     medallion, and squeezes the content into a tall overflow */
-  padding: clamp(6px, 0.6vw, 12px);
-  background: radial-gradient(
-    closest-side,
-    rgba(255, 255, 255, 0.92) 0%,
-    rgba(255, 255, 255, 0.62) 64%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  pointer-events: none; /* informational only — never blocks the art */
-  transition: opacity 450ms ease;
-}
-.pmm-medallion.is-hidden { opacity: 0; }
-@media (prefers-reduced-motion: reduce) {
-  .pmm-medallion { transition: none; }
-}
-.pmm-med-value {
-  font-size: clamp(15px, 1.5vw, 29px);
-  font-weight: 700;
-  line-height: 1.05;
-  font-variant-numeric: tabular-nums;
-  color: #2B0561; /* brand indigo over the pale mist */
-}
-.pmm-med-delta {
-  margin-top: 0.4em;
-  font-size: clamp(7.5px, 0.62vw, 11px);
-  color: #5c6c70;
-}
-.pmm-med-delta .pmm-delta-num { font-weight: 700; font-variant-numeric: tabular-nums; color: #0a6847; }
-.pmm-med-delta .pmm-delta-num.is-down { color: #8f1d1d; }
+.pmm-card--wide .pmm-srcline { font-size: clamp(8px, 0.64vw, 10.5px); }
 
 /* ---- sources strip: small text below the section, on the ink-blue ground
    (#081026). Silver-blue captions echoing the site's dark-panel text. ---- */
@@ -241,12 +270,7 @@
   padding: 18px clamp(16px, 4vw, 32px) 22px;
   color: #c9d6ea;
 }
-.pmm-sources-meta {
-  margin: 0 0 10px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 28px;
-}
+.pmm-sources-meta { margin: 0 0 10px; display: flex; flex-wrap: wrap; gap: 6px 28px; }
 .pmm-sources-meta > div { margin: 0; min-width: 0; }
 .pmm-sources-meta dt {
   display: inline;
@@ -257,16 +281,5 @@
   color: #8fa3c4;
 }
 .pmm-sources-meta dt::after { content: " · "; color: #8fa3c4; }
-.pmm-sources-meta dd {
-  display: inline;
-  margin: 0;
-  font-size: 11.5px;
-  color: #c9d6ea;
-}
-.pmm-sources-line {
-  margin: 0;
-  font-size: 10.5px;
-  line-height: 1.5;
-  color: #8fa3c4;
-  max-width: 88ch;
-}
+.pmm-sources-meta dd { display: inline; margin: 0; font-size: 11.5px; color: #c9d6ea; }
+.pmm-sources-line { margin: 0; font-size: 10.5px; line-height: 1.5; color: #8fa3c4; max-width: 88ch; }

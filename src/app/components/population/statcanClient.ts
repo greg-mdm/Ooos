@@ -28,13 +28,44 @@ export interface PopulationModelData {
   annualNetChange: number;
   /** annualNetChange / seconds in a year. */
   netChangePerSecond: number;
-  /** Which derivation produced the rate. */
-  rateBasis: "components" | "year-over-year";
+  /** How the displayed net rate was derived (all five component streams). */
+  rateBasis: "components-live" | "components-reference";
+  /** Annual component rates (persons/yr) that drive the differentiated rings
+   *  AND the net: births − deaths + immigrants − emigrants + NPR. So the rings
+   *  always sum to the headline change (same rates). Live per field from the
+   *  component tables when their members resolve, otherwise the StatCan
+   *  reference rates below. (Interprovincial migration is omitted — it nets to
+   *  ~0 nationally; returning-emigrant / net-temporary-emigration adjustments
+   *  are folded into the modelled emigration reference.) */
+  components: {
+    births: number;
+    deaths: number;
+    immigrants: number;
+    emigrants: number;
+    netNonPermanentResidents: number;
+  };
+  /** True when all five component rates came from this fetch (not reference). */
+  componentsLive: boolean;
   /** StatCan tables actually used for this payload. */
   sourceTables: string[];
   /** ISO timestamp of when this data was fetched from StatCan. */
   fetchedAt: string;
 }
+
+// StatCan-grounded annual component rates (persons/yr), used per field only
+// when the live members don't resolve. Sourced from Statistics Canada
+// quarterly components (tables 17-10-0059 / 17-10-0040), 2025–2026:
+//   births ≈ 351,000 · deaths ≈ 318,600 · immigrants ≈ 337,000 ·
+//   emigrants ≈ 62,000 (subtracted) · net non-permanent residents ≈ −450,000
+// (the 2025–26 temporary-resident drawdown). These sum to ≈ −142,600/yr, a
+// slight decline — consistent with StatCan's own −0.1%/quarter model.
+export const REFERENCE_COMPONENTS = {
+  births: 351000,
+  deaths: 318600,
+  immigrants: 337000,
+  emigrants: 62000,
+  netNonPermanentResidents: -450000,
+};
 
 export const CONFIG = {
   wdsBase: "https://www150.statcan.gc.ca/t1/wds/rest",
@@ -63,7 +94,7 @@ export const CONFIG = {
     netTemporaryEmigration: null as number | null,
     netNonPermanentResidents: null as number | null,
   },
-  cacheKey: "ooos-population-mini-model-v1",
+  cacheKey: "ooos-population-mini-model-v2",
   /** Quarterly data — refetch at most daily. */
   cacheTtlMs: 24 * 60 * 60 * 1000,
   /** A stale cache older than this is not shown; error state instead. */
@@ -309,60 +340,48 @@ async function fetchFromWds(): Promise<PopulationModelData> {
     yoyChange = basePopulation - (prior.value as number);
   }
 
-  // ---- rate: components (preferred when every member resolved) --------------
-  let componentChange: number | null = null;
+  // ---- component sums (full pass — no short-circuit, so each stream resolves
+  //      independently) ---------------------------------------------------------
   const sums: Partial<Record<(typeof componentKeys)[number], number>> = {};
-  const haveAll = componentKeys.every((k) => {
+  for (const k of componentKeys) {
     const s = components[k];
-    if (!s) return false;
+    if (!s) continue;
     const total = sumLatest(s.points, 4);
-    if (total == null) return false;
-    sums[k] = total;
-    return true;
-  });
-  if (haveAll) {
-    componentChange =
-      (sums.births as number) -
-      (sums.deaths as number) +
-      (sums.immigrants as number) -
-      (sums.emigrants as number) +
-      (sums.returningEmigrants as number) -
-      (sums.netTemporaryEmigration as number) +
-      (sums.netNonPermanentResidents as number);
+    if (total != null) sums[k] = total;
   }
 
-  // Prefer components; sanity-check against year-over-year so a member-name
-  // mismatch can never ship a wildly wrong rate.
-  let annualNetChange: number;
-  let rateBasis: PopulationModelData["rateBasis"];
-  const componentsSane =
-    componentChange != null &&
-    (yoyChange == null || Math.abs(componentChange - yoyChange) <= Math.max(Math.abs(yoyChange) * 0.5, 100000));
-  if (componentChange != null && componentsSane) {
-    annualNetChange = componentChange;
-    rateBasis = "components";
-  } else if (yoyChange != null) {
-    annualNetChange = yoyChange;
-    rateBasis = "year-over-year";
-  } else {
-    throw new Error("Could not derive an annual net change from StatCan data");
-  }
+  // ---- the five ring streams: live per field, else the StatCan reference.
+  //      These drive BOTH the rings and the net, so they stay consistent. -------
+  const ringKeys = ["births", "deaths", "immigrants", "emigrants", "netNonPermanentResidents"] as const;
+  const componentsLive = ringKeys.every((k) => sums[k] != null);
+  const comp = {
+    births: sums.births ?? REFERENCE_COMPONENTS.births,
+    deaths: sums.deaths ?? REFERENCE_COMPONENTS.deaths,
+    immigrants: sums.immigrants ?? REFERENCE_COMPONENTS.immigrants,
+    emigrants: sums.emigrants ?? REFERENCE_COMPONENTS.emigrants,
+    netNonPermanentResidents: sums.netNonPermanentResidents ?? REFERENCE_COMPONENTS.netNonPermanentResidents,
+  };
 
-  const sourceTables =
-    rateBasis === "components"
-      ? [
-          tableRef(CONFIG.products.population),
-          tableRef(CONFIG.products.naturalIncrease),
-          tableRef(CONFIG.products.internationalMigration),
-        ]
-      : [tableRef(CONFIG.products.population)];
+  // Net = births − deaths + immigrants − emigrants + NPR. The rings sum to this.
+  const annualNetChange =
+    comp.births - comp.deaths + comp.immigrants - comp.emigrants + comp.netNonPermanentResidents;
+
+  const sourceTables = componentsLive
+    ? [
+        tableRef(CONFIG.products.population),
+        tableRef(CONFIG.products.naturalIncrease),
+        tableRef(CONFIG.products.internationalMigration),
+      ]
+    : [tableRef(CONFIG.products.population)];
 
   return {
     basePopulation,
     baseReferenceDate,
     annualNetChange,
     netChangePerSecond: annualNetChange / SECONDS_PER_YEAR,
-    rateBasis,
+    rateBasis: componentsLive ? "components-live" : "components-reference",
+    components: comp,
+    componentsLive,
     sourceTables,
     fetchedAt: new Date().toISOString(),
   };

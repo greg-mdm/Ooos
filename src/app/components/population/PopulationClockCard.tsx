@@ -1,30 +1,32 @@
 // Ooo! Pop Clock Mini — Automated Predictive Model.
-// A branded population-clock widget: latest StatCan base estimate + a
-// net-change-per-second rate derived from public aggregate tables (see
-// statcanClient.ts). NOT the official StatCan clock, and says so. The pop
-// clock is a custom-widget example of the innovative media Ooo builds with
-// Canada's open data sources.
+// A branded population clock shown as a bordered, embeddable DEVICE. Its point
+// of difference from StatCan's clock (six identical bars) is a DIFFERENTIATED
+// ring row: births/deaths/immigrants are solid rings that fill toward the next
+// modelled event and reset (green = adds, coral = subtracts); emigrants and
+// net non-permanent residents are dashed rings showing net "drift" (no single
+// events). Green adds, coral subtracts — so the whole sign structure reads at a
+// glance, no legend. The rings are driven by the same four-quarter rates as the
+// headline, so they always sum to the day's change. Data from public StatCan
+// tables (see statcanClient.ts); NOT the official StatCan clock, and says so.
 //
 // Pieces (all share one data load via usePopulationModel in the parent):
-//   <PopClockCard>        — slide 1: electric-wordmark lockup + eyebrow
-//                            (+ the live figure on mobile/standalone, where
-//                            the medallion has no art to sit on)
-//   <PopClockDetailsCard> — slide 2: same branded header + the model
-//                            description, small source text and the link to
-//                            the official clock
-//   <PopulationMedallion> — the live estimate, floated over the pale misty
-//                            circle in the cliff art (desktop stages only)
-//   <PopulationSourcesStrip> — meta rows + full attribution, small text
-//                            below the section
+//   <PopClockCard>        — the device. Compact on slide 1 (branding + live
+//                            estimate + a highly-visible advance arrow);
+//                            `detailed` on slide 2 (the full ring embed).
+//   <PopulationSourcesStrip> — meta + attribution, small text below the section
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../../../styles/population-widget.css";
 import { loadPopulationModelData, type PopulationModelData } from "./statcanClient";
 import {
+  formatMagnitude,
   formatPersons,
   formatReferenceDate,
-  formatSignedPersons,
+  formatSpaced,
+  localMidnight,
   readModel,
+  type MiniModelReading,
+  type RingReading,
 } from "./populationMiniModel";
 
 const OFFICIAL_CLOCK_URL = "https://www150.statcan.gc.ca/n1/pub/71-607-x/71-607-x2018005-eng.htm";
@@ -39,7 +41,7 @@ export type PopulationModelState =
   | { kind: "ready"; data: PopulationModelData }
   | { kind: "error" };
 
-/** One fetch shared by the cards, the medallion and the sources strip. */
+/** One fetch shared by the cards and the sources strip. */
 export function usePopulationModel(): PopulationModelState {
   const [state, setState] = useState<PopulationModelState>({ kind: "loading" });
   useEffect(() => {
@@ -54,8 +56,9 @@ export function usePopulationModel(): PopulationModelState {
   return state;
 }
 
-/** Once-per-second re-render while data is live. Values are recomputed from
- *  the wall clock each tick, so nothing drifts or accumulates error. */
+/** Once-per-second re-render while data is live (drives the headline + drift
+ *  rings). Values are recomputed from the wall clock each tick, so nothing
+ *  drifts or accumulates error. Event rings animate themselves via rAF. */
 function useSecondTick(active: boolean) {
   const [, setTick] = useState(0);
   useEffect(() => {
@@ -82,41 +85,180 @@ function PopClockHeader() {
   );
 }
 
-function LiveFigure({ data }: { data: PopulationModelData }) {
-  const reading = readModel(data);
+// ---- rings ----------------------------------------------------------------
+const RING_R = 26;
+const RING_C = 2 * Math.PI * RING_R;
+
+/** A solid ring that fills toward the next modelled event and resets, driven by
+ *  requestAnimationFrame for a smooth sweep. Pulses on each completed event.
+ *  Paused (via `active`) when the section is off-screen. */
+function EventRing({ ring, active }: { ring: RingReading; active: boolean }) {
+  const progRef = useRef<SVGCircleElement>(null);
+  const countRef = useRef<HTMLSpanElement>(null);
+  const dialRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const interval = ring.intervalSeconds;
+    const prog = progRef.current;
+    const countEl = countRef.current;
+    if (!interval || !prog || !countEl) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let raf = 0;
+    let timer = 0;
+    let lastCount = -1;
+
+    const paint = () => {
+      const now = Date.now();
+      const sec = Math.max(0, (now - localMidnight(now)) / 1000);
+      const phase = (sec % interval) / interval;
+      prog.style.strokeDashoffset = String(RING_C * (1 - phase));
+      const count = Math.floor(sec / interval);
+      if (count !== lastCount) {
+        countEl.textContent = String(count);
+        if (lastCount >= 0 && !reduced && dialRef.current) {
+          dialRef.current.animate(
+            [{ transform: "scale(1)" }, { transform: "scale(1.13)" }, { transform: "scale(1)" }],
+            { duration: 220, easing: "ease-out" },
+          );
+        }
+        lastCount = count;
+      }
+    };
+
+    paint();
+    if (!active) return;
+    if (reduced) {
+      timer = window.setInterval(paint, 1000);
+      return () => window.clearInterval(timer);
+    }
+    const loop = () => {
+      paint();
+      raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(raf);
+  }, [ring.intervalSeconds, active]);
+
+  const every = ring.intervalSeconds ? Math.round(ring.intervalSeconds) : 0;
   return (
-    <div className="pmm-figure">
-      <div className="pmm-label">Estimated population</div>
-      {/* Recomputed every second — intentionally NOT an aria-live region, so
-          screen readers aren't spammed; the value reads out on focus/pass. */}
-      <div className="pmm-value">{formatPersons(reading.currentPopulation)}</div>
-      <div className="pmm-delta">
-        (a change of{" "}
-        <span className={`pmm-delta-num${reading.changeSinceMidnight < 0 ? " is-down" : ""}`}>
-          {formatSignedPersons(reading.changeSinceMidnight)}
-        </span>{" "}
-        since midnight)
+    <div className="pmm-ring" role="img" aria-label={`${ring.label}: about one every ${every} seconds`}>
+      <div className={`pmm-ring-dial pmm-ring-${ring.kind}`} ref={dialRef}>
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <circle className="pmm-ring-track" cx="32" cy="32" r={RING_R} />
+          <circle
+            ref={progRef}
+            className="pmm-ring-prog"
+            cx="32"
+            cy="32"
+            r={RING_R}
+            transform="rotate(-90 32 32)"
+            style={{ strokeDasharray: RING_C, strokeDashoffset: RING_C }}
+          />
+        </svg>
+        <span className="pmm-ring-count" ref={countRef}>{ring.count}</span>
       </div>
+      <span className="pmm-ring-label">{ring.label}</span>
+      <span className="pmm-ring-sub">1 / ~{every} s</span>
     </div>
   );
 }
 
-/** The branded pop clock card: campaign kicker, branded name, live estimate,
- *  and — when `detailed` — the rest of the publishable details (model
- *  description, custom-widget example line, source, official-clock link). */
+/** A dashed ring showing a net quantity (drift) — no single events. Updated by
+ *  the parent's per-second tick. */
+function DriftRing({ ring }: { ring: RingReading }) {
+  const sign = ring.signedNet < 0 ? "−" : ring.signedNet > 0 ? "+" : "";
+  return (
+    <div
+      className="pmm-ring"
+      role="img"
+      aria-label={`${ring.label}: net ${sign}${formatMagnitude(ring.signedNet)} since midnight`}
+    >
+      <div className={`pmm-ring-dial pmm-ring-drift pmm-ring-${ring.kind}`}>
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <circle className="pmm-ring-track pmm-ring-track--dashed" cx="32" cy="32" r={RING_R} />
+        </svg>
+        <span className="pmm-ring-count pmm-ring-count--net">
+          {sign}
+          {formatMagnitude(ring.signedNet)}
+          <span className="pmm-ring-net">net</span>
+        </span>
+      </div>
+      <span className="pmm-ring-label">{ring.label}</span>
+      <span className="pmm-ring-sub">drift</span>
+    </div>
+  );
+}
+
+/** The five differentiated rings; pauses animation when off-screen. */
+function RingRow({ rings }: { rings: RingReading[] }) {
+  const rowRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(true);
+  useEffect(() => {
+    const el = rowRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(([e]) => setActive(e.isIntersecting), { threshold: 0.1 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return (
+    <div className="pmm-rings" ref={rowRef}>
+      {rings.map((r) =>
+        r.mode === "event" ? (
+          <EventRing key={r.key} ring={r} active={active} />
+        ) : (
+          <DriftRing key={r.key} ring={r} />
+        ),
+      )}
+    </div>
+  );
+}
+
+/** The headline — a tally-counter readout: every digit the same size, the
+ *  fast-moving last group highlighted so it reads as active. Plus the day's
+ *  move since the open (▲ green / ▼ coral), matching the rings' colours. */
+function Headline({ r }: { r: MiniModelReading }) {
+  const down = r.changeSinceMidnight < 0;
+  const groups = formatPersons(r.currentPopulation).split(",");
+  return (
+    <div className="pmm-headline">
+      <span className="pmm-big" aria-label={`Estimated population ${formatPersons(r.currentPopulation)}`}>
+        {groups.map((g, i) => (
+          <span
+            key={i}
+            className={`pmm-big-g${i === groups.length - 1 ? " pmm-big-g--live" : ""}`}
+          >
+            {g}
+            {i < groups.length - 1 && <span className="pmm-big-sp"> </span>}
+          </span>
+        ))}
+      </span>
+      <span className={`pmm-since ${down ? "is-down" : "is-up"}`}>
+        <span className="pmm-since-arrow" aria-hidden="true">{down ? "▼" : "▲"}</span>
+        {formatMagnitude(r.changeSinceMidnight)}
+        <span className="pmm-since-lbl">since midnight</span>
+      </span>
+    </div>
+  );
+}
+
+/** The clock device. Compact (slide 1) or the full ring embed (slide 2). */
 export function PopClockCard({
   state,
   wide = false,
   detailed = false,
+  onAdvance,
 }: {
   state: PopulationModelState;
   wide?: boolean;
   detailed?: boolean;
+  onAdvance?: () => void;
 }) {
   useSecondTick(state.kind === "ready");
+  const r = state.kind === "ready" ? readModel(state.data) : null;
+
   return (
     <aside
-      className={`pmm-card${wide ? " pmm-card--wide" : ""}`}
+      className={`pmm-card${wide ? " pmm-card--wide" : ""}${detailed ? " pmm-card--full" : " pmm-card--mini"}`}
       aria-label="Ooo! Pop Clock Mini — automated predictive model"
     >
       <p className="pmm-kicker">Humans of Canada</p>
@@ -132,78 +274,57 @@ export function PopClockCard({
           Latest Statistics Canada data could not be loaded.
         </p>
       )}
-      {state.kind === "ready" && <LiveFigure data={state.data} />}
 
-      {detailed && (
+      {/* Slide 1 — compact: the live estimate + a highly-visible advance arrow. */}
+      {!detailed && r && (
         <>
+          <p className="pmm-estline">
+            <span className="pmm-estlabel">Estimated Population:</span>{" "}
+            <span className="pmm-estnum">{formatSpaced(r.currentPopulation)}</span>
+          </p>
+          {onAdvance && (
+            <button type="button" className="pmm-advance" onClick={onAdvance}>
+              <span>See the live model</span>
+              <span className="pmm-advance-arrow" aria-hidden="true">›</span>
+            </button>
+          )}
+        </>
+      )}
+
+      {/* Slide 2 — the full differentiated ring embed. */}
+      {detailed && r && (
+        <>
+          <Headline r={r} />
+          <RingRow rings={r.rings} />
+          <p className="pmm-ringfoot">
+            Solid rings fill toward the next event and reset. Dashed rings are net quantities —
+            no single &ldquo;events,&rdquo; shown as daily drift. Interprovincial migration
+            omitted (net zero nationally).
+          </p>
           <p className="pmm-about">
-            This widget tracks quarterly population estimates using publicly available
-            data tables, which are updated every three months to reflect natural growth
-            and migration patterns. Disclaimer: This is an experimental tool and is not
-            endorsed by Statistics Canada.
+            Tracks Canada&rsquo;s population between StatCan&rsquo;s quarterly estimates, modelled
+            from the latest four quarters of demographic components. Experimental — not the
+            official StatCan clock, and not endorsed by Statistics Canada.
           </p>
-          <p className="pmm-about pmm-about--example">
-            A custom widget example — the kind of innovative media you can create with
-            Canada&rsquo;s open data sources.
-          </p>
-          <p className="pmm-srcline">{SOURCE_LINE}</p>
-          <a
-            className="pmm-link"
-            href={OFFICIAL_CLOCK_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View Canada&rsquo;s official population clock
+          {/* The Johnny Cash lines that started the journey. (A pinwheel — the
+              investment flywheel — waits later, hidden in the thorn tree.) */}
+          <figure className="pmm-epigraph">
+            <blockquote>
+              Some are born, and some are dyin&rsquo;
+              <br />
+              It&rsquo;s Alpha and Omega&rsquo;s kingdom come
+              <br />
+              And the whirlwind is in the thorn tree
+            </blockquote>
+            <figcaption>&mdash; Johnny Cash, &ldquo;The Man Comes Around&rdquo;</figcaption>
+          </figure>
+          <a className="pmm-link" href={OFFICIAL_CLOCK_URL} target="_blank" rel="noopener noreferrer">
+            Check Canada&rsquo;s official real-time population clock @ statcan.gc.ca
           </a>
+          <p className="pmm-srcline">{SOURCE_LINE}</p>
         </>
       )}
     </aside>
-  );
-}
-
-/** Slide-1 teaser: the branded name in the white space under the National
- *  Strategy link — the live estimate itself displays in the medallion circle
- *  to its right. Text only (no card chrome); hidden on stacked mobile, where
- *  the pop clock slide's card carries everything. */
-export function PopClockTeaser() {
-  return (
-    <div className="pmm-teaser">
-      <p className="pmm-kicker">Humans of Canada</p>
-      <PopClockHeader />
-      <p className="pmm-teaser-label">Estimated population:</p>
-    </div>
-  );
-}
-
-/** The live estimate, floated over the pale misty circle in the cliff art.
- *  Renders nothing until data is ready (the card carries loading/error).
- *  Positioned by the host section's stylesheet; hidden on stacked mobile.
- *  `hidden` fades it out (e.g. while a taller slide covers its spot). */
-export function PopulationMedallion({
-  state,
-  hidden = false,
-}: {
-  state: PopulationModelState;
-  hidden?: boolean;
-}) {
-  useSecondTick(state.kind === "ready");
-  if (state.kind !== "ready") return null;
-  const reading = readModel(state.data);
-  return (
-    <div
-      className={`pmm-medallion${hidden ? " is-hidden" : ""}`}
-      aria-hidden={hidden}
-      aria-label="Estimated population, live"
-    >
-      <div className="pmm-med-value">{formatPersons(reading.currentPopulation)}</div>
-      {/* compact phrasing — the full "(a change of …)" line lives on the card */}
-      <div className="pmm-med-delta">
-        <span className={`pmm-delta-num${reading.changeSinceMidnight < 0 ? " is-down" : ""}`}>
-          {formatSignedPersons(reading.changeSinceMidnight)}
-        </span>{" "}
-        since midnight
-      </div>
-    </div>
   );
 }
 
@@ -228,11 +349,13 @@ export function PopulationSourcesStrip({ state }: { state: PopulationModelState 
           <div>
             <dt>Rate basis</dt>
             <dd>
-              {state.data.rateBasis === "components"
-                ? "births, deaths and international migration, latest four quarters"
-                : "year-over-year change in the quarterly estimate"}
+              births − deaths + immigrants − emigrants + NPR,{" "}
+              {state.data.componentsLive
+                ? "latest four quarters"
+                : "StatCan reference rates (2025–2026)"}
               {" · "}
-              {state.data.sourceTables.join(", ")}
+              {state.data.sourceTables.join(", ")}. May differ from StatCan&rsquo;s population
+              clock, which projects from its own model baseline.
             </dd>
           </div>
         </dl>

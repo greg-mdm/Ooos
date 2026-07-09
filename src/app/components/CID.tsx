@@ -6,8 +6,6 @@ import "../../styles/cid-forest.css";
 import "../../styles/cid-coins.css";
 import {
   PopClockCard,
-  PopClockTeaser,
-  PopulationMedallion,
   PopulationSourcesStrip,
   usePopulationModel,
   type PopulationModelState,
@@ -750,9 +748,9 @@ function LivingWallSlider({
             </svg>
             Open our National Strategy
           </a>
-          {/* Branded pop clock teaser — the live estimate itself displays in
-              the medallion circle at its right. */}
-          <PopClockTeaser />
+          {/* The live clock as a compact, bordered device; the arrow advances
+              to the full ring model on slide 2. */}
+          <PopClockCard state={populationModel} wide onAdvance={() => goTo(1)} />
         </div>
         <div className={`cid-lw-slide${index === 1 ? " is-active" : ""}`}>
           <PopClockCard state={populationModel} wide detailed />
@@ -900,11 +898,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 Ooo! Pop Clock Mini share the panel via a slider. */}
             <LivingWallSlider populationModel={populationModel} onIndexChange={setLwSlide} />
           </div>
-
-          {/* The live estimate floats in the pale misty circle of the cliff
-              art, beside the nature slide (hidden on the pop clock slide and
-              on the stacked mobile layout, where the card shows the figure). */}
-          <PopulationMedallion state={populationModel} hidden={lwSlide !== 0} />
         </div>
 
         {/* Sources for the mini model — small text kept off the white panel. */}

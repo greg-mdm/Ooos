@@ -290,14 +290,29 @@
    from 25% down to 83% of the stage (top+bottom both set) that scales with
    the art, so the card is contained inside the panel at every width. */
 .cid-scope .cid-lw-text.is-covering { top: 25%; bottom: 17%; }
-/* On narrow desktop stages the card runs taller relative to the frame —
-   compact its type slightly so it stays inside the pinned bounds. */
-@media (min-width: 901px) and (max-width: 1100px) {
-  .cid-scope .cid-lw-text.is-covering .pmm-card--wide .pmm-value { font-size: 20px; }
+/* Narrow desktop stages are shorter, so the taller detailed card needs a
+   taller pinned frame (still starts above the baked title to cover it) plus
+   compacted type to stay inside the white transparency. */
+@media (min-width: 901px) and (max-width: 1300px) {
+  .cid-scope .cid-lw-text.is-covering { top: 22%; bottom: 8%; }
+}
+@media (min-width: 901px) and (max-width: 1000px) {
+  .cid-scope .cid-lw-text.is-covering { top: 20%; bottom: 5%; }
+}
+@media (min-width: 901px) and (max-width: 1300px) {
+  .cid-scope .cid-lw-text.is-covering .pmm-card--wide .pmm-big { font-size: 20px; }
   .cid-scope .cid-lw-text.is-covering .pmm-card--wide .pmm-h3 { margin-bottom: 4px; }
-  .cid-scope .cid-lw-text.is-covering .pmm-card--wide .pmm-figure { margin-bottom: 4px; }
+  .cid-scope .cid-lw-text.is-covering .pmm-card--wide .pmm-headline { margin-bottom: 5px; }
+  .cid-scope .cid-lw-text.is-covering .pmm-card--wide .pmm-rings { margin-bottom: 5px; gap: 7px 3px; }
+  .cid-scope .cid-lw-text.is-covering .pmm-card--wide .pmm-ring-dial { width: 44px; height: 44px; }
+  .cid-scope .cid-lw-text.is-covering .pmm-card--wide .pmm-ring-count { font-size: 12px; }
+  .cid-scope .cid-lw-text.is-covering .pmm-card--wide .pmm-ring-sub { font-size: 7px; }
+  .cid-scope .cid-lw-text.is-covering .pmm-card--wide .pmm-ringfoot { font-size: 7.5px; line-height: 1.3; margin-bottom: 4px; }
   .cid-scope .cid-lw-text.is-covering .pmm-card--wide .pmm-about { font-size: 8.5px; line-height: 1.35; margin-bottom: 4px; }
-  .cid-scope .cid-lw-text.is-covering .pmm-card--wide .pmm-srcline { font-size: 7.5px; line-height: 1.35; margin-bottom: 4px; }
+  .cid-scope .cid-lw-text.is-covering .pmm-card--wide .pmm-epigraph { padding: 4px 0 4px 8px; margin-bottom: 4px; }
+  .cid-scope .cid-lw-text.is-covering .pmm-card--wide .pmm-epigraph blockquote { font-size: 8px; line-height: 1.3; }
+  .cid-scope .cid-lw-text.is-covering .pmm-card--wide .pmm-link { font-size: 9px; margin-bottom: 4px; }
+  .cid-scope .cid-lw-text.is-covering .pmm-card--wide .pmm-srcline { font-size: 7.5px; line-height: 1.35; }
   .cid-scope .cid-lw-text.is-covering .cid-lw-dots { margin-top: 8px; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -361,23 +376,11 @@
   .cid-scope .cid-lw-slide,
   .cid-scope .cid-lw-slide.is-active { transition: none; }
 }
+/* Both slides carry the clock as a bordered device. On slide 1 it follows the
+   blurb + link (needs top separation); on slide 2 it is the sole element. */
 .cid-scope .cid-lw-text .pmm-card--wide { margin-top: 0; }
-/* The covering card must be fully opaque so the baked title can't ghost
-   through it. */
-.cid-scope .cid-lw-text.is-covering .pmm-card--wide { background: #fff; }
-/* The live-estimate medallion sits in the pale misty circle of the cliff art,
-   right of the slide-1 teaser (center ≈ 86.5% / 71% of the stage, per the
-   mock-up). Position and size live here; look in population-widget.css. */
-.cid-scope .cid-lw-stage .pmm-medallion {
-  position: absolute;
-  left: 80%;
-  top: 60%;
-  width: 12.5%;
-  aspect-ratio: 1;
-  z-index: 1; /* under .cid-lw-text (z 2) if a card runs long */
-}
-@media (max-width: 900px) {
-  .cid-scope .cid-lw-stage .pmm-medallion { display: none; }
+.cid-scope .cid-lw-slide > .pmm-card--wide:not(:first-child) {
+  margin-top: clamp(12px, 1.5vw, 24px);
 }
 .cid-scope .cid-lw-dots {
   display: flex;

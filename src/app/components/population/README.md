@@ -1,17 +1,22 @@
 # Ooo! Pop Clock Mini — Automated Predictive Model
 
-A branded population-clock widget (electric Ooo! wordmark lockup, "Humans of
-Canada" kicker) showing a live, modelled Canada population figure and the
-change since the viewer's local midnight. It's a custom-widget example of the
-innovative media Ooo builds with Canada's open data sources. On the CID page
-it shares the living-wall slider with the National Strategy feature: slide 1
-is the nature content with the live estimate floating in the pale misty
-circle of the cliff art (`PopulationMedallion`); slide 2 shifts the panel up
-so the solid pop clock card covers the baked "A Force of Nature" title and
-carries the full publishable details (model description, source, official
-clock link). On the stacked mobile layout the card holds the figure itself.
-The meta rows (reference period, last refresh, rate basis) and the full
-attribution line render as a separate small-text strip below the section
+A branded, **bordered embeddable clock device** (electric Ooo! wordmark
+lockup, "Humans of Canada" kicker). Its point of difference from StatCan's
+clock — six identical bars — is a **differentiated ring row**: births,
+deaths and immigrants are solid rings that fill toward the next modelled
+event and reset (green = adds, coral = subtracts); emigrants and net
+non-permanent residents are dashed rings showing net "drift" (no single
+events). Green adds, coral subtracts, so the whole sign structure reads at a
+glance without a legend. The rings are driven by the same four-quarter rates
+as the headline, so they always sum to the day's change.
+
+On the CID page it shares the living-wall slider with the National Strategy
+feature: **slide 1** is the nature content plus a compact device (branding +
+live estimate + a highly-visible "See the live model ›" arrow that advances
+the carousel); **slide 2** shifts the panel up so the solid device covers the
+baked "A Force of Nature" title and carries the full ring embed + model copy
++ the "Check Canada's official real-time population clock" link. The meta rows
+and attribution render as a small-text strip below the section
 (`PopulationSourcesStrip`).
 
 > This widget is a simplified mini model adapted from Statistics Canada's
@@ -23,9 +28,9 @@ attribution line render as a separate small-text strip below the section
 
 | File | Role |
 |---|---|
-| `PopulationClockCard.tsx` | `usePopulationModel()` (one shared data load) + `PopClockCard` (kicker, branded header, live figure; `detailed` adds the model description, source and official-clock link) + `PopulationMedallion` (live estimate over the art) + `PopulationSourcesStrip` (meta rows and the required source line, below the section). |
-| `statcanClient.ts` | Data service. Fetches Statistics Canada Web Data Service (WDS) tables, normalizes them to `{ basePopulation, baseReferenceDate, annualNetChange, netChangePerSecond, rateBasis, sourceTables, fetchedAt }`, caches in `localStorage`. |
-| `populationMiniModel.ts` | Pure model math: current modelled population, change since midnight, formatting. No I/O. |
+| `PopulationClockCard.tsx` | `usePopulationModel()` (one shared data load) + `PopClockCard` (device; compact with `onAdvance`, or `detailed` with the ring embed, model copy, Cash epigraph, official-clock link) + `PopulationSourcesStrip`. Internally: `EventRing` (rAF-driven solid rings, pulse on each event, paused off-screen via IntersectionObserver), `DriftRing` (dashed net), `Headline` (tally-counter digits). |
+| `statcanClient.ts` | Data service. Fetches Statistics Canada Web Data Service (WDS) tables, normalizes them to `{ basePopulation, baseReferenceDate, annualNetChange, netChangePerSecond, rateBasis, components{births,deaths,immigrants,emigrants,netNonPermanentResidents}, componentsLive, sourceTables, fetchedAt }`, caches in `localStorage`. Components are live per field when they resolve, else `REFERENCE_COMPONENTS`. |
+| `populationMiniModel.ts` | Pure model math: current population, change since midnight (= sum of ring contributions), per-stream ring readings (event interval / count, drift net), formatting. No I/O. |
 | `../../../styles/population-widget.css` | Styles (`pmm-` prefix). Base card is 320–420 px; `pmm-card--wide` is the fluid living-wall form. |
 
 ## Data sources (public aggregate tables only)
@@ -47,27 +52,31 @@ WDS endpoints used (see https://www.statcan.gc.ca/en/developers/wds):
 
 ```
 annual_net_change   = births − deaths + immigrants − emigrants
-                      + returning_emigrants − net_temporary_emigration
-                      + net_non_permanent_residents          (latest 4 quarters)
+                      + net_non_permanent_residents            (latest 4 quarters)
 net_change_per_sec  = annual_net_change / seconds_in_year
 population(now)     = base_population + seconds_since_base_reference × net_change_per_sec
-change_since_midnight = seconds_since_local_midnight × net_change_per_sec
+
+# each ring is its own stream, from the same rates:
+event_interval(stream)  = seconds_in_year / stream_rate         # births/deaths/immigrants
+events_since_midnight   = floor(seconds_since_midnight / event_interval)
+drift_since_midnight    = round(seconds_since_midnight × stream_rate / seconds_in_year)  # emigrants/NPR
+change_since_midnight   = Σ signed ring contributions           # the rings reconcile to the headline
 ```
 
-Statistics Canada's official clock is also a model, but a richer one: it uses
-more granular event timing, seasonality, randomized event placement, and is
-recalibrated quarterly against demographic estimates. This widget is a linear
-simplification and discloses that on its face.
+Statistics Canada's official clock is also a model, but a richer one: granular
+event timing, seasonality, randomized event placement, quarterly recalibration
+against demographic estimates. This widget is a linear simplification and says
+so — the sources strip notes it "may differ from StatCan's population clock,
+which projects from its own model baseline."
 
-**Rate derivation is tiered:**
-
-1. `rateBasis: "components"` — the formula above, when every component member
-   resolves from cube metadata and passes a sanity check against tier 2.
-2. `rateBasis: "year-over-year"` — latest quarterly estimate minus the estimate
-   4 quarters earlier (captures all components by definition).
-3. If neither works and no cache < 7 days old exists, the card shows
-   *"Latest Statistics Canada data could not be loaded."* — it never counts up
-   from fabricated or silently stale data.
+**Component resolution:** each of the five streams (births, deaths,
+immigrants, emigrants, net non-permanent residents) is taken live from the
+component tables when its member resolves from cube metadata, otherwise from
+`REFERENCE_COMPONENTS` (StatCan-grounded 2025–2026 annual rates). Because both
+the rings and the net come from the same rates, the rings always sum to the
+headline. Interprovincial migration is omitted (it nets to ~0 nationally). If
+the base population estimate itself can't be fetched and no cache < 7 days old
+exists, the card shows *"Latest Statistics Canada data could not be loaded."*
 
 Data reloads on page load; successful fetches are cached in `localStorage`
 for 24 h (`CONFIG.cacheTtlMs`) since the tables are quarterly.
