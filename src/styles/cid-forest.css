@@ -173,46 +173,48 @@
 }
 
 /* ===========================================================================
-   Framed Living Wall — a looping portrait of Halton Falls behind the vine
-   frame, paired with the National Strategy link. Sits right below the dark
-   indigo data guide; its background bridges that indigo down through teal to
-   cyan at the foot. The frame is sized (column = 40vw) so its height tracks
-   the full-bleed wetlands/boreal banner below it (banner h = 100vw/3.333 =
-   30vw; frame h = 40vw * 1078/1428 = 30.2vw) — same canvas, matched heights.
-   Two assets stay separate: a plain rectangular video UNDER a transparent PNG
-   frame ON TOP, aligned to the frame's inner window by exact percentage math
-   (window at 11.975% / 25.046% of a 1428x1078 canvas, 67.017% x 61.41%).
+   Framed Living Wall — the National Strategy block set on the cliff/clouds art
+   (cliff-all.webp): purple clouds on the left, cliffs on the right, and a white
+   panel carrying the baked ruby title. The stage is locked to the art's 16:9
+   aspect so the two live overlays line up with it at any width — the vine frame
+   (looping Halton video) over the left clouds, and the blurb + link on the white
+   panel just below the baked title. Overlay text is sized in vw so it tracks the
+   full-bleed stage. Frame assets stay separate: a plain rectangular video UNDER a
+   transparent PNG frame ON TOP (window at 11.975%/25.046% of a 1428x1078 canvas,
+   67.017% x 61.41%).
    =========================================================================== */
 .cid-scope .cid-livingwall {
-  /* bridge the dark indigo data guide above into teal -> cyan at the foot,
-     echoing the canopy's royal-blue -> teal -> cyan run. Kept dark through the
-     upper-middle where the text sits, brightening toward the bottom edge. */
-  background: linear-gradient(180deg,
-    #081026 0%, #09203C 38%, #0E5E70 74%, #17A6AC 90%, #1FCECB 100%);
-  /* comfortable padding above/below; slim side padding so the band reads
-     nearly edge-to-edge, on the same canvas as the full-bleed banner below */
-  padding: clamp(40px, 5vw, 76px) clamp(20px, 3.2vw, 56px);
+  background: #081026; /* ink-blue, matches the data guide above/around the art */
+  padding: 0;
 }
-.cid-scope .cid-lw-inner {
-  max-width: 1900px;
-  margin: 0 auto;
-  display: grid;
-  /* frame column = 40vw makes the frame's height track the full-bleed banner
-     below it: banner height = 100vw / 3.333 = 30vw; frame height =
-     40vw * (1078/1428) = 30.2vw. The rest of the row is the text. */
-  grid-template-columns: minmax(0, 40vw) minmax(0, 1fr);
-  gap: clamp(28px, 4vw, 72px);
-  align-items: center;
-}
-
-/* the framed video widget — sized to match the banner's height */
-.cid-scope .hf-framed-wall {
+.cid-scope .cid-lw-stage {
   position: relative;
   width: 100%;
-  max-width: 1000px;
-  margin: 0; /* flush to the left of its column, not floating in navy space */
+  aspect-ratio: 1920 / 1080;                       /* locked to the cliff art */
+  background: url("/assets/images/cliff-all.webp") center / cover no-repeat;
+  overflow: hidden;
+}
+/* soften the seam into the ink-blue data guide above the art */
+.cid-scope .cid-lw-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 14%;
+  background: linear-gradient(180deg, #081026 0%, rgba(8, 16, 38, 0) 100%);
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* the framed video widget, over the left clouds of the art */
+.cid-scope .hf-framed-wall {
+  position: absolute;
+  left: 2.5%;
+  top: 20%;
+  width: 44%;
+  margin: 0;
   aspect-ratio: 1428 / 1078; /* native frame canvas ratio — keeps the video
                                 window locked to the frame at any size */
+  z-index: 2;
 }
 .cid-scope .hf-video-window {
   position: absolute;
@@ -250,50 +252,108 @@
   .cid-scope .hf-video-window img.hf-poster { display: block; }
 }
 
-/* the National Strategy text block — fills the whole side opposite the frame
-   (no narrow middle-panel cap), vertically centered against the tall frame */
+/* the ruby title is baked into the art on desktop; keep the heading in the DOM
+   for a11y/SEO but hide it visually (it returns as live text on the mobile card) */
+.cid-scope .cid-lw-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+/* blurb + link overlaid on the white panel, just below the baked title */
 .cid-scope .cid-lw-text {
-  max-width: none;
+  position: absolute;
+  left: 54%;
+  top: 45%;
+  width: 40%;
+  z-index: 2;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-}
-.cid-scope .cid-lw-title {
-  margin: 0 0 clamp(18px, 1.9vw, 28px);
-  font-family: var(--font-elevated, var(--sans));
-  font-size: clamp(2.1rem, 3.4vw, 3.4rem);
-  font-weight: 700;
-  line-height: 1.12;
-  color: #ffffff;
 }
 .cid-scope .cid-lw-blurb {
-  margin: 0 0 clamp(22px, 2.2vw, 34px);
-  font-size: clamp(1.22rem, 1.6vw, 1.7rem);
+  margin: 0 0 1.8vw;
+  font-size: 1.5vw;
   line-height: 1.5;
-  color: #EAF1FB;
+  font-weight: 600;
+  color: #3D1B0C; /* dark ruby-brown ink, readable on the white panel */
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.65); /* lift over the soft panel */
 }
-/* combined eyebrow + link: one gold, uppercase "Open our National Strategy"
-   call-to-action prefixed with a chain-link glyph */
+/* one ruby, uppercase "Open our National Strategy" call-to-action with a
+   chain-link glyph, echoing the baked title's colour */
 .cid-scope .cid-lw-go {
   display: inline-flex;
   align-items: center;
   align-self: start;
-  gap: 10px;
+  gap: 0.55vw;
+  font-size: 1.2vw;
   font-weight: 800;
-  font-size: clamp(0.98rem, 1vw, 1.12rem);
-  letter-spacing: 0.13em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #F4B77A; /* a touch brighter than --c-earth for contrast on the teal foot */
+  color: #822F00; /* ruby token, matches the baked title */
   text-decoration: none;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
   transition: filter 160ms ease, transform 160ms ease;
 }
-.cid-scope .cid-lw-go-icon { width: 1.15em; height: 1.15em; flex: none; }
+.cid-scope .cid-lw-go-icon { width: 1.5vw; height: 1.5vw; flex: none; }
 .cid-scope .cid-lw-go:hover { filter: brightness(1.12); transform: translateX(2px); }
 
-/* stack on narrow screens — portrait on top, text below */
+/* MOBILE: the wide art is too short when stacked — drop it and lay the frame
+   above a white text card (red title + dark blurb + ruby link) on ink-blue */
 @media (max-width: 760px) {
-  .cid-scope .cid-lw-inner { grid-template-columns: 1fr; gap: clamp(22px, 6vw, 34px); }
-  .cid-scope .hf-framed-wall { max-width: 520px; margin: 0 auto; }
+  .cid-scope .cid-lw-stage {
+    aspect-ratio: auto;
+    background: linear-gradient(180deg, #081026 0%, #241a3a 46%, #4b3a63 100%);
+    padding: clamp(22px, 6vw, 34px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(18px, 5vw, 28px);
+  }
+  .cid-scope .cid-lw-stage::before { display: none; }
+  .cid-scope .hf-framed-wall {
+    position: relative; /* stay positioned so the video window resolves against
+                           the frame (static would let it escape to the stage
+                           and distort) */
+    left: auto;
+    top: auto;
+    width: 100%;
+    max-width: 460px;
+    margin: 0 auto;
+  }
+  .cid-scope .cid-lw-text {
+    position: static;
+    left: auto;
+    top: auto;
+    width: auto;
+    background: rgba(255, 255, 255, 0.94);
+    border-radius: 14px;
+    padding: clamp(18px, 5vw, 26px);
+  }
+  .cid-scope .cid-lw-title {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0 0 12px;
+    padding: 0;
+    clip: auto;
+    clip-path: none;
+    overflow: visible;
+    white-space: normal;
+    font-family: var(--font-elevated, var(--sans));
+    font-size: clamp(1.4rem, 5.6vw, 2rem);
+    font-weight: 800;
+    line-height: 1.15;
+    text-transform: uppercase;
+    color: #822F00;
+  }
+  .cid-scope .cid-lw-blurb { font-size: 1.02rem; margin: 0 0 16px; color: #3D1B0C; text-shadow: none; }
+  .cid-scope .cid-lw-go { font-size: 0.92rem; gap: 8px; text-shadow: none; }
+  .cid-scope .cid-lw-go-icon { width: 1.1em; height: 1.1em; }
 }
 
 /* ---- Cave: the terrain/data-source cards live in a left rail beside

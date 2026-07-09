@@ -742,7 +742,9 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           separate: a plain rectangular video UNDER a transparent PNG frame ON
           TOP, aligned to the frame's inner window by exact percentage math. */}
       <section className="cid-livingwall" aria-labelledby="cid-lw-title">
-        <div className="cid-lw-inner">
+        {/* the cliff/clouds art (cliff-all.webp) carries the baked ruby title;
+            the stage locks to its aspect so the frame + blurb/link overlay it */}
+        <div className="cid-lw-stage">
           <div
             className="hf-framed-wall"
             role="img"
