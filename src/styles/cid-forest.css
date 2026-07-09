@@ -309,6 +309,137 @@
 .cid-scope .cid-lw-go-icon { width: 1.5vw; height: 1.5vw; flex: none; }
 .cid-scope .cid-lw-go:hover { filter: brightness(1.12); transform: translateX(2px); }
 
+/* ---- Panel slider: slide 1 = strategy + Pop Clock teaser, slide 2 = the
+   full Pop Clock card. Widget overlays are px-designed at a 1920 baseline and
+   scale with the stage via --lw-scale (set by a ResizeObserver in CID.tsx). */
+.cid-scope .cid-lw-pane { transition: opacity 300ms ease; }
+.cid-scope .cid-lw-pane:not(.is-active) { opacity: 0; pointer-events: none; }
+.cid-scope .cid-lw-text { z-index: 3; }
+
+/* the naked teaser strip (widget card with its chrome stripped), tucked in
+   the white space under the strategy link; clicking it opens slide 2 */
+.cid-scope .cid-lw-teaser {
+  margin-top: 2vw;
+  width: 680px;
+  transform: scale(var(--lw-scale, 0.75));
+  transform-origin: top left;
+  cursor: pointer;
+}
+.cid-scope .cid-lw-teaser:focus-visible { outline: 2px solid #822F00; outline-offset: 6px; }
+.cid-scope .cid-lw-teaser .opc-card {
+  max-width: none;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+/* teaser is a preview — the full attribution block lives one dot away on the
+   full card (and in the <1440px band) */
+.cid-scope .cid-lw-teaser .opc-srcline,
+.cid-scope .cid-lw-teaser .opc-link { display: none; }
+.cid-scope .cid-lw-teaser .opc-kicker { font-size: 14px; letter-spacing: 0.2em; color: #7A6652; }
+.cid-scope .cid-lw-teaser .opc-h2 { gap: 12px; margin-bottom: 4px; }
+.cid-scope .cid-lw-teaser .opc-wordmark { height: 36px; }
+.cid-scope .cid-lw-teaser .opc-h2-text {
+  font-family: "Lovelo Black", var(--font-elevated, var(--sans));
+  font-weight: 900;
+  font-size: 26px;
+  letter-spacing: 0.12em;
+}
+.cid-scope .cid-lw-teaser .opc-h3 { font-size: 12.5px; letter-spacing: 0.26em; margin-bottom: 14px; }
+.cid-scope .cid-lw-teaser .opc-status { font-size: 15px; }
+.cid-scope .cid-lw-teaser .opc-figure {
+  border-top: 0;
+  padding-top: 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "label value" ". delta";
+  column-gap: 30px;
+  align-items: end;
+}
+.cid-scope .cid-lw-teaser .opc-label {
+  grid-area: label;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0;
+  color: #1f2a2e;
+  margin: 0 0 4px;
+}
+.cid-scope .cid-lw-teaser .opc-label::after { content: ":"; }
+.cid-scope .cid-lw-teaser .opc-value { grid-area: value; font-size: 44px; }
+.cid-scope .cid-lw-teaser .opc-delta { grid-area: delta; justify-self: end; font-size: 14px; margin-top: 2px; }
+.cid-scope .cid-lw-teaser:hover .opc-h2-text { filter: brightness(1.15); }
+
+/* slide 2: the full card, roughly centered on the cleared panel */
+.cid-scope .cid-lw-full {
+  position: absolute;
+  left: 57%;
+  top: 29.5%;
+  z-index: 3;
+}
+.cid-scope .cid-lw-full-card {
+  width: 420px;
+  transform: scale(calc(var(--lw-scale, 0.75) * 1.12));
+  transform-origin: top left;
+}
+
+/* slide 2 only: the feathered clean-panel patch that covers the baked title */
+.cid-scope .cid-lw-titlepatch {
+  position: absolute;
+  left: 52.08%;
+  top: 29.44%;
+  width: 44.79%;
+  height: auto;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+  user-select: none;
+}
+.cid-scope .cid-lw-titlepatch.is-on { opacity: 1; }
+
+/* slide dots, pinned under the panel content on both slides */
+.cid-scope .cid-lw-dots {
+  position: absolute;
+  left: 54%;
+  top: 88%;
+  z-index: 4;
+  display: flex;
+  gap: calc(14px * var(--lw-scale, 0.75));
+}
+.cid-scope .cid-lw-dots button {
+  width: calc(18px * var(--lw-scale, 0.75));
+  height: calc(18px * var(--lw-scale, 0.75));
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(130, 47, 0, 0.28);
+  cursor: pointer;
+  transition: background 160ms ease;
+}
+.cid-scope .cid-lw-dots button.is-on { background: #822F00; }
+.cid-scope .cid-lw-dots button:focus-visible { outline: 2px solid #822F00; outline-offset: 3px; }
+
+/* the <1440px fallback band (hidden on wide screens) */
+.cid-scope .cid-lw-clock-band { display: none; }
+
+/* below 1440px the scaled overlays drop under ~0.75x (unreadable): hide the
+   in-art slider, keep the strategy pane visible, render the full card in a
+   normal-flow band on the ink-blue ground instead */
+@media (max-width: 1439px) {
+  .cid-scope .cid-lw-teaser,
+  .cid-scope .cid-lw-dots,
+  .cid-scope .cid-lw-full,
+  .cid-scope .cid-lw-titlepatch { display: none; }
+  .cid-scope .cid-lw-text { opacity: 1; pointer-events: auto; }
+  .cid-scope .cid-lw-clock-band {
+    display: flex;
+    justify-content: center;
+    padding: clamp(26px, 4vw, 48px) 20px clamp(34px, 5vw, 56px);
+  }
+  .cid-scope .cid-lw-band-card { width: min(420px, 100%); }
+}
+
 /* MOBILE: the wide art is too short when stacked — drop it and lay the frame
    above a white text card (red title + dark blurb + ruby link) on ink-blue */
 @media (max-width: 760px) {

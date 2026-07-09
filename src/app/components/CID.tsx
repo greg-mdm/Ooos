@@ -666,6 +666,8 @@ function Underground() {
   );
 }
 
+type PopClockApi = { mount: (el: HTMLElement, options?: object) => void };
+
 export function CID({ onSupport }: { onSupport: () => void }) {
   const base = import.meta.env.BASE_URL;
   // Size the watchlist embed iframe to its content so the page scrolls as one
@@ -681,6 +683,50 @@ export function CID({ onSupport }: { onSupport: () => void }) {
     window.addEventListener("message", onMsg);
     return () => window.removeEventListener("message", onMsg);
   }, []);
+
+  // Living-wall panel slider: slide 1 = National Strategy + Pop Clock teaser,
+  // slide 2 = the full Pop Clock card (the baked ruby title is covered by the
+  // clean-panel patch image while slide 2 is active).
+  const [lwSlide, setLwSlide] = useState(0);
+  const lwStageRef = useRef<HTMLDivElement>(null);
+  const lwTeaserRef = useRef<HTMLDivElement>(null);
+  const lwFullRef = useRef<HTMLDivElement>(null);
+  const lwBandRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const stage = lwStageRef.current;
+    if (!stage) return;
+    // px-designed widget overlays scale with the aspect-locked stage
+    const setScale = () =>
+      stage.style.setProperty("--lw-scale", String(stage.getBoundingClientRect().width / 1920));
+    setScale();
+    const ro = new ResizeObserver(setScale);
+    ro.observe(stage);
+
+    // load the standalone widget script once, then mount all three cards:
+    // the naked teaser (slide 1), the full card (slide 2), the band (<1440px)
+    const mountAll = () => {
+      const opc = (window as Window & { OooPopClock?: PopClockApi }).OooPopClock;
+      if (!opc) return;
+      if (lwTeaserRef.current && !lwTeaserRef.current.hasChildNodes())
+        opc.mount(lwTeaserRef.current, { detailed: false });
+      if (lwFullRef.current && !lwFullRef.current.hasChildNodes()) opc.mount(lwFullRef.current);
+      if (lwBandRef.current && !lwBandRef.current.hasChildNodes()) opc.mount(lwBandRef.current);
+    };
+    if ((window as Window & { OooPopClock?: PopClockApi }).OooPopClock) {
+      mountAll();
+    } else {
+      let s = document.querySelector<HTMLScriptElement>("script[data-ooo-pop-clock]");
+      if (!s) {
+        s = document.createElement("script");
+        s.src = `${base}pop-clock/ooo-pop-clock.js`;
+        s.async = true;
+        s.dataset.oooPopClock = "true";
+        document.head.appendChild(s);
+      }
+      s.addEventListener("load", mountAll, { once: true });
+    }
+    return () => ro.disconnect();
+  }, [base]);
   return (
     <div className="cid-scope">
       <section className="case-hero">
@@ -743,8 +789,8 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           TOP, aligned to the frame's inner window by exact percentage math. */}
       <section className="cid-livingwall" aria-labelledby="cid-lw-title">
         {/* the cliff/clouds art (cliff-all.webp) carries the baked ruby title;
-            the stage locks to its aspect so the frame + blurb/link overlay it */}
-        <div className="cid-lw-stage">
+            the stage locks to its aspect so the frame + panel slider overlay it */}
+        <div className="cid-lw-stage" ref={lwStageRef}>
           <div
             className="hf-framed-wall"
             role="img"
@@ -777,7 +823,20 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             />
           </div>
 
-          <div className="cid-lw-text">
+          {/* slide 2 only: feathered clean-panel patch covers the baked ruby title */}
+          <img
+            className={"cid-lw-titlepatch" + (lwSlide === 1 ? " is-on" : "")}
+            src={`${base}assets/images/cliff-title-patch.webp`}
+            alt=""
+            aria-hidden="true"
+            width={860}
+            height={164}
+            loading="lazy"
+            decoding="async"
+          />
+
+          {/* slide 1 — the National Strategy content + the Pop Clock teaser */}
+          <div className={"cid-lw-pane cid-lw-text" + (lwSlide === 0 ? " is-active" : "")}>
             <h2 id="cid-lw-title" className="cid-lw-title">
               A Force of Nature: Canada&rsquo;s Strategy to Protect Nature
             </h2>
@@ -806,7 +865,50 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               </svg>
               Open our National Strategy
             </a>
+            {/* Pop Clock teaser, tucked into the white space; opens slide 2 */}
+            <div
+              className="cid-lw-teaser"
+              ref={lwTeaserRef}
+              role="button"
+              tabIndex={0}
+              aria-label="Open the full Ooo! Pop Clock"
+              onClick={() => setLwSlide(1)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setLwSlide(1);
+                }
+              }}
+            />
           </div>
+
+          {/* slide 2 — the full Pop Clock card on the cleared white panel */}
+          <div className={"cid-lw-pane cid-lw-full" + (lwSlide === 1 ? " is-active" : "")}>
+            <div className="cid-lw-full-card" ref={lwFullRef} />
+          </div>
+
+          <div className="cid-lw-dots">
+            <button
+              type="button"
+              className={lwSlide === 0 ? "is-on" : ""}
+              aria-label="Slide 1: A Force of Nature"
+              aria-pressed={lwSlide === 0}
+              onClick={() => setLwSlide(0)}
+            />
+            <button
+              type="button"
+              className={lwSlide === 1 ? "is-on" : ""}
+              aria-label="Slide 2: the Ooo! Pop Clock"
+              aria-pressed={lwSlide === 1}
+              onClick={() => setLwSlide(1)}
+            />
+          </div>
+        </div>
+
+        {/* below 1440px the in-art slider hides; the full card renders in this
+            normal-flow band on the section's ink-blue ground instead */}
+        <div className="cid-lw-clock-band">
+          <div className="cid-lw-band-card" ref={lwBandRef} />
         </div>
       </section>
 
