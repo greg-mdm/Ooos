@@ -36,6 +36,16 @@
 }
 .pmm-card * { box-sizing: border-box; }
 
+/* campaign kicker above the branded name */
+.pmm-kicker {
+  margin: 0 0 6px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--pmm-mut);
+}
+
 /* --- branded header: electric Ooo! wordmark + Lovelo product name --- */
 .pmm-h2 {
   display: flex;
@@ -61,17 +71,6 @@
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--pmm-indigo);
-}
-
-.pmm-eyebrow {
-  margin: 0 0 8px;
-  padding-top: 8px;
-  border-top: 1px solid var(--pmm-line);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--pmm-mut);
 }
 
 .pmm-status {
@@ -113,23 +112,7 @@
 }
 .pmm-delta-num.is-down { color: var(--pmm-down); }
 
-/* "Find out more ›" — jumps the slider to the details slide */
-.pmm-more {
-  appearance: none;
-  border: 0;
-  padding: 0;
-  background: none;
-  font: inherit;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  color: var(--pmm-portal);
-  cursor: pointer;
-}
-.pmm-more:hover { filter: brightness(1.25); }
-.pmm-more:focus-visible { outline: 2px solid var(--pmm-portal); outline-offset: 2px; }
-
-/* --- details card (slide 2) --- */
+/* --- the publishable details --- */
 .pmm-about {
   margin: 0 0 8px;
   font-size: 11.5px;
@@ -160,27 +143,23 @@
   padding: clamp(10px, 1vw, 20px) clamp(14px, 1.4vw, 28px) clamp(8px, 0.9vw, 16px);
   border-radius: clamp(10px, 0.9vw, 16px);
 }
+.pmm-card--wide .pmm-kicker { font-size: clamp(8px, 0.66vw, 11px); margin-bottom: clamp(4px, 0.4vw, 8px); }
 .pmm-card--wide .pmm-h2 { gap: clamp(6px, 0.6vw, 12px); }
 .pmm-card--wide .pmm-wordmark { height: clamp(18px, 1.7vw, 32px); }
 .pmm-card--wide .pmm-h2-text { font-size: clamp(12px, 1.1vw, 21px); }
 .pmm-card--wide .pmm-h3 { font-size: clamp(7.5px, 0.62vw, 11px); margin-bottom: clamp(6px, 0.6vw, 12px); }
-.pmm-card--wide .pmm-eyebrow { font-size: clamp(8px, 0.65vw, 11px); padding-top: clamp(5px, 0.5vw, 8px); margin-bottom: clamp(4px, 0.45vw, 8px); }
 .pmm-card--wide .pmm-status { font-size: clamp(11px, 0.85vw, 14px); padding: clamp(4px, 0.45vw, 8px) 0; }
 .pmm-card--wide .pmm-figure { margin-bottom: clamp(4px, 0.45vw, 8px); }
 .pmm-card--wide .pmm-label { font-size: clamp(9px, 0.72vw, 12px); }
 .pmm-card--wide .pmm-value { font-size: clamp(22px, 2.3vw, 42px); }
 .pmm-card--wide .pmm-delta { font-size: clamp(10px, 0.78vw, 13px); margin-top: 3px; }
-.pmm-card--wide .pmm-more { font-size: clamp(10px, 0.8vw, 13px); }
 .pmm-card--wide .pmm-about { font-size: clamp(9px, 0.74vw, 12px); line-height: 1.4; margin-bottom: clamp(4px, 0.45vw, 8px); }
 .pmm-card--wide .pmm-srcline { font-size: clamp(8px, 0.64vw, 10.5px); margin-bottom: clamp(4px, 0.45vw, 8px); }
 .pmm-card--wide .pmm-link { font-size: clamp(9.5px, 0.76vw, 12.5px); }
 
-/* On the desktop living wall the live figure floats in the medallion over the
-   cliff art instead of sitting in the card; the card's copy of it returns on
-   the stacked mobile layout (≤900px), where there is no art to sit on. */
-@media (min-width: 901px) {
-  .pmm-card--wide .pmm-figure { display: none; }
-}
+/* the figure gets a hairline above it, separating it from the branded header */
+.pmm-figure { padding-top: 8px; border-top: 1px solid var(--pmm-line); }
+.pmm-card--wide .pmm-figure { padding-top: clamp(5px, 0.5vw, 8px); }
 
 /* ---- the medallion: live estimate in the pale misty circle of the art.
    Look lives here; position/size are set by the host section's stylesheet. ---- */

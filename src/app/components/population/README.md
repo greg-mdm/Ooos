@@ -1,16 +1,18 @@
 # Ooo! Pop Clock Mini — Automated Predictive Model
 
-A branded population-clock widget (electric Ooo! wordmark lockup) showing a
-live, modelled Canada population figure and the change since the viewer's
-local midnight. It's a custom-widget example of the innovative media Ooo
-builds with Canada's open data sources. On the CID page it occupies the
-living-wall slider: slide 1 is the clock card, slide 2 the model details
-under the same branded name, slide 3 the National Strategy feature. On
-desktop the live estimate floats in the pale misty circle of the cliff art
-(`PopulationMedallion`); on the stacked mobile layout the card carries the
-figure itself. The meta rows (reference period, last refresh, rate basis)
-and the full attribution line render as a separate small-text strip below
-the section (`PopulationSourcesStrip`).
+A branded population-clock widget (electric Ooo! wordmark lockup, "Humans of
+Canada" kicker) showing a live, modelled Canada population figure and the
+change since the viewer's local midnight. It's a custom-widget example of the
+innovative media Ooo builds with Canada's open data sources. On the CID page
+it shares the living-wall slider with the National Strategy feature: slide 1
+is the nature content with the live estimate floating in the pale misty
+circle of the cliff art (`PopulationMedallion`); slide 2 shifts the panel up
+so the solid pop clock card covers the baked "A Force of Nature" title and
+carries the full publishable details (model description, source, official
+clock link). On the stacked mobile layout the card holds the figure itself.
+The meta rows (reference period, last refresh, rate basis) and the full
+attribution line render as a separate small-text strip below the section
+(`PopulationSourcesStrip`).
 
 > This widget is a simplified mini model adapted from Statistics Canada's
 > Canada population clock concept. It uses public aggregate Statistics Canada
@@ -21,7 +23,7 @@ the section (`PopulationSourcesStrip`).
 
 | File | Role |
 |---|---|
-| `PopulationClockCard.tsx` | `usePopulationModel()` (one shared data load) + `PopClockCard` (branded header, eyebrow, live figure on mobile/standalone, "Find out more ›") + `PopClockDetailsCard` (same branded header, model description, source, official-clock link) + `PopulationMedallion` (live estimate over the art) + `PopulationSourcesStrip` (meta rows and the required source line, below the section). |
+| `PopulationClockCard.tsx` | `usePopulationModel()` (one shared data load) + `PopClockCard` (kicker, branded header, live figure; `detailed` adds the model description, source and official-clock link) + `PopulationMedallion` (live estimate over the art) + `PopulationSourcesStrip` (meta rows and the required source line, below the section). |
 | `statcanClient.ts` | Data service. Fetches Statistics Canada Web Data Service (WDS) tables, normalizes them to `{ basePopulation, baseReferenceDate, annualNetChange, netChangePerSecond, rateBasis, sourceTables, fetchedAt }`, caches in `localStorage`. |
 | `populationMiniModel.ts` | Pure model math: current modelled population, change since midnight, formatting. No I/O. |
 | `../../../styles/population-widget.css` | Styles (`pmm-` prefix). Base card is 320–420 px; `pmm-card--wide` is the fluid living-wall form. |
@@ -94,17 +96,15 @@ Within this site:
 ```tsx
 import {
   PopClockCard,
-  PopClockDetailsCard,
   PopulationMedallion,
   PopulationSourcesStrip,
   usePopulationModel,
 } from "./population/PopulationClockCard";
 
 const state = usePopulationModel();        // one fetch, shared
-<PopClockCard state={state} />             // standalone card (shows the live
-                                           // figure), max-width 420px
-<PopClockCard state={state} wide onMore={goToDetails} /> // living-wall form
-<PopClockDetailsCard wide />               // the model, in more detail
+<PopClockCard state={state} />             // standalone clock card, ≤420px
+<PopClockCard state={state} detailed />    // + the publishable details
+<PopClockCard state={state} wide detailed />  // fluid living-wall form
 <PopulationMedallion state={state} />      // live estimate over stage art
                                            // (host CSS positions it)
 <PopulationSourcesStrip state={state} />   // sources/meta, below the section

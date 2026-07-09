@@ -86,7 +86,7 @@ function LiveFigure({ data }: { data: PopulationModelData }) {
   const reading = readModel(data);
   return (
     <div className="pmm-figure">
-      <div className="pmm-label">Estimated modelled population</div>
+      <div className="pmm-label">Estimated population</div>
       {/* Recomputed every second — intentionally NOT an aria-live region, so
           screen readers aren't spammed; the value reads out on focus/pass. */}
       <div className="pmm-value">{formatPersons(reading.currentPopulation)}</div>
@@ -101,17 +101,17 @@ function LiveFigure({ data }: { data: PopulationModelData }) {
   );
 }
 
-/** Slide 1 — the branded clock card. On desktop living-wall stages the live
- *  figure floats in the medallion instead; the card's figure shows on mobile
- *  (and always on standalone embeds). `onMore` jumps to the details slide. */
+/** The branded pop clock card: campaign kicker, branded name, live estimate,
+ *  and — when `detailed` — the rest of the publishable details (model
+ *  description, custom-widget example line, source, official-clock link). */
 export function PopClockCard({
   state,
   wide = false,
-  onMore,
+  detailed = false,
 }: {
   state: PopulationModelState;
   wide?: boolean;
-  onMore?: () => void;
+  detailed?: boolean;
 }) {
   useSecondTick(state.kind === "ready");
   return (
@@ -119,8 +119,8 @@ export function PopClockCard({
       className={`pmm-card${wide ? " pmm-card--wide" : ""}`}
       aria-label="Ooo! Pop Clock Mini — automated predictive model"
     >
+      <p className="pmm-kicker">Humans of Canada</p>
       <PopClockHeader />
-      <p className="pmm-eyebrow">Live estimate · Statistics Canada open data</p>
 
       {state.kind === "loading" && (
         <p className="pmm-status" role="status">
@@ -134,37 +134,29 @@ export function PopClockCard({
       )}
       {state.kind === "ready" && <LiveFigure data={state.data} />}
 
-      {onMore && (
-        <button type="button" className="pmm-more" onClick={onMore}>
-          Find out more ›
-        </button>
+      {detailed && (
+        <>
+          <p className="pmm-about">
+            This widget tracks quarterly population estimates using publicly available
+            data tables, which are updated every three months to reflect natural growth
+            and migration patterns. Disclaimer: This is an experimental tool and is not
+            endorsed by Statistics Canada.
+          </p>
+          <p className="pmm-about pmm-about--example">
+            A custom widget example — the kind of innovative media you can create with
+            Canada&rsquo;s open data sources.
+          </p>
+          <p className="pmm-srcline">{SOURCE_LINE}</p>
+          <a
+            className="pmm-link"
+            href={OFFICIAL_CLOCK_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View Canada&rsquo;s official population clock
+          </a>
+        </>
       )}
-    </aside>
-  );
-}
-
-/** Slide 2 — the model, in more detail, under the same branded name. */
-export function PopClockDetailsCard({ wide = false }: { wide?: boolean }) {
-  return (
-    <aside
-      className={`pmm-card${wide ? " pmm-card--wide" : ""}`}
-      aria-label="Ooo! Pop Clock Mini — about the model"
-    >
-      <PopClockHeader />
-      <p className="pmm-about">
-        This widget tracks quarterly population estimates using publicly available data
-        tables, which are updated every three months to reflect natural growth and
-        migration patterns. Disclaimer: This is an experimental tool and is not endorsed
-        by Statistics Canada.
-      </p>
-      <p className="pmm-about pmm-about--example">
-        A custom widget example — the kind of innovative media you can create with
-        Canada&rsquo;s open data sources.
-      </p>
-      <p className="pmm-srcline">{SOURCE_LINE}</p>
-      <a className="pmm-link" href={OFFICIAL_CLOCK_URL} target="_blank" rel="noopener noreferrer">
-        View Canada&rsquo;s official population clock
-      </a>
     </aside>
   );
 }

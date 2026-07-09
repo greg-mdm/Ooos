@@ -6,7 +6,6 @@ import "../../styles/cid-forest.css";
 import "../../styles/cid-coins.css";
 import {
   PopClockCard,
-  PopClockDetailsCard,
   PopulationMedallion,
   PopulationSourcesStrip,
   usePopulationModel,
@@ -674,14 +673,16 @@ function Underground() {
   );
 }
 
-/** The living wall's white-panel slider — prime real estate rotating through
- *  the Ooo! Pop Clock Mini (slide 1), its model details under the same
- *  branded name (slide 2), and the National Strategy feature (slide 3).
+/** The living wall's white-panel slider — prime real estate rotating between
+ *  the National Strategy feature (slide 1 — the live-estimate medallion sits
+ *  beside it in the art's misty circle) and the Ooo! Pop Clock Mini card with
+ *  its publishable details (slide 2 — the panel shifts up and the solid card
+ *  covers the baked "A Force of Nature" title, reclaiming that space).
  *  Auto-advances every 8s until the visitor interacts, pauses on hover/focus,
  *  and sits still under prefers-reduced-motion. Inactive slides are
  *  visibility:hidden (out of the tab order and a11y tree); the grid stack
  *  keeps the panel height stable across slides. */
-const LW_SLIDES = ["Ooo! Pop Clock Mini", "About the model", "National Strategy"] as const;
+const LW_SLIDES = ["National Strategy", "Ooo! Pop Clock Mini"] as const;
 
 function LivingWallSlider({
   populationModel,
@@ -723,12 +724,6 @@ function LivingWallSlider({
     >
       <div className="cid-lw-slides">
         <div className={`cid-lw-slide${index === 0 ? " is-active" : ""}`}>
-          <PopClockCard state={populationModel} wide onMore={() => goTo(1)} />
-        </div>
-        <div className={`cid-lw-slide${index === 1 ? " is-active" : ""}`}>
-          <PopClockDetailsCard wide />
-        </div>
-        <div className={`cid-lw-slide${index === 2 ? " is-active" : ""}`}>
           <p className="cid-lw-blurb">
             Canada&rsquo;s plan to halt and reverse biodiversity loss and protect the land
             and water above the bedrock.
@@ -755,6 +750,9 @@ function LivingWallSlider({
             Open our National Strategy
           </a>
         </div>
+        <div className={`cid-lw-slide${index === 1 ? " is-active" : ""}`}>
+          <PopClockCard state={populationModel} wide detailed />
+        </div>
       </div>
       <div className="cid-lw-dots">
         {LW_SLIDES.map((name, i) => (
@@ -777,8 +775,9 @@ export function CID({ onSupport }: { onSupport: () => void }) {
   // One StatCan data load shared by the pop clock cards, the medallion and
   // the sources strip.
   const populationModel = usePopulationModel();
-  // Which living-wall slide is showing — the medallion fades out while the
-  // taller details slide (index 1) covers its spot in the art.
+  // Which living-wall slide is showing: the medallion accompanies the nature
+  // slide (0); on the pop clock slide (1) the panel shifts up so the solid
+  // card covers the baked "A Force of Nature" title.
   const [lwSlide, setLwSlide] = useState(0);
   // Size the watchlist embed iframe to its content so the page scrolls as one
   // (no nested-iframe scroll trap). The embed reports its height via postMessage.
@@ -889,19 +888,19 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             />
           </div>
 
-          <div className="cid-lw-text">
+          <div className={`cid-lw-text${lwSlide === 1 ? " is-covering" : ""}`}>
             <h2 id="cid-lw-title" className="cid-lw-title">
               A Force of Nature: Canada&rsquo;s Strategy to Protect Nature
             </h2>
-            {/* Prime real estate: the Ooo! Pop Clock Mini, its model details
-                and the National Strategy feature share the panel via a slider. */}
+            {/* Prime real estate: the National Strategy feature and the
+                Ooo! Pop Clock Mini share the panel via a slider. */}
             <LivingWallSlider populationModel={populationModel} onIndexChange={setLwSlide} />
           </div>
 
           {/* The live estimate floats in the pale misty circle of the cliff
-              art (hidden on the stacked mobile layout, where the card shows
-              the figure instead). */}
-          <PopulationMedallion state={populationModel} hidden={lwSlide === 1} />
+              art, beside the nature slide (hidden on the pop clock slide and
+              on the stacked mobile layout, where the card shows the figure). */}
+          <PopulationMedallion state={populationModel} hidden={lwSlide !== 0} />
         </div>
 
         {/* Sources for the mini model — small text kept off the white panel. */}

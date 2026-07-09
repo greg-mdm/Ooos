@@ -281,6 +281,14 @@
   z-index: 2;
   display: flex;
   flex-direction: column;
+  transition: top 450ms ease;
+}
+/* Pop clock slide: the panel block rises so the SOLID card covers the baked
+   "A Force of Nature" title in the art (title glyphs sit ≈26.5%–42.5% of the
+   stage), reclaiming that space for the publishable details. */
+.cid-scope .cid-lw-text.is-covering { top: 24.5%; }
+@media (prefers-reduced-motion: reduce) {
+  .cid-scope .cid-lw-text { transition: none; }
 }
 .cid-scope .cid-lw-blurb {
   margin: 0 0 1.8vw;
@@ -309,15 +317,19 @@
 .cid-scope .cid-lw-go-icon { width: 1.5vw; height: 1.5vw; flex: none; }
 .cid-scope .cid-lw-go:hover { filter: brightness(1.12); transform: translateX(2px); }
 
-/* ---- The white-panel slider: National Strategy (slide 1) and the population
-   mini model (slide 2) share the prime real estate. Slides stack in one grid
-   cell so the panel height stays put (the taller slide sets it); the inactive
-   slide fades out and goes visibility:hidden, which also removes it from the
-   tab order. The meta/attribution for the mini model live in the sources
+/* ---- The white-panel slider: National Strategy (slide 1, with the medallion
+   in the art beside it) and the Ooo! Pop Clock Mini (slide 2, covering the
+   baked title) share the prime real estate. Only the ACTIVE slide is in flow
+   — inactive slides are absolutely positioned and visibility:hidden (out of
+   the tab order), so the tall pop clock card never inflates the panel while
+   the nature slide is showing. The meta/attribution live in the sources
    strip below the stage, keeping the panel uncluttered. ---- */
-.cid-scope .cid-lw-slides { display: grid; }
+.cid-scope .cid-lw-slides { position: relative; }
 .cid-scope .cid-lw-slide {
-  grid-area: 1 / 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -327,6 +339,7 @@
   transition: opacity 450ms ease, visibility 0s linear 450ms;
 }
 .cid-scope .cid-lw-slide.is-active {
+  position: relative;
   opacity: 1;
   visibility: visible;
   transition: opacity 450ms ease;
@@ -336,21 +349,19 @@
   .cid-scope .cid-lw-slide.is-active { transition: none; }
 }
 .cid-scope .cid-lw-text .pmm-card--wide { margin-top: 0; }
+/* The covering card must be fully opaque so the baked title can't ghost
+   through it. */
+.cid-scope .cid-lw-text.is-covering .pmm-card--wide { background: #fff; }
 /* The live-estimate medallion sits in the pale misty circle of the cliff art,
-   below-right of the panel (center ≈ 81.5% / 70% of the stage). Position and
-   size live here (art-specific); its look lives in population-widget.css. */
+   below-right of the nature slide (center ≈ 83.5% / 70% of the stage).
+   Position and size live here (art-specific); look in population-widget.css. */
 .cid-scope .cid-lw-stage .pmm-medallion {
   position: absolute;
-  left: 75.25%;
-  top: 61%;
+  left: 77.25%;
+  top: 59.5%;
   width: 12.5%;
   aspect-ratio: 1;
   z-index: 1; /* under .cid-lw-text (z 2) if a card runs long */
-}
-/* narrower stages are shorter, so the card reaches further down — drop the
-   medallion a touch to keep clear of the slide-1 card's bottom edge */
-@media (max-width: 1120px) {
-  .cid-scope .cid-lw-stage .pmm-medallion { top: 64%; }
 }
 @media (max-width: 900px) {
   .cid-scope .cid-lw-stage .pmm-medallion { display: none; }
@@ -427,6 +438,9 @@
   .cid-scope .cid-lw-blurb { font-size: 1.02rem; margin: 0 0 16px; color: #3D1B0C; text-shadow: none; }
   .cid-scope .cid-lw-go { font-size: 0.92rem; gap: 8px; text-shadow: none; }
   .cid-scope .cid-lw-go-icon { width: 1.1em; height: 1.1em; }
+  /* stacked layout: on the pop clock slide the Force of Nature heading
+     belongs to the other slide — hide it (no art title to cover here) */
+  .cid-scope .cid-lw-text.is-covering .cid-lw-title { display: none; }
 }
 
 /* ---- Cave: the terrain/data-source cards live in a left rail beside
