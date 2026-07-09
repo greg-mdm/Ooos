@@ -93,19 +93,30 @@ Gotchas:
 - `gh issue`/`gh pr` may fail with "missing required scopes [read:project]" — that does NOT affect
   code pushes. For issues, use the GitHub API/MCP tools instead, or `gh auth refresh -s read:project`.
 
-Current state — 2026-06-24 (live on ooos.ca)
-About page rebuilt: studio intro, founder + credentials, business-information block. Credentials
-now STACK vertically (most recent first); royal-blue `#19007D` swapped for brand violet
-(`#2B0561` → Portal `#4B00B6`) so it no longer reads like TMU/Applyboard. Business info: business
-name on its own line (no "Studio" label), inline "Label: value" colons, NAICS definition beside
-the acronym. Design-system section: Ooo logo featured near the hero (optimized to a 10 KB WebP at
-`public/assets/brand/ooo-logo-ds.webp`); "Principles in motion" column is now an indigo
-glassmorphism + animated-gradient + noise panel (respects `prefers-reduced-motion`).
-Earlier in this run: CID watchlist embed made full-bleed with an indigo two-cell observatory bar
-(silver right cell, enlarged telescope); CID intro long lines capped (~58ch); Ostara hero given a
-smooth radial gradient so the banner blends into the background.
+Current state — 2026-07-09 (live on ooos.ca)
+Ooo! Pop Clock Mini shipped on CID. The living-wall ("Force of Nature") section is a 2-slide
+panel slider (`LivingWallSlider` in `CID.tsx`): slide 1 = nature blurb + National Strategy link
++ branded pop-clock teaser, with the LIVE population estimate floating in the art's misty
+circle (`PopulationMedallion`, positioned in `cid-forest.css`, center ~86.5%/71% of the stage);
+slide 2 = the full Ooo! Pop Clock Mini card (Humans of Canada kicker, electric-wordmark H2
+lockup + Lovelo "Pop Clock Mini", live figure, model description, source, official-clock link)
+— the panel shifts up and the solid card COVERS the baked "A Force of Nature" title (pinned
+frame 25%→83% of the stage; verified in-frame at 901–1920px; mobile stacks ≤900px). Meta + the
+full StatCan attribution sit in a small strip below the stage (`PopulationSourcesStrip`).
+Widget internals live in `src/app/components/population/` — `statcanClient.ts` fetches the
+StatCan Web Data Service with runtime coordinate discovery (tables 17-10-0009/0059/0040;
+tiered rate: components → year-over-year → explicit error state; 24h localStorage cache),
+`populationMiniModel.ts` is the pure math, `README.md` documents everything. Also shipped: a
+standalone dependency-free export at `public/pop-clock/` (live at ooos.ca/pop-clock/ —
+ooo-pop-clock.js + demo + README; embeds anywhere with a div + script tag).
+Earlier (2026-06-24): About page rebuilt (credentials stack; brand violet `#2B0561` → Portal
+`#4B00B6`); design-system Ooo logo + indigo glassmorphism panel; CID watchlist embed
+full-bleed; Ostara hero radial gradient.
 Open / next
+Confirm the live WDS fetch on ooos.ca/cid (the dev sandbox couldn't reach statcan.gc.ca; if
+StatCan's member names differ the card visibly falls back to the year-over-year basis or the
+error state — check the "Rate basis" line in the sources strip under the living wall).
+Optionally fill `vectorOverrides` (statcanClient.ts / ooo-pop-clock.js) with confirmed vector
+IDs to skip the metadata round-trip.
 Possible maple-leaf size/position tweak on the homepage hero (`clamp(140px, 16vw, 200px)`).
-Confirm which "sidebar" the glassmorphism treatment belongs on (applied to the design-system
-"Principles in motion" column for now — there is no slide-out nav drawer in the site).
 PR #3 (GitHub MCP write-access `.mcp.json`) is an optional draft.
