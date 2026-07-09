@@ -161,6 +161,38 @@
 .pmm-figure { padding-top: 8px; border-top: 1px solid var(--pmm-line); }
 .pmm-card--wide .pmm-figure { padding-top: clamp(5px, 0.5vw, 8px); }
 
+/* ---- slide-1 teaser: branded name on the open white transparency (no card
+   chrome); the live estimate displays in the medallion circle to its right.
+   Sized in vw so it rides the stage; a soft white text-shadow lifts it off
+   the panel like the neighbouring blurb. ---- */
+.pmm-teaser {
+  margin-top: clamp(14px, 1.8vw, 34px);
+  max-width: 62%;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.65);
+}
+.pmm-teaser .pmm-kicker {
+  font-size: clamp(8px, 0.7vw, 12px);
+  margin-bottom: clamp(4px, 0.4vw, 8px);
+  color: #5c6c70;
+}
+.pmm-teaser .pmm-h2 { gap: clamp(7px, 0.7vw, 14px); }
+.pmm-teaser .pmm-wordmark { height: clamp(20px, 2vw, 38px); }
+.pmm-teaser .pmm-h2-text { font-size: clamp(13px, 1.3vw, 25px); color: #4B00B6; }
+.pmm-teaser .pmm-h3 {
+  font-size: clamp(8px, 0.72vw, 13px);
+  margin-bottom: clamp(6px, 0.7vw, 14px);
+  color: #2B0561;
+}
+.pmm-teaser .pmm-teaser-label {
+  margin: 0;
+  font-size: clamp(10px, 0.9vw, 16px);
+  font-weight: 700;
+  color: #3D1B0C;
+}
+@media (max-width: 900px) {
+  .pmm-teaser { display: none; } /* the pop clock slide's card carries it all */
+}
+
 /* ---- the medallion: live estimate in the pale misty circle of the art.
    Look lives here; position/size are set by the host section's stylesheet. ---- */
 .pmm-medallion {
@@ -170,7 +202,9 @@
   justify-content: center;
   text-align: center;
   border-radius: 50%;
-  padding: 4%;
+  /* fixed padding — a % here resolves against the STAGE width, not the
+     medallion, and squeezes the content into a tall overflow */
+  padding: clamp(6px, 0.6vw, 12px);
   background: radial-gradient(
     closest-side,
     rgba(255, 255, 255, 0.92) 0%,
@@ -184,15 +218,7 @@
 @media (prefers-reduced-motion: reduce) {
   .pmm-medallion { transition: none; }
 }
-.pmm-med-label {
-  font-size: clamp(7px, 0.56vw, 10px);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #5c6c70;
-}
 .pmm-med-value {
-  margin-top: 0.35em;
   font-size: clamp(15px, 1.5vw, 29px);
   font-weight: 700;
   line-height: 1.05;

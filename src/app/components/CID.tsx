@@ -6,6 +6,7 @@ import "../../styles/cid-forest.css";
 import "../../styles/cid-coins.css";
 import {
   PopClockCard,
+  PopClockTeaser,
   PopulationMedallion,
   PopulationSourcesStrip,
   usePopulationModel,
@@ -749,6 +750,9 @@ function LivingWallSlider({
             </svg>
             Open our National Strategy
           </a>
+          {/* Branded pop clock teaser — the live estimate itself displays in
+              the medallion circle at its right. */}
+          <PopClockTeaser />
         </div>
         <div className={`cid-lw-slide${index === 1 ? " is-active" : ""}`}>
           <PopClockCard state={populationModel} wide detailed />

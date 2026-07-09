@@ -161,6 +161,20 @@ export function PopClockCard({
   );
 }
 
+/** Slide-1 teaser: the branded name in the white space under the National
+ *  Strategy link — the live estimate itself displays in the medallion circle
+ *  to its right. Text only (no card chrome); hidden on stacked mobile, where
+ *  the pop clock slide's card carries everything. */
+export function PopClockTeaser() {
+  return (
+    <div className="pmm-teaser">
+      <p className="pmm-kicker">Humans of Canada</p>
+      <PopClockHeader />
+      <p className="pmm-teaser-label">Estimated population:</p>
+    </div>
+  );
+}
+
 /** The live estimate, floated over the pale misty circle in the cliff art.
  *  Renders nothing until data is ready (the card carries loading/error).
  *  Positioned by the host section's stylesheet; hidden on stacked mobile.
@@ -176,15 +190,18 @@ export function PopulationMedallion({
   if (state.kind !== "ready") return null;
   const reading = readModel(state.data);
   return (
-    <div className={`pmm-medallion${hidden ? " is-hidden" : ""}`} aria-hidden={hidden}>
-      <div className="pmm-med-label">Estimated modelled population</div>
+    <div
+      className={`pmm-medallion${hidden ? " is-hidden" : ""}`}
+      aria-hidden={hidden}
+      aria-label="Estimated population, live"
+    >
       <div className="pmm-med-value">{formatPersons(reading.currentPopulation)}</div>
+      {/* compact phrasing — the full "(a change of …)" line lives on the card */}
       <div className="pmm-med-delta">
-        (a change of{" "}
         <span className={`pmm-delta-num${reading.changeSinceMidnight < 0 ? " is-down" : ""}`}>
           {formatSignedPersons(reading.changeSinceMidnight)}
         </span>{" "}
-        since midnight)
+        since midnight
       </div>
     </div>
   );
