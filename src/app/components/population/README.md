@@ -28,7 +28,7 @@ and attribution render as a small-text strip below the section
 
 | File | Role |
 |---|---|
-| `PopulationClockCard.tsx` | `usePopulationModel()` (one shared data load) + `PopClockCard` (device; compact with `onAdvance`, or `detailed` with the ring embed, model copy, Cash epigraph, official-clock link) + `PopulationSourcesStrip`. Internally: `EventRing` (rAF-driven solid rings, pulse on each event, paused off-screen via IntersectionObserver), `DriftRing` (dashed net), `Headline` (tally-counter digits). |
+| `PopulationClockCard.tsx` | `usePopulationModel()` (one shared data load) + `PopClockCard` (device; compact with `onAdvance`, or `detailed` with the ring embed, footnote, official-clock link) + `PopulationSourcesStrip`. Internally: `EventRing` (rAF-driven solid rings, pulse on each event, paused off-screen via IntersectionObserver), `DriftRing` (dashed net), `Headline` (tally-counter digits). |
 | `statcanClient.ts` | Data service. Fetches Statistics Canada Web Data Service (WDS) tables, normalizes them to `{ basePopulation, baseReferenceDate, annualNetChange, netChangePerSecond, rateBasis, components{births,deaths,immigrants,emigrants,netNonPermanentResidents}, componentsLive, sourceTables, fetchedAt }`, caches in `localStorage`. Components are live per field when they resolve, else `REFERENCE_COMPONENTS`. |
 | `populationMiniModel.ts` | Pure model math: current population, change since midnight (= sum of ring contributions), per-stream ring readings (event interval / count, drift net), formatting. No I/O. |
 | `../../../styles/population-widget.css` | Styles (`pmm-` prefix). Base card is 320–420 px; `pmm-card--wide` is the fluid living-wall form. |

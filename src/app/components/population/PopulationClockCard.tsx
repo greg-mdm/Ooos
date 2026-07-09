@@ -350,18 +350,6 @@ export function PopClockCard({
             no single &ldquo;events,&rdquo; shown as daily drift. Interprovincial migration
             omitted (net zero nationally).
           </p>
-          {/* The Johnny Cash lines that started the journey. (A pinwheel — the
-              investment flywheel — waits later, hidden in the thorn tree.) */}
-          <figure className="pmm-epigraph">
-            <blockquote>
-              Some are born, and some are dyin&rsquo;
-              <br />
-              It&rsquo;s Alpha and Omega&rsquo;s kingdom come
-              <br />
-              And the whirlwind is in the thorn tree
-            </blockquote>
-            <figcaption>&mdash; Johnny Cash, &ldquo;The Man Comes Around&rdquo;</figcaption>
-          </figure>
           <a className="pmm-link" href={OFFICIAL_CLOCK_URL} target="_blank" rel="noopener noreferrer">
             Check Canada&rsquo;s official real-time population clock @ statcan.gc.ca
           </a>
