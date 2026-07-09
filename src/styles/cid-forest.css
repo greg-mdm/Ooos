@@ -191,7 +191,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 1920 / 1080;                       /* locked to the cliff art */
-  background: url("/assets/images/cliff-all.webp") center / cover no-repeat;
+  background: url("/assets/images/cliff-all.webp") top / cover no-repeat;
   overflow: hidden;
 }
 /* soften the seam into the ink-blue data guide above the art */
@@ -205,12 +205,16 @@
   pointer-events: none;
 }
 
-/* the framed video widget, over the left clouds of the art */
+/* the framed video widget — the WOOD spans flush-left to the yellow guide
+   line where the cliff juts furthest left (50%), per the mockup; the vine
+   leaves cross slightly onto the white panel. The PNG canvas has transparent
+   margins (wood at 1.89%..89.29% of its width), so the canvas is offset and
+   oversized to land the wood exactly on 0%..50% of the stage. */
 .cid-scope .hf-framed-wall {
   position: absolute;
-  left: 2.5%;
-  top: 20%;
-  width: 44%;
+  left: -1.1%;  /* pulls the canvas margin off-stage: wood left lands at 0 */
+  top: 22%;     /* wood spans 30.3%..98.4% of the stage vertically */
+  width: 57.2%; /* wood width (87.4% of canvas) = exactly 50% of the stage */
   margin: 0;
   aspect-ratio: 1428 / 1078; /* native frame canvas ratio — keeps the video
                                 window locked to the frame at any size */
