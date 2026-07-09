@@ -1,10 +1,12 @@
 # Population Widget: Real-Time Mini Model
 
-A small embeddable card — visible title **"Canada population, real-time mini
-model"** — that shows a live, modelled Canada population figure and the change
-since the viewer's local midnight. It lives on the CID page (living-wall white
-panel, below the "Open our National Strategy" link) but is self-contained and
-can be embedded anywhere in the site.
+A small embeddable card — visible title **"Humans of Canada • Real-Time
+Population [Ooo! Mini-Model]"** — that shows a live, modelled Canada
+population figure and the change since the viewer's local midnight. It lives
+on the CID page (living-wall white panel, below the "Open our National
+Strategy" link); to keep that panel uncluttered, the meta rows (reference
+period, last refresh, rate basis) and the full attribution line render as a
+separate small-text strip below the section (`PopulationSourcesStrip`).
 
 > This widget is a simplified mini model adapted from Statistics Canada's
 > Canada population clock concept. It uses public aggregate Statistics Canada
@@ -15,7 +17,7 @@ can be embedded anywhere in the site.
 
 | File | Role |
 |---|---|
-| `PopulationClockCard.tsx` | The card component: title, animated hero number, change since midnight, reference/refresh metadata, loading/error states, disclosure note, source line, link to the official clock. |
+| `PopulationClockCard.tsx` | `usePopulationModel()` (one shared data load) + the card (title, animated hero number, "(a change of +N since midnight)", Ooo! Pop Clock blurb with disclaimer, loading/error states, link to the official clock) + `PopulationSourcesStrip` (meta rows and the required source line, below the section). |
 | `statcanClient.ts` | Data service. Fetches Statistics Canada Web Data Service (WDS) tables, normalizes them to `{ basePopulation, baseReferenceDate, annualNetChange, netChangePerSecond, rateBasis, sourceTables, fetchedAt }`, caches in `localStorage`. |
 | `populationMiniModel.ts` | Pure model math: current modelled population, change since midnight, formatting. No I/O. |
 | `../../../styles/population-widget.css` | Styles (`pmm-` prefix). Base card is 320–420 px; `pmm-card--wide` is the fluid living-wall form. |
@@ -86,10 +88,16 @@ guessing.
 Within this site:
 
 ```tsx
-import { PopulationClockCard } from "./population/PopulationClockCard";
+import {
+  PopulationClockCard,
+  PopulationSourcesStrip,
+  usePopulationModel,
+} from "./population/PopulationClockCard";
 
-<PopulationClockCard />        // standalone card, max-width 420px
-<PopulationClockCard wide />   // fluid form (used on the CID living wall)
+const state = usePopulationModel();       // one fetch, shared
+<PopulationClockCard state={state} />     // standalone card, max-width 420px
+<PopulationClockCard state={state} wide />// fluid form (CID living wall)
+<PopulationSourcesStrip state={state} />  // sources/meta, below the section
 ```
 
 On an external site: copy the three source files plus
@@ -99,14 +107,15 @@ mount it in a tiny Vite build and drop the bundle in with a `<div id=…>` +
 
 ## Attribution requirement (non-negotiable)
 
-The card must always visibly display:
+Wherever the card is embedded, this line must stay visible nearby (it renders
+in `PopulationSourcesStrip`, directly below the section):
 
 > Source: Statistics Canada, Canada's population clock (real-time model), and
 > related public data tables. Adapted using Statistics Canada Web Data
 > Service. This does not imply endorsement by Statistics Canada.
 
-plus the note *"Mini model based on public Statistics Canada tables; not the
-official StatCan clock."* and the link **"View official Statistics Canada
+The card itself carries the disclaimer *"This is an experimental tool and is
+not endorsed by Statistics Canada."* and the link **"View Canada's official
 population clock"** → https://www150.statcan.gc.ca/n1/pub/71-607-x/71-607-x2018005-eng.htm
 (opens in a new tab with `rel="noopener noreferrer"`). Do not add Government
 of Canada branding, wordmarks or flag lockups to the card.

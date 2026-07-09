@@ -4,7 +4,12 @@ import { useEffect, useRef, useState, type ReactNode, type CSSProperties } from 
 import "../../styles/cid-continuum.css";
 import "../../styles/cid-forest.css";
 import "../../styles/cid-coins.css";
-import { PopulationClockCard } from "./population/PopulationClockCard";
+import {
+  PopulationClockCard,
+  PopulationSourcesStrip,
+  usePopulationModel,
+  type PopulationModelState,
+} from "./population/PopulationClockCard";
 
 // --- Canada's Continuum of Data Access -------------------------------------
 // Real StatsCan destinations behind each route on the official "Continuum of
@@ -667,8 +672,93 @@ function Underground() {
   );
 }
 
+/** The living wall's white-panel slider — prime real estate shared by the
+ *  National Strategy feature (slide 1) and the population mini model
+ *  (slide 2). Auto-advances every 8s until the visitor interacts, pauses on
+ *  hover/focus, and sits still under prefers-reduced-motion. Inactive slides
+ *  are visibility:hidden (out of the tab order and a11y tree); the grid stack
+ *  keeps the panel height stable across slides. */
+const LW_SLIDES = ["National Strategy", "Population mini model"] as const;
+
+function LivingWallSlider({ populationModel }: { populationModel: PopulationModelState }) {
+  const [index, setIndex] = useState(0);
+  const [userTouched, setUserTouched] = useState(false);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (userTouched || paused) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setInterval(() => setIndex((i) => (i + 1) % LW_SLIDES.length), 8000);
+    return () => window.clearInterval(id);
+  }, [userTouched, paused]);
+
+  return (
+    <div
+      className="cid-lw-slider"
+      role="group"
+      aria-roledescription="carousel"
+      aria-label="Featured: Canada's National Strategy and the population mini model"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    >
+      <div className="cid-lw-slides">
+        <div className={`cid-lw-slide${index === 0 ? " is-active" : ""}`}>
+          <p className="cid-lw-blurb">
+            Canada&rsquo;s plan to halt and reverse biodiversity loss and protect the land
+            and water above the bedrock.
+          </p>
+          <a
+            className="cid-lw-go"
+            href={SC.forceOfNature}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg
+              className="cid-lw-go-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+            </svg>
+            Open our National Strategy
+          </a>
+        </div>
+        <div className={`cid-lw-slide${index === 1 ? " is-active" : ""}`}>
+          <PopulationClockCard state={populationModel} wide />
+        </div>
+      </div>
+      <div className="cid-lw-dots">
+        {LW_SLIDES.map((name, i) => (
+          <button
+            key={name}
+            type="button"
+            className={`cid-lw-dot${index === i ? " is-active" : ""}`}
+            aria-label={`Show ${name}`}
+            aria-current={index === i}
+            onClick={() => {
+              setIndex(i);
+              setUserTouched(true);
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function CID({ onSupport }: { onSupport: () => void }) {
   const base = import.meta.env.BASE_URL;
+  // One StatCan data load shared by the mini-model card (on the living-wall
+  // panel) and its sources strip (small text below the section).
+  const populationModel = usePopulationModel();
   // Size the watchlist embed iframe to its content so the page scrolls as one
   // (no nested-iframe scroll trap). The embed reports its height via postMessage.
   const embedRef = useRef<HTMLIFrameElement>(null);
@@ -782,37 +872,14 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             <h2 id="cid-lw-title" className="cid-lw-title">
               A Force of Nature: Canada&rsquo;s Strategy to Protect Nature
             </h2>
-            <p className="cid-lw-blurb">
-              Canada&rsquo;s plan to halt and reverse biodiversity loss and protect the land
-              and water above the bedrock.
-            </p>
-            <a
-              className="cid-lw-go"
-              href={SC.forceOfNature}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <svg
-                className="cid-lw-go-icon"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-              </svg>
-              Open our National Strategy
-            </a>
-
-            {/* Population mini model — fills the white panel below the
-                National Strategy link (StatCan WDS-fed, see ./population/). */}
-            <PopulationClockCard wide />
+            {/* Prime real estate: the National Strategy feature and the
+                population mini model share the panel via a slider. */}
+            <LivingWallSlider populationModel={populationModel} />
           </div>
         </div>
+
+        {/* Sources for the mini model — small text kept off the white panel. */}
+        <PopulationSourcesStrip state={populationModel} />
       </section>
 
       <section className="cid-forest" aria-label="Above the bedrock: Canada's living landscape">
