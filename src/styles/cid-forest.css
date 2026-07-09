@@ -213,7 +213,9 @@
 .cid-scope .hf-framed-wall {
   position: absolute;
   left: -1.1%;  /* pulls the canvas margin off-stage: wood left lands at 0 */
-  top: 22%;     /* wood spans 30.3%..98.4% of the stage vertically */
+  top: 17.6%;   /* wood top lands level with the white panel's top edge
+                   (25.93% of the art); wood bottom at 94% leaves cloud
+                   room below the frame */
   width: 57.2%; /* wood width (87.4% of canvas) = exactly 50% of the stage */
   margin: 0;
   aspect-ratio: 1428 / 1078; /* native frame canvas ratio — keeps the video
