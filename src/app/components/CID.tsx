@@ -848,6 +848,41 @@ export function CID({ onSupport }: { onSupport: () => void }) {
 
       <DataAccessContinuum />
 
+      {/* Canada's Strategy to Protect Nature — the three pillars, reunited with
+          the living-wall strategy section directly below it (moved out of the
+          watchlist embed). Grey intro on the page ground, ahead of the cliff. */}
+      <section className="np-strategy" aria-label="Canada's Strategy to Protect Nature">
+        <div className="np-inner">
+          <div className="np-kicker">Canada&rsquo;s Strategy to Protect Nature</div>
+          <h3 className="np-title">Three pillars</h3>
+          <div className="np-grid">
+            <div className="np-pillar">
+              <span className="np-num">1</span>
+              <h4>Protecting Nature in Canada</h4>
+              <p>By protecting and conserving more lands and waters and connecting habitats so species can move more safely.</p>
+            </div>
+            <div className="np-pillar">
+              <span className="np-num">2</span>
+              <h4>Building Canada Well</h4>
+              <p>By designing infrastructure projects that work with nature rather than against it.</p>
+            </div>
+            <div className="np-pillar np-pillar--finance">
+              <span className="np-num">3</span>
+              <h4>Valuing Nature &amp; Mobilizing Capital</h4>
+              <p>By using finance tools to fund conservation in a sustainable, long-term way.</p>
+            </div>
+          </div>
+          <a
+            className="np-link"
+            href="https://www.canada.ca/en/services/environment/nature/nature-strategy.html#toc6"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn more ↗
+          </a>
+        </div>
+      </section>
+
       {/* Framed Living Wall — a looping portrait of a Canadian conservation
           area (Halton Falls) behind the vine frame, paired with the National
           Strategy link. Sits right below the dark continuum so the dark-to-dark

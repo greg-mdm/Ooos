@@ -183,6 +183,24 @@
    transparent PNG frame ON TOP (window at 11.975%/25.046% of a 1428x1078 canvas,
    67.017% x 61.41%).
    =========================================================================== */
+/* Canada's Strategy to Protect Nature — the three pillars, moved out of the
+   watchlist embed to sit directly above the living wall. Kept as-is (grey page
+   ground, red-topped cards, finance pillar in teal). */
+.cid-scope .np-strategy { margin: 0; padding: 2.6rem 0 2.8rem; background: #F0F4F5; }
+.cid-scope .np-inner { max-width: 1400px; margin: 0 auto; padding: 0 3rem; }
+.cid-scope .np-kicker { color: #C8102E; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 800; font-size: 0.95rem; margin: 0 0 0.3rem; }
+.cid-scope .np-title { color: #16222b; font-size: 1.9rem; font-weight: 800; margin: 0 0 1.4rem; }
+.cid-scope .np-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; align-items: stretch; }
+.cid-scope .np-pillar { background: #fff; border: 1px solid rgba(11,110,107,0.16); border-top: 3px solid #C8102E; border-radius: 12px; padding: 1.5rem 1.6rem; box-shadow: 0 6px 22px rgba(15,40,40,0.12); display: flex; flex-direction: column; }
+.cid-scope .np-pillar--finance { border-top-color: #0B6E6B; }
+.cid-scope .np-num { font-family: 'Courier New', Courier, monospace; font-size: 1.7rem; font-weight: 900; color: #C8102E; line-height: 1; margin-bottom: 0.7rem; }
+.cid-scope .np-pillar--finance .np-num { color: #0B6E6B; }
+.cid-scope .np-pillar h4 { font-size: 1.18rem; font-weight: 800; color: #16222b; margin: 0 0 0.5rem; line-height: 1.3; }
+.cid-scope .np-pillar p { font-size: 0.98rem; line-height: 1.5; color: #51606a; margin: 0; }
+.cid-scope .np-link { align-self: flex-start; margin-top: 1.4rem; color: #006B57; font-weight: 700; font-size: 1.02rem; text-decoration: none; border-bottom: 1px solid rgba(0,107,87,0.4); padding-bottom: 2px; }
+.cid-scope .np-link:hover { color: #00A589; border-color: #00A589; }
+@media (max-width: 760px) { .cid-scope .np-grid { grid-template-columns: 1fr; } }
+
 .cid-scope .cid-livingwall {
   background: #081026; /* ink-blue, matches the data guide above/around the art */
   padding: 0;
