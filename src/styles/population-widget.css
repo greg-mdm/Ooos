@@ -217,27 +217,27 @@
 .pmm-face .pmm-ring-label { font-size: 1.9cqw; }
 .pmm-face .pmm-ring-sub { font-size: 1.5cqw; }
 
-/* --- slide-1 compact: relevant info first (estimate), then the CTA. Two
-   rows: [Humans of Canada pill | Look at our live model + play] and
-   [estimate | (population estimate)], per the mock. --- */
-.pmm-mini { display: flex; flex-direction: column; gap: 10px; }
+/* --- slide-1: two blocks per line — [brand pill | CTA] over
+   [estimate | (population estimate)]. Big CTA sits beside the narrow pill. --- */
+.pmm-mini { display: flex; flex-direction: column; gap: 12px; }
 .pmm-mini-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px 18px;
+  gap: 12px 20px;
   flex-wrap: wrap;
 }
 /* keep the caption right beside the figure, not pushed to the far edge */
 .pmm-mini-row--est { align-items: baseline; justify-content: flex-start; gap: 6px 12px; }
+/* Palette held to three: indigo/inky-blue, ruby red, white. */
 .pmm-hoc {
   display: inline-block;
-  padding: 5px 14px;
+  padding: 6px 16px;
   border-radius: 999px;
-  background: #f4e6d4;                 /* warm cream chip */
-  color: var(--pmm-portal);
+  background: #fbe1e5;                  /* light red chip */
+  color: #b3122f;                       /* deep red text */
   font-weight: 800;
-  font-size: 14px;
+  font-size: 15px;
   letter-spacing: 0.01em;
 }
 .pmm-cta {
@@ -248,22 +248,23 @@
   border: 0;
   background: none;
   font: inherit;
-  font-weight: 700;
-  font-size: 14px;
-  color: var(--pmm-ink);
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--pmm-indigo);            /* dark inky blue */
   cursor: pointer;
+  white-space: nowrap;
   transition: filter 160ms ease;
 }
-.pmm-cta:hover { filter: brightness(1.08); }
+.pmm-cta:hover { filter: brightness(1.1); }
 .pmm-cta:focus-visible { outline: 2px solid var(--pmm-portal); outline-offset: 3px; border-radius: 6px; }
-.pmm-cta-play { width: 34px; height: 34px; display: block; transition: transform 160ms ease; }
+.pmm-cta-play { width: 38px; height: 38px; display: block; transition: transform 160ms ease; }
 .pmm-cta:hover .pmm-cta-play { transform: scale(1.08); }
 .pmm-estnum {
   font-weight: 800;
   font-variant-numeric: tabular-nums;
-  font-size: 30px;
+  font-size: 34px;
   letter-spacing: 0.01em;
-  color: var(--pmm-indigo);
+  color: var(--pmm-indigo);            /* dark inky blue */
   white-space: nowrap;
 }
 .pmm-estcap {
@@ -271,7 +272,7 @@
   font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #822F00;                      /* site ruby */
+  color: #b3122f;                      /* ruby red */
 }
 
 /* --- publishable details (slide 2), in hierarchy order --- */
@@ -324,12 +325,14 @@
 .pmm-card--wide .pmm-ring-label { font-size: clamp(9px, 0.78vw, 13px); }
 .pmm-card--wide .pmm-ring-sub { font-size: clamp(7.5px, 0.6vw, 11px); }
 .pmm-card--wide .pmm-ringfoot { font-size: clamp(8px, 0.66vw, 11px); margin-bottom: clamp(5px, 0.5vw, 9px); }
-.pmm-card--wide .pmm-mini { gap: clamp(7px, 0.8vw, 14px); }
-.pmm-card--wide .pmm-hoc { font-size: clamp(11px, 1vw, 18px); padding: clamp(4px, 0.4vw, 7px) clamp(10px, 1vw, 18px); }
-.pmm-card--wide .pmm-cta { font-size: clamp(11px, 1vw, 18px); gap: clamp(7px, 0.7vw, 12px); }
-.pmm-card--wide .pmm-cta-play { width: clamp(26px, 2.5vw, 44px); height: clamp(26px, 2.5vw, 44px); }
-.pmm-card--wide .pmm-estnum { font-size: clamp(22px, 2.3vw, 42px); }
-.pmm-card--wide .pmm-estcap { font-size: clamp(10px, 0.9vw, 16px); }
+.pmm-card--wide .pmm-mini { gap: clamp(8px, 1vw, 18px); }
+/* row 1 (pill + CTA) stays on one line; the estimate row can still wrap */
+.pmm-card--wide .pmm-mini-row:not(.pmm-mini-row--est) { flex-wrap: nowrap; }
+.pmm-card--wide .pmm-hoc { font-size: clamp(10px, 1vw, 18px); padding: clamp(4px, 0.5vw, 9px) clamp(9px, 1vw, 18px); }
+.pmm-card--wide .pmm-cta { font-size: clamp(11px, 1.15vw, 20px); gap: clamp(6px, 0.7vw, 12px); }
+.pmm-card--wide .pmm-cta-play { width: clamp(23px, 2.3vw, 40px); height: clamp(23px, 2.3vw, 40px); }
+.pmm-card--wide .pmm-estnum { font-size: clamp(24px, 2.5vw, 46px); }
+.pmm-card--wide .pmm-estcap { font-size: clamp(11px, 1vw, 17px); }
 .pmm-card--wide .pmm-about { font-size: clamp(9px, 0.74vw, 12px); line-height: 1.4; margin-bottom: clamp(4px, 0.45vw, 8px); }
 .pmm-card--wide .pmm-link { font-size: clamp(9.5px, 0.76vw, 12.5px); }
 .pmm-card--wide .pmm-srcline { font-size: clamp(8px, 0.64vw, 10.5px); }

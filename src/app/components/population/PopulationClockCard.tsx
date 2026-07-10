@@ -332,14 +332,15 @@ export function PopClockCard({
         </p>
       )}
 
-      {/* Slide 1 — compact: relevant info first (the estimate), then the CTA. */}
+      {/* Slide 1 — two blocks per line: [brand pill | CTA] over
+          [estimate | (population estimate)], so the stat reads against the CTA. */}
       {!detailed && r && (
         <div className="pmm-mini">
           <div className="pmm-mini-row">
             <span className="pmm-hoc">Humans of Canada</span>
             {onAdvance && (
               <button type="button" className="pmm-cta" onClick={onAdvance}>
-                <span className="pmm-cta-text">Look at our live model</span>
+                <span className="pmm-cta-text">Look at our live model!</span>
                 <img
                   className="pmm-cta-play"
                   src={`${import.meta.env.BASE_URL}${PLAY_ICON}`}
