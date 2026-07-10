@@ -1,0 +1,8 @@
+{
+  "enabled": false,
+  "population": null,
+  "capturedAt": null,
+  "ratePerSecond": null,
+  "source": "Statistics Canada, Canada's population clock (real-time model)",
+  "_README": "Calibration snapshot for the Ooo! Pop Clock Mini. When enabled is true with a numeric population and an ISO-8601 capturedAt, the widget re-bases its projection to this official reading, so it only extrapolates the short time since capturedAt and stays within a minimal margin of StatCan's clock. To activate: (1) open Statistics Canada's population clock and read Canada's current figure; (2) set population to that integer; (3) set capturedAt to the UTC instant you read it, e.g. 2026-07-10T14:00:00Z; (4) optionally set ratePerSecond to StatCan's per-second growth for an even tighter match (leave null to keep the widget's year-over-year rate); (5) set enabled to true. Snapshots older than 21 days, malformed, or future-dated are ignored automatically and the widget falls back to its own calculation."
+}

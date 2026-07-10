@@ -82,6 +82,26 @@ the dropped terms (returning emigrants, net temporary emigration, residual
 deviation) matter. The raw component sum is used only as a fallback when the
 population series is too short for a year-over-year figure.
 
+**Failsafes keeping it aligned with the official clock:**
+
+1. **Rate-consensus guardrail (always on).** The rate is estimated three
+   independent ways — year-over-year, latest-quarter-annualised, and the
+   component sum. If the primary estimate is an outlier versus the median of the
+   others (tolerance `max(150k, 60%)`), the median wins. A single bad source
+   (e.g. a lagging component vintage — the cause of the original ~24.7k drift)
+   can no longer poison the projection. Normally a no-op.
+
+2. **Calibration anchor (opt-in, tightest alignment).** `public/pop-clock/calibration.json`
+   is a same-origin snapshot of StatCan's population clock — `{ enabled,
+   population, capturedAt, ratePerSecond }`. When enabled and fresh (≤ 21 days,
+   not future-dated), the widget re-bases to it and extrapolates only the short
+   hop since `capturedAt`, so error stays within a minimal margin regardless of
+   rate wobble (a 12-hour hop cuts a given rate error ~200× versus the ~100-day
+   hop from the quarterly base). Malformed/disabled/stale → it silently falls
+   back to the year-over-year calculation. Refresh the snapshot periodically (by
+   hand, or from a scheduled job) to keep the anchor current. Same-origin, so no
+   CORS and no direct call to statcan.gc.ca.
+
 **Component (ring) resolution:** births, deaths, immigrants and emigrants are
 taken live from the component tables when their members resolve from cube
 metadata, otherwise from `REFERENCE_COMPONENTS` (StatCan-grounded 2025–2026

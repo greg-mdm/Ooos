@@ -39,10 +39,15 @@ export interface MiniModelReading {
 }
 
 /**
- * Quarterly estimate reference dates ("2026-04-01") describe a population on
- * that calendar date; anchor the model at UTC midnight of that date.
+ * The instant the projection extrapolates from. When the model is calibrated to
+ * an official-clock snapshot, that precise capture instant wins. Otherwise a
+ * quarterly estimate reference date ("2026-04-01") describes a population on that
+ * calendar date, so anchor at UTC midnight of it.
  */
 export function baseReferenceTime(data: PopulationModelData): number {
+  if (typeof data.baseReferenceTimeMs === "number" && isFinite(data.baseReferenceTimeMs)) {
+    return data.baseReferenceTimeMs;
+  }
   const t = Date.parse(`${data.baseReferenceDate}T00:00:00Z`);
   return isNaN(t) ? Date.parse(data.fetchedAt) : t;
 }

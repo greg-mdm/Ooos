@@ -30,16 +30,22 @@ export interface PopulationModelData {
   basePopulation: number;
   /** Reference date of the base estimate, e.g. "2026-04-01". */
   baseReferenceDate: string;
+  /** When the model is anchored to an official-clock snapshot, the precise
+   *  instant (epoch ms) it was captured — the projection extrapolates from here
+   *  instead of the quarterly reference date, so it only ever moves a short hop
+   *  from a real official reading. Absent when running purely off WDS data. */
+  baseReferenceTimeMs?: number;
   /** Derived net change over one year (persons) — drives the headline projection. */
   annualNetChange: number;
   /** annualNetChange / seconds in a year. */
   netChangePerSecond: number;
-  /** How the headline net rate was derived. "population-yoy" = the change in the
-   *  same quarterly population series the base comes from (self-consistent — it
-   *  captures every component, so the projection tracks the official clock rather
-   *  than drifting). "components-*" = the raw component sum, used only when the
-   *  population series is too short for a year-over-year figure. */
-  rateBasis: "population-yoy" | "components-live" | "components-reference";
+  /** How the headline net rate was derived. "official-snapshot" = re-based to a
+   *  calibration snapshot of StatCan's population clock (tightest alignment).
+   *  "population-yoy" = the change in the same quarterly population series the
+   *  base comes from (self-consistent — captures every component, so the
+   *  projection tracks the official clock rather than drifting). "components-*" =
+   *  the raw component sum, used only when the series is too short for a rate. */
+  rateBasis: "official-snapshot" | "population-yoy" | "components-live" | "components-reference";
   /** Annual component rates (persons/yr) that drive the differentiated rings.
    *  births − deaths + immigrants − emigrants + NPR always sums to
    *  `annualNetChange`, so the rings reconcile to the headline. births / deaths /
@@ -116,6 +122,16 @@ export const CONFIG = {
    * high versus StatCan's clock (their clock leans on recent-period momentum).
    */
   rateWindow: "year" as "year" | "quarter",
+  /**
+   * Optional same-origin calibration snapshot (public/pop-clock/calibration.json).
+   * When present, enabled and fresh, the widget re-bases its projection to that
+   * official-clock reading so it only extrapolates the short time since the
+   * snapshot — the failsafe that keeps the headline within a minimal margin of
+   * StatCan's clock. Absent/disabled/stale → the WDS year-over-year rate is used.
+   */
+  calibrationUrl: "pop-clock/calibration.json",
+  /** Snapshots older than this are ignored (the extrapolation hop grew too long). */
+  calibrationMaxAgeMs: 21 * 24 * 60 * 60 * 1000,
   cacheKey: "ooos-population-mini-model-v3",
   /** Quarterly data — refetch at most daily. */
   cacheTtlMs: 24 * 60 * 60 * 1000,
@@ -239,6 +255,65 @@ function sumLatest(points: WdsDataPoint[], n: number): number | null {
   return usable.reduce((acc, p) => acc + (p.value as number), 0);
 }
 
+function median(xs: number[]): number {
+  const s = [...xs].sort((a, b) => a - b);
+  const m = Math.floor(s.length / 2);
+  return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+}
+
+/**
+ * Guardrail: keep the primary series rate unless it is an outlier versus the
+ * other independent estimates (year-over-year, latest-quarter-annualised,
+ * component sum), in which case use their median — robust to any single bad
+ * source, e.g. a lagging component vintage. The tolerance is generous so this
+ * only trips on a genuinely divergent source, not normal quarterly variation.
+ */
+function guardRate(primary: number, candidates: number[]): number {
+  if (candidates.length < 2) return primary;
+  const med = median(candidates);
+  const tol = Math.max(150000, Math.abs(med) * 0.6);
+  return Math.abs(primary - med) > tol ? med : primary;
+}
+
+// ---------------------------------------------------------- calibration anchor
+interface CalibrationAnchor {
+  enabled?: boolean;
+  population?: number | null;
+  capturedAt?: string | null;
+  ratePerSecond?: number | null;
+}
+
+/**
+ * Fetch the optional same-origin calibration snapshot. Returns a validated,
+ * fresh anchor or null (absent, disabled, malformed, stale or future-dated) —
+ * any of which safely falls back to the WDS-derived model. Same-origin, so no
+ * CORS; never touches statcan.gc.ca directly.
+ */
+async function fetchCalibration(): Promise<{
+  population: number;
+  capturedAtMs: number;
+  ratePerSecond: number | null;
+} | null> {
+  try {
+    const base = import.meta.env.BASE_URL ?? "/";
+    const res = await fetch(`${base}${CONFIG.calibrationUrl}`, { cache: "no-store" });
+    if (!res.ok) return null;
+    const j = (await res.json()) as CalibrationAnchor;
+    if (!j || j.enabled === false) return null;
+    if (typeof j.population !== "number" || !isFinite(j.population) || j.population <= 0) return null;
+    const capturedAtMs = Date.parse(String(j.capturedAt));
+    if (isNaN(capturedAtMs)) return null;
+    const now = Date.now();
+    if (now - capturedAtMs > CONFIG.calibrationMaxAgeMs) return null; // too stale to trust
+    if (capturedAtMs > now + 60 * 60 * 1000) return null; // future-dated → ignore
+    const ratePerSecond =
+      typeof j.ratePerSecond === "number" && isFinite(j.ratePerSecond) ? j.ratePerSecond : null;
+    return { population: j.population, capturedAtMs, ratePerSecond };
+  } catch {
+    return null;
+  }
+}
+
 async function fetchByVectors(
   requests: { vectorId: number; latestN: number }[],
 ): Promise<Series[]> {
@@ -276,6 +351,8 @@ function tableRef(productId: number): string {
 }
 
 async function fetchFromWds(): Promise<PopulationModelData> {
+  // Kick off the calibration snapshot in parallel with the WDS round-trips.
+  const calibrationPromise = fetchCalibration();
   const v = CONFIG.vectorOverrides;
   const componentKeys = [
     "births",
@@ -355,26 +432,6 @@ async function fetchFromWds(): Promise<PopulationModelData> {
   const basePopulation = latest.value as number;
   const baseReferenceDate = latest.refPer;
 
-  // ---- headline rate: the change in the SAME population series the base comes
-  //      from. Self-consistent by construction — it captures every component
-  //      (natural increase, all migration, residual deviation) exactly as
-  //      StatCan published them, so the projection tracks the official clock
-  //      instead of accumulating the error a raw component sum introduces. -------
-  //   "year"    → trailing four quarters (popPoints[-1] − popPoints[-5])
-  //   "quarter" → most recent quarter, annualised ((popPoints[-1] − popPoints[-2]) × 4)
-  let seriesNetChange: number | null = null;
-  if (CONFIG.rateWindow === "quarter" && popPoints.length >= 2) {
-    const prior = popPoints[popPoints.length - 2];
-    seriesNetChange = (basePopulation - (prior.value as number)) * 4;
-  } else if (popPoints.length >= 5) {
-    const prior = popPoints[popPoints.length - 5]; // 4 quarters earlier
-    seriesNetChange = basePopulation - (prior.value as number);
-  } else if (popPoints.length >= 2) {
-    // series too short for a full year — annualise the latest quarter instead.
-    const prior = popPoints[popPoints.length - 2];
-    seriesNetChange = (basePopulation - (prior.value as number)) * 4;
-  }
-
   // ---- component sums (full pass — no short-circuit, so each stream resolves
   //      independently) — these drive the ring VISUALS. ------------------------
   const sums: Partial<Record<(typeof componentKeys)[number], number>> = {};
@@ -397,19 +454,42 @@ async function fetchFromWds(): Promise<PopulationModelData> {
       sums.netNonPermanentResidents ?? REFERENCE_COMPONENTS.netNonPermanentResidents,
   };
 
+  // ---- headline rate: derived from the population SERIES (self-consistent with
+  //      the base), then cross-checked against independent estimates. -----------
+  //   year     → trailing four quarters (popPoints[-1] − popPoints[-5])
+  //   quarter  → latest quarter annualised ((popPoints[-1] − popPoints[-2]) × 4)
+  //   component→ raw component sum (least trustworthy; can lag a vintage)
+  const rateYear =
+    popPoints.length >= 5 ? basePopulation - (popPoints[popPoints.length - 5].value as number) : null;
+  const rateQuarter =
+    popPoints.length >= 2
+      ? (basePopulation - (popPoints[popPoints.length - 2].value as number)) * 4
+      : null;
+  const rateComponents = componentsLive
+    ? comp.births - comp.deaths + comp.immigrants - comp.emigrants + comp.netNonPermanentResidents
+    : null;
+
+  const primaryRate =
+    CONFIG.rateWindow === "quarter" ? (rateQuarter ?? rateYear) : (rateYear ?? rateQuarter);
+
   // Pick the authoritative annual net + reconcile the rings to it.
   let annualNetChange: number;
   let rateBasis: PopulationModelData["rateBasis"];
-  if (seriesNetChange != null) {
-    // The population series is authoritative. Keep births/deaths/immigrants/
-    // emigrants as the live (or reference) tick rates, and let the NPR /
-    // net-migration drift ring carry the residual so the five streams sum
-    // exactly to the published change (folding in returning emigrants, net
-    // temporary emigration and residual deviation — the terms a raw sum drops).
-    annualNetChange = seriesNetChange;
+  if (primaryRate != null) {
+    // Guardrail: reject an outlier primary in favour of the median of the
+    // independent estimates. Normally a no-op — the failsafe against one bad
+    // source silently poisoning the projection (the 24.7k-drift bug's cause).
+    const candidates = [rateYear, rateQuarter, rateComponents].filter(
+      (x): x is number => x != null && isFinite(x),
+    );
+    annualNetChange = guardRate(primaryRate, candidates);
     rateBasis = "population-yoy";
+    // Keep births/deaths/immigrants/emigrants as the live (or reference) tick
+    // rates; the NPR / net-migration drift ring carries the residual so the five
+    // streams sum exactly to the headline (folding in returning emigrants, net
+    // temporary emigration and residual deviation — the terms a raw sum drops).
     comp.netNonPermanentResidents =
-      seriesNetChange - (comp.births - comp.deaths + comp.immigrants - comp.emigrants);
+      annualNetChange - (comp.births - comp.deaths + comp.immigrants - comp.emigrants);
   } else {
     // Fallback: no usable population series — sum the components directly.
     annualNetChange =
@@ -425,11 +505,32 @@ async function fetchFromWds(): Promise<PopulationModelData> {
       ]
     : [tableRef(CONFIG.products.population)];
 
+  // ---- calibration overlay: pin to an official-clock snapshot when present. --
+  //      Re-bases the projection to a real official reading captured at a known
+  //      instant, so the headline only ever extrapolates the short hop since —
+  //      the failsafe that keeps it within a minimal margin of StatCan's clock.
+  let effectiveBasePopulation = basePopulation;
+  let baseReferenceTimeMs: number | undefined;
+  let effectiveAnnualNetChange = annualNetChange;
+  const calibration = await calibrationPromise;
+  if (calibration) {
+    effectiveBasePopulation = calibration.population;
+    baseReferenceTimeMs = calibration.capturedAtMs;
+    rateBasis = "official-snapshot";
+    if (calibration.ratePerSecond != null) {
+      // The snapshot also pins the rate — re-reconcile the rings to it.
+      effectiveAnnualNetChange = calibration.ratePerSecond * SECONDS_PER_YEAR;
+      comp.netNonPermanentResidents =
+        effectiveAnnualNetChange - (comp.births - comp.deaths + comp.immigrants - comp.emigrants);
+    }
+  }
+
   return {
-    basePopulation,
+    basePopulation: effectiveBasePopulation,
     baseReferenceDate,
-    annualNetChange,
-    netChangePerSecond: annualNetChange / SECONDS_PER_YEAR,
+    baseReferenceTimeMs,
+    annualNetChange: effectiveAnnualNetChange,
+    netChangePerSecond: effectiveAnnualNetChange / SECONDS_PER_YEAR,
     rateBasis,
     components: comp,
     componentsLive,

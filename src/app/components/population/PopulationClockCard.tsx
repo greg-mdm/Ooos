@@ -424,7 +424,9 @@ export function PopulationSourcesStrip({ state }: { state: PopulationModelState 
           <div>
             <dt>Rate basis</dt>
             <dd>
-              {state.data.rateBasis === "population-yoy"
+              {state.data.rateBasis === "official-snapshot"
+                ? "Calibrated to a Statistics Canada population-clock snapshot"
+                : state.data.rateBasis === "population-yoy"
                 ? "Year-over-year change in the quarterly Canada estimate"
                 : "births − deaths + immigrants − emigrants + NPR"}
               {" · rings "}
