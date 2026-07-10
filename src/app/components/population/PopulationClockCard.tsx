@@ -22,8 +22,8 @@ import {
   formatMagnitude,
   formatPersons,
   formatReferenceDate,
-  localMidnight,
   readModel,
+  secondsSinceEasternMidnight,
   type MiniModelReading,
   type RingReading,
 } from "./populationMiniModel";
@@ -119,6 +119,30 @@ function PopClockLid() {
 const RING_R = 26;
 const RING_C = 2 * Math.PI * RING_R;
 
+// Per-stream ring colour. Births are green; immigration is ruby red; deaths
+// darken as the ring fills — indigo → dark indigo → midnight black — before
+// resetting on the next event.
+function lerp(a: number, b: number, t: number): number {
+  return Math.round(a + (b - a) * t);
+}
+const DEATH_STOPS: [number, number, number][] = [
+  [90, 30, 170], // indigo
+  [43, 5, 97], //  dark indigo (brand)
+  [10, 10, 20], // midnight black
+];
+function deathColor(phase: number): string {
+  const seg = phase < 0.5 ? 0 : 1;
+  const t = phase < 0.5 ? phase / 0.5 : (phase - 0.5) / 0.5;
+  const a = DEATH_STOPS[seg];
+  const b = DEATH_STOPS[seg + 1];
+  return `rgb(${lerp(a[0], b[0], t)}, ${lerp(a[1], b[1], t)}, ${lerp(a[2], b[2], t)})`;
+}
+const RING_STROKE: Record<string, string | ((phase: number) => string)> = {
+  births: "#12925c", // green
+  immigrants: "#c41230", // ruby red
+  deaths: deathColor, // indigo → midnight black as it fills
+};
+
 /** A solid ring that fills toward the next modelled event and resets, driven by
  *  requestAnimationFrame for a smooth sweep. Pulses on each completed event.
  *  Paused (via `active`) when the section is off-screen. */
@@ -133,15 +157,18 @@ function EventRing({ ring, active }: { ring: RingReading; active: boolean }) {
     const countEl = countRef.current;
     if (!interval || !prog || !countEl) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const stroke = RING_STROKE[ring.key];
     let raf = 0;
     let timer = 0;
     let lastCount = -1;
 
     const paint = () => {
-      const now = Date.now();
-      const sec = Math.max(0, (now - localMidnight(now)) / 1000);
+      const sec = secondsSinceEasternMidnight(Date.now()); // EDT day open
       const phase = (sec % interval) / interval;
       prog.style.strokeDashoffset = String(RING_C * (1 - phase));
+      // deaths darken toward black as they fill; the others hold their hue
+      if (typeof stroke === "function") prog.style.stroke = stroke(phase);
+      else if (stroke) prog.style.stroke = stroke;
       const count = Math.floor(sec / interval);
       if (count !== lastCount) {
         countEl.textContent = String(count);

@@ -54,6 +54,38 @@ export function localMidnight(now: number): number {
   return m.getTime();
 }
 
+/**
+ * Seconds since Eastern-time midnight (America/Toronto) — the day's "open",
+ * matching StatCan's own clock timezone rather than the viewer's local time,
+ * so everyone sees the same day count. Sub-second precise: Eastern is a whole-
+ * hour offset, so the seconds + milliseconds within the minute are timezone-
+ * invariant and taken straight from `now`.
+ */
+const EASTERN_FMT = new Intl.DateTimeFormat("en-US", {
+  timeZone: "America/Toronto",
+  hour12: false,
+  hour: "2-digit",
+  minute: "2-digit",
+});
+// The hour+minute only change once a minute; cache them so the animation loop
+// isn't re-running Intl formatting every frame.
+let cachedMinuteIndex = -1;
+let cachedMinuteSeconds = 0;
+
+export function secondsSinceEasternMidnight(now: number): number {
+  const minuteIndex = Math.floor(now / 60000);
+  if (minuteIndex !== cachedMinuteIndex) {
+    const parts = EASTERN_FMT.formatToParts(now);
+    const val = (t: string) => Number(parts.find((p) => p.type === t)?.value ?? "0");
+    let h = val("hour");
+    if (h === 24) h = 0; // some engines report 24 at midnight
+    cachedMinuteSeconds = h * 3600 + val("minute") * 60;
+    cachedMinuteIndex = minuteIndex;
+  }
+  const secFrac = (now % 60000) / 1000; // seconds + ms within the minute (tz-invariant)
+  return cachedMinuteSeconds + secFrac;
+}
+
 function eventRing(
   key: string,
   label: string,
@@ -95,7 +127,7 @@ function driftRing(
 
 export function readModel(data: PopulationModelData, now: number = Date.now()): MiniModelReading {
   const elapsedSeconds = Math.max(0, (now - baseReferenceTime(data)) / 1000);
-  const secondsSinceMidnight = Math.max(0, (now - localMidnight(now)) / 1000);
+  const secondsSinceMidnight = secondsSinceEasternMidnight(now); // EDT day open
   const c = data.components;
 
   const rings: RingReading[] = [
