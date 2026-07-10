@@ -1,0 +1,79 @@
+name: Rebase pop clock calibration
+
+# Refreshes public/pop-clock/calibration.json — the snapshot the Ooo! Pop Clock
+# Mini re-bases to so it stays within a minimal margin of StatCan's official
+# clock. See scripts/rebase-pop-clock.mjs.
+#
+# Two ways to run:
+#   * Manually (the "button"): Actions tab → this workflow → "Run workflow",
+#     enter the official population (and optionally "change since midnight" to
+#     pin the rate). Reliable and needs no configuration.
+#   * On a schedule (--auto): tries to fetch the official figure server-side.
+#     Until a confirmed source is set in the repo variable STATCAN_CLOCK_URL,
+#     --auto safely SKIPS (writes nothing) rather than guessing — so the daily
+#     run is a harmless no-op until you wire up a source.
+#
+# The script's sanity alarm refuses to write (and fails the run) if a new
+# reading implies more than 2,500 persons/day of change versus the last snapshot
+# — override via the repo variable POP_CLOCK_MAX_DAILY_CHANGE.
+
+on:
+  schedule:
+    - cron: '0 12 * * *' # daily at 12:00 UTC (08:00 ET)
+  workflow_dispatch:
+    inputs:
+      population:
+        description: 'Official population, e.g. 41554157 (leave blank to try --auto)'
+        required: false
+      changeSinceMidnight:
+        description: 'Optional: official "change since midnight" to derive the rate'
+        required: false
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: pop-clock-rebase
+  cancel-in-progress: false
+
+jobs:
+  rebase:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Refresh calibration snapshot
+        env:
+          STATCAN_CLOCK_URL: ${{ vars.STATCAN_CLOCK_URL }}
+          MAX_DAILY_CHANGE: ${{ vars.POP_CLOCK_MAX_DAILY_CHANGE }}
+        run: |
+          if [ -n "${{ github.event.inputs.population }}" ]; then
+            node scripts/rebase-pop-clock.mjs "${{ github.event.inputs.population }}" ${{ github.event.inputs.changeSinceMidnight }}
+          else
+            node scripts/rebase-pop-clock.mjs --auto
+          fi
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- public/pop-clock/calibration.json; then
+            echo "No change to calibration.json — nothing to deploy."
+            exit 0
+          fi
+          git config user.name "ooos-bot"
+          git config user.email "bot@ooos.ca"
+          git add public/pop-clock/calibration.json
+          git commit -m "Rebase pop clock calibration snapshot"
+          git push origin HEAD:main
+          echo "deploy=1" >> "$GITHUB_ENV"
+
+      # A push by GITHUB_TOKEN does not trigger deploy.yml's push event, so
+      # dispatch it explicitly to publish the refreshed snapshot to ooos.ca.
+      - name: Trigger Pages deploy
+        if: env.deploy == '1'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run deploy.yml --ref main

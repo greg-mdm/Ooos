@@ -132,6 +132,15 @@ export const CONFIG = {
   calibrationUrl: "pop-clock/calibration.json",
   /** Snapshots older than this are ignored (the extrapolation hop grew too long). */
   calibrationMaxAgeMs: 21 * 24 * 60 * 60 * 1000,
+  /**
+   * Sanity alarm: the largest plausible |daily change| for Canada. Canada's real
+   * current rate is ~1,237/day (~452k/yr — from StatCan's own clock), so this
+   * sits well above it with headroom. If the derived rate implies more than this
+   * per day, it is treated as a malfunction: the widget warns and falls back to a
+   * trustworthy rate instead of ticking a runaway number. (A literal 1,000/day
+   * would false-alarm on real data, which is why the ceiling is higher.)
+   */
+  maxAbsDailyChange: 2500,
   cacheKey: "ooos-population-mini-model-v3",
   /** Quarterly data — refetch at most daily. */
   cacheTtlMs: 24 * 60 * 60 * 1000,
@@ -140,7 +149,8 @@ export const CONFIG = {
   requestTimeoutMs: 15000,
 };
 
-const SECONDS_PER_YEAR = 365.25 * 24 * 60 * 60;
+const DAYS_PER_YEAR = 365.25;
+const SECONDS_PER_YEAR = DAYS_PER_YEAR * 24 * 60 * 60;
 
 // English member names to look up in each cube's metadata (case-insensitive).
 const MEMBER_NAMES = {
@@ -523,6 +533,29 @@ async function fetchFromWds(): Promise<PopulationModelData> {
       comp.netNonPermanentResidents =
         effectiveAnnualNetChange - (comp.births - comp.deaths + comp.immigrants - comp.emigrants);
     }
+  }
+
+  // ---- sanity alarm: reject an implausibly large daily change. --------------
+  //      More than maxAbsDailyChange persons/day means something is wrong
+  //      (a bad vintage, a fat-fingered snapshot); fall back to a trustworthy
+  //      rate — the guarded year-over-year figure, else the StatCan reference —
+  //      rather than tick a runaway number. Rare backstop; normally a no-op.
+  if (Math.abs(effectiveAnnualNetChange) / DAYS_PER_YEAR > CONFIG.maxAbsDailyChange) {
+    const refNet =
+      REFERENCE_COMPONENTS.births - REFERENCE_COMPONENTS.deaths + REFERENCE_COMPONENTS.immigrants -
+      REFERENCE_COMPONENTS.emigrants + REFERENCE_COMPONENTS.netNonPermanentResidents;
+    const fallback =
+      Math.abs(annualNetChange) / DAYS_PER_YEAR <= CONFIG.maxAbsDailyChange ? annualNetChange : refNet;
+    if (typeof console !== "undefined") {
+      console.warn(
+        `[pop-clock] implied change ${Math.round(Math.abs(effectiveAnnualNetChange) / DAYS_PER_YEAR)}/day ` +
+          `exceeds the ${CONFIG.maxAbsDailyChange}/day alarm — falling back to ${Math.round(fallback)}/yr.`,
+      );
+    }
+    effectiveAnnualNetChange = fallback;
+    rateBasis = fallback === refNet ? "components-reference" : "population-yoy";
+    comp.netNonPermanentResidents =
+      fallback - (comp.births - comp.deaths + comp.immigrants - comp.emigrants);
   }
 
   return {

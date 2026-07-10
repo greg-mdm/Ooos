@@ -97,10 +97,30 @@ population series is too short for a year-over-year figure.
    not future-dated), the widget re-bases to it and extrapolates only the short
    hop since `capturedAt`, so error stays within a minimal margin regardless of
    rate wobble (a 12-hour hop cuts a given rate error ~200× versus the ~100-day
-   hop from the quarterly base). Malformed/disabled/stale → it silently falls
-   back to the year-over-year calculation. Refresh the snapshot periodically (by
-   hand, or from a scheduled job) to keep the anchor current. Same-origin, so no
-   CORS and no direct call to statcan.gc.ca.
+   hop from the quarterly base). `ratePerSecond` optionally pins the *speed* too:
+   set it to StatCan's own rate (derived from their "change since midnight" over
+   the seconds since Eastern midnight) and our clock ticks in lockstep with
+   theirs. Malformed/disabled/stale → it silently falls back to the
+   year-over-year calculation. Same-origin, so no CORS and no direct call to
+   statcan.gc.ca.
+
+3. **Daily-change alarm (always on).** `CONFIG.maxAbsDailyChange` (2,500/day) is a
+   ceiling on the plausible national change. Canada's real current rate is
+   ~1,237/day (~452k/yr), so this sits well above it with headroom (a literal
+   1,000/day would false-alarm). If the derived rate ever implies more than the
+   ceiling, the widget `console.warn`s and falls back to the guarded year-over-year
+   rate (else the StatCan reference) instead of ticking a runaway number.
+
+**Refreshing the anchor (the "rebase button"):**
+
+- One command: `npm run pop-clock:rebase -- <population> [changeSinceMidnight]`
+  (read both off StatCan's clock; the second arg pins the rate). Writes
+  `calibration.json`; refuses to write if the reading implies > 2,500/day versus
+  the previous snapshot (`scripts/rebase-pop-clock.mjs`, `--max=<n>` to tune).
+- On GitHub: **Actions → "Rebase pop clock calibration" → Run workflow** (enter
+  the figure), or the daily schedule. The schedule uses `--auto`, which safely
+  skips until a confirmed source is set in the repo variable `STATCAN_CLOCK_URL`.
+  See `.github/workflows/pop-clock-rebase.yml`.
 
 **Component (ring) resolution:** births, deaths, immigrants and emigrants are
 taken live from the component tables when their members resolve from cube
