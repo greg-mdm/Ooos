@@ -424,10 +424,13 @@ export function PopulationSourcesStrip({ state }: { state: PopulationModelState 
           <div>
             <dt>Rate basis</dt>
             <dd>
-              births − deaths + immigrants − emigrants + NPR,{" "}
+              {state.data.rateBasis === "population-yoy"
+                ? "Year-over-year change in the quarterly Canada estimate"
+                : "births − deaths + immigrants − emigrants + NPR"}
+              {" · rings "}
               {state.data.componentsLive
-                ? "latest four quarters"
-                : "StatCan reference rates (2025–2026)"}
+                ? "from the latest four quarters"
+                : "from StatCan reference rates (2025–2026)"}
               {" · "}
               {state.data.sourceTables.join(", ")}. May differ from StatCan&rsquo;s population
               clock, which projects from its own model baseline.

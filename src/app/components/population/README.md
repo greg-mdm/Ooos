@@ -51,12 +51,16 @@ WDS endpoints used (see https://www.statcan.gc.ca/en/developers/wds):
 ## The model (and how it differs from the official clock)
 
 ```
-annual_net_change   = births − deaths + immigrants − emigrants
-                      + net_non_permanent_residents            (latest 4 quarters)
+# headline rate — the change in the population SERIES itself (self-consistent
+# with the base, so the projection tracks the official clock instead of drifting):
+annual_net_change   = base_population − population_one_year_earlier   (table 17-10-0009-01)
 net_change_per_sec  = annual_net_change / seconds_in_year
 population(now)     = base_population + seconds_since_base_reference × net_change_per_sec
 
-# each ring is its own stream, from the same rates:
+# each ring is its own stream. births/deaths/immigrants/emigrants use the live
+# component rates; the NPR / net-migration drift ring carries the residual so
+# the five streams still sum exactly to annual_net_change:
+npr_rate                = annual_net_change − (births − deaths + immigrants − emigrants)
 event_interval(stream)  = seconds_in_year / stream_rate         # births/deaths/immigrants
 events_since_midnight   = floor(seconds_since_midnight / event_interval)
 drift_since_midnight    = round(seconds_since_midnight × stream_rate / seconds_in_year)  # emigrants/NPR
@@ -69,14 +73,23 @@ against demographic estimates. This widget is a linear simplification and says
 so — the sources strip notes it "may differ from StatCan's population clock,
 which projects from its own model baseline."
 
-**Component resolution:** each of the five streams (births, deaths,
-immigrants, emigrants, net non-permanent residents) is taken live from the
-component tables when its member resolves from cube metadata, otherwise from
-`REFERENCE_COMPONENTS` (StatCan-grounded 2025–2026 annual rates). Because both
-the rings and the net come from the same rates, the rings always sum to the
-headline. Interprovincial migration is omitted (it nets to ~0 nationally). If
-the base population estimate itself can't be fetched and no cache < 7 days old
-exists, the card shows *"Latest Statistics Canada data could not be loaded."*
+**Rate basis:** the headline rate is the year-over-year change in the same
+quarterly Canada estimate the base comes from (`CONFIG.rateWindow: "year"`, or
+`"quarter"` for the latest quarter annualised). This is authoritative because it
+captures every component exactly as StatCan published the totals — a raw
+component sum can drift from the official clock when a component vintage lags or
+the dropped terms (returning emigrants, net temporary emigration, residual
+deviation) matter. The raw component sum is used only as a fallback when the
+population series is too short for a year-over-year figure.
+
+**Component (ring) resolution:** births, deaths, immigrants and emigrants are
+taken live from the component tables when their members resolve from cube
+metadata, otherwise from `REFERENCE_COMPONENTS` (StatCan-grounded 2025–2026
+annual rates). The NPR / net-migration drift ring carries the reconciling
+residual, so the five rings always sum to the headline. Interprovincial
+migration is omitted (it nets to ~0 nationally). If the base population estimate
+itself can't be fetched and no cache < 7 days old exists, the card shows
+*"Latest Statistics Canada data could not be loaded."*
 
 Data reloads on page load; successful fetches are cached in `localStorage`
 for 24 h (`CONFIG.cacheTtlMs`) since the tables are quarterly.

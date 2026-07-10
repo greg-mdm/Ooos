@@ -3,16 +3,22 @@
 //
 // WDS docs: https://www.statcan.gc.ca/en/developers/wds
 //
-// Strategy (in order of preference):
-//   1. "components" rate — sum the latest 4 quarters of births/deaths
-//      (table 17-10-0059-01) and international-migration components
-//      (table 17-10-0040-01) to derive an annual net change.
-//   2. "year-over-year" rate — the latest Canada population estimate minus the
-//      estimate 4 quarters earlier (table 17-10-0009-01). Self-consistent by
-//      definition (captures every component; interprovincial migration nets to
-//      ~0 nationally, so table 17-10-0045-01 never enters the national total).
-//   3. If nothing can be fetched (and no fresh-enough cache exists) the caller
-//      gets a thrown error and must show the error state — never fake data.
+// Strategy:
+//   * Headline rate — the change in the Canada population series itself
+//     (table 17-10-0009-01): latest estimate minus the estimate a year earlier
+//     (or the latest quarter annualised; see CONFIG.rateWindow). Self-consistent
+//     by definition — it captures every component exactly as StatCan published
+//     the totals (interprovincial migration nets to ~0 nationally, so table
+//     17-10-0045-01 never enters the national figure), so the projection tracks
+//     the official clock instead of drifting the way a raw component sum does.
+//   * Ring visuals — the latest 4 quarters of births/deaths (table 17-10-0059-01)
+//     and immigrants/emigrants (table 17-10-0040-01) give the differentiated
+//     tick rates; the NPR / net-migration drift stream carries the residual so
+//     the rings always reconcile to the headline.
+//   * If the population series is too short to derive a rate, fall back to the
+//     raw component sum; if nothing can be fetched (and no fresh-enough cache
+//     exists) the caller gets a thrown error and must show the error state —
+//     never fake data.
 //
 // Cube coordinates are DISCOVERED at runtime from getCubeMetadata by matching
 // English member names, so nothing here hard-codes vector IDs. Once exact
@@ -24,19 +30,25 @@ export interface PopulationModelData {
   basePopulation: number;
   /** Reference date of the base estimate, e.g. "2026-04-01". */
   baseReferenceDate: string;
-  /** Derived net change over one year (persons). */
+  /** Derived net change over one year (persons) — drives the headline projection. */
   annualNetChange: number;
   /** annualNetChange / seconds in a year. */
   netChangePerSecond: number;
-  /** How the displayed net rate was derived (all five component streams). */
-  rateBasis: "components-live" | "components-reference";
-  /** Annual component rates (persons/yr) that drive the differentiated rings
-   *  AND the net: births − deaths + immigrants − emigrants + NPR. So the rings
-   *  always sum to the headline change (same rates). Live per field from the
-   *  component tables when their members resolve, otherwise the StatCan
-   *  reference rates below. (Interprovincial migration is omitted — it nets to
-   *  ~0 nationally; returning-emigrant / net-temporary-emigration adjustments
-   *  are folded into the modelled emigration reference.) */
+  /** How the headline net rate was derived. "population-yoy" = the change in the
+   *  same quarterly population series the base comes from (self-consistent — it
+   *  captures every component, so the projection tracks the official clock rather
+   *  than drifting). "components-*" = the raw component sum, used only when the
+   *  population series is too short for a year-over-year figure. */
+  rateBasis: "population-yoy" | "components-live" | "components-reference";
+  /** Annual component rates (persons/yr) that drive the differentiated rings.
+   *  births − deaths + immigrants − emigrants + NPR always sums to
+   *  `annualNetChange`, so the rings reconcile to the headline. births / deaths /
+   *  immigrants / emigrants are live per field from the component tables when
+   *  their members resolve (else the StatCan reference rates below); the NPR /
+   *  net-migration drift stream carries the reconciling residual — the terms a
+   *  raw component sum drops (returning emigrants, net temporary emigration,
+   *  residual deviation) plus net non-permanent residents. (Interprovincial
+   *  migration is omitted — it nets to ~0 nationally.) */
   components: {
     births: number;
     deaths: number;
@@ -94,7 +106,17 @@ export const CONFIG = {
     netTemporaryEmigration: null as number | null,
     netNonPermanentResidents: null as number | null,
   },
-  cacheKey: "ooos-population-mini-model-v2",
+  /**
+   * How the headline annual rate is derived from the quarterly population series:
+   *   "year"    — trailing four-quarter change (seasonally complete, low noise).
+   *   "quarter" — most recent quarter-over-quarter change × 4 (tracks current
+   *               momentum more sharply, e.g. the 2025–26 temporary-resident
+   *               drawdown, but is seasonally noisier).
+   * "year" is the robust default. Flip to "quarter" if the widget still reads
+   * high versus StatCan's clock (their clock leans on recent-period momentum).
+   */
+  rateWindow: "year" as "year" | "quarter",
+  cacheKey: "ooos-population-mini-model-v3",
   /** Quarterly data — refetch at most daily. */
   cacheTtlMs: 24 * 60 * 60 * 1000,
   /** A stale cache older than this is not shown; error state instead. */
@@ -333,15 +355,28 @@ async function fetchFromWds(): Promise<PopulationModelData> {
   const basePopulation = latest.value as number;
   const baseReferenceDate = latest.refPer;
 
-  // ---- rate: year-over-year (always computable from the same series) --------
-  let yoyChange: number | null = null;
-  if (popPoints.length >= 5) {
+  // ---- headline rate: the change in the SAME population series the base comes
+  //      from. Self-consistent by construction — it captures every component
+  //      (natural increase, all migration, residual deviation) exactly as
+  //      StatCan published them, so the projection tracks the official clock
+  //      instead of accumulating the error a raw component sum introduces. -------
+  //   "year"    → trailing four quarters (popPoints[-1] − popPoints[-5])
+  //   "quarter" → most recent quarter, annualised ((popPoints[-1] − popPoints[-2]) × 4)
+  let seriesNetChange: number | null = null;
+  if (CONFIG.rateWindow === "quarter" && popPoints.length >= 2) {
+    const prior = popPoints[popPoints.length - 2];
+    seriesNetChange = (basePopulation - (prior.value as number)) * 4;
+  } else if (popPoints.length >= 5) {
     const prior = popPoints[popPoints.length - 5]; // 4 quarters earlier
-    yoyChange = basePopulation - (prior.value as number);
+    seriesNetChange = basePopulation - (prior.value as number);
+  } else if (popPoints.length >= 2) {
+    // series too short for a full year — annualise the latest quarter instead.
+    const prior = popPoints[popPoints.length - 2];
+    seriesNetChange = (basePopulation - (prior.value as number)) * 4;
   }
 
   // ---- component sums (full pass — no short-circuit, so each stream resolves
-  //      independently) ---------------------------------------------------------
+  //      independently) — these drive the ring VISUALS. ------------------------
   const sums: Partial<Record<(typeof componentKeys)[number], number>> = {};
   for (const k of componentKeys) {
     const s = components[k];
@@ -350,21 +385,37 @@ async function fetchFromWds(): Promise<PopulationModelData> {
     if (total != null) sums[k] = total;
   }
 
-  // ---- the five ring streams: live per field, else the StatCan reference.
-  //      These drive BOTH the rings and the net, so they stay consistent. -------
-  const ringKeys = ["births", "deaths", "immigrants", "emigrants", "netNonPermanentResidents"] as const;
-  const componentsLive = ringKeys.every((k) => sums[k] != null);
+  // Live per field where the members resolve, else the StatCan reference rate.
+  const eventKeys = ["births", "deaths", "immigrants", "emigrants"] as const;
+  const componentsLive = eventKeys.every((k) => sums[k] != null);
   const comp = {
     births: sums.births ?? REFERENCE_COMPONENTS.births,
     deaths: sums.deaths ?? REFERENCE_COMPONENTS.deaths,
     immigrants: sums.immigrants ?? REFERENCE_COMPONENTS.immigrants,
     emigrants: sums.emigrants ?? REFERENCE_COMPONENTS.emigrants,
-    netNonPermanentResidents: sums.netNonPermanentResidents ?? REFERENCE_COMPONENTS.netNonPermanentResidents,
+    netNonPermanentResidents:
+      sums.netNonPermanentResidents ?? REFERENCE_COMPONENTS.netNonPermanentResidents,
   };
 
-  // Net = births − deaths + immigrants − emigrants + NPR. The rings sum to this.
-  const annualNetChange =
-    comp.births - comp.deaths + comp.immigrants - comp.emigrants + comp.netNonPermanentResidents;
+  // Pick the authoritative annual net + reconcile the rings to it.
+  let annualNetChange: number;
+  let rateBasis: PopulationModelData["rateBasis"];
+  if (seriesNetChange != null) {
+    // The population series is authoritative. Keep births/deaths/immigrants/
+    // emigrants as the live (or reference) tick rates, and let the NPR /
+    // net-migration drift ring carry the residual so the five streams sum
+    // exactly to the published change (folding in returning emigrants, net
+    // temporary emigration and residual deviation — the terms a raw sum drops).
+    annualNetChange = seriesNetChange;
+    rateBasis = "population-yoy";
+    comp.netNonPermanentResidents =
+      seriesNetChange - (comp.births - comp.deaths + comp.immigrants - comp.emigrants);
+  } else {
+    // Fallback: no usable population series — sum the components directly.
+    annualNetChange =
+      comp.births - comp.deaths + comp.immigrants - comp.emigrants + comp.netNonPermanentResidents;
+    rateBasis = componentsLive ? "components-live" : "components-reference";
+  }
 
   const sourceTables = componentsLive
     ? [
@@ -379,7 +430,7 @@ async function fetchFromWds(): Promise<PopulationModelData> {
     baseReferenceDate,
     annualNetChange,
     netChangePerSecond: annualNetChange / SECONDS_PER_YEAR,
-    rateBasis: componentsLive ? "components-live" : "components-reference",
+    rateBasis,
     components: comp,
     componentsLive,
     sourceTables,

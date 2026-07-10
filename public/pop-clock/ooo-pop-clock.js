@@ -43,7 +43,7 @@
       emigrants: null, returningEmigrants: null,
       netTemporaryEmigration: null, netNonPermanentResidents: null
     },
-    cacheKey: "ooo-pop-clock-v1",
+    cacheKey: "ooo-pop-clock-v2",
     cacheTtlMs: 24 * 60 * 60 * 1000,      // refetch at most daily (quarterly data)
     cacheMaxAgeMs: 7 * 24 * 60 * 60 * 1000, // refuse stale cache older than this
     requestTimeoutMs: 15000,
@@ -187,10 +187,14 @@
       if (!popPts.length) throw new Error("No population estimate values returned");
       var latest = popPts[popPts.length - 1];
 
-      // tier 2 rate: year-over-year change in the estimate itself
+      // primary rate: change in the population series itself. Self-consistent
+      // with the base — it captures every component exactly as StatCan published
+      // the totals, so the projection tracks the official clock instead of
+      // drifting the way a raw component sum can when a vintage is off.
       var yoy = popPts.length >= 5 ? latest.value - popPts[popPts.length - 5].value : null;
 
-      // tier 1 rate: sum of components over the latest four quarters
+      // fallback rate: sum of components over the latest four quarters, used only
+      // when the population series is too short for a year-over-year figure.
       var sums = {}, haveAll = COMPONENT_KEYS.every(function (k) {
         var s = byKey[k]; if (!s) return false;
         var total = sumLatest(s, 4); if (total == null) return false;
@@ -201,12 +205,9 @@
           sums.returningEmigrants - sums.netTemporaryEmigration + sums.netNonPermanentResidents
         : null;
 
-      // prefer components, sanity-checked against year-over-year
-      var sane = componentChange != null && (yoy == null ||
-        Math.abs(componentChange - yoy) <= Math.max(Math.abs(yoy) * 0.5, 100000));
       var annualNetChange, rateBasis;
-      if (componentChange != null && sane) { annualNetChange = componentChange; rateBasis = "components"; }
-      else if (yoy != null) { annualNetChange = yoy; rateBasis = "year-over-year"; }
+      if (yoy != null) { annualNetChange = yoy; rateBasis = "year-over-year"; }
+      else if (componentChange != null) { annualNetChange = componentChange; rateBasis = "components"; }
       else throw new Error("Could not derive an annual net change from StatCan data");
 
       return {
