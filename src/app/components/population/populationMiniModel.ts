@@ -118,11 +118,6 @@ export function readModel(data: PopulationModelData, now: number = Date.now()): 
   };
 }
 
-/** 41449728 -> "41 449 728" (thin spaces between groups, clock-style). */
-export function formatSpaced(n: number): string {
-  return formatPersons(n).replace(/,/g, " ");
-}
-
 /** 41417056 -> "41,417,056" (en-CA grouping). */
 export function formatPersons(n: number): string {
   return new Intl.NumberFormat("en-CA", { maximumFractionDigits: 0 }).format(n);

@@ -22,7 +22,6 @@ import {
   formatMagnitude,
   formatPersons,
   formatReferenceDate,
-  formatSpaced,
   localMidnight,
   readModel,
   type MiniModelReading,
@@ -81,6 +80,9 @@ const LID_IMAGE: string | null = "pop-clock/ooo-popclock-lid.png";
 // open "screen" area up top for the live readout (headline + rings). Set to
 // null to fall back to the lid-bar + plain body layout.
 const WINDOW_IMAGE: string | null = "pop-clock/popclock_window.png";
+
+// Ruby-red round play/next icon for the slide-1 "Look at our live model" CTA.
+const PLAY_ICON = "pop-clock/ruby-red-play.png";
 
 /** The lid: a branded image when supplied, otherwise the text lockup
  *  (Humans of Canada · electric Ooo! wordmark + Pop Clock Mini · subtitle). */
@@ -251,12 +253,9 @@ function Headline({ r }: { r: MiniModelReading }) {
     <div className="pmm-headline">
       <span className="pmm-big" aria-label={`Estimated population ${formatPersons(r.currentPopulation)}`}>
         {groups.map((g, i) => (
-          <span
-            key={i}
-            className={`pmm-big-g${i === groups.length - 1 ? " pmm-big-g--live" : ""}`}
-          >
-            {g}
-            {i < groups.length - 1 && <span className="pmm-big-sp"> </span>}
+          <span key={i} className="pmm-big-grp">
+            {i > 0 && <span className="pmm-big-sep">,</span>}
+            <span className={`pmm-big-g${i === groups.length - 1 ? " pmm-big-g--live" : ""}`}>{g}</span>
           </span>
         ))}
       </span>
@@ -306,20 +305,28 @@ export function PopClockCard({
         </p>
       )}
 
-      {/* Slide 1 — compact: the live estimate + a highly-visible advance arrow. */}
+      {/* Slide 1 — compact: relevant info first (the estimate), then the CTA. */}
       {!detailed && r && (
-        <>
-          <p className="pmm-estline">
-            <span className="pmm-estlabel">Estimated Population:</span>{" "}
-            <span className="pmm-estnum">{formatSpaced(r.currentPopulation)}</span>
-          </p>
-          {onAdvance && (
-            <button type="button" className="pmm-advance" onClick={onAdvance}>
-              <span>See the live model</span>
-              <span className="pmm-advance-arrow" aria-hidden="true">›</span>
-            </button>
-          )}
-        </>
+        <div className="pmm-mini">
+          <div className="pmm-mini-row">
+            <span className="pmm-hoc">Humans of Canada</span>
+            {onAdvance && (
+              <button type="button" className="pmm-cta" onClick={onAdvance}>
+                <span className="pmm-cta-text">Look at our live model</span>
+                <img
+                  className="pmm-cta-play"
+                  src={`${import.meta.env.BASE_URL}${PLAY_ICON}`}
+                  alt=""
+                  aria-hidden="true"
+                />
+              </button>
+            )}
+          </div>
+          <div className="pmm-mini-row pmm-mini-row--est">
+            <span className="pmm-estnum">{formatPersons(r.currentPopulation)}</span>
+            <span className="pmm-estcap">(Population estimate)</span>
+          </div>
+        </div>
       )}
 
       {/* Slide 2 — the full differentiated ring embed. On the window face the
@@ -346,14 +353,22 @@ export function PopClockCard({
             </>
           )}
           <p className="pmm-ringfoot">
-            Solid rings fill toward the next event and reset. Dashed rings are net quantities —
-            no single &ldquo;events,&rdquo; shown as daily drift. Interprovincial migration
-            omitted (net zero nationally).
+            Each solid ring is a live counter: it fills as the next birth, death or arrival
+            approaches, then ticks the count up and resets. The dashed rings are net totals —
+            emigration and non-permanent residents are modelled as net flows, not single events,
+            so they drift with the running net since midnight.
+          </p>
+          <p className="pmm-about">
+            Tracks Canada&rsquo;s population between StatCan&rsquo;s quarterly estimates, modelled
+            from the latest four quarters of demographic components. Experimental — not the
+            official StatCan clock, and not endorsed by Statistics Canada.
           </p>
           <a className="pmm-link" href={OFFICIAL_CLOCK_URL} target="_blank" rel="noopener noreferrer">
             Check Canada&rsquo;s official real-time population clock @ statcan.gc.ca
           </a>
           <p className="pmm-srcline">{SOURCE_LINE}</p>
+          {/* The methodology adjustment belongs at the end, not leading. */}
+          <p className="pmm-adjust">Interprovincial migration omitted (net zero nationally).</p>
         </>
       )}
     </aside>
