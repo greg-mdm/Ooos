@@ -133,14 +133,17 @@ export const CONFIG = {
   /** Snapshots older than this are ignored (the extrapolation hop grew too long). */
   calibrationMaxAgeMs: 21 * 24 * 60 * 60 * 1000,
   /**
-   * Sanity alarm: the largest plausible |daily change| for Canada. Canada's real
-   * current rate is ~1,237/day (~452k/yr — from StatCan's own clock), so this
-   * sits well above it with headroom. If the derived rate implies more than this
-   * per day, it is treated as a malfunction: the widget warns and falls back to a
-   * trustworthy rate instead of ticking a runaway number. (A literal 1,000/day
-   * would false-alarm on real data, which is why the ceiling is higher.)
+   * Sanity alarm: the largest plausible COMBINED net change for a single day —
+   * all five streams summed into one figure (births − deaths + immigrants −
+   * emigrants + NPR). Canada's real current combined total is ~1,237/day
+   * (~452k/yr, from StatCan's own clock); this ceiling sits above it but tighter
+   * than before — splitting the difference (a literal 1,000/day would false-alarm
+   * on real data). If the derived rate implies more than this per day it is
+   * treated as a malfunction: the widget warns and falls back to a trustworthy
+   * rate instead of ticking a runaway number. (Raise it if national growth
+   * re-accelerates — Canada added ~3,500/day at the 2023 immigration peak.)
    */
-  maxAbsDailyChange: 2500,
+  maxAbsDailyChange: 1750,
   cacheKey: "ooos-population-mini-model-v3",
   /** Quarterly data — refetch at most daily. */
   cacheTtlMs: 24 * 60 * 60 * 1000,

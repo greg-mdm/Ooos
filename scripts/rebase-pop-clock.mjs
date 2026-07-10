@@ -37,9 +37,11 @@ const OUT_PATH = resolve(__dirname, '../public/pop-clock/calibration.json');
 const SEC_PER_YEAR = 365.25 * 24 * 60 * 60;
 const SOURCE = "Statistics Canada, Canada's population clock (real-time model)";
 
-// Canada's real current rate is ~1,237/day (~452k/yr). This ceiling sits well
-// above it; anything larger between two readings signals a malfunction.
-const MAX_DAILY_CHANGE = Number(process.env.MAX_DAILY_CHANGE) || 2500;
+// Ceiling on the combined net change for one day (all streams as one figure).
+// Canada's real current combined total is ~1,237/day (~452k/yr); this sits above
+// it but tighter than before — anything larger between two readings signals a
+// malfunction. Raise it if national growth re-accelerates (~3,500/day at peak).
+const MAX_DAILY_CHANGE = Number(process.env.MAX_DAILY_CHANGE) || 1750;
 // Plausible band for a national total — a scrape outside this is rejected.
 const MIN_POP = 40_000_000;
 const MAX_POP = 46_000_000;

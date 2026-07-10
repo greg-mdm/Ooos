@@ -104,18 +104,21 @@ population series is too short for a year-over-year figure.
    year-over-year calculation. Same-origin, so no CORS and no direct call to
    statcan.gc.ca.
 
-3. **Daily-change alarm (always on).** `CONFIG.maxAbsDailyChange` (2,500/day) is a
-   ceiling on the plausible national change. Canada's real current rate is
-   ~1,237/day (~452k/yr), so this sits well above it with headroom (a literal
-   1,000/day would false-alarm). If the derived rate ever implies more than the
-   ceiling, the widget `console.warn`s and falls back to the guarded year-over-year
-   rate (else the StatCan reference) instead of ticking a runaway number.
+3. **Daily-change alarm (always on).** `CONFIG.maxAbsDailyChange` (1,750/day) is a
+   ceiling on the combined net change for one day — all five streams summed into a
+   single figure. Canada's real current combined total is ~1,237/day (~452k/yr),
+   so this sits above it but tighter than a permissive ceiling would (a literal
+   1,000/day would false-alarm) — splitting the difference. If the derived rate
+   ever implies more than the ceiling, the widget `console.warn`s and falls back
+   to the guarded year-over-year rate (else the StatCan reference) instead of
+   ticking a runaway number. Raise it if national growth re-accelerates (Canada
+   added ~3,500/day at the 2023 immigration peak).
 
 **Refreshing the anchor (the "rebase button"):**
 
 - One command: `npm run pop-clock:rebase -- <population> [changeSinceMidnight]`
   (read both off StatCan's clock; the second arg pins the rate). Writes
-  `calibration.json`; refuses to write if the reading implies > 2,500/day versus
+  `calibration.json`; refuses to write if the reading implies > 1,750/day versus
   the previous snapshot (`scripts/rebase-pop-clock.mjs`, `--max=<n>` to tune).
 - On GitHub: **Actions → "Rebase pop clock calibration" → Run workflow** (enter
   the figure), or the daily schedule. The schedule uses `--auto`, which safely
