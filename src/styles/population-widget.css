@@ -228,7 +228,8 @@
   gap: 12px 18px;
   flex-wrap: wrap;
 }
-.pmm-mini-row--est { align-items: baseline; }
+/* keep the caption right beside the figure, not pushed to the far edge */
+.pmm-mini-row--est { align-items: baseline; justify-content: flex-start; gap: 6px 12px; }
 .pmm-hoc {
   display: inline-block;
   padding: 5px 14px;
