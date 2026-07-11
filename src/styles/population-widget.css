@@ -333,6 +333,18 @@
 .pmm-card--wide .pmm-cta-play { width: clamp(23px, 2.3vw, 40px); height: clamp(23px, 2.3vw, 40px); }
 .pmm-card--wide .pmm-estnum { font-size: clamp(24px, 2.5vw, 46px); }
 .pmm-card--wide .pmm-estcap { font-size: clamp(11px, 1vw, 17px); }
+/* Mobile: the wide card is full-width and the vw clamps collapse to their mins,
+   so the chip + CTA row (forced nowrap above) overflowed and the card's rounded
+   overflow:hidden clipped the play button. Let the CTA wrap below the chip and
+   pin comfortable fixed sizes so nothing leaves the frame. */
+@media (max-width: 700px) {
+  .pmm-card--wide .pmm-mini-row:not(.pmm-mini-row--est) { flex-wrap: wrap; row-gap: 8px; }
+  .pmm-card--wide .pmm-hoc { font-size: 13px; padding: 5px 14px; }
+  .pmm-card--wide .pmm-cta { font-size: 15px; gap: 8px; }
+  .pmm-card--wide .pmm-cta-play { width: 30px; height: 30px; }
+  .pmm-card--wide .pmm-estnum { font-size: 30px; }
+  .pmm-card--wide .pmm-estcap { font-size: 12px; }
+}
 .pmm-card--wide .pmm-about { font-size: clamp(9px, 0.74vw, 12px); line-height: 1.4; margin-bottom: clamp(4px, 0.45vw, 8px); }
 .pmm-card--wide .pmm-link { font-size: clamp(9.5px, 0.76vw, 12.5px); }
 .pmm-card--wide .pmm-srcline { font-size: clamp(8px, 0.64vw, 10.5px); }
