@@ -144,6 +144,19 @@ export const CONFIG = {
    * re-accelerates — Canada added ~3,500/day at the 2023 immigration peak.)
    */
   maxAbsDailyChange: 1750,
+  /**
+   * COMBINED-TOTAL (gross-churn) alarm -- guards the COMPONENT RINGS. This is the
+   * total of all modelled demographic events in a day summed as magnitudes, not
+   * netted: |births| + |deaths| + |immigrants| + |emigrants| + |NPR|. Where the
+   * net alarm catches a runaway headline, this catches a broken single stream
+   * (e.g. a mis-scaled migration vintage) that inflates a ring even while the net
+   * still looks plausible. Canada's real combined churn is ~3,300-4,200/day
+   * (peaked ~5,500/day in 2023); 8,000 clears that with headroom so it only trips
+   * on a genuine malfunction. On a trip the event rings reset to the StatCan
+   * reference rates and re-reconcile. Computed entirely from the official WDS
+   * component tables (17-10-0059 / 17-10-0040) -- no page-scraping anywhere.
+   */
+  maxAbsGrossDailyChange: 8000,
   cacheKey: "ooos-population-mini-model-v3",
   /** Quarterly data — refetch at most daily. */
   cacheTtlMs: 24 * 60 * 60 * 1000,
@@ -559,6 +572,33 @@ async function fetchFromWds(): Promise<PopulationModelData> {
     rateBasis = fallback === refNet ? "components-reference" : "population-yoy";
     comp.netNonPermanentResidents =
       fallback - (comp.births - comp.deaths + comp.immigrants - comp.emigrants);
+  }
+
+  // ---- combined-total (gross-churn) alarm: reject an implausibly large TOTAL of
+  //      daily demographic events. Unlike the net alarm above (which guards the
+  //      signed headline), this sums every stream as a magnitude -- the "combined
+  //      total of changes in a day" -- so it catches a single broken component
+  //      vintage inflating a ring even when the net still looks fine. On a trip
+  //      the event rings reset to the StatCan reference rates and the NPR ring
+  //      re-absorbs the reconciling residual, keeping the (already-guarded)
+  //      headline intact. Built only from official WDS components -- never scrapes.
+  const grossDailyChurn =
+    (Math.abs(comp.births) + Math.abs(comp.deaths) + Math.abs(comp.immigrants) +
+      Math.abs(comp.emigrants) + Math.abs(comp.netNonPermanentResidents)) / DAYS_PER_YEAR;
+  if (grossDailyChurn > CONFIG.maxAbsGrossDailyChange) {
+    if (typeof console !== "undefined") {
+      console.warn(
+        `[pop-clock] combined daily churn ${Math.round(grossDailyChurn)}/day exceeds the ` +
+          `${CONFIG.maxAbsGrossDailyChange}/day alarm -- resetting event rings to StatCan reference rates.`,
+      );
+    }
+    comp.births = REFERENCE_COMPONENTS.births;
+    comp.deaths = REFERENCE_COMPONENTS.deaths;
+    comp.immigrants = REFERENCE_COMPONENTS.immigrants;
+    comp.emigrants = REFERENCE_COMPONENTS.emigrants;
+    comp.netNonPermanentResidents =
+      effectiveAnnualNetChange - (comp.births - comp.deaths + comp.immigrants - comp.emigrants);
+    if (rateBasis !== "official-snapshot") rateBasis = "components-reference";
   }
 
   return {
