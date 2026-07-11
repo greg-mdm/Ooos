@@ -1,30 +1,32 @@
 #!/usr/bin/env node
 /**
- * rebase-pop-clock.mjs — refresh the Ooo! Pop Clock Mini calibration anchor.
+ * rebase-pop-clock.mjs -- refresh the Ooo! Pop Clock Mini calibration anchor.
  *
- * Writes public/pop-clock/calibration.json — a snapshot of Statistics Canada's
+ * Writes public/pop-clock/calibration.json -- a snapshot of Statistics Canada's
  * official population clock. The widget re-bases its projection to that reading,
  * so it only ever extrapolates the short time since capture and stays within a
  * minimal margin of the official clock. See src/app/components/population/README.md.
  *
- * Runtime: Node 20+ (built-in global fetch). No dependencies.
+ * NO SCRAPING BY DESIGN. StatCan's clock ticks client-side and the page isn't
+ * open to programmatic reads, and ooos.ca deliberately promotes StatCan's own
+ * licensed data access rather than scraping. So the official figure is supplied
+ * BY A HUMAN who reads it off the public clock -- this script only validates and
+ * writes it. (The widget's own default rate already comes from the official WDS
+ * REST API; this anchor just pins it to a precise live reading when you have one.)
+ *
+ * Runtime: Node 20+. No dependencies.
  *
  * Usage:
  *   node scripts/rebase-pop-clock.mjs 41554157 817
- *       Manual "button": pin the base population (41554157) and, optionally, the
- *       official "change since midnight" (817) — used to derive StatCan's own
- *       per-second rate so our clock ticks in lockstep with theirs. Read both off
- *       https://www150.statcan.gc.ca/ ... population clock.
- *
- *   node scripts/rebase-pop-clock.mjs --auto
- *       Best-effort: fetch the official figure server-side (used by the scheduled
- *       workflow). If it can't obtain a trustworthy value it SKIPS without writing
- *       — never clobbers a good manual snapshot with a bad scrape.
+ *       Pin the base population (41554157) and, optionally, the official "change
+ *       since midnight" (817) -- used to derive StatCan's own per-second rate so
+ *       our clock ticks in lockstep with theirs. Read both off the public clock:
+ *       https://www150.statcan.gc.ca/n1/pub/71-607-x/71-607-x2018005-eng.htm
  *
  * Sanity alarm: if the new reading implies more than MAX_DAILY_CHANGE persons/day
- * versus the previous snapshot, something is wrong (bad scrape, fat-fingered
- * number). The script refuses to write and exits non-zero so the run is visibly
- * flagged. Tune with --max=<n> or the MAX_DAILY_CHANGE env var.
+ * versus the previous snapshot, something is wrong (a fat-fingered number). The
+ * script refuses to write and exits non-zero so the run is visibly flagged.
+ * Tune with --max=<n> or the MAX_DAILY_CHANGE env var.
  */
 
 import { readFile, writeFile } from 'node:fs/promises';
@@ -37,20 +39,16 @@ const OUT_PATH = resolve(__dirname, '../public/pop-clock/calibration.json');
 const SEC_PER_YEAR = 365.25 * 24 * 60 * 60;
 const SOURCE = "Statistics Canada, Canada's population clock (real-time model)";
 
-// Ceiling on the combined net change for one day (all streams as one figure).
-// Canada's real current combined total is ~1,237/day (~452k/yr); this sits above
-// it but tighter than before — anything larger between two readings signals a
-// malfunction. Raise it if national growth re-accelerates (~3,500/day at peak).
+// Ceiling on the NET change for one day between two snapshots. Canada's real
+// current net is ~1,237/day (~452k/yr); this sits above it but tight -- anything
+// larger between two readings signals a fat-fingered number. Raise it if
+// national growth re-accelerates (~3,500/day net at the 2023 peak).
 const MAX_DAILY_CHANGE = Number(process.env.MAX_DAILY_CHANGE) || 1750;
-// Plausible band for a national total — a scrape outside this is rejected.
+// Plausible band for a national total -- a value outside this is rejected.
 const MIN_POP = 40_000_000;
 const MAX_POP = 46_000_000;
-// Candidate sources for --auto. Override with STATCAN_CLOCK_URL. The population
-// clock renders client-side, so the parse target may need confirming on first
-// run; until then --auto safely skips rather than writing a wrong number.
-const AUTO_URLS = (process.env.STATCAN_CLOCK_URL || '').split(',').map((s) => s.trim()).filter(Boolean);
 
-/** Seconds since Eastern-time (America/Toronto) midnight — StatCan's clock day. */
+/** Seconds since Eastern-time (America/Toronto) midnight -- StatCan's clock day. */
 function secondsSinceEasternMidnight(now = new Date()) {
   const fmt = new Intl.DateTimeFormat('en-US', {
     timeZone: 'America/Toronto', hour12: false,
@@ -70,29 +68,7 @@ async function readPrevious() {
       const t = Date.parse(j.capturedAt);
       if (!Number.isNaN(t)) return { population: j.population, capturedAtMs: t };
     }
-  } catch { /* no previous snapshot — fine */ }
-  return null;
-}
-
-/** Best-effort scrape for --auto. Returns a population integer or null. */
-async function fetchOfficialPopulation() {
-  for (const url of AUTO_URLS) {
-    try {
-      const res = await fetch(url, { headers: { 'User-Agent': 'ooos-pop-clock-rebase' } });
-      if (!res.ok) continue;
-      const text = await res.text();
-      // Accept a JSON {population|value} or the first plausible number in the page.
-      let candidate = null;
-      try {
-        const j = JSON.parse(text);
-        candidate = Number(j.population ?? j.value ?? j.count);
-      } catch {
-        const nums = text.replace(/[, ]/g, '').match(/\b4[0-5]\d{6}\b/g) || [];
-        candidate = nums.map(Number).find((n) => n >= MIN_POP && n <= MAX_POP) ?? null;
-      }
-      if (candidate && candidate >= MIN_POP && candidate <= MAX_POP) return Math.round(candidate);
-    } catch { /* try next source */ }
-  }
+  } catch { /* no previous snapshot -- fine */ }
   return null;
 }
 
@@ -101,7 +77,7 @@ function alarm(prev, population, capturedAtMs) {
   const days = Math.max((capturedAtMs - prev.capturedAtMs) / 86_400_000, 1 / 24); // >= 1 hour
   const perDay = Math.abs(population - prev.population) / days;
   if (perDay > MAX_DAILY_CHANGE) {
-    return `ALARM: implied ${Math.round(perDay)}/day change (${prev.population.toLocaleString()} → ` +
+    return `ALARM: implied ${Math.round(perDay)}/day change (${prev.population.toLocaleString()} -> ` +
       `${population.toLocaleString()} over ${days.toFixed(2)}d) exceeds ${MAX_DAILY_CHANGE}/day. Refusing to rebase.`;
   }
   return null;
@@ -111,32 +87,23 @@ async function main() {
   const args = process.argv.slice(2);
   for (const a of args) { const m = a.match(/^--max=(\d+)$/); if (m) process.env.MAX_DAILY_CHANGE = m[1]; }
   const positional = args.filter((a) => !a.startsWith('--'));
-  const auto = args.includes('--auto');
 
   const now = new Date();
   const capturedAt = now.toISOString().replace(/\.\d{3}Z$/, 'Z');
-  let population;
   let ratePerSecond = null;
 
-  if (auto && positional.length === 0) {
-    population = await fetchOfficialPopulation();
-    if (population == null) {
-      console.warn('[rebase] --auto could not obtain a trustworthy official figure; skipping (snapshot unchanged).');
-      console.warn('[rebase] Set STATCAN_CLOCK_URL to a confirmed source, or run manually: node scripts/rebase-pop-clock.mjs <population> [changeSinceMidnight]');
-      process.exit(0); // skip, don't fail the scheduled run
-    }
-  } else {
-    population = Math.round(Number(positional[0]));
-    if (!Number.isFinite(population) || population < MIN_POP || population > MAX_POP) {
-      console.error(`[rebase] population "${positional[0]}" is missing or outside ${MIN_POP.toLocaleString()}–${MAX_POP.toLocaleString()}.`);
-      process.exit(1);
-    }
-    if (positional[1] != null) {
-      const sinceMidnight = Number(positional[1]);
-      const elapsed = secondsSinceEasternMidnight(now);
-      if (Number.isFinite(sinceMidnight) && elapsed > 0) {
-        ratePerSecond = sinceMidnight / elapsed; // StatCan's own current rate
-      }
+  const population = Math.round(Number(positional[0]));
+  if (!Number.isFinite(population) || population < MIN_POP || population > MAX_POP) {
+    console.error(`[rebase] population "${positional[0] ?? ''}" is missing or outside ${MIN_POP.toLocaleString()}-${MAX_POP.toLocaleString()}.`);
+    console.error('[rebase] Read the current figure off StatCan public clock and pass it:');
+    console.error('[rebase]   node scripts/rebase-pop-clock.mjs <population> [changeSinceMidnight]');
+    process.exit(1);
+  }
+  if (positional[1] != null) {
+    const sinceMidnight = Number(positional[1]);
+    const elapsed = secondsSinceEasternMidnight(now);
+    if (Number.isFinite(sinceMidnight) && elapsed > 0) {
+      ratePerSecond = sinceMidnight / elapsed; // StatCan's own current rate
     }
   }
 
@@ -153,7 +120,8 @@ async function main() {
     _README:
       'Calibration snapshot for the Ooo! Pop Clock Mini (see scripts/rebase-pop-clock.mjs and ' +
       'src/app/components/population/README.md). enabled+population+capturedAt re-base the widget ' +
-      'to this official reading; ratePerSecond (optional) pins the speed to StatCan’s own rate. ' +
+      'to this official reading; ratePerSecond (optional) pins the speed to StatCan own rate. ' +
+      'The figure is read off StatCan public clock by a human -- never scraped. ' +
       'Snapshots older than 21 days, malformed, or future-dated are ignored automatically.',
   };
 
@@ -161,7 +129,7 @@ async function main() {
   const annual = ratePerSecond != null ? Math.round(ratePerSecond * SEC_PER_YEAR) : null;
   console.log(`[rebase] wrote ${OUT_PATH}`);
   console.log(`[rebase] population ${population.toLocaleString()} @ ${capturedAt}` +
-    (annual != null ? ` · rate ${annual.toLocaleString()}/yr (${Math.round(ratePerSecond * 86400)}/day)` : ' · rate: year-over-year (widget)'));
+    (annual != null ? ` - rate ${annual.toLocaleString()}/yr (${Math.round(ratePerSecond * 86400)}/day)` : ' - rate: year-over-year (widget)'));
 }
 
 main().catch((err) => { console.error('[rebase] failed:', err); process.exit(1); });
