@@ -75,25 +75,28 @@ function useSecondTick(active: boolean) {
 //   const LID_IMAGE = "assets/brand/pop-clock-lid.png";
 const LID_IMAGE: string | null = "pop-clock/ooo-popclock-lid.png";
 
-// Slide 2 (detailed) uses the full window template as the device face — a
-// branded gradient with the wordmark + bricks baked into the bottom and an
-// open "screen" area up top for the live readout (headline + rings). Set to
-// null to fall back to the lid-bar + plain body layout.
-const WINDOW_IMAGE: string | null = "pop-clock/popclock_window.png";
+// Slide 2 (detailed) leads with the BIGGER lid lockup in its bigger space — the
+// wordmark + AUTOMATED/PREDICTIVE/MODEL bricks on the navy gradient — sitting at
+// the TOP of the card with the rings + copy below it.
+const BIG_LID: string | null = "pop-clock/BigLid-MiniClock.png";
+
+// Window-face template retired: both slides now lead with a lid bar and stack
+// the live readout below it. (Set to a PNG path to bring the face back.)
+const WINDOW_IMAGE: string | null = null;
 
 // Ruby-red round play/next icon for the slide-1 "Look at our live model" CTA.
 const PLAY_ICON = "pop-clock/ruby-red-play.png";
 
 /** The lid: a branded image when supplied, otherwise the text lockup
  *  (Humans of Canada · electric Ooo! wordmark + Pop Clock Mini · subtitle). */
-function PopClockLid() {
+function PopClockLid({ src = LID_IMAGE }: { src?: string | null }) {
   const base = import.meta.env.BASE_URL;
-  if (LID_IMAGE) {
+  if (src) {
     return (
       <div className="pmm-lid pmm-lid--img">
         <img
           className="pmm-lid-img"
-          src={`${base}${LID_IMAGE}`}
+          src={`${base}${src}`}
           alt="Ooo! Pop Clock Mini — Automated Predictive Model, by Humans of Canada"
         />
       </div>
@@ -317,9 +320,9 @@ export function PopClockCard({
       }`}
       aria-label="Ooo! Pop Clock Mini — automated predictive model"
     >
-      {/* Slide 1 wears the lid bar; slide 2's branding is baked into the
-          window face, so it skips the lid. */}
-      {!(detailed && WINDOW_IMAGE) && <PopClockLid />}
+      {/* Both slides lead with a lid: the slim blue/red bar on the compact
+          preview, the bigger lockup on the full-model card. */}
+      {!(detailed && WINDOW_IMAGE) && <PopClockLid src={detailed ? BIG_LID : LID_IMAGE} />}
 
       {state.kind === "loading" && (
         <p className="pmm-status" role="status">
