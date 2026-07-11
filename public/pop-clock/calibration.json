@@ -1,8 +1,8 @@
 {
-  "enabled": true,
+  "enabled": false,
   "population": 41554157,
   "capturedAt": "2026-07-10T19:50:58Z",
   "ratePerSecond": 0.0143188,
   "source": "Statistics Canada, Canada's population clock (real-time model)",
-  "_README": "Calibration snapshot for the Ooo! Pop Clock Mini. When enabled is true with a numeric population and an ISO-8601 capturedAt, the widget re-bases its projection to this official reading, so it only extrapolates the short time since capturedAt and stays within a minimal margin of StatCan's clock. ratePerSecond (optional) pins the speed too: here it is StatCan's own current rate, derived from their 'change since midnight' (817) over the 57058 s since Eastern midnight at capture = 0.0143188/s (~452k/yr, ~1237/day). Leave ratePerSecond null to keep the widget's year-over-year rate instead. To refresh: run `npm run pop-clock:rebase -- <population> [changeSinceMidnight]` (see scripts/rebase-pop-clock.mjs) or let the scheduled workflow do it. Snapshots older than 21 days, malformed, or future-dated are ignored automatically and the widget falls back to its own calculation."
+  "_README": "DISABLED (enabled:false) — the widget now runs on the official StatCan WDS REST API (daily quarterly-estimate pull + modelled rate), the no-scraping default. This file is an inert template: to re-pin to a live clock reading, set enabled:true with a numeric population and ISO-8601 capturedAt (optionally ratePerSecond), e.g. via `npm run pop-clock:rebase -- <population> [changeSinceMidnight]` or the \"Rebase pop clock calibration\" workflow. The figure is read off StatCan’s public clock by a human — never scraped. Snapshots older than 21 days, malformed, or future-dated are ignored automatically."
 }
