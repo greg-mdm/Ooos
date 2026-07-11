@@ -1,30 +1,29 @@
 name: Rebase pop clock calibration
 
-# Refreshes public/pop-clock/calibration.json — the snapshot the Ooo! Pop Clock
+# Refreshes public/pop-clock/calibration.json -- the snapshot the Ooo! Pop Clock
 # Mini re-bases to so it stays within a minimal margin of StatCan's official
 # clock. See scripts/rebase-pop-clock.mjs.
 #
-# Two ways to run:
-#   * Manually (the "button"): Actions tab → this workflow → "Run workflow",
-#     enter the official population (and optionally "change since midnight" to
-#     pin the rate). Reliable and needs no configuration.
-#   * On a schedule (--auto): tries to fetch the official figure server-side.
-#     Until a confirmed source is set in the repo variable STATCAN_CLOCK_URL,
-#     --auto safely SKIPS (writes nothing) rather than guessing — so the daily
-#     run is a harmless no-op until you wire up a source.
+# NO SCRAPING BY DESIGN. There is no scheduled auto-fetch: StatCan's clock ticks
+# client-side and ooos.ca promotes StatCan's own licensed data rather than
+# scraping. So this workflow is a manual "button" -- you (a human) read the
+# current figure off the public clock and enter it here. The widget's own default
+# rate already comes from the official WDS REST API; this button just pins it to a
+# precise live reading when you have one.
 #
-# The script's sanity alarm refuses to write (and fails the run) if a new
-# reading implies more than 2,500 persons/day of change versus the last snapshot
-# — override via the repo variable POP_CLOCK_MAX_DAILY_CHANGE.
+#   Actions tab -> "Rebase pop clock calibration" -> "Run workflow" -> enter the
+#   official population (and optionally "change since midnight" to pin the rate).
+#
+# The script's sanity alarm refuses to write (and fails the run) if a new reading
+# implies more than 1,750 persons/day of NET change versus the last snapshot --
+# override via the repo variable POP_CLOCK_MAX_DAILY_CHANGE.
 
 on:
-  schedule:
-    - cron: '0 12 * * *' # daily at 12:00 UTC (08:00 ET)
   workflow_dispatch:
     inputs:
       population:
-        description: 'Official population, e.g. 41554157 (leave blank to try --auto)'
-        required: false
+        description: "Official population, e.g. 41554157 (read off StatCan's clock)"
+        required: true
       changeSinceMidnight:
         description: 'Optional: official "change since midnight" to derive the rate'
         required: false
@@ -48,19 +47,14 @@ jobs:
 
       - name: Refresh calibration snapshot
         env:
-          STATCAN_CLOCK_URL: ${{ vars.STATCAN_CLOCK_URL }}
           MAX_DAILY_CHANGE: ${{ vars.POP_CLOCK_MAX_DAILY_CHANGE }}
         run: |
-          if [ -n "${{ github.event.inputs.population }}" ]; then
-            node scripts/rebase-pop-clock.mjs "${{ github.event.inputs.population }}" ${{ github.event.inputs.changeSinceMidnight }}
-          else
-            node scripts/rebase-pop-clock.mjs --auto
-          fi
+          node scripts/rebase-pop-clock.mjs "${{ github.event.inputs.population }}" ${{ github.event.inputs.changeSinceMidnight }}
 
       - name: Commit if changed
         run: |
           if git diff --quiet -- public/pop-clock/calibration.json; then
-            echo "No change to calibration.json — nothing to deploy."
+            echo "No change to calibration.json -- nothing to deploy."
             exit 0
           fi
           git config user.name "ooos-bot"
@@ -70,8 +64,6 @@ jobs:
           git push origin HEAD:main
           echo "deploy=1" >> "$GITHUB_ENV"
 
-      # A push by GITHUB_TOKEN does not trigger deploy.yml's push event, so
-      # dispatch it explicitly to publish the refreshed snapshot to ooos.ca.
       - name: Trigger Pages deploy
         if: env.deploy == '1'
         env:
