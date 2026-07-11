@@ -189,7 +189,17 @@
 .cid-scope .np-strategy { margin: 0; padding: 2.6rem 0 2.8rem; background: #F0F4F5; }
 .cid-scope .np-inner { max-width: 1400px; margin: 0 auto; padding: 0 3rem; }
 .cid-scope .np-kicker { color: #C8102E; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 800; font-size: 0.95rem; margin: 0 0 0.3rem; }
-.cid-scope .np-title { color: #16222b; font-size: 1.9rem; font-weight: 800; margin: 0 0 1.4rem; }
+.cid-scope .np-title { color: #16222b; font-size: 1.9rem; font-weight: 800; margin: 0 0 0.6rem; }
+.cid-scope .np-lede { color: #3a4750; font-size: 1.1rem; line-height: 1.55; max-width: 60ch; margin: 0 0 1rem; }
+.cid-scope .np-strategy-link {
+  display: inline-flex; align-items: center; gap: 0.5rem; align-self: flex-start;
+  color: #822F00; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  font-size: 0.95rem; text-decoration: none; margin: 0 0 2rem;
+  transition: filter 160ms ease, transform 160ms ease;
+}
+.cid-scope .np-strategy-icon { width: 1.05rem; height: 1.05rem; flex: none; }
+.cid-scope .np-strategy-link:hover { filter: brightness(1.12); transform: translateX(2px); }
+.cid-scope .np-pillars-head { color: #16222b; font-size: 1.25rem; font-weight: 800; margin: 0 0 1rem; }
 .cid-scope .np-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; align-items: stretch; }
 .cid-scope .np-pillar { background: #fff; border: 1px solid rgba(11,110,107,0.16); border-top: 3px solid #C8102E; border-radius: 12px; padding: 1.5rem 1.6rem; box-shadow: 0 6px 22px rgba(15,40,40,0.12); display: flex; flex-direction: column; }
 .cid-scope .np-pillar--finance { border-top-color: #0B6E6B; }
@@ -209,7 +219,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 1920 / 1080;                       /* locked to the cliff art */
-  background: url("/assets/images/cliff-all.webp") top / cover no-repeat;
+  background: url("/pop-clock/cliffcanvas-blank.png") top / cover no-repeat;
   overflow: hidden;
 }
 /* soften the seam into the ink-blue data guide above the art */
@@ -290,48 +300,39 @@
   clip-path: inset(50%);
   white-space: nowrap;
 }
-/* blurb + link overlaid on the white panel, just below the baked title */
+/* The pop-clock now owns the whole white transparency panel — a fixed invisible
+   frame pinned to the art's panel region (≈51%→97% x, 26%→94% y) that scales
+   with the full-bleed stage, so the card stays contained at every width. The
+   baked title is gone from the art, so there's no cover/slide behaviour. */
 .cid-scope .cid-lw-text {
   position: absolute;
-  left: 54%;
-  top: 45%;
-  width: 40%;
+  left: 51%;
+  right: 3%;
+  top: 26%;
+  bottom: 6%;
   z-index: 2;
   display: flex;
   flex-direction: column;
-  transition: top 450ms ease;
+  justify-content: center;
 }
-/* Pop clock slide: the panel block rises so the SOLID card covers the baked
-   "A Force of Nature" title in the art (title glyphs sit ≈26.5%–42.5% of the
-   stage), reclaiming that space for the publishable details. The block is
-   PINNED to the art's white transparency region — a fixed invisible frame
-   from 25% down to 83% of the stage (top+bottom both set) that scales with
-   the art, so the card is contained inside the panel at every width. */
-.cid-scope .cid-lw-text.is-covering { top: 25%; bottom: 17%; }
-/* Narrow desktop stages are shorter, so the taller detailed card needs a
-   taller pinned frame (still starts above the baked title to cover it) plus
-   compacted type to stay inside the white transparency. */
+/* Narrow desktop stages are shorter — lift the frame and compact the card type
+   so it stays inside the white panel. */
 @media (min-width: 901px) and (max-width: 1300px) {
-  .cid-scope .cid-lw-text.is-covering { top: 22%; bottom: 8%; }
+  .cid-scope .cid-lw-text { top: 22%; bottom: 4%; }
+  .cid-scope .cid-lw-text .pmm-card--wide .pmm-big { font-size: 20px; }
+  .cid-scope .cid-lw-text .pmm-card--wide .pmm-h3 { margin-bottom: 4px; }
+  .cid-scope .cid-lw-text .pmm-card--wide .pmm-headline { margin-bottom: 5px; }
+  .cid-scope .cid-lw-text .pmm-card--wide .pmm-rings { margin-bottom: 5px; gap: 7px 3px; }
+  .cid-scope .cid-lw-text .pmm-card--wide .pmm-ring-dial { width: 44px; height: 44px; }
+  .cid-scope .cid-lw-text .pmm-card--wide .pmm-ring-count { font-size: 12px; }
+  .cid-scope .cid-lw-text .pmm-card--wide .pmm-ring-sub { font-size: 7px; }
+  .cid-scope .cid-lw-text .pmm-card--wide .pmm-ringfoot { font-size: 7.5px; line-height: 1.3; margin-bottom: 4px; }
+  .cid-scope .cid-lw-text .pmm-card--wide .pmm-link { font-size: 9px; margin-bottom: 4px; }
+  .cid-scope .cid-lw-text .pmm-card--wide .pmm-srcline { font-size: 7.5px; line-height: 1.35; }
+  .cid-scope .cid-lw-text .cid-lw-dots { margin-top: 8px; }
 }
 @media (min-width: 901px) and (max-width: 1000px) {
-  .cid-scope .cid-lw-text.is-covering { top: 20%; bottom: 5%; }
-}
-@media (min-width: 901px) and (max-width: 1300px) {
-  .cid-scope .cid-lw-text.is-covering .pmm-card--wide .pmm-big { font-size: 20px; }
-  .cid-scope .cid-lw-text.is-covering .pmm-card--wide .pmm-h3 { margin-bottom: 4px; }
-  .cid-scope .cid-lw-text.is-covering .pmm-card--wide .pmm-headline { margin-bottom: 5px; }
-  .cid-scope .cid-lw-text.is-covering .pmm-card--wide .pmm-rings { margin-bottom: 5px; gap: 7px 3px; }
-  .cid-scope .cid-lw-text.is-covering .pmm-card--wide .pmm-ring-dial { width: 44px; height: 44px; }
-  .cid-scope .cid-lw-text.is-covering .pmm-card--wide .pmm-ring-count { font-size: 12px; }
-  .cid-scope .cid-lw-text.is-covering .pmm-card--wide .pmm-ring-sub { font-size: 7px; }
-  .cid-scope .cid-lw-text.is-covering .pmm-card--wide .pmm-ringfoot { font-size: 7.5px; line-height: 1.3; margin-bottom: 4px; }
-  .cid-scope .cid-lw-text.is-covering .pmm-card--wide .pmm-link { font-size: 9px; margin-bottom: 4px; }
-  .cid-scope .cid-lw-text.is-covering .pmm-card--wide .pmm-srcline { font-size: 7.5px; line-height: 1.35; }
-  .cid-scope .cid-lw-text.is-covering .cid-lw-dots { margin-top: 8px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .cid-scope .cid-lw-text { transition: none; }
+  .cid-scope .cid-lw-text { top: 20%; bottom: 3%; }
 }
 .cid-scope .cid-lw-blurb {
   margin: 0 0 1.8vw;

@@ -681,7 +681,7 @@ function Underground() {
  *  and sits still under prefers-reduced-motion. Inactive slides are
  *  visibility:hidden (out of the tab order and a11y tree); the grid stack
  *  keeps the panel height stable across slides. */
-const LW_SLIDES = ["National Strategy", "Ooo! Pop Clock Mini"] as const;
+const LW_SLIDES = ["Live estimate", "Full model"] as const;
 
 function LivingWallSlider({
   populationModel,
@@ -715,7 +715,7 @@ function LivingWallSlider({
       className="cid-lw-slider"
       role="group"
       aria-roledescription="carousel"
-      aria-label="Featured: the Ooo! Pop Clock Mini and Canada's National Strategy"
+      aria-label="Ooo! Pop Clock Mini — live estimate, then the full ring model"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
@@ -723,33 +723,9 @@ function LivingWallSlider({
     >
       <div className="cid-lw-slides">
         <div className={`cid-lw-slide${index === 0 ? " is-active" : ""}`}>
-          <p className="cid-lw-blurb">
-            Canada&rsquo;s plan to halt and reverse biodiversity loss and protect the land
-            and water above the bedrock.
-          </p>
-          <a
-            className="cid-lw-go"
-            href={SC.forceOfNature}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <svg
-              className="cid-lw-go-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-            </svg>
-            Open our National Strategy
-          </a>
           {/* The live clock as a compact, bordered device; the arrow advances
-              to the full ring model on slide 2. */}
+              to the full ring model on slide 2. It now owns the whole panel —
+              the nature blurb + National Strategy link moved to the block below. */}
           <PopClockCard state={populationModel} wide onAdvance={() => goTo(1)} />
         </div>
         <div className={`cid-lw-slide${index === 1 ? " is-active" : ""}`}>
@@ -848,50 +824,15 @@ export function CID({ onSupport }: { onSupport: () => void }) {
 
       <DataAccessContinuum />
 
-      {/* Canada's Strategy to Protect Nature — the three pillars, reunited with
-          the living-wall strategy section directly below it (moved out of the
-          watchlist embed). Grey intro on the page ground, ahead of the cliff. */}
-      <section className="np-strategy" aria-label="Canada's Strategy to Protect Nature">
-        <div className="np-inner">
-          <div className="np-kicker">Canada&rsquo;s Strategy to Protect Nature</div>
-          <h3 className="np-title">Three pillars</h3>
-          <div className="np-grid">
-            <div className="np-pillar">
-              <span className="np-num">1</span>
-              <h4>Protecting Nature in Canada</h4>
-              <p>By protecting and conserving more lands and waters and connecting habitats so species can move more safely.</p>
-            </div>
-            <div className="np-pillar">
-              <span className="np-num">2</span>
-              <h4>Building Canada Well</h4>
-              <p>By designing infrastructure projects that work with nature rather than against it.</p>
-            </div>
-            <div className="np-pillar np-pillar--finance">
-              <span className="np-num">3</span>
-              <h4>Valuing Nature &amp; Mobilizing Capital</h4>
-              <p>By using finance tools to fund conservation in a sustainable, long-term way.</p>
-            </div>
-          </div>
-          <a
-            className="np-link"
-            href="https://www.canada.ca/en/services/environment/nature/nature-strategy.html#toc6"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn more ↗
-          </a>
-        </div>
-      </section>
-
-      {/* Framed Living Wall — a looping portrait of a Canadian conservation
-          area (Halton Falls) behind the vine frame, paired with the National
-          Strategy link. Sits right below the dark continuum so the dark-to-dark
-          transition is gradual, ahead of the forest banner. Two assets kept
-          separate: a plain rectangular video UNDER a transparent PNG frame ON
-          TOP, aligned to the frame's inner window by exact percentage math. */}
-      <section className="cid-livingwall" aria-labelledby="cid-lw-title">
-        {/* the cliff/clouds art (cliff-all.webp) carries the baked ruby title;
-            the stage locks to its aspect so the frame + blurb/link overlay it */}
+      {/* Forest layer — a looping portrait of a Canadian conservation area
+          (Halton Falls) behind the vine frame, carrying the lid-led pop-clock on
+          the clean cliff panel. Placed right after the data section because the
+          pop-clock is a live demonstration of what StatCan's open data enables.
+          Two assets kept separate: a plain rectangular video UNDER a transparent
+          PNG frame ON TOP, aligned to the frame's inner window by exact %. */}
+      <section className="cid-livingwall" aria-label="Ooo! Pop Clock Mini on the living wall">
+        {/* clean cliff/clouds canvas (cliffcanvas-blank.png) — the ruby title is
+            gone from the art now; the white panel is the pop-clock's backdrop */}
         <div className="cid-lw-stage">
           <div
             className="hf-framed-wall"
@@ -925,18 +866,74 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             />
           </div>
 
-          <div className={`cid-lw-text${lwSlide === 1 ? " is-covering" : ""}`}>
-            <h2 id="cid-lw-title" className="cid-lw-title">
-              A Force of Nature: Canada&rsquo;s Strategy to Protect Nature
-            </h2>
-            {/* Prime real estate: the National Strategy feature and the
-                Ooo! Pop Clock Mini share the panel via a slider. */}
+          <div className="cid-lw-text">
+            {/* The pop-clock owns the whole white panel now (compact → full model). */}
             <LivingWallSlider populationModel={populationModel} onIndexChange={setLwSlide} />
           </div>
         </div>
 
         {/* Sources for the mini model — small text kept off the white panel. */}
         <PopulationSourcesStrip state={populationModel} />
+      </section>
+
+      {/* A Force of Nature — Canada's Strategy to Protect Nature. The National
+          Strategy narrative + the three pillars, now BELOW the pop-clock demo. */}
+      <section className="np-strategy" aria-label="A Force of Nature: Canada's Strategy to Protect Nature">
+        <div className="np-inner">
+          <div className="np-kicker">A Force of Nature</div>
+          <h3 className="np-title">Canada&rsquo;s Strategy to Protect Nature</h3>
+          <p className="np-lede">
+            Canada&rsquo;s plan to halt and reverse biodiversity loss and protect the land
+            and water above the bedrock.
+          </p>
+          <a
+            className="np-strategy-link"
+            href={SC.forceOfNature}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg
+              className="np-strategy-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+            </svg>
+            Open our National Strategy
+          </a>
+          <h4 className="np-pillars-head">Three pillars</h4>
+          <div className="np-grid">
+            <div className="np-pillar">
+              <span className="np-num">1</span>
+              <h4>Protecting Nature in Canada</h4>
+              <p>By protecting and conserving more lands and waters and connecting habitats so species can move more safely.</p>
+            </div>
+            <div className="np-pillar">
+              <span className="np-num">2</span>
+              <h4>Building Canada Well</h4>
+              <p>By designing infrastructure projects that work with nature rather than against it.</p>
+            </div>
+            <div className="np-pillar np-pillar--finance">
+              <span className="np-num">3</span>
+              <h4>Valuing Nature &amp; Mobilizing Capital</h4>
+              <p>By using finance tools to fund conservation in a sustainable, long-term way.</p>
+            </div>
+          </div>
+          <a
+            className="np-link"
+            href="https://www.canada.ca/en/services/environment/nature/nature-strategy.html#toc6"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn more ↗
+          </a>
+        </div>
       </section>
 
       <section className="cid-forest" aria-label="Above the bedrock: Canada's living landscape">
