@@ -324,11 +324,14 @@ export function PopClockCard({
   wide = false,
   detailed = false,
   onAdvance,
+  learnLink = true,
 }: {
   state: PopulationModelState;
   wide?: boolean;
   detailed?: boolean;
   onAdvance?: () => void;
+  /** Hide the "story behind the clock" link where the card IS the story page. */
+  learnLink?: boolean;
 }) {
   useSecondTick(state.kind === "ready");
   const r = state.kind === "ready" ? readModel(state.data) : null;
@@ -418,9 +421,11 @@ export function PopClockCard({
           <p className="pmm-srcline">{SOURCE_LINE}</p>
           {/* The methodology adjustment belongs at the end, not leading. */}
           <p className="pmm-adjust">Interprovincial migration omitted (net zero nationally).</p>
-          <a className="pmm-learn" href={`${import.meta.env.BASE_URL}pop-clock-mini`}>
-            Watch and learn: the story behind the clock →
-          </a>
+          {learnLink && (
+            <a className="pmm-learn" href={`${import.meta.env.BASE_URL}pop-clock-mini`}>
+              Watch and learn: the story behind the clock →
+            </a>
+          )}
         </>
       )}
     </aside>
