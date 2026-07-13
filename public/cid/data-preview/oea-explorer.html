@@ -275,10 +275,10 @@
     var SMALL_DEFAULT_N = 8;             // Small Pond: how many to show by default (the largest non-giants)
 
     var VIEWS = [
+      { id:'creative', tab:'Creative Cluster', creative:true },
       { id:'goods', tab:'Goods-Producing', group:'goods' },
       { id:'services', tab:'Services-Producing', group:'services' },
       { id:'smallpond', tab:'Small Pond', smallpond:true },
-      { id:'creative', tab:'Creative Cluster', creative:true },
       { id:'gainers', tab:'Trends · Top Gainers', gainers:true },
     ];
 
@@ -379,7 +379,7 @@
     function table() { return DATA.tables[SRC]; }
 
     var nf = new Intl.NumberFormat('en-CA');
-    var DATA = null, current = 'goods', chart = null;
+    var DATA = null, current = 'creative', chart = null;  // Creative Cluster leads
     var SOLO = false;
     (function () {  // initial view + solo from the iframe URL (?view=smallpond&solo=1) for stacked pools
       var p = new URLSearchParams(location.search), v = p.get('view');
