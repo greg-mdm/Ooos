@@ -782,21 +782,43 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               <span className="chip">MNPI excluded</span>
             </div>
           </div>
-          <div className="cid-hero-summary">
-            <p className="summary">
-              A research dimension tracking sovereign innovation across Canada
-              and allied jurisdictions through triangulation of public sources,
-              verified public data sets, and strict exclusion of Material Non
-              Public Information (MNPI). The system tracks organizations,
-              strategic sectors, policy developments, bilateral partnerships,
-              and capital market activity across emerging technologies. The Innovation Watchlist is the first tool
-              offering access to this dimension.
+        </div>
+      </section>
+
+      {/* Intro copy on a light canvas: midnight black on silvery white /
+          robin's egg, short paragraphs with real spacing so mobile reads as
+          2 medium + 1 small paragraph per screen, not one wall of text. */}
+      <section className="cid-intro" aria-label="About the Canadian Innovation Dimension">
+        <div className="container cid-hero-container cid-intro-grid">
+          <div className="cid-intro-col">
+            <p className="cid-intro-p">
+              A research dimension tracking sovereign innovation across Canada and allied
+              jurisdictions through triangulation of public sources, verified public data sets,
+              and strict exclusion of Material Non Public Information (MNPI).
             </p>
-            <div className="cid-hero-summary-right">
-              <p className="summary">
-                Ostara empowers innovators, researchers, entrepreneurs, and curious minds to collaboratively explore diverse sectors, policy trends, and market dynamics. It analyzes real-world signals, enables experimentation, and offers a platform for comparing verified information and assessing competing interpretations. <strong>Ostara and the experimental Canadian Innovation Dimension (CID) do not provide future predictions or financial advice.</strong>
-              </p>
-            </div>
+            <p className="cid-intro-p">
+              The system tracks organizations, strategic sectors, policy developments, bilateral
+              partnerships, and capital market activity across emerging technologies.
+            </p>
+            <p className="cid-intro-p cid-intro-p--small">
+              The Innovation Watchlist is the first tool offering access to this dimension.
+            </p>
+          </div>
+          <div className="cid-intro-col">
+            <p className="cid-intro-p">
+              Ostara empowers innovators, researchers, entrepreneurs, and curious minds to
+              collaboratively explore diverse sectors, policy trends, and market dynamics.
+            </p>
+            <p className="cid-intro-p">
+              It analyzes real-world signals, enables experimentation, and offers a platform for
+              comparing verified information and assessing competing interpretations.
+            </p>
+            <p className="cid-intro-p cid-intro-p--small">
+              <strong>
+                Ostara and the experimental Canadian Innovation Dimension (CID) do not provide
+                future predictions or financial advice.
+              </strong>
+            </p>
           </div>
         </div>
       </section>

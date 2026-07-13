@@ -49,13 +49,15 @@
 /* the light-section glow/shadow helpers are not used over the aurora */
 .ood-pool,.ood-floor{display:none;}
 .ood-grid{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,26px);align-items:start;}
-/* Card body: ONE consistent silver gradient for all three divisions
-   (Robin's Egg -> Silver: 50 -> 300 -> 500). Neutral, multi-dimensional,
-   no pastel; reads as a bright card floating over the aurora. */
+/* Card body: dark translucent glass so the three divisions belong to the
+   aurora instead of floating over it as bright silver blocks. A faint violet
+   rim + backdrop blur ties them to the section; the dark keys and metallic
+   dice already read cleanly on this panel. */
 .ood-col{position:relative;border-radius:22px;padding:24px 18px 26px;
-  border:1px solid #19007D;
-  background:linear-gradient(180deg,#F7F9FA 0%,#E8ECF4 46%,#DCE3E8 100%);
-  box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 1px 2px rgba(6,2,28,.35),0 24px 50px -26px rgba(6,2,28,.7);}
+  border:1px solid rgba(91,4,222,.42);
+  background:linear-gradient(180deg,rgba(20,8,48,.55) 0%,rgba(12,5,32,.58) 46%,rgba(8,3,24,.62) 100%);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  box-shadow:0 1px 0 rgba(190,150,250,.16) inset,0 1px 2px rgba(6,2,28,.35),0 24px 50px -26px rgba(6,2,28,.7);}
 /* Steeple: lift the middle column so the three read as a peak (middle high,
    sides even + a touch lower). Pulls the middle's taller body — and its
    slamming dice — UP off the next section so the impact doesn't rattle the
@@ -97,7 +99,7 @@
 /* each cell stacks a two-line heading ABOVE its die */
 .ood-diecell{flex:1 1 0;min-width:0;display:flex;flex-direction:column;}
 /* heading now sits outside the die, on the silver body (one word per line) */
-.ood-die-h{margin:0 0 5px;font-family:Poppins,sans-serif;font-weight:700;font-size:.92rem;line-height:1.12;letter-spacing:.01em;color:#19007D;text-align:center;}
+.ood-die-h{margin:0 0 5px;font-family:Poppins,sans-serif;font-weight:700;font-size:.92rem;line-height:1.12;letter-spacing:.01em;color:#E8ECF4;text-shadow:0 1px 2px rgba(6,2,28,.5);text-align:center;}
 .ood-die{width:100%;position:relative;border-radius:18px;padding:5px;
   background:var(--die-img,none) center/100% 100% no-repeat,
     linear-gradient(145deg,#F7F9FA 0%,#A6A7A7 47%,#CCCDCF 53%,#F0F4F5 100%);
@@ -133,11 +135,11 @@
   appearance:none;-webkit-appearance:none;border:0;width:100%;cursor:pointer;
   display:flex;align-items:center;justify-content:center;gap:8px;
   font-family:Poppins,sans-serif;font-weight:700;font-size:.86rem;letter-spacing:.01em;
-  color:#19007D;background:transparent;padding:9px 10px;border-radius:11px;
+  color:#E8ECF4;background:transparent;padding:9px 10px;border-radius:11px;
   transition:background .18s;}
-.ood-shelf-toggle:hover{background:rgba(25,0,125,.07);}
+.ood-shelf-toggle:hover{background:rgba(190,150,250,.12);}
 .ood-shelf-toggle:focus-visible{outline:2px solid #9d62f9;outline-offset:2px;}
-.ood-shelf-toggle__chev{font-size:.72rem;line-height:1;color:#4B00B6;transition:transform .2s ease;}
+.ood-shelf-toggle__chev{font-size:.72rem;line-height:1;color:#B79BF2;transition:transform .2s ease;}
 .ood-shelf-toggle[aria-expanded="true"] .ood-shelf-toggle__chev{transform:rotate(180deg);}
 /* grid-template-rows 0fr -> 1fr is the one height transition that truly animates;
    kept fast so the open "slams" instead of crawling (slow = visible jank) */

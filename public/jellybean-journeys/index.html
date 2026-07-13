@@ -38,6 +38,35 @@
   }
   @keyframes bhRotate { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
   @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+
+  /* ===== Mobile (≤760px): content directly on the canvas, no overlaps =====
+     The desktop layout sizes .cz-left and the switch panel off viewport math
+     that collapses on phones: the screen shrank to 64vw, and the panel's
+     fixed height (~156px) could not hold the 188px portal, which then spilled
+     over the section tabs. Inline styles rule this widget, so overrides here
+     need !important. */
+  @media (max-width: 760px) {
+    /* screen takes the full canvas width and gets a taller, phone-friendly frame */
+    .cz-left { width: 100% !important; margin-top: 10px !important; }
+    .cz-screen { aspect-ratio: 4 / 5 !important; border-radius: 12px !important; }
+    /* the device bezel dissolves: the video and slides sit directly on the
+       page canvas instead of a box inside a box */
+    [data-frame] { background: transparent !important; border: 0 !important; padding: 0 !important; box-shadow: none !important; }
+    .cz-deco { display: none !important; }
+    .cz-wordmark { position: static !important; display: block; text-align: right; padding: 4px 6px 0 0; }
+    /* switch panel: natural height and full width so the portal never
+       overflows onto the carousel nav below it */
+    [data-switchpanel] { flex-basis: 100% !important; width: 100% !important; height: auto !important; gap: 18px !important; margin-top: 4px !important; align-items: center !important; text-align: center; }
+    [data-switchpanel] > div:last-child { margin: 0 !important; }
+    /* 3D toolbar: wrap and shrink so Join/Disperse never run off-screen */
+    [aria-label="3D scene controls"] { flex-wrap: wrap !important; padding: 8px !important; }
+    [aria-label="3D scene controls"] [data-act="join"],
+    [aria-label="3D scene controls"] [data-act="disperse"] { min-height: 46px !important; padding: 0 18px !important; font-size: 15px !important; }
+    [data-scene-controls] { padding: 0 !important; }
+    /* section tabs: two per row, labels wrap INSIDE their buttons */
+    [aria-label="Jump to section"] { flex-wrap: wrap !important; }
+    [aria-label="Jump to section"] [role="tab"] { flex: 1 1 40% !important; height: auto !important; min-height: 42px !important; padding: 6px 10px !important; white-space: normal !important; overflow: hidden !important; }
+  }
 </style>
 </helmet>
 
@@ -82,11 +111,7 @@
               <svg viewBox="0 0 24 24" width="13" height="13" fill="var(--gold)" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
               <span style="font-size:10.5px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold);">Inspiration</span>
             </div>
-            <h2 style="margin:0 0 14px; font-size:clamp(20px,2.7vw,29px); font-weight:700; letter-spacing:0.4px; line-height:1.16; color:#fff; text-transform:uppercase;">Counting the Time We Have Left</h2>
-            <div style="position:relative; padding:56.25% 0 0 0; border-radius:10px; overflow:hidden; box-shadow:0 24px 64px -22px rgba(0,0,0,0.85); border:1px solid rgba(240,192,64,0.16);">
-              <iframe src="https://www.youtube.com/embed/BOksW_NabEk?si=W8wsmiKrXwqtOHP6" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%;" title="The Time You Have (In JellyBeans)"></iframe>
-            </div>
-            <h3 style="margin:24px 0 8px; font-size:clamp(17px,2vw,21px); font-weight:700; letter-spacing:0.2px; color:#fff;">Remember to Live</h3>
+            <h3 style="margin:0 0 8px; font-size:clamp(17px,2vw,21px); font-weight:700; letter-spacing:0.2px; color:#fff;">Remember to Live</h3>
             <p style="margin:0; font-size:clamp(13px,1.55vw,15.5px); line-height:1.6; color:#c9cde0;">For centuries, art and storytelling have reminded people that life is short. &ldquo;<em>Memento mori</em>,&rdquo; meaning &ldquo;remember that you must die,&rdquo; is a Latin phrase that urges us to reflect on what truly matters in life. Digital design has given this timeless art form a joyful new visual language that puts our remaining time into perspective through data-driven storytelling.</p>
             <div style="display:flex; align-items:center; gap:9px; margin:26px 0 16px;">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
@@ -259,6 +284,19 @@
     <button data-act="next" aria-label="Next section" style="width:44px; height:44px; flex:0 0 auto; display:flex; align-items:center; justify-content:center; border-radius:11px; border:1px solid rgba(150,155,162,0.5); background:#4B00B6; color:#fff; cursor:pointer; box-shadow:0 6px 16px -8px rgba(75,0,182,0.9);" style-hover="background:#5B04DE;">
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
     </button>
+  </div>
+
+  <!-- ===== Inspiration film — its own embed frame, directly on the canvas
+       (no device bezel, no slide nesting; the carousel keeps the editorial) ===== -->
+  <div style="width:min(1100px,96vw); margin-top:clamp(10px,1.8vh,22px);">
+    <div style="display:flex; align-items:center; gap:9px; margin-bottom:10px;">
+      <svg viewBox="0 0 24 24" width="13" height="13" fill="var(--gold)" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+      <span style="font-size:11px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold);">Inspiration</span>
+    </div>
+    <h2 style="margin:0 0 14px; font-size:clamp(20px,2.7vw,29px); font-weight:700; letter-spacing:0.4px; line-height:1.16; color:#fff; text-transform:uppercase;">Counting the Time We Have Left</h2>
+    <div style="position:relative; padding:56.25% 0 0 0; border-radius:14px; overflow:hidden; box-shadow:0 30px 80px -30px rgba(0,0,0,0.8); border:1px solid rgba(240,192,64,0.16);">
+      <iframe src="https://www.youtube.com/embed/BOksW_NabEk?si=W8wsmiKrXwqtOHP6" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%;" title="The Time You Have (In JellyBeans)"></iframe>
+    </div>
   </div>
 
   <p data-live aria-live="polite" style="position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;"></p>

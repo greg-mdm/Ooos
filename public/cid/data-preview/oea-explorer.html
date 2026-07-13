@@ -49,6 +49,7 @@
     .oea-explorer .oea-sub { font-size:0.78rem; color:var(--oea-text); margin-top:0.2rem; max-width:58ch; }
     .oea-explorer .oea-intro { display:grid; grid-template-columns:1fr; gap:0.2rem; }
     .oea-explorer .oea-intro .oea-sub { max-width:none; }
+    .oea-explorer .oea-sub-solo { display:none; }
     .oea-explorer .oea-sub-tag { font-size:0.72rem; color:#5b5b61; font-weight:600; }
     .oea-explorer .oea-pills { display:flex; flex-wrap:wrap; gap:0.35rem; margin-top:0.55rem; }
     .oea-explorer .oea-pill { font-size:0.62rem; font-weight:700; letter-spacing:0.02em;
@@ -188,8 +189,10 @@
 
   <h3 class="oea-h">Ontario's Economic Activity</h3>
   <div class="oea-intro">
-    <div class="oea-sub">Open access to live data provides valuable insights into Ontario's economy. The province's working population of over 8.3 million people drives measurable progress every day.</div>
-    <div class="oea-sub oea-sub-right">Adjust the tool to chart new paths to sustainable development in our data-driven economy.</div>
+    <div class="oea-sub">Open access to live data provides valuable insights into Ontario's economy.</div>
+    <div class="oea-sub oea-sub-right">The province's working population of over 8.3 million people drives measurable progress every day.</div>
+    <!-- Shown only on the stacked second pool (?solo=1); the first pool carries the intro above. -->
+    <div class="oea-sub oea-sub-solo">Adjust the tool to chart new paths to sustainable development in our data-driven economy.</div>
   </div>
   <div class="oea-pills" aria-label="Trust pills">
     <span class="oea-pill">Public data</span>
@@ -272,10 +275,10 @@
     var SMALL_DEFAULT_N = 8;             // Small Pond: how many to show by default (the largest non-giants)
 
     var VIEWS = [
+      { id:'creative', tab:'Creative Cluster', creative:true },
       { id:'goods', tab:'Goods-Producing', group:'goods' },
       { id:'services', tab:'Services-Producing', group:'services' },
       { id:'smallpond', tab:'Small Pond', smallpond:true },
-      { id:'creative', tab:'Creative Cluster', creative:true },
       { id:'gainers', tab:'Trends · Top Gainers', gainers:true },
     ];
 
@@ -376,16 +379,20 @@
     function table() { return DATA.tables[SRC]; }
 
     var nf = new Intl.NumberFormat('en-CA');
-    var DATA = null, current = 'goods', chart = null;
+    var DATA = null, current = 'creative', chart = null;  // Creative Cluster leads
     var SOLO = false;
     (function () {  // initial view + solo from the iframe URL (?view=smallpond&solo=1) for stacked pools
       var p = new URLSearchParams(location.search), v = p.get('view');
       if (v) { for (var i = 0; i < VIEWS.length; i++) { if (VIEWS[i].id === v) { current = v; break; } } }
       SOLO = p.get('solo') === '1';
       if (SOLO) {  // lean second pool: drop chrome that the first pool already shows
-        ['.oea-h', '.oea-sub', '.oea-pills', '.oea-glossary', '.oea-attr',
+        ['.oea-h', '.oea-pills', '.oea-glossary', '.oea-attr',
          '.oea-source-brand', '.oea-source-tag', '.oea-disclaimer']
           .forEach(function (s) { var el = root.querySelector(s); if (el) el.style.display = 'none'; });
+        // Swap the intro: hide the first pool's two lines, show the solo line.
+        root.querySelectorAll('.oea-sub').forEach(function (el) { el.style.display = 'none'; });
+        var solo = root.querySelector('.oea-sub-solo');
+        if (solo) solo.style.display = 'block';
       }
     })();
     var selected = {};                                   // id -> [names]
