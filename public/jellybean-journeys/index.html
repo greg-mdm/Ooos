@@ -38,6 +38,35 @@
   }
   @keyframes bhRotate { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
   @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+
+  /* ===== Mobile (≤760px): content directly on the canvas, no overlaps =====
+     The desktop layout sizes .cz-left and the switch panel off viewport math
+     that collapses on phones: the screen shrank to 64vw, and the panel's
+     fixed height (~156px) could not hold the 188px portal, which then spilled
+     over the section tabs. Inline styles rule this widget, so overrides here
+     need !important. */
+  @media (max-width: 760px) {
+    /* screen takes the full canvas width and gets a taller, phone-friendly frame */
+    .cz-left { width: 100% !important; margin-top: 10px !important; }
+    .cz-screen { aspect-ratio: 4 / 5 !important; border-radius: 12px !important; }
+    /* the device bezel dissolves: the video and slides sit directly on the
+       page canvas instead of a box inside a box */
+    [data-frame] { background: transparent !important; border: 0 !important; padding: 0 !important; box-shadow: none !important; }
+    .cz-deco { display: none !important; }
+    .cz-wordmark { position: static !important; display: block; text-align: right; padding: 4px 6px 0 0; }
+    /* switch panel: natural height and full width so the portal never
+       overflows onto the carousel nav below it */
+    [data-switchpanel] { flex-basis: 100% !important; width: 100% !important; height: auto !important; gap: 18px !important; margin-top: 4px !important; align-items: center !important; text-align: center; }
+    [data-switchpanel] > div:last-child { margin: 0 !important; }
+    /* 3D toolbar: wrap and shrink so Join/Disperse never run off-screen */
+    [aria-label="3D scene controls"] { flex-wrap: wrap !important; padding: 8px !important; }
+    [aria-label="3D scene controls"] [data-act="join"],
+    [aria-label="3D scene controls"] [data-act="disperse"] { min-height: 46px !important; padding: 0 18px !important; font-size: 15px !important; }
+    [data-scene-controls] { padding: 0 !important; }
+    /* section tabs: two per row, labels wrap INSIDE their buttons */
+    [aria-label="Jump to section"] { flex-wrap: wrap !important; }
+    [aria-label="Jump to section"] [role="tab"] { flex: 1 1 40% !important; height: auto !important; min-height: 42px !important; padding: 6px 10px !important; white-space: normal !important; overflow: hidden !important; }
+  }
 </style>
 </helmet>
 

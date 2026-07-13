@@ -1663,7 +1663,9 @@ a:hover { color: var(--electric); }
 }
 .cid-scope .case-hero {
   background: linear-gradient(180deg, var(--ruby) 0%, #5a2000 100%);
-  padding-bottom: 48px;
+  /* summary copy moved to the light .cid-intro band below; the ruby band now
+     holds only the title row, so it needs less depth */
+  padding-bottom: 26px;
 }
 .exhibit-scope .case-hero {
   background:
@@ -1845,24 +1847,42 @@ a:hover { color: var(--electric); }
   .cid-hero-title-row .cid-hero-chips {
     flex-direction: row;
     align-items: flex-start;
+    flex-wrap: wrap;
   }
+  .cid-hero-title-row .cid-hero-chips .chip { padding: 8px 14px; font-size: 12px; }
 }
-.cid-scope .case-hero .cid-hero-summary {
-  column-count: 2;
-  column-gap: 48px;
+/* CID intro band: body copy lives on a light canvas below the ruby hero.
+   Midnight black on silvery white easing into robin's egg; short paragraphs
+   with real spacing (mobile target: ~2 medium + 1 small per screen). */
+.cid-intro {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F0F4F5 100%);
+  padding: 34px 24px 38px;
 }
-.cid-scope .case-hero .cid-hero-summary p.summary {
-  max-width: none;
-  margin-top: 0;
-  font-size: 18px;
-  line-height: 1.45;
-  break-inside: avoid;
+.cid-intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 56px;
+  align-items: start;
 }
-.cid-scope .case-hero .cid-hero-summary p.summary + p.summary {
-  margin-top: 14px;
+.cid-intro-p {
+  font-size: 17px;
+  line-height: 1.65;
+  color: #141414;
+  margin: 0 0 1.15em;
+  max-width: 58ch;
 }
+.cid-intro-col .cid-intro-p:last-child { margin-bottom: 0; }
+.cid-intro-p--small {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #3c3c42;
+}
+.cid-intro-p--small strong { color: #141414; }
 @media (max-width: 880px) {
-  .cid-scope .case-hero .cid-hero-summary { column-count: 1; }
+  .cid-intro { padding: 26px 18px 30px; }
+  .cid-intro-grid { grid-template-columns: 1fr; gap: 0; }
+  .cid-intro-col + .cid-intro-col { margin-top: 1.15em; }
+  .cid-intro-p { font-size: 16.5px; }
 }
 .case-meta {
   display: flex;
