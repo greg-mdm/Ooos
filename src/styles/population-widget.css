@@ -331,7 +331,23 @@
 .pmm-card--wide .pmm-hoc { font-size: clamp(10px, 1vw, 18px); padding: clamp(4px, 0.5vw, 9px) clamp(9px, 1vw, 18px); }
 .pmm-card--wide .pmm-cta { font-size: clamp(11px, 1.15vw, 20px); gap: clamp(6px, 0.7vw, 12px); }
 .pmm-card--wide .pmm-cta-play { width: clamp(23px, 2.3vw, 40px); height: clamp(23px, 2.3vw, 40px); }
-.pmm-card--wide .pmm-estnum { font-size: clamp(24px, 2.5vw, 46px); }
+.pmm-card--wide .pmm-estnum { font-size: clamp(28px, 3.2vw, 56px); }
+
+/* Ring grouping: separate the two drift rings (Emigrants, Non-permanent) from
+   the three event rings so they do not crowd the main trio. */
+.pmm-rings .pmm-ring:not(.pmm-ring--secondary) + .pmm-ring--secondary { margin-left: 16px; }
+.pmm-card--wide .pmm-rings .pmm-ring:not(.pmm-ring--secondary) + .pmm-ring--secondary { margin-left: clamp(12px, 1.7vw, 32px); }
+
+/* Slide 1: let the compact preview fill more of the reserved panel. */
+.pmm-card--wide.pmm-card--mini { padding: clamp(16px, 1.5vw, 30px); }
+.pmm-card--wide.pmm-card--mini .pmm-mini { gap: clamp(14px, 1.7vw, 30px); }
+
+/* Slide 2 selective copy: "every 1 is someone" tagline + subpage link. */
+.pmm-tagline { font-weight: 800; color: var(--pmm-indigo); margin: 10px 0 6px; }
+.pmm-card--wide .pmm-tagline { font-size: clamp(12px, 1.05vw, 18px); }
+.pmm-learn { display: inline-block; margin-top: 10px; color: #b3122f; font-weight: 800; text-decoration: none; }
+.pmm-card--wide .pmm-learn { font-size: clamp(11px, 1vw, 16px); }
+.pmm-learn:hover { text-decoration: underline; }
 .pmm-card--wide .pmm-estcap { font-size: clamp(11px, 1vw, 17px); }
 /* Mobile: the wide card is full-width and the vw clamps collapse to their mins,
    so the chip + CTA row (forced nowrap above) overflowed and the card's rounded

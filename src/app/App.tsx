@@ -5,6 +5,7 @@ import { Home } from "./components/Home";
 import { Ostara } from "./components/Ostara";
 import { Exhibition } from "./components/Exhibition";
 import { CID } from "./components/CID";
+import { PopClockMini } from "./components/PopClockMini";
 import { About } from "./components/About";
 import { SupportModal } from "./components/SupportModal";
 import OooDashBoardForNewUser from "@/imports/🥘OooDashBoardForNewUser/🥘OooDashBoardForNewUser";
@@ -23,6 +24,7 @@ export default function App() {
           <Route path="/" element={<Home onSupport={open} />} />
           <Route path="/ostara" element={<Ostara onSupport={open} />} />
           <Route path="/cid" element={<CID onSupport={open} />} />
+          <Route path="/pop-clock-mini" element={<PopClockMini />} />
           <Route path="/exhibition" element={<Exhibition onSupport={open} />} />
           <Route path="/about" element={<About />} />
           <Route

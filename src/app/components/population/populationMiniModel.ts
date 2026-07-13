@@ -141,7 +141,7 @@ export function readModel(data: PopulationModelData, now: number = Date.now()): 
     eventRing("immigrants", "Immigrants", "add", c.immigrants, secondsSinceMidnight),
     // emigrants are modelled as a net outflow, not single events → drift
     driftRing("emigrants", "Emigrants", -Math.abs(c.emigrants), secondsSinceMidnight),
-    driftRing("npr", "NPR", c.netNonPermanentResidents, secondsSinceMidnight),
+    driftRing("npr", "Non-permanent", c.netNonPermanentResidents, secondsSinceMidnight),
   ];
 
   // The headline reconciles exactly with the rings.

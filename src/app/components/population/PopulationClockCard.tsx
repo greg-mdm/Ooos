@@ -75,25 +75,28 @@ function useSecondTick(active: boolean) {
 //   const LID_IMAGE = "assets/brand/pop-clock-lid.png";
 const LID_IMAGE: string | null = "pop-clock/ooo-popclock-lid.png";
 
-// Slide 2 (detailed) uses the full window template as the device face — a
-// branded gradient with the wordmark + bricks baked into the bottom and an
-// open "screen" area up top for the live readout (headline + rings). Set to
-// null to fall back to the lid-bar + plain body layout.
-const WINDOW_IMAGE: string | null = "pop-clock/popclock_window.png";
+// Slide 2 (detailed) leads with the BIGGER lid lockup in its bigger space — the
+// wordmark + AUTOMATED/PREDICTIVE/MODEL bricks on the navy gradient — sitting at
+// the TOP of the card with the rings + copy below it.
+const BIG_LID: string | null = "pop-clock/BigLid-MiniClock.png";
+
+// Window-face template retired: both slides now lead with a lid bar and stack
+// the live readout below it. (Set to a PNG path to bring the face back.)
+const WINDOW_IMAGE: string | null = null;
 
 // Ruby-red round play/next icon for the slide-1 "Look at our live model" CTA.
 const PLAY_ICON = "pop-clock/ruby-red-play.png";
 
 /** The lid: a branded image when supplied, otherwise the text lockup
  *  (Humans of Canada · electric Ooo! wordmark + Pop Clock Mini · subtitle). */
-function PopClockLid() {
+function PopClockLid({ src = LID_IMAGE }: { src?: string | null }) {
   const base = import.meta.env.BASE_URL;
-  if (LID_IMAGE) {
+  if (src) {
     return (
       <div className="pmm-lid pmm-lid--img">
         <img
           className="pmm-lid-img"
-          src={`${base}${LID_IMAGE}`}
+          src={`${base}${src}`}
           alt="Ooo! Pop Clock Mini — Automated Predictive Model, by Humans of Canada"
         />
       </div>
@@ -146,6 +149,20 @@ const RING_STROKE: Record<string, string | ((phase: number) => string)> = {
 /** A solid ring that fills toward the next modelled event and resets, driven by
  *  requestAnimationFrame for a smooth sweep. Pulses on each completed event.
  *  Paused (via `active`) when the section is off-screen. */
+// Plain-language hover for each ring. Never an acronym without its meaning.
+const RING_HINTS: Record<string, string> = {
+  births:
+    "Every new life recorded in Canada. Green is for natural growth, the population rising from within.",
+  deaths:
+    "Counts the end of every recorded life among Canada's residents. Someone who dies while only visiting is not part of the count, so it is not subtracted.",
+  immigrants:
+    "New permanent residents. People granted the right to live in Canada for good. Temporary workers, students and asylum claimants are counted separately, under Non-permanent.",
+  emigrants:
+    "Residents who leave Canada to live abroad, to settle, work, or study long-term. A vacation does not count.",
+  npr:
+    "Non-permanent residents (NPR): the net change in people living here on temporary status, such as work permits, study permits, and asylum claimants, plus their families.",
+};
+
 function EventRing({ ring, active }: { ring: RingReading; active: boolean }) {
   const progRef = useRef<SVGCircleElement>(null);
   const countRef = useRef<HTMLSpanElement>(null);
@@ -198,7 +215,12 @@ function EventRing({ ring, active }: { ring: RingReading; active: boolean }) {
 
   const every = ring.intervalSeconds ? Math.round(ring.intervalSeconds) : 0;
   return (
-    <div className="pmm-ring" role="img" aria-label={`${ring.label}: about one every ${every} seconds`}>
+    <div
+      className="pmm-ring"
+      role="img"
+      title={RING_HINTS[ring.key]}
+      aria-label={`${ring.label}: about one every ${every} seconds. ${RING_HINTS[ring.key] ?? ""}`}
+    >
       <div className={`pmm-ring-dial pmm-ring-${ring.kind}`} ref={dialRef}>
         <svg viewBox="0 0 64 64" aria-hidden="true">
           <circle className="pmm-ring-track" cx="32" cy="32" r={RING_R} />
@@ -228,7 +250,8 @@ function DriftRing({ ring }: { ring: RingReading }) {
     <div
       className="pmm-ring pmm-ring--secondary"
       role="img"
-      aria-label={`${ring.label}: net ${sign}${formatMagnitude(ring.signedNet)} since midnight`}
+      title={RING_HINTS[ring.key]}
+      aria-label={`${ring.label}: net ${sign}${formatMagnitude(ring.signedNet)} since midnight. ${RING_HINTS[ring.key] ?? ""}`}
     >
       <div className={`pmm-ring-dial pmm-ring-drift pmm-ring-${ring.kind}`}>
         <svg viewBox="0 0 64 64" aria-hidden="true">
@@ -301,11 +324,14 @@ export function PopClockCard({
   wide = false,
   detailed = false,
   onAdvance,
+  learnLink = true,
 }: {
   state: PopulationModelState;
   wide?: boolean;
   detailed?: boolean;
   onAdvance?: () => void;
+  /** Hide the "story behind the clock" link where the card IS the story page. */
+  learnLink?: boolean;
 }) {
   useSecondTick(state.kind === "ready");
   const r = state.kind === "ready" ? readModel(state.data) : null;
@@ -317,9 +343,9 @@ export function PopClockCard({
       }`}
       aria-label="Ooo! Pop Clock Mini — automated predictive model"
     >
-      {/* Slide 1 wears the lid bar; slide 2's branding is baked into the
-          window face, so it skips the lid. */}
-      {!(detailed && WINDOW_IMAGE) && <PopClockLid />}
+      {/* Both slides lead with a lid: the slim blue/red bar on the compact
+          preview, the bigger lockup on the full-model card. */}
+      {!(detailed && WINDOW_IMAGE) && <PopClockLid src={detailed ? BIG_LID : LID_IMAGE} />}
 
       {state.kind === "loading" && (
         <p className="pmm-status" role="status">
@@ -380,16 +406,14 @@ export function PopClockCard({
               <RingRow rings={r.rings} />
             </>
           )}
+          <p className="pmm-tagline">Every 1 is someone. Each number is a real person.</p>
           <p className="pmm-ringfoot">
-            Each solid ring is a live counter: it fills as the next birth, death or arrival
-            approaches, then ticks the count up and resets. The dashed rings are net totals —
-            emigration and non-permanent residents are modelled as net flows, not single events,
-            so they drift with the running net since midnight.
+            Solid rings tick: births, deaths, immigrants. Dashed rings drift. Hover any ring
+            to see what it counts.
           </p>
           <p className="pmm-about">
-            Tracks Canada&rsquo;s population between StatCan&rsquo;s quarterly estimates, modelled
-            from the latest four quarters of demographic components. Experimental — not the
-            official StatCan clock, and not endorsed by Statistics Canada.
+            This is a model, not the official count. It fills the gap between StatCan&rsquo;s
+            quarterly updates. Experimental, and not endorsed by Statistics Canada.
           </p>
           <a className="pmm-link" href={OFFICIAL_CLOCK_URL} target="_blank" rel="noopener noreferrer">
             Check Canada&rsquo;s official real-time population clock @ statcan.gc.ca
@@ -397,6 +421,11 @@ export function PopClockCard({
           <p className="pmm-srcline">{SOURCE_LINE}</p>
           {/* The methodology adjustment belongs at the end, not leading. */}
           <p className="pmm-adjust">Interprovincial migration omitted (net zero nationally).</p>
+          {learnLink && (
+            <a className="pmm-learn" href={`${import.meta.env.BASE_URL}pop-clock-mini`}>
+              Watch and learn: the story behind the clock →
+            </a>
+          )}
         </>
       )}
     </aside>
