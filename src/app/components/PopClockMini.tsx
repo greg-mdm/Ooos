@@ -3,9 +3,10 @@ import { PopClockCard, usePopulationModel } from "./population/PopulationClockCa
 
 /**
  * /pop-clock-mini — the Ooo! Pop Clock Mini product page.
- * Light page, dark clock: the live widget is the featured product, followed by
- * the story (why it matters) and the technical details (how to read it).
- * Sets up the pattern for future regional clocks (each can point here).
+ * Layout language (per the WEBSITE_ARCHITECTURE deck): text sits directly on
+ * the robin's-egg canvas with wide margins and hairline dividers; the only
+ * boxed elements are the product itself (the dark clock card), the code
+ * snippet, and the square shareable quote tiles. No cards-inside-cards.
  */
 
 /** The "Ooo! Pop Clock Mini" lockup: wordmark image + Lovelo text. */
@@ -26,37 +27,32 @@ const RING_SPECS = [
   {
     key: "births",
     chip: "pcm-chip--births",
-    name: "Births",
-    colour: "Forest green",
-    desc: "A solid ring fills toward the next birth, pulses, and resets. Green is natural growth.",
+    name: "Births.",
+    desc: "A solid forest-green ring fills toward the next birth, pulses, and resets. Green is natural growth.",
   },
   {
     key: "deaths",
     chip: "pcm-chip--deaths",
-    name: "Deaths",
-    colour: "Indigo to midnight black",
+    name: "Deaths.",
     desc: "The ring darkens as it fills: indigo, dark indigo, then midnight black at the moment of the event.",
   },
   {
     key: "immigrants",
     chip: "pcm-chip--immigrants",
-    name: "Immigrants",
-    colour: "Ruby red",
-    desc: "New permanent residents. People granted the right to live in Canada for good.",
+    name: "Immigrants.",
+    desc: "A solid ruby-red ring. New permanent residents, people granted the right to live in Canada for good.",
   },
   {
     key: "emigrants",
     chip: "pcm-chip--drift",
-    name: "Emigrants",
-    colour: "Dashed drift ring",
-    desc: "Residents who leave Canada to live abroad. The dashed ring drifts with the day's net count.",
+    name: "Emigrants.",
+    desc: "A dashed ring that drifts with the day's net count of residents leaving Canada to live abroad.",
   },
   {
     key: "npr",
     chip: "pcm-chip--drift",
-    name: "Non-permanent",
-    colour: "Dashed drift ring",
-    desc: "Net change in temporary status: work permits, study permits, and asylum claimants, plus their families.",
+    name: "Non-permanent.",
+    desc: "A dashed ring for the net change in temporary status: work permits, study permits, and asylum claimants.",
   },
 ];
 
@@ -108,8 +104,8 @@ export function PopClockMini() {
       </section>
 
       <div className="pcm-inner">
-        {/* ---- The story: why it matters ----------------------------------- */}
-        <section className="pcm-card pcm-story" aria-label="Memento vivere">
+        {/* ---- The story: a big centred statement on the canvas ------------- */}
+        <section className="pcm-sect pcm-story" aria-label="Memento vivere">
           <h2 className="pcm-epigraph">
             <em>Memento vivere.</em>
             <span className="pcm-epigraph-en">Remember to live.</span>
@@ -121,19 +117,38 @@ export function PopClockMini() {
             <br />
             Many melodies rise in harmony.
           </p>
-          <h3 className="pcm-h">Every 1 is someone.</h3>
-          <p className="pcm-p">
-            Each number on this clock represents a real person with a lifetime of experience.
-          </p>
-          <h3 className="pcm-h">Watch and learn</h3>
-          <p className="pcm-p">
-            Understanding demographic data is key to spotting trends, finding correlations and
-            identifying insights needed to inform decisions and guide strategic plans.
-          </p>
+        </section>
+
+        {/* ---- Why it matters: three columns, text on canvas ----------------- */}
+        <section className="pcm-sect" aria-label="Why it matters">
+          <div className="pcm-cols3 pcm-cols3--story">
+            <div className="pcm-col3">
+              <p className="pcm-collead">
+                <strong>Every 1 is someone.</strong> Each number on this clock represents a real
+                person with a lifetime of experience.
+              </p>
+            </div>
+            <div className="pcm-col3">
+              <p className="pcm-collead">
+                <strong>Watch and learn.</strong> Understanding demographic data is key to
+                spotting trends, finding correlations and identifying insights needed to inform
+                decisions and guide strategic plans.
+              </p>
+            </div>
+            <div className="pcm-col3">
+              <p className="pcm-collead">
+                <strong>Observe the rhythm.</strong> Discover the patterns. Question your
+                understanding.
+              </p>
+              <a className="pcm-arrow" href={`${base}jellybean-journeys/index.html`} target="_blank" rel="noopener noreferrer">
+                Explore JellyBean Journeys →
+              </a>
+            </div>
+          </div>
         </section>
 
         {/* ---- Capabilities: fine print → H1 lockup → H2, per the mock ------ */}
-        <section className="pcm-card pcm-caps-card" aria-label="What it can do">
+        <section className="pcm-sect" aria-label="What it can do">
           <p className="pcm-fineprint">More than a timepiece for tech enthusiasts&hellip;</p>
           <p className="pcm-caps-lockup">
             <span className="pcm-caps-h1">
@@ -153,15 +168,13 @@ export function PopClockMini() {
             <strong>Warning:</strong> Big numbers tell powerful stories. Learning to read them
             may alter your perspective.
           </p>
-          <p className="pcm-refrain">
-            Observe the rhythm. Discover the patterns. Question your understanding.
-          </p>
         </section>
 
-        {/* ---- Technical: how to read it ------------------------------------ */}
-        <section className="pcm-card" aria-label="Visual language">
+        {/* ---- How to read it: chip columns with hairline dividers ----------- */}
+        <section className="pcm-sect" aria-label="Visual language">
+          <p className="pcm-eyebrow">Visual language</p>
           <h2 className="pcm-sect-h">How to read it</h2>
-          <p className="pcm-p">
+          <p className="pcm-lead">
             Three solid rings tick with events. Two dashed rings drift with net flows. Hover any
             ring on the live clock to see what it counts.
           </p>
@@ -169,49 +182,51 @@ export function PopClockMini() {
             {RING_SPECS.map((r) => (
               <li key={r.key} className="pcm-ringspec">
                 <span className={`pcm-chip ${r.chip}`} aria-hidden="true" />
-                <span className="pcm-ringspec-body">
-                  <strong>{r.name}</strong>{" "}
-                  <span className="pcm-ringspec-colour">{r.colour}</span>
-                  <span className="pcm-ringspec-desc">{r.desc}</span>
-                </span>
+                <p className="pcm-collead">
+                  <strong>{r.name}</strong> {r.desc}
+                </p>
               </li>
             ))}
           </ul>
         </section>
 
         {/* ---- Loon states --------------------------------------------------- */}
-        <section className="pcm-card" aria-label="Loon states">
+        <section className="pcm-sect" aria-label="Loon states">
+          <p className="pcm-eyebrow">Signal</p>
           <h2 className="pcm-sect-h">
             Loon states <span className="pcm-badge">in development</span>
           </h2>
-          <video
-            className="pcm-loon-video"
-            src={`${base}pop-clock/loon/LoonState-Corner-Sustained.mp4`}
-            poster={`${base}pop-clock/loon/loon-poster.jpg`}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            aria-label="Watercolour loon dipping below the waterline"
-          />
-          <ul className="pcm-loonstates">
-            <li>
-              <strong>Surface.</strong> The day&rsquo;s net change is up. The loon rides the
-              water.
-            </li>
-            <li>
-              <strong>Dive.</strong> A net dip. The loon slips below the waterline.
-            </li>
-          </ul>
-          <p className="pcm-p">
-            A Canadian signal for direction: watch it the way you watch a trend line rise and
-            fall.
-          </p>
+          <div className="pcm-loon-row">
+            <video
+              className="pcm-loon-video"
+              src={`${base}pop-clock/loon/LoonState-Corner-Sustained.mp4`}
+              poster={`${base}pop-clock/loon/loon-poster.jpg`}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              aria-label="Watercolour loon dipping below the waterline"
+            />
+            <div className="pcm-loon-copy">
+              <p className="pcm-collead">
+                <strong>Surface.</strong> The day&rsquo;s net change is up. The loon rides the
+                water.
+              </p>
+              <p className="pcm-collead">
+                <strong>Dive.</strong> A net dip. The loon slips below the waterline.
+              </p>
+              <p className="pcm-collead pcm-collead--mut">
+                A Canadian signal for direction: watch it the way you watch a trend line rise
+                and fall.
+              </p>
+            </div>
+          </div>
         </section>
 
-        {/* ---- Specifications ------------------------------------------------ */}
-        <section className="pcm-card" aria-label="Specifications">
+        {/* ---- Specifications: two-level table, hairline rows ----------------- */}
+        <section className="pcm-sect" aria-label="Specifications">
+          <p className="pcm-eyebrow">Technical details</p>
           <h2 className="pcm-sect-h">Specifications</h2>
           <dl className="pcm-specs">
             {SPECS.map(([dt, dd]) => (
@@ -221,7 +236,7 @@ export function PopClockMini() {
               </div>
             ))}
           </dl>
-          <p className="pcm-p pcm-p--small">
+          <p className="pcm-foot">
             Source: Statistics Canada, Canada&rsquo;s population clock (real-time model), and
             related public data tables. Adapted using the Statistics Canada Web Data Service.
             This does not imply endorsement by Statistics Canada.{" "}
@@ -236,16 +251,17 @@ export function PopClockMini() {
         </section>
 
         {/* ---- Get the embed ------------------------------------------------- */}
-        <section className="pcm-card" id="pcm-embed" aria-label="Get the embed">
+        <section className="pcm-sect" id="pcm-embed" aria-label="Get the embed">
+          <p className="pcm-eyebrow">Ship it</p>
           <h2 className="pcm-sect-h">Get the embed</h2>
-          <p className="pcm-p">
+          <p className="pcm-lead">
             The standalone clock is one file with no dependencies. Drop these two lines into any
             page:
           </p>
           <pre className="pcm-code">
             <code>{`<div id="ooo-pop-clock"></div>\n<script src="https://ooos.ca/pop-clock/ooo-pop-clock.js"></script>`}</code>
           </pre>
-          <p className="pcm-p pcm-p--small">
+          <p className="pcm-foot">
             The card is self-styled, responsive, and inherits nothing from the host page.{" "}
             <a href={`${base}pop-clock/`} target="_blank" rel="noopener noreferrer">
               Demo and options →
@@ -254,36 +270,36 @@ export function PopClockMini() {
           </p>
         </section>
 
-        {/* ---- Two ways of knowing ------------------------------------------- */}
-        <section className="pcm-compare" aria-label="Two ways of knowing">
-          <p className="pcm-compare-h">Two ways of knowing</p>
-          <div className="pcm-compare-grid">
-            <div className="pcm-col pcm-col--a">
-              <h3 className="pcm-col-h">Human-Centred Design</h3>
-              <p className="pcm-col-quote">
+        {/* ---- Two ways of knowing: square, shareable quote tiles ------------- */}
+        <section className="pcm-sect" aria-label="Two ways of knowing">
+          <p className="pcm-eyebrow">Two ways of knowing</p>
+          <div className="pcm-tiles">
+            <figure className="pcm-tile pcm-tile--hcd">
+              <figcaption className="pcm-tile-kicker">Human-Centred Design</figcaption>
+              <blockquote className="pcm-tile-quote">
                 &ldquo;Drive innovation by deeply understanding customer needs.&rdquo;
-              </p>
-              <p className="pcm-col-cite">IDEO U</p>
-            </div>
-            <div className="pcm-col pcm-col--b">
-              <h3 className="pcm-col-h">Relationality</h3>
-              <p className="pcm-col-quote">
+              </blockquote>
+              <p className="pcm-tile-cite">IDEO U</p>
+            </figure>
+            <figure className="pcm-tile pcm-tile--rel">
+              <figcaption className="pcm-tile-kicker">Relationality</figcaption>
+              <blockquote className="pcm-tile-quote">
                 &ldquo;Relationships are vital to creating awareness, building trust, and
                 garnering support in order to mobilize action.&rdquo;
-              </p>
-              <p className="pcm-col-cite">Cote-Meek (2020, p. xviii)</p>
-            </div>
+              </blockquote>
+              <p className="pcm-tile-cite">Cote-Meek (2020, p. xviii)</p>
+            </figure>
           </div>
-          <p className="pcm-footnote">
+          <p className="pcm-foot">
             Cited in Patricia Barkaskas and Derek Gladwin, &ldquo;Pedagogical Talking Circles:
             Decolonizing Education through Relational Indigenous Frameworks,&rdquo; University of
             British Columbia.
           </p>
         </section>
 
-        {/* ---- Learning outcomes + bridge ------------------------------------ */}
-        <section className="pcm-card" aria-label="Learning outcomes">
-          <h2 className="pcm-sect-h">Learning outcomes</h2>
+        {/* ---- Learning outcomes + closing actions ---------------------------- */}
+        <section className="pcm-sect" aria-label="Learning outcomes">
+          <p className="pcm-eyebrow">Learning outcomes</p>
           <ol className="pcm-outcomes">
             <li>Observe the rhythm, discover patterns, and question your understanding.</li>
             <li>Use reliable data to test assumptions and address challenges.</li>
