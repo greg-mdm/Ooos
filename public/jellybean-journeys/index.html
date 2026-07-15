@@ -58,8 +58,8 @@
        overflows onto the carousel nav below it */
     [data-switchpanel] { flex-basis: 100% !important; width: 100% !important; height: auto !important; gap: 18px !important; margin-top: 4px !important; align-items: center !important; text-align: center; }
     [data-switchpanel] > div:last-child { margin: 0 !important; }
-    /* film row: video and campaign still stack on phones */
-    .jbj-filmrow { grid-template-columns: 1fr !important; }
+    /* film row + three-up rows stack on phones */
+    .jbj-filmrow, .jbj-trio { grid-template-columns: 1fr !important; }
     /* 3D toolbar: wrap and shrink so Join/Disperse never run off-screen */
     [aria-label="3D scene controls"] { flex-wrap: wrap !important; padding: 8px !important; }
     [aria-label="3D scene controls"] [data-act="join"],
@@ -329,6 +329,55 @@
         <p style="margin:0 0 8px; font-size:clamp(15px,1.4vw,18px); font-weight:700; font-style:italic; color:#eef0f6;">Awareness leads to understanding</p>
         <p style="margin:0; font-size:clamp(12.5px,1.15vw,14px); line-height:1.62; color:#c2c6de;">Explore how infrastructure, institutions, supply chains, and public spaces are interconnected in complex ways. Heightened awareness fosters empathy, which enriches the human connections in our daily lives.</p>
       </div>
+    </div>
+    <!-- Chart 1: quote block, the split comparison of two ways of knowing -->
+    <div style="margin-top:clamp(28px,4.4vh,52px);">
+      <p style="margin:0 0 18px; text-align:center; font-size:11px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold);">Two ways of knowing</p>
+      <div class="jbj-filmrow" style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(20px,3vw,44px); align-items:stretch;">
+        <figure style="margin:0; min-width:0; display:flex; flex-direction:column; border-top:2px solid rgba(240,192,64,0.4); padding-top:13px;">
+          <figcaption style="margin:0 0 10px; font-family:'Poppins',system-ui,sans-serif; font-weight:800; font-size:clamp(15px,1.5vw,19px); color:#eef0f6;">Human-Centred Design <span style="font-weight:600; color:#a9aecb;">(IDEO U)</span></figcaption>
+          <blockquote style="margin:0 0 12px; font-size:clamp(16px,1.8vw,22px); font-style:italic; font-weight:600; line-height:1.5; color:#eef0f6;">&ldquo;Drive innovation by deeply understanding customer needs.&rdquo;</blockquote>
+          <p style="margin:auto 0 0; font-size:11.5px; line-height:1.5; color:#8a90b4;">Source: IDEO U (2026)</p>
+        </figure>
+        <figure style="margin:0; min-width:0; display:flex; flex-direction:column; border-top:2px solid rgba(240,192,64,0.4); padding-top:13px;">
+          <figcaption style="margin:0 0 10px; font-family:'Poppins',system-ui,sans-serif; font-weight:800; font-size:clamp(15px,1.5vw,19px); color:#eef0f6;">Relationality <span style="font-weight:600; color:#a9aecb;">(Cote-Meek)</span></figcaption>
+          <blockquote style="margin:0 0 12px; font-size:clamp(16px,1.8vw,22px); font-style:italic; font-weight:600; line-height:1.5; color:#eef0f6;">&ldquo;Relationships are vital to creating awareness, building trust, and garnering support in order to mobilize action.&rdquo;</blockquote>
+          <p style="margin:auto 0 0; font-size:11.5px; line-height:1.5; color:#8a90b4;">Source: Cote-Meek, <em>Colonized Classrooms</em> (2020), p. xviii.</p>
+        </figure>
+      </div>
+    </div>
+    <!-- Chart 2: a comparative history of memento vivere -->
+    <div style="margin-top:clamp(28px,4.4vh,52px);">
+      <p style="margin:0 0 6px; text-align:center; font-size:11px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold);">A comparative history</p>
+      <p style="margin:0 0 18px; text-align:center; font-family:'Poppins',system-ui,sans-serif; font-weight:800; font-size:clamp(18px,2.2vw,26px); color:#eef0f6;"><em style="font-style:italic;">Memento vivere</em></p>
+      <div class="jbj-trio" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:clamp(20px,3vw,44px); align-items:start;">
+        <div style="border-top:2px solid rgba(240,192,64,0.4); padding-top:13px;">
+          <div style="font-family:'Audiowide',system-ui,sans-serif; font-size:16px; color:var(--gold); letter-spacing:0.6px;">1820s</div>
+          <div style="margin:3px 0 8px; font-size:14px; font-weight:600; color:#eef0f6; letter-spacing:0.2px;">Goethe</div>
+          <p style="margin:0; font-size:clamp(12.5px,1.15vw,14px); line-height:1.62; color:#c2c6de;">Goethe&rsquo;s poetry and writings repeatedly advanced the related reminder: &ldquo;do not forget to live&rdquo;, and reversed the Latin word order in the poetic formula <em>vivere memento</em>, influenced in part by Spinoza&rsquo;s preference for meditation on life rather than death.<sup style="font-size:0.72em; color:var(--gold);">&nbsp;1,2,3</sup></p>
+        </div>
+        <div style="border-top:2px solid rgba(240,192,64,0.4); padding-top:13px;">
+          <div style="font-family:'Audiowide',system-ui,sans-serif; font-size:16px; color:var(--gold); letter-spacing:0.6px;">1849</div>
+          <div style="margin:3px 0 8px; font-size:14px; font-weight:600; color:#eef0f6; letter-spacing:0.2px;">John Kenyon, &ldquo;Memento Vivere&rdquo;<sup style="font-size:0.72em; color:var(--gold);">&nbsp;4</sup></div>
+          <p style="margin:0; font-size:clamp(12.5px,1.15vw,14px); line-height:1.62; color:#c2c6de;">First evidence currently recorded by the Oxford English Dictionary (OED) for the expression functioning as an English noun, meaning a reminder or inducement to live.<sup style="font-size:0.72em; color:var(--gold);">&nbsp;5</sup></p>
+        </div>
+        <div style="border-top:2px solid rgba(240,192,64,0.4); padding-top:13px;">
+          <div style="font-family:'Audiowide',system-ui,sans-serif; font-size:16px; color:var(--gold); letter-spacing:0.6px;">1874</div>
+          <div style="margin:3px 0 8px; font-size:14px; font-weight:600; color:#eef0f6; letter-spacing:0.2px;">Friedrich Nietzsche</div>
+          <p style="margin:0 0 10px; font-size:clamp(12.5px,1.15vw,14px); line-height:1.62; color:#c2c6de;">Nietzsche contrasted the medieval idea of <em>memento mori</em> with the timid embrace of <em>memento vivere</em> in the modern world, while criticizing the inability to break free from the past.</p>
+          <blockquote style="margin:0 0 8px; padding-left:12px; border-left:2px solid rgba(240,192,64,0.4); font-size:clamp(12px,1.1vw,13.5px); font-style:italic; line-height:1.55; color:#c2c6de;">&ldquo;<em>Memento vivere</em> is spoken rather timidly, without the full power of the lungs; and there is something almost dishonest about it.&rdquo;</blockquote>
+          <blockquote style="margin:0 0 8px; padding-left:12px; border-left:2px solid rgba(240,192,64,0.4); font-size:clamp(12px,1.1vw,13.5px); font-style:italic; line-height:1.55; color:#c2c6de;">&ldquo;A deep feeling of hopelessness has remained, and taken the historical colouring that has now darkened and depressed all higher education.&rdquo;</blockquote>
+          <p style="margin:0; font-size:11.5px; line-height:1.5; color:#8a90b4;">Friedrich Nietzsche, <em>Vom Nutzen und Nachteil der Historie f&uuml;r das Leben</em>.</p>
+        </div>
+      </div>
+      <!-- Chicago-style notes for the comparative history -->
+      <ol style="margin:clamp(18px,2.6vh,26px) 0 0; padding-left:1.4em; font-size:11px; line-height:1.6; color:#8a90b4; max-width:1000px;">
+        <li style="margin-bottom:5px;">Johann Wolfgang von Goethe, &ldquo;An Christian Gottfried Daniel Nees von Esenbeck,&rdquo; November 12, 1824, in <em>Goethes Werke: Herausgegeben im Auftrage der Grossherzogin Sophie von Sachsen</em>, IV. Abteilung, <em>Goethes Briefe</em>, vol. 39, <em>November 1824&ndash;Juli 1825</em>, ed. Carl Sch&uuml;ddekopf (Weimar: Hermann B&ouml;hlaus Nachfolger, 1907), 11&ndash;12.</li>
+        <li style="margin-bottom:5px;">Johann Wolfgang von Goethe, &ldquo;Schwebender Genius &uuml;ber der Erdkugel&mdash;Mit der einen Hand nach unten, mit der andern nach oben deutend,&rdquo; in <em>Gedichte</em>, ed. Erich Trunz (Munich: C. H. Beck, 2007), 368.</li>
+        <li style="margin-bottom:5px;">Pierre Hadot, <em>N&rsquo;oublie pas de vivre: Goethe et la tradition des exercices spirituels</em> (Paris: Albin Michel, 2008), 11; Baruch Spinoza, <em>Ethics</em>, pt. 4, prop. 67, in <em>Spinoza: Complete Works</em>, trans. Samuel Shirley, ed. Michael L. Morgan (Indianapolis: Hackett Publishing Company, 2002).</li>
+        <li style="margin-bottom:5px;">John Kenyon, &ldquo;Memento Vivere,&rdquo; in <em>A Day at Tivoli: With Other Verses</em> (London: Longman, Brown, Green, and Longmans, 1849), 170.</li>
+        <li style="margin-bottom:0;">Oxford English Dictionary, s.v. &ldquo;memento vivere, n.,&rdquo; accessed July 15, 2026.</li>
+      </ol>
     </div>
     <!-- Related content: the pathway to further learning -->
     <div style="margin:clamp(28px,4.4vh,52px) auto 0; max-width:820px; text-align:center; border-top:1px solid rgba(240,192,64,0.22); padding-top:clamp(20px,3vh,30px);">
