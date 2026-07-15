@@ -58,6 +58,8 @@
        overflows onto the carousel nav below it */
     [data-switchpanel] { flex-basis: 100% !important; width: 100% !important; height: auto !important; gap: 18px !important; margin-top: 4px !important; align-items: center !important; text-align: center; }
     [data-switchpanel] > div:last-child { margin: 0 !important; }
+    /* film row: video and campaign still stack on phones */
+    .jbj-filmrow { grid-template-columns: 1fr !important; }
     /* 3D toolbar: wrap and shrink so Join/Disperse never run off-screen */
     [aria-label="3D scene controls"] { flex-wrap: wrap !important; padding: 8px !important; }
     [aria-label="3D scene controls"] [data-act="join"],
@@ -168,7 +170,7 @@
               <li style="padding-left:18px; text-indent:-18px;">BuzzFeed Video. &ldquo;The Time You Have (In JellyBeans).&rdquo; 2013. Ze Frank, lead producer. YouTube. <a href="https://www.youtube.com/watch?v=BOksW_NabEk" target="_blank" rel="noopener" style="color:#7C18E7; text-decoration:none; border-bottom:1px solid rgba(124,24,231,0.45); word-break:break-all;">https://www.youtube.com/watch?v=BOksW_NabEk</a>.</li>
               <li style="padding-left:18px; text-indent:-18px;">GreenSock. <em>GSAP: GreenSock Animation Platform</em>. Accessed 2026. <a href="https://gsap.com" target="_blank" rel="noopener" style="color:#7C18E7; text-decoration:none; border-bottom:1px solid rgba(124,24,231,0.45);">https://gsap.com</a>.</li>
               <li style="padding-left:18px; text-indent:-18px;">IDEO U. &ldquo;Design Thinking.&rdquo; Accessed 2026. <a href="https://www.ideou.com/pages/design-thinking" target="_blank" rel="noopener" style="color:#7C18E7; text-decoration:none; border-bottom:1px solid rgba(124,24,231,0.45);">https://www.ideou.com/pages/design-thinking</a>.</li>
-              <li style="padding-left:18px; text-indent:-18px;">Leo Burnett Madrid. &ldquo;The Time We Have Left.&rdquo; 2018. Advertising campaign for Ruavieja.</li>
+              <li style="padding-left:18px; text-indent:-18px;">Leo Burnett Madrid. &ldquo;The Time We Have Left.&rdquo; 2018. Advertising campaign for Ruavieja. D&amp;AD Awards Archive. <a href="https://www.dandad.org/work/d-ad-awards-archive/the-time-we-have-left" target="_blank" rel="noopener" style="color:#7C18E7; text-decoration:none; border-bottom:1px solid rgba(124,24,231,0.45); word-break:break-all;">https://www.dandad.org/work/d-ad-awards-archive/the-time-we-have-left</a>.</li>
               <li style="padding-left:18px; text-indent:-18px;">Ontario Ministry of Colleges and Universities. &ldquo;University Enrolment, 2023&ndash;2024.&rdquo; Ontario Data Catalogue. Accessed 2026. <a href="https://data.ontario.ca/dataset/university-enrolment" target="_blank" rel="noopener" style="color:#7C18E7; text-decoration:none; border-bottom:1px solid rgba(124,24,231,0.45); word-break:break-all;">https://data.ontario.ca/dataset/university-enrolment</a>.</li>
               <li style="padding-left:18px; text-indent:-18px;">Parsons, Tom (PARSONSARTS). <em>Jellybean Mass</em>. 3D model. Sketchfab. <a href="https://sketchfab.com/3d-models/jellybean-mass-146c0d50f520431bb928a4d8ce0be982" target="_blank" rel="noopener" style="color:#7C18E7; text-decoration:none; border-bottom:1px solid rgba(124,24,231,0.45); word-break:break-all;">https://sketchfab.com/3d-models/jellybean-mass-146c0d50f520431bb928a4d8ce0be982</a>.</li>
               <li style="padding-left:18px; text-indent:-18px;">Three.js Authors. <em>Three.js: JavaScript 3D Library</em>. Accessed 2026. <a href="https://threejs.org" target="_blank" rel="noopener" style="color:#7C18E7; text-decoration:none; border-bottom:1px solid rgba(124,24,231,0.45);">https://threejs.org</a>.</li>
@@ -287,15 +289,22 @@
   </div>
 
   <!-- ===== Inspiration film — its own embed frame, directly on the canvas
-       (no device bezel, no slide nesting; the carousel keeps the editorial) ===== -->
-  <div style="width:min(1100px,96vw); margin-top:clamp(10px,1.8vh,22px);">
+       (no device bezel, no slide nesting; the carousel keeps the editorial).
+       The Ruavieja campaign still beside it (desktop) / below it (mobile). ===== -->
+  <div style="width:min(1280px,96vw); margin-top:clamp(10px,1.8vh,22px);">
     <div style="display:flex; align-items:center; gap:9px; margin-bottom:10px;">
       <svg viewBox="0 0 24 24" width="13" height="13" fill="var(--gold)" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
       <span style="font-size:11px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold);">Inspiration</span>
     </div>
     <h2 style="margin:0 0 14px; font-size:clamp(20px,2.7vw,29px); font-weight:700; letter-spacing:0.4px; line-height:1.16; color:#fff; text-transform:uppercase;">Counting the Time We Have Left</h2>
-    <div style="position:relative; padding:56.25% 0 0 0; border-radius:14px; overflow:hidden; box-shadow:0 30px 80px -30px rgba(0,0,0,0.8); border:1px solid rgba(240,192,64,0.16);">
-      <iframe src="https://www.youtube.com/embed/BOksW_NabEk?si=W8wsmiKrXwqtOHP6" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%;" title="The Time You Have (In JellyBeans)"></iframe>
+    <div class="jbj-filmrow" style="display:grid; grid-template-columns:1.1fr 1fr; gap:clamp(14px,2vw,26px); align-items:start;">
+      <div style="position:relative; padding:56.25% 0 0 0; border-radius:14px; overflow:hidden; box-shadow:0 30px 80px -30px rgba(0,0,0,0.8); border:1px solid rgba(240,192,64,0.16);">
+        <iframe src="https://www.youtube.com/embed/BOksW_NabEk?si=W8wsmiKrXwqtOHP6" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%;" title="The Time You Have (In JellyBeans)"></iframe>
+      </div>
+      <figure style="margin:0;">
+        <img src="time-left-dd-960.webp" alt="The Time We Have Left — Ruavieja campaign still: a countdown of the time left to spend with a loved one" loading="lazy" style="width:100%; height:auto; display:block; border-radius:14px; border:1px solid rgba(240,192,64,0.16); box-shadow:0 30px 80px -30px rgba(0,0,0,0.8);">
+        <figcaption style="margin:8px 0 0; font-size:11px; line-height:1.55; color:#8a90b4;">Leo Burnett Madrid. &ldquo;The Time We Have Left.&rdquo; 2018. Advertising campaign for Ruavieja. <a href="https://www.dandad.org/work/d-ad-awards-archive/the-time-we-have-left" target="_blank" rel="noopener" style="color:#a9aecb; text-decoration:none; border-bottom:1px solid rgba(169,174,203,0.4);">D&amp;AD Awards Archive</a>.</figcaption>
+      </figure>
     </div>
   </div>
 
