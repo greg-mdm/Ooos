@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Space+Grotesk:wght@400;500;600;700&family=Audiowide&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Poppins:wght@800&family=Space+Grotesk:wght@400;500;600;700&family=Audiowide&display=swap" rel="stylesheet">
 <script src="image-slot.js"></script>
 <style>
   html, body { margin: 0; height: 100%; background: #07061a; }
@@ -288,10 +288,13 @@
       <span style="font-size:11px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold);">Inspiration</span>
     </div>
     <h2 style="margin:0 0 6px; font-family:'Audiowide',system-ui,sans-serif; font-size:clamp(26px,3.6vw,42px); font-weight:400; letter-spacing:0.6px; line-height:1.12; color:#fff;">Remember to Live</h2>
-    <div style="display:flex; align-items:center; gap:9px; margin:0 0 22px;">
-      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-      <span style="font-size:12px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold);">Pop Culture Parallels</span>
-    </div>
+    <!-- Main attraction title: the Pop Clock lid wordmark treatment (Poppins
+         ExtraBold, near-white), locked to the horizontal centre so it sits
+         right between the two media being compared. -->
+    <h3 style="margin:clamp(10px,1.8vh,20px) 0 clamp(16px,2.6vh,26px); display:flex; align-items:center; justify-content:center; gap:clamp(10px,1.2vw,16px); text-align:center;">
+      <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="var(--gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 auto;"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      <span style="font-family:'Poppins',system-ui,sans-serif; font-weight:800; font-size:clamp(24px,3.4vw,44px); letter-spacing:0.01em; line-height:1.1; color:#eef0f6;">Pop Culture Parallels</span>
+    </h3>
     <!-- LEDE: at rest, the existing editorial verbatim -->
     <p style="margin:0 0 22px; max-width:76ch; font-size:clamp(14px,1.35vw,16.5px); line-height:1.65; color:#c9cde0;">For centuries, art and storytelling have reminded people that life is short. &ldquo;<em>Memento mori</em>,&rdquo; meaning &ldquo;remember that you must die,&rdquo; is a Latin phrase that urges us to reflect on what truly matters in life. Digital design has given this timeless art form a joyful new visual language that puts our remaining time into perspective through data-driven storytelling.</p>
     <div class="jbj-filmrow" style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(20px,3vw,44px); align-items:start;">
