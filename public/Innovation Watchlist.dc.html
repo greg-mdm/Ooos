@@ -51,6 +51,31 @@
   @media (max-width:880px){
     #watchblock .wl-flagrow{grid-template-columns:1fr!important;min-height:0!important}
   }
+
+  /* Team pyramid: human PI on top, the two AI agents supporting below.
+     Cross of a top-tier research facility roster and a game character card;
+     the pop-clock ruby brick supplies the role tags. Kept compact so it
+     does not take over the hero. */
+  .wl-team{max-width:760px;margin:26px auto 0;}
+  .wl-team-top{display:flex;justify-content:center;}
+  .wl-team-bottom{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
+  .wl-conn{width:2px;height:20px;margin:0 auto;background:linear-gradient(180deg,rgba(198,22,54,0.7),rgba(198,22,54,0));}
+  .wl-card{position:relative;border-radius:16px;overflow:hidden;text-align:left;
+    background:linear-gradient(180deg,#141a33 0%,#0c1024 100%);
+    border:1px solid rgba(123,63,242,0.42);
+    box-shadow:0 1px 0 rgba(255,255,255,0.09) inset,0 20px 44px -22px rgba(6,2,28,0.75);}
+  .wl-card--lead{max-width:440px;margin:0 auto;text-align:center;}
+  .wl-card-body{padding:15px 20px 18px;}
+  .wl-card--lead .wl-card-body{padding:18px 24px;}
+  .wl-role{display:inline-block;font-family:'Montserrat',system-ui,sans-serif;font-weight:800;font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:#fff;
+    background:linear-gradient(180deg,#B4102F 0%,#8A0C24 100%);border-radius:6px;padding:5px 12px;margin:0 0 9px;
+    box-shadow:0 1px 0 rgba(255,255,255,0.28) inset,0 3px 8px -3px rgba(150,10,30,0.85);}
+  .wl-name{margin:0;font-family:'Montserrat',system-ui,sans-serif;font-weight:800;font-size:clamp(16px,1.7vw,20px);line-height:1.2;color:#eef0f6;letter-spacing:0.01em;}
+  .wl-sub{margin:2px 0 0;font-family:'Inter',system-ui,sans-serif;font-size:12.5px;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;color:#8f9ac4;}
+  .wl-portrait{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;object-position:center 30%;border-bottom:1px solid rgba(123,63,242,0.4);}
+  .wl-portrait--ph{display:flex;align-items:center;justify-content:center;background:radial-gradient(120% 120% at 50% 25%,#2a1c55 0%,#141a33 60%,#0c1024 100%);}
+  .wl-cap{margin:9px 0 0;font-family:'Inter',system-ui,sans-serif;font-size:12.5px;line-height:1.5;font-style:italic;color:#b7c0e0;}
+  @media (max-width:560px){ .wl-team-bottom{grid-template-columns:1fr;} }
 </style>
 </helmet>
 
@@ -63,19 +88,46 @@
       <h1 style="margin:0;font-family:'Montserrat',system-ui,sans-serif;font-weight:800;font-size:clamp(30px,4.2vw,52px);letter-spacing:0.08em;text-transform:uppercase;color:#06021C;text-shadow:none;">Innovation Watchlist</h1>
       <div style="margin-top:16px;width:96px;height:4px;border-radius:4px;background:linear-gradient(90deg,rgba(198,22,54,0),#C61636 30%,#e23a58 50%,#C61636 70%,rgba(198,22,54,0));box-shadow:0 0 22px rgba(198,22,54,0.7);"></div>
       <p style="margin:22px auto 0;max-width:760px;font-family:'Inter',system-ui,sans-serif;font-weight:400;font-size:clamp(15px,1.5vw,18px);line-height:1.55;color:#06021C;">The <span style="color:#8A0C24;font-weight:700;">Canadian Innovation Dimension (CID)</span> is a virtual research environment managed by artificial intelligence (AI) agents under the guidance of a human principal investigator (PI).</p>
-      <!-- Team roster: one consistent type treatment (name bold, role muted) -->
-      <div style="margin:20px auto 0;display:flex;flex-wrap:wrap;justify-content:center;gap:14px 52px;font-family:'Inter',system-ui,sans-serif;">
-        <div style="min-width:0;">
-          <p style="margin:0;font-weight:700;font-size:clamp(14px,1.4vw,16.5px);line-height:1.35;color:#06021C;">Greg Long, CID Director</p>
-          <p style="margin:2px 0 0;font-weight:500;font-size:clamp(12px,1.15vw,13.5px);letter-spacing:0.06em;text-transform:uppercase;color:#5b5f86;">Principal Investigator</p>
+      <!-- Team pyramid: human PI on top, the two AI agents side by side below -->
+      <div class="wl-team">
+        <div class="wl-team-top">
+          <div class="wl-card wl-card--lead">
+            <div class="wl-card-body">
+              <span class="wl-role">Principal Investigator</span>
+              <p class="wl-name">Greg Long</p>
+              <p class="wl-sub">CID Director</p>
+            </div>
+          </div>
         </div>
-        <div style="min-width:0;">
-          <p style="margin:0;font-weight:700;font-size:clamp(14px,1.4vw,16.5px);line-height:1.35;color:#06021C;">Ethel</p>
-          <p style="margin:2px 0 0;font-weight:500;font-size:clamp(12px,1.15vw,13.5px);letter-spacing:0.06em;text-transform:uppercase;color:#5b5f86;">Ethical Analyst</p>
-        </div>
-        <div style="min-width:0;">
-          <p style="margin:0;font-weight:700;font-size:clamp(14px,1.4vw,16.5px);line-height:1.35;color:#06021C;">Icarus III</p>
-          <p style="margin:2px 0 0;font-weight:500;font-size:clamp(12px,1.15vw,13.5px);letter-spacing:0.06em;text-transform:uppercase;color:#5b5f86;">Executive Trader</p>
+        <div class="wl-conn" aria-hidden="true"></div>
+        <div class="wl-team-bottom">
+          <div class="wl-card">
+            <img class="wl-portrait" src="assets/video/ethel-power.webp" alt="Ethel, a violet-eyed data-mage overseeing a glowing data lake" loading="lazy">
+            <div class="wl-card-body">
+              <span class="wl-role">Ethical Analyst</span>
+              <p class="wl-name">Ethel</p>
+              <p class="wl-cap">Ethel interprets raw data while overseeing the data lake.</p>
+            </div>
+          </div>
+          <div class="wl-card">
+            <div class="wl-portrait wl-portrait--ph" aria-hidden="true">
+              <!-- Roman numeral III drawn as vector: seriffed I's (top + bottom
+                   bars) flanked by tapered lines, per the reference mark. -->
+              <svg viewBox="0 0 200 60" width="164" height="49" fill="#cdd5f5" style="filter:drop-shadow(0 0 11px rgba(123,63,242,0.55));">
+                <polygon points="24,30 69,27.6 69,32.4"/>
+                <polygon points="176,30 131,27.6 131,32.4"/>
+                <g>
+                  <rect x="79" y="18" width="6" height="24"/><rect x="75" y="16" width="14" height="3.4"/><rect x="75" y="40.6" width="14" height="3.4"/>
+                  <rect x="97" y="18" width="6" height="24"/><rect x="93" y="16" width="14" height="3.4"/><rect x="93" y="40.6" width="14" height="3.4"/>
+                  <rect x="115" y="18" width="6" height="24"/><rect x="111" y="16" width="14" height="3.4"/><rect x="111" y="40.6" width="14" height="3.4"/>
+                </g>
+              </svg>
+            </div>
+            <div class="wl-card-body">
+              <span class="wl-role">Executive Trader</span>
+              <p class="wl-name">Icarus III</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

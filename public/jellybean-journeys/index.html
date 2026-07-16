@@ -169,7 +169,7 @@
       <!-- Immersive-mode floating controls -->
       <div data-fsbar role="toolbar" aria-label="Immersive scene controls" style="position:absolute; left:50%; bottom:26px; transform:translate(-50%,12px); z-index:8; display:flex; align-items:center; gap:7px; padding:8px; border-radius:15px; background:rgba(10,8,32,0.66); border:1px solid rgba(240,192,64,0.2); backdrop-filter:blur(12px); box-shadow:0 16px 44px rgba(0,0,0,0.6); opacity:0; pointer-events:none; transition:opacity .45s ease, transform .45s ease;">
         <button data-act="join" style="display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 18px; font:inherit; font-size:14px; font-weight:700; color:#1a1204; background:linear-gradient(180deg,#f7d05f,#e6b02f); border:0; border-radius:11px; cursor:pointer;">Join</button>
-        <button data-act="disperse" style="display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 18px; font:inherit; font-size:14px; font-weight:700; color:#fff; background:linear-gradient(180deg,#9a5cf0 0%,#6f28cf 44%,#42106f 100%); border:0; border-radius:11px; cursor:pointer; box-shadow:0 5px 14px -4px rgba(111,40,207,0.65), inset 0 1px 0 rgba(255,255,255,0.42), inset 0 -6px 11px -6px rgba(18,0,42,0.75);">Disperse</button>
+        <button data-act="disperse" style="display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 18px; font:inherit; font-size:14px; font-weight:700; color:#fff; background:linear-gradient(180deg,#9a5cf0 0%,#6f28cf 44%,#42106f 100%); border:0; border-radius:11px; cursor:pointer; box-shadow:inset 0 1px 0 rgba(255,255,255,0.34);">Disperse</button>
         <button data-act="reset" aria-label="Reset view" style="width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:11px; border:1px solid transparent; background:rgba(255,255,255,0.05); color:#eef0f6; cursor:pointer;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9 9 0 0 0-6.7 3M3 3v4.5H7.5"/></svg></button>
         <span style="width:1px; align-self:stretch; margin:5px 3px; background:rgba(255,255,255,0.14);" aria-hidden="true"></span>
         <button data-act="fullscreen" aria-label="Exit the environment" style="display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 16px; font:inherit; font-size:13px; font-weight:600; color:#eef0f6; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.16); border-radius:11px; cursor:pointer;"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4M15 3h4a2 2 0 0 1 2 2v4M9 21H5a2 2 0 0 1-2-2v-4M15 21h4a2 2 0 0 0 2-2v-4"/></svg>Exit</button>
@@ -188,7 +188,7 @@
       <button data-act="join" aria-keyshortcuts="J" style="display:inline-flex; align-items:center; gap:9px; min-height:54px; padding:0 28px; font:inherit; font-size:16.5px; font-weight:700; letter-spacing:0.3px; color:#1a1204; background:linear-gradient(180deg,#f7d05f,#e6b02f); border:0; border-radius:12px; cursor:pointer; box-shadow:0 6px 18px -4px rgba(240,192,64,0.6);" style-hover="filter:brightness(1.06);">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h6M14 12h6M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg>Join
       </button>
-      <button data-act="disperse" aria-keyshortcuts="K" style="display:inline-flex; align-items:center; gap:9px; min-height:54px; padding:0 26px; font:inherit; font-size:16.5px; font-weight:700; letter-spacing:0.3px; color:#fff; background:linear-gradient(180deg,#9a5cf0 0%,#6f28cf 44%,#42106f 100%); border:0; border-radius:12px; cursor:pointer; box-shadow:0 6px 18px -4px rgba(111,40,207,0.65), inset 0 1px 0 rgba(255,255,255,0.42), inset 0 -7px 13px -7px rgba(18,0,42,0.75);" style-hover="filter:brightness(1.09);">
+      <button data-act="disperse" aria-keyshortcuts="K" style="display:inline-flex; align-items:center; gap:9px; min-height:54px; padding:0 26px; font:inherit; font-size:16.5px; font-weight:700; letter-spacing:0.3px; color:#fff; background:linear-gradient(180deg,#9a5cf0 0%,#6f28cf 44%,#42106f 100%); border:0; border-radius:12px; cursor:pointer; box-shadow:0 6px 18px -4px rgba(111,40,207,0.6), inset 0 1px 0 rgba(255,255,255,0.34);" style-hover="filter:brightness(1.06);">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12h-6M10 12H4M15 7l5 5-5 5M9 7l-5 5 5 5"/></svg>Disperse
       </button>
       <span style="width:1px; align-self:stretch; margin:6px 4px; background:rgba(255,255,255,0.12);" aria-hidden="true"></span>
@@ -328,7 +328,7 @@
       </div>
       <div style="border-top:2px solid rgba(240,192,64,0.4); padding-top:13px;">
         <p style="margin:0 0 8px; font-size:clamp(15px,1.4vw,18px); font-weight:700; font-style:italic; color:#eef0f6;">Awareness leads to understanding</p>
-        <p style="margin:0; font-size:clamp(12.5px,1.15vw,14px); line-height:1.62; color:#c2c6de;">Explore how infrastructure, institutions, supply chains, and public spaces are interconnected in complex ways. Heightened awareness fosters empathy, which enriches the human connections in our daily lives.</p>
+        <p style="margin:0; font-size:clamp(12.5px,1.15vw,14px); line-height:1.62; color:#c2c6de;">Infrastructure, institutions, supply chains, and public spaces are interconnected in complex ways. Heightened awareness fosters empathy, which enriches the human connections in our daily lives.</p>
       </div>
     </div>
     <!-- Door 1: Two ways of knowing (opens on tap) -->
@@ -358,7 +358,7 @@
     <details class="jbj-door">
       <summary>
         <span class="jbj-door-num">2</span>
-        <span class="jbj-door-title">A comparative history: Memento mori &middot; Memento vivere</span>
+        <span class="jbj-door-title">Comparative History: MEMENTO MORI &middot; Memento vivere</span>
         <svg class="jbj-door-chev" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </summary>
       <div>

@@ -828,7 +828,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
       <section className="cid-wl-hero" aria-label="Innovation Watchlist">
         <iframe
           className="cid-wl-frame"
-          src={`${base}Innovation%20Watchlist.dc.html`}
+          src={`${base}Innovation%20Watchlist.dc.html?v=3`}
           title="Innovation Watchlist"
           loading="lazy"
         />
