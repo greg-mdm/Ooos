@@ -44,6 +44,12 @@ Others: `About`, `CID`, `Exhibition`, `Ostara`, `Layout`, modals, `RadioAd`.
 `public/` is served at the site root; assets live in `public/assets/`. Reference them as
 `${import.meta.env.BASE_URL}assets/<file>` and URL-encode spaces (`%20`).
 Conventions & gotchas (learned the hard way)
+Editorial rules (standing, from Greg — apply to ALL user-facing text):
+NO em dashes, ever. Use a comma, a colon, or a new sentence.
+NEVER an acronym without its meaning spelled out on first use.
+NEVER invent facts (e.g., don't call a video and an ad campaign "two films").
+Use Greg's supplied copy verbatim; any NEW text (even button labels) must be
+flagged for approval before it ships.
 Robin's-egg background `#F0F4F5` is the homepage/page background (`--bg`, `--ot-bg`).
 Lovelo is a single 900-weight face (self-hosted "Lovelo Black", `src/styles/fonts.css`).
 Always use `font-weight: 900` for Lovelo — any other weight makes the browser distort the
