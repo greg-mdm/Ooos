@@ -221,11 +221,24 @@
     <div class="cz-wordmark" aria-hidden="true" style="position:absolute; right:24px; bottom:7px; font-family:ui-monospace,'SF Mono',Menlo,monospace; font-size:10px; letter-spacing:1.5px; color:#5b5f86;">data.ontario.ca</div>
   </div>
 
-  <!-- scene controls — directly under the screen -->
-  <div data-scene-controls style="width:100%; display:flex; flex-direction:column; align-items:stretch; gap:13px; min-height:96px; padding:0 16px; transition:opacity .35s; opacity:{{ ctlOpacity }}; visibility:{{ ctlVis }}; pointer-events:{{ ctlPE }};">
+  <!-- slide dots — centered under the screen -->
+    <div role="tablist" aria-label="Choose slide" style="display:flex; align-items:center; justify-content:center; gap:10px;">
+      <sc-for list="{{ dots }}" as="d" hint-placeholder-count="4">
+        <button data-dot data-i="{{ d.idx }}" role="tab" aria-current="{{ d.cur }}" aria-label="{{ d.label }}" style="height:9px; width:{{ d.width }}; border:0; border-radius:999px; background:{{ d.bg }}; cursor:pointer; padding:0; transition:width .3s, background .3s;"></button>
+      </sc-for>
+    </div>
+
+  </div><!-- /cz-left -->
+
+  <!-- ===== Side rail: the scene controls, introduced beside the screen
+       (interact from outside first; the next step, entering the environment,
+       moves below with the portal) ===== -->
+  <aside data-switchpanel style="flex:0 0 clamp(212px,24vw,292px); margin-top:clamp(24px,3.6vh,44px); height:calc(min(920px,64vw,(100vh - 320px) * 1.62) * 0.625); display:{{ panelDisplay }}; flex-direction:column; align-items:stretch; justify-content:center; gap:0;">
+
+  <div data-scene-controls style="width:100%; display:flex; flex-direction:column; align-items:stretch; gap:13px; padding:0; transition:opacity .35s; opacity:{{ ctlOpacity }}; visibility:{{ ctlVis }}; pointer-events:{{ ctlPE }};">
 
     <!-- 3D scene toolbar -->
-    <div role="toolbar" aria-label="3D scene controls" style="display:flex; align-items:center; justify-content:center; gap:10px; padding:10px; border-radius:16px; background:rgba(12,10,40,0.72); border:1px solid rgba(240,192,64,0.16); backdrop-filter:blur(10px); box-shadow:0 12px 36px rgba(0,0,0,0.45); flex-wrap:nowrap; max-width:100%;">
+    <div role="toolbar" aria-label="3D scene controls" style="display:flex; align-items:center; justify-content:center; gap:10px; padding:10px; border-radius:16px; background:rgba(12,10,40,0.72); border:1px solid rgba(240,192,64,0.16); backdrop-filter:blur(10px); box-shadow:0 12px 36px rgba(0,0,0,0.45); flex-wrap:wrap; max-width:100%;">
       <button data-act="join" aria-keyshortcuts="J" style="display:inline-flex; align-items:center; gap:9px; min-height:54px; padding:0 28px; font:inherit; font-size:16.5px; font-weight:700; letter-spacing:0.3px; color:#1a1204; background:linear-gradient(180deg,#f7d05f,#e6b02f); border:0; border-radius:12px; cursor:pointer; box-shadow:0 6px 18px -4px rgba(240,192,64,0.6);" style-hover="filter:brightness(1.06);">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h6M14 12h6M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg>Join
       </button>
@@ -256,62 +269,60 @@
     </div>
   </div>
 
-    <!-- slide dots — centered under the screen -->
-    <div role="tablist" aria-label="Choose slide" style="display:flex; align-items:center; justify-content:center; gap:10px;">
-      <sc-for list="{{ dots }}" as="d" hint-placeholder-count="4">
-        <button data-dot data-i="{{ d.idx }}" role="tab" aria-current="{{ d.cur }}" aria-label="{{ d.label }}" style="height:9px; width:{{ d.width }}; border:0; border-radius:999px; background:{{ d.bg }}; cursor:pointer; padding:0; transition:width .3s, background .3s;"></button>
-      </sc-for>
-    </div>
-
-  </div><!-- /cz-left -->
-
-  <!-- ===== Side panel: heading + colourful black-hole switch ===== -->
-  <aside data-switchpanel style="flex:0 0 clamp(212px,24vw,292px); margin-top:clamp(24px,3.6vh,44px); height:calc(min(920px,64vw,(100vh - 320px) * 1.62) * 0.625); display:{{ panelDisplay }}; flex-direction:column; align-items:stretch; gap:0; opacity:{{ ctlOpacity }}; transition:opacity .35s;">
-    <div>
-      <h2 style="margin:0; font-family:'Audiowide',system-ui,sans-serif; font-size:clamp(22px,2.4vw,30px); letter-spacing:0.8px; line-height:1.28; color:#eef0f6;">Enter the Environment</h2>
-      <p style="margin:9px 0 0; font-family:'Space Grotesk',sans-serif; font-size:14px; line-height:1.55; color:#a9aecb;">Flip the switch to fill your screen and step inside the populations.</p>
-    </div>
-
-    <!-- centered portal group: black hole + label, held above the screen's bottom edge -->
-    <div style="margin:auto 0; display:flex; flex-direction:column; align-items:center; gap:12px;">
-    <!-- colourful black hole — student light shining through the glowing rim -->
-    <button data-act="fullscreen" data-portal-toggle aria-pressed="{{ portalPressed }}" aria-label="Enter the environment — open immersive fullscreen" style="align-self:center; position:relative; width:clamp(188px,22vw,240px); height:clamp(188px,22vw,240px); margin:0; border:0; background:transparent; padding:0; cursor:pointer; overflow:visible;">
-      <span aria-hidden="true" style="position:absolute; inset:0; border-radius:50%; animation:{{ bhAnim }};">
-        <span style="position:absolute; inset:0; border-radius:50%; background:linear-gradient(#14ffe9,#ffeb3b,#ff00e0);"></span>
-        <span style="position:absolute; inset:0; border-radius:50%; background:linear-gradient(#14ffe9,#ffeb3b,#ff00e0); filter:blur(7px);"></span>
-        <span style="position:absolute; inset:0; border-radius:50%; background:linear-gradient(#14ffe9,#ffeb3b,#ff00e0); filter:blur(18px);"></span>
-        <span style="position:absolute; inset:0; border-radius:50%; background:linear-gradient(#14ffe9,#ffeb3b,#ff00e0); filter:blur(38px); opacity:.7;"></span>
-      </span>
-      <span aria-hidden="true" style="position:absolute; inset:9px; border-radius:50%; background:#04040a; z-index:2; box-shadow:inset 0 0 28px 6px rgba(0,0,0,0.88);"></span>
-      <span style="position:absolute; inset:0; z-index:3; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px; font-family:'Audiowide',system-ui,sans-serif; pointer-events:none;">
-        <span style="font-size:clamp(24px,2.7vw,34px); line-height:1; color:{{ onColor }}; animation:{{ onAnim }};">ON</span>
-        <span aria-hidden="true" style="width:60px; height:2px; border-radius:2px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.5),transparent);"></span>
-        <span style="font-size:clamp(24px,2.7vw,34px); line-height:1; color:{{ offColor }}; animation:{{ offAnim }};">OFF</span>
-      </span>
-    </button>
-      <!-- PORTAL label — directly under the portal -->
-      <div style="display:flex; align-items:center; gap:8px;">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v9"/><path d="M6.4 6.4a8 8 0 1 0 11.2 0"/></svg>
-        <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold);">Portal</span>
-      </div>
-    </div>
-  </aside>
+  </aside><!-- /side rail -->
 
   </div><!-- /cz-stage -->
 
-  <!-- ===== Carousel nav — edge arrows + section tabs ===== -->
-  <div style="width:min(1560px,96vw); display:flex; align-items:center; justify-content:space-between; gap:14px;">
-    <button data-act="prev" aria-label="Previous section" style="width:44px; height:44px; flex:0 0 auto; display:flex; align-items:center; justify-content:center; border-radius:11px; border:1px solid rgba(150,155,162,0.5); background:#4B00B6; color:#fff; cursor:pointer; box-shadow:0 6px 16px -8px rgba(75,0,182,0.9);" style-hover="background:#5B04DE;">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-    </button>
-    <div role="tablist" aria-label="Jump to section" style="flex:1 1 auto; min-width:0; display:flex; gap:8px;">
-      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
-        <button data-dot data-i="{{ t.idx }}" role="tab" aria-current="{{ t.cur }}" aria-label="{{ t.label }}" style="flex:1 1 0; min-width:0; height:44px; padding:0 10px; display:flex; align-items:center; justify-content:center; text-align:center; font:inherit; font-size:clamp(9px,0.82vw,11.5px); font-weight:{{ t.weight }}; letter-spacing:0.9px; text-transform:uppercase; line-height:1.12; color:{{ t.text }}; background:linear-gradient(180deg,#F7F9FA 0%,#E8ECF4 46%,#DCE3E8 100%); border:{{ t.bw }} solid {{ t.border }}; border-radius:11px; box-shadow:{{ t.shadow }}; cursor:pointer; transition:border-color .25s, box-shadow .25s, color .25s;">{{ t.label }}</button>
-      </sc-for>
+  <!-- ===== Below the stage: section tabs stacked two by two, with the portal
+       on the other side (the next step after the controls: enter the env) ===== -->
+  <div style="width:min(1560px,96vw); display:flex; align-items:center; justify-content:center; gap:clamp(18px,3vw,44px); flex-wrap:wrap;">
+
+    <!-- left: edge arrows + section tabs, two per row -->
+    <div style="flex:0 1 min(920px,64vw); min-width:min(340px,92vw); display:flex; align-items:center; gap:14px;">
+      <button data-act="prev" aria-label="Previous section" style="width:44px; height:44px; flex:0 0 auto; display:flex; align-items:center; justify-content:center; border-radius:11px; border:1px solid rgba(150,155,162,0.5); background:#4B00B6; color:#fff; cursor:pointer; box-shadow:0 6px 16px -8px rgba(75,0,182,0.9);" style-hover="background:#5B04DE;">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div role="tablist" aria-label="Jump to section" style="flex:1 1 auto; min-width:0; display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+        <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+          <button data-dot data-i="{{ t.idx }}" role="tab" aria-current="{{ t.cur }}" aria-label="{{ t.label }}" style="min-width:0; height:44px; padding:0 10px; display:flex; align-items:center; justify-content:center; text-align:center; font:inherit; font-size:clamp(10px,0.95vw,12.5px); font-weight:{{ t.weight }}; letter-spacing:0.9px; text-transform:uppercase; line-height:1.12; color:{{ t.text }}; background:linear-gradient(180deg,#F7F9FA 0%,#E8ECF4 46%,#DCE3E8 100%); border:{{ t.bw }} solid {{ t.border }}; border-radius:11px; box-shadow:{{ t.shadow }}; cursor:pointer; transition:border-color .25s, box-shadow .25s, color .25s;">{{ t.label }}</button>
+        </sc-for>
+      </div>
+      <button data-act="next" aria-label="Next section" style="width:44px; height:44px; flex:0 0 auto; display:flex; align-items:center; justify-content:center; border-radius:11px; border:1px solid rgba(150,155,162,0.5); background:#4B00B6; color:#fff; cursor:pointer; box-shadow:0 6px 16px -8px rgba(75,0,182,0.9);" style-hover="background:#5B04DE;">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
     </div>
-    <button data-act="next" aria-label="Next section" style="width:44px; height:44px; flex:0 0 auto; display:flex; align-items:center; justify-content:center; border-radius:11px; border:1px solid rgba(150,155,162,0.5); background:#4B00B6; color:#fff; cursor:pointer; box-shadow:0 6px 16px -8px rgba(75,0,182,0.9);" style-hover="background:#5B04DE;">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-    </button>
+
+    <!-- right: heading + colourful black-hole switch, moved down from the rail -->
+    <aside data-switchpanel style="flex:0 0 clamp(240px,26vw,320px); display:{{ panelDisplay }}; flex-direction:column; align-items:stretch; gap:16px; opacity:{{ ctlOpacity }}; transition:opacity .35s;">
+      <div>
+        <h2 style="margin:0; font-family:'Audiowide',system-ui,sans-serif; font-size:clamp(22px,2.4vw,30px); letter-spacing:0.8px; line-height:1.28; color:#eef0f6;">Enter the Environment</h2>
+        <p style="margin:9px 0 0; font-family:'Space Grotesk',sans-serif; font-size:14px; line-height:1.55; color:#a9aecb;">Flip the switch to fill your screen and step inside the populations.</p>
+      </div>
+
+      <!-- centered portal group: black hole + label -->
+      <div style="margin:6px 0 0; display:flex; flex-direction:column; align-items:center; gap:12px;">
+      <!-- colourful black hole — student light shining through the glowing rim -->
+      <button data-act="fullscreen" data-portal-toggle aria-pressed="{{ portalPressed }}" aria-label="Enter the environment — open immersive fullscreen" style="align-self:center; position:relative; width:clamp(188px,22vw,240px); height:clamp(188px,22vw,240px); margin:0; border:0; background:transparent; padding:0; cursor:pointer; overflow:visible;">
+        <span aria-hidden="true" style="position:absolute; inset:0; border-radius:50%; animation:{{ bhAnim }};">
+          <span style="position:absolute; inset:0; border-radius:50%; background:linear-gradient(#14ffe9,#ffeb3b,#ff00e0);"></span>
+          <span style="position:absolute; inset:0; border-radius:50%; background:linear-gradient(#14ffe9,#ffeb3b,#ff00e0); filter:blur(7px);"></span>
+          <span style="position:absolute; inset:0; border-radius:50%; background:linear-gradient(#14ffe9,#ffeb3b,#ff00e0); filter:blur(18px);"></span>
+          <span style="position:absolute; inset:0; border-radius:50%; background:linear-gradient(#14ffe9,#ffeb3b,#ff00e0); filter:blur(38px); opacity:.7;"></span>
+        </span>
+        <span aria-hidden="true" style="position:absolute; inset:9px; border-radius:50%; background:#04040a; z-index:2; box-shadow:inset 0 0 28px 6px rgba(0,0,0,0.88);"></span>
+        <span style="position:absolute; inset:0; z-index:3; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px; font-family:'Audiowide',system-ui,sans-serif; pointer-events:none;">
+          <span style="font-size:clamp(24px,2.7vw,34px); line-height:1; color:{{ onColor }}; animation:{{ onAnim }};">ON</span>
+          <span aria-hidden="true" style="width:60px; height:2px; border-radius:2px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.5),transparent);"></span>
+          <span style="font-size:clamp(24px,2.7vw,34px); line-height:1; color:{{ offColor }}; animation:{{ offAnim }};">OFF</span>
+        </span>
+      </button>
+        <!-- PORTAL label — directly under the portal -->
+        <div style="display:flex; align-items:center; gap:8px;">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v9"/><path d="M6.4 6.4a8 8 0 1 0 11.2 0"/></svg>
+          <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold);">Portal</span>
+        </div>
+      </div>
+    </aside>
   </div>
 
   <!-- ===== Remember to Live — robin's-egg light section (matches the homepage
