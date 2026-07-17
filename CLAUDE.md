@@ -74,6 +74,13 @@ so they go stale immediately — this is what kept breaking. They're a convenien
 happens to still be open, never the source of truth. A commit's `Claude-Session:` footer is a
 trace, not a dependency.
 
+Preferred workflow (Greg, 2026-07-16): DIRECT TO MAIN, not branch-and-PR.
+Greg approves in chat, then Claude pushes straight to `main` (auto-deploys to
+ooos.ca). No pull request, no merge screens. Flow: make the change, `npm run
+build` clean, show Greg (screenshot/summary), on his go-ahead push to `main`.
+If `main` moved, rebase onto it first (never force-push `main`). Only fall back
+to a PR if a direct push is blocked. Never push unapproved work to `main`.
+
 Establishing edit access (push to main) — the proven pathway
 This is the part that historically broke (expired tokens, device-code loops). Follow in order:
 1. Verify identity + push reach (no auth prompts if already good):
@@ -99,8 +106,33 @@ Gotchas:
 - `gh issue`/`gh pr` may fail with "missing required scopes [read:project]" — that does NOT affect
   code pushes. For issues, use the GitHub API/MCP tools instead, or `gh auth refresh -s read:project`.
 
-Current state — 2026-07-09 (live on ooos.ca)
-Ooo! Pop Clock Mini shipped on CID. The living-wall ("Force of Nature") section is a 2-slide
+Current state — 2026-07-16 (live on ooos.ca)
+JellyBean Journeys homepage widget (`public/jellybean-journeys/index.html`, an x-dc
+data component; React/Babel load from unpkg at runtime; homepage embeds it via an
+iframe in `Home.tsx` with a `?v=N` cache-buster — BUMP N on every edit to that HTML
+or clients keep the cached copy). Below the carousel sits the "Remember to Live"
+section, now a ROBIN'S-EGG LIGHT band (matches the hero): Pop Culture eyebrow →
+Remember to Live (Audiowide H1) → lede → Pop Culture Parallels (Poppins-800 H1,
+violet clock icon). Two media cards (2013 BuzzFeed/Ze Frank video; 2018 Ruavieja
+campaign still that opens the D&AD case) each show the media with a DARK PIANO-KEY
+title strip below it that taps open the description (accordion). Then a reflection
+trio, two "advent door" charts (1 Two ways of knowing; 2 Comparative History:
+Memento mori · Memento vivere — dark colour-block table + Chicago notes), and a CID
+plug CTA "Access the innovation watchlist →". Editorial content approved by Greg;
+descriptions/citations are verbatim.
+Innovation Watchlist hero (`public/Innovation Watchlist.dc.html`, iframe in `CID.tsx`,
+own `?v=N`): CID description + a TEAM PYRAMID — Greg Long (human Principal
+Investigator) on top; the two AI agents below (Ethel, Ethical Analyst, with her
+portrait `assets/video/ethel-power.webp`; Icarus III, Executive Trader, with a
+vector roman-numeral III emblem — real portrait still pending from Greg).
+Pop Clock Mini on CID: REBASED to StatCan's official reading via
+`public/pop-clock/calibration.json` (run `npm run pop-clock:rebase -- <pop> <since
+midnight>` with a human-read figure; snapshot auto-expires after 21 days, so re-pin
+every week or two or it falls back to the WDS year-over-year rate). Earlier: Ooo
+Divisions cards are dark glass with gold Poppins-800 "Products & Services" toggles;
+OEA explorer defaults to Creative Cluster with working Add Finance; brand colours
+are Ruby `#822F00` headings + dark-amethyst/violet links (no off-brand crimson/green).
+The living-wall ("Force of Nature") section is a 2-slide
 panel slider (`LivingWallSlider` in `CID.tsx`): slide 1 = nature blurb + National Strategy link
 + branded pop-clock teaser, with the LIVE population estimate floating in the art's misty
 circle (`PopulationMedallion`, positioned in `cid-forest.css`, center ~86.5%/71% of the stage);
