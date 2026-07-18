@@ -327,7 +327,7 @@
     <div role="group" aria-label="Isolate a country" style="display:flex; flex-wrap:wrap; gap:7px; justify-content:center;">
       <sc-for list="{{ isos }}" as="c" hint-placeholder-count="5">
         <button data-iso="{{ c.idx }}" aria-pressed="{{ c.cur }}" style="display:inline-flex; align-items:center; gap:7px; font:inherit; font-size:13px; font-weight:600; color:{{ c.color }}; background:{{ c.bg }}; border:1px solid {{ c.border }}; border-radius:999px; padding:7px 14px; cursor:pointer;">
-          <span style="flex:0 0 auto; width:20px; height:20px; border-radius:50%; background:{{ c.dot }}; box-shadow:0 0 14px 3px {{ c.dot }};"></span>{{ c.name }} <span style="color:#7d83a6; font-weight:500; font-variant-numeric:tabular-nums;">{{ c.count }}</span>
+          <span style="flex:0 0 auto; width:27px; height:16px; border-radius:999px; background:{{ c.dot }}; box-shadow:0 0 14px 3px {{ c.dot }};"></span>{{ c.name }} <span style="color:#7d83a6; font-weight:500; font-variant-numeric:tabular-nums;">{{ c.count }}</span>
         </button>
       </sc-for>
     </div>
