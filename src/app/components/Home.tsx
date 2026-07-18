@@ -134,7 +134,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
       <section className="jbj-hero" aria-label="JellyBean Journeys — Immersive Data Visualization">
         <iframe
           className="jbj-frame"
-          src={`${import.meta.env.BASE_URL}jellybean-journeys/index.html?v=17`}
+          src={`${import.meta.env.BASE_URL}jellybean-journeys/index.html?v=18`}
           title="JellyBean Journeys — Immersive Data Visualization"
           loading="lazy"
           allowFullScreen

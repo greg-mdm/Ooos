@@ -138,6 +138,23 @@
   .jbj-note { font-size: 11.5px; line-height: 1.55; color: #6a7080; }
   @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
 
+  /* ===== Side rail composition: symmetry and balance =====
+     A strict grid so nothing wraps unpredictably: Join and Disperse each on
+     their own full-width row, the four view icons in one equal row of four,
+     then the five country rows as a stacked list with big glowing bullets. */
+  [data-switchpanel] [aria-label="3D scene controls"] { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 11px !important; padding: 14px !important; }
+  [data-switchpanel] [aria-label="3D scene controls"] > span[aria-hidden] { display: none !important; }
+  [data-switchpanel] [data-act="join"],
+  [data-switchpanel] [data-act="disperse"] { grid-column: 1 / -1; width: 100% !important; justify-content: center !important; }
+  [data-switchpanel] [data-act="zoomout"],
+  [data-switchpanel] [data-act="zoomin"],
+  [data-switchpanel] [data-act="rotate"],
+  [data-switchpanel] [data-act="reset"] { width: 100% !important; }
+  [data-switchpanel] [data-scene-controls] { gap: 16px !important; }
+  [data-switchpanel] [aria-label="Isolate a country"] { flex-direction: column !important; align-items: stretch !important; gap: 10px !important; }
+  [data-switchpanel] [data-iso] { justify-content: flex-start !important; padding: 10px 16px !important; font-size: 14px !important; border-radius: 12px !important; }
+  [data-switchpanel] [data-iso] > span:last-child { margin-left: auto; }
+
   /* ===== Mobile (≤760px): content directly on the canvas, no overlaps =====
      The desktop layout sizes .cz-left and the switch panel off viewport math
      that collapses on phones: the screen shrank to 64vw, and the panel's
@@ -310,7 +327,7 @@
     <div role="group" aria-label="Isolate a country" style="display:flex; flex-wrap:wrap; gap:7px; justify-content:center;">
       <sc-for list="{{ isos }}" as="c" hint-placeholder-count="5">
         <button data-iso="{{ c.idx }}" aria-pressed="{{ c.cur }}" style="display:inline-flex; align-items:center; gap:7px; font:inherit; font-size:13px; font-weight:600; color:{{ c.color }}; background:{{ c.bg }}; border:1px solid {{ c.border }}; border-radius:999px; padding:7px 14px; cursor:pointer;">
-          <span style="width:9px; height:9px; border-radius:50%; background:{{ c.dot }}; box-shadow:0 0 7px {{ c.dot }};"></span>{{ c.name }} <span style="color:#7d83a6; font-weight:500; font-variant-numeric:tabular-nums;">{{ c.count }}</span>
+          <span style="flex:0 0 auto; width:20px; height:20px; border-radius:50%; background:{{ c.dot }}; box-shadow:0 0 14px 3px {{ c.dot }};"></span>{{ c.name }} <span style="color:#7d83a6; font-weight:500; font-variant-numeric:tabular-nums;">{{ c.count }}</span>
         </button>
       </sc-for>
     </div>
