@@ -56,8 +56,13 @@
   .jbj-mdetails summary { list-style: none; display: flex; align-items: center; gap: 0.55em; padding: 13px 16px; cursor: pointer; font-family: 'Poppins', system-ui, sans-serif; font-weight: 800; font-size: clamp(15px,1.5vw,18px); color: #f2f2f5; background: linear-gradient(180deg, #3a3a42 0%, #1c1c22 48%, #0d0d11 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.16), inset 0 -5px 10px -6px rgba(0,0,0,0.85); transition: filter .18s; }
   .jbj-mdetails summary:hover { filter: brightness(1.16); }
   .jbj-mdetails summary::-webkit-details-marker { display: none; }
-  .jbj-mdetails summary .yr { font-family: 'Audiowide', system-ui, sans-serif; font-weight: 400; color: #F0C040; }
-  .jbj-mdetails .jbj-acc-chev { flex: 0 0 auto; margin-left: auto; color: #F0C040; transition: transform .25s; }
+  .jbj-mdetails summary .yr { font-family: 'Audiowide', system-ui, sans-serif; font-weight: 400; font-size: 0.82em; color: #fff; padding: 3px 12px; border-radius: 999px; }
+  /* per-card accents: 2013 electric, 2018 dark blood red (ruby) */
+  .jbj-mdetails--electric summary { border-top: 3px solid #5B04DE; }
+  .jbj-mdetails--electric summary .yr { background: #5B04DE; }
+  .jbj-mdetails--ruby summary { border-top: 3px solid #822F00; }
+  .jbj-mdetails--ruby summary .yr { background: #822F00; }
+  .jbj-mdetails .jbj-acc-chev { flex: 0 0 auto; margin-left: auto; color: rgba(255,255,255,0.75); transition: transform .25s; }
   .jbj-mdetails[open] .jbj-acc-chev { transform: rotate(180deg); }
   .jbj-mbody { padding: 0 16px 14px; }
   .jbj-credit { margin: 0 0 8px; font-size: 12.5px; line-height: 1.5; color: #5a6070; }
@@ -75,16 +80,19 @@
   .jbj-door summary { list-style: none; display: flex; align-items: center; gap: 14px; padding: 15px 18px; border-radius: 12px; border: 1px solid #000; cursor: pointer; color: #f2f2f5; background: linear-gradient(180deg, #3a3a42 0%, #1c1c22 48%, #0d0d11 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.16), inset 0 -6px 12px -7px rgba(0,0,0,0.85), 0 6px 16px -9px rgba(0,0,0,0.5); transition: filter .2s; }
   .jbj-door summary::-webkit-details-marker { display: none; }
   .jbj-door summary:hover { filter: brightness(1.16); }
-  .jbj-door-num { flex: 0 0 auto; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid #F0C040; color: #F0C040; font-family: 'Audiowide', system-ui, sans-serif; font-size: 14px; }
+  .jbj-door-num { flex: 0 0 auto; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 0; color: #fff; font-family: 'Audiowide', system-ui, sans-serif; font-size: 14px; }
+  /* per-door accents: door 1 electric, door 2 dark blood red (mori) */
+  .jbj-door--electric .jbj-door-num { background: #5B04DE; }
+  .jbj-door--ruby .jbj-door-num { background: #822F00; }
   .jbj-door-title { flex: 1 1 auto; font-family: 'Poppins', system-ui, sans-serif; font-weight: 800; font-size: clamp(15px,1.6vw,19px); color: #f2f2f5; }
-  .jbj-door-chev { flex: 0 0 auto; transition: transform .25s; color: #F0C040; }
+  .jbj-door-chev { flex: 0 0 auto; transition: transform .25s; color: rgba(255,255,255,0.75); }
   .jbj-door[open] .jbj-door-chev { transform: rotate(180deg); }
   .jbj-door > div { margin-top: 16px; }
 
   /* door 1 quote cards (light) */
   .jbj-qcard { display: flex; flex-direction: column; border-radius: 14px; border: 1px solid rgba(20,20,20,0.1); background: #fff; padding: clamp(18px,2.2vw,26px); box-shadow: 0 10px 28px -18px rgba(20,20,40,0.5); }
-  .jbj-qcard--a { border-top: 3px solid #16a58a; }
-  .jbj-qcard--b { border-top: 3px solid #c41230; }
+  .jbj-qcard--a { border-top: 3px solid #5B04DE; }
+  .jbj-qcard--b { border-top: 3px solid #822F00; }
   .jbj-qcard .qh { margin: 0 0 10px; font-weight: 800; font-size: clamp(16px,1.6vw,20px); color: #2b0561; }
   .jbj-qcard .qq { margin: 0 0 14px; font-size: clamp(14px,1.35vw,16px); font-style: italic; line-height: 1.55; color: #33384a; }
   .jbj-qcard .qs { margin: auto 0 0; font-size: 12px; color: #5a6070; }
@@ -344,7 +352,7 @@
           <div style="position:relative; padding:56.25% 0 0 0;">
             <iframe src="https://www.youtube.com/embed/BOksW_NabEk?si=W8wsmiKrXwqtOHP6" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%;" title="The Time You Have (In JellyBeans)"></iframe>
           </div>
-          <details class="jbj-mdetails">
+          <details class="jbj-mdetails jbj-mdetails--electric">
             <summary><span class="yr">2013</span> One jellybean a day <svg class="jbj-acc-chev" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
             <div class="jbj-mbody">
               <p class="jbj-credit">BuzzFeed Video, Ze Frank</p>
@@ -355,11 +363,11 @@
         <figure class="jbj-media" style="margin:0; min-width:0;">
           <a href="https://www.dandad.org/work/d-ad-awards-archive/the-time-we-have-left" target="_blank" rel="noopener" style="position:relative; display:block; text-decoration:none;" aria-label="Open The Time We Have Left campaign at the D&AD Awards Archive">
             <img src="time-left-dd-960.webp" alt="The Time We Have Left — Ruavieja campaign still: a countdown of the time left to spend with a loved one" loading="lazy" style="width:100%; height:auto; display:block; aspect-ratio:16/9; object-fit:cover;">
-            <span style="position:absolute; left:50%; bottom:12px; transform:translateX(-50%); display:inline-flex; align-items:center; gap:7px; padding:7px 15px; border-radius:999px; background:rgba(10,8,32,0.72); border:1px solid rgba(240,192,64,0.4); color:#eef0f6; font-size:12px; font-weight:600; letter-spacing:0.06em; backdrop-filter:blur(8px); white-space:nowrap;">
-              <svg viewBox="0 0 24 24" width="12" height="12" fill="var(--gold)" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Click to open the campaign &#8599;
+            <span style="position:absolute; left:50%; bottom:12px; transform:translateX(-50%); display:inline-flex; align-items:center; gap:7px; padding:7px 15px; border-radius:999px; background:rgba(10,8,32,0.72); border:1px solid rgba(130,47,0,0.7); color:#eef0f6; font-size:12px; font-weight:600; letter-spacing:0.06em; backdrop-filter:blur(8px); white-space:nowrap;">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="#fff" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Click to open the campaign &#8599;
             </span>
           </a>
-          <details class="jbj-mdetails">
+          <details class="jbj-mdetails jbj-mdetails--ruby">
             <summary><span class="yr">2018</span> Time together <svg class="jbj-acc-chev" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
             <div class="jbj-mbody">
               <p class="jbj-credit">Leo Burnett Madrid for Ruavieja &middot; <a href="https://www.dandad.org/work/d-ad-awards-archive/the-time-we-have-left" target="_blank" rel="noopener">D&amp;AD Awards Archive</a></p>
@@ -373,7 +381,7 @@
         <div class="jbj-tcell"><p class="h hi">Big numbers tell relatable stories.</p><p>Learning how to analyze demographic data provides a powerful lens to expand your point of view.</p></div>
         <div class="jbj-tcell"><p class="h hi">Awareness leads to understanding</p><p>Infrastructure, institutions, supply chains, and public spaces are interconnected in complex ways. Increased awareness fosters empathy, enriching the human connections that give our daily lives deeper meaning.</p></div>
       </div>
-      <details class="jbj-door" style="margin-top:clamp(18px,2.8vh,28px);">
+      <details class="jbj-door jbj-door--electric" style="margin-top:clamp(18px,2.8vh,28px);">
         <summary>
           <span class="jbj-door-num">1</span>
           <span class="jbj-door-title">Two ways of knowing</span>
@@ -395,7 +403,7 @@
           <p class="jbj-note" style="margin:14px 0 0;">Cited in Patricia Barkaskas and Derek Gladwin, &ldquo;Pedagogical Talking Circles: Decolonizing Education through Relational Indigenous Frameworks,&rdquo; University of British Columbia.</p>
         </div>
       </details>
-      <details class="jbj-door">
+      <details class="jbj-door jbj-door--ruby">
         <summary>
           <span class="jbj-door-num">2</span>
           <span class="jbj-door-title">Comparative History: Memento mori &middot; Memento vivere</span>
@@ -404,55 +412,55 @@
         <div>
         <div class="jbj-filmrow" style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(20px,3vw,44px); align-items:stretch;">
         <!-- Memento mori: midnight block -->
-        <div style="min-width:0; display:flex; flex-direction:column; border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,0.14); background:linear-gradient(180deg,#181438 0%,#100c30 100%); box-shadow:0 24px 64px -26px rgba(0,0,0,0.8);">
+        <div style="min-width:0; display:flex; flex-direction:column; border-radius:14px; overflow:hidden; border:1px solid rgba(130,47,0,0.5); border-top:3px solid #822F00; background:linear-gradient(180deg,#2b0f06 0%,#170803 100%); box-shadow:0 24px 64px -26px rgba(0,0,0,0.8);">
           <div style="padding:16px 22px 13px; border-bottom:1px solid rgba(255,255,255,0.12);">
             <p style="margin:0; font-family:'Poppins',system-ui,sans-serif; font-weight:800; font-size:clamp(19px,2.1vw,25px); color:#eef0f6;">Memento mori</p>
-            <p style="margin:2px 0 0; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#8a90b4;">Latin</p>
+            <p style="margin:2px 0 0; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#cbb7ae;">Latin</p>
           </div>
           <div style="padding:16px 22px 20px; border-bottom:1px solid rgba(255,255,255,0.12);">
-            <p style="margin:0 0 8px; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:#8a90b4;">English translation:</p>
+            <p style="margin:0 0 8px; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:#cbb7ae;">English translation:</p>
             <p style="margin:0; font-family:'Poppins',system-ui,sans-serif; font-weight:800; font-size:clamp(22px,2.6vw,34px); line-height:1.15; color:#eef0f6;">Remember that<br>you must die</p>
           </div>
           <div style="padding:16px 22px 22px; flex:1; display:flex; flex-direction:column;">
-            <p style="margin:0 0 14px; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:#8a90b4;">Earliest recorded use (Provenance)</p>
+            <p style="margin:0 0 14px; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:#cbb7ae;">Earliest recorded use (Provenance)</p>
             <!-- The gallery IS the provenance: one big click-through fills the column -->
             <a href="https://artsandculture.google.com/usergallery/the-art-of-dying-memento-mori-through-the-ages/DALS56IGGr1jIA" target="_blank" rel="noopener" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; text-align:center; padding:clamp(24px,4vh,44px) 20px; border-radius:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.22); text-decoration:none;">
               <span style="font-family:'Poppins',system-ui,sans-serif; font-weight:800; font-size:clamp(22px,2.6vw,34px); line-height:1.25; color:#eef0f6;">The Art of Dying:<br>Memento mori through the ages</span>
-              <span style="display:inline-flex; align-items:center; gap:9px; padding:10px 20px; border-radius:999px; background:rgba(10,8,32,0.72); border:1px solid rgba(240,192,64,0.4); color:#eef0f6; font-size:clamp(13px,1.2vw,15px); font-weight:600; letter-spacing:0.06em;">
-                <svg viewBox="0 0 24 24" width="13" height="13" fill="var(--gold)" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Google Arts &amp; Culture &#8599;
+              <span style="display:inline-flex; align-items:center; gap:9px; padding:10px 20px; border-radius:999px; background:rgba(10,8,32,0.72); border:1px solid rgba(130,47,0,0.7); color:#eef0f6; font-size:clamp(13px,1.2vw,15px); font-weight:600; letter-spacing:0.06em;">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="#fff" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Google Arts &amp; Culture &#8599;
               </span>
             </a>
           </div>
         </div>
         <!-- Memento vivere: warm gold block -->
-        <div style="min-width:0; display:flex; flex-direction:column; border-radius:14px; overflow:hidden; border:1px solid rgba(240,192,64,0.4); border-top:3px solid #F0C040; background:linear-gradient(180deg,#241a30 0%,#160f24 100%); box-shadow:0 24px 64px -26px rgba(0,0,0,0.55);">
-          <div style="padding:16px 22px 13px; border-bottom:1px solid rgba(240,192,64,0.3);">
+        <div style="min-width:0; display:flex; flex-direction:column; border-radius:14px; overflow:hidden; border:1px solid rgba(91,4,222,0.45); border-top:3px solid #5B04DE; background:linear-gradient(180deg,#241a30 0%,#160f24 100%); box-shadow:0 24px 64px -26px rgba(0,0,0,0.55);">
+          <div style="padding:16px 22px 13px; border-bottom:1px solid rgba(154,92,240,0.35);">
             <p style="margin:0; font-family:'Poppins',system-ui,sans-serif; font-weight:800; font-size:clamp(19px,2.1vw,25px); color:#eef0f6;">Memento vivere</p>
-            <p style="margin:2px 0 0; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#bfa45e;">Latin</p>
+            <p style="margin:2px 0 0; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#b9a6f2;">Latin</p>
           </div>
-          <div style="padding:16px 22px 20px; border-bottom:1px solid rgba(240,192,64,0.3);">
-            <p style="margin:0 0 8px; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:#bfa45e;">English translation:</p>
-            <p style="margin:0; font-family:'Poppins',system-ui,sans-serif; font-weight:800; font-size:clamp(22px,2.6vw,34px); line-height:1.15; color:#eef0f6;">Remember<br><span style="color:var(--gold);">to live</span></p>
+          <div style="padding:16px 22px 20px; border-bottom:1px solid rgba(154,92,240,0.35);">
+            <p style="margin:0 0 8px; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:#b9a6f2;">English translation:</p>
+            <p style="margin:0; font-family:'Poppins',system-ui,sans-serif; font-weight:800; font-size:clamp(22px,2.6vw,34px); line-height:1.15; color:#eef0f6;">Remember<br><span style="color:#9a5cf0;">to live</span></p>
           </div>
           <div style="padding:16px 22px 22px; flex:1;">
-            <p style="margin:0 0 12px; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:#bfa45e;">Earliest recorded use (Provenance)</p>
+            <p style="margin:0 0 12px; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:#b9a6f2;">Earliest recorded use (Provenance)</p>
             <div style="margin-bottom:14px;">
-              <div style="font-family:'Audiowide',system-ui,sans-serif; font-size:15px; color:var(--gold); letter-spacing:0.6px;">1820s</div>
+              <div style="font-family:'Audiowide',system-ui,sans-serif; font-size:15px; color:#9a5cf0; letter-spacing:0.6px;">1820s</div>
               <div style="margin:3px 0 6px; font-size:13.5px; font-weight:600; color:#eef0f6;">Goethe</div>
-              <p style="margin:0; font-size:clamp(12.5px,1.1vw,13.5px); line-height:1.6; color:#c2c6de;">Goethe&rsquo;s poetry and writings repeatedly advanced the related reminder: &ldquo;do not forget to live&rdquo;, and reversed the Latin word order in the poetic formula <em>vivere memento</em>, influenced in part by Spinoza&rsquo;s preference for meditation on life rather than death.<sup style="font-size:0.72em; color:var(--gold);">&nbsp;1,2,3</sup></p>
+              <p style="margin:0; font-size:clamp(12.5px,1.1vw,13.5px); line-height:1.6; color:#c2c6de;">Goethe&rsquo;s poetry and writings repeatedly advanced the related reminder: &ldquo;do not forget to live&rdquo;, and reversed the Latin word order in the poetic formula <em>vivere memento</em>, influenced in part by Spinoza&rsquo;s preference for meditation on life rather than death.<sup style="font-size:0.72em; color:#9a5cf0;">&nbsp;1,2,3</sup></p>
             </div>
             <div style="margin-bottom:14px;">
-              <div style="font-family:'Audiowide',system-ui,sans-serif; font-size:15px; color:var(--gold); letter-spacing:0.6px;">1849</div>
-              <div style="margin:3px 0 6px; font-size:13.5px; font-weight:600; color:#eef0f6;">John Kenyon, &ldquo;Memento Vivere&rdquo;<sup style="font-size:0.72em; color:var(--gold);">&nbsp;4</sup></div>
-              <p style="margin:0; font-size:clamp(12.5px,1.1vw,13.5px); line-height:1.6; color:#c2c6de;">First evidence currently recorded by the Oxford English Dictionary (OED) for the expression functioning as an English noun, meaning a reminder or inducement to live.<sup style="font-size:0.72em; color:var(--gold);">&nbsp;5</sup></p>
+              <div style="font-family:'Audiowide',system-ui,sans-serif; font-size:15px; color:#9a5cf0; letter-spacing:0.6px;">1849</div>
+              <div style="margin:3px 0 6px; font-size:13.5px; font-weight:600; color:#eef0f6;">John Kenyon, &ldquo;Memento Vivere&rdquo;<sup style="font-size:0.72em; color:#9a5cf0;">&nbsp;4</sup></div>
+              <p style="margin:0; font-size:clamp(12.5px,1.1vw,13.5px); line-height:1.6; color:#c2c6de;">First evidence currently recorded by the Oxford English Dictionary (OED) for the expression functioning as an English noun, meaning a reminder or inducement to live.<sup style="font-size:0.72em; color:#9a5cf0;">&nbsp;5</sup></p>
             </div>
             <div>
-              <div style="font-family:'Audiowide',system-ui,sans-serif; font-size:15px; color:var(--gold); letter-spacing:0.6px;">1874</div>
+              <div style="font-family:'Audiowide',system-ui,sans-serif; font-size:15px; color:#9a5cf0; letter-spacing:0.6px;">1874</div>
               <div style="margin:3px 0 6px; font-size:13.5px; font-weight:600; color:#eef0f6;">Friedrich Nietzsche</div>
               <p style="margin:0 0 8px; font-size:clamp(12.5px,1.1vw,13.5px); line-height:1.6; color:#c2c6de;">Nietzsche contrasted the medieval idea of <em>memento mori</em> with the timid embrace of <em>memento vivere</em> in the modern world, while criticizing the inability to break free from the past.</p>
-              <blockquote style="margin:0 0 8px; padding-left:12px; border-left:2px solid rgba(240,192,64,0.4); font-size:clamp(12px,1.05vw,13px); font-style:italic; line-height:1.55; color:#c2c6de;">&ldquo;<em>Memento vivere</em> is spoken rather timidly, without the full power of the lungs; and there is something almost dishonest about it.&rdquo;</blockquote>
-              <blockquote style="margin:0 0 8px; padding-left:12px; border-left:2px solid rgba(240,192,64,0.4); font-size:clamp(12px,1.05vw,13px); font-style:italic; line-height:1.55; color:#c2c6de;">&ldquo;A deep feeling of hopelessness has remained, and taken the historical colouring that has now darkened and depressed all higher education.&rdquo;</blockquote>
-              <p style="margin:0; font-size:11px; line-height:1.5; color:#9a8f6a;">Friedrich Nietzsche, <em>Vom Nutzen und Nachteil der Historie f&uuml;r das Leben</em>.</p>
+              <blockquote style="margin:0 0 8px; padding-left:12px; border-left:2px solid rgba(154,92,240,0.45); font-size:clamp(12px,1.05vw,13px); font-style:italic; line-height:1.55; color:#c2c6de;">&ldquo;<em>Memento vivere</em> is spoken rather timidly, without the full power of the lungs; and there is something almost dishonest about it.&rdquo;</blockquote>
+              <blockquote style="margin:0 0 8px; padding-left:12px; border-left:2px solid rgba(154,92,240,0.45); font-size:clamp(12px,1.05vw,13px); font-style:italic; line-height:1.55; color:#c2c6de;">&ldquo;A deep feeling of hopelessness has remained, and taken the historical colouring that has now darkened and depressed all higher education.&rdquo;</blockquote>
+              <p style="margin:0; font-size:11px; line-height:1.5; color:#8f86ad;">Friedrich Nietzsche, <em>Vom Nutzen und Nachteil der Historie f&uuml;r das Leben</em>.</p>
             </div>
           </div>
         </div>
@@ -468,7 +476,7 @@
       </details>
       <div style="margin:clamp(18px,2.8vh,30px) auto 0; max-width:820px; text-align:center; border-top:1px solid rgba(75,0,182,0.25); padding-top:clamp(16px,2.4vh,22px);">
         <p style="margin:0 auto 16px; max-width:70ch; font-size:clamp(13.5px,1.3vw,16px); line-height:1.62; color:#3c3c46;">The experimental <a href="/cid" style="color:#4B00B6; font-weight:700; text-decoration:none; border-bottom:1px solid rgba(75,0,182,0.4);">Canadian Innovation Dimension (CID)</a> empowers innovators, researchers, entrepreneurs, and global citizens to collaboratively explore diverse sectors, policy trends, and market dynamics.</p>
-        <a href="/cid" style="display:inline-flex; align-items:center; gap:8px; padding:10px 21px; border-radius:999px; background:linear-gradient(180deg,#f7d05f,#e6b02f); color:#1a1204; font-size:13.5px; font-weight:700; letter-spacing:0.03em; text-decoration:none; box-shadow:0 8px 20px -10px rgba(230,176,47,0.7);">Access the innovation watchlist &#8594;</a>
+        <a href="/cid" style="display:inline-flex; align-items:center; gap:8px; padding:10px 21px; border-radius:999px; background:linear-gradient(180deg,#7C18E7,#5B04DE); color:#fff; font-size:13.5px; font-weight:700; letter-spacing:0.03em; text-decoration:none; box-shadow:0 8px 20px -10px rgba(91,4,222,0.7);">Access the innovation watchlist &#8594;</a>
       </div>
     </div>
   </div>
