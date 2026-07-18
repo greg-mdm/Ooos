@@ -231,7 +231,7 @@ export function About() {
             <div className="gs-contact">
               <img
                 className="gs-contact-mark"
-                src={`${import.meta.env.BASE_URL}assets/Ooo-Global-Network-Electric.png`}
+                src={`${import.meta.env.BASE_URL}assets/Ooo-Global-Network-Electric.png?v=2`}
                 alt=""
                 aria-hidden="true"
               />

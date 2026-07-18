@@ -83,7 +83,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               <span className="ot-pill ot-pill--welcome">
                 <img
                   className="ot-pill__ico"
-                  src={`${import.meta.env.BASE_URL}assets/Ooo-Global-Network-Electric.png`}
+                  src={`${import.meta.env.BASE_URL}assets/Ooo-Global-Network-Electric.png?v=2`}
                   alt=""
                   aria-hidden="true"
                 />
@@ -325,7 +325,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               <p className="studio-testimonial__quote">&ldquo;Your report was very helpful. I have already applied some of the strategies to expand our community network and add practical value to our marketplace.&rdquo;</p>
               <div className="studio-testimonial__meta">
                 <img src="/assets/NORWAY-flag-ooo.png" alt="Norway" height="14" style={{borderRadius:'2px',flexShrink:0,display:'block'}} />
-                <span className="studio-testimonial__role">Founder &amp; CEO <img src="/assets/Ooo-Global-Network-Electric.png" alt="" className="studio-testimonial__globe" /> Norway</span>
+                <span className="studio-testimonial__role">Founder &amp; CEO <img src="/assets/Ooo-Global-Network-Electric.png?v=2" alt="" className="studio-testimonial__globe" /> Norway</span>
               </div>
             </div>
             <div className="shop-ad" role="complementary" aria-label="Ooo Media Shop">
@@ -365,7 +365,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               <p className="studio-testimonial__quote">&ldquo;The problem with external SEO agencies is the turnover. Every six months, there&rsquo;s a new key contact to bring up to speed.&rdquo;</p>
               <div className="studio-testimonial__meta">
                 <img src="/assets/CANADA-Flag-Drop.png" alt="Canada" height="14" style={{borderRadius:'2px',flexShrink:0,display:'block'}} />
-                <span className="studio-testimonial__role">CEO <img src="/assets/Ooo-Global-Network-Electric.png" alt="" className="studio-testimonial__globe" /> Canada</span>
+                <span className="studio-testimonial__role">CEO <img src="/assets/Ooo-Global-Network-Electric.png?v=2" alt="" className="studio-testimonial__globe" /> Canada</span>
               </div>
               <p className="studio-testimonial__pitch">
                 <span className="studio-pitch-dot studio-pitch-dot--problem" aria-hidden="true"></span>
