@@ -192,7 +192,7 @@
 </style>
 </helmet>
 
-<div ref="{{ setRoot }}" style="--blue:#312583; --gold:#F0C040; min-height:100vh; width:100%; background:radial-gradient(125% 95% at 50% -15%, #3a2c93 0%, #241a63 30%, #120e36 62%, #07061a 100%); color:#eef0f6; font-family:'Space Grotesk', system-ui, sans-serif; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding:0 clamp(10px,1.6vw,26px) clamp(10px,1.6vw,26px); gap:clamp(12px,1.7vh,20px);">
+<div ref="{{ setRoot }}" class="cz-root" style="--blue:#312583; --gold:#F0C040; min-height:100vh; width:100%; background:radial-gradient(125% 95% at 50% -15%, #3a2c93 0%, #241a63 30%, #120e36 62%, #07061a 100%); color:#eef0f6; font-family:'Space Grotesk', system-ui, sans-serif; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding:0 clamp(10px,1.6vw,26px) clamp(10px,1.6vw,26px); gap:clamp(12px,1.7vh,20px);">
 
   <!-- ===== Header — robin's-egg band (#F0F4F5), full-bleed; headings STACKED & centered, evenly spaced for balance ===== -->
   <div style="align-self:stretch; margin:0 calc(-1 * clamp(10px,1.6vw,26px)); padding:clamp(16px,2.4vh,30px) clamp(16px,4vw,44px); background:#F0F4F5; box-shadow:0 1px 0 rgba(0,0,0,0.06); display:flex; flex-direction:column; align-items:center; text-align:center; gap:clamp(9px,1.6vh,17px);">
@@ -758,17 +758,52 @@ class Component extends DCLogic {
     var fe;
     try { fe = window.frameElement; } catch (e) { return; } /* cross-origin host */
     if (!fe) return;                                         /* opened directly */
+    /* Our root carries min-height:100vh so the experience fills the screen when
+       opened directly. But 100vh inside a frame resolves to the IFRAME's height,
+       so once we size the frame that floor equals the frame — a ratchet: if the
+       content later settles shorter (web fonts swapping in after the fallback
+       layout), the floor keeps the frame tall and the dark backdrop shows through
+       as an empty block below the content. Drop the floor while framed so the
+       frame always tracks the true content height. */
+    try {
+      var st = document.createElement('style');
+      st.textContent = '.cz-root{min-height:0 !important}';
+      (document.head || document.documentElement).appendChild(st);
+    } catch (e) {}
     var last = 0, queued = false;
     function apply() {
       queued = false;
       var d = document;
-      var h = Math.max(d.documentElement.scrollHeight, d.body ? d.body.scrollHeight : 0);
+      /* Measure the content element itself, not documentElement.scrollHeight:
+         scrollHeight is floored at the frame's own viewport height, so once the
+         frame is tall it can never report shorter (the other half of the ratchet).
+         .cz-root has min-height dropped above, so its box is the true content. */
+      var root = d.querySelector('.cz-root');
+      var h = root ? Math.ceil(root.getBoundingClientRect().bottom + (window.scrollY || 0))
+                   : Math.max(d.documentElement.scrollHeight, d.body ? d.body.scrollHeight : 0);
       if (h && Math.abs(h - last) > 2) { last = h; fe.style.height = h + 'px'; }
     }
     function schedule() { if (!queued) { queued = true; requestAnimationFrame(apply); } }
     window.addEventListener('load', schedule);
     window.addEventListener('resize', schedule);
-    try { new ResizeObserver(schedule).observe(document.documentElement); } catch (e) {}
+    /* Web fonts swap in after the fallback layout; that reflow (usually a shrink)
+       is the main dead-band trigger. Re-measure when they settle. */
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(schedule); }
+    /* The accordions grow/shrink the content; <details> fires 'toggle'. */
+    document.addEventListener('toggle', schedule, true);
+    /* A ResizeObserver on the viewport-floored document reports growth (opening an
+       accordion) but never a shrink, so a bounded poll over the settling window is
+       what actually catches the font-swap dead-band. apply() no-ops once stable. */
+    var polls = 0, timer = setInterval(function () { schedule(); if (++polls > 28) clearInterval(timer); }, 250);
+    try {
+      var ro = new ResizeObserver(schedule);
+      ro.observe(document.documentElement);
+      var mo = new MutationObserver(function () {
+        var r = document.querySelector('.cz-root');
+        if (r) { try { ro.observe(r); } catch (e) {} mo.disconnect(); schedule(); }
+      });
+      mo.observe(document.documentElement, { childList: true, subtree: true });
+    } catch (e) {}
     schedule();
   })();
 </script>
