@@ -60,8 +60,30 @@
   /* per-card accents: 2013 electric, 2018 dark blood red (ruby) */
   .jbj-mdetails--electric summary { border-top: 3px solid #5B04DE; }
   .jbj-mdetails--electric summary .yr { background: #5B04DE; }
-  .jbj-mdetails--ruby summary { border-top: 3px solid #822F00; }
-  .jbj-mdetails--ruby summary .yr { background: #822F00; }
+
+  /* ---- Red and white (=Canada) rule: ruby back + white text at rest;
+     click/hover inverts to white back (light robin's-egg) + ruby text, the
+     Canadian Interactive Exhibition pattern from the homepage. Applied to
+     every ruby-side interactive element in this section. ---- */
+  .jbj-mdetails--ruby summary { border-top: 3px solid #822F00; color: #fff; background: linear-gradient(180deg, #a03f05 0%, #822F00 48%, #571f00 100%); transition: background .2s, color .2s; }
+  .jbj-mdetails--ruby summary .yr { background: #fff; color: #822F00; transition: background .2s, color .2s; }
+  .jbj-mdetails--ruby summary:hover { filter: none; }
+  .jbj-mdetails--ruby summary:hover,
+  .jbj-mdetails--ruby summary:focus-visible,
+  .jbj-mdetails--ruby[open] summary { background: #F0F4F5; color: #822F00; box-shadow: inset 0 0 0 1px rgba(130,47,0,0.35); }
+  .jbj-mdetails--ruby summary:hover .yr,
+  .jbj-mdetails--ruby summary:focus-visible .yr,
+  .jbj-mdetails--ruby[open] summary .yr { background: #822F00; color: #fff; }
+  .jbj-mdetails--ruby summary:hover .jbj-acc-chev,
+  .jbj-mdetails--ruby summary:focus-visible .jbj-acc-chev,
+  .jbj-mdetails--ruby[open] summary .jbj-acc-chev { color: #822F00; }
+
+  /* the rule as a pill (campaign and gallery links): ruby pill + white text,
+     inverting when the wrapping link is hovered or focused */
+  .jbj-canpill { background: #822F00 !important; border: 1px solid #822F00 !important; color: #fff !important; transition: background .2s, color .2s; }
+  .jbj-canpill svg { fill: #fff; }
+  a:hover .jbj-canpill, a:focus-visible .jbj-canpill { background: #F0F4F5 !important; color: #822F00 !important; }
+  a:hover .jbj-canpill svg, a:focus-visible .jbj-canpill svg { fill: #822F00; }
   .jbj-mdetails .jbj-acc-chev { flex: 0 0 auto; margin-left: auto; color: rgba(255,255,255,0.75); transition: transform .25s; }
   .jbj-mdetails[open] .jbj-acc-chev { transform: rotate(180deg); }
   .jbj-mbody { padding: 0 16px 14px; }
@@ -83,7 +105,23 @@
   .jbj-door-num { flex: 0 0 auto; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 0; color: #fff; font-family: 'Audiowide', system-ui, sans-serif; font-size: 14px; }
   /* per-door accents: door 1 electric, door 2 dark blood red (mori) */
   .jbj-door--electric .jbj-door-num { background: #5B04DE; }
-  .jbj-door--ruby .jbj-door-num { background: #822F00; }
+  /* door 2 follows the red and white (=Canada) rule: ruby bar + white text,
+     inverting to light back + ruby text on hover, focus, or open */
+  .jbj-door--ruby summary { background: linear-gradient(180deg, #a03f05 0%, #822F00 48%, #571f00 100%); border-color: #571f00; transition: background .2s, border-color .2s; }
+  .jbj-door--ruby summary:hover { filter: none; }
+  .jbj-door--ruby .jbj-door-num { background: #fff; color: #822F00; transition: background .2s, color .2s; }
+  .jbj-door--ruby summary:hover,
+  .jbj-door--ruby summary:focus-visible,
+  .jbj-door--ruby[open] summary { background: #F0F4F5; border-color: #822F00; }
+  .jbj-door--ruby summary:hover .jbj-door-title,
+  .jbj-door--ruby summary:focus-visible .jbj-door-title,
+  .jbj-door--ruby[open] summary .jbj-door-title { color: #822F00; }
+  .jbj-door--ruby summary:hover .jbj-door-chev,
+  .jbj-door--ruby summary:focus-visible .jbj-door-chev,
+  .jbj-door--ruby[open] summary .jbj-door-chev { color: #822F00; }
+  .jbj-door--ruby summary:hover .jbj-door-num,
+  .jbj-door--ruby summary:focus-visible .jbj-door-num,
+  .jbj-door--ruby[open] summary .jbj-door-num { background: #822F00; color: #fff; }
   .jbj-door-title { flex: 1 1 auto; font-family: 'Poppins', system-ui, sans-serif; font-weight: 800; font-size: clamp(15px,1.6vw,19px); color: #f2f2f5; }
   .jbj-door-chev { flex: 0 0 auto; transition: transform .25s; color: rgba(255,255,255,0.75); }
   .jbj-door[open] .jbj-door-chev { transform: rotate(180deg); }
@@ -93,6 +131,7 @@
   .jbj-qcard { display: flex; flex-direction: column; border-radius: 14px; border: 1px solid rgba(20,20,20,0.1); background: #fff; padding: clamp(18px,2.2vw,26px); box-shadow: 0 10px 28px -18px rgba(20,20,40,0.5); }
   .jbj-qcard--a { border-top: 3px solid #5B04DE; }
   .jbj-qcard--b { border-top: 3px solid #822F00; }
+  .jbj-qcard.jbj-qcard--b .qh { color: #822F00; }
   .jbj-qcard .qh { margin: 0 0 10px; font-weight: 800; font-size: clamp(16px,1.6vw,20px); color: #2b0561; }
   .jbj-qcard .qq { margin: 0 0 14px; font-size: clamp(14px,1.35vw,16px); font-style: italic; line-height: 1.55; color: #33384a; }
   .jbj-qcard .qs { margin: auto 0 0; font-size: 12px; color: #5a6070; }
@@ -363,7 +402,7 @@
         <figure class="jbj-media" style="margin:0; min-width:0;">
           <a href="https://www.dandad.org/work/d-ad-awards-archive/the-time-we-have-left" target="_blank" rel="noopener" style="position:relative; display:block; text-decoration:none;" aria-label="Open The Time We Have Left campaign at the D&AD Awards Archive">
             <img src="time-left-dd-960.webp" alt="The Time We Have Left — Ruavieja campaign still: a countdown of the time left to spend with a loved one" loading="lazy" style="width:100%; height:auto; display:block; aspect-ratio:16/9; object-fit:cover;">
-            <span style="position:absolute; left:50%; bottom:12px; transform:translateX(-50%); display:inline-flex; align-items:center; gap:7px; padding:7px 15px; border-radius:999px; background:rgba(10,8,32,0.72); border:1px solid rgba(130,47,0,0.7); color:#eef0f6; font-size:12px; font-weight:600; letter-spacing:0.06em; backdrop-filter:blur(8px); white-space:nowrap;">
+            <span class="jbj-canpill" style="position:absolute; left:50%; bottom:12px; transform:translateX(-50%); display:inline-flex; align-items:center; gap:7px; padding:7px 15px; border-radius:999px; background:rgba(10,8,32,0.72); border:1px solid rgba(130,47,0,0.7); color:#eef0f6; font-size:12px; font-weight:600; letter-spacing:0.06em; backdrop-filter:blur(8px); white-space:nowrap;">
               <svg viewBox="0 0 24 24" width="12" height="12" fill="#fff" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Click to open the campaign &#8599;
             </span>
           </a>
@@ -426,7 +465,7 @@
             <!-- The gallery IS the provenance: one big click-through fills the column -->
             <a href="https://artsandculture.google.com/usergallery/the-art-of-dying-memento-mori-through-the-ages/DALS56IGGr1jIA" target="_blank" rel="noopener" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; text-align:center; padding:clamp(24px,4vh,44px) 20px; border-radius:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.22); text-decoration:none;">
               <span style="font-family:'Poppins',system-ui,sans-serif; font-weight:800; font-size:clamp(22px,2.6vw,34px); line-height:1.25; color:#eef0f6;">The Art of Dying:<br>Memento mori through the ages</span>
-              <span style="display:inline-flex; align-items:center; gap:9px; padding:10px 20px; border-radius:999px; background:rgba(10,8,32,0.72); border:1px solid rgba(130,47,0,0.7); color:#eef0f6; font-size:clamp(13px,1.2vw,15px); font-weight:600; letter-spacing:0.06em;">
+              <span class="jbj-canpill" style="display:inline-flex; align-items:center; gap:9px; padding:10px 20px; border-radius:999px; background:rgba(10,8,32,0.72); border:1px solid rgba(130,47,0,0.7); color:#eef0f6; font-size:clamp(13px,1.2vw,15px); font-weight:600; letter-spacing:0.06em;">
                 <svg viewBox="0 0 24 24" width="13" height="13" fill="#fff" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Google Arts &amp; Culture &#8599;
               </span>
             </a>
