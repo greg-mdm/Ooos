@@ -138,21 +138,25 @@
   .jbj-note { font-size: 11.5px; line-height: 1.55; color: #6a7080; }
   @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
 
-  /* ===== Side rail composition: symmetry and balance =====
-     A strict grid so nothing wraps unpredictably: Join and Disperse each on
-     their own full-width row, the four view icons in one equal row of four,
-     then the five country rows as a stacked list with big glowing bullets. */
-  [data-switchpanel] [aria-label="3D scene controls"] { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 11px !important; padding: 14px !important; }
+  /* ===== Side rail composition: one clear control column beside the media
+     embed, top-aligned with the screen, no empty gaps. Join + Disperse sit
+     side by side at the top; the four view icons in a row below; the five
+     countries as a tidy stacked list; then the Enter-the-Environment portal
+     directly under them (heading and switch together, always in view). A
+     strict grid means nothing wraps unpredictably. ===== */
+  [data-switchpanel] [aria-label="3D scene controls"] { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 9px !important; padding: 12px !important; }
   [data-switchpanel] [aria-label="3D scene controls"] > span[aria-hidden] { display: none !important; }
+  [data-switchpanel] [data-act="join"] { grid-column: 1 / 3; }
+  [data-switchpanel] [data-act="disperse"] { grid-column: 3 / 5; }
   [data-switchpanel] [data-act="join"],
-  [data-switchpanel] [data-act="disperse"] { grid-column: 1 / -1; width: 100% !important; justify-content: center !important; }
+  [data-switchpanel] [data-act="disperse"] { width: 100% !important; justify-content: center !important; padding: 0 6px !important; font-size: 15px !important; }
   [data-switchpanel] [data-act="zoomout"],
   [data-switchpanel] [data-act="zoomin"],
   [data-switchpanel] [data-act="rotate"],
   [data-switchpanel] [data-act="reset"] { width: 100% !important; }
-  [data-switchpanel] [data-scene-controls] { gap: 16px !important; }
-  [data-switchpanel] [aria-label="Isolate a country"] { flex-direction: column !important; align-items: stretch !important; gap: 10px !important; }
-  [data-switchpanel] [data-iso] { justify-content: flex-start !important; padding: 10px 16px !important; font-size: 14px !important; border-radius: 12px !important; }
+  [data-switchpanel] [data-scene-controls] { gap: 12px !important; }
+  [data-switchpanel] [aria-label="Isolate a country"] { flex-direction: column !important; align-items: stretch !important; gap: 8px !important; }
+  [data-switchpanel] [data-iso] { justify-content: flex-start !important; padding: 9px 15px !important; font-size: 14px !important; border-radius: 11px !important; }
   [data-switchpanel] [data-iso] > span:last-child { margin-left: auto; }
 
   /* ===== Mobile (≤760px): content directly on the canvas, no overlaps =====
@@ -297,7 +301,7 @@
   <!-- ===== Side rail: the scene controls, introduced beside the screen
        (interact from outside first; the next step, entering the environment,
        moves below with the portal) ===== -->
-  <aside data-switchpanel style="flex:0 0 clamp(212px,24vw,292px); margin-top:clamp(24px,3.6vh,44px); height:calc(min(920px,64vw,(100vh - 320px) * 1.62) * 0.625); display:{{ panelDisplay }}; flex-direction:column; align-items:stretch; justify-content:center; gap:0;">
+  <aside data-switchpanel style="flex:0 0 clamp(226px,25vw,306px); margin-top:clamp(24px,3.6vh,44px); display:{{ panelDisplay }}; flex-direction:column; align-items:stretch; justify-content:flex-start; gap:clamp(16px,2.1vh,24px);">
 
   <div data-scene-controls style="width:100%; display:flex; flex-direction:column; align-items:stretch; gap:13px; padding:0; transition:opacity .35s; opacity:{{ ctlOpacity }}; visibility:{{ ctlVis }}; pointer-events:{{ ctlPE }};">
 
@@ -333,15 +337,45 @@
     </div>
   </div>
 
+    <!-- Enter-the-Environment portal — directly under the controls, so the
+         heading and the switch stay together and in view beside the screen -->
+    <div data-enter style="display:flex; flex-direction:column; align-items:stretch; gap:12px; padding-top:clamp(14px,1.8vh,20px); border-top:1px solid rgba(255,255,255,0.10); transition:opacity .35s; opacity:{{ ctlOpacity }};">
+      <div>
+        <h2 style="margin:0; font-family:'Audiowide',system-ui,sans-serif; font-size:clamp(17px,1.5vw,21px); letter-spacing:0.5px; line-height:1.24; color:#eef0f6;">Enter the Environment</h2>
+        <p style="margin:7px 0 0; font-family:'Space Grotesk',sans-serif; font-size:13px; line-height:1.5; color:#a9aecb;">Flip the switch to fill your screen and step inside the populations.</p>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:11px;">
+        <!-- colourful black hole — student light shining through the glowing rim -->
+        <button data-act="fullscreen" data-portal-toggle aria-pressed="{{ portalPressed }}" aria-label="Enter the environment — open immersive fullscreen" style="align-self:center; position:relative; width:clamp(158px,15vw,190px); height:clamp(158px,15vw,190px); margin:0; border:0; background:transparent; padding:0; cursor:pointer; overflow:visible;">
+          <span aria-hidden="true" style="position:absolute; inset:0; border-radius:50%; animation:{{ bhAnim }};">
+            <span style="position:absolute; inset:0; border-radius:50%; background:linear-gradient(#14ffe9,#ffeb3b,#ff00e0);"></span>
+            <span style="position:absolute; inset:0; border-radius:50%; background:linear-gradient(#14ffe9,#ffeb3b,#ff00e0); filter:blur(7px);"></span>
+            <span style="position:absolute; inset:0; border-radius:50%; background:linear-gradient(#14ffe9,#ffeb3b,#ff00e0); filter:blur(18px);"></span>
+            <span style="position:absolute; inset:0; border-radius:50%; background:linear-gradient(#14ffe9,#ffeb3b,#ff00e0); filter:blur(38px); opacity:.7;"></span>
+          </span>
+          <span aria-hidden="true" style="position:absolute; inset:9px; border-radius:50%; background:#04040a; z-index:2; box-shadow:inset 0 0 28px 6px rgba(0,0,0,0.88);"></span>
+          <span style="position:absolute; inset:0; z-index:3; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; font-family:'Audiowide',system-ui,sans-serif; pointer-events:none;">
+            <span style="font-size:clamp(20px,2.1vw,27px); line-height:1; color:{{ onColor }}; animation:{{ onAnim }};">ON</span>
+            <span aria-hidden="true" style="width:52px; height:2px; border-radius:2px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.5),transparent);"></span>
+            <span style="font-size:clamp(20px,2.1vw,27px); line-height:1; color:{{ offColor }}; animation:{{ offAnim }};">OFF</span>
+          </span>
+        </button>
+        <!-- PORTAL label — directly under the portal -->
+        <div style="display:flex; align-items:center; gap:8px;">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v9"/><path d="M6.4 6.4a8 8 0 1 0 11.2 0"/></svg>
+          <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:13px; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold);">Portal</span>
+        </div>
+      </div>
+    </div>
+
   </aside><!-- /side rail -->
 
   </div><!-- /cz-stage -->
 
-  <!-- ===== Below the stage: section tabs stacked two by two, with the portal
-       on the other side (the next step after the controls: enter the env) ===== -->
+  <!-- ===== Below the stage: section tabs stacked two by two, centered ===== -->
   <div style="width:min(1560px,96vw); display:flex; align-items:center; justify-content:center; gap:clamp(18px,3vw,44px); flex-wrap:wrap;">
 
-    <!-- left: edge arrows + section tabs, two per row -->
+    <!-- edge arrows + section tabs, two per row -->
     <div style="flex:0 1 min(920px,64vw); min-width:min(340px,92vw); display:flex; align-items:center; gap:14px;">
       <button data-act="prev" aria-label="Previous section" style="width:44px; height:44px; flex:0 0 auto; display:flex; align-items:center; justify-content:center; border-radius:11px; border:1px solid rgba(150,155,162,0.5); background:#4B00B6; color:#fff; cursor:pointer; box-shadow:0 6px 16px -8px rgba(75,0,182,0.9);" style-hover="background:#5B04DE;">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
@@ -355,38 +389,6 @@
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
       </button>
     </div>
-
-    <!-- right: heading + colourful black-hole switch, moved down from the rail -->
-    <aside data-switchpanel style="flex:0 0 clamp(240px,26vw,320px); display:{{ panelDisplay }}; flex-direction:column; align-items:stretch; gap:16px; opacity:{{ ctlOpacity }}; transition:opacity .35s;">
-      <div>
-        <h2 style="margin:0; font-family:'Audiowide',system-ui,sans-serif; font-size:clamp(22px,2.4vw,30px); letter-spacing:0.8px; line-height:1.28; color:#eef0f6;">Enter the Environment</h2>
-        <p style="margin:9px 0 0; font-family:'Space Grotesk',sans-serif; font-size:14px; line-height:1.55; color:#a9aecb;">Flip the switch to fill your screen and step inside the populations.</p>
-      </div>
-
-      <!-- centered portal group: black hole + label -->
-      <div style="margin:6px 0 0; display:flex; flex-direction:column; align-items:center; gap:12px;">
-      <!-- colourful black hole — student light shining through the glowing rim -->
-      <button data-act="fullscreen" data-portal-toggle aria-pressed="{{ portalPressed }}" aria-label="Enter the environment — open immersive fullscreen" style="align-self:center; position:relative; width:clamp(188px,22vw,240px); height:clamp(188px,22vw,240px); margin:0; border:0; background:transparent; padding:0; cursor:pointer; overflow:visible;">
-        <span aria-hidden="true" style="position:absolute; inset:0; border-radius:50%; animation:{{ bhAnim }};">
-          <span style="position:absolute; inset:0; border-radius:50%; background:linear-gradient(#14ffe9,#ffeb3b,#ff00e0);"></span>
-          <span style="position:absolute; inset:0; border-radius:50%; background:linear-gradient(#14ffe9,#ffeb3b,#ff00e0); filter:blur(7px);"></span>
-          <span style="position:absolute; inset:0; border-radius:50%; background:linear-gradient(#14ffe9,#ffeb3b,#ff00e0); filter:blur(18px);"></span>
-          <span style="position:absolute; inset:0; border-radius:50%; background:linear-gradient(#14ffe9,#ffeb3b,#ff00e0); filter:blur(38px); opacity:.7;"></span>
-        </span>
-        <span aria-hidden="true" style="position:absolute; inset:9px; border-radius:50%; background:#04040a; z-index:2; box-shadow:inset 0 0 28px 6px rgba(0,0,0,0.88);"></span>
-        <span style="position:absolute; inset:0; z-index:3; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px; font-family:'Audiowide',system-ui,sans-serif; pointer-events:none;">
-          <span style="font-size:clamp(24px,2.7vw,34px); line-height:1; color:{{ onColor }}; animation:{{ onAnim }};">ON</span>
-          <span aria-hidden="true" style="width:60px; height:2px; border-radius:2px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.5),transparent);"></span>
-          <span style="font-size:clamp(24px,2.7vw,34px); line-height:1; color:{{ offColor }}; animation:{{ offAnim }};">OFF</span>
-        </span>
-      </button>
-        <!-- PORTAL label — directly under the portal -->
-        <div style="display:flex; align-items:center; gap:8px;">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v9"/><path d="M6.4 6.4a8 8 0 1 0 11.2 0"/></svg>
-          <span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold);">Portal</span>
-        </div>
-      </div>
-    </aside>
   </div>
 
   <!-- ===== Remember to Live — robin's-egg light section (matches the homepage
