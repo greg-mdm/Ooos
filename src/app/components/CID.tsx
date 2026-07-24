@@ -795,7 +795,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
         <div className="container cid-hero-container cid-viv-grid">
           <aside className="cid-viv-rail" aria-label="Radical Strategic Intelligence">
             <div className="cid-viv-brand">
-              <p className="cid-viv-eyebrow">The CID method</p>
               <h2 className="cid-viv-title">
                 <span>Radical</span><span>Strategic</span><span className="grad">Intelligence</span>
               </h2>
@@ -832,7 +831,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             <div className="cid-viv-block">
               <h3>Beneficial Biomimicry</h3>
               <ul>
-                <li>Information flows through purpose-built environments inspired by the functional principles and geometries found in nature.</li>
+                <li>Information flows through environments inspired by the functional principles and geometries found in nature.</li>
                 <li>The information ecosystem evolves through applied research on sustainable design for human-AI interactions.</li>
               </ul>
             </div>
@@ -854,7 +853,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
       <section className="cid-wl-hero" aria-label="Innovation Watchlist">
         <iframe
           className="cid-wl-frame"
-          src={`${base}Innovation%20Watchlist.dc.html?v=4`}
+          src={`${base}Innovation%20Watchlist.dc.html?v=5`}
           title="Innovation Watchlist"
           loading="lazy"
         />
