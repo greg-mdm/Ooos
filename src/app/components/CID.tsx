@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type ReactNode, type CSSProperties } from 
 import "../../styles/cid-continuum.css";
 import "../../styles/cid-forest.css";
 import "../../styles/cid-coins.css";
+import "../../styles/cid-vivarium.css";
 import {
   PopClockCard,
   PopulationSourcesStrip,
@@ -785,39 +786,64 @@ export function CID({ onSupport }: { onSupport: () => void }) {
         </div>
       </section>
 
-      {/* Intro copy on a light canvas: midnight black on silvery white /
-          robin's egg, short paragraphs with real spacing so mobile reads as
-          2 medium + 1 small paragraph per screen, not one wall of text. */}
-      <section className="cid-intro" aria-label="About the Canadian Innovation Dimension">
-        <div className="container cid-hero-container cid-intro-grid">
-          <div className="cid-intro-col">
-            <p className="cid-intro-p">
-              A research dimension tracking sovereign innovation across Canada and allied
-              jurisdictions through triangulation of public sources, verified public data sets,
-              and strict exclusion of Material Non Public Information (MNPI).
-            </p>
-            <p className="cid-intro-p">
-              The system tracks organizations, strategic sectors, policy developments, bilateral
-              partnerships, and capital market activity across emerging technologies.
-            </p>
-            <p className="cid-intro-p cid-intro-p--small">
-              The Innovation Watchlist is the first tool offering access to this dimension.
-            </p>
-          </div>
-          <div className="cid-intro-col">
-            <p className="cid-intro-p">
-              Ostara empowers innovators, researchers, entrepreneurs, and curious minds to
-              collaboratively explore diverse sectors, policy trends, and market dynamics.
-            </p>
-            <p className="cid-intro-p">
-              It analyzes real-world signals, enables experimentation, and offers a platform for
-              comparing verified information and assessing competing interpretations.
-            </p>
-            <p className="cid-intro-p cid-intro-p--small">
-              <strong>
-                Ostara and the experimental Canadian Innovation Dimension (CID) do not provide
-                future predictions or financial advice.
-              </strong>
+      {/* CID Vivarium — a tall "Radical Strategic Intelligence" rail (brand at
+          the top, the three method verbs as pillars) beside the Vivarium copy.
+          Replaces the old intro block. The three-shot image row and the flag
+          graphic await Greg's assets; the disclaimer from the old intro is
+          retained verbatim at the foot. */}
+      <section className="cid-viv" aria-label="CID Vivarium">
+        <div className="container cid-hero-container cid-viv-grid">
+          <aside className="cid-viv-rail" aria-label="Radical Strategic Intelligence">
+            <div className="cid-viv-brand">
+              <p className="cid-viv-eyebrow">The CID method</p>
+              <h2 className="cid-viv-title">
+                <span>Radical</span><span>Strategic</span><span className="grad">Intelligence</span>
+              </h2>
+              <div className="cid-viv-bar" aria-hidden="true" />
+            </div>
+            <div className="cid-viv-pillar">
+              <span className="n">1</span>
+              <div><p className="verb">Observe</p><p className="desc">Market dynamics</p></div>
+            </div>
+            <div className="cid-viv-pillar">
+              <span className="n">2</span>
+              <div><p className="verb">Compare</p><p className="desc">Information from public sources</p></div>
+            </div>
+            <div className="cid-viv-pillar">
+              <span className="n">3</span>
+              <div><p className="verb">Navigate</p><p className="desc">Risks and rewards</p></div>
+            </div>
+          </aside>
+
+          <div className="cid-viv-main">
+            <h2 className="cid-viv-h">CID Vivarium</h2>
+            <p className="cid-viv-lead">An avant-garde research facility inside an always-on <strong>AI mini-PC</strong>.</p>
+            <p className="cid-viv-lead">Artificial intelligence (AI) agents operate the facility under the guidance of a human principal investigator.</p>
+
+            <div className="cid-viv-block">
+              <h3>Architectural Design</h3>
+              <ul>
+                <li>Distinct environments for observation, collaboration, experimentation</li>
+                <li>Agents use external tools while remaining securely enclosed in the vivarium</li>
+                <li>Interfaces bind actions with fixed rules, restrictions, and limitations</li>
+              </ul>
+            </div>
+
+            <div className="cid-viv-block">
+              <h3>Beneficial Biomimicry</h3>
+              <ul>
+                <li>Information flows through purpose-built environments inspired by the functional principles and geometries found in nature.</li>
+                <li>The information ecosystem evolves through applied research on sustainable design for human-AI interactions.</li>
+              </ul>
+            </div>
+
+            <div className="cid-viv-portal">
+              <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v9" /><path d="M6.4 6.4a8 8 0 1 0 11.2 0" /></svg>
+              <p>A PORTAL HAS OPENED: CID releases an electric debut prototype!</p>
+            </div>
+
+            <p className="cid-viv-disc">
+              <strong>Ostara and the experimental Canadian Innovation Dimension (CID) do not provide future predictions or financial advice.</strong>
             </p>
           </div>
         </div>
@@ -828,7 +854,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
       <section className="cid-wl-hero" aria-label="Innovation Watchlist">
         <iframe
           className="cid-wl-frame"
-          src={`${base}Innovation%20Watchlist.dc.html?v=3`}
+          src={`${base}Innovation%20Watchlist.dc.html?v=4`}
           title="Innovation Watchlist"
           loading="lazy"
         />

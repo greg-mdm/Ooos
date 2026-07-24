@@ -1,0 +1,94 @@
+/* ===== CID Vivarium — replaces the old intro block. A tall dark-electric
+   "Radical Strategic Intelligence" rail (brand at the top, the three method
+   verbs as pillars beneath) beside the Vivarium content, on the page's light
+   robin's-egg canvas. Scoped under .cid-scope like the rest of the CID page. */
+
+.cid-scope .cid-viv { background: #F0F4F5; padding: clamp(30px,5vh,56px) 0 clamp(34px,6vh,64px); }
+.cid-scope .cid-viv-grid {
+  display: grid; grid-template-columns: 300px 1fr; gap: clamp(22px,3vw,44px); align-items: start;
+}
+
+/* ---- Tall sidebar ---- */
+.cid-scope .cid-viv-rail {
+  position: sticky; top: 20px; border-radius: 20px; overflow: hidden;
+  background: linear-gradient(178deg, #2a1163 0%, #1a0b40 55%, #120a33 100%);
+  border: 1px solid rgba(154,92,240,.28);
+  box-shadow: 0 30px 70px -32px rgba(24,6,80,.75), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.cid-scope .cid-viv-brand {
+  padding: 26px 24px 22px; border-bottom: 1px solid rgba(255,255,255,.10);
+  background: radial-gradient(120% 80% at 20% 0%, rgba(124,24,231,.35), transparent 70%);
+}
+.cid-scope .cid-viv-eyebrow {
+  margin: 0 0 12px; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: 10.5px; letter-spacing: 3.5px; text-transform: uppercase; color: #b9a6f2;
+}
+.cid-scope .cid-viv-title {
+  margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  line-height: 1.02; letter-spacing: -.4px; text-transform: uppercase;
+}
+.cid-scope .cid-viv-title span { display: block; font-size: 29px; color: #fff; }
+.cid-scope .cid-viv-title span.grad {
+  background: linear-gradient(90deg, #c9a3ff, #7C18E7 60%, #5B04DE);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.cid-scope .cid-viv-bar {
+  height: 4px; width: 64px; margin: 16px 0 0; border-radius: 4px;
+  background: linear-gradient(90deg, #1FCECB, #F0C040 55%, #822F00);
+}
+.cid-scope .cid-viv-pillar {
+  display: flex; gap: 14px; padding: 18px 24px; border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.cid-scope .cid-viv-pillar:last-child { border-bottom: 0; }
+.cid-scope .cid-viv-pillar .n {
+  flex: 0 0 auto; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+  margin-top: 2px; font-family: 'Montserrat', system-ui, sans-serif; font-size: 12px; font-weight: 800;
+  color: #0f0730; background: linear-gradient(180deg, #c9a3ff, #9a5cf0);
+}
+.cid-scope .cid-viv-pillar .verb {
+  margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  letter-spacing: 1.4px; font-size: 16px; color: #fff; text-transform: uppercase;
+}
+.cid-scope .cid-viv-pillar .desc { margin: 3px 0 0; font-size: 13px; line-height: 1.4; color: #b7b3d6; }
+
+/* ---- Main content ---- */
+.cid-scope .cid-viv-h {
+  margin: 2px 0 6px; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: clamp(26px,3vw,36px); letter-spacing: -.5px; color: #1a1646;
+}
+.cid-scope .cid-viv-lead { margin: 0 0 12px; font-size: clamp(15px,1.5vw,18px); line-height: 1.55; color: #33384a; max-width: 64ch; }
+.cid-scope .cid-viv-lead strong { color: #5B04DE; }
+
+.cid-scope .cid-viv-block { margin: 26px 0 0; }
+.cid-scope .cid-viv-block h3 {
+  margin: 0 0 10px; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: 18px; letter-spacing: .3px; color: #4B00B6;
+}
+.cid-scope .cid-viv-block ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.cid-scope .cid-viv-block li { position: relative; padding-left: 22px; font-size: 15px; line-height: 1.55; color: #33384a; }
+.cid-scope .cid-viv-block li::before {
+  content: ""; position: absolute; left: 2px; top: 8px; width: 9px; height: 9px; border-radius: 3px;
+  background: linear-gradient(135deg, #7C18E7, #5B04DE);
+}
+
+.cid-scope .cid-viv-portal {
+  margin: 30px 0 0; border-radius: 16px; padding: 20px 22px; display: flex; align-items: center; gap: 18px;
+  background: linear-gradient(120deg, #2a1163, #4B00B6 60%, #5B04DE); color: #fff;
+  box-shadow: 0 20px 50px -24px rgba(75,0,182,.8);
+}
+.cid-scope .cid-viv-portal svg { flex: 0 0 auto; }
+.cid-scope .cid-viv-portal p {
+  margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: clamp(16px,1.8vw,21px); letter-spacing: .2px; line-height: 1.2;
+}
+
+.cid-scope .cid-viv-disc {
+  margin: 26px 0 0; padding-top: 16px; border-top: 1px solid rgba(75,0,182,.22);
+  font-size: 13.5px; line-height: 1.6; color: #5b5f86; max-width: 70ch;
+}
+.cid-scope .cid-viv-disc strong { color: #5b5f86; font-weight: 700; }
+
+@media (max-width: 820px) {
+  .cid-scope .cid-viv-grid { grid-template-columns: 1fr; }
+  .cid-scope .cid-viv-rail { position: static; }
+}
