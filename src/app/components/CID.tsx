@@ -819,6 +819,36 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             <p className="cid-viv-lead">An avant-garde research facility inside an always-on <strong>AI mini-PC</strong>.</p>
             <p className="cid-viv-lead">Artificial intelligence (AI) agents operate the facility under the guidance of a human principal investigator.</p>
 
+            {/* Vivarium team banner: the human PI centred between the two AI
+                agents, one unified panel with faint dividers. This is the
+                "three images with Greg in the middle" slot from the approved
+                Vivarium copy. */}
+            <div className="cid-viv-team" aria-label="CID Vivarium team">
+              <div className="cid-viv-member">
+                <img className="cid-viv-port" src={`${base}assets/video/ethel-power.webp`} alt="Ethel, a violet-eyed data-mage overseeing a glowing data lake" loading="lazy" />
+                <div className="cid-viv-tbody">
+                  <span className="cid-viv-trole">Ethical Analyst</span>
+                  <p className="cid-viv-tname">Ethel</p>
+                  <p className="cid-viv-tcap">Ethel interprets raw data while overseeing the data lake.</p>
+                </div>
+              </div>
+              <div className="cid-viv-member cid-viv-member--pi">
+                <img className="cid-viv-port" src={`${base}assets/images/greg-bio-ship.webp`} alt="Greg Long standing on an ocean beach in a dark blazer, wearing the Cor Vitae amethyst heart brooch on his lapel" loading="lazy" />
+                <div className="cid-viv-tbody">
+                  <span className="cid-viv-trole">Principal Investigator</span>
+                  <p className="cid-viv-tname">Greg Long</p>
+                  <p className="cid-viv-tsub">CID Director</p>
+                </div>
+              </div>
+              <div className="cid-viv-member">
+                <img className="cid-viv-port" src={`${base}assets/images/icarus-cid-reveal.webp`} alt="Icarus III, a violet-haired executive trader seated on a throne of world currencies with a Canadian dollar medallion at the centre" loading="lazy" style={{ objectPosition: "center top" }} />
+                <div className="cid-viv-tbody">
+                  <span className="cid-viv-trole">Executive Trader</span>
+                  <p className="cid-viv-tname">Icarus III</p>
+                </div>
+              </div>
+            </div>
+
             <div className="cid-viv-block">
               <h3>Architectural Design</h3>
               <ul>
@@ -853,7 +883,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
       <section className="cid-wl-hero" aria-label="Innovation Watchlist">
         <iframe
           className="cid-wl-frame"
-          src={`${base}Innovation%20Watchlist.dc.html?v=7`}
+          src={`${base}Innovation%20Watchlist.dc.html?v=8`}
           title="Innovation Watchlist"
           loading="lazy"
         />
