@@ -866,11 +866,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               </ul>
             </div>
 
-            <div className="cid-viv-portal">
-              <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v9" /><path d="M6.4 6.4a8 8 0 1 0 11.2 0" /></svg>
-              <p>A PORTAL HAS OPENED: CID releases an electric debut prototype!</p>
-            </div>
-
             <p className="cid-viv-disc">
               <strong>Ostara and the experimental Canadian Innovation Dimension (CID) do not provide future predictions or financial advice.</strong>
             </p>
@@ -880,6 +875,15 @@ export function CID({ onSupport }: { onSupport: () => void }) {
 
       {/* Innovation Watchlist hero — self-contained DC block from
           public/Innovation Watchlist.dc.html (full-bleed, self-sizing iframe). */}
+      {/* Portal drum roll: a quiet dark-galaxy band bridging the Vivarium and
+          the Innovation Watchlist. A drum roll, not a splash. */}
+      <section className="cid-portal-band" aria-label="CID prototype announcement">
+        <p className="cid-portal-line">
+          <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v9" /><path d="M6.4 6.4a8 8 0 1 0 11.2 0" /></svg>
+          <span>A PORTAL HAS OPENED: CID releases an electric debut prototype!</span>
+        </p>
+      </section>
+
       <section className="cid-wl-hero" aria-label="Innovation Watchlist">
         <iframe
           className="cid-wl-frame"
