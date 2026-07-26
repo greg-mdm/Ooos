@@ -778,11 +778,11 @@ function IcarusName() {
  *  background rather than a picture on the page, so browsers offer no image
  *  zoom, visual search or save affordance to get stuck in. The three
  *  nameplates stand on the floor in front of the case. */
-type CaseBay = { key: string; cls: string; left: string; role: ReactNode; name: ReactNode; sub?: string; orb?: string };
+type CaseBay = { key: string; cls: string; left: string; role: ReactNode; name: ReactNode; sub?: string; orb?: string; title?: string };
 
 const CASE_BAYS: CaseBay[] = [
   { key: "ethel", cls: "cid-plate--ethel", left: "24%", role: "Ethical Analyst", name: "Ethel" },
-  { key: "greg", cls: "cid-plate--greg", left: "52%", role: <>Principal<br />Investigator</>, name: "Greg Long,", sub: "CID Director", orb: "PI" },
+  { key: "greg", cls: "cid-plate--greg", left: "52%", role: <>Principal<br />Investigator</>, orb: "PI", title: "CID Director", name: "Greg Long" },
   { key: "icarus", cls: "cid-plate--icarus", left: "76%", role: "Executive Trader", name: <IcarusName /> },
 ];
 
@@ -805,10 +805,13 @@ function TeamCase({ base }: { base: string }) {
               <span className="cid-plate-rail" aria-hidden="true" />
               <span className="cid-plate-body">
                 <span className="cid-plate-role">{b.role}</span>
-                <span className="cid-plate-name">
-                  {b.orb && <span className="cid-plate-orb" aria-hidden="true">{b.orb}</span>}
-                  {b.name}
-                </span>
+                {b.title && (
+                  <span className="cid-plate-title">
+                    {b.orb && <span className="cid-plate-orb" aria-hidden="true">{b.orb}</span>}
+                    {b.title}
+                  </span>
+                )}
+                <span className="cid-plate-name">{b.name}</span>
                 {b.sub && <span className="cid-plate-sub">{b.sub}</span>}
               </span>
             </div>
