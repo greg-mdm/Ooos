@@ -749,6 +749,104 @@ function LivingWallSlider({
   );
 }
 
+/** The Vivarium team display case: one piece of hero art holding all three
+ *  researchers. Because it is 3D art with real detail, clicking opens a
+ *  full-screen viewer on the 4K master where you can zoom in and pan around. */
+const CASE_BAYS = [
+  { left: "25.5%", role: "Ethical Analyst", name: "Ethel" },
+  { left: "52.5%", role: "Principal Investigator", name: "Greg Long", sub: "CID Director" },
+  { left: "77.5%", role: "Executive Trader", name: "Icarus III" },
+];
+
+function TeamCase({ base }: { base: string }) {
+  const [open, setOpen] = useState(false);
+  const [scale, setScale] = useState(1.8);
+  const [pan, setPan] = useState({ x: 0, y: 0 });
+  const drag = useRef<{ x: number; y: number; px: number; py: number } | null>(null);
+  const src = (w: number) => `${base}assets/images/cid-team-case-${w}.webp`;
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [open]);
+
+  const launch = () => { setScale(1.8); setPan({ x: 0, y: 0 }); setOpen(true); };
+  const zoomBy = (f: number) => setScale((s) => Math.min(6, Math.max(1, s * f)));
+
+  return (
+    <>
+      <figure className="cid-case" aria-label="CID Vivarium team display case">
+        <button type="button" className="cid-case-btn" onClick={launch} aria-label="Open the team display case at full size to zoom in">
+          <img
+            className="cid-case-img"
+            src={src(1920)}
+            srcSet={`${src(1280)} 1280w, ${src(1920)} 1920w, ${src(2560)} 2560w, ${src(3840)} 3840w`}
+            sizes="(max-width: 900px) 96vw, 1192px"
+            width={1920}
+            height={1080}
+            alt="A dark glass display case holding the three CID researchers: Ethel the Ethical Analyst on the left, Greg Long the Principal Investigator in the centre, and Icarus III the Executive Trader on the right"
+            loading="lazy"
+            decoding="async"
+          />
+          <span className="cid-case-zoomcue" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="7" /><path d="M11 8v6M8 11h6M20 20l-3.5-3.5" /></svg>
+            Zoom
+          </span>
+        </button>
+        <figcaption className="cid-case-labels">
+          {CASE_BAYS.map((b) => (
+            <span className="cid-case-label" key={b.name} style={{ left: b.left }}>
+              <span className="cid-case-role">{b.role}</span>
+              <span className="cid-case-name">{b.name}</span>
+              {b.sub && <span className="cid-case-sub">{b.sub}</span>}
+            </span>
+          ))}
+        </figcaption>
+      </figure>
+
+      {open && createPortal(
+        <div className="cid-case-viewer" role="dialog" aria-modal="true" aria-label="Team display case, full size">
+          <div
+            className="cid-case-stage"
+            onMouseDown={(e) => { drag.current = { x: e.clientX, y: e.clientY, px: pan.x, py: pan.y }; }}
+            onMouseMove={(e) => {
+              if (!drag.current) return;
+              setPan({ x: drag.current.px + (e.clientX - drag.current.x), y: drag.current.py + (e.clientY - drag.current.y) });
+            }}
+            onMouseUp={() => { drag.current = null; }}
+            onMouseLeave={() => { drag.current = null; }}
+            onWheel={(e) => zoomBy(e.deltaY < 0 ? 1.12 : 1 / 1.12)}
+            onDoubleClick={() => { setScale(1.8); setPan({ x: 0, y: 0 }); }}
+          >
+            <img
+              className="cid-case-full"
+              src={src(3840)}
+              alt="Team display case at full resolution"
+              style={{ transform: `translate(${pan.x}px, ${pan.y}px) scale(${scale})` }}
+              draggable={false}
+            />
+          </div>
+          <div className="cid-case-tools">
+            <button type="button" onClick={() => zoomBy(1 / 1.35)} aria-label="Zoom out">−</button>
+            <span className="cid-case-pct">{Math.round(scale * 100 / 1.8)}%</span>
+            <button type="button" onClick={() => zoomBy(1.35)} aria-label="Zoom in">+</button>
+            <button type="button" className="cid-case-close" onClick={() => setOpen(false)} aria-label="Close">Close</button>
+          </div>
+          <p className="cid-case-hint">Scroll to zoom · drag to pan · double-click to reset · Esc to close</p>
+        </div>,
+        document.body,
+      )}
+    </>
+  );
+}
+
 export function CID({ onSupport }: { onSupport: () => void }) {
   const base = import.meta.env.BASE_URL;
   // One StatCan data load shared by the pop clock cards, the medallion and
@@ -819,35 +917,11 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             <p className="cid-viv-lead">An avant-garde research facility inside an always-on <strong>AI mini-PC</strong>.</p>
             <p className="cid-viv-lead">Artificial intelligence (AI) agents operate the facility under the guidance of a human principal investigator.</p>
 
-            {/* Vivarium team banner: the human PI centred between the two AI
-                agents, one unified panel with faint dividers. This is the
-                "three images with Greg in the middle" slot from the approved
-                Vivarium copy. */}
-            <div className="cid-viv-team" aria-label="CID Vivarium team">
-              <div className="cid-viv-member">
-                <img className="cid-viv-port" src={`${base}assets/video/ethel-power.webp`} alt="Ethel, a violet-eyed data-mage overseeing a glowing data lake" loading="lazy" />
-                <div className="cid-viv-tbody">
-                  <span className="cid-viv-trole">Ethical Analyst</span>
-                  <p className="cid-viv-tname">Ethel</p>
-                  <p className="cid-viv-tcap">Ethel interprets raw data while overseeing the data lake.</p>
-                </div>
-              </div>
-              <div className="cid-viv-member cid-viv-member--pi">
-                <img className="cid-viv-port" src={`${base}assets/images/greg-bio-ship.webp`} alt="Greg Long standing on an ocean beach in a dark blazer, wearing the Cor Vitae amethyst heart brooch on his lapel" loading="lazy" />
-                <div className="cid-viv-tbody">
-                  <span className="cid-viv-trole">Principal Investigator</span>
-                  <p className="cid-viv-tname">Greg Long</p>
-                  <p className="cid-viv-tsub">CID Director</p>
-                </div>
-              </div>
-              <div className="cid-viv-member">
-                <img className="cid-viv-port" src={`${base}assets/images/icarus-cid-reveal.webp`} alt="Icarus III, a violet-haired executive trader seated on a throne of world currencies with a Canadian dollar medallion at the centre" loading="lazy" style={{ objectPosition: "center top" }} />
-                <div className="cid-viv-tbody">
-                  <span className="cid-viv-trole">Executive Trader</span>
-                  <p className="cid-viv-tname">Icarus III</p>
-                </div>
-              </div>
-            </div>
+            {/* Vivarium team display case: the three researchers set in one
+                glass case, the human PI centred between the two AI agents.
+                This is the "three images with Greg in the middle" slot from
+                the approved Vivarium copy. Click to open the 4K art. */}
+            <TeamCase base={base} />
 
             <div className="cid-viv-block">
               <h3>Architectural Design</h3>

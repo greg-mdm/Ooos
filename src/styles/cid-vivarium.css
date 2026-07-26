@@ -59,39 +59,77 @@
 .cid-scope .cid-viv-lead { margin: 0 0 12px; font-size: clamp(15px,1.5vw,18px); line-height: 1.55; color: #33384a; max-width: 64ch; }
 .cid-scope .cid-viv-lead strong { color: #5B04DE; }
 
-/* ---- Vivarium team banner: one unified panel, the PI centred between the
-   two AI agents, faint internal dividers, no gaps ---- */
-.cid-scope .cid-viv-team {
-  display: grid; grid-template-columns: 1fr 0.66fr 1fr; margin: 24px 0 2px;
-  border-radius: 16px; overflow: hidden;
-  background: linear-gradient(180deg, #141a33 0%, #0c1024 100%);
-  border: 1px solid rgba(123,63,242,.42);
-  box-shadow: 0 1px 0 rgba(255,255,255,.09) inset, 0 22px 50px -24px rgba(6,2,28,.75);
+/* ---- Vivarium team display case: one piece of 3D hero art holding all
+   three researchers. Click opens a full-screen zoom viewer on the 4K
+   master, so the detail in the glass and the artwork is explorable. ---- */
+.cid-scope .cid-case { margin: 24px 0 2px; }
+.cid-scope .cid-case-btn {
+  display: block; width: 100%; padding: 0; border: 0; background: transparent;
+  cursor: zoom-in; position: relative; border-radius: 16px; overflow: hidden;
+  box-shadow: 0 22px 50px -26px rgba(6,2,28,.7);
 }
-.cid-scope .cid-viv-member { display: flex; flex-direction: column; min-width: 0; }
-.cid-scope .cid-viv-member + .cid-viv-member { border-left: 1px solid rgba(123,63,242,.28); }
-.cid-scope .cid-viv-port {
-  display: block; width: 100%; height: clamp(190px, 20vw, 280px);
-  object-fit: cover; object-position: center 22%;
-  border-bottom: 1px solid rgba(123,63,242,.4);
+.cid-scope .cid-case-img { display: block; width: 100%; height: auto; }
+.cid-scope .cid-case-zoomcue {
+  position: absolute; right: 12px; bottom: 12px; display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 11px; border-radius: 999px; font-family: 'Montserrat', system-ui, sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: #dfe6ff; background: rgba(8,10,30,.55); border: 1px solid rgba(190,220,255,.28);
+  backdrop-filter: blur(8px); opacity: 0; transition: opacity .28s ease;
 }
-.cid-scope .cid-viv-member--pi .cid-viv-port { object-position: center 30%; }
-.cid-scope .cid-viv-member--pi .cid-viv-tbody { text-align: center; }
-.cid-scope .cid-viv-tbody { padding: 13px 16px 15px; }
-.cid-scope .cid-viv-trole {
-  display: inline-block; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
-  font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: #fff;
-  background: linear-gradient(180deg, #B4102F 0%, #8A0C24 100%); border-radius: 6px;
-  padding: 5px 11px; margin: 0 0 8px;
+.cid-scope .cid-case-btn:hover .cid-case-zoomcue,
+.cid-scope .cid-case-btn:focus-visible .cid-case-zoomcue { opacity: 1; }
+
+.cid-scope .cid-case-labels { position: relative; height: 62px; margin: 10px 0 0; }
+.cid-scope .cid-case-label {
+  position: absolute; top: 0; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center;
+}
+.cid-scope .cid-case-role {
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 9.5px;
+  letter-spacing: .14em; text-transform: uppercase; color: #fff;
+  background: linear-gradient(180deg, #B4102F 0%, #8A0C24 100%); border-radius: 6px; padding: 4px 10px;
   box-shadow: 0 1px 0 rgba(255,255,255,.28) inset, 0 3px 8px -3px rgba(150,10,30,.85);
+  white-space: nowrap;
 }
-.cid-scope .cid-viv-tname { margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: clamp(15px,1.4vw,18px); line-height: 1.2; color: #eef0f6; }
-.cid-scope .cid-viv-tsub { margin: 2px 0 0; font-size: 11.5px; font-weight: 500; letter-spacing: .05em; text-transform: uppercase; color: #8f9ac4; }
-.cid-scope .cid-viv-tcap { margin: 8px 0 0; font-size: 12.5px; line-height: 1.5; font-style: italic; color: #b7c0e0; }
+.cid-scope .cid-case-name {
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: clamp(14px,1.3vw,17px); line-height: 1.2; color: #1a1646; white-space: nowrap;
+}
+.cid-scope .cid-case-sub { font-size: 11px; font-weight: 500; letter-spacing: .05em; text-transform: uppercase; color: #5b5f86; }
+
+/* full-screen zoom viewer */
+.cid-case-viewer {
+  position: fixed; inset: 0; z-index: 9000; background: #04030e;
+  backdrop-filter: blur(6px);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.cid-case-stage {
+  flex: 1; width: 100%; overflow: hidden; display: flex; align-items: center; justify-content: center;
+  cursor: grab; touch-action: none;
+}
+.cid-case-stage:active { cursor: grabbing; }
+.cid-case-full {
+  max-width: 100%; max-height: 100%; transform-origin: center center;
+  transition: transform .06s linear; user-select: none; -webkit-user-drag: none;
+}
+.cid-case-tools {
+  display: flex; align-items: center; gap: 10px; padding: 12px 16px 4px;
+  font-family: 'Montserrat', system-ui, sans-serif;
+}
+.cid-case-tools button {
+  min-width: 40px; height: 36px; padding: 0 13px; border-radius: 9px; cursor: pointer;
+  font-family: inherit; font-size: 15px; font-weight: 800; color: #eef0f6;
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2);
+}
+.cid-case-tools button:hover { background: rgba(255,255,255,.16); }
+.cid-case-tools .cid-case-close { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+.cid-case-pct { min-width: 58px; text-align: center; font-size: 12px; font-weight: 700; color: #a9aecb; font-variant-numeric: tabular-nums; }
+.cid-case-hint { margin: 0 0 14px; font-size: 11.5px; letter-spacing: .04em; color: #7d83a6; text-align: center; padding: 0 16px; }
+
 @media (max-width: 700px) {
-  .cid-scope .cid-viv-team { grid-template-columns: 1fr; }
-  .cid-scope .cid-viv-member + .cid-viv-member { border-left: 0; border-top: 1px solid rgba(123,63,242,.28); }
-  .cid-scope .cid-viv-port { height: min(70vw, 400px); }
+  .cid-scope .cid-case-labels { position: static; height: auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+  .cid-scope .cid-case-label { position: static; transform: none; }
+  .cid-scope .cid-case-zoomcue { opacity: 1; }
 }
 
 .cid-scope .cid-viv-block { margin: 26px 0 0; }
