@@ -87,10 +87,10 @@
   position: absolute; bottom: 5.5%; transform: translateX(-50%);
   width: 16cqw; perspective: 70cqw;
 }
-/* Greg stands further back on the floor: higher up the perspective and a
-   touch smaller, so he reads as set behind Ethel and Icarus rather than
-   beside them. His portrait is the tall one, which this echoes. */
-.cid-scope .cid-plate--greg { width: 15.4cqw; bottom: 17%; }
+/* Greg stands higher up the floor than Ethel and Icarus, but at full plate
+   size: shrinking him read as pushed too far into the distance. Same scale,
+   raised position, so he sits behind their line without being diminished. */
+.cid-scope .cid-plate--greg { width: 16.6cqw; bottom: 15.5%; }
 /* his role stacks over two lines, which is what makes his plate the tall one */
 .cid-scope .cid-plate--greg .cid-plate-role { white-space: normal; line-height: 1.35; }
 .cid-scope .cid-plate--greg .cid-plate-name { align-items: center; gap: .3em; }
