@@ -93,7 +93,15 @@
 .cid-scope .cid-plate--greg { width: 16.6cqw; bottom: 15.5%; }
 /* his role stacks over two lines, which is what makes his plate the tall one */
 .cid-scope .cid-plate--greg .cid-plate-role { white-space: normal; line-height: 1.35; }
-.cid-scope .cid-plate--greg .cid-plate-name { align-items: center; gap: .3em; }
+/* Greg's card drops the vertical rail (Ethel and Icarus keep theirs) and
+   takes the indigo as a horizontal bar under his name instead, which reads
+   with more authority than an edge marker. */
+.cid-scope .cid-plate--greg .cid-plate-rail { display: none; }
+.cid-scope .cid-plate--greg .cid-plate-card { padding-left: 1.2cqw; }
+.cid-scope .cid-plate--greg .cid-plate-name {
+  align-self: flex-start; padding-bottom: 0.34cqw; margin-bottom: 0.1cqw;
+  border-bottom: 0.26cqw solid #19007D;
+}
 .cid-scope .cid-plate-card {
   position: relative; display: block; overflow: hidden;
   border-radius: 1.5cqw; padding: 1.05cqw 1.2cqw 1.05cqw 1.85cqw;
@@ -131,21 +139,23 @@
    set in bright silver. Sized in em so it scales with the name beside it. */
 .cid-scope .cid-plate-orb {
   flex: 0 0 auto; display: inline-grid; place-items: center;
-  width: 1.95cqw; height: 1.95cqw; border-radius: 50%;
+  width: 2.2cqw; height: 2.2cqw; border-radius: 50%;
   background:
     radial-gradient(circle at 34% 28%, rgba(255,255,255,.32), transparent 52%),
     linear-gradient(158deg, #2B0561 0%, #19007D 100%);
   color: #E8ECF4;
-  font-size: .78cqw; font-weight: 900; letter-spacing: .02em; text-indent: .02em; line-height: 1;
+  font-size: .86cqw; font-weight: 900; letter-spacing: .02em; text-indent: .02em; line-height: 1;
   box-shadow:
     inset 0 0 0 0.11cqw rgba(232,236,244,.45),
     0 0.18cqw 0.4cqw rgba(25,0,125,.55);
 }
 
-/* Official title line: the short form in its orb sits with the full title,
-   in the same ruby the brand name uses in the intro above. */
+/* Head row: the credential orb sits beside the stacked role, spanning both
+   lines evenly from the top of the P. */
+.cid-scope .cid-plate-head { display: flex; align-items: center; gap: 0.62cqw; }
+
+/* Official title, in the same ruby the brand name uses in the intro above. */
 .cid-scope .cid-plate-title {
-  display: flex; align-items: center; gap: 0.5cqw;
   font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 0.86cqw;
   letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; color: #822F00;
 }

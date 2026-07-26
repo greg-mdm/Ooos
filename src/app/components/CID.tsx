@@ -804,13 +804,15 @@ function TeamCase({ base }: { base: string }) {
             <div className="cid-plate-card">
               <span className="cid-plate-rail" aria-hidden="true" />
               <span className="cid-plate-body">
-                <span className="cid-plate-role">{b.role}</span>
-                {b.title && (
-                  <span className="cid-plate-title">
-                    {b.orb && <span className="cid-plate-orb" aria-hidden="true">{b.orb}</span>}
-                    {b.title}
+                {b.orb ? (
+                  <span className="cid-plate-head">
+                    <span className="cid-plate-orb" aria-hidden="true">{b.orb}</span>
+                    <span className="cid-plate-role">{b.role}</span>
                   </span>
+                ) : (
+                  <span className="cid-plate-role">{b.role}</span>
                 )}
+                {b.title && <span className="cid-plate-title">{b.title}</span>}
                 <span className="cid-plate-name">{b.name}</span>
                 {b.sub && <span className="cid-plate-sub">{b.sub}</span>}
               </span>
