@@ -87,9 +87,13 @@
   position: absolute; bottom: 5.5%; transform: translateX(-50%);
   width: 16cqw; perspective: 70cqw;
 }
-/* Greg's plate stacks higher and runs a little wider: his portrait is the
-   tall one, and "Principal Investigator" is the longest role line. */
-.cid-scope .cid-plate--greg { width: 18.2cqw; bottom: 10.5%; }
+/* Greg stands further back on the floor: higher up the perspective and a
+   touch smaller, so he reads as set behind Ethel and Icarus rather than
+   beside them. His portrait is the tall one, which this echoes. */
+.cid-scope .cid-plate--greg { width: 14.4cqw; bottom: 17%; }
+/* his role stacks over two lines, which is what makes his plate the tall one */
+.cid-scope .cid-plate--greg .cid-plate-role { white-space: normal; line-height: 1.35; }
+.cid-scope .cid-plate--greg .cid-plate-name { align-items: center; gap: .3em; }
 .cid-scope .cid-plate-card {
   position: relative; display: block; overflow: hidden;
   border-radius: 1.5cqw; padding: 1.05cqw 1.2cqw 1.05cqw 1.85cqw;
@@ -121,6 +125,21 @@
 .cid-scope .cid-plate-sub {
   font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 0.74cqw;
   letter-spacing: .12em; text-transform: uppercase; color: #5C6C70;
+}
+
+/* Credential orb: a dark indigo sphere carrying the short form of the role,
+   set in bright silver. Sized in em so it scales with the name beside it. */
+.cid-scope .cid-plate-orb {
+  flex: 0 0 auto; display: inline-grid; place-items: center;
+  width: 1.44em; height: 1.44em; border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255,255,255,.32), transparent 52%),
+    linear-gradient(158deg, #2B0561 0%, #19007D 100%);
+  color: #E8ECF4;
+  font-size: .45em; font-weight: 900; letter-spacing: .02em; text-indent: .02em; line-height: 1;
+  box-shadow:
+    inset 0 0 0 .07em rgba(232,236,244,.42),
+    0 .12em .3em rgba(25,0,125,.55);
 }
 
 /* Roman numeral three as vector strokes: no font, no substitution, no OCR
