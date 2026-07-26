@@ -62,7 +62,7 @@
   margin: 0 0 clamp(20px,3vh,30px); font-size: clamp(16px,1.7vw,20px); line-height: 1.55;
   color: #1a1646; max-width: 66ch;
 }
-.cid-scope .cid-viv-intro strong { color: #4B00B6; font-weight: 800; }
+.cid-scope .cid-viv-intro strong { color: #822F00; font-weight: 800; }
 
 /* ---- The Vivarium environment. This is the research facility itself, so it
    is painted as a BACKGROUND rather than an <img>: browsers offer no image
@@ -85,11 +85,14 @@
    from plate to plate. ---- */
 .cid-scope .cid-plate {
   position: absolute; bottom: 5.5%; transform: translateX(-50%);
-  width: 23cqw; perspective: 70cqw;
+  width: 16cqw; perspective: 70cqw;
 }
+/* Greg's plate stacks higher and runs a little wider: his portrait is the
+   tall one, and "Principal Investigator" is the longest role line. */
+.cid-scope .cid-plate--greg { width: 18.2cqw; bottom: 10.5%; }
 .cid-scope .cid-plate-card {
   position: relative; display: block; overflow: hidden;
-  border-radius: 1.5cqw; padding: 1.25cqw 1.4cqw 1.25cqw 2.3cqw;
+  border-radius: 1.5cqw; padding: 1.05cqw 1.2cqw 1.05cqw 1.85cqw;
   background: linear-gradient(158deg, #FFFDF4 0%, #E8ECF4 45%, #D8DBDE 100%);
   border: 0.16cqw solid var(--plate-rim);
   box-shadow:
@@ -101,7 +104,7 @@
 
 /* electric accent rail down the left edge */
 .cid-scope .cid-plate-rail {
-  position: absolute; left: 0.62cqw; top: 15%; bottom: 15%; width: 0.34cqw;
+  position: absolute; left: 0.55cqw; top: 14%; bottom: 14%; width: 0.32cqw;
   border-radius: 999px; background: var(--plate-rail);
   box-shadow: 0 0 1.1cqw var(--plate-shadow);
 }
@@ -128,8 +131,13 @@
 /* per-researcher accents, everything else identical */
 .cid-scope .cid-plate--ethel { --plate-rim: #4B00B6; --plate-rail: linear-gradient(180deg, #7C18E7, #4B00B6); --plate-shadow: rgba(75,0,182,.55); }
 .cid-scope .cid-plate--greg { --plate-rim: #19007D; --plate-rail: linear-gradient(180deg, #2B0561, #19007D); --plate-shadow: rgba(25,0,125,.55); }
-.cid-scope .cid-plate--icarus { --plate-rim: #822F00; --plate-rail: linear-gradient(180deg, #F0C040, #822F00); --plate-shadow: rgba(130,47,0,.5); }
-.cid-scope .cid-plate--icarus .cid-plate-card { border-image: linear-gradient(150deg, #822F00, #F0C040 70%, #822F00) 1; }
+.cid-scope .cid-plate--icarus { left: 79%; --plate-rim: #822F00; --plate-rail: linear-gradient(180deg, #F0C040, #822F00); --plate-shadow: rgba(130,47,0,.5); }
+.cid-scope .cid-plate--icarus .cid-plate-card {
+  box-shadow:
+    inset 0 0 0 0.12cqw rgba(240,192,64,.85),
+    0.34cqw 0.5cqw 0 var(--plate-shadow),
+    0 1.5cqw 2.6cqw -1.1cqw rgba(6,2,28,.8);
+}
 
 .cid-scope .cid-viv-block { margin: 26px 0 0; }
 .cid-scope .cid-viv-block h3 {
@@ -193,7 +201,8 @@
     position: static; display: flex; flex-wrap: wrap; justify-content: center;
     gap: 10px; margin-top: 12px;
   }
-  .cid-scope .cid-plate { position: static; transform: none; width: auto; perspective: 600px; }
+  .cid-scope .cid-plate,
+  .cid-scope .cid-plate--greg { position: static; transform: none; width: auto; perspective: 600px; }
   .cid-scope .cid-plate-card {
     border-radius: 11px; padding: 9px 13px 9px 18px; border-width: 1.5px;
     box-shadow: 3px 4px 0 var(--plate-shadow), 0 14px 24px -10px rgba(6,2,28,.8);
