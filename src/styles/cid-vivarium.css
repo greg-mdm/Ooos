@@ -98,8 +98,10 @@
    with more authority than an edge marker. */
 .cid-scope .cid-plate--greg .cid-plate-rail { display: none; }
 .cid-scope .cid-plate--greg .cid-plate-card { padding-left: 1.2cqw; }
+/* no rail on his card, so the whole block centres */
+.cid-scope .cid-plate--greg .cid-plate-body { align-items: center; text-align: center; }
 .cid-scope .cid-plate--greg .cid-plate-name {
-  align-self: flex-start; padding-bottom: 0.34cqw; margin-bottom: 0.1cqw;
+  align-self: center; padding-bottom: 0.34cqw; margin-bottom: 0.1cqw;
   border-bottom: 0.26cqw solid #19007D;
 }
 .cid-scope .cid-plate-card {
@@ -147,12 +149,18 @@
   font-size: .86cqw; font-weight: 900; letter-spacing: .02em; text-indent: .02em; line-height: 1;
   box-shadow:
     inset 0 0 0 0.11cqw rgba(232,236,244,.45),
-    0 0.18cqw 0.4cqw rgba(25,0,125,.55);
+    0 0 0.85cqw 0.12cqw rgba(124,24,231,.5),
+    0 0.34cqw 0.55cqw -0.1cqw rgba(25,0,125,.5);
 }
 
 /* Head row: the credential orb sits beside the stacked role, spanning both
    lines evenly from the top of the P. */
-.cid-scope .cid-plate-head { display: flex; align-items: center; gap: 0.62cqw; }
+.cid-scope .cid-plate-head {
+  display: flex; align-items: flex-start; gap: 0.62cqw; margin-bottom: 0.34cqw;
+}
+/* the orb floats: it sits higher than the P and clears the title below, so
+   nothing touches its glow */
+.cid-scope .cid-plate-head .cid-plate-orb { margin-top: -0.5cqw; }
 
 /* Official title, in the same ruby the brand name uses in the intro above. */
 .cid-scope .cid-plate-title {
