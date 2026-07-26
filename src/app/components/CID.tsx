@@ -753,9 +753,9 @@ function LivingWallSlider({
  *  researchers. Because it is 3D art with real detail, clicking opens a
  *  full-screen viewer on the 4K master where you can zoom in and pan around. */
 const CASE_BAYS = [
-  { left: "25.5%", role: "Ethical Analyst", name: "Ethel" },
-  { left: "52.5%", role: "Principal Investigator", name: "Greg Long", sub: "CID Director" },
-  { left: "77.5%", role: "Executive Trader", name: "Icarus III" },
+  { key: "ethel", cls: "cid-plate--wide cid-plate--ethel", left: "24%", role: "Ethical Analyst", name: "Ethel" },
+  { key: "greg", cls: "cid-plate--neo cid-plate--greg", left: "52%", role: "Principal Investigator", name: "Greg Long", sub: "CID Director" },
+  { key: "icarus", cls: "cid-plate--wide cid-plate--icarus", left: "76%", role: "Executive Trader", name: "Icarus III" },
 ];
 
 function TeamCase({ base }: { base: string }) {
@@ -784,31 +784,39 @@ function TeamCase({ base }: { base: string }) {
     <>
       <figure className="cid-case" aria-label="CID Vivarium team display case">
         <button type="button" className="cid-case-btn" onClick={launch} aria-label="Open the team display case at full size to zoom in">
-          <img
-            className="cid-case-img"
-            src={src(1920)}
-            srcSet={`${src(1280)} 1280w, ${src(1920)} 1920w, ${src(2560)} 2560w, ${src(3840)} 3840w`}
-            sizes="(max-width: 900px) 96vw, 1192px"
-            width={1920}
-            height={1080}
-            alt="A dark glass display case holding the three CID researchers: Ethel the Ethical Analyst on the left, Greg Long the Principal Investigator in the centre, and Icarus III the Executive Trader on the right"
-            loading="lazy"
-            decoding="async"
-          />
-          <span className="cid-case-zoomcue" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="7" /><path d="M11 8v6M8 11h6M20 20l-3.5-3.5" /></svg>
-            Zoom
+          <span className="cid-case-stage">
+            <img
+              className="cid-case-img"
+              src={src(1920)}
+              srcSet={`${src(1280)} 1280w, ${src(1920)} 1920w, ${src(2560)} 2560w, ${src(3840)} 3840w`}
+              sizes="(max-width: 900px) 96vw, 1192px"
+              width={3822}
+              height={2122}
+              alt="A dark glass display case holding the three CID researchers: Ethel the Ethical Analyst on the left, Greg Long the Principal Investigator in the centre, and Icarus III the Executive Trader on the right"
+              loading="lazy"
+              decoding="async"
+            />
+            {/* Nameplates standing on the floor in front of the case */}
+            <span className="cid-case-plates">
+              {CASE_BAYS.map((b) => (
+                <span className={`cid-plate ${b.cls}`} key={b.key} style={{ left: b.left }}>
+                  <span className="cid-plate-card">
+                    <span className="cid-plate-glass" aria-hidden="true" />
+                    <span className="cid-plate-body">
+                      <span className="cid-plate-role">{b.role}</span>
+                      <span className="cid-plate-name">{b.name}</span>
+                      {b.sub && <span className="cid-plate-sub">{b.sub}</span>}
+                    </span>
+                  </span>
+                </span>
+              ))}
+            </span>
+            <span className="cid-case-zoomcue" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="7" /><path d="M11 8v6M8 11h6M20 20l-3.5-3.5" /></svg>
+              Zoom
+            </span>
           </span>
         </button>
-        <figcaption className="cid-case-labels">
-          {CASE_BAYS.map((b) => (
-            <span className="cid-case-label" key={b.name} style={{ left: b.left }}>
-              <span className="cid-case-role">{b.role}</span>
-              <span className="cid-case-name">{b.name}</span>
-              {b.sub && <span className="cid-case-sub">{b.sub}</span>}
-            </span>
-          ))}
-        </figcaption>
       </figure>
 
       {open && createPortal(

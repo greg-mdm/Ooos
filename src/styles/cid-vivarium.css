@@ -79,23 +79,91 @@
 .cid-scope .cid-case-btn:hover .cid-case-zoomcue,
 .cid-scope .cid-case-btn:focus-visible .cid-case-zoomcue { opacity: 1; }
 
-.cid-scope .cid-case-labels { position: relative; height: 62px; margin: 10px 0 0; }
-.cid-scope .cid-case-label {
-  position: absolute; top: 0; transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center;
+/* ---- Nameplates standing on the floor in front of the case. Two card
+   families: "cinema wide" landscape plates for the two AI agents, and a
+   "neo surface" plate (high-contrast rim, hard shadow, electric accent
+   rail) for the human principal investigator in the middle. Sized in
+   container units so they track the artwork at every width. ---- */
+.cid-scope .cid-case-stage { position: relative; display: block; container-type: inline-size; }
+.cid-scope .cid-case-plates { position: absolute; inset: 0; pointer-events: none; }
+
+.cid-scope .cid-plate {
+  position: absolute; bottom: 5.5%; transform: translateX(-50%);
+  perspective: 70cqw; pointer-events: auto;
 }
-.cid-scope .cid-case-role {
-  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 9.5px;
-  letter-spacing: .14em; text-transform: uppercase; color: #fff;
-  background: linear-gradient(180deg, #B4102F 0%, #8A0C24 100%); border-radius: 6px; padding: 4px 10px;
-  box-shadow: 0 1px 0 rgba(255,255,255,.28) inset, 0 3px 8px -3px rgba(150,10,30,.85);
-  white-space: nowrap;
+.cid-scope .cid-plate--ethel { width: 25cqw; }
+.cid-scope .cid-plate--greg { width: 19cqw; }
+.cid-scope .cid-plate--icarus { width: 25cqw; }
+
+.cid-scope .cid-plate-card {
+  position: relative; display: block; transform-style: preserve-3d;
+  border-radius: 1.9cqw; padding: 1.5cqw 1.7cqw;
+  transition: transform .5s cubic-bezier(.22,1,.36,1), box-shadow .5s ease;
 }
-.cid-scope .cid-case-name {
-  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
-  font-size: clamp(14px,1.3vw,17px); line-height: 1.2; color: #1a1646; white-space: nowrap;
+.cid-scope .cid-plate:hover .cid-plate-card { transform: rotate3d(1, 1, 0, 15deg); }
+
+.cid-scope .cid-plate-glass {
+  position: absolute; inset: 0.45cqw; border-radius: 1.5cqw; pointer-events: none;
+  transform: translate3d(0, 0, 10px);
 }
-.cid-scope .cid-case-sub { font-size: 11px; font-weight: 500; letter-spacing: .05em; text-transform: uppercase; color: #5b5f86; }
+.cid-scope .cid-plate-body {
+  position: relative; display: flex; flex-direction: column; gap: 0.35cqw;
+  transform: translate3d(0, 0, 18px);
+}
+.cid-scope .cid-plate-role {
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 0.82cqw;
+  letter-spacing: .2em; text-transform: uppercase; white-space: nowrap;
+}
+.cid-scope .cid-plate-name {
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 900; font-size: 1.85cqw;
+  line-height: 1.08; letter-spacing: -0.01em; white-space: nowrap;
+}
+.cid-scope .cid-plate-sub {
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 0.78cqw;
+  letter-spacing: .12em; text-transform: uppercase;
+}
+
+/* cinema wide: bright faceted plate, dark type */
+.cid-scope .cid-plate--wide .cid-plate-card {
+  background: var(--plate-grad);
+  box-shadow: 0 1.5cqw 2.6cqw -1.1cqw rgba(0,0,0,.72), 0 0 2.4cqw -0.8cqw var(--plate-glow);
+}
+.cid-scope .cid-plate--wide .cid-plate-glass {
+  background: linear-gradient(168deg, rgba(255,255,255,.46) 0%, rgba(255,255,255,.06) 100%);
+  border-left: 1px solid rgba(255,255,255,.8);
+  border-bottom: 1px solid rgba(255,255,255,.55);
+}
+.cid-scope .cid-plate--wide .cid-plate-role { color: var(--plate-role); }
+.cid-scope .cid-plate--wide .cid-plate-name { color: var(--plate-ink); }
+
+.cid-scope .cid-plate--ethel {
+  --plate-grad: linear-gradient(142deg, #c4a6ff 0%, #8b5cf6 48%, #5b21b6 100%);
+  --plate-ink: #2b0561; --plate-role: rgba(43,5,97,.78); --plate-glow: rgba(139,92,246,.9);
+}
+.cid-scope .cid-plate--icarus {
+  --plate-grad: linear-gradient(142deg, #ffe08a 0%, #f0c040 45%, #b8860b 100%);
+  --plate-ink: #3f2a00; --plate-role: rgba(63,42,0,.75); --plate-glow: rgba(240,192,64,.85);
+}
+
+/* neo surface: high-contrast rim, hard shadow, electric accent rail */
+.cid-scope .cid-plate--neo .cid-plate-card {
+  background: linear-gradient(158deg, #17123f 0%, #0b0824 100%);
+  border: 1px solid rgba(226,220,255,.62);
+  box-shadow: 0.42cqw 0.6cqw 0 rgba(91,4,222,.6), 0 1.6cqw 2.8cqw -1.1cqw rgba(0,0,0,.8);
+}
+.cid-scope .cid-plate--neo .cid-plate-glass {
+  background: linear-gradient(180deg, rgba(255,255,255,.14) 0%, rgba(255,255,255,0) 62%);
+  border-radius: 1.5cqw;
+}
+.cid-scope .cid-plate--neo .cid-plate-card::before {
+  content: ""; position: absolute; left: 0.55cqw; top: 16%; bottom: 16%; width: 0.36cqw;
+  border-radius: 999px; background: linear-gradient(180deg, #a855f7, #5B04DE);
+  box-shadow: 0 0 1.4cqw rgba(124,24,231,.95); transform: translate3d(0, 0, 14px);
+}
+.cid-scope .cid-plate--neo .cid-plate-body { padding-left: 1.1cqw; }
+.cid-scope .cid-plate--neo .cid-plate-role { color: #b9a6f2; }
+.cid-scope .cid-plate--neo .cid-plate-name { color: #f4f2ff; }
+.cid-scope .cid-plate--neo .cid-plate-sub { color: #8f86c9; }
 
 /* full-screen zoom viewer */
 .cid-case-viewer {
@@ -126,10 +194,27 @@
 .cid-case-pct { min-width: 58px; text-align: center; font-size: 12px; font-weight: 700; color: #a9aecb; font-variant-numeric: tabular-nums; }
 .cid-case-hint { margin: 0 0 14px; font-size: 11.5px; letter-spacing: .04em; color: #7d83a6; text-align: center; padding: 0 16px; }
 
-@media (max-width: 700px) {
-  .cid-scope .cid-case-labels { position: static; height: auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
-  .cid-scope .cid-case-label { position: static; transform: none; }
-  .cid-scope .cid-case-zoomcue { opacity: 1; }
+/* On phones the floor plates would be a few millimetres tall, so they step
+   off the floor and become a normal row of cards under the artwork. */
+@media (max-width: 760px) {
+  .cid-scope .cid-case-btn { overflow: visible; }
+  .cid-scope .cid-case-plates {
+    position: static; display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 10px; margin-top: 12px;
+  }
+  .cid-scope .cid-plate { position: static; transform: none; width: auto; perspective: 600px; }
+  .cid-scope .cid-plate-card { border-radius: 12px; padding: 9px 13px; }
+  .cid-scope .cid-plate-glass { inset: 3px; border-radius: 10px; }
+  .cid-scope .cid-plate-body { gap: 2px; }
+  .cid-scope .cid-plate-role { font-size: 8.5px; }
+  .cid-scope .cid-plate-name { font-size: 15px; }
+  .cid-scope .cid-plate-sub { font-size: 8.5px; }
+  .cid-scope .cid-plate--neo .cid-plate-card { box-shadow: 3px 4px 0 rgba(91,4,222,.6), 0 14px 24px -10px rgba(0,0,0,.8); }
+  .cid-scope .cid-plate--neo .cid-plate-card::before { left: 5px; width: 3px; box-shadow: 0 0 10px rgba(124,24,231,.95); }
+  .cid-scope .cid-plate--neo .cid-plate-body { padding-left: 8px; }
+  .cid-scope .cid-plate--wide .cid-plate-card { box-shadow: 0 14px 24px -10px rgba(0,0,0,.72); }
+  /* the plates now sit below the art, so the cue moves up onto the artwork */
+  .cid-scope .cid-case-zoomcue { opacity: 1; top: 10px; bottom: auto; }
 }
 
 .cid-scope .cid-viv-block { margin: 26px 0 0; }
