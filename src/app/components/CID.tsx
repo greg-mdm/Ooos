@@ -749,109 +749,70 @@ function LivingWallSlider({
   );
 }
 
-/** The Vivarium team display case: one piece of hero art holding all three
- *  researchers. Because it is 3D art with real detail, clicking opens a
- *  full-screen viewer on the 4K master where you can zoom in and pan around. */
-const CASE_BAYS = [
-  { key: "ethel", cls: "cid-plate--wide cid-plate--ethel", left: "24%", role: "Ethical Analyst", name: "Ethel" },
-  { key: "greg", cls: "cid-plate--neo cid-plate--greg", left: "52%", role: "Principal Investigator", name: "Greg Long", sub: "CID Director" },
-  { key: "icarus", cls: "cid-plate--wide cid-plate--icarus", left: "76%", role: "Executive Trader", name: "Icarus III" },
+/** Roman numeral three, drawn as vector strokes so no font substitution,
+ *  copy-paste or OCR pass can turn it back into the letters "III" (which
+ *  get misread as 111 or iii). This is the canonical way to set Icarus's
+ *  name anywhere on the site. */
+function IcarusName() {
+  return (
+    <span className="cid-icarus" role="text" aria-label="Icarus the Third">
+      Icarus{" "}
+      <svg className="cid-icarus-num" viewBox="0 0 66 40" aria-hidden="true" focusable="false">
+        {/* three seriffed uprights: stem plus top and bottom bars, weighted to
+            sit with the 900-weight name beside it */}
+        <rect x="5" y="7" width="6" height="26" />
+        <rect x="0" y="4.2" width="16" height="4" />
+        <rect x="0" y="31.8" width="16" height="4" />
+        <rect x="30" y="7" width="6" height="26" />
+        <rect x="25" y="4.2" width="16" height="4" />
+        <rect x="25" y="31.8" width="16" height="4" />
+        <rect x="55" y="7" width="6" height="26" />
+        <rect x="50" y="4.2" width="16" height="4" />
+        <rect x="50" y="31.8" width="16" height="4" />
+      </svg>
+    </span>
+  );
+}
+
+/** The Vivarium team environment: the research facility itself, rendered as a
+ *  background rather than a picture on the page, so browsers offer no image
+ *  zoom, visual search or save affordance to get stuck in. The three
+ *  nameplates stand on the floor in front of the case. */
+type CaseBay = { key: string; cls: string; left: string; role: string; name: ReactNode; sub?: string };
+
+const CASE_BAYS: CaseBay[] = [
+  { key: "ethel", cls: "cid-plate--ethel", left: "24%", role: "Ethical Analyst", name: "Ethel" },
+  { key: "greg", cls: "cid-plate--greg", left: "52%", role: "Principal Investigator", name: "Greg Long", sub: "CID Director" },
+  { key: "icarus", cls: "cid-plate--icarus", left: "76%", role: "Executive Trader", name: <IcarusName /> },
 ];
 
 function TeamCase({ base }: { base: string }) {
-  const [open, setOpen] = useState(false);
-  const [scale, setScale] = useState(1.8);
-  const [pan, setPan] = useState({ x: 0, y: 0 });
-  const drag = useRef<{ x: number; y: number; px: number; py: number } | null>(null);
-  const src = (w: number) => `${base}assets/images/cid-team-case-${w}.webp`;
-
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
-    document.addEventListener("keydown", onKey);
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prevOverflow;
-    };
-  }, [open]);
-
-  const launch = () => { setScale(1.8); setPan({ x: 0, y: 0 }); setOpen(true); };
-  const zoomBy = (f: number) => setScale((s) => Math.min(6, Math.max(1, s * f)));
-
+  const img = (w: number) => `${base}assets/images/cid-team-case-${w}.webp`;
   return (
-    <>
-      <figure className="cid-case" aria-label="CID Vivarium team display case">
-        <button type="button" className="cid-case-btn" onClick={launch} aria-label="Open the team display case at full size to zoom in">
-          <span className="cid-case-stage">
-            <img
-              className="cid-case-img"
-              src={src(1920)}
-              srcSet={`${src(1280)} 1280w, ${src(1920)} 1920w, ${src(2560)} 2560w, ${src(3840)} 3840w`}
-              sizes="(max-width: 900px) 96vw, 1192px"
-              width={3822}
-              height={2122}
-              alt="A dark glass display case holding the three CID researchers: Ethel the Ethical Analyst on the left, Greg Long the Principal Investigator in the centre, and Icarus III the Executive Trader on the right"
-              loading="lazy"
-              decoding="async"
-            />
-            {/* Nameplates standing on the floor in front of the case */}
-            <span className="cid-case-plates">
-              {CASE_BAYS.map((b) => (
-                <span className={`cid-plate ${b.cls}`} key={b.key} style={{ left: b.left }}>
-                  <span className="cid-plate-card">
-                    <span className="cid-plate-glass" aria-hidden="true" />
-                    <span className="cid-plate-body">
-                      <span className="cid-plate-role">{b.role}</span>
-                      <span className="cid-plate-name">{b.name}</span>
-                      {b.sub && <span className="cid-plate-sub">{b.sub}</span>}
-                    </span>
-                  </span>
-                </span>
-              ))}
-            </span>
-            <span className="cid-case-zoomcue" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="7" /><path d="M11 8v6M8 11h6M20 20l-3.5-3.5" /></svg>
-              Zoom
-            </span>
-          </span>
-        </button>
-      </figure>
-
-      {open && createPortal(
-        <div className="cid-case-viewer" role="dialog" aria-modal="true" aria-label="Team display case, full size">
-          <div
-            className="cid-case-stage"
-            onMouseDown={(e) => { drag.current = { x: e.clientX, y: e.clientY, px: pan.x, py: pan.y }; }}
-            onMouseMove={(e) => {
-              if (!drag.current) return;
-              setPan({ x: drag.current.px + (e.clientX - drag.current.x), y: drag.current.py + (e.clientY - drag.current.y) });
-            }}
-            onMouseUp={() => { drag.current = null; }}
-            onMouseLeave={() => { drag.current = null; }}
-            onWheel={(e) => zoomBy(e.deltaY < 0 ? 1.12 : 1 / 1.12)}
-            onDoubleClick={() => { setScale(1.8); setPan({ x: 0, y: 0 }); }}
-          >
-            <img
-              className="cid-case-full"
-              src={src(3840)}
-              alt="Team display case at full resolution"
-              style={{ transform: `translate(${pan.x}px, ${pan.y}px) scale(${scale})` }}
-              draggable={false}
-            />
+    <div className="cid-case-wrap">
+      <div
+        className="cid-case"
+        role="img"
+        aria-label="The CID Vivarium: a dark glass research facility holding Ethel the Ethical Analyst on the left, Greg Long the Principal Investigator in the centre, and Icarus the Third, Executive Trader, on the right"
+        style={{
+          backgroundImage: `image-set(url("${img(2560)}") 1x, url("${img(3840)}") 2x)`,
+        }}
+      />
+      <div className="cid-case-plates">
+        {CASE_BAYS.map((b) => (
+          <div className={`cid-plate ${b.cls}`} key={b.key} style={{ left: b.left }}>
+            <div className="cid-plate-card">
+              <span className="cid-plate-rail" aria-hidden="true" />
+              <span className="cid-plate-body">
+                <span className="cid-plate-role">{b.role}</span>
+                <span className="cid-plate-name">{b.name}</span>
+                {b.sub && <span className="cid-plate-sub">{b.sub}</span>}
+              </span>
+            </div>
           </div>
-          <div className="cid-case-tools">
-            <button type="button" onClick={() => zoomBy(1 / 1.35)} aria-label="Zoom out">−</button>
-            <span className="cid-case-pct">{Math.round(scale * 100 / 1.8)}%</span>
-            <button type="button" onClick={() => zoomBy(1.35)} aria-label="Zoom in">+</button>
-            <button type="button" className="cid-case-close" onClick={() => setOpen(false)} aria-label="Close">Close</button>
-          </div>
-          <p className="cid-case-hint">Scroll to zoom · drag to pan · double-click to reset · Esc to close</p>
-        </div>,
-        document.body,
-      )}
-    </>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -921,9 +882,14 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           </aside>
 
           <div className="cid-viv-main">
+            {/* CID intro sits directly under the page title, so it carries no
+                heading of its own. Then the Vivarium. */}
+            <p className="cid-viv-intro">
+              The <strong>Canadian Innovation Dimension (CID)</strong> is an experimental research environment operated by artificial intelligence (AI) agents inside an always-on AI mini-PC.
+            </p>
+
             <h2 className="cid-viv-h">CID Vivarium</h2>
-            <p className="cid-viv-lead">An avant-garde research facility inside an always-on <strong>AI mini-PC</strong>.</p>
-            <p className="cid-viv-lead">Artificial intelligence (AI) agents operate the facility under the guidance of a human principal investigator.</p>
+            <p className="cid-viv-lead">An avant-garde research facility inside an always-on AI mini-PC. Artificial intelligence (AI) agents operate the facility under the guidance of a human principal investigator.</p>
 
             {/* Vivarium team display case: the three researchers set in one
                 glass case, the human PI centred between the two AI agents.
@@ -969,7 +935,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
       <section className="cid-wl-hero" aria-label="Innovation Watchlist">
         <iframe
           className="cid-wl-frame"
-          src={`${base}Innovation%20Watchlist.dc.html?v=8`}
+          src={`${base}Innovation%20Watchlist.dc.html?v=9`}
           title="Innovation Watchlist"
           loading="lazy"
         />
