@@ -90,14 +90,23 @@
 /* Greg stands higher up the floor than Ethel and Icarus, but at full plate
    size: shrinking him read as pushed too far into the distance. Same scale,
    raised position, so he sits behind their line without being diminished. */
-.cid-scope .cid-plate--greg { width: 16.6cqw; bottom: 15.5%; }
+.cid-scope .cid-plate--greg { width: 19.2cqw; bottom: 11.4%; }
 /* his role stacks over two lines, which is what makes his plate the tall one */
 .cid-scope .cid-plate--greg .cid-plate-role { white-space: normal; line-height: 1.35; }
 /* Greg's card drops the vertical rail (Ethel and Icarus keep theirs) and
    takes the indigo as a horizontal bar under his name instead, which reads
    with more authority than an edge marker. */
 .cid-scope .cid-plate--greg .cid-plate-rail { display: none; }
-.cid-scope .cid-plate--greg .cid-plate-card { padding-left: 1.2cqw; }
+/* The slab sits closer to the viewer, and leans back on its bottom edge so
+   the top still lands where it did before. Extra top padding keeps a clean
+   trim inside the perimeter: the orb's glow stays off it. */
+.cid-scope .cid-plate--greg .cid-plate-card {
+  padding: 2.15cqw 1.2cqw 2.5cqw;
+  transform: rotateX(11deg); transform-origin: bottom center;
+}
+.cid-scope .cid-plate--greg:hover .cid-plate-card {
+  transform: rotateX(5deg) translateY(-0.35cqw);
+}
 /* no rail on his card, so the whole block centres */
 .cid-scope .cid-plate--greg .cid-plate-body { align-items: center; text-align: center; }
 .cid-scope .cid-plate--greg .cid-plate-name {
