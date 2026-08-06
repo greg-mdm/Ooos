@@ -5,8 +5,15 @@
 
 .cid-scope .cid-viv { background: #F0F4F5; padding: clamp(30px,5vh,56px) 0 clamp(34px,6vh,64px); }
 .cid-scope .cid-viv-grid {
-  display: grid; grid-template-columns: 300px 1fr; gap: clamp(22px,3vw,44px); align-items: start;
+  display: grid; grid-template-columns: 300px minmax(0, 1fr); align-items: start;
+  column-gap: clamp(22px,3vw,44px); row-gap: clamp(18px,2.4vw,30px);
 }
+/* Everything below the Vivarium lede runs the full container width. The case,
+   the display room and the disclaimer then share one set of edges, and the
+   canvas beside the (short, sticky) rail never opens into a dead column. */
+.cid-scope .cid-case-wrap,
+.cid-scope .cid-vivunit,
+.cid-scope .cid-viv-disc { grid-column: 1 / -1; }
 
 /* ---- Tall sidebar ---- */
 .cid-scope .cid-viv-rail {
@@ -52,6 +59,11 @@
 .cid-scope .cid-viv-pillar .desc { margin: 3px 0 0; font-size: 13px; line-height: 1.4; color: #b7b3d6; }
 
 /* ---- Main content ---- */
+/* The lede column is shorter than the rail beside it, so it centres against
+   the rail rather than leaving the air stacked up underneath. */
+.cid-scope .cid-viv-main {
+  align-self: stretch; display: flex; flex-direction: column; justify-content: center;
+}
 .cid-scope .cid-viv-h {
   margin: 2px 0 6px; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
   font-size: clamp(26px,3vw,36px); letter-spacing: -.5px; color: #1a1646;
@@ -69,7 +81,7 @@
    zoom, visual search, drag or save affordance on a background, which is what
    was trapping people inside the picture. Later this becomes the entrance to
    the explorable 3D environment leading down to the cave. ---- */
-.cid-scope .cid-case-wrap { position: relative; margin: 24px 0 2px; container-type: inline-size; }
+.cid-scope .cid-case-wrap { position: relative; margin: 0; container-type: inline-size; }
 .cid-scope .cid-case {
   display: block; aspect-ratio: 3822 / 2122; border-radius: 16px;
   background-color: #04030e; background-size: cover; background-position: center;
@@ -193,7 +205,47 @@
     0 1.5cqw 2.6cqw -1.1cqw rgba(6,2,28,.8);
 }
 
-.cid-scope .cid-viv-block { margin: 26px 0 0; }
+/* ---- The Viv display room: the mini-PC on show, like a car under the lights
+   in a showroom. The scene is a self-contained WebGL room, so it rides in an
+   iframe and only loads when it scrolls into view.
+
+   Room and notes share one block on a two-cell grid. Both cells stretch to the
+   same height, so the pairing has no ragged edge and no gap between the image
+   and the text: a single rectangle, split by one hairline. ---- */
+.cid-scope .cid-vivunit {
+  display: grid; grid-template-columns: minmax(0, 1.18fr) minmax(0, 1fr);
+  align-items: stretch; border-radius: 16px; overflow: hidden;
+  border: 1px solid rgba(75,0,182,.18); background: #fff;
+  box-shadow: 0 22px 50px -30px rgba(6,2,28,.55);
+}
+.cid-scope .cid-vivroom {
+  position: relative; background: #06021A; line-height: 0;
+  min-height: clamp(300px, 30vw, 460px);
+}
+.cid-scope .cid-vivroom-frame {
+  position: absolute; inset: 0; display: block; width: 100%; height: 100%; border: 0;
+}
+.cid-scope .cid-vivnotes {
+  display: flex; flex-direction: column; justify-content: center;
+  gap: clamp(18px,2vw,24px); padding: clamp(20px,2.4vw,30px);
+  border-left: 1px solid rgba(75,0,182,.16);
+}
+.cid-scope .cid-vivnotes .cid-viv-block + .cid-viv-block {
+  padding-top: clamp(18px,2vw,24px); border-top: 1px solid rgba(75,0,182,.14);
+}
+
+/* Narrow: the two cells stack, room first, and the room takes a fixed frame
+   again since there is no neighbour to match heights with. */
+@media (max-width: 900px) {
+  .cid-scope .cid-vivunit { grid-template-columns: minmax(0, 1fr); }
+  .cid-scope .cid-vivroom { min-height: 0; aspect-ratio: 16 / 9; }
+  .cid-scope .cid-vivnotes { border-left: 0; border-top: 1px solid rgba(75,0,182,.16); }
+}
+@media (max-width: 700px) {
+  .cid-scope .cid-vivroom { aspect-ratio: 4 / 3; }
+}
+
+.cid-scope .cid-viv-block { margin: 0; }
 .cid-scope .cid-viv-block h3 {
   margin: 0 0 10px; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
   font-size: 18px; letter-spacing: .3px; color: #4B00B6;
@@ -238,10 +290,11 @@
 .cid-scope .cid-portal-line svg { flex: 0 0 auto; color: #9a8fd6; opacity: .85; }
 
 .cid-scope .cid-viv-disc {
-  margin: 26px 0 0; padding-top: 16px; border-top: 1px solid rgba(75,0,182,.22);
-  font-size: 13.5px; line-height: 1.6; color: #5b5f86; max-width: 70ch;
+  margin: 0; padding-top: 16px; border-top: 1px solid rgba(75,0,182,.22);
+  font-size: 13.5px; line-height: 1.6; color: #5b5f86;
 }
-.cid-scope .cid-viv-disc strong { color: #5b5f86; font-weight: 700; }
+/* Rule spans the grid; the text keeps a readable measure inside it. */
+.cid-scope .cid-viv-disc strong { display: block; max-width: 70ch; color: #5b5f86; font-weight: 700; }
 
 @media (max-width: 820px) {
   .cid-scope .cid-viv-grid { grid-template-columns: 1fr; }

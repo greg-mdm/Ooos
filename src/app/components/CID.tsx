@@ -898,34 +898,55 @@ export function CID({ onSupport }: { onSupport: () => void }) {
 
             <h2 className="cid-viv-h">CID Vivarium</h2>
             <p className="cid-viv-lead">An avant-garde research facility inside an always-on AI mini-PC. Artificial intelligence (AI) agents operate the facility under the guidance of a human principal investigator.</p>
-
-            {/* Vivarium team display case: the three researchers set in one
-                glass case, the human PI centred between the two AI agents.
-                This is the "three images with Greg in the middle" slot from
-                the approved Vivarium copy. Click to open the 4K art. */}
-            <TeamCase base={base} />
-
-            <div className="cid-viv-block">
-              <h3>Architectural Design</h3>
-              <ul>
-                <li>Distinct environments for observation, collaboration, experimentation</li>
-                <li>Agents use external tools while remaining securely enclosed in the vivarium</li>
-                <li>Interfaces bind actions with fixed rules, restrictions, and limitations</li>
-              </ul>
-            </div>
-
-            <div className="cid-viv-block">
-              <h3>Beneficial Biomimicry</h3>
-              <ul>
-                <li>Information flows through environments inspired by the functional principles and geometries found in nature.</li>
-                <li>The information ecosystem evolves through applied research on sustainable design for human-AI interactions.</li>
-              </ul>
-            </div>
-
-            <p className="cid-viv-disc">
-              <strong>Ostara and the experimental Canadian Innovation Dimension (CID) do not provide future predictions or financial advice.</strong>
-            </p>
           </div>
+
+          {/* Vivarium team display case: the three researchers set in one glass
+              case, the human PI centred between the two AI agents. This is the
+              "three images with Greg in the middle" slot from the approved
+              Vivarium copy. Full container width, so it shares its edges with
+              the display room below it and the canvas beside the rail is not
+              left standing empty. */}
+          <TeamCase base={base} />
+
+          {/* The Viv itself: the always-on AI mini-PC that houses the facility,
+              on show in its own display room. The room (a self-contained WebGL
+              scene, so it rides in an iframe) and the Vivarium's design notes
+              are one block on a shared grid: two cells of equal height, locked
+              edge to edge with a hairline between them, so no dead space opens
+              up beside either one. */}
+          <div className="cid-vivunit">
+            <div className="cid-vivroom">
+              <iframe
+                className="cid-vivroom-frame"
+                src={`${base}DISPLAY_ROOM_BLUE_checker_cm.html?v=1`}
+                title="The Viv display room: the always-on AI mini-PC that houses the CID Vivarium"
+                loading="lazy"
+              />
+            </div>
+
+            <div className="cid-vivnotes">
+              <div className="cid-viv-block">
+                <h3>Architectural Design</h3>
+                <ul>
+                  <li>Distinct environments for observation, collaboration, experimentation</li>
+                  <li>Agents use external tools while remaining securely enclosed in the vivarium</li>
+                  <li>Interfaces bind actions with fixed rules, restrictions, and limitations</li>
+                </ul>
+              </div>
+
+              <div className="cid-viv-block">
+                <h3>Beneficial Biomimicry</h3>
+                <ul>
+                  <li>Information flows through environments inspired by the functional principles and geometries found in nature.</li>
+                  <li>The information ecosystem evolves through applied research on sustainable design for human-AI interactions.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <p className="cid-viv-disc">
+            <strong>Ostara and the experimental Canadian Innovation Dimension (CID) do not provide future predictions or financial advice.</strong>
+          </p>
         </div>
       </section>
 
