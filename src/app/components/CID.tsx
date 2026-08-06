@@ -782,7 +782,6 @@ type CaseBay = { key: string; cls: string; left: string; role: ReactNode; name: 
 
 const CASE_BAYS: CaseBay[] = [
   { key: "ethel", cls: "cid-plate--ethel", left: "24%", role: "Ethical Analyst", name: "Ethel" },
-  { key: "greg", cls: "cid-plate--greg", left: "52%", role: <>Principal<br />Investigator</>, orb: "PI", title: "CID Director", name: "Greg Long" },
   { key: "icarus", cls: "cid-plate--icarus", left: "76%", role: "Executive Trader", name: <IcarusName /> },
 ];
 
