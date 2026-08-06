@@ -782,6 +782,7 @@ type CaseBay = { key: string; cls: string; left: string; role: ReactNode; name: 
 
 const CASE_BAYS: CaseBay[] = [
   { key: "ethel", cls: "cid-plate--ethel", left: "24%", role: "Ethical Analyst", name: "Ethel" },
+  { key: "greg", cls: "cid-plate--greg", left: "52%", role: <>Principal<br />Investigator</>, orb: "PI", title: "CID Director", name: "Greg Long" },
   { key: "icarus", cls: "cid-plate--icarus", left: "76%", role: "Executive Trader", name: <IcarusName /> },
 ];
 
@@ -909,10 +910,11 @@ export function CID({ onSupport }: { onSupport: () => void }) {
 
           {/* The Viv itself: the always-on AI mini-PC that houses the facility,
               on show in its own display room. The room (a self-contained WebGL
-              scene, so it rides in an iframe) and the Vivarium's design notes
-              are one block on a shared grid: two cells of equal height, locked
-              edge to edge with a hairline between them, so no dead space opens
-              up beside either one. */}
+              scene, so it rides in an iframe) is paired with the "then vs now"
+              storage copy that makes the case for why it belongs on show. One
+              block on a shared grid: two cells of equal height, locked edge to
+              edge with a hairline between them, so no dead space opens up
+              beside either one. */}
           <div className="cid-vivunit">
             <div className="cid-vivroom">
               <iframe
@@ -924,22 +926,39 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             </div>
 
             <div className="cid-vivnotes">
-              <div className="cid-viv-block">
-                <h3>Architectural Design</h3>
-                <ul>
-                  <li>Distinct environments for observation, collaboration, experimentation</li>
-                  <li>Agents use external tools while remaining securely enclosed in the vivarium</li>
-                  <li>Interfaces bind actions with fixed rules, restrictions, and limitations</li>
-                </ul>
+              <div className="cid-viv-era">
+                <div className="cid-viv-era-row cid-viv-era-then">
+                  <p className="cid-viv-era-label"><span className="y">1976</span><span className="tag">50 years ago</span></p>
+                  <p className="cid-viv-era-copy">Storing two terabytes of data required 3,150 disk drives. That digital infrastructure could fill a machine-room floor nearly the size of a Canadian football field (ours is bigger.)</p>
+                </div>
+                <div className="cid-viv-era-row cid-viv-era-now">
+                  <p className="cid-viv-era-label"><span className="y">2026</span><span className="tag">Today</span></p>
+                  <p className="cid-viv-era-copy">Now you can palm it. Weighing in at under one kilogram, CID contains a cutting-edge research facility.</p>
+                </div>
               </div>
+            </div>
+          </div>
 
-              <div className="cid-viv-block">
-                <h3>Beneficial Biomimicry</h3>
-                <ul>
-                  <li>Information flows through environments inspired by the functional principles and geometries found in nature.</li>
-                  <li>The information ecosystem evolves through applied research on sustainable design for human-AI interactions.</li>
-                </ul>
-              </div>
+          {/* Architectural Design and Beneficial Biomimicry: relocated out of
+              the room's own card (now paired with the 1976/2026 copy above)
+              into their own full-width block, so this approved copy keeps its
+              place on the page without crowding the featured pairing. */}
+          <div className="cid-viv-principles">
+            <div className="cid-viv-block">
+              <h3>Architectural Design</h3>
+              <ul>
+                <li>Distinct environments for observation, collaboration, experimentation</li>
+                <li>Agents use external tools while remaining securely enclosed in the vivarium</li>
+                <li>Interfaces bind actions with fixed rules, restrictions, and limitations</li>
+              </ul>
+            </div>
+
+            <div className="cid-viv-block">
+              <h3>Beneficial Biomimicry</h3>
+              <ul>
+                <li>Information flows through environments inspired by the functional principles and geometries found in nature.</li>
+                <li>The information ecosystem evolves through applied research on sustainable design for human-AI interactions.</li>
+              </ul>
             </div>
           </div>
 
