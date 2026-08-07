@@ -846,6 +846,22 @@ export function CID({ onSupport }: { onSupport: () => void }) {
     window.addEventListener("message", onMsg);
     return () => window.removeEventListener("message", onMsg);
   }, []);
+  // The Viv display room runs a continuous WebGL render loop once loaded, on
+  // or off screen, which competes with the page's own scroll repaints and
+  // reads as lag/ghosting while scrolling past it. Tell the room to pause
+  // that loop whenever its iframe scrolls out of view, and resume it when it
+  // scrolls back in.
+  const roomRef = useRef<HTMLIFrameElement>(null);
+  useEffect(() => {
+    const el = roomRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => el.contentWindow?.postMessage({ type: "room-visible", visible: entry.isIntersecting }, window.location.origin),
+      { rootMargin: "200px 0px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   return (
     <div className="cid-scope">
       <section className="case-hero">
@@ -918,8 +934,9 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               WebGL scene, so it rides in an iframe like the other embeds. */}
           <div className="cid-vivroom">
             <iframe
+              ref={roomRef}
               className="cid-vivroom-frame"
-              src={`${base}DISPLAY_ROOM_BLUE_checker_cm.html?v=1`}
+              src={`${base}DISPLAY_ROOM_BLUE_checker_cm.html?v=2`}
               title="The Viv display room: the always-on AI mini-PC that houses the CID Vivarium"
               loading="lazy"
             />

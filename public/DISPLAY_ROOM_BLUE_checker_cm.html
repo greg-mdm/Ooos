@@ -178,7 +178,26 @@ const VERT = 'attribute vec2 a_pos; void main(){ gl_Position = vec4(a_pos,0.0,1.
 
   render();
   window.addEventListener('resize', render);
-  if (!reduce) (function loop(){ requestAnimationFrame(loop); render(); })();
+
+  // The loop runs forever once started, which costs a frame of paint/GPU
+  // work on every tick whether or not this room is actually on screen. Left
+  // unchecked, that competes with the parent page's own scroll repaints and
+  // shows up as lag/ghosting elsewhere while scrolling. The embedding page
+  // posts { type:'room-visible', visible } as this iframe scrolls in and out
+  // of view (IntersectionObserver on its side); the loop only schedules its
+  // next frame while visible, and a plain rAF (not a fresh loop) picks back
+  // up exactly where fit()/uniforms left off, so there is no restart glitch.
+  let visible = true;
+  let running = false;
+  function tick() { if (!visible) { running = false; return; } render(); requestAnimationFrame(tick); }
+  function startLoop() { if (!running && !reduce) { running = true; requestAnimationFrame(tick); } }
+  window.addEventListener('message', function (e) {
+    if (e.origin !== window.location.origin) return;
+    if (!e.data || e.data.type !== 'room-visible') return;
+    visible = !!e.data.visible;
+    if (visible) startLoop();
+  });
+  startLoop();
 })();
 </script>
 <script>(function(){var o=document.getElementById("obj");var r=document.querySelector(".reflection img");if(o&&r){r.src=o.src;}})();</script>
