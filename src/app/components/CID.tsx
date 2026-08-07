@@ -781,8 +781,8 @@ function IcarusName() {
 type CaseBay = { key: string; cls: string; role: ReactNode; name: ReactNode; sub?: string; orb?: string; title?: string };
 
 const CASE_BAYS: CaseBay[] = [
-  { key: "ethel", cls: "cid-tag--ethel", role: "Ethical Analyst", name: "Ethel" },
   { key: "greg", cls: "cid-tag--greg", role: <>Principal<br />Investigator</>, orb: "PI", title: "CID Director", name: "Greg Long" },
+  { key: "ethel", cls: "cid-tag--ethel", role: "Ethical Analyst", name: "Ethel" },
   { key: "icarus", cls: "cid-tag--icarus", role: "Executive Trader", name: <IcarusName /> },
 ];
 
@@ -895,15 +895,16 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               (they were fighting the art, not reading as labels on it) and
               fills the empty column this text used to leave beside it. */}
           <div className="cid-viv-intro-row">
-            <p className="cid-viv-intro">
-              The <strong>Canadian Innovation Dimension (CID)</strong> is an experimental research environment operated by artificial intelligence (AI) agents inside an always-on AI mini-PC.
-            </p>
+            <div className="cid-viv-intro-col">
+              <p className="cid-viv-intro">
+                The <strong>Canadian Innovation Dimension (CID)</strong> is an experimental research environment operated by artificial intelligence (AI) agents inside an always-on AI mini-PC.
+              </p>
+              <div>
+                <h2 className="cid-viv-h">CID Vivarium</h2>
+                <p className="cid-viv-lead">An avant-garde research facility inside an always-on AI mini-PC. Artificial intelligence (AI) agents operate the facility under the guidance of a human principal investigator.</p>
+              </div>
+            </div>
             <TeamTags />
-          </div>
-
-          <div>
-            <h2 className="cid-viv-h">CID Vivarium</h2>
-            <p className="cid-viv-lead">An avant-garde research facility inside an always-on AI mini-PC. Artificial intelligence (AI) agents operate the facility under the guidance of a human principal investigator.</p>
           </div>
 
           {/* Rail + hero, side by side: the hero (the team case) reads too

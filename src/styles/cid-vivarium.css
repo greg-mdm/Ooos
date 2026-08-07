@@ -26,6 +26,13 @@
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, 320px);
   gap: clamp(20px,2.6vw,32px); align-items: start;
 }
+/* The intro paragraph and the "CID Vivarium" heading live in this one cell
+   together, so the heading follows the paragraph directly regardless of how
+   tall the tags column beside it gets. Splitting them into separate rows of
+   the outer stack forced the row height to match the (taller) tags column,
+   which left a gap of dead air under the short paragraph before the
+   heading could start. */
+.cid-scope .cid-viv-intro-col { display: flex; flex-direction: column; gap: clamp(22px,3.4vh,34px); }
 @media (max-width: 760px) {
   .cid-scope .cid-viv-intro-row { grid-template-columns: minmax(0, 1fr); }
 }
@@ -175,15 +182,13 @@
     0 4px 7px -1px rgba(25,0,125,.5);
 }
 
-/* Greg drops the rail (Ethel and Icarus keep theirs) and centres, with the
-   indigo carried as a horizontal underline beneath his name instead. */
-.cid-scope .cid-tag--greg { padding-left: 20px; }
-.cid-scope .cid-tag--greg .cid-tag-rail { display: none; }
+/* Greg's card keeps the same rail-and-left-alignment structure as Ethel's
+   and Icarus's (the centred, no-rail, underlined treatment was built for
+   when his card stood on the case floor in perspective; off the image, all
+   three read as one consistent family and only the orb and title mark his
+   card as different). His role wraps to two lines, which is what makes his
+   card the tall one. */
 .cid-scope .cid-tag--greg .cid-tag-role { white-space: normal; line-height: 1.35; }
-.cid-scope .cid-tag--greg .cid-tag-body { align-items: center; text-align: center; }
-.cid-scope .cid-tag--greg .cid-tag-name {
-  align-self: center; padding-bottom: 3px; border-bottom: 2px solid #19007D;
-}
 
 /* per-researcher accents, everything else identical */
 .cid-scope .cid-tag--ethel { --tag-rim: #4B00B6; --tag-rail: linear-gradient(180deg, #7C18E7, #4B00B6); --tag-shadow: rgba(75,0,182,.55); }
