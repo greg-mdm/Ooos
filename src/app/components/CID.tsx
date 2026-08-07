@@ -861,61 +861,54 @@ export function CID({ onSupport }: { onSupport: () => void }) {
         </div>
       </section>
 
-      {/* CID Vivarium — a tall "Radical Strategic Intelligence" rail (brand at
-          the top, the three method verbs as pillars) beside the Vivarium copy.
-          Replaces the old intro block. The three-shot image row and the flag
-          graphic await Greg's assets; the disclaimer from the old intro is
-          retained verbatim at the foot. */}
+      {/* CID Vivarium — intro copy, then the "Radical Strategic Intelligence"
+          rail paired with the display room, the team case, the storage-scale
+          comparison, and the two illustrated principle cards. Single-column
+          stack: nothing here needs to be a tall sidebar, so nothing needs to
+          be sticky either. The disclaimer from the old intro is retained
+          verbatim at the foot. */}
       <section className="cid-viv" aria-label="CID Vivarium">
-        <div className="container cid-hero-container cid-viv-grid">
-          <aside className="cid-viv-rail" aria-label="Radical Strategic Intelligence">
-            <div className="cid-viv-brand">
-              <h2 className="cid-viv-title">
-                <span>Radical</span><span>Strategic</span><span className="grad">Intelligence</span>
-              </h2>
-              <div className="cid-viv-bar" aria-hidden="true" />
-            </div>
-            <div className="cid-viv-pillar">
-              <span className="n">1</span>
-              <div><p className="verb">Observe</p><p className="desc">Market dynamics</p></div>
-            </div>
-            <div className="cid-viv-pillar">
-              <span className="n">2</span>
-              <div><p className="verb">Compare</p><p className="desc">Information from public sources</p></div>
-            </div>
-            <div className="cid-viv-pillar">
-              <span className="n">3</span>
-              <div><p className="verb">Navigate</p><p className="desc">Risks and rewards</p></div>
-            </div>
-          </aside>
+        <div className="container cid-hero-container cid-viv-stack">
+          {/* CID intro sits directly under the page title, so it carries no
+              heading of its own. Then the Vivarium. */}
+          <p className="cid-viv-intro">
+            The <strong>Canadian Innovation Dimension (CID)</strong> is an experimental research environment operated by artificial intelligence (AI) agents inside an always-on AI mini-PC.
+          </p>
 
-          <div className="cid-viv-main">
-            {/* CID intro sits directly under the page title, so it carries no
-                heading of its own. Then the Vivarium. */}
-            <p className="cid-viv-intro">
-              The <strong>Canadian Innovation Dimension (CID)</strong> is an experimental research environment operated by artificial intelligence (AI) agents inside an always-on AI mini-PC.
-            </p>
-
+          <div>
             <h2 className="cid-viv-h">CID Vivarium</h2>
             <p className="cid-viv-lead">An avant-garde research facility inside an always-on AI mini-PC. Artificial intelligence (AI) agents operate the facility under the guidance of a human principal investigator.</p>
           </div>
 
-          {/* Vivarium team display case: the three researchers set in one glass
-              case, the human PI centred between the two AI agents. This is the
-              "three images with Greg in the middle" slot from the approved
-              Vivarium copy. Full container width, so it shares its edges with
-              the display room below it and the canvas beside the rail is not
-              left standing empty. */}
-          <TeamCase base={base} />
+          {/* Rail + room, paired as one horizontal panel: both already dark
+              (the rail's violet gradient, the room's near-black WebGL scene),
+              so they share one background/border rather than reading as two
+              separate cards. Side by side on desktop, stacked on mobile. */}
+          <div className="cid-railroom">
+            <aside className="cid-viv-rail" aria-label="Radical Strategic Intelligence">
+              <div className="cid-viv-brand">
+                <h2 className="cid-viv-title">
+                  <span>Radical</span><span>Strategic</span><span className="grad">Intelligence</span>
+                </h2>
+                <div className="cid-viv-bar" aria-hidden="true" />
+              </div>
+              <div className="cid-viv-pillar">
+                <span className="n">1</span>
+                <div><p className="verb">Observe</p><p className="desc">Market dynamics</p></div>
+              </div>
+              <div className="cid-viv-pillar">
+                <span className="n">2</span>
+                <div><p className="verb">Compare</p><p className="desc">Information from public sources</p></div>
+              </div>
+              <div className="cid-viv-pillar">
+                <span className="n">3</span>
+                <div><p className="verb">Navigate</p><p className="desc">Risks and rewards</p></div>
+              </div>
+            </aside>
 
-          {/* The Viv itself: the always-on AI mini-PC that houses the facility,
-              on show in its own display room. The room (a self-contained WebGL
-              scene, so it rides in an iframe) is paired with the "then vs now"
-              storage copy that makes the case for why it belongs on show. One
-              block on a shared grid: two cells of equal height, locked edge to
-              edge with a hairline between them, so no dead space opens up
-              beside either one. */}
-          <div className="cid-vivunit">
+            {/* The Viv itself: the always-on AI mini-PC that houses the
+                facility, on show in its own display room. Self-contained
+                WebGL scene, so it rides in an iframe like the other embeds. */}
             <div className="cid-vivroom">
               <iframe
                 className="cid-vivroom-frame"
@@ -924,42 +917,65 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 loading="lazy"
               />
             </div>
+          </div>
 
-            <div className="cid-vivnotes">
-              <div className="cid-viv-era">
-                <div className="cid-viv-era-row cid-viv-era-then">
-                  <p className="cid-viv-era-label"><span className="y">1976</span><span className="tag">50 years ago</span></p>
-                  <p className="cid-viv-era-copy">Storing two terabytes of data required 3,150 disk drives. That digital infrastructure could fill a machine-room floor nearly the size of a Canadian football field (ours is bigger.)</p>
-                </div>
-                <div className="cid-viv-era-row cid-viv-era-now">
-                  <p className="cid-viv-era-label"><span className="y">2026</span><span className="tag">Today</span></p>
-                  <p className="cid-viv-era-copy">Now you can palm it. Weighing in at under one kilogram, CID contains a cutting-edge research facility.</p>
-                </div>
-              </div>
+          {/* "1976 vs 2026" storage comparison: makes the case for why a
+              device this small earns a display room. Sits directly below the
+              panel holding the room itself, so the claim and the object it is
+              about are read together before anything else interrupts. */}
+          <div className="cid-viv-era">
+            <div className="cid-viv-era-row cid-viv-era-then">
+              <p className="cid-viv-era-label"><span className="y">1976</span><span className="tag">50 years ago</span></p>
+              <p className="cid-viv-era-copy">Storing two terabytes of data required 3,150 disk drives. That digital infrastructure could fill a machine-room floor nearly the size of a Canadian football field (ours is bigger.)</p>
+            </div>
+            <div className="cid-viv-era-row cid-viv-era-now">
+              <p className="cid-viv-era-label"><span className="y">2026</span><span className="tag">Today</span></p>
+              <p className="cid-viv-era-copy">Now you can palm it. Weighing in at under one kilogram, CID contains a cutting-edge research facility.</p>
             </div>
           </div>
 
-          {/* Architectural Design and Beneficial Biomimicry: relocated out of
-              the room's own card (now paired with the 1976/2026 copy above)
-              into their own full-width block, so this approved copy keeps its
-              place on the page without crowding the featured pairing. */}
-          <div className="cid-viv-principles">
-            <div className="cid-viv-block">
-              <h3>Architectural Design</h3>
-              <ul>
-                <li>Distinct environments for observation, collaboration, experimentation</li>
-                <li>Agents use external tools while remaining securely enclosed in the vivarium</li>
-                <li>Interfaces bind actions with fixed rules, restrictions, and limitations</li>
-              </ul>
-            </div>
+          {/* Vivarium team display case: the three researchers set in one glass
+              case, the human PI centred between the two AI agents. This is the
+              "three images with Greg in the middle" slot from the approved
+              Vivarium copy. */}
+          <TeamCase base={base} />
 
-            <div className="cid-viv-block">
-              <h3>Beneficial Biomimicry</h3>
-              <ul>
-                <li>Information flows through environments inspired by the functional principles and geometries found in nature.</li>
-                <li>The information ecosystem evolves through applied research on sustainable design for human-AI interactions.</li>
-              </ul>
-            </div>
+          {/* Architectural Design and Beneficial Biomimicry, each illustrated
+              with its own photo: the Ooo meeting room for Architectural
+              Design, the distillation chamber for Beneficial Biomimicry. */}
+          <div className="cid-viv-principles">
+            <figure className="cid-viv-pcard">
+              <div
+                className="cid-viv-pcard-photo"
+                role="img"
+                aria-label="The Ooo meeting room: a glowing Ooo! orb on a lit pedestal, framed by lantern-lit garden walls and a waterfall view"
+                style={{ backgroundImage: `url("${base}assets/images/cid-arch-meeting-room.webp")` }}
+              />
+              <figcaption className="cid-viv-pcard-body">
+                <h3>Architectural Design</h3>
+                <ul>
+                  <li>Distinct environments for observation, collaboration, experimentation</li>
+                  <li>Agents use external tools while remaining securely enclosed in the vivarium</li>
+                  <li>Interfaces bind actions with fixed rules, restrictions, and limitations</li>
+                </ul>
+              </figcaption>
+            </figure>
+
+            <figure className="cid-viv-pcard">
+              <div
+                className="cid-viv-pcard-photo"
+                role="img"
+                aria-label="The distillation chamber: a copper apparatus beside a crystal-lined river cave"
+                style={{ backgroundImage: `url("${base}assets/images/cid-biomimicry-distillation.webp")` }}
+              />
+              <figcaption className="cid-viv-pcard-body">
+                <h3>Beneficial Biomimicry</h3>
+                <ul>
+                  <li>Information flows through environments inspired by the functional principles and geometries found in nature.</li>
+                  <li>The information ecosystem evolves through applied research on sustainable design for human-AI interactions.</li>
+                </ul>
+              </figcaption>
+            </figure>
           </div>
 
           <p className="cid-viv-disc">

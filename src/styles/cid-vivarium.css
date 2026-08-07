@@ -1,40 +1,40 @@
-/* ===== CID Vivarium — replaces the old intro block. A tall dark-electric
-   "Radical Strategic Intelligence" rail (brand at the top, the three method
-   verbs as pillars beneath) beside the Vivarium content, on the page's light
-   robin's-egg canvas. Scoped under .cid-scope like the rest of the CID page. */
+/* ===== CID Vivarium — intro copy, then the "Radical Strategic Intelligence"
+   rail paired with the display room (both dark, one horizontal panel), the
+   team case, the storage-scale comparison, and the two principle cards. All
+   on the page's light robin's-egg canvas. Scoped under .cid-scope like the
+   rest of the CID page. */
 
 .cid-scope .cid-viv { background: #F0F4F5; padding: clamp(30px,5vh,56px) 0 clamp(34px,6vh,64px); }
-.cid-scope .cid-viv-grid {
-  display: grid; grid-template-columns: 300px minmax(0, 1fr); align-items: start;
-  column-gap: clamp(22px,3vw,44px); row-gap: clamp(18px,2.4vw,30px);
-}
-/* Everything below the Vivarium lede runs the full container width. The case,
-   the display room and the disclaimer then share one set of edges, and the
-   canvas beside the (short, sticky) rail never opens into a dead column. */
-.cid-scope .cid-case-wrap,
-.cid-scope .cid-vivunit,
-.cid-scope .cid-viv-principles,
-.cid-scope .cid-viv-disc { grid-column: 1 / -1; }
+.cid-scope .cid-viv-stack { display: flex; flex-direction: column; gap: clamp(22px,3.4vh,34px); }
 
-/* ---- Tall sidebar ---- */
-/* Static, not sticky: once the case/room/disclaimer below it were pulled to
-   full container width, the rail's own grid row shrank to the height of the
-   short lede beside it. A sticky box then tried to pin itself within that
-   short row and rode straight over the full-width content underneath.
-   Sitting still avoids the collision entirely. */
-.cid-scope .cid-viv-rail {
-  border-radius: 20px; overflow: hidden;
+.cid-scope .cid-viv-h {
+  margin: 2px 0 6px; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: clamp(26px,3vw,36px); letter-spacing: -.5px; color: #1a1646;
+}
+.cid-scope .cid-viv-lead { margin: 0; font-size: clamp(15px,1.5vw,18px); line-height: 1.55; color: #33384a; max-width: 64ch; }
+.cid-scope .cid-viv-lead strong { color: #5B04DE; }
+.cid-scope .cid-viv-intro {
+  margin: 0; font-size: clamp(16px,1.7vw,20px); line-height: 1.55;
+  color: #1a1646; max-width: 66ch;
+}
+.cid-scope .cid-viv-intro strong { color: #822F00; font-weight: 800; }
+
+/* ---- Rail + room: paired as one horizontal panel. Both are dark already
+   (the rail's violet gradient, the room's near-black WebGL scene), so they
+   share a single background/border instead of reading as two separate
+   cards with a gap between them. Side by side on desktop, stacked on
+   mobile, both cells stretched to equal height. ---- */
+.cid-scope .cid-railroom {
+  display: grid; grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
+  align-items: stretch; border-radius: 20px; overflow: hidden;
   background: linear-gradient(178deg, #2a1163 0%, #1a0b40 55%, #120a33 100%);
   border: 1px solid rgba(154,92,240,.28);
   box-shadow: 0 30px 70px -32px rgba(24,6,80,.75), inset 0 1px 0 rgba(255,255,255,.06);
 }
+.cid-scope .cid-viv-rail { display: flex; flex-direction: column; }
 .cid-scope .cid-viv-brand {
   padding: 26px 24px 22px; border-bottom: 1px solid rgba(255,255,255,.10);
   background: radial-gradient(120% 80% at 20% 0%, rgba(124,24,231,.35), transparent 70%);
-}
-.cid-scope .cid-viv-eyebrow {
-  margin: 0 0 12px; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
-  font-size: 10.5px; letter-spacing: 3.5px; text-transform: uppercase; color: #b9a6f2;
 }
 .cid-scope .cid-viv-title {
   margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
@@ -64,23 +64,27 @@
 }
 .cid-scope .cid-viv-pillar .desc { margin: 3px 0 0; font-size: 13px; line-height: 1.4; color: #b7b3d6; }
 
-/* ---- Main content ---- */
-/* The lede column is shorter than the rail beside it, so it centres against
-   the rail rather than leaving the air stacked up underneath. */
-.cid-scope .cid-viv-main {
-  align-self: stretch; display: flex; flex-direction: column; justify-content: center;
+/* The room: a self-contained WebGL scene riding in an iframe, only loading
+   once it scrolls into view. A hairline (not a hard border) separates it
+   from the rail so the pair still reads as one panel. */
+.cid-scope .cid-vivroom {
+  position: relative; background: #06021A; line-height: 0; min-height: 0;
+  border-left: 1px solid rgba(255,255,255,.08);
 }
-.cid-scope .cid-viv-h {
-  margin: 2px 0 6px; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
-  font-size: clamp(26px,3vw,36px); letter-spacing: -.5px; color: #1a1646;
+.cid-scope .cid-vivroom-frame {
+  position: absolute; inset: 0; display: block; width: 100%; height: 100%; border: 0;
 }
-.cid-scope .cid-viv-lead { margin: 0 0 12px; font-size: clamp(15px,1.5vw,18px); line-height: 1.55; color: #33384a; max-width: 64ch; }
-.cid-scope .cid-viv-lead strong { color: #5B04DE; }
-.cid-scope .cid-viv-intro {
-  margin: 0 0 clamp(20px,3vh,30px); font-size: clamp(16px,1.7vw,20px); line-height: 1.55;
-  color: #1a1646; max-width: 66ch;
+/* Narrow: stacked, rail first, room takes a fixed frame since there is no
+   neighbour left to match heights with. */
+@media (max-width: 820px) {
+  .cid-scope .cid-railroom { grid-template-columns: minmax(0, 1fr); }
+  .cid-scope .cid-vivroom { aspect-ratio: 16 / 9; }
+  .cid-scope .cid-vivroom-frame { position: absolute; }
+  .cid-scope .cid-vivroom { border-left: 0; border-top: 1px solid rgba(255,255,255,.08); }
 }
-.cid-scope .cid-viv-intro strong { color: #822F00; font-weight: 800; }
+@media (max-width: 700px) {
+  .cid-scope .cid-vivroom { aspect-ratio: 4 / 3; }
+}
 
 /* ---- The Vivarium environment. This is the research facility itself, so it
    is painted as a BACKGROUND rather than an <img>: browsers offer no image
@@ -211,38 +215,20 @@
     0 1.5cqw 2.6cqw -1.1cqw rgba(6,2,28,.8);
 }
 
-/* ---- The Viv display room: the mini-PC on show, like a car under the lights
-   in a showroom. The scene is a self-contained WebGL room, so it rides in an
-   iframe and only loads when it scrolls into view.
-
-   Room and notes share one block on a two-cell grid. Both cells stretch to the
-   same height, so the pairing has no ragged edge and no gap between the image
-   and the text: a single rectangle, split by one hairline. ---- */
-.cid-scope .cid-vivunit {
-  display: grid; grid-template-columns: minmax(0, 1.18fr) minmax(0, 1fr);
-  align-items: stretch; border-radius: 16px; overflow: hidden;
-  border: 1px solid rgba(75,0,182,.18); background: #fff;
-  box-shadow: 0 22px 50px -30px rgba(6,2,28,.55);
+/* ---- "1976 vs 2026" storage comparison: detached from the room (which now
+   pairs with the rail instead), standing on its own as a full-width band
+   that makes the case for why a device this small earns a display room.
+   Side by side on desktop, stacked on mobile; 1976 in a muted archival
+   tone, 2026 in the room's own electric violet. ---- */
+.cid-scope .cid-viv-era {
+  display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px,3.2vw,48px);
+  padding: clamp(22px,2.6vw,32px) clamp(24px,2.8vw,36px);
+  border-radius: 16px; background: #fff; border: 1px solid rgba(75,0,182,.16);
+  box-shadow: 0 22px 50px -32px rgba(6,2,28,.4);
 }
-.cid-scope .cid-vivroom {
-  position: relative; background: #06021A; line-height: 0;
-  min-height: clamp(300px, 30vw, 460px);
-}
-.cid-scope .cid-vivroom-frame {
-  position: absolute; inset: 0; display: block; width: 100%; height: 100%; border: 0;
-}
-.cid-scope .cid-vivnotes {
-  display: flex; flex-direction: column; justify-content: center;
-  padding: clamp(22px,2.6vw,34px); border-left: 1px solid rgba(75,0,182,.16);
-}
-
-/* "1976 vs 2026" storage comparison: the case for the room, paired with it
-   directly. 1976 in a muted archival tone, 2026 in the room's own electric
-   violet, so the copy reads as continuous with the thing it is describing. */
-.cid-scope .cid-viv-era { display: flex; flex-direction: column; gap: clamp(18px,2.2vw,26px); }
 .cid-scope .cid-viv-era-row { display: flex; flex-direction: column; gap: 7px; }
 .cid-scope .cid-viv-era-then {
-  padding-bottom: clamp(18px,2.2vw,26px); border-bottom: 1px solid rgba(75,0,182,.14);
+  padding-right: clamp(24px,3.2vw,48px); border-right: 1px solid rgba(75,0,182,.14);
 }
 .cid-scope .cid-viv-era-label { display: flex; align-items: baseline; gap: 10px; margin: 0; }
 .cid-scope .cid-viv-era-label .y {
@@ -260,37 +246,43 @@
 .cid-scope .cid-viv-era-copy { margin: 0; font-size: 15px; line-height: 1.6; }
 .cid-scope .cid-viv-era-then .cid-viv-era-copy { color: #4a4e68; }
 .cid-scope .cid-viv-era-now .cid-viv-era-copy { color: #1a1646; font-weight: 500; }
-
-/* Narrow: the two cells stack, room first, and the room takes a fixed frame
-   again since there is no neighbour to match heights with. */
-@media (max-width: 900px) {
-  .cid-scope .cid-vivunit { grid-template-columns: minmax(0, 1fr); }
-  .cid-scope .cid-vivroom { min-height: 0; aspect-ratio: 16 / 9; }
-  .cid-scope .cid-vivnotes { border-left: 0; border-top: 1px solid rgba(75,0,182,.16); }
-}
-@media (max-width: 700px) {
-  .cid-scope .cid-vivroom { aspect-ratio: 4 / 3; }
+@media (max-width: 640px) {
+  .cid-scope .cid-viv-era { grid-template-columns: 1fr; gap: 20px; }
+  .cid-scope .cid-viv-era-then {
+    padding-right: 0; padding-bottom: 20px; border-right: 0;
+    border-bottom: 1px solid rgba(75,0,182,.14);
+  }
 }
 
-/* Architectural Design / Beneficial Biomimicry: relocated out of the room's
-   own card (now paired with the 1976/2026 copy) into their own full-width
-   row, side by side on desktop, stacked below 700px. */
+/* ---- Architectural Design (Meeting Room) and Beneficial Biomimicry
+   (Distillation Chamber): each principle illustrated with its own photo,
+   side by side on desktop, stacked below 700px. Photo on top, so the bullet
+   list keeps a plain, legible field underneath rather than sitting over
+   a busy image. Photo is a background (not an <img>), consistent with the
+   case art: no zoom/save affordance on what is scene-setting, not content. */
 .cid-scope .cid-viv-principles {
   display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px,3vw,44px);
-  padding-top: clamp(22px,3vh,32px); border-top: 1px solid rgba(75,0,182,.14);
 }
 @media (max-width: 700px) {
   .cid-scope .cid-viv-principles { grid-template-columns: 1fr; gap: 22px; }
 }
-
-.cid-scope .cid-viv-block { margin: 0; }
-.cid-scope .cid-viv-block h3 {
+.cid-scope .cid-viv-pcard {
+  margin: 0; display: flex; flex-direction: column; overflow: hidden;
+  border-radius: 16px; background: #fff; border: 1px solid rgba(75,0,182,.16);
+  box-shadow: 0 22px 50px -32px rgba(6,2,28,.4);
+}
+.cid-scope .cid-viv-pcard-photo {
+  aspect-ratio: 16 / 10; background-size: cover; background-position: center;
+  background-repeat: no-repeat; user-select: none;
+}
+.cid-scope .cid-viv-pcard-body { margin: 0; padding: clamp(20px,2.4vw,26px); }
+.cid-scope .cid-viv-pcard-body h3 {
   margin: 0 0 10px; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
   font-size: 18px; letter-spacing: .3px; color: #4B00B6;
 }
-.cid-scope .cid-viv-block ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 9px; }
-.cid-scope .cid-viv-block li { position: relative; padding-left: 22px; font-size: 15px; line-height: 1.55; color: #33384a; }
-.cid-scope .cid-viv-block li::before {
+.cid-scope .cid-viv-pcard-body ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.cid-scope .cid-viv-pcard-body li { position: relative; padding-left: 22px; font-size: 15px; line-height: 1.55; color: #33384a; }
+.cid-scope .cid-viv-pcard-body li::before {
   content: ""; position: absolute; left: 2px; top: 8px; width: 9px; height: 9px; border-radius: 3px;
   background: linear-gradient(135deg, #7C18E7, #5B04DE);
 }
@@ -331,12 +323,7 @@
   margin: 0; padding-top: 16px; border-top: 1px solid rgba(75,0,182,.22);
   font-size: 13.5px; line-height: 1.6; color: #5b5f86;
 }
-/* Rule spans the grid; the text keeps a readable measure inside it. */
 .cid-scope .cid-viv-disc strong { display: block; max-width: 70ch; color: #5b5f86; font-weight: 700; }
-
-@media (max-width: 820px) {
-  .cid-scope .cid-viv-grid { grid-template-columns: 1fr; }
-}
 
 /* On phones the floor plates would be a few millimetres tall, so they step off
    the floor and become a normal row of cards beneath the environment. */
