@@ -958,7 +958,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               <iframe
                 ref={roomRef}
                 className="cid-vivroom-frame"
-                src={`${base}DISPLAY_ROOM_BLUE_checker_cm.html?v=2`}
+                src={`${base}DISPLAY_ROOM_BLUE_checker_cm.html?v=3`}
                 title="The Viv display room: the always-on AI mini-PC that houses the CID Vivarium"
                 loading="lazy"
               />
