@@ -782,8 +782,8 @@ type CaseBay = { key: string; cls: string; role: ReactNode; name: ReactNode; sub
 
 const CASE_BAYS: CaseBay[] = [
   { key: "greg", cls: "cid-tag--greg", role: <>Principal<br />Investigator</>, orb: "PI", title: "CID Director", name: "Greg Long" },
-  { key: "ethel", cls: "cid-tag--ethel", role: "Ethical Analyst", name: "Ethel" },
-  { key: "icarus", cls: "cid-tag--icarus", role: "Executive Trader", name: <IcarusName /> },
+  { key: "ethel", cls: "cid-tag--ethel", role: <>Ethical<br />Analyst</>, name: "Ethel" },
+  { key: "icarus", cls: "cid-tag--icarus", role: <>Executive<br />Trader</>, name: <IcarusName /> },
 ];
 
 function TeamCase({ base }: { base: string }) {
@@ -808,18 +808,19 @@ function TeamTags() {
       {CASE_BAYS.map((b) => (
         <div className={`cid-tag ${b.cls}`} key={b.key}>
           <span className="cid-tag-rail" aria-hidden="true" />
+          {/* Two columns of roughly equal visual weight: the name reads
+              large in heading case on the left, the job title small and
+              capitalised over two lines on the right. */}
           <span className="cid-tag-body">
-            {b.orb ? (
-              <span className="cid-tag-head">
-                <span className="cid-tag-orb" aria-hidden="true">{b.orb}</span>
-                <span className="cid-tag-role">{b.role}</span>
-              </span>
-            ) : (
+            <span className="cid-tag-id">
+              {b.orb && <span className="cid-tag-orb" aria-hidden="true">{b.orb}</span>}
+              <span className="cid-tag-name">{b.name}</span>
+            </span>
+            <span className="cid-tag-meta">
               <span className="cid-tag-role">{b.role}</span>
-            )}
-            {b.title && <span className="cid-tag-title">{b.title}</span>}
-            <span className="cid-tag-name">{b.name}</span>
-            {b.sub && <span className="cid-tag-sub">{b.sub}</span>}
+              {b.title && <span className="cid-tag-title">{b.title}</span>}
+              {b.sub && <span className="cid-tag-sub">{b.sub}</span>}
+            </span>
           </span>
         </div>
       ))}

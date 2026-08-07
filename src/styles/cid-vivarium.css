@@ -23,7 +23,7 @@
    nametags, using the width the text alone used to leave empty. Stacks on
    narrow screens. ---- */
 .cid-scope .cid-viv-intro-row {
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, 320px);
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, 340px);
   gap: clamp(20px,2.6vw,32px); align-items: start;
 }
 /* The intro paragraph and the "CID Vivarium" heading live in this one cell
@@ -149,13 +149,25 @@
   position: absolute; left: 8px; top: 14%; bottom: 14%; width: 4px;
   border-radius: 999px; background: var(--tag-rail); box-shadow: 0 0 10px var(--tag-shadow);
 }
-.cid-scope .cid-tag-body { position: relative; display: flex; flex-direction: column; gap: 3px; }
+/* Name and job title share the card as two columns of equal weight rather
+   than stacking as a small label over a big name. The name is short, so it
+   carries its side at a larger size in heading case; the title is longer,
+   so it carries its side small and capitalised across two lines. Equal-
+   fraction columns keep the division between them on the same axis in
+   every card, and both blocks centre against each other vertically. */
+.cid-scope .cid-tag-body {
+  position: relative; display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px; align-items: center;
+}
+.cid-scope .cid-tag-id { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.cid-scope .cid-tag-meta { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
 .cid-scope .cid-tag-role {
-  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 11px;
-  letter-spacing: .2em; text-transform: uppercase; color: var(--tag-rim);
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 13px;
+  letter-spacing: .15em; line-height: 1.3; text-transform: uppercase; color: var(--tag-rim);
 }
 .cid-scope .cid-tag-name {
-  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 900; font-size: 23px;
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 900; font-size: 27px;
   line-height: 1.1; letter-spacing: -0.01em; color: #0F031C;
   display: inline-flex; align-items: baseline; gap: .16em;
 }
@@ -167,28 +179,30 @@
   font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 11px;
   letter-spacing: .14em; text-transform: uppercase; color: #822F00;
 }
-/* Credential orb: a dark indigo sphere carrying the short form of the role. */
-.cid-scope .cid-tag-head { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 4px; }
+/* Credential orb: a dark indigo sphere carrying the short form of the role.
+   Sits with the name, reading as a badge on the person. */
 .cid-scope .cid-tag-orb {
-  flex: 0 0 auto; display: inline-grid; place-items: center; margin-top: -6px;
-  width: 30px; height: 30px; border-radius: 50%;
+  flex: 0 0 auto; display: inline-grid; place-items: center;
+  width: 26px; height: 26px; border-radius: 50%;
   background:
     radial-gradient(circle at 34% 28%, rgba(255,255,255,.32), transparent 52%),
     linear-gradient(158deg, #2B0561 0%, #19007D 100%);
-  color: #E8ECF4; font-size: 11.5px; font-weight: 900; letter-spacing: .02em; line-height: 1;
+  color: #E8ECF4; font-size: 10.5px; font-weight: 900; letter-spacing: .02em; line-height: 1;
   box-shadow:
     inset 0 0 0 1.5px rgba(232,236,244,.45),
     0 0 12px 2px rgba(124,24,231,.5),
     0 4px 7px -1px rgba(25,0,125,.5);
 }
-
-/* Greg's card keeps the same rail-and-left-alignment structure as Ethel's
-   and Icarus's (the centred, no-rail, underlined treatment was built for
-   when his card stood on the case floor in perspective; off the image, all
-   three read as one consistent family and only the orb and title mark his
-   card as different). His role wraps to two lines, which is what makes his
-   card the tall one. */
-.cid-scope .cid-tag--greg .cid-tag-role { white-space: normal; line-height: 1.35; }
+/* Greg's badge stacks above his name rather than beside it: inline, the orb
+   took enough of the column to wrap "Greg Long" onto two lines. Stacked, the
+   name keeps its line and the badge adds weight to the left, which his card
+   needs anyway against a three-line right column. */
+.cid-scope .cid-tag--greg .cid-tag-id { flex-direction: column; align-items: flex-start; gap: 5px; }
+/* "Greg Long" is two words where the others are one, so it sets at a smaller
+   size to hold a single line in the same column. The three names then occupy
+   roughly the same width, which is the balance being matched here, rather
+   than the same point size. */
+.cid-scope .cid-tag--greg .cid-tag-name { font-size: 23px; }
 
 /* per-researcher accents, everything else identical */
 .cid-scope .cid-tag--ethel { --tag-rim: #4B00B6; --tag-rail: linear-gradient(180deg, #7C18E7, #4B00B6); --tag-shadow: rgba(75,0,182,.55); }
