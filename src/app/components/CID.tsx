@@ -973,7 +973,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             <div className="cid-viv-era">
               <div className="cid-viv-era-row cid-viv-era-then">
                 <p className="cid-viv-era-label"><span className="y">1976</span><span className="tag">50 years ago</span></p>
-                <p className="cid-viv-era-copy">Storing two terabytes of data required 3,150 disk drives. That digital infrastructure could fill a machine-room floor nearly the size of a Canadian football field (ours is bigger.)</p>
+                <p className="cid-viv-era-copy">Storing two terabytes of data required 3,150 disk drives. That digital infrastructure could fill a machine-room floor nearly the size of a Canadian football field. <span className="cid-viv-era-aside">*Ours is bigger.</span></p>
               </div>
               <div className="cid-viv-era-row cid-viv-era-now">
                 <p className="cid-viv-era-label"><span className="y">2026</span><span className="tag">Today</span></p>
