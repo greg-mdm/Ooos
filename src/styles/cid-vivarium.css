@@ -196,17 +196,27 @@
 /* ---- "1976 vs 2026" storage comparison: detached from the room (which now
    pairs with the rail instead), standing on its own as a full-width band
    that makes the case for why a device this small earns a display room.
-   Side by side on desktop, stacked on mobile; 1976 in a muted archival
-   tone, 2026 in the room's own electric violet. ---- */
+   Side by side on desktop, stacked on mobile.
+
+   Dark field, not white: Chrome Silver, Bright Silver and Gold are all
+   light/mid-tone brand colours built for reading on a dark ground (Bright
+   Silver in particular is the design system's high-accessibility text
+   colour) — on white they were the "grey on white" a design review flagged
+   as low-contrast. The same near-black already anchors the room and the
+   case right above this, so the band reads as continuous with them rather
+   than a return to a white card. 1976 in the design system's archival
+   greys (Bright Silver for the year, Chrome Silver dimmer for the eyebrow);
+   2026 in Gold throughout. Body copy stays one shared light neutral so the
+   two accent colours carry the "then vs now" contrast, not the paragraphs. ---- */
 .cid-scope .cid-viv-era {
   display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px,3.2vw,48px);
   padding: clamp(22px,2.6vw,32px) clamp(24px,2.8vw,36px);
-  border-radius: 16px; background: #fff; border: 1px solid rgba(75,0,182,.16);
-  box-shadow: 0 22px 50px -32px rgba(6,2,28,.4);
+  border-radius: 16px; background: #06021A; border: 1px solid rgba(154,92,240,.28);
+  box-shadow: 0 22px 50px -32px rgba(6,2,28,.6);
 }
 .cid-scope .cid-viv-era-row { display: flex; flex-direction: column; gap: 7px; }
 .cid-scope .cid-viv-era-then {
-  padding-right: clamp(24px,3.2vw,48px); border-right: 1px solid rgba(75,0,182,.14);
+  padding-right: clamp(24px,3.2vw,48px); border-right: 1px solid rgba(255,255,255,.14);
 }
 .cid-scope .cid-viv-era-label { display: flex; align-items: baseline; gap: 10px; margin: 0; }
 .cid-scope .cid-viv-era-label .y {
@@ -217,18 +227,17 @@
   font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
   font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase;
 }
-.cid-scope .cid-viv-era-then .y { color: #5b5f86; }
-.cid-scope .cid-viv-era-then .tag { color: #8b8fae; }
-.cid-scope .cid-viv-era-now .y { color: #5B04DE; }
-.cid-scope .cid-viv-era-now .tag { color: #7C18E7; }
-.cid-scope .cid-viv-era-copy { margin: 0; font-size: 15px; line-height: 1.6; }
-.cid-scope .cid-viv-era-then .cid-viv-era-copy { color: #4a4e68; }
-.cid-scope .cid-viv-era-now .cid-viv-era-copy { color: #1a1646; font-weight: 500; }
+.cid-scope .cid-viv-era-then .y { color: #E8ECF4; }
+.cid-scope .cid-viv-era-then .tag { color: #D8DBDE; }
+.cid-scope .cid-viv-era-now .y { color: #F0C040; }
+.cid-scope .cid-viv-era-now .tag { color: #F0C040; }
+.cid-scope .cid-viv-era-copy { margin: 0; font-size: 15px; line-height: 1.6; color: #C9CFE0; }
+.cid-scope .cid-viv-era-now .cid-viv-era-copy { font-weight: 500; }
 @media (max-width: 640px) {
   .cid-scope .cid-viv-era { grid-template-columns: 1fr; gap: 20px; }
   .cid-scope .cid-viv-era-then {
     padding-right: 0; padding-bottom: 20px; border-right: 0;
-    border-bottom: 1px solid rgba(75,0,182,.14);
+    border-bottom: 1px solid rgba(255,255,255,.14);
   }
 }
 
