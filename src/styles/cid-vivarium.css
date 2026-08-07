@@ -201,8 +201,10 @@
 /* "Greg Long" is two words where the others are one, so it sets at a smaller
    size to hold a single line in the same column. The three names then occupy
    roughly the same width, which is the balance being matched here, rather
-   than the same point size. */
-.cid-scope .cid-tag--greg .cid-tag-name { font-size: 23px; }
+   than the same point size. 22px is the size that leaves even air either
+   side of it: measured, 27px from the card edge on the left and 26px to the
+   title column on the right. */
+.cid-scope .cid-tag--greg .cid-tag-name { font-size: 22px; }
 
 /* per-researcher accents, everything else identical */
 .cid-scope .cid-tag--ethel { --tag-rim: #4B00B6; --tag-rail: linear-gradient(180deg, #7C18E7, #4B00B6); --tag-shadow: rgba(75,0,182,.55); }
