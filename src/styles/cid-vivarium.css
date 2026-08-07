@@ -1,8 +1,8 @@
 /* ===== CID Vivarium — intro copy, then the "Radical Strategic Intelligence"
-   rail paired with the display room (both dark, one horizontal panel), the
-   team case, the storage-scale comparison, and the two principle cards. All
-   on the page's light robin's-egg canvas. Scoped under .cid-scope like the
-   rest of the CID page. */
+   rail paired with the team case (the hero), the display room, the
+   storage-scale comparison, and the two principle cards. All on the page's
+   light robin's-egg canvas. Scoped under .cid-scope like the rest of the
+   CID page. */
 
 .cid-scope .cid-viv { background: #F0F4F5; padding: clamp(30px,5vh,56px) 0 clamp(34px,6vh,64px); }
 .cid-scope .cid-viv-stack { display: flex; flex-direction: column; gap: clamp(22px,3.4vh,34px); }
@@ -19,19 +19,27 @@
 }
 .cid-scope .cid-viv-intro strong { color: #822F00; font-weight: 800; }
 
-/* ---- Rail + room: paired as one horizontal panel. Both are dark already
-   (the rail's violet gradient, the room's near-black WebGL scene), so they
-   share a single background/border instead of reading as two separate
-   cards with a gap between them. Side by side on desktop, stacked on
-   mobile, both cells stretched to equal height. ---- */
-.cid-scope .cid-railroom {
+/* ---- Rail + hero: the team case reads oversized on its own at full page
+   width, so it pairs with the rail's 300px column instead, which brings it
+   down to a page-appropriate scale and uses that width economically rather
+   than leaving it empty above a full-bleed image. The case keeps a fixed
+   aspect ratio (it is a real photographic render, not adaptable content
+   like the room), so the pair sits top-aligned as two independent cards
+   with a gap, rather than stretched into one shared panel. Side by side on
+   desktop, stacked on mobile. ---- */
+.cid-scope .cid-railhero {
   display: grid; grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
-  align-items: stretch; border-radius: 20px; overflow: hidden;
+  align-items: start; gap: clamp(20px,2.6vw,32px);
+}
+@media (max-width: 820px) {
+  .cid-scope .cid-railhero { grid-template-columns: minmax(0, 1fr); }
+}
+.cid-scope .cid-viv-rail {
+  display: flex; flex-direction: column; border-radius: 20px; overflow: hidden;
   background: linear-gradient(178deg, #2a1163 0%, #1a0b40 55%, #120a33 100%);
   border: 1px solid rgba(154,92,240,.28);
   box-shadow: 0 30px 70px -32px rgba(24,6,80,.75), inset 0 1px 0 rgba(255,255,255,.06);
 }
-.cid-scope .cid-viv-rail { display: flex; flex-direction: column; }
 .cid-scope .cid-viv-brand {
   padding: 26px 24px 22px; border-bottom: 1px solid rgba(255,255,255,.10);
   background: radial-gradient(120% 80% at 20% 0%, rgba(124,24,231,.35), transparent 70%);
@@ -65,25 +73,17 @@
 .cid-scope .cid-viv-pillar .desc { margin: 3px 0 0; font-size: 13px; line-height: 1.4; color: #b7b3d6; }
 
 /* The room: a self-contained WebGL scene riding in an iframe, only loading
-   once it scrolls into view. A hairline (not a hard border) separates it
-   from the rail so the pair still reads as one panel. */
+   once it scrolls into view. Standalone full-width block, its own card. */
 .cid-scope .cid-vivroom {
-  position: relative; background: #06021A; line-height: 0; min-height: 0;
-  border-left: 1px solid rgba(255,255,255,.08);
+  margin: 0; border-radius: 16px; overflow: hidden;
+  background: #06021A; line-height: 0;
+  box-shadow: 0 22px 50px -26px rgba(6,2,28,.7);
 }
 .cid-scope .cid-vivroom-frame {
-  position: absolute; inset: 0; display: block; width: 100%; height: 100%; border: 0;
-}
-/* Narrow: stacked, rail first, room takes a fixed frame since there is no
-   neighbour left to match heights with. */
-@media (max-width: 820px) {
-  .cid-scope .cid-railroom { grid-template-columns: minmax(0, 1fr); }
-  .cid-scope .cid-vivroom { aspect-ratio: 16 / 9; }
-  .cid-scope .cid-vivroom-frame { position: absolute; }
-  .cid-scope .cid-vivroom { border-left: 0; border-top: 1px solid rgba(255,255,255,.08); }
+  display: block; width: 100%; aspect-ratio: 16 / 9; border: 0;
 }
 @media (max-width: 700px) {
-  .cid-scope .cid-vivroom { aspect-ratio: 4 / 3; }
+  .cid-scope .cid-vivroom-frame { aspect-ratio: 4 / 3; }
 }
 
 /* ---- The Vivarium environment. This is the research facility itself, so it

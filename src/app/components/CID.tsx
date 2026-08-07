@@ -880,11 +880,11 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             <p className="cid-viv-lead">An avant-garde research facility inside an always-on AI mini-PC. Artificial intelligence (AI) agents operate the facility under the guidance of a human principal investigator.</p>
           </div>
 
-          {/* Rail + room, paired as one horizontal panel: both already dark
-              (the rail's violet gradient, the room's near-black WebGL scene),
-              so they share one background/border rather than reading as two
-              separate cards. Side by side on desktop, stacked on mobile. */}
-          <div className="cid-railroom">
+          {/* Rail + hero, side by side: the hero (the team case) reads too
+              large on its own at full page width, so pairing it with the
+              rail's 300px column brings it down to a page-appropriate scale
+              and puts that width to use instead of leaving it empty above. */}
+          <div className="cid-railhero">
             <aside className="cid-viv-rail" aria-label="Radical Strategic Intelligence">
               <div className="cid-viv-brand">
                 <h2 className="cid-viv-title">
@@ -906,23 +906,29 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               </div>
             </aside>
 
-            {/* The Viv itself: the always-on AI mini-PC that houses the
-                facility, on show in its own display room. Self-contained
-                WebGL scene, so it rides in an iframe like the other embeds. */}
-            <div className="cid-vivroom">
-              <iframe
-                className="cid-vivroom-frame"
-                src={`${base}DISPLAY_ROOM_BLUE_checker_cm.html?v=1`}
-                title="The Viv display room: the always-on AI mini-PC that houses the CID Vivarium"
-                loading="lazy"
-              />
-            </div>
+            {/* Vivarium team display case: the three researchers set in one
+                glass case, the human PI centred between the two AI agents.
+                This is the "three images with Greg in the middle" slot from
+                the approved Vivarium copy. */}
+            <TeamCase base={base} />
+          </div>
+
+          {/* The Viv itself: the always-on AI mini-PC that houses the
+              facility, on show in its own display room. Self-contained
+              WebGL scene, so it rides in an iframe like the other embeds. */}
+          <div className="cid-vivroom">
+            <iframe
+              className="cid-vivroom-frame"
+              src={`${base}DISPLAY_ROOM_BLUE_checker_cm.html?v=1`}
+              title="The Viv display room: the always-on AI mini-PC that houses the CID Vivarium"
+              loading="lazy"
+            />
           </div>
 
           {/* "1976 vs 2026" storage comparison: makes the case for why a
               device this small earns a display room. Sits directly below the
-              panel holding the room itself, so the claim and the object it is
-              about are read together before anything else interrupts. */}
+              room, so the claim and the object it is about are read together
+              before anything else interrupts. */}
           <div className="cid-viv-era">
             <div className="cid-viv-era-row cid-viv-era-then">
               <p className="cid-viv-era-label"><span className="y">1976</span><span className="tag">50 years ago</span></p>
@@ -933,12 +939,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               <p className="cid-viv-era-copy">Now you can palm it. Weighing in at under one kilogram, CID contains a cutting-edge research facility.</p>
             </div>
           </div>
-
-          {/* Vivarium team display case: the three researchers set in one glass
-              case, the human PI centred between the two AI agents. This is the
-              "three images with Greg in the middle" slot from the approved
-              Vivarium copy. */}
-          <TeamCase base={base} />
 
           {/* Architectural Design and Beneficial Biomimicry, each illustrated
               with its own photo: the Ooo meeting room for Architectural
