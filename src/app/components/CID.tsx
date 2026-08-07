@@ -774,16 +774,16 @@ function IcarusName() {
   );
 }
 
-/** The Vivarium team environment: the research facility itself, rendered as a
- *  background rather than a picture on the page, so browsers offer no image
- *  zoom, visual search or save affordance to get stuck in. The three
- *  nameplates stand on the floor in front of the case. */
-type CaseBay = { key: string; cls: string; left: string; role: ReactNode; name: ReactNode; sub?: string; orb?: string; title?: string };
+/** The Vivarium team: the research facility's glass case (a background, not
+ *  a picture, so browsers offer no image zoom, visual search or save
+ *  affordance to get stuck in) and the three researchers' nametags, which
+ *  stand apart from it as their own cards rather than overlaid on the art. */
+type CaseBay = { key: string; cls: string; role: ReactNode; name: ReactNode; sub?: string; orb?: string; title?: string };
 
 const CASE_BAYS: CaseBay[] = [
-  { key: "ethel", cls: "cid-plate--ethel", left: "24%", role: "Ethical Analyst", name: "Ethel" },
-  { key: "greg", cls: "cid-plate--greg", left: "52%", role: <>Principal<br />Investigator</>, orb: "PI", title: "CID Director", name: "Greg Long" },
-  { key: "icarus", cls: "cid-plate--icarus", left: "76%", role: "Executive Trader", name: <IcarusName /> },
+  { key: "ethel", cls: "cid-tag--ethel", role: "Ethical Analyst", name: "Ethel" },
+  { key: "greg", cls: "cid-tag--greg", role: <>Principal<br />Investigator</>, orb: "PI", title: "CID Director", name: "Greg Long" },
+  { key: "icarus", cls: "cid-tag--icarus", role: "Executive Trader", name: <IcarusName /> },
 ];
 
 function TeamCase({ base }: { base: string }) {
@@ -798,28 +798,31 @@ function TeamCase({ base }: { base: string }) {
           backgroundImage: `image-set(url("${img(2560)}") 1x, url("${img(3840)}") 2x)`,
         }}
       />
-      <div className="cid-case-plates">
-        {CASE_BAYS.map((b) => (
-          <div className={`cid-plate ${b.cls}`} key={b.key} style={{ left: b.left }}>
-            <div className="cid-plate-card">
-              <span className="cid-plate-rail" aria-hidden="true" />
-              <span className="cid-plate-body">
-                {b.orb ? (
-                  <span className="cid-plate-head">
-                    <span className="cid-plate-orb" aria-hidden="true">{b.orb}</span>
-                    <span className="cid-plate-role">{b.role}</span>
-                  </span>
-                ) : (
-                  <span className="cid-plate-role">{b.role}</span>
-                )}
-                {b.title && <span className="cid-plate-title">{b.title}</span>}
-                <span className="cid-plate-name">{b.name}</span>
-                {b.sub && <span className="cid-plate-sub">{b.sub}</span>}
+    </div>
+  );
+}
+
+function TeamTags() {
+  return (
+    <div className="cid-viv-tags">
+      {CASE_BAYS.map((b) => (
+        <div className={`cid-tag ${b.cls}`} key={b.key}>
+          <span className="cid-tag-rail" aria-hidden="true" />
+          <span className="cid-tag-body">
+            {b.orb ? (
+              <span className="cid-tag-head">
+                <span className="cid-tag-orb" aria-hidden="true">{b.orb}</span>
+                <span className="cid-tag-role">{b.role}</span>
               </span>
-            </div>
-          </div>
-        ))}
-      </div>
+            ) : (
+              <span className="cid-tag-role">{b.role}</span>
+            )}
+            {b.title && <span className="cid-tag-title">{b.title}</span>}
+            <span className="cid-tag-name">{b.name}</span>
+            {b.sub && <span className="cid-tag-sub">{b.sub}</span>}
+          </span>
+        </div>
+      ))}
     </div>
   );
 }
@@ -886,10 +889,17 @@ export function CID({ onSupport }: { onSupport: () => void }) {
       <section className="cid-viv" aria-label="CID Vivarium">
         <div className="container cid-hero-container cid-viv-stack">
           {/* CID intro sits directly under the page title, so it carries no
-              heading of its own. Then the Vivarium. */}
-          <p className="cid-viv-intro">
-            The <strong>Canadian Innovation Dimension (CID)</strong> is an experimental research environment operated by artificial intelligence (AI) agents inside an always-on AI mini-PC.
-          </p>
+              heading of its own. Then the Vivarium. The three researchers'
+              nametags used to sit overlaid on the case art below; moved up
+              beside the intro instead, which both gets them off the image
+              (they were fighting the art, not reading as labels on it) and
+              fills the empty column this text used to leave beside it. */}
+          <div className="cid-viv-intro-row">
+            <p className="cid-viv-intro">
+              The <strong>Canadian Innovation Dimension (CID)</strong> is an experimental research environment operated by artificial intelligence (AI) agents inside an always-on AI mini-PC.
+            </p>
+            <TeamTags />
+          </div>
 
           <div>
             <h2 className="cid-viv-h">CID Vivarium</h2>
