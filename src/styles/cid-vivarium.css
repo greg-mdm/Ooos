@@ -114,9 +114,17 @@
    cover-fits, cropping the sides rather than the top/bottom floor and glow
    the source art was cropped tight around. ---- */
 .cid-scope .cid-case-wrap { position: relative; margin: 0; height: 100%; }
+/* contain, not cover: the box takes its height from the rail beside it, so
+   its aspect varies with viewport width (2.12 wide, 1.60 at 1024) while the
+   art's is fixed at 2.78. cover met that mismatch by cropping the sides,
+   which cut into the glass case itself. contain never crops at any width.
+   The art carries a baked fade to this exact background colour at its top
+   and bottom edges, so wherever it letterboxes it blends instead of cutting
+   a hard line: a CSS gradient could not do that job, since the letterbox
+   edge moves with the box and a gradient can only anchor to the box. */
 .cid-scope .cid-case {
   display: block; width: 100%; height: 100%; border-radius: 16px;
-  background-color: #04030e; background-size: cover; background-position: center;
+  background-color: #04030e; background-size: contain; background-position: center;
   background-repeat: no-repeat;
   box-shadow: 0 22px 50px -26px rgba(6,2,28,.7);
   user-select: none;
