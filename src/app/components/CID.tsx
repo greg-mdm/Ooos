@@ -941,31 +941,44 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             <TeamCase base={base} />
           </div>
 
-          {/* The Viv itself: the always-on AI mini-PC that houses the
-              facility, on show in its own display room. Self-contained
-              WebGL scene, so it rides in an iframe like the other embeds. */}
-          <div className="cid-vivroom">
-            <iframe
-              ref={roomRef}
-              className="cid-vivroom-frame"
-              src={`${base}DISPLAY_ROOM_BLUE_checker_cm.html?v=2`}
-              title="The Viv display room: the always-on AI mini-PC that houses the CID Vivarium"
-              loading="lazy"
-            />
-          </div>
+          {/* Sealed case. The room and the claim it evidences are one
+              enclosure rather than two blocks sitting loose on the page:
+              vanta-black steel shell, mitred titanium corner blocks, and a
+              single mullion between the two compartments. */}
+          <div className="cid-vault">
+            <span className="cid-vault-corner cid-vault-corner--tl" aria-hidden="true" />
+            <span className="cid-vault-corner cid-vault-corner--tr" aria-hidden="true" />
+            <span className="cid-vault-corner cid-vault-corner--bl" aria-hidden="true" />
+            <span className="cid-vault-corner cid-vault-corner--br" aria-hidden="true" />
 
-          {/* "1976 vs 2026" storage comparison: makes the case for why a
-              device this small earns a display room. Sits directly below the
-              room, so the claim and the object it is about are read together
-              before anything else interrupts. */}
-          <div className="cid-viv-era">
-            <div className="cid-viv-era-row cid-viv-era-then">
-              <p className="cid-viv-era-label"><span className="y">1976</span><span className="tag">50 years ago</span></p>
-              <p className="cid-viv-era-copy">Storing two terabytes of data required 3,150 disk drives. That digital infrastructure could fill a machine-room floor nearly the size of a Canadian football field (ours is bigger.)</p>
+            {/* The Viv itself: the always-on AI mini-PC that houses the
+                facility, on show in its own display room. Self-contained
+                WebGL scene, so it rides in an iframe like the other embeds. */}
+            <div className="cid-vivroom">
+              <iframe
+                ref={roomRef}
+                className="cid-vivroom-frame"
+                src={`${base}DISPLAY_ROOM_BLUE_checker_cm.html?v=2`}
+                title="The Viv display room: the always-on AI mini-PC that houses the CID Vivarium"
+                loading="lazy"
+              />
             </div>
-            <div className="cid-viv-era-row cid-viv-era-now">
-              <p className="cid-viv-era-label"><span className="y">2026</span><span className="tag">Today</span></p>
-              <p className="cid-viv-era-copy">Now you can palm it. Weighing in at under one kilogram, CID contains a cutting-edge research facility.</p>
+
+            <div className="cid-vault-mullion" aria-hidden="true" />
+
+            {/* "1976 vs 2026" storage comparison: makes the case for why a
+                device this small earns a display room. Sealed into the same
+                case as the room, so the claim and the object it is about are
+                read as one piece. */}
+            <div className="cid-viv-era">
+              <div className="cid-viv-era-row cid-viv-era-then">
+                <p className="cid-viv-era-label"><span className="y">1976</span><span className="tag">50 years ago</span></p>
+                <p className="cid-viv-era-copy">Storing two terabytes of data required 3,150 disk drives. That digital infrastructure could fill a machine-room floor nearly the size of a Canadian football field (ours is bigger.)</p>
+              </div>
+              <div className="cid-viv-era-row cid-viv-era-now">
+                <p className="cid-viv-era-label"><span className="y">2026</span><span className="tag">Today</span></p>
+                <p className="cid-viv-era-copy">Now you can palm it. Weighing in at under one kilogram, CID contains a cutting-edge research facility.</p>
+              </div>
             </div>
           </div>
 

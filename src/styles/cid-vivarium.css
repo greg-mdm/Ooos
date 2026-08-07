@@ -91,12 +91,79 @@
 }
 .cid-scope .cid-viv-pillar .desc { margin: 3px 0 0; font-size: 13px; line-height: 1.4; color: #b7b3d6; }
 
+/* ---- Sealed case: the room and the 1976/2026 claim it evidences share one
+   enclosure instead of sitting loose on the page background. Vanta-black
+   steel shell, mitred titanium corner blocks, one mullion between the two
+   compartments. Accents carry the definition and nothing else does:
+   petrol blue #0E3A56 for mid-depth and the shadow side, paua teal #0E6E73
+   confined to edges, mullions and reflections, electric nacre #6FC3F9 as
+   sparse specular only. Material, light and geometry, no ornament. ---- */
+.cid-scope .cid-vault {
+  --vault-petrol: 14, 58, 86;
+  --vault-teal: 14, 110, 115;
+  --vault-nacre: 111, 195, 249;
+  position: relative; isolation: isolate;
+  padding: clamp(13px,1.5vw,20px);
+  border-radius: 18px;
+  background:
+    /* shadow side: light falls from above, so depth gathers at the foot */
+    linear-gradient(172deg, rgba(var(--vault-petrol),.20) 0%, transparent 34%, transparent 62%, rgba(var(--vault-petrol),.15) 100%),
+    /* vanta black body */
+    linear-gradient(180deg, #06070A 0%, #030305 52%, #04060A 100%);
+  border: 1px solid rgba(var(--vault-teal),.30);
+  box-shadow:
+    /* recessed light from above, the one bright rail on the case */
+    inset 0 1px 0 rgba(var(--vault-nacre),.16),
+    /* interior mid-depth */
+    inset 0 0 46px -14px rgba(var(--vault-petrol),.55),
+    inset 0 -1px 0 rgba(var(--vault-teal),.18),
+    0 34px 74px -38px rgba(0,0,0,.92);
+}
+/* Glossy: one narrow specular sweep across the shell, kept sparse. */
+.cid-scope .cid-vault::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(104deg, transparent 18%, rgba(var(--vault-nacre),.05) 33%, transparent 44%);
+}
+.cid-scope .cid-vault > * { position: relative; z-index: 1; }
+
+/* Mitred titanium corner blocks. Sharp, structural, and the only place the
+   shell reads as machined metal. */
+.cid-scope .cid-vault-corner {
+  position: absolute; z-index: 2; width: 34px; height: 34px; pointer-events: none;
+  /* bright specular at the machined outer edge falling into brushed
+     titanium. The dark end stays well above the shell's value, or the
+     bracket disappears into it and only the specular sliver reads. */
+  background: linear-gradient(135deg, #93A0AD 0%, #55616D 16%, #333C46 52%, #212932 100%);
+  clip-path: polygon(0 0, 34px 0, 26px 8px, 8px 8px, 8px 26px, 0 34px);
+  box-shadow: 0 0 12px -2px rgba(var(--vault-nacre),.3);
+}
+.cid-scope .cid-vault-corner--tl { top: -1px; left: -1px; border-top-left-radius: 18px; }
+.cid-scope .cid-vault-corner--tr { top: -1px; right: -1px; transform: scaleX(-1); border-top-left-radius: 18px; }
+.cid-scope .cid-vault-corner--bl { bottom: -1px; left: -1px; transform: scaleY(-1); border-top-left-radius: 18px; }
+.cid-scope .cid-vault-corner--br { bottom: -1px; right: -1px; transform: scale(-1,-1); border-top-left-radius: 18px; }
+@media (max-width: 700px) {
+  .cid-scope .cid-vault-corner { width: 24px; height: 24px; clip-path: polygon(0 0, 24px 0, 18px 6px, 6px 6px, 6px 18px, 0 24px); }
+}
+
+/* The one structural line inside the case, dividing the two compartments. */
+.cid-scope .cid-vault-mullion {
+  height: 1px; margin: clamp(12px,1.4vw,18px) clamp(2px,.6vw,8px);
+  background: linear-gradient(90deg,
+    transparent 0%, rgba(var(--vault-teal),.5) 14%,
+    rgba(var(--vault-nacre),.32) 50%,
+    rgba(var(--vault-teal),.5) 86%, transparent 100%);
+}
+
 /* The room: a self-contained WebGL scene riding in an iframe, only loading
-   once it scrolls into view. Standalone full-width block, its own card. */
+   once it scrolls into view. Inside the case it is an aperture, not a card,
+   so it drops its own drop shadow for a teal-lipped recess. */
 .cid-scope .cid-vivroom {
-  margin: 0; border-radius: 16px; overflow: hidden;
+  margin: 0; border-radius: 10px; overflow: hidden;
   background: #06021A; line-height: 0;
-  box-shadow: 0 22px 50px -26px rgba(6,2,28,.7);
+  box-shadow:
+    inset 0 0 0 1px rgba(var(--vault-teal),.34),
+    0 12px 30px -20px rgba(0,0,0,.9);
 }
 .cid-scope .cid-vivroom-frame {
   display: block; width: 100%; aspect-ratio: 16 / 9; border: 0;
@@ -222,30 +289,28 @@
   box-shadow: inset 0 0 0 1.5px rgba(240,192,64,.85), 4px 5px 0 var(--tag-shadow), 0 16px 28px -10px rgba(6,2,28,.5);
 }
 
-/* ---- "1976 vs 2026" storage comparison: detached from the room (which now
-   pairs with the rail instead), standing on its own as a full-width band
-   that makes the case for why a device this small earns a display room.
-   Side by side on desktop, stacked on mobile.
+/* ---- "1976 vs 2026" storage comparison: the lower compartment of the
+   sealed case, making the argument for why a device this small earns a
+   display room. Side by side on desktop, stacked on mobile.
 
    Dark field, not white: Chrome Silver, Bright Silver and Gold are all
    light/mid-tone brand colours built for reading on a dark ground (Bright
    Silver in particular is the design system's high-accessibility text
-   colour) — on white they were the "grey on white" a design review flagged
-   as low-contrast. The same near-black already anchors the room and the
-   case right above this, so the band reads as continuous with them rather
-   than a return to a white card. 1976 in the design system's archival
-   greys (Bright Silver for the year, Chrome Silver dimmer for the eyebrow);
-   2026 in Gold throughout. Body copy stays one shared light neutral so the
-   two accent colours carry the "then vs now" contrast, not the paragraphs. ---- */
+   colour). On white they were the "grey on white" a design review flagged
+   as low-contrast. 1976 in the design system's archival greys (Bright
+   Silver for the year, Chrome Silver dimmer for the eyebrow); 2026 in Gold
+   throughout. Body copy stays one shared light neutral so the two accent
+   colours carry the "then vs now" contrast, not the paragraphs. ---- */
+/* Sealed into the case, so no card of its own: the shell is already the
+   dark ground, and the mullion above already divides the compartments. */
 .cid-scope .cid-viv-era {
   display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px,3.2vw,48px);
-  padding: clamp(22px,2.6vw,32px) clamp(24px,2.8vw,36px);
-  border-radius: 16px; background: #06021A; border: 1px solid rgba(154,92,240,.28);
-  box-shadow: 0 22px 50px -32px rgba(6,2,28,.6);
+  padding: clamp(16px,1.8vw,22px) clamp(10px,1.4vw,20px) clamp(10px,1.2vw,14px);
 }
 .cid-scope .cid-viv-era-row { display: flex; flex-direction: column; gap: 7px; }
 .cid-scope .cid-viv-era-then {
-  padding-right: clamp(24px,3.2vw,48px); border-right: 1px solid rgba(255,255,255,.14);
+  padding-right: clamp(24px,3.2vw,48px);
+  border-right: 1px solid rgba(var(--vault-teal),.34);
 }
 .cid-scope .cid-viv-era-label { display: flex; align-items: baseline; gap: 10px; margin: 0; }
 .cid-scope .cid-viv-era-label .y {
@@ -266,7 +331,7 @@
   .cid-scope .cid-viv-era { grid-template-columns: 1fr; gap: 20px; }
   .cid-scope .cid-viv-era-then {
     padding-right: 0; padding-bottom: 20px; border-right: 0;
-    border-bottom: 1px solid rgba(255,255,255,.14);
+    border-bottom: 1px solid rgba(var(--vault-teal),.34);
   }
 }
 
