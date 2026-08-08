@@ -982,14 +982,18 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 read as one piece. */}
             <div className="cid-viv-era">
               <div className="cid-viv-era-row cid-viv-era-then">
-                <p className="cid-viv-era-label"><span className="y">1976</span><span className="tag">50 years ago</span></p>
-                <p className="cid-viv-era-stat">~3,150 DISKS</p>
+                <div className="cid-viv-era-headline">
+                  <p className="cid-viv-era-label"><span className="y">1976</span><span className="tag">50 years ago</span></p>
+                  <p className="cid-viv-era-stat">~3,150 DISKS</p>
+                </div>
                 <p className="cid-viv-era-copy">Storing two terabytes of data required ~3,150 disk drives. That much information technology (IT) could fill a machine-room floor nearly the size of a Canadian football field. <span className="cid-viv-era-aside">*Ours is bigger.</span></p>
               </div>
               <div className="cid-viv-era-row cid-viv-era-now">
-                <p className="cid-viv-era-label"><span className="y">2026</span><span className="tag">Today</span></p>
-                <p className="cid-viv-era-stat">&lt; 1KG</p>
-                <p className="cid-viv-era-copy">Now you can palm it. Weighing less than one kilogram, CID contains a cutting-edge research facility.</p>
+                <div className="cid-viv-era-headline">
+                  <p className="cid-viv-era-label"><span className="y">2026</span><span className="tag">Today</span></p>
+                  <p className="cid-viv-era-stat">&lt; 1KG</p>
+                </div>
+                <p className="cid-viv-era-copy">Now you can palm it.<br />Weighing less than one kilogram,<br />CID contains a cutting-edge research facility.</p>
               </div>
             </div>
           </div>
