@@ -941,13 +941,14 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             <TeamCase base={base} />
           </div>
 
-          {/* Information Ecosystem: pays off the intro tagline's "protected
-              by a key only you hold" by naming what that key is, before the
-              sealed case makes the physical argument for it. */}
+          {/* Information Ecosystem: pays off the tagline's "single key" claim
+              by naming what that key is, before the sealed case makes the
+              physical argument for it. Sole possession, not a customer pitch:
+              the Flicker is Ooo's own key, held by its own operator alone. */}
           <div className="cid-viv-ecosystem">
             <h3 className="cid-viv-ecosystem-h">Information Ecosystem</h3>
             <p className="cid-viv-ecosystem-copy">On-premises by design. Every observation the Vivarium makes is recorded, stored, and processed on hardware inside the facility: digital sovereignty, in practice.</p>
-            <p className="cid-viv-ecosystem-copy">That sovereignty travels too. The Flicker is Ooo's own storage key: a single physical key, held independently, carrying the Vivarium's research archive wherever it goes.</p>
+            <p className="cid-viv-ecosystem-copy">That sovereignty travels too. The Flicker is Ooo's own storage key, held solely by its operator, carrying the Vivarium's research archive wherever it goes.</p>
           </div>
 
           {/* Sealed case. The room and the claim it evidences are one
