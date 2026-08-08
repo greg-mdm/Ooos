@@ -19,6 +19,20 @@
 }
 .cid-scope .cid-viv-intro strong { color: #822F00; font-weight: 800; }
 
+/* Tagline: the headline claim above the CID description, its "protected by
+   a key only you hold" clause paid off later by the Information Ecosystem
+   block naming that key. Eyebrow: the small label sitting over the H2,
+   matching the site's other eyebrow labels (uppercase, wide tracking). */
+.cid-scope .cid-viv-tagline {
+  margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 700;
+  font-size: clamp(17px,1.9vw,22px); line-height: 1.42; color: #1a1646; max-width: 62ch;
+}
+.cid-scope .cid-viv-tagline-accent { color: #4B00B6; font-weight: 800; }
+.cid-scope .cid-viv-eyebrow {
+  margin: 0 0 8px; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: 12.5px; letter-spacing: .22em; text-transform: uppercase; color: #4B00B6;
+}
+
 /* ---- Intro row: the intro paragraph beside the three researchers' plain
    nametags, using the width the text alone used to leave empty. Stacks on
    narrow screens. ---- */
@@ -90,6 +104,17 @@
   letter-spacing: 1.4px; font-size: 16px; color: #fff; text-transform: uppercase;
 }
 .cid-scope .cid-viv-pillar .desc { margin: 3px 0 0; font-size: 13px; line-height: 1.4; color: #b7b3d6; }
+
+/* ---- Information Ecosystem: pays off the tagline's "protected by a key
+   only you hold" by naming what that key is, before the sealed case makes
+   the physical argument for it. Plain on the page canvas, between the
+   rail/hero pairing and the vault. ---- */
+.cid-scope .cid-viv-ecosystem { display: flex; flex-direction: column; gap: 10px; max-width: 68ch; }
+.cid-scope .cid-viv-ecosystem-h {
+  margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: clamp(19px,2vw,23px); letter-spacing: -.2px; color: #4B00B6;
+}
+.cid-scope .cid-viv-ecosystem-copy { margin: 0; font-size: clamp(15px,1.5vw,17px); line-height: 1.6; color: #33384a; }
 
 /* ---- Sealed case: the room and the 1976/2026 claim it evidences share one
    enclosure instead of sitting loose on the page background. Vanta-black
@@ -340,6 +365,16 @@
 .cid-scope .cid-viv-era-then .tag { color: #D8DBDE; }
 .cid-scope .cid-viv-era-now .y { color: #F0C040; }
 .cid-scope .cid-viv-era-now .tag { color: #F0C040; }
+/* Stat callout: the headline figure pulled out of the paragraph below it,
+   format-matched between sides (count + unit) rather than one side reading
+   as a number and the other as a comparison. Same two accent colours as the
+   labels above it, never the vault's teal (reserved for edges/mullions). */
+.cid-scope .cid-viv-era-stat {
+  margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: clamp(13.5px,1.5vw,16px); letter-spacing: .05em; font-variant-numeric: tabular-nums;
+}
+.cid-scope .cid-viv-era-then .cid-viv-era-stat { color: #E8ECF4; }
+.cid-scope .cid-viv-era-now .cid-viv-era-stat { color: #F0C040; }
 .cid-scope .cid-viv-era-copy { margin: 0; font-size: 15px; line-height: 1.6; color: #C9CFE0; }
 /* The footnote lands after the full stop, so it reads as an aside rather
    than swallowing the end of the sentence in brackets. */

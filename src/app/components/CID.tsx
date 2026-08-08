@@ -897,12 +897,16 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               fills the empty column this text used to leave beside it. */}
           <div className="cid-viv-intro-row">
             <div className="cid-viv-intro-col">
+              <p className="cid-viv-tagline">
+                An avant-garde research project has evolved into a living habitat and a sovereign information ecosystem. <span className="cid-viv-tagline-accent">Protected by a key only you hold.</span>
+              </p>
               <p className="cid-viv-intro">
                 The <strong>Canadian Innovation Dimension (CID)</strong> is an experimental research environment operated by artificial intelligence (AI) agents inside an always-on AI mini-PC.
               </p>
               <div>
+                <p className="cid-viv-eyebrow">[Welcome to the Vivarium]</p>
                 <h2 className="cid-viv-h">CID Vivarium</h2>
-                <p className="cid-viv-lead">An avant-garde research facility inside an always-on AI mini-PC. Artificial intelligence (AI) agents operate the facility under the guidance of a human principal investigator.</p>
+                <p className="cid-viv-lead">Artificial intelligence (AI) agents operate our facility under the guidance of a human principal investigator.</p>
               </div>
             </div>
             <TeamTags />
@@ -941,6 +945,15 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             <TeamCase base={base} />
           </div>
 
+          {/* Information Ecosystem: pays off the intro tagline's "protected
+              by a key only you hold" by naming what that key is, before the
+              sealed case makes the physical argument for it. */}
+          <div className="cid-viv-ecosystem">
+            <h3 className="cid-viv-ecosystem-h">Information Ecosystem</h3>
+            <p className="cid-viv-ecosystem-copy">On-premises by design. Every observation the Vivarium makes is recorded, stored, and processed on hardware inside the facility: digital sovereignty, in practice.</p>
+            <p className="cid-viv-ecosystem-copy">That sovereignty travels too. The Flicker, Ooo's own storage key, carries a private research archive in the hand of whoever holds it: your own data, on a key only you hold.</p>
+          </div>
+
           {/* Sealed case. The room and the claim it evidences are one
               enclosure rather than two blocks sitting loose on the page:
               vanta-black steel shell, mitred titanium corner blocks, and a
@@ -973,11 +986,13 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             <div className="cid-viv-era">
               <div className="cid-viv-era-row cid-viv-era-then">
                 <p className="cid-viv-era-label"><span className="y">1976</span><span className="tag">50 years ago</span></p>
-                <p className="cid-viv-era-copy">Storing two terabytes of data required 3,150 disk drives. That digital infrastructure could fill a machine-room floor nearly the size of a Canadian football field. <span className="cid-viv-era-aside">*Ours is bigger.</span></p>
+                <p className="cid-viv-era-stat">~3,150 DISKS</p>
+                <p className="cid-viv-era-copy">Storing two terabytes of data required ~3,150 disk drives. That much information technology (IT) could fill a machine-room floor nearly the size of a Canadian football field. <span className="cid-viv-era-aside">*Ours is bigger.</span></p>
               </div>
               <div className="cid-viv-era-row cid-viv-era-now">
                 <p className="cid-viv-era-label"><span className="y">2026</span><span className="tag">Today</span></p>
-                <p className="cid-viv-era-copy">Now you can palm it. Weighing in at under one kilogram, CID contains a cutting-edge research facility.</p>
+                <p className="cid-viv-era-stat">&lt; 1KG</p>
+                <p className="cid-viv-era-copy">Now you can palm it. Weighing less than one kilogram, CID contains a cutting-edge research facility.</p>
               </div>
             </div>
           </div>
