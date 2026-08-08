@@ -15,14 +15,16 @@
 }
 .cid-scope .cid-viv-intro strong { color: #822F00; font-weight: 800; }
 
-/* Tagline: the headline claim above the CID description, its "protected by
-   a key only you hold" clause paid off later by the Information Ecosystem
-   block naming that key. */
+/* Eyebrow + tagline: the small bracketed label and the headline claim it
+   introduces, sitting between the CID description and the lead. */
+.cid-scope .cid-viv-eyebrow {
+  margin: 0 0 8px; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: 12.5px; letter-spacing: .22em; text-transform: uppercase; color: #4B00B6;
+}
 .cid-scope .cid-viv-tagline {
   margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 700;
   font-size: clamp(17px,1.9vw,22px); line-height: 1.42; color: #1a1646; max-width: 62ch;
 }
-.cid-scope .cid-viv-tagline-accent { color: #4B00B6; font-weight: 800; }
 
 /* ---- Intro row: the intro paragraph beside the three researchers' plain
    nametags, using the width the text alone used to leave empty. Stacks on

@@ -897,13 +897,14 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               fills the empty column this text used to leave beside it. */}
           <div className="cid-viv-intro-row">
             <div className="cid-viv-intro-col">
-              <p className="cid-viv-tagline">
-                An avant-garde research project has advanced into a sovereign information ecosystem. <span className="cid-viv-tagline-accent">A one-of-a-kind facility, independently owned and operated under a single key.</span>
-              </p>
               <p className="cid-viv-intro">
                 The <strong>Canadian Innovation Dimension (CID)</strong> is an experimental research environment operated by artificial intelligence (AI) agents inside an always-on AI mini-PC.
               </p>
-              <p className="cid-viv-lead">A living habitat, where artificial intelligence (AI) agents operate under the guidance of a human principal investigator.</p>
+              <div>
+                <p className="cid-viv-eyebrow">[Welcome to the Vivarium]</p>
+                <p className="cid-viv-tagline">An avant-garde research project has advanced into a sovereign information ecosystem.</p>
+              </div>
+              <p className="cid-viv-lead">Artificial intelligence (AI) agents operate our facility under the guidance of a human principal investigator. CID sustains a one-of-a-kind habitat, fully on premises.</p>
             </div>
             <TeamTags />
           </div>
