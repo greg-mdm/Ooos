@@ -781,7 +781,7 @@ function IcarusName() {
 type CaseBay = { key: string; cls: string; role: ReactNode; name: ReactNode; sub?: string; orb?: string; title?: string };
 
 const CASE_BAYS: CaseBay[] = [
-  { key: "greg", cls: "cid-tag--greg", role: <>Principal<br />Investigator</>, orb: "PI", title: "CID Director", name: "Greg Long" },
+  { key: "greg", cls: "cid-tag--greg", role: <>Principal<br />Investigator</>, orb: "PI", title: "CID Director", name: <>Greg<br />Long</> },
   { key: "ethel", cls: "cid-tag--ethel", role: <>Ethical<br />Analyst</>, name: "Ethel" },
   { key: "icarus", cls: "cid-tag--icarus", role: <>Executive<br />Trader</>, name: <IcarusName /> },
 ];
@@ -898,16 +898,12 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           <div className="cid-viv-intro-row">
             <div className="cid-viv-intro-col">
               <p className="cid-viv-tagline">
-                An avant-garde research project has evolved into a living habitat and a sovereign information ecosystem. <span className="cid-viv-tagline-accent">Protected by a key only you hold.</span>
+                An avant-garde research project has advanced into a sovereign information ecosystem. <span className="cid-viv-tagline-accent">A one-of-a-kind facility, independently owned and operated under a single key.</span>
               </p>
               <p className="cid-viv-intro">
                 The <strong>Canadian Innovation Dimension (CID)</strong> is an experimental research environment operated by artificial intelligence (AI) agents inside an always-on AI mini-PC.
               </p>
-              <div>
-                <p className="cid-viv-eyebrow">[Welcome to the Vivarium]</p>
-                <h2 className="cid-viv-h">CID Vivarium</h2>
-                <p className="cid-viv-lead">Artificial intelligence (AI) agents operate our facility under the guidance of a human principal investigator.</p>
-              </div>
+              <p className="cid-viv-lead">A living habitat, where artificial intelligence (AI) agents operate under the guidance of a human principal investigator.</p>
             </div>
             <TeamTags />
           </div>
@@ -951,7 +947,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           <div className="cid-viv-ecosystem">
             <h3 className="cid-viv-ecosystem-h">Information Ecosystem</h3>
             <p className="cid-viv-ecosystem-copy">On-premises by design. Every observation the Vivarium makes is recorded, stored, and processed on hardware inside the facility: digital sovereignty, in practice.</p>
-            <p className="cid-viv-ecosystem-copy">That sovereignty travels too. The Flicker, Ooo's own storage key, carries a private research archive in the hand of whoever holds it: your own data, on a key only you hold.</p>
+            <p className="cid-viv-ecosystem-copy">That sovereignty travels too. The Flicker is Ooo's own storage key: a single physical key, held independently, carrying the Vivarium's research archive wherever it goes.</p>
           </div>
 
           {/* Sealed case. The room and the claim it evidences are one

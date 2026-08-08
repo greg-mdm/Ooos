@@ -7,10 +7,6 @@
 .cid-scope .cid-viv { background: #F0F4F5; padding: clamp(30px,5vh,56px) 0 clamp(34px,6vh,64px); }
 .cid-scope .cid-viv-stack { display: flex; flex-direction: column; gap: clamp(22px,3.4vh,34px); }
 
-.cid-scope .cid-viv-h {
-  margin: 2px 0 6px; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
-  font-size: clamp(26px,3vw,36px); letter-spacing: -.5px; color: #1a1646;
-}
 .cid-scope .cid-viv-lead { margin: 0; font-size: clamp(15px,1.5vw,18px); line-height: 1.55; color: #33384a; max-width: 64ch; }
 .cid-scope .cid-viv-lead strong { color: #5B04DE; }
 .cid-scope .cid-viv-intro {
@@ -21,17 +17,12 @@
 
 /* Tagline: the headline claim above the CID description, its "protected by
    a key only you hold" clause paid off later by the Information Ecosystem
-   block naming that key. Eyebrow: the small label sitting over the H2,
-   matching the site's other eyebrow labels (uppercase, wide tracking). */
+   block naming that key. */
 .cid-scope .cid-viv-tagline {
   margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 700;
   font-size: clamp(17px,1.9vw,22px); line-height: 1.42; color: #1a1646; max-width: 62ch;
 }
 .cid-scope .cid-viv-tagline-accent { color: #4B00B6; font-weight: 800; }
-.cid-scope .cid-viv-eyebrow {
-  margin: 0 0 8px; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
-  font-size: 12.5px; letter-spacing: .22em; text-transform: uppercase; color: #4B00B6;
-}
 
 /* ---- Intro row: the intro paragraph beside the three researchers' plain
    nametags, using the width the text alone used to leave empty. Stacks on
@@ -249,6 +240,9 @@
   position: absolute; left: 8px; top: 14%; bottom: 14%; width: 4px;
   border-radius: 999px; background: var(--tag-rail); box-shadow: 0 0 10px var(--tag-shadow);
 }
+/* Greg's card reads full with the two-line name beside the orb; the rail is
+   dropped here only, kept on the other two. */
+.cid-scope .cid-tag--greg .cid-tag-rail { display: none; }
 /* Name and job title share the card as two columns of equal weight rather
    than stacking as a small label over a big name. The name is short, so it
    carries its side at a larger size in heading case; the title is longer,
@@ -293,18 +287,12 @@
     0 0 12px 2px rgba(124,24,231,.5),
     0 4px 7px -1px rgba(25,0,125,.5);
 }
-/* Greg's badge stacks above his name rather than beside it: inline, the orb
-   took enough of the column to wrap "Greg Long" onto two lines. Stacked, the
-   name keeps its line and the badge adds weight to the left, which his card
-   needs anyway against a three-line right column. */
-.cid-scope .cid-tag--greg .cid-tag-id { flex-direction: column; align-items: flex-start; gap: 5px; }
-/* "Greg Long" is two words where the others are one, so it sets at a smaller
-   size to hold a single line in the same column. The three names then occupy
-   roughly the same width, which is the balance being matched here, rather
-   than the same point size. 22px is the size that leaves even air either
-   side of it: measured, 27px from the card edge on the left and 26px to the
-   title column on the right. */
-.cid-scope .cid-tag--greg .cid-tag-name { font-size: 22px; }
+/* Greg's name splits across two stacked lines ("Greg" / "Long") instead of
+   shrinking to fit one, so the orb sits beside it at the same size and row
+   alignment as the other two cards rather than stacking above. */
+.cid-scope .cid-tag--greg .cid-tag-name {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 0; line-height: .98;
+}
 
 /* per-researcher accents, everything else identical */
 .cid-scope .cid-tag--ethel { --tag-rim: #4B00B6; --tag-rail: linear-gradient(180deg, #7C18E7, #4B00B6); --tag-shadow: rgba(75,0,182,.55); }
