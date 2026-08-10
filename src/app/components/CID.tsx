@@ -901,10 +901,19 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 The <strong>Canadian Innovation Dimension (CID)</strong> is an experimental research environment operated by artificial intelligence (AI) agents inside an always-on AI mini-PC.
               </p>
               <div>
-                <p className="cid-viv-eyebrow">[Welcome to the Vivarium]</p>
+                <img
+                  className="cid-viv-plate"
+                  src={`${base}assets/images/viv-plate-420.webp`}
+                  srcSet={`${base}assets/images/viv-plate-420.webp 1x, ${base}assets/images/viv-plate-840.webp 2x`}
+                  alt="Welcome to the Vivarium"
+                  width={420}
+                  height={156}
+                  loading="lazy"
+                  decoding="async"
+                />
                 <p className="cid-viv-tagline">An avant-garde research project has advanced into a sovereign information ecosystem.</p>
               </div>
-              <p className="cid-viv-lead">Artificial intelligence (AI) agents operate our facility under the guidance of a human principal investigator. CID sustains a one-of-a-kind habitat, fully on premises.</p>
+              <p className="cid-viv-lead">Artificial intelligence (AI) agents operate our facility under the guidance of a human principal investigator.</p>
             </div>
             <TeamTags />
           </div>

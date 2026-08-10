@@ -15,15 +15,18 @@
 }
 .cid-scope .cid-viv-intro strong { color: #822F00; font-weight: 800; }
 
-/* Eyebrow + tagline: the small bracketed label and the headline claim it
-   introduces, sitting between the CID description and the lead. */
-.cid-scope .cid-viv-eyebrow {
-  margin: 0 0 8px; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
-  font-size: 12.5px; letter-spacing: .22em; text-transform: uppercase; color: #4B00B6;
+/* The "Welcome to the Vivarium" chrome plate, replacing the text eyebrow that
+   used to introduce the tagline. Transparent WebP, so it sits straight on the
+   page canvas with no card behind it. */
+.cid-scope .cid-viv-plate {
+  display: block; width: clamp(230px, 30vw, 340px); height: auto;
+  margin: 0 0 12px;
 }
+/* Tagline set at the lead's size so the two sentences read as one voice; the
+   heavier weight is what carries the emphasis instead. */
 .cid-scope .cid-viv-tagline {
   margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 700;
-  font-size: clamp(17px,1.9vw,22px); line-height: 1.42; color: #1a1646; max-width: 62ch;
+  font-size: clamp(15px,1.5vw,18px); line-height: 1.55; color: #1a1646; max-width: 64ch;
 }
 
 /* ---- Intro row: the intro paragraph beside the three researchers' plain
