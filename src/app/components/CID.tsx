@@ -946,9 +946,8 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     ))}
                   </span>
                 </p>
-                <p className="cid-viv-tagline">An avant-garde research project has advanced into a sovereign information ecosystem.</p>
+                <p className="cid-viv-lead">An avant-garde research project has advanced into a sovereign information ecosystem. Artificial intelligence (AI) agents operate our facility under the guidance of a human principal investigator.</p>
               </div>
-              <p className="cid-viv-lead">Artificial intelligence (AI) agents operate our facility under the guidance of a human principal investigator.</p>
             </div>
             <TeamTags />
           </div>

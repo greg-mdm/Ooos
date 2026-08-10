@@ -30,12 +30,14 @@
 }
 .cid-scope .cid-viv-welcome-rain { color: #822F00; }
 .cid-scope .cid-viv-welcome-rain > span { display: inline-block; }
-/* Sized off the type, so the ball tracks the line at every breakpoint. Centred
-   rather than baseline-aligned: a circle sitting on the baseline reads as
-   floating high against cap-height letters. */
+/* Sized off the type, so the ball tracks the line at every breakpoint. Centring
+   it in the flex line lands it low, because the line box carries descender space
+   that these all-caps words never use: the type's optical centre is the middle
+   of the cap height, measured 0.13em above the line-box centre. Nudged up by
+   that amount with `top`, not a transform, which the roll animation owns. */
 .cid-scope .cid-viv-welcome-ball {
   align-self: center; display: block; width: auto; height: 1.34em;
-  margin: 0 .06em;
+  margin: 0 .06em; position: relative; top: -.13em;
 }
 
 /* The animations are attached up front but held paused, so their "both" fill
@@ -68,13 +70,6 @@
   .cid-scope .cid-viv-welcome-ball,
   .cid-scope .cid-viv-welcome-rain > span { animation: none; }
 }
-/* Tagline set at the lead's size so the two sentences read as one voice; the
-   heavier weight is what carries the emphasis instead. */
-.cid-scope .cid-viv-tagline {
-  margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 700;
-  font-size: clamp(15px,1.5vw,18px); line-height: 1.55; color: #1a1646; max-width: 64ch;
-}
-
 /* ---- Intro row: the intro paragraph beside the three researchers' plain
    nametags, using the width the text alone used to leave empty. Stacks on
    narrow screens. ---- */
