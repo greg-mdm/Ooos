@@ -15,12 +15,18 @@
 }
 .cid-scope .cid-viv-intro strong { color: #822F00; font-weight: 800; }
 
-/* The "Welcome to the Vivarium" chrome plate, replacing the text eyebrow that
-   used to introduce the tagline. Transparent WebP, so it sits straight on the
-   page canvas with no card behind it. */
-.cid-scope .cid-viv-plate {
-  display: block; width: clamp(230px, 30vw, 340px); height: auto;
-  margin: 0 0 12px;
+/* The animated "Welcome to the Vivarium" line. Its lettering is part white and
+   part dark red, so it needs a dark ground: on the page's robin's-egg canvas
+   the white words disappear entirely. Darkest indigo matches the 1976 label in
+   the sealed case further down the page. */
+.cid-scope .cid-viv-welcome {
+  display: block; width: fit-content; max-width: 100%;
+  margin: 0 0 14px; padding: 12px clamp(14px,2vw,22px);
+  border-radius: 10px; background: #0F031C;
+  box-shadow: inset 0 0 0 1px rgba(124,24,231,.28), 0 14px 30px -20px rgba(6,2,28,.7);
+}
+.cid-scope .cid-viv-welcome-art {
+  display: block; width: clamp(240px, 36vw, 400px); height: auto;
 }
 /* Tagline set at the lead's size so the two sentences read as one voice; the
    heavier weight is what carries the emphasis instead. */
