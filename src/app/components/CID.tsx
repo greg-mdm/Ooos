@@ -866,6 +866,25 @@ export function CID({ onSupport }: { onSupport: () => void }) {
     io.observe(el);
     return () => io.disconnect();
   }, []);
+
+  // The welcome line plays its entrance once, when it first scrolls into view,
+  // rather than on mount: it sits below the page hero, so on mount it is
+  // usually still off screen and the whole entrance would be missed.
+  const welcomeRef = useRef<HTMLParagraphElement>(null);
+  useEffect(() => {
+    const el = welcomeRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        el.classList.add("is-in");
+        io.disconnect();
+      },
+      { threshold: 0.4 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   return (
     <div className="cid-scope">
       <section className="case-hero">
@@ -901,21 +920,22 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 The <strong>Canadian Innovation Dimension (CID)</strong> is an experimental research environment operated by artificial intelligence (AI) agents inside an always-on AI mini-PC.
               </p>
               <div>
-                {/* The animated "Welcome to the Vivarium" line. The art is a
-                    transparent WebP whose lettering is part white, so it rides
-                    a dark band: on the page's light canvas the white words
-                    would not read at all. */}
-                <div className="cid-viv-welcome">
-                  <img
-                    className="cid-viv-welcome-art"
-                    src={`${base}assets/images/viv-welcome.webp`}
-                    alt="Welcome to the Vivarium"
-                    width={800}
-                    height={120}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
+                {/* Welcome line, set as live text rather than art. "Welcome"
+                    is already on the title line holding its space; "to" skates
+                    in from the left; "the Vivarium" rains down a letter at a
+                    time. Letters are split into spans so each can carry its own
+                    delay, with the whole phrase kept as one accessible name. */}
+                <p className="cid-viv-welcome" ref={welcomeRef} aria-label="Welcome to the Vivarium">
+                  <span className="cid-viv-welcome-hold" aria-hidden="true">Welcome</span>
+                  <span className="cid-viv-welcome-skate" aria-hidden="true">to</span>
+                  <span className="cid-viv-welcome-rain" aria-hidden="true">
+                    {Array.from("the Vivarium", (ch, i) => (
+                      <span key={i} style={{ "--i": i } as CSSProperties}>
+                        {ch === " " ? " " : ch}
+                      </span>
+                    ))}
+                  </span>
+                </p>
                 <p className="cid-viv-tagline">An avant-garde research project has advanced into a sovereign information ecosystem.</p>
               </div>
               <p className="cid-viv-lead">Artificial intelligence (AI) agents operate our facility under the guidance of a human principal investigator.</p>

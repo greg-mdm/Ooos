@@ -15,18 +15,50 @@
 }
 .cid-scope .cid-viv-intro strong { color: #822F00; font-weight: 800; }
 
-/* The animated "Welcome to the Vivarium" line. Its lettering is part white and
-   part dark red, so it needs a dark ground: on the page's robin's-egg canvas
-   the white words disappear entirely. Darkest indigo matches the 1976 label in
-   the sealed case further down the page. */
+/* "Welcome to the Vivarium" as live text, not art. Three entrances on one
+   title line: "Welcome" is already there holding the line, "to" skates in from
+   the left, and "the Vivarium" rains down a letter at a time. The line reserves
+   its full width from the start (the pieces animate on transform/opacity only),
+   so nothing below it shifts as the entrance plays. */
 .cid-scope .cid-viv-welcome {
-  display: block; width: fit-content; max-width: 100%;
-  margin: 0 0 14px; padding: 12px clamp(14px,2vw,22px);
-  border-radius: 10px; background: #0F031C;
-  box-shadow: inset 0 0 0 1px rgba(124,24,231,.28), 0 14px 30px -20px rgba(6,2,28,.7);
+  margin: 0 0 14px; display: flex; flex-wrap: wrap; align-items: baseline;
+  gap: 0 .34em;
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: clamp(19px,2.7vw,32px); line-height: 1.14;
+  letter-spacing: .01em; text-transform: uppercase; color: #1a1646;
 }
-.cid-scope .cid-viv-welcome-art {
-  display: block; width: clamp(240px, 36vw, 400px); height: auto;
+.cid-scope .cid-viv-welcome-skate { color: #4B00B6; }
+.cid-scope .cid-viv-welcome-rain { color: #822F00; }
+.cid-scope .cid-viv-welcome-rain > span { display: inline-block; }
+
+/* The animations are attached up front but held paused, so their "both" fill
+   holds the off-screen first frame instead of the text showing and then
+   snapping back to hidden when the observer fires. Intersecting starts them. */
+.cid-scope .cid-viv-welcome-skate {
+  animation: cid-viv-skate .42s cubic-bezier(.2,1.25,.4,1) .12s both paused;
+}
+.cid-scope .cid-viv-welcome-rain > span {
+  animation: cid-viv-rain .46s cubic-bezier(.22,.9,.28,1) both paused;
+  animation-delay: calc(.46s + var(--i) * .05s);
+}
+.cid-scope .cid-viv-welcome.is-in .cid-viv-welcome-skate,
+.cid-scope .cid-viv-welcome.is-in .cid-viv-welcome-rain > span {
+  animation-play-state: running;
+}
+@keyframes cid-viv-skate {
+  from { opacity: 0; transform: translateX(-1.5em); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes cid-viv-rain {
+  from { opacity: 0; transform: translateY(-.75em); }
+  60%  { opacity: 1; }
+  to   { opacity: 1; transform: translateY(0); }
+}
+/* Motion is decorative here: the finished line is the content, so reduced
+   motion simply gets the finished line. */
+@media (prefers-reduced-motion: reduce) {
+  .cid-scope .cid-viv-welcome-skate,
+  .cid-scope .cid-viv-welcome-rain > span { animation: none; }
 }
 /* Tagline set at the lead's size so the two sentences read as one voice; the
    heavier weight is what carries the emphasis instead. */
