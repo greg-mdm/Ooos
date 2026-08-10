@@ -15,11 +15,12 @@
 }
 .cid-scope .cid-viv-intro strong { color: #822F00; font-weight: 800; }
 
-/* "Welcome to the Vivarium" as live text, not art. Three entrances on one
-   title line: "Welcome" is already there holding the line, "to" skates in from
-   the left, and "the Vivarium" rains down a letter at a time. The line reserves
-   its full width from the start (the pieces animate on transform/opacity only),
-   so nothing below it shifts as the entrance plays. */
+/* "Welcome to the Vivarium" as live text, with the 2 ball standing in for the
+   word "to". Three entrances on one title line: "Welcome" is already there
+   holding the line, the ball rolls in from the left, and "the Vivarium" rains
+   down a letter at a time. The line reserves its full width from the start (the
+   pieces animate on transform/opacity only), so nothing below it shifts as the
+   entrance plays. */
 .cid-scope .cid-viv-welcome {
   margin: 0 0 14px; display: flex; flex-wrap: wrap; align-items: baseline;
   gap: 0 .34em;
@@ -27,27 +28,34 @@
   font-size: clamp(19px,2.7vw,32px); line-height: 1.14;
   letter-spacing: .01em; text-transform: uppercase; color: #1a1646;
 }
-.cid-scope .cid-viv-welcome-skate { color: #4B00B6; }
 .cid-scope .cid-viv-welcome-rain { color: #822F00; }
 .cid-scope .cid-viv-welcome-rain > span { display: inline-block; }
+/* Sized off the type, so the ball tracks the line at every breakpoint. Centred
+   rather than baseline-aligned: a circle sitting on the baseline reads as
+   floating high against cap-height letters. */
+.cid-scope .cid-viv-welcome-ball {
+  align-self: center; display: block; width: auto; height: 1.34em;
+  margin: 0 .06em;
+}
 
 /* The animations are attached up front but held paused, so their "both" fill
    holds the off-screen first frame instead of the text showing and then
    snapping back to hidden when the observer fires. Intersecting starts them. */
-.cid-scope .cid-viv-welcome-skate {
-  animation: cid-viv-skate .42s cubic-bezier(.2,1.25,.4,1) .12s both paused;
+.cid-scope .cid-viv-welcome-ball {
+  animation: cid-viv-roll .52s cubic-bezier(.2,1.15,.35,1) .12s both paused;
 }
 .cid-scope .cid-viv-welcome-rain > span {
   animation: cid-viv-rain .46s cubic-bezier(.22,.9,.28,1) both paused;
-  animation-delay: calc(.46s + var(--i) * .05s);
+  animation-delay: calc(.5s + var(--i) * .05s);
 }
-.cid-scope .cid-viv-welcome.is-in .cid-viv-welcome-skate,
+.cid-scope .cid-viv-welcome.is-in .cid-viv-welcome-ball,
 .cid-scope .cid-viv-welcome.is-in .cid-viv-welcome-rain > span {
   animation-play-state: running;
 }
-@keyframes cid-viv-skate {
-  from { opacity: 0; transform: translateX(-1.5em); }
-  to   { opacity: 1; transform: translateX(0); }
+/* It is a pool ball, so it arrives rolling rather than sliding. */
+@keyframes cid-viv-roll {
+  from { opacity: 0; transform: translateX(-1.7em) rotate(-210deg); }
+  to   { opacity: 1; transform: translateX(0) rotate(0deg); }
 }
 @keyframes cid-viv-rain {
   from { opacity: 0; transform: translateY(-.75em); }
@@ -57,7 +65,7 @@
 /* Motion is decorative here: the finished line is the content, so reduced
    motion simply gets the finished line. */
 @media (prefers-reduced-motion: reduce) {
-  .cid-scope .cid-viv-welcome-skate,
+  .cid-scope .cid-viv-welcome-ball,
   .cid-scope .cid-viv-welcome-rain > span { animation: none; }
 }
 /* Tagline set at the lead's size so the two sentences read as one voice; the

@@ -920,14 +920,24 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 The <strong>Canadian Innovation Dimension (CID)</strong> is an experimental research environment operated by artificial intelligence (AI) agents inside an always-on AI mini-PC.
               </p>
               <div>
-                {/* Welcome line, set as live text rather than art. "Welcome"
-                    is already on the title line holding its space; "to" skates
-                    in from the left; "the Vivarium" rains down a letter at a
-                    time. Letters are split into spans so each can carry its own
-                    delay, with the whole phrase kept as one accessible name. */}
+                {/* Welcome line, set as live text with the 2 ball standing in
+                    for the word "to". "Welcome" is already on the title line
+                    holding its space; the ball rolls in from the left; "the
+                    Vivarium" rains down a letter at a time. Letters are split
+                    into spans so each can carry its own delay, and the whole
+                    phrase keeps one accessible name, so the ball reads as the
+                    word it replaces rather than as an image. */}
                 <p className="cid-viv-welcome" ref={welcomeRef} aria-label="Welcome to the Vivarium">
                   <span className="cid-viv-welcome-hold" aria-hidden="true">Welcome</span>
-                  <span className="cid-viv-welcome-skate" aria-hidden="true">to</span>
+                  <img
+                    className="cid-viv-welcome-ball"
+                    src={`${base}assets/images/viv-2ball.webp`}
+                    alt=""
+                    aria-hidden="true"
+                    width={256}
+                    height={257}
+                    decoding="async"
+                  />
                   <span className="cid-viv-welcome-rain" aria-hidden="true">
                     {Array.from("the Vivarium", (ch, i) => (
                       <span key={i} style={{ "--i": i } as CSSProperties}>
