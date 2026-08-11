@@ -9,6 +9,24 @@
 
 .cid-scope .cid-viv-lead { margin: 0; font-size: clamp(15px,1.5vw,18px); line-height: 1.55; color: #33384a; max-width: 64ch; }
 .cid-scope .cid-viv-lead strong { color: #5B04DE; }
+
+/* The lede stack: the welcome title, the two paragraphs, the boundaries list
+   and the naming note read as one flow. Flex gap rather than margins, so the
+   spacing is uniform and nothing collapses against the title. */
+.cid-scope .cid-viv-lede { display: flex; flex-direction: column; gap: 12px; }
+/* Bullets match the principle cards further down the page. */
+.cid-scope .cid-viv-lead-list {
+  margin: 0; padding: 0; list-style: none;
+  display: flex; flex-direction: column; gap: 7px; max-width: 64ch;
+}
+.cid-scope .cid-viv-lead-list li {
+  position: relative; padding-left: 22px;
+  font-size: clamp(15px,1.5vw,18px); line-height: 1.55; color: #33384a;
+}
+.cid-scope .cid-viv-lead-list li::before {
+  content: ""; position: absolute; left: 2px; top: .58em; width: 9px; height: 9px;
+  border-radius: 3px; background: linear-gradient(135deg, #7C18E7, #5B04DE);
+}
 .cid-scope .cid-viv-intro {
   margin: 0; font-size: clamp(16px,1.7vw,20px); line-height: 1.55;
   color: #1a1646; max-width: 66ch;
@@ -22,7 +40,7 @@
    pieces animate on transform/opacity only), so nothing below it shifts as the
    entrance plays. */
 .cid-scope .cid-viv-welcome {
-  margin: 0 0 14px; display: flex; flex-wrap: wrap; align-items: baseline;
+  margin: 0 0 2px; display: flex; flex-wrap: wrap; align-items: baseline;
   gap: 0 .34em;
   font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
   font-size: clamp(19px,2.7vw,32px); line-height: 1.14;

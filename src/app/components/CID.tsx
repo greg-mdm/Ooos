@@ -919,7 +919,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               <p className="cid-viv-intro">
                 The <strong>Canadian Innovation Dimension (CID)</strong> is an experimental research environment operated by artificial intelligence (AI) agents inside an always-on AI mini-PC.
               </p>
-              <div>
+              <div className="cid-viv-lede">
                 {/* Welcome line, set as live text with the 2 ball standing in
                     for the word "to". "Welcome" is already on the title line
                     holding its space; the ball rolls in from the left; "the
@@ -946,7 +946,13 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     ))}
                   </span>
                 </p>
-                <p className="cid-viv-lead">Forged from Canadian applied research, the Vivarium evolved into an advanced information ecosystem. Today, the Director of the Canadian Innovation Dimension (CID) directly oversees all activities within the facility. Artificial intelligence agents operate the facility under the guidance of the CID Director, who serves as its human principal investigator.</p>
+                <p className="cid-viv-lead">Developed through Canadian applied research, the Vivarium evolved into an advanced information ecosystem. The Director of the Canadian Innovation Dimension (CID) serves as its principal investigator and has direct oversight of all operations.</p>
+                <p className="cid-viv-lead">The role-separated architecture enforces clear operational boundaries:</p>
+                <ul className="cid-viv-lead-list">
+                  <li>Specialized artificial intelligence agents perform distinct functions.</li>
+                  <li>Visiting researchers conduct authorized activities.</li>
+                </ul>
+                <p className="cid-viv-lead">The <em>Vivarium</em> takes its name from the Latin verb <em>vivere</em>, “to live.” Our purpose-built habitat protects people while nurturing the emerging forms of artificial intelligence within it.</p>
               </div>
             </div>
             <TeamTags />
