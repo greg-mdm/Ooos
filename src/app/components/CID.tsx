@@ -946,7 +946,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     ))}
                   </span>
                 </p>
-                <p className="cid-viv-lead">An avant-garde research project has advanced into a sovereign information ecosystem. Artificial intelligence (AI) agents operate our facility under the guidance of a human principal investigator.</p>
+                <p className="cid-viv-lead">Forged from Canadian applied research, the Vivarium evolved into an advanced information ecosystem. Today, the Director of the Canadian Innovation Dimension (CID) directly oversees all activities within the facility. Artificial intelligence agents operate the facility under the guidance of the CID Director, who serves as its human principal investigator.</p>
               </div>
             </div>
             <TeamTags />
