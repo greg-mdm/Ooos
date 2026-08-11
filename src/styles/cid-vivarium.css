@@ -112,6 +112,41 @@
   .cid-scope .cid-viv-intro-row { grid-template-columns: minmax(0, 1fr); }
 }
 
+/* ---- Etymology card: a dictionary entry for the word the lede ends on,
+   sitting under the nametags in the right column and using the space they
+   leave. Quiet white card in the same family as the principle cards further
+   down, so it reads as a footnote to the copy rather than a fourth nametag. ---- */
+.cid-scope .cid-viv-side { display: flex; flex-direction: column; gap: clamp(14px,1.8vw,20px); }
+.cid-scope .cid-etym {
+  border-radius: 16px; background: #fff; border: 1px solid rgba(75,0,182,.16);
+  box-shadow: 0 22px 50px -32px rgba(6,2,28,.4);
+  padding: clamp(16px,1.8vw,20px);
+}
+.cid-scope .cid-etym-label {
+  margin: 0;
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 11px;
+  letter-spacing: .22em; text-transform: uppercase; color: #4B00B6;
+}
+.cid-scope .cid-etym-word {
+  margin: 10px 0 0;
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: clamp(20px,2.2vw,24px); letter-spacing: -.01em; color: #1a1646;
+}
+.cid-scope .cid-etym-ipa { margin: 2px 0 0; font-size: 13.5px; color: #5b5f86; }
+.cid-scope .cid-etym-def {
+  margin: 10px 0 0; padding-bottom: 12px;
+  font-size: 15px; line-height: 1.5; color: #33384a;
+  border-bottom: 1px solid rgba(75,0,182,.14);
+}
+.cid-scope .cid-etym-row { margin-top: 12px; }
+.cid-scope .cid-etym-key {
+  margin: 0;
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 10px;
+  letter-spacing: .16em; text-transform: uppercase; color: #822F00;
+}
+.cid-scope .cid-etym-val { margin: 4px 0 0; font-size: 14px; line-height: 1.55; color: #33384a; }
+.cid-scope .cid-etym-val em { font-style: italic; color: #1a1646; }
+
 /* ---- Rail + hero: the team case reads oversized on its own at full page
    width, so it pairs with the rail's 300px column instead, which brings it
    down to a page-appropriate scale and uses that width economically rather

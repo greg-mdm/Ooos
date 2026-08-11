@@ -954,7 +954,30 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <p className="cid-viv-lead">The Vivarium, derived from the Latin word “vivere,” meaning “to live,” is a synthetic research environment. Our purpose-built habitat protects people and nurtures the evolving forms of intelligence emerging within it.</p>
               </div>
             </div>
-            <TeamTags />
+            {/* Right column: the nametags, then the etymology card using the
+                space the tags leave under them. It pays off the "vivere" the
+                lede ends on, so the word's history sits beside the sentence
+                that raises it. */}
+            <div className="cid-viv-side">
+              <TeamTags />
+              <aside className="cid-etym" aria-label="Etymology of vivarium">
+                <p className="cid-etym-label">Etymology</p>
+                <p className="cid-etym-word">vi·var·i·um</p>
+                <p className="cid-etym-ipa">/vaɪˈvɛəriəm/</p>
+                <p className="cid-etym-def">A place for living things.</p>
+                <div className="cid-etym-row">
+                  <p className="cid-etym-key">Language</p>
+                  <p className="cid-etym-val">English · Français</p>
+                </div>
+                <div className="cid-etym-row">
+                  <p className="cid-etym-key">Latin word family</p>
+                  <p className="cid-etym-val">
+                    <em>vivus</em>, “alive”<br />
+                    <em>vivere</em>, “to live”
+                  </p>
+                </div>
+              </aside>
+            </div>
           </div>
 
           {/* Rail + hero, side by side: the hero (the team case) reads too
