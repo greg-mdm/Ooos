@@ -956,7 +956,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     The last two words are bound by a non-breaking space: the
                     measure keeps "it." off a line of its own at this width,
                     but the tie holds at any width. */}
-                <p className="cid-viv-lead">The Vivarium is a synthetic research environment. Our purpose-built habitat protects people and nurtures the evolving forms of intelligence emerging within it.</p>
+                <p className="cid-viv-lead">The Vivarium is a synthetic research environment. Our purpose-built habitat protects people while nurturing the artificial intelligences evolving within it.</p>
               </div>
             </div>
             {/* Right column: the nametags, then the etymology card using the
