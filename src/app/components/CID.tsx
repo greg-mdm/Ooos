@@ -946,14 +946,17 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     ))}
                   </span>
                 </p>
-                <p className="cid-viv-lead">Developed through Canadian applied research, the Vivarium evolved into an advanced information ecosystem. The Director of the Canadian Innovation Dimension serves as its principal investigator and has direct oversight of all operations. Role-separated architecture ensures:</p>
+                <p className="cid-viv-lead">Developed through Canadian applied research, the Vivarium evolved into an advanced information ecosystem. The Director of the Canadian Innovation Dimension serves as its principal investigator and has direct oversight of all operations. Role-separated architecture ensures:</p>
                 <ul className="cid-viv-lead-list">
-                  <li>Specialized artificial intelligence agents perform distinct functions.</li>
-                  <li>Visiting researchers conduct authorized work.</li>
+                  <li>Specialized artificial intelligence agents perform distinct functions.</li>
+                  <li>Visiting researchers conduct authorized work.</li>
                 </ul>
                 {/* The derivation lives in the etymology card beside this
-                    column now, so the sentence no longer carries it too. */}
-                <p className="cid-viv-lead">The Vivarium is a synthetic research environment. Our purpose-built habitat protects people and nurtures the evolving forms of intelligence emerging within it.</p>
+                    column now, so the sentence no longer carries it too.
+                    The last two words are bound by a non-breaking space: the
+                    measure keeps "it." off a line of its own at this width,
+                    but the tie holds at any width. */}
+                <p className="cid-viv-lead">The Vivarium is a synthetic research environment. Our purpose-built habitat protects people and nurtures the evolving forms of intelligence emerging within it.</p>
               </div>
             </div>
             {/* Right column: the nametags, then the etymology card using the

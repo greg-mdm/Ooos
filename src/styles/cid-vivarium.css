@@ -7,7 +7,7 @@
 .cid-scope .cid-viv { background: #F0F4F5; padding: clamp(30px,5vh,56px) 0 clamp(34px,6vh,64px); }
 .cid-scope .cid-viv-stack { display: flex; flex-direction: column; gap: clamp(22px,3.4vh,34px); }
 
-.cid-scope .cid-viv-lead { margin: 0; font-size: clamp(15px,1.5vw,18px); line-height: 1.55; color: #33384a; max-width: 64ch; }
+.cid-scope .cid-viv-lead { margin: 0; font-size: clamp(15px,1.5vw,18px); line-height: 1.55; color: #33384a; max-width: 66ch; }
 .cid-scope .cid-viv-lead strong { color: #5B04DE; }
 
 /* The lede stack: the welcome title, the two paragraphs, the boundaries list
@@ -17,7 +17,7 @@
 /* Bullets match the principle cards further down the page. */
 .cid-scope .cid-viv-lead-list {
   margin: 0; padding: 0; list-style: none;
-  display: flex; flex-direction: column; gap: 7px; max-width: 64ch;
+  display: flex; flex-direction: column; gap: 7px; max-width: 66ch;
 }
 .cid-scope .cid-viv-lead-list li {
   position: relative; padding-left: 22px;
