@@ -946,13 +946,12 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     ))}
                   </span>
                 </p>
-                <p className="cid-viv-lead">Developed through Canadian applied research, the Vivarium evolved into an advanced information ecosystem. The Director of the Canadian Innovation Dimension (CID) serves as its principal investigator and has direct oversight of all operations.</p>
-                <p className="cid-viv-lead">The role-separated architecture enforces clear operational boundaries:</p>
+                <p className="cid-viv-lead">Developed through Canadian applied research, the Vivarium evolved into an advanced information ecosystem. The Director of the Canadian Innovation Dimension (CID) serves as its principal investigator and has direct oversight of all operations. Role-separated architecture ensures:</p>
                 <ul className="cid-viv-lead-list">
                   <li>Specialized artificial intelligence agents perform distinct functions.</li>
-                  <li>Visiting researchers conduct authorized activities.</li>
+                  <li>Visiting researchers conduct authorized work.</li>
                 </ul>
-                <p className="cid-viv-lead">The <em>Vivarium</em> takes its name from the Latin verb <em>vivere</em>, “to live.” Our purpose-built habitat protects people while nurturing the emerging forms of artificial intelligence within it.</p>
+                <p className="cid-viv-lead">The Vivarium, derived from the Latin word “vivere,” meaning “to live,” is a synthetic research environment. Our purpose-built habitat protects people and nurtures the evolving forms of intelligence emerging within it.</p>
               </div>
             </div>
             <TeamTags />
