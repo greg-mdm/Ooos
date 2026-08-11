@@ -62,19 +62,25 @@
    holds the off-screen first frame instead of the text showing and then
    snapping back to hidden when the observer fires. Intersecting starts them. */
 .cid-scope .cid-viv-welcome-ball {
-  animation: cid-viv-roll .52s cubic-bezier(.2,1.15,.35,1) .12s both paused;
+  animation: cid-viv-roll .62s cubic-bezier(.16,.82,.28,1) .12s both paused;
 }
 .cid-scope .cid-viv-welcome-rain > span {
   animation: cid-viv-rain .46s cubic-bezier(.22,.9,.28,1) both paused;
-  animation-delay: calc(.5s + var(--i) * .05s);
+  animation-delay: calc(.6s + var(--i) * .05s);
 }
 .cid-scope .cid-viv-welcome.is-in .cid-viv-welcome-ball,
 .cid-scope .cid-viv-welcome.is-in .cid-viv-welcome-rain > span {
   animation-play-state: running;
 }
-/* It is a pool ball, so it arrives rolling rather than sliding. */
+/* It is a pool ball, so it arrives rolling rather than sliding, and it comes in
+   from the RIGHT: entering from the left meant rolling straight through
+   "Welcome", which is already on screen. From the right it crosses only the
+   space "the Vivarium" is about to occupy, and those letters do not rain down
+   until the ball has passed. Rolling left means turning anticlockwise, so the
+   angle runs down to zero; 600deg is close to the real distance the ball
+   travels, 7em against a circumference of about 4.2em. */
 @keyframes cid-viv-roll {
-  from { opacity: 0; transform: translateX(-1.7em) rotate(-210deg); }
+  from { opacity: 0; transform: translateX(7em) rotate(600deg); }
   to   { opacity: 1; transform: translateX(0) rotate(0deg); }
 }
 @keyframes cid-viv-rain {
@@ -353,9 +359,18 @@
 }
 /* Greg's name splits across two stacked lines ("Greg" / "Long") instead of
    shrinking to fit one, so the orb sits beside it at the same size and row
-   alignment as the other two cards rather than stacking above. */
+   alignment as the other two cards rather than stacking above.
+
+   His is the only card with an orb, so the name has a fixed object to its left
+   instead of the card edge, and it was sitting hard against it: 8px to the orb
+   against 45px to the title column. Auto margins centre the name in the space
+   the orb leaves, and the 6px nudge is half the 12px grid gap, which the
+   centring cannot see: the name's own column stops short of where the title
+   column's text actually starts. Both sides now measure 26px. */
+.cid-scope .cid-tag--greg .cid-tag-id { gap: 0; }
 .cid-scope .cid-tag--greg .cid-tag-name {
   display: flex; flex-direction: column; align-items: flex-start; gap: 0; line-height: .98;
+  margin-inline: auto; position: relative; left: 6px;
 }
 
 /* per-researcher accents, everything else identical */
