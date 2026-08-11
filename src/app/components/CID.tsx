@@ -951,7 +951,9 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   <li>Specialized artificial intelligence agents perform distinct functions.</li>
                   <li>Visiting researchers conduct authorized work.</li>
                 </ul>
-                <p className="cid-viv-lead">The Vivarium, derived from the Latin word “vivere,” meaning “to live,” is a synthetic research environment. Our purpose-built habitat protects people and nurtures the evolving forms of intelligence emerging within it.</p>
+                {/* The derivation lives in the etymology card beside this
+                    column now, so the sentence no longer carries it too. */}
+                <p className="cid-viv-lead">The Vivarium is a synthetic research environment. Our purpose-built habitat protects people and nurtures the evolving forms of intelligence emerging within it.</p>
               </div>
             </div>
             {/* Right column: the nametags, then the etymology card using the
