@@ -780,9 +780,11 @@ function IcarusName() {
  *  stand apart from it as their own cards rather than overlaid on the art. */
 type CaseBay = { key: string; cls: string; role: ReactNode; name: ReactNode; sub?: string; orb?: string; title?: string };
 
+// Left to right, matching the case art below: Ethel, Greg in the middle,
+// Icarus. Stacked on narrow screens Greg comes first again, via CSS order.
 const CASE_BAYS: CaseBay[] = [
-  { key: "greg", cls: "cid-tag--greg", role: <>Principal<br />Investigator</>, orb: "PI", title: "CID Director", name: <>Greg<br />Long</> },
   { key: "ethel", cls: "cid-tag--ethel", role: <>Ethical<br />Analyst</>, name: "Ethel" },
+  { key: "greg", cls: "cid-tag--greg", role: <>Principal<br />Investigator</>, orb: "PI", title: "CID Director", name: <>Greg<br />Long</> },
   { key: "icarus", cls: "cid-tag--icarus", role: <>Executive<br />Trader</>, name: <IcarusName /> },
 ];
 
@@ -958,13 +960,21 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     but the tie holds at any width. */}
                 <p className="cid-viv-lead">The Vivarium is a synthetic research environment. Our purpose-built habitat protects people while nurturing the artificial intelligences evolving within it.</p>
               </div>
-            </div>
-            {/* Right column: the nametags, then the etymology card using the
-                space the tags leave under them. It pays off the "vivere" the
-                lede ends on, so the word's history sits beside the sentence
-                that raises it. */}
-            <div className="cid-viv-side">
+
+              {/* The three researchers side by side under the copy, in the
+                  same order as the case art below: Ethel, Greg in the middle,
+                  Icarus. */}
               <TeamTags />
+
+              {/* Vivarium team display case: the three researchers set in one
+                  glass case, the human principal investigator centred between
+                  the two AI agents. */}
+              <TeamCase base={base} />
+            </div>
+            {/* Right column, one panel: the etymology card, then the Radical
+                Strategic Intelligence rail beneath it, taking the space the
+                tags left when they moved under the copy. */}
+            <div className="cid-viv-side">
               <aside className="cid-etym" aria-label="Etymology of vivarium">
                 <p className="cid-etym-label">Etymology</p>
                 <p className="cid-etym-word">vi·var·i·um</p>
@@ -982,40 +992,28 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   </p>
                 </div>
               </aside>
+
+              <aside className="cid-viv-rail" aria-label="Radical Strategic Intelligence">
+                <div className="cid-viv-brand">
+                  <h2 className="cid-viv-title">
+                    <span>Radical</span><span>Strategic</span><span className="grad">Intelligence</span>
+                  </h2>
+                  <div className="cid-viv-bar" aria-hidden="true" />
+                </div>
+                <div className="cid-viv-pillar">
+                  <span className="n">1</span>
+                  <div><p className="verb">Observe</p><p className="desc">Market dynamics</p></div>
+                </div>
+                <div className="cid-viv-pillar">
+                  <span className="n">2</span>
+                  <div><p className="verb">Compare</p><p className="desc">Information from public sources</p></div>
+                </div>
+                <div className="cid-viv-pillar">
+                  <span className="n">3</span>
+                  <div><p className="verb">Navigate</p><p className="desc">Risks and rewards</p></div>
+                </div>
+              </aside>
             </div>
-          </div>
-
-          {/* Rail + hero, side by side: the hero (the team case) reads too
-              large on its own at full page width, so pairing it with the
-              rail's 300px column brings it down to a page-appropriate scale
-              and puts that width to use instead of leaving it empty above. */}
-          <div className="cid-railhero">
-            <aside className="cid-viv-rail" aria-label="Radical Strategic Intelligence">
-              <div className="cid-viv-brand">
-                <h2 className="cid-viv-title">
-                  <span>Radical</span><span>Strategic</span><span className="grad">Intelligence</span>
-                </h2>
-                <div className="cid-viv-bar" aria-hidden="true" />
-              </div>
-              <div className="cid-viv-pillar">
-                <span className="n">1</span>
-                <div><p className="verb">Observe</p><p className="desc">Market dynamics</p></div>
-              </div>
-              <div className="cid-viv-pillar">
-                <span className="n">2</span>
-                <div><p className="verb">Compare</p><p className="desc">Information from public sources</p></div>
-              </div>
-              <div className="cid-viv-pillar">
-                <span className="n">3</span>
-                <div><p className="verb">Navigate</p><p className="desc">Risks and rewards</p></div>
-              </div>
-            </aside>
-
-            {/* Vivarium team display case: the three researchers set in one
-                glass case, the human PI centred between the two AI agents.
-                This is the "three images with Greg in the middle" slot from
-                the approved Vivarium copy. */}
-            <TeamCase base={base} />
           </div>
 
           {/* Information Ecosystem: pays off the tagline's "single key" claim
