@@ -32,9 +32,6 @@
   color: #1a1646; max-width: 66ch;
 }
 .cid-scope .cid-viv-intro strong { color: #822F00; font-weight: 800; }
-/* The two intro sentences sit closer to each other than the column's own gap,
-   which is spaced for whole blocks rather than for lines of one thought. */
-.cid-scope .cid-viv-introblock { display: flex; flex-direction: column; gap: 10px; }
 
 /* "Welcome to the Vivarium" as live text, with the 2 ball standing in for the
    word "to". Three entrances on one title line: "Welcome" is already there
