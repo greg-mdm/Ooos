@@ -32,6 +32,9 @@
   color: #1a1646; max-width: 66ch;
 }
 .cid-scope .cid-viv-intro strong { color: #822F00; font-weight: 800; }
+/* The two intro sentences sit closer to each other than the column's own gap,
+   which is spaced for whole blocks rather than for lines of one thought. */
+.cid-scope .cid-viv-introblock { display: flex; flex-direction: column; gap: 10px; }
 
 /* "Welcome to the Vivarium" as live text, with the 2 ball standing in for the
    word "to". Three entrances on one title line: "Welcome" is already there
@@ -157,9 +160,15 @@
   background: rgba(75,0,182,.07); border: 1px solid rgba(75,0,182,.14);
   border-radius: 5px; padding: 1px 6px;
 }
-/* Bracketed gloss under a value, in the dictionary sense of a note about the
-   entry rather than part of it. */
-.cid-scope .cid-etym-note { margin: 3px 0 0; font-size: 12px; line-height: 1.45; color: #728488; }
+/* The gloss under a value, set as a mini pill in the site's .chip idiom rather
+   than in square brackets: the brackets read as unfinished markup, the pill
+   reads as a label. */
+.cid-scope .cid-etym-note {
+  margin: 5px 0 0; align-self: start; width: fit-content;
+  font-size: 10px; font-weight: 600; letter-spacing: .5px; line-height: 1.4;
+  padding: 5px 12px; border-radius: 20px;
+  background: rgba(108,1,244,.08); color: #4B00B6;
+}
 
 /* ---- Radical Strategic Intelligence rail. It used to sit in its own row
    beside the case art; it now lives at the foot of the right-hand panel,
