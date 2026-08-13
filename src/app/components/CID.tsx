@@ -971,28 +971,9 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   the two AI agents. */}
               <TeamCase base={base} />
             </div>
-            {/* Right column, one panel: the etymology card, then the Radical
-                Strategic Intelligence rail beneath it, taking the space the
-                tags left when they moved under the copy. */}
+            {/* Right column, one panel: the Radical Strategic Intelligence
+                rail, then the etymology card beneath it. */}
             <div className="cid-viv-side">
-              <aside className="cid-etym" aria-label="Etymology of vivarium">
-                <p className="cid-etym-label">Etymology</p>
-                <p className="cid-etym-word">vi·var·i·um</p>
-                <p className="cid-etym-ipa">/vaɪˈvɛəriəm/</p>
-                <p className="cid-etym-def">A place for living things.</p>
-                <div className="cid-etym-row">
-                  <p className="cid-etym-key">Language</p>
-                  <p className="cid-etym-val">English · Français</p>
-                </div>
-                <div className="cid-etym-row">
-                  <p className="cid-etym-key">Latin word family</p>
-                  <p className="cid-etym-val">
-                    <em>vivus</em>, “alive”<br />
-                    <em>vivere</em>, “to live”
-                  </p>
-                </div>
-              </aside>
-
               <aside className="cid-viv-rail" aria-label="Radical Strategic Intelligence">
                 <div className="cid-viv-brand">
                   <h2 className="cid-viv-title">
@@ -1011,6 +992,35 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <div className="cid-viv-pillar">
                   <span className="n">3</span>
                   <div><p className="verb">Navigate</p><p className="desc">Risks and rewards</p></div>
+                </div>
+              </aside>
+
+              <aside className="cid-etym" aria-label="Etymology of vivarium">
+                <p className="cid-etym-label">Etymology</p>
+                <p className="cid-etym-sub">History of the living word</p>
+                <p className="cid-etym-word">vi·var·i·um</p>
+                <p className="cid-etym-ipa">/vaɪˈvɛəriəm/</p>
+                <p className="cid-etym-def">A place for living things.</p>
+                <div className="cid-etym-row">
+                  <p className="cid-etym-key">Language</p>
+                  <p className="cid-etym-val">English · Français</p>
+                </div>
+                <div className="cid-etym-row">
+                  <p className="cid-etym-key">Latin word family</p>
+                  <p className="cid-etym-val">
+                    <em>vivus</em>, “alive”<br />
+                    <em>vivere</em>, “to live”
+                  </p>
+                </div>
+                <div className="cid-etym-row">
+                  <p className="cid-etym-key">Field name</p>
+                  <p className="cid-etym-val"><code className="cid-etym-code">the_viv</code></p>
+                  <p className="cid-etym-note">[Database identifier]</p>
+                </div>
+                <div className="cid-etym-row">
+                  <p className="cid-etym-key">Call sign</p>
+                  <p className="cid-etym-val">CID Viv</p>
+                  <p className="cid-etym-note">[Operational name]</p>
                 </div>
               </aside>
             </div>

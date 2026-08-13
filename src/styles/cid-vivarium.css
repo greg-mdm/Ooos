@@ -127,6 +127,9 @@
   font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 11px;
   letter-spacing: .22em; text-transform: uppercase; color: #4B00B6;
 }
+.cid-scope .cid-etym-sub {
+  margin: 4px 0 0; font-size: 13px; line-height: 1.4; font-style: italic; color: #5b5f86;
+}
 .cid-scope .cid-etym-word {
   margin: 10px 0 0;
   font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
@@ -146,6 +149,17 @@
 }
 .cid-scope .cid-etym-val { margin: 4px 0 0; font-size: 14px; line-height: 1.55; color: #33384a; }
 .cid-scope .cid-etym-val em { font-style: italic; color: #1a1646; }
+/* the_viv is a database identifier, so it is set as code rather than prose:
+   monospace makes the underscore read as part of the token. */
+.cid-scope .cid-etym-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13.5px; color: #1a1646;
+  background: rgba(75,0,182,.07); border: 1px solid rgba(75,0,182,.14);
+  border-radius: 5px; padding: 1px 6px;
+}
+/* Bracketed gloss under a value, in the dictionary sense of a note about the
+   entry rather than part of it. */
+.cid-scope .cid-etym-note { margin: 3px 0 0; font-size: 12px; line-height: 1.45; color: #728488; }
 
 /* ---- Radical Strategic Intelligence rail. It used to sit in its own row
    beside the case art; it now lives at the foot of the right-hand panel,
