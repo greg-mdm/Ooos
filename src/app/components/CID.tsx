@@ -1014,13 +1014,40 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 </div>
                 <div className="cid-etym-row">
                   <p className="cid-etym-key">Field name</p>
-                  <p className="cid-etym-val"><code className="cid-etym-code">the_viv</code></p>
-                  <p className="cid-etym-note">Database identifier</p>
+                  <div className="cid-etym-inline">
+                    <p className="cid-etym-val"><code className="cid-etym-code">the_viv</code></p>
+                    <p className="cid-etym-note">Database identifier</p>
+                  </div>
                 </div>
                 <div className="cid-etym-row">
                   <p className="cid-etym-key">Call sign</p>
-                  <p className="cid-etym-val">CID Viv</p>
-                  <p className="cid-etym-note">Operational name</p>
+                  <div className="cid-etym-inline">
+                    <p className="cid-etym-val">CID Viv</p>
+                    <p className="cid-etym-note">Operational name</p>
+                  </div>
+                </div>
+
+                <div className="cid-etym-row">
+                  <p className="cid-etym-key">Research environments</p>
+                  <ul className="cid-etym-list">
+                    <li><span className="cid-etym-abbr">IRL</span> · In Real Life</li>
+                    <li><span className="cid-etym-abbr">AR</span> · Augmented Reality</li>
+                    <li><span className="cid-etym-abbr">VR</span> · Virtual Reality</li>
+                  </ul>
+                </div>
+                <div className="cid-etym-row">
+                  <p className="cid-etym-key">User inputs</p>
+                  <ul className="cid-etym-list">
+                    <li><span className="cid-etym-abbr">FO</span> · Field Observation directly recorded by a verified contributor</li>
+                    <li><span className="cid-etym-abbr">RT</span> · Research Theory that tips off an investigation</li>
+                    <li><span className="cid-etym-abbr">TS</span> · Trading Strategy proposed for analysis or controlled testing</li>
+                  </ul>
+                </div>
+                <div className="cid-etym-row">
+                  <p className="cid-etym-key">System tags</p>
+                  <ul className="cid-etym-list">
+                    <li><span className="cid-etym-abbr">RWS</span> · Real-World Signals</li>
+                  </ul>
                 </div>
               </aside>
             </div>

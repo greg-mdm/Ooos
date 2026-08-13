@@ -157,9 +157,34 @@
   background: rgba(75,0,182,.07); border: 1px solid rgba(75,0,182,.14);
   border-radius: 5px; padding: 1px 6px;
 }
+/* Abbreviation glossaries at the foot of the card. The code carries the weight
+   so the eye can run down the left edge and find one, with the expansion after
+   it in body colour. Hanging indent keeps a wrapped expansion clear of the
+   code above it. */
+.cid-scope .cid-etym-list {
+  margin: 5px 0 0; padding: 0; list-style: none;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.cid-scope .cid-etym-list li {
+  font-size: 13px; line-height: 1.45; color: #33384a;
+  padding-left: 1.9em; text-indent: -1.9em;
+}
+.cid-scope .cid-etym-abbr {
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  letter-spacing: .02em; color: #1a1646;
+}
+
 /* The gloss under a value, set as a mini pill in the site's .chip idiom rather
    than in square brackets: the brackets read as unfinished markup, the pill
    reads as a label. */
+/* Value and its pill share a line: the pill is short and the value shorter, so
+   stacking them wasted the width the card already has. Wraps if a longer value
+   ever needs the whole line. */
+.cid-scope .cid-etym-inline {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 4px;
+}
+.cid-scope .cid-etym-inline .cid-etym-val,
+.cid-scope .cid-etym-inline .cid-etym-note { margin: 0; }
 .cid-scope .cid-etym-note {
   margin: 5px 0 0; align-self: start; width: fit-content;
   font-size: 10px; font-weight: 600; letter-spacing: .5px; line-height: 1.4;
