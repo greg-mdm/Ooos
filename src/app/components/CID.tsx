@@ -958,7 +958,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <p className="cid-viv-lead">Role-separated architecture establishes clear operational boundaries:</p>
                 <ul className="cid-viv-lead-list">
                   <li>Specialized artificial intelligence agents perform distinct functions.</li>
-                  <li>Visiting researchers conduct authorized work across CID research environments: IRL, AR, and VR.</li>
+                  <li>Visiting researchers conduct authorized work across CID research environments: IRL (In Real Life), AR (Augmented Reality), and VR (Virtual Reality).</li>
                 </ul>
               </div>
 
@@ -1013,6 +1013,10 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     <em>vivere</em>, “to live”
                   </p>
                 </div>
+              </aside>
+
+              <aside className="cid-etym" aria-label="Vivarium reference">
+                <p className="cid-etym-label">Reference</p>
                 <div className="cid-etym-row">
                   <p className="cid-etym-key">Field name</p>
                   <div className="cid-etym-inline">
@@ -1028,14 +1032,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   </div>
                 </div>
 
-                <div className="cid-etym-row">
-                  <p className="cid-etym-key">Research environments</p>
-                  <ul className="cid-etym-list">
-                    <li><span className="cid-etym-abbr">IRL</span> · In Real Life</li>
-                    <li><span className="cid-etym-abbr">AR</span> · Augmented Reality</li>
-                    <li><span className="cid-etym-abbr">VR</span> · Virtual Reality</li>
-                  </ul>
-                </div>
                 <div className="cid-etym-row">
                   <p className="cid-etym-key">User inputs</p>
                   <ul className="cid-etym-list">

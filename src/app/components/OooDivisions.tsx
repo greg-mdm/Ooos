@@ -51,9 +51,9 @@ const DIVISIONS: Division[] = [
     name: "Canadian Innovation Dimension (CID)",
     kind: "STRATEGIES",
     keys: [
-      { bg: grad("rgb(174,153,201)", "rgb(70,46,134)", "rgb(24,16,46)"), shadow: "0 19px 42px rgba(8,2,24,0.38)", text: "Energize economic expansion. Integrate verified data sources. Empower inclusive growth." },
-      { bg: grad("rgb(152,133,179)", "rgb(54,35,104)", "rgb(18,12,35)"), shadow: "0 16px 36px rgba(8,2,24,0.32)", text: "Gather collective intelligence. Build global partnerships. Boost business confidence." },
-      { bg: grad("rgb(126,110,151)", "rgb(37,23,74)", "rgb(13,8,25)"), shadow: "0 13px 30px rgba(8,2,24,0.27)", text: "Design tools to support applied research experiments. Direct digital innovation projects." },
+      { bg: grad("rgb(174,153,201)", "rgb(70,46,134)", "rgb(24,16,46)"), shadow: "0 19px 42px rgba(8,2,24,0.38)", text: "Integrate verified data sources. Gather collective intelligence." },
+      { bg: grad("rgb(152,133,179)", "rgb(54,35,104)", "rgb(18,12,35)"), shadow: "0 16px 36px rgba(8,2,24,0.32)", text: "Energize economic expansion. Empower inclusive growth." },
+      { bg: grad("rgb(126,110,151)", "rgb(37,23,74)", "rgb(13,8,25)"), shadow: "0 13px 30px rgba(8,2,24,0.27)", text: "Build global partnerships. Boost business confidence." },
     ],
     products: [
       { label: "Strategic intelligence", tone: "sun" },
