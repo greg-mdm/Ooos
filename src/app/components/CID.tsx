@@ -971,6 +971,25 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   glass case, the human principal investigator centred between
                   the two AI agents. */}
               <TeamCase base={base} />
+
+              {/* Information Ecosystem + the Flicker card sit in the left
+                  column beneath the team case, filling the space beside the
+                  taller reference card in the right column. */}
+              <div className="cid-viv-ecosystem">
+                <h3 className="cid-viv-ecosystem-h">Information Ecosystem</h3>
+                <p className="cid-viv-ecosystem-copy">Dedicated local AI compute keeps CID's proprietary data and models on-premises at Ooo! Headquarters.</p>
+
+                {/* The Flicker: its own card. The image is supplied separately
+                    and drops into cid-viv-flicker-img; the copy stays to the
+                    label plus the one-line function, no physical description. */}
+                <figure className="cid-viv-flicker">
+                  <div className="cid-viv-flicker-img" role="img" aria-label="The Flicker" />
+                  <figcaption className="cid-viv-flicker-cap">
+                    <p className="cid-viv-flicker-name">CID Flicker</p>
+                    <p className="cid-viv-flicker-desc">Controls access to the Vivarium at all times. Possessed by our sole proprietor at all times.</p>
+                  </figcaption>
+                </figure>
+              </div>
             </div>
             {/* Right column, one panel: the Radical Strategic Intelligence
                 rail, then the etymology card beneath it. */}
@@ -1054,12 +1073,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               by naming what that key is, before the sealed case makes the
               physical argument for it. Sole possession, not a customer pitch:
               the Flicker is Ooo's own key, held by its own operator alone. */}
-          <div className="cid-viv-ecosystem">
-            <h3 className="cid-viv-ecosystem-h">Information Ecosystem</h3>
-            <p className="cid-viv-ecosystem-copy">On-premises by design. Every observation the Vivarium makes is recorded, stored, and processed on hardware inside the facility: digital sovereignty, in practice.</p>
-            <p className="cid-viv-ecosystem-copy">That sovereignty travels too. The Flicker is Ooo's own storage key, held solely by its operator, carrying the Vivarium's research archive wherever it goes.</p>
-          </div>
-
           {/* Sealed case. The room and the claim it evidences are one
               enclosure rather than two blocks sitting loose on the page:
               vanta-black steel shell, mitred titanium corner blocks, and a

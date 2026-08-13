@@ -245,6 +245,26 @@
 }
 .cid-scope .cid-viv-ecosystem-copy { margin: 0; font-size: clamp(15px,1.5vw,17px); line-height: 1.6; color: #33384a; }
 
+/* The Flicker card: image slot over a name plate + one-line function. The
+   image is supplied separately and drops into cid-viv-flicker-img; until then
+   the frame stands as a dark slot in the site's card idiom. */
+.cid-scope .cid-viv-flicker {
+  margin: 6px 0 0; max-width: 360px;
+  border-radius: 16px; overflow: hidden; background: #fff;
+  border: 1px solid rgba(75,0,182,.16);
+  box-shadow: 0 22px 50px -32px rgba(6,2,28,.4);
+}
+.cid-scope .cid-viv-flicker-img {
+  aspect-ratio: 16 / 10; background: #120a24;
+  background-size: cover; background-position: center;
+}
+.cid-scope .cid-viv-flicker-cap { padding: 14px 16px 16px; }
+.cid-scope .cid-viv-flicker-name {
+  margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: #822F00;
+}
+.cid-scope .cid-viv-flicker-desc { margin: 6px 0 0; font-size: 14px; line-height: 1.5; color: #33384a; }
+
 /* ---- Sealed case: the room and the 1976/2026 claim it evidences share one
    enclosure instead of sitting loose on the page background. Vanta-black
    steel shell, mitred titanium corner blocks, one mullion between the two
