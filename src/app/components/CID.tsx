@@ -948,7 +948,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     ))}
                   </span>
                 </p>
-                <p className="cid-viv-lead">The Vivarium makes global research collaboration into a gamified information ecosystem. Our 24/7 team is designed to facilitate group creativity and interactive knowledge exchange. The Director of the Canadian Innovation Dimension serves as its principal investigator and has direct oversight of all operations.</p>
+                <p className="cid-viv-lead">The Vivarium makes global research collaboration into a gamified information ecosystem. Our 24/7 team is designed to facilitate group creativity and interactive knowledge exchange. The CID Director serves as Principal Investigator and Systems Architect, directing all Vivarium operations.</p>
                 {/* The role-separation block sits directly under the oversight
                     sentence it belongs with; the habitat framing follows. */}
                 <p className="cid-viv-lead">Role-separated architecture establishes clear operational boundaries:</p>
@@ -1074,7 +1074,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           {/* Leadership: who runs the Vivarium, and the division's mandate. */}
           <div className="cid-viv-leadership">
             <h3 className="cid-viv-ecosystem-h">Leadership</h3>
-            <p className="cid-viv-lead">The CID Director serves as Principal Investigator and Systems Architect, directing all Vivarium operations. As a division of Ooo! Digital Media Studio, CID is designed to:</p>
+            <p className="cid-viv-lead">As a division of Ooo! Digital Media Studio, CID is designed to:</p>
             <ul className="cid-viv-lead-list">
               <li>Expand public access to collective intelligence</li>
               <li>Pursue research imperatives set by the Ooo! Founder, CID Director and Principal Investigator</li>
