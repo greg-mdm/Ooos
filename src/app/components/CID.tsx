@@ -948,7 +948,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     ))}
                   </span>
                 </p>
-                <p className="cid-viv-lead">Developed through Canadian applied research, the Vivarium evolved into an advanced information ecosystem. The Director of the Canadian Innovation Dimension serves as its principal investigator and has direct oversight of all operations.</p>
+                <p className="cid-viv-lead">The Vivarium makes global research collaboration into a gamified information ecosystem. Our 24/7 team is designed to facilitate group creativity and interactive knowledge exchange. The Director of the Canadian Innovation Dimension serves as its principal investigator and has direct oversight of all operations.</p>
                 {/* The derivation lives in the etymology card beside this
                     column now, so the sentence no longer carries it too.
                     The last two words are bound by a non-breaking space: the
@@ -977,7 +977,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   taller reference card in the right column. */}
               <div className="cid-viv-ecosystem">
                 <h3 className="cid-viv-ecosystem-h">Information Ecosystem</h3>
-                <p className="cid-viv-ecosystem-copy">Dedicated local AI compute keeps CID's proprietary data and models on-premises at Ooo! Headquarters.</p>
+                <p className="cid-viv-ecosystem-copy">Miniaturized local AI infrastructure systematically integrates, aggregates, synthesizes, and stores all proprietary CID data. Our models, prototypes, workflows, and reusable skills are secured on-premises.</p>
 
                 {/* The Flicker card and the inputs/tags glossary sit side by
                     side, filling the band beside the reference card. The Flicker
@@ -1074,10 +1074,45 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             </div>
           </div>
 
-          {/* Information Ecosystem: pays off the tagline's "single key" claim
-              by naming what that key is, before the sealed case makes the
-              physical argument for it. Sole possession, not a customer pitch:
-              the Flicker is Ooo's own key, held by its own operator alone. */}
+          {/* Leadership: who runs the Vivarium, and the division's mandate. */}
+          <div className="cid-viv-leadership">
+            <h3 className="cid-viv-ecosystem-h">Leadership</h3>
+            <p className="cid-viv-lead">The CID Director serves as Principal Investigator and Systems Architect, directing all Vivarium operations. As a division of Ooo! Digital Media Studio, CID is designed to:</p>
+            <ul className="cid-viv-lead-list">
+              <li>Expand public access to collective intelligence</li>
+              <li>Pursue research imperatives set by the Ooo! Founder, CID Director and Principal Investigator</li>
+              <li>Contribute public and private research dimensions</li>
+            </ul>
+          </div>
+
+          {/* Access tiers: how the Vivarium opens to the public and partners,
+              from open access down to the restricted Floor 0 lairs. */}
+          <div className="cid-viv-access">
+            <h3 className="cid-viv-access-h"><span className="cid-viv-access-eyebrow">Access</span> Research Redefined</h3>
+            <div className="cid-viv-access-grid">
+              <div className="cid-viv-tier" style={{ "--tier": "#17A398" } as CSSProperties}>
+                <p className="cid-viv-tier-label">Public</p>
+                <p className="cid-viv-tier-name">Open Access</p>
+                <p className="cid-viv-tier-desc">Open-source research and development, public inquiry, and resources for curious minds.</p>
+              </div>
+              <div className="cid-viv-tier" style={{ "--tier": "#B67A00" } as CSSProperties}>
+                <p className="cid-viv-tier-label">Gated</p>
+                <p className="cid-viv-tier-name">Community Partners</p>
+                <p className="cid-viv-tier-desc">Protected spaces for creative partners and approved members of sector-building strategy circles. Access to gated community content may require express consent, age verification, and privacy protection.</p>
+              </div>
+              <div className="cid-viv-tier" style={{ "--tier": "#6C01F4" } as CSSProperties}>
+                <p className="cid-viv-tier-label">Collaborative</p>
+                <p className="cid-viv-tier-name">CAULDRONS</p>
+                <p className="cid-viv-tier-desc">Immersive spaces designed to exchange perspectives, experiment, and build knowledge together.</p>
+              </div>
+              <div className="cid-viv-tier" style={{ "--tier": "#822F00" } as CSSProperties}>
+                <p className="cid-viv-tier-label">Restricted</p>
+                <p className="cid-viv-tier-name">LAIRS</p>
+                <p className="cid-viv-tier-desc">Private Floor 0 environments for qualified researchers and funding partners. Authorized access is granted after verification of their research purpose, reputation, credentials, and experience.</p>
+              </div>
+            </div>
+          </div>
+
           {/* Sealed case. The room and the claim it evidences are one
               enclosure rather than two blocks sitting loose on the page:
               vanta-black steel shell, mitred titanium corner blocks, and a
