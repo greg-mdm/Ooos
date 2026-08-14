@@ -238,12 +238,22 @@
    only you hold" by naming what that key is, before the sealed case makes
    the physical argument for it. Plain on the page canvas, between the
    rail/hero pairing and the vault. ---- */
-.cid-scope .cid-viv-ecosystem { display: flex; flex-direction: column; gap: 10px; max-width: 68ch; }
+.cid-scope .cid-viv-ecosystem { display: flex; flex-direction: column; gap: 10px; max-width: 820px; }
 .cid-scope .cid-viv-ecosystem-h {
   margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
   font-size: clamp(19px,2vw,23px); letter-spacing: -.2px; color: #4B00B6;
 }
-.cid-scope .cid-viv-ecosystem-copy { margin: 0; font-size: clamp(15px,1.5vw,17px); line-height: 1.6; color: #33384a; }
+.cid-scope .cid-viv-ecosystem-copy { margin: 0; font-size: clamp(15px,1.5vw,17px); line-height: 1.6; color: #33384a; max-width: 62ch; }
+
+/* Ecosystem row: the Flicker card beside the inputs/tags glossary, filling the
+   band next to the reference card. Wraps to a stack on narrow viewports. */
+.cid-scope .cid-viv-eco-row {
+  display: flex; flex-wrap: wrap; align-items: stretch;
+  gap: clamp(14px,1.8vw,20px); margin-top: 6px;
+}
+.cid-scope .cid-viv-eco-row .cid-viv-flicker { margin: 0; flex: 0 0 auto; }
+.cid-scope .cid-viv-glossary { flex: 1 1 300px; min-width: 260px; }
+.cid-scope .cid-viv-glossary .cid-etym-row:first-child { margin-top: 0; }
 
 /* The Flicker card: image slot over a name plate + one-line function. The
    image is supplied separately and drops into cid-viv-flicker-img; until then

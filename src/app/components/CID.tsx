@@ -979,16 +979,36 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <h3 className="cid-viv-ecosystem-h">Information Ecosystem</h3>
                 <p className="cid-viv-ecosystem-copy">Dedicated local AI compute keeps CID's proprietary data and models on-premises at Ooo! Headquarters.</p>
 
-                {/* The Flicker: its own card. The image is supplied separately
-                    and drops into cid-viv-flicker-img; the copy stays to the
+                {/* The Flicker card and the inputs/tags glossary sit side by
+                    side, filling the band beside the reference card. The Flicker
+                    image drops into cid-viv-flicker-img; its copy stays to the
                     label plus the one-line function, no physical description. */}
-                <figure className="cid-viv-flicker">
-                  <div className="cid-viv-flicker-img" role="img" aria-label="The Flicker" />
-                  <figcaption className="cid-viv-flicker-cap">
-                    <p className="cid-viv-flicker-name">CID Flicker</p>
-                    <p className="cid-viv-flicker-desc">Controls access to the Vivarium at all times. Possessed by our sole proprietor at all times.</p>
-                  </figcaption>
-                </figure>
+                <div className="cid-viv-eco-row">
+                  <figure className="cid-viv-flicker">
+                    <div className="cid-viv-flicker-img" role="img" aria-label="The Flicker" />
+                    <figcaption className="cid-viv-flicker-cap">
+                      <p className="cid-viv-flicker-name">CID Flicker</p>
+                      <p className="cid-viv-flicker-desc">Controls access to the Vivarium at all times. Possessed by our sole proprietor at all times.</p>
+                    </figcaption>
+                  </figure>
+
+                  <aside className="cid-etym cid-viv-glossary" aria-label="Vivarium inputs and tags">
+                    <div className="cid-etym-row">
+                      <p className="cid-etym-key">User inputs</p>
+                      <ul className="cid-etym-list">
+                        <li><span className="cid-etym-abbr">FO</span> · Field Observation directly recorded by a verified contributor</li>
+                        <li><span className="cid-etym-abbr">RT</span> · Research Theory that tips off an investigation</li>
+                        <li><span className="cid-etym-abbr">TS</span> · Trading Strategy proposed for analysis or controlled testing</li>
+                      </ul>
+                    </div>
+                    <div className="cid-etym-row">
+                      <p className="cid-etym-key">System tags</p>
+                      <ul className="cid-etym-list">
+                        <li><span className="cid-etym-abbr">RWS</span> · Real-World Signals</li>
+                      </ul>
+                    </div>
+                  </aside>
+                </div>
               </div>
             </div>
             {/* Right column, one panel: the Radical Strategic Intelligence
@@ -1049,21 +1069,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     <p className="cid-etym-val">CID Viv</p>
                     <p className="cid-etym-note">Operational name</p>
                   </div>
-                </div>
-
-                <div className="cid-etym-row">
-                  <p className="cid-etym-key">User inputs</p>
-                  <ul className="cid-etym-list">
-                    <li><span className="cid-etym-abbr">FO</span> · Field Observation directly recorded by a verified contributor</li>
-                    <li><span className="cid-etym-abbr">RT</span> · Research Theory that tips off an investigation</li>
-                    <li><span className="cid-etym-abbr">TS</span> · Trading Strategy proposed for analysis or controlled testing</li>
-                  </ul>
-                </div>
-                <div className="cid-etym-row">
-                  <p className="cid-etym-key">System tags</p>
-                  <ul className="cid-etym-list">
-                    <li><span className="cid-etym-abbr">RWS</span> · Real-World Signals</li>
-                  </ul>
                 </div>
               </aside>
             </div>
