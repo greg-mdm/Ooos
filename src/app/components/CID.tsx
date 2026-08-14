@@ -958,7 +958,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <p className="cid-viv-lead">Role-separated architecture establishes clear operational boundaries:</p>
                 <ul className="cid-viv-lead-list">
                   <li>Specialized artificial intelligence agents perform distinct functions.</li>
-                  <li>Visiting researchers conduct authorized work across CID research environments: In real life (IRL), augmented reality (AR), and virtual reality (VR).</li>
+                  <li>Visiting researchers conduct authorized work across CID research environments: In real life (IRL), augmented reality (AR), and virtual reality (VR).</li>
                 </ul>
               </div>
 
