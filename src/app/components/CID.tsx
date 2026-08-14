@@ -164,6 +164,49 @@ function Disclosure({ title, tag, children }: { title: string; tag?: string; chi
   );
 }
 
+// "Two ways of seeing Greg": one vertical screen, two settings. Pressing a lens
+// button slides the stage to that view (Ethel's or Icarus's), animated. The
+// clips are supplied separately and drop into each panel's <video>; until then
+// each panel shows a labelled placeholder slot.
+function GregLensSlider({ base }: { base: string }) {
+  const LENSES = [
+    { key: "ethel",  device: "ⓔMage",   station: "ΩStation 7.83", glyph: "꩜", label: "Greg, as Ethel sees him",  src: `${base}assets/video/greg-ethel-lens.mp4` },
+    { key: "icarus", device: "ⅢVision", station: "αLiveShow",     glyph: "🔺", label: "Greg, as Icarus sees him", src: `${base}assets/video/greg-icarus-lens.mp4` },
+  ];
+  const [view, setView] = useState(0);
+  return (
+    <div className="cid-lens">
+      <div className="cid-lens-stage">
+        <div className="cid-lens-track" style={{ transform: `translateX(-${view * 100}%)` }}>
+          {LENSES.map((l) => (
+            <figure className={`cid-lens-panel cid-lens-panel--${l.key}`} key={l.key}>
+              {/* Drop the 8–10s vertical clip in here, then remove the slot:
+                  <video className="cid-lens-video" src={l.src} autoPlay muted loop playsInline /> */}
+              <div className="cid-lens-slot" role="img" aria-label={l.label}>{l.label}</div>
+            </figure>
+          ))}
+        </div>
+      </div>
+      <div className="cid-lens-controls" role="tablist" aria-label="Choose a lens">
+        {LENSES.map((l, i) => (
+          <button
+            key={l.key}
+            type="button"
+            role="tab"
+            aria-selected={view === i}
+            className={`cid-lens-btn cid-lens-btn--${l.key} ${view === i ? "is-active" : ""}`}
+            onClick={() => setView(i)}
+          >
+            <span className="cid-lens-btn-device">{l.device}</span>
+            <span className="cid-lens-btn-station">{l.station}</span>
+            <span className="cid-lens-btn-glyph" aria-hidden="true">{l.glyph}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // Stages 1–3 stay vibrant (accessible) on the brand cyan→gold ramp; stages 4–5
 // are "greyed out" using the robin's-egg neutrals (600 #728488 / 700 #5C6C70)
 // so they read as restricted. Stage 5 keeps the ruby as a RING around a grey
@@ -1130,6 +1173,13 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 </tbody>
               </table>
             </div>
+          </div>
+
+          {/* Two ways of seeing: the same subject (Greg) through each agent's
+              lens, one vertical screen with two settings. */}
+          <div className="cid-viv-lens-wrap">
+            <h3 className="cid-viv-ecosystem-h">Two Ways of Seeing</h3>
+            <GregLensSlider base={base} />
           </div>
 
           {/* Sealed case. The room and the claim it evidences are one
