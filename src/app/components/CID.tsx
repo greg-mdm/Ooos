@@ -1074,10 +1074,11 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           {/* Leadership: who runs the Vivarium, and the division's mandate. */}
           <div className="cid-viv-leadership">
             <h3 className="cid-viv-ecosystem-h">Leadership</h3>
+            <p className="cid-viv-lead">The CID Director serves as Principal Investigator and Systems Architect, directing all research operations and engagement activities in the Vivarium's synthetic research environments.</p>
             <p className="cid-viv-lead">As a division of Ooo! Digital Media Studio, CID is designed to:</p>
             <ul className="cid-viv-lead-list">
               <li>Expand public access to collective intelligence</li>
-              <li>Pursue research imperatives set by the Ooo! Founder, CID Director and Principal Investigator</li>
+              <li>Pursue research imperatives set by Ooo! Digital Media Studio</li>
               <li>Contribute public and private research dimensions</li>
             </ul>
           </div>
@@ -1085,28 +1086,49 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           {/* Access tiers: how the Vivarium opens to the public and partners,
               from open access down to the restricted Floor 0 lairs. */}
           <div className="cid-viv-access">
-            <h3 className="cid-viv-access-h"><span className="cid-viv-access-eyebrow">Access</span> Research Redefined</h3>
+            <h3 className="cid-viv-access-h">Research Access</h3>
             <div className="cid-viv-access-grid">
               <div className="cid-viv-tier" style={{ "--tier": "#17A398" } as CSSProperties}>
                 <p className="cid-viv-tier-label">Public</p>
                 <p className="cid-viv-tier-name">Open Access</p>
-                <p className="cid-viv-tier-desc">Open-source research and development, public inquiry, and resources for curious minds.</p>
+                <p className="cid-viv-tier-desc">Open research, tools, and resources for curious minds.</p>
               </div>
               <div className="cid-viv-tier" style={{ "--tier": "#B67A00" } as CSSProperties}>
                 <p className="cid-viv-tier-label">Gated</p>
                 <p className="cid-viv-tier-name">Community Partners</p>
-                <p className="cid-viv-tier-desc">Protected spaces for creative partners and approved members of sector-building strategy circles. Access to gated community content may require express consent, age verification, and privacy protection.</p>
+                <p className="cid-viv-tier-desc">Protected spaces for creative partners and approved participants. Access controls support consent, age verification and privacy requirements.</p>
               </div>
               <div className="cid-viv-tier" style={{ "--tier": "#6C01F4" } as CSSProperties}>
                 <p className="cid-viv-tier-label">Collaborative</p>
                 <p className="cid-viv-tier-name">CAULDRONS</p>
-                <p className="cid-viv-tier-desc">Immersive spaces designed to exchange perspectives, experiment, and build knowledge together.</p>
+                <p className="cid-viv-tier-desc">Shared spaces where authorized participants exchange perspectives, experiment and build knowledge together.</p>
               </div>
               <div className="cid-viv-tier" style={{ "--tier": "#822F00" } as CSSProperties}>
                 <p className="cid-viv-tier-label">Restricted</p>
                 <p className="cid-viv-tier-name">LAIRS</p>
-                <p className="cid-viv-tier-desc">Private Floor 0 environments for qualified researchers and funding partners. Authorized access is granted after verification of their research purpose, reputation, credentials, and experience.</p>
+                <p className="cid-viv-tier-desc">Private Floor 0 environments for authorized researchers and funding partners. Access reflects research purpose, qualifications, experience and authorization.</p>
               </div>
+              <div className="cid-viv-tier" style={{ "--tier": "#2B0561" } as CSSProperties}>
+                <p className="cid-viv-tier-label">Portal 60</p>
+                <p className="cid-viv-tier-name">DARK MATTERS</p>
+                <p className="cid-viv-tier-desc">Portal 60 opens into Dark Matters, a restricted environment dedicated to dismantling systematic injustice.</p>
+              </div>
+            </div>
+
+            {/* Research code reference: the input/analysis codes used across the
+                Vivarium's environments. */}
+            <div className="cid-viv-codes">
+              <table className="cid-viv-codes-table">
+                <thead>
+                  <tr><th>Code</th><th>Meaning</th><th>Role</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><span className="cid-viv-code">FE</span></td><td>Formal Evidence</td><td>Verified documentary basis</td></tr>
+                  <tr><td><span className="cid-viv-code">PHI</span></td><td>Philosophical Inquiry</td><td>Examines ethics, power and meaning</td></tr>
+                  <tr><td><span className="cid-viv-code">FO</span></td><td>Field Observation</td><td>Verified firsthand observation</td></tr>
+                  <tr><td><span className="cid-viv-code">FUM</span></td><td>Future Uncertainty Matrix</td><td>Maps intersecting issues</td></tr>
+                </tbody>
+              </table>
             </div>
           </div>
 
