@@ -257,6 +257,8 @@
 
 /* Leadership: mandate copy, same measure and heading idiom as the ecosystem. */
 .cid-scope .cid-viv-leadership { display: flex; flex-direction: column; gap: 10px; max-width: 820px; }
+/* Inline Ooo! wordmark, matching the header brand mark (Playfair italic). */
+.cid-scope .cid-ooo { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-style: italic; font-weight: 700; color: #5B04DE; }
 
 /* Access tiers: the Vivarium's openness ladder, from open access down to the
    restricted Floor 0 lairs. Each card carries its tier colour on --tier. */

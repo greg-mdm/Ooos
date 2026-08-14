@@ -995,10 +995,9 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     ))}
                   </span>
                 </p>
-                <p className="cid-viv-lead">The Vivarium makes global research collaboration into a gamified information ecosystem. Our 24/7 team is designed to facilitate group creativity and interactive knowledge exchange. The CID Director serves as Principal Investigator and Systems Architect, directing all Vivarium operations.</p>
+                <p className="cid-viv-lead">The Vivarium makes global research collaboration into a gamified information ecosystem. Our 24/7 team is designed to facilitate group creativity and interactive knowledge exchange.</p>
                 {/* The role-separation block sits directly under the oversight
                     sentence it belongs with; the habitat framing follows. */}
-                <p className="cid-viv-lead">Role-separated architecture establishes clear operational boundaries:</p>
                 <ul className="cid-viv-lead-list">
                   <li>Specialized artificial intelligence agents perform distinct functions.</li>
                   <li>Visiting researchers conduct authorized work across CID research environments: In real life (IRL), augmented reality (AR), and virtual reality (VR).</li>
@@ -1121,12 +1120,11 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           {/* Leadership: who runs the Vivarium, and the division's mandate. */}
           <div className="cid-viv-leadership">
             <h3 className="cid-viv-ecosystem-h">Leadership</h3>
-            <p className="cid-viv-lead">The CID Director serves as Principal Investigator and Systems Architect, directing all research operations and engagement activities in the Vivarium's synthetic research environments.</p>
-            <p className="cid-viv-lead">As a division of Ooo! Digital Media Studio, CID is designed to:</p>
+            <p className="cid-viv-lead">The CID Director serves as Principal Investigator and Systems Architect, directing all research operations and guiding interactive engagement activities in our purpose-built habitat.</p>
+            <p className="cid-viv-lead">As a division of <span className="cid-ooo">Ooo!</span> Digital Media Studio, CID is designed to:</p>
             <ul className="cid-viv-lead-list">
               <li>Expand public access to collective intelligence</li>
-              <li>Pursue research imperatives set by Ooo! Digital Media Studio</li>
-              <li>Contribute public and private research dimensions</li>
+              <li>Pursue research imperatives set by <span className="cid-ooo">Ooo!</span> Digital Media Studio</li>
             </ul>
           </div>
 
