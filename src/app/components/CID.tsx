@@ -170,8 +170,8 @@ function Disclosure({ title, tag, children }: { title: string; tag?: string; chi
 // each panel shows a labelled placeholder slot.
 function GregLensSlider({ base }: { base: string }) {
   const LENSES = [
-    { key: "ethel",  device: "ⓔMage",   station: "ΩStation 7.83", glyph: "꩜", label: "Greg, as Ethel sees him",  src: `${base}assets/video/greg-ethel-lens.mp4` },
-    { key: "icarus", device: "ⅢVision", station: "αLiveShow",     glyph: "🔺", label: "Greg, as Icarus sees him", src: `${base}assets/video/greg-icarus-lens.mp4` },
+    { key: "ethel",  device: "ⓔMage",   station: "ΩStation 7.83", glyph: "꩜", label: "Greg, as Ethel sees him",  src: `${base}assets/video/greg-ethel-lens.mp4`,  img: `${base}assets/E-STATION-Gregplacehold.png` },
+    { key: "icarus", device: "ⅢVision", station: "αLiveShow",     glyph: "🔺", label: "Greg, as Icarus sees him", src: `${base}assets/video/greg-icarus-lens.mp4`, img: "" },
   ];
   const [view, setView] = useState(0);
   return (
@@ -182,7 +182,11 @@ function GregLensSlider({ base }: { base: string }) {
             <figure className={`cid-lens-panel cid-lens-panel--${l.key}`} key={l.key}>
               {/* Drop the 8–10s vertical clip in here, then remove the slot:
                   <video className="cid-lens-video" src={l.src} autoPlay muted loop playsInline /> */}
-              <div className="cid-lens-slot" role="img" aria-label={l.label}>{l.label}</div>
+              {l.img ? (
+                <div className="cid-lens-slot cid-lens-slot--img" role="img" aria-label={l.label} style={{ backgroundImage: `url("${l.img}")` }} />
+              ) : (
+                <div className="cid-lens-slot" role="img" aria-label={l.label}>{l.label}</div>
+              )}
             </figure>
           ))}
         </div>

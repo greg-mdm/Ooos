@@ -328,6 +328,7 @@
   position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
   text-align: center; padding: 24px; font-size: 14px; line-height: 1.5; color: #c9c2e6;
 }
+.cid-scope .cid-lens-slot--img { background-size: cover; background-position: center; }
 .cid-scope .cid-lens-panel--ethel .cid-lens-slot  { background: radial-gradient(120% 90% at 50% 12%, #3a2a6b 0%, #1a1140 55%, #0d0820 100%); }
 .cid-scope .cid-lens-panel--icarus .cid-lens-slot { background: radial-gradient(120% 90% at 50% 12%, #5a2a10 0%, #2a160a 55%, #0d0820 100%); }
 
