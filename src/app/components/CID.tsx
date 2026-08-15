@@ -1016,14 +1016,8 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     ))}
                   </span>
                 </p>
-                <p className="cid-viv-lead">The Vivarium makes global research collaboration into a gamified information ecosystem. Our 24/7 team is designed to facilitate group creativity and interactive knowledge exchange.</p>
-                {/* The role-separation block sits directly under the oversight
-                    sentence it belongs with; the habitat framing follows. */}
-                <ul className="cid-viv-lead-list">
-                  <li>Specialized artificial intelligence agents perform distinct functions.</li>
-                  <li>Visiting researchers conduct authorized work across CID research environments: In real life (IRL), augmented reality (AR), and virtual reality (VR).</li>
-                </ul>
-                <p className="cid-viv-lead">The Vivarium is a synthetic research environment. Our purpose-built habitat protects people while nurturing the artificial intelligences evolving within it.</p>
+                <p className="cid-viv-lead">The Vivarium makes global research collaboration into a gamified information ecosystem.</p>
+                <p className="cid-viv-lead">Our 24/7 team is designed to facilitate group creativity and knowledge exchange within synthetic research environments built to protect people while nurturing artificial intelligences evolving within them.</p>
               </div>
 
               {/* Leadership: who runs the Vivarium, and the division's mandate. */}
@@ -1044,8 +1038,10 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                       <span className="cid-viv-pill">Radical Strategic Intelligence</span>
                       <span className="cid-viv-pill">AI Experiments</span>
                       <span className="cid-viv-pill">AI4XD</span>
+                      <span className="cid-viv-pill">Data Viz</span>
                     </div>
                     <p className="cid-viv-offer-note">AI4XD: Artificial Intelligence for Experience Design</p>
+                    <p className="cid-viv-offer-note">Data Viz: Immersive Data Visualizations</p>
                   </div>
                   <div className="cid-viv-offer-row">
                     <p className="cid-viv-offer-label">Studio Services</p>

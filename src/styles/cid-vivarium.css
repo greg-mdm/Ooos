@@ -258,7 +258,7 @@
 /* Leadership: mandate copy, same measure and heading idiom as the ecosystem. */
 .cid-scope .cid-viv-leadership { display: flex; flex-direction: column; gap: 10px; max-width: 820px; }
 /* Inline Ooo! wordmark, matching the header brand mark (Playfair italic). */
-.cid-scope .cid-ooo { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-style: italic; font-weight: 700; color: #5B04DE; }
+.cid-scope .cid-ooo { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-style: italic; font-weight: 700; color: #4B00B6; }
 
 /* CID digital products + studio services, shown as labelled pill rows. */
 .cid-scope .cid-viv-offer { display: flex; flex-direction: column; gap: 14px; margin-top: 6px; }
@@ -285,11 +285,14 @@
 .cid-scope .cid-viv-access-eyebrow {
   font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: #4B00B6;
 }
+/* Flexbox, not grid: an odd count of tiers (5) must not leave empty ghost
+   cells on the last row the way a fixed-column grid would. Each card grows
+   evenly to fill its row and wraps naturally with no leftover tracks. */
 .cid-scope .cid-viv-access-grid {
-  display: grid; gap: clamp(12px,1.6vw,18px);
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  display: flex; flex-wrap: wrap; gap: clamp(12px,1.6vw,18px);
 }
 .cid-scope .cid-viv-tier {
+  flex: 1 1 230px;
   background: #fff; border-radius: 14px; padding: 16px 18px;
   border: 1px solid rgba(75,0,182,.14); border-left: 4px solid var(--tier, #4B00B6);
   box-shadow: 0 18px 44px -34px rgba(6,2,28,.4);
