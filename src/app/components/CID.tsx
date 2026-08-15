@@ -1005,6 +1005,17 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <p className="cid-viv-lead">The Vivarium is a synthetic research environment. Our purpose-built habitat protects people while nurturing the artificial intelligences evolving within it.</p>
               </div>
 
+              {/* Leadership: who runs the Vivarium, and the division's mandate. */}
+              <div className="cid-viv-leadership">
+                <h3 className="cid-viv-ecosystem-h">Leadership</h3>
+                <p className="cid-viv-lead">The CID Director serves as Principal Investigator and Systems Architect, directing all research operations and guiding interactive engagement activities in our purpose-built habitat.</p>
+                <p className="cid-viv-lead">As a division of <span className="cid-ooo">Ooo!</span> Digital Media Studio, CID is designed to:</p>
+                <ul className="cid-viv-lead-list">
+                  <li>Expand public access to collective intelligence</li>
+                  <li>Pursue research imperatives set by <span className="cid-ooo">Ooo!</span> Digital Media Studio</li>
+                </ul>
+              </div>
+
               {/* The three researchers side by side under the copy, in the
                   same order as the case art below: Ethel, Greg in the middle,
                   Icarus. */}
@@ -1115,17 +1126,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 </div>
               </aside>
             </div>
-          </div>
-
-          {/* Leadership: who runs the Vivarium, and the division's mandate. */}
-          <div className="cid-viv-leadership">
-            <h3 className="cid-viv-ecosystem-h">Leadership</h3>
-            <p className="cid-viv-lead">The CID Director serves as Principal Investigator and Systems Architect, directing all research operations and guiding interactive engagement activities in our purpose-built habitat.</p>
-            <p className="cid-viv-lead">As a division of <span className="cid-ooo">Ooo!</span> Digital Media Studio, CID is designed to:</p>
-            <ul className="cid-viv-lead-list">
-              <li>Expand public access to collective intelligence</li>
-              <li>Pursue research imperatives set by <span className="cid-ooo">Ooo!</span> Digital Media Studio</li>
-            </ul>
           </div>
 
           {/* Access tiers: how the Vivarium opens to the public and partners,
