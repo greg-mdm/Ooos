@@ -1016,8 +1016,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     ))}
                   </span>
                 </p>
-                <p className="cid-viv-lead">The Vivarium makes global research collaboration into a gamified information ecosystem.</p>
-                <p className="cid-viv-lead">Our 24/7 team is designed to facilitate group creativity and knowledge exchange within synthetic research environments built to protect people while nurturing artificial intelligences evolving within them.</p>
+                <p className="cid-viv-lead">The Vivarium makes global research collaboration into a gamified information ecosystem. Our 24/7 team is designed to facilitate group creativity and knowledge exchange within synthetic research environments built to protect people while nurturing artificial intelligences evolving within them.</p>
               </div>
 
               {/* Leadership: who runs the Vivarium, and the division's mandate. */}
