@@ -380,11 +380,11 @@
 .cid-scope .cid-lens-video { width: 100%; height: 100%; object-fit: cover; display: block; }
 .cid-scope .cid-lens-still { width: 100%; height: 100%; background-size: cover; background-position: center; }
 .cid-scope .cid-lens-cap { display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center; }
+.cid-scope .cid-lens-btn-glyph { font-size: 34px; line-height: 1; color: var(--lens); margin-bottom: 4px; }
 .cid-scope .cid-lens-btn-device { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 15px; color: #1a1646; }
 .cid-scope .cid-lens-cell.is-active .cid-lens-btn-device { color: var(--lens); }
 .cid-scope .cid-lens-btn-station { font-size: 12px; letter-spacing: .04em; color: #5b5f86; }
-.cid-scope .cid-lens-btn-glyph { font-size: 18px; line-height: 1; color: var(--lens); }
-.cid-scope .cid-lens-dots { display: inline-flex; gap: 5px; margin-top: 5px; }
+.cid-scope .cid-lens-dots { display: inline-flex; gap: 5px; margin-top: 9px; }
 .cid-scope .cid-lens-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(75,0,182,.25); transition: background .2s; }
 .cid-scope .cid-lens-dot.on { background: var(--lens); }
 

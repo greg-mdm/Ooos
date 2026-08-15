@@ -18,8 +18,13 @@ its still frame. Panels are 3:2 so the field still fills with no crop.
    (Needs `ffmpeg`. No ffmpeg locally? Upload the raw clip and ask Claude to run
    this step.)
 3. **Register it**: add the new filename to that lens's `clips` array in
-   `src/app/components/CID.tsx` → `GregLensSlider` → `LENSES`.
-4. `npm run build`, commit, and deploy to `main`.
+   `src/app/components/CID.tsx` → `GregLensSlider` → `LENSES` (files are
+   referenced through the `cv()` helper, which appends the cache-buster).
+4. **Bump `LENS_V`** (same function) by 1. Filenames get reused when a clip is
+   re-trimmed in place, and browsers cache video by URL, so without a version
+   bump a visitor who already loaded the page keeps playing the old cached
+   file even after you've replaced it.
+5. `npm run build`, commit, and deploy to `main`.
 
 ## Current clips
 

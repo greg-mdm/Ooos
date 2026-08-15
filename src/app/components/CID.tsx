@@ -171,13 +171,19 @@ function Disclosure({ title, tag, children }: { title: string; tag?: string; chi
 function GregLensSlider({ base }: { base: string }) {
   // Each lens plays through its own list of clips (the active lens auto-advances
   // to the next when one ends, cycling). The other lens holds on its still.
-  // TO ADD A CLIP: optimize it to a web H.264 mp4 (scripts/add-lens-clip.sh),
-  // drop it in public/assets/video/, then add its filename to that lens's
-  // `clips` array below. See public/assets/video/LENS-CLIPS.md.
+  // TO ADD OR RE-TRIM A CLIP: optimize it to a web H.264 mp4
+  // (scripts/add-lens-clip.sh), drop it in public/assets/video/, add its
+  // filename to that lens's `clips` array below, AND BUMP LENS_V. Filenames
+  // are reused across edits (e.g. re-trimming greg-ethel-lens.mp4), and
+  // browsers cache video by URL, so without a version bump a visitor who
+  // already loaded the page can keep playing the old cached clip indefinitely.
+  // See public/assets/video/LENS-CLIPS.md.
+  const LENS_V = 2;
   const V = `${base}assets/video/`;
+  const cv = (name: string) => `${V}${name}?v=${LENS_V}`;
   const LENSES = [
-    { key: "ethel",  device: "ⓔMage",   station: "ΩStation 7.83", glyph: "꩜", label: "Greg, as Ethel sees him",  still: `${base}assets/greg-ethel-field.webp`, clips: [`${V}greg-ethel-lens.mp4`, `${V}greg-ethel-emage1.mp4`, `${V}greg-ethel-emage783.mp4`] },
-    { key: "icarus", device: "Ⅲ Vision", station: "αLiveShow",     glyph: "🔺", label: "Greg, as Icarus sees him", still: `${V}greg-icarus-still.webp`,           clips: [`${V}greg-icarus-lens.mp4`, `${V}greg-icarus-wide.mp4`] },
+    { key: "ethel",  device: "ⓔMage",   station: "ΩStation 7.83", glyph: "꩜", label: "Greg, as Ethel sees him",  still: `${base}assets/greg-ethel-field.webp?v=${LENS_V}`, clips: [cv("greg-ethel-lens.mp4"), cv("greg-ethel-emage1.mp4"), cv("greg-ethel-emage783.mp4")] },
+    { key: "icarus", device: "Ⅲ Vision", station: "αLiveShow",     glyph: "🔺", label: "Greg, as Icarus sees him", still: `${V}greg-icarus-still.webp?v=${LENS_V}`,           clips: [cv("greg-icarus-lens.mp4"), cv("greg-icarus-wide.mp4")] },
   ];
   // Start with Icarus playing and Ethel (the field shot) held as a still.
   const [active, setActive] = useState(1);
@@ -215,9 +221,9 @@ function GregLensSlider({ base }: { base: string }) {
                 )}
               </button>
               <div className="cid-lens-cap">
+                <span className="cid-lens-btn-glyph" aria-hidden="true">{l.glyph}</span>
                 <span className="cid-lens-btn-device">{l.device}</span>
                 <span className="cid-lens-btn-station">{l.station}</span>
-                <span className="cid-lens-btn-glyph" aria-hidden="true">{l.glyph}</span>
                 {on && l.clips.length > 1 && (
                   <span className="cid-lens-dots" aria-hidden="true">
                     {l.clips.map((_, k) => <span key={k} className={`cid-lens-dot ${k === at ? "on" : ""}`} />)}
