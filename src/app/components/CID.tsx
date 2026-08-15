@@ -1185,12 +1185,19 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <p className="cid-viv-tier-name">CAULDRONS</p>
                 <p className="cid-viv-tier-desc">Shared spaces where authorized participants exchange perspectives, experiment and build knowledge together.</p>
               </div>
-              <div className="cid-viv-tier" style={{ "--tier": "#822F00" } as CSSProperties}>
+            </div>
+
+            {/* The two restricted tiers set apart from the three open/friendly
+                ones above: a divider and a darker tier idiom, so "authorized
+                access only" reads as a distinct tier of the page, not just
+                another card in the row. */}
+            <div className="cid-viv-access-restricted">
+              <div className="cid-viv-tier cid-viv-tier--dark" style={{ "--tier": "#822F00" } as CSSProperties}>
                 <p className="cid-viv-tier-label">Restricted</p>
                 <p className="cid-viv-tier-name">LAIRS</p>
                 <p className="cid-viv-tier-desc">Private Floor 0 environments for authorized researchers and funding partners. Access reflects research purpose, qualifications, experience and authorization.</p>
               </div>
-              <div className="cid-viv-tier" style={{ "--tier": "#2B0561" } as CSSProperties}>
+              <div className="cid-viv-tier cid-viv-tier--dark" style={{ "--tier": "#B98CFF" } as CSSProperties}>
                 <p className="cid-viv-tier-label">Portal 60</p>
                 <p className="cid-viv-tier-name">DARK MATTERS</p>
                 <p className="cid-viv-tier-desc">Portal 60 opens into Dark Matters, a restricted environment dedicated to dismantling systematic injustice.</p>

@@ -307,6 +307,30 @@
 }
 .cid-scope .cid-viv-tier-desc { margin: 7px 0 0; font-size: 13.5px; line-height: 1.5; color: #33384a; }
 
+/* Restricted tiers (LAIRS, Portal 60) set apart from the three open ones: a
+   labelled divider, then dark cards so "authorized access only" reads at a
+   glance, not just another card in the same row. */
+.cid-scope .cid-viv-access-restricted {
+  display: flex; flex-wrap: wrap; gap: clamp(12px,1.6vw,18px);
+  margin-top: 6px; padding-top: 22px;
+  border-top: 1px dashed rgba(75,0,182,.22);
+  position: relative;
+}
+.cid-scope .cid-viv-access-restricted::before {
+  content: "Authorized access only";
+  position: absolute; top: -9px; left: 0;
+  background: #F0F4F5; padding: 0 10px 0 0;
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 10px;
+  letter-spacing: .18em; text-transform: uppercase; color: #5b5f86;
+}
+.cid-scope .cid-viv-tier--dark {
+  flex: 1 1 230px;
+  background: #150a2e; border-color: rgba(185,140,255,.25);
+  box-shadow: 0 22px 50px -32px rgba(6,2,28,.6);
+}
+.cid-scope .cid-viv-tier--dark .cid-viv-tier-name { color: #f2eefc; }
+.cid-scope .cid-viv-tier--dark .cid-viv-tier-desc { color: #c9c2e6; }
+
 /* Research code reference table. */
 .cid-scope .cid-viv-codes { overflow-x: auto; }
 .cid-scope .cid-viv-codes-table {
