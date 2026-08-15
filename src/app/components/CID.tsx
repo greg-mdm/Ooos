@@ -170,42 +170,41 @@ function Disclosure({ title, tag, children }: { title: string; tag?: string; chi
 // each panel shows a labelled placeholder slot.
 function GregLensSlider({ base }: { base: string }) {
   const LENSES = [
-    { key: "ethel",  device: "ⓔMage",   station: "ΩStation 7.83", glyph: "꩜", label: "Greg, as Ethel sees him",  video: `${base}assets/video/greg-ethel-lens.mp4`, img: `${base}assets/greg-ethel-field.webp` },
-    { key: "icarus", device: "ⅢVision", station: "αLiveShow",     glyph: "🔺", label: "Greg, as Icarus sees him", video: `${base}assets/video/greg-icarus-lens.mp4`, img: "" },
+    { key: "ethel",  device: "ⓔMage",   station: "ΩStation 7.83", glyph: "꩜", label: "Greg, as Ethel sees him",  video: `${base}assets/video/greg-ethel-lens.mp4`,  still: `${base}assets/greg-ethel-field.webp` },
+    { key: "icarus", device: "ⅢVision", station: "αLiveShow",     glyph: "🔺", label: "Greg, as Icarus sees him", video: `${base}assets/video/greg-icarus-lens.mp4`, still: `${base}assets/video/greg-icarus-still.webp` },
   ];
-  const [view, setView] = useState(0);
+  // Two contrasting previews side by side: the active lens plays, the other
+  // holds on its still frame. Start with Icarus playing and Ethel (the field
+  // shot) held as an uncropped still.
+  const [active, setActive] = useState(1);
   return (
     <div className="cid-lens">
-      <div className="cid-lens-stage">
-        <div className="cid-lens-track" style={{ transform: `translateX(-${view * 100}%)` }}>
-          {LENSES.map((l) => (
-            <figure className={`cid-lens-panel cid-lens-panel--${l.key}`} key={l.key}>
-              {l.video ? (
-                <video className="cid-lens-video" src={l.video} poster={l.img || undefined} autoPlay muted loop playsInline aria-label={l.label} />
-              ) : l.img ? (
-                <div className="cid-lens-slot cid-lens-slot--img" role="img" aria-label={l.label} style={{ backgroundImage: `url("${l.img}")` }} />
-              ) : (
-                <div className="cid-lens-slot" role="img" aria-label={l.label}>{l.label}</div>
-              )}
-            </figure>
-          ))}
-        </div>
-      </div>
-      <div className="cid-lens-controls" role="tablist" aria-label="Choose a lens">
-        {LENSES.map((l, i) => (
-          <button
-            key={l.key}
-            type="button"
-            role="tab"
-            aria-selected={view === i}
-            className={`cid-lens-btn cid-lens-btn--${l.key} ${view === i ? "is-active" : ""}`}
-            onClick={() => setView(i)}
-          >
-            <span className="cid-lens-btn-device">{l.device}</span>
-            <span className="cid-lens-btn-station">{l.station}</span>
-            <span className="cid-lens-btn-glyph" aria-hidden="true">{l.glyph}</span>
-          </button>
-        ))}
+      <div className="cid-lens-duo">
+        {LENSES.map((l, i) => {
+          const on = active === i;
+          return (
+            <div className={`cid-lens-cell cid-lens-cell--${l.key} ${on ? "is-active" : ""}`} key={l.key}>
+              <button
+                type="button"
+                className="cid-lens-panel"
+                aria-pressed={on}
+                aria-label={on ? l.label : `Play ${l.label}`}
+                onClick={() => setActive(i)}
+              >
+                {on ? (
+                  <video className="cid-lens-video" src={l.video} poster={l.still} autoPlay muted loop playsInline />
+                ) : (
+                  <div className="cid-lens-still" role="img" aria-label={l.label} style={{ backgroundImage: `url("${l.still}")` }} />
+                )}
+              </button>
+              <div className="cid-lens-cap">
+                <span className="cid-lens-btn-device">{l.device}</span>
+                <span className="cid-lens-btn-station">{l.station}</span>
+                <span className="cid-lens-btn-glyph" aria-hidden="true">{l.glyph}</span>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
