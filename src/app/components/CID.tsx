@@ -1008,12 +1008,33 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               {/* Leadership: who runs the Vivarium, and the division's mandate. */}
               <div className="cid-viv-leadership">
                 <h3 className="cid-viv-ecosystem-h">Leadership</h3>
-                <p className="cid-viv-lead">The CID Director serves as Principal Investigator and Systems Architect, directing all research operations and guiding interactive engagement activities in our purpose-built habitat.</p>
+                <p className="cid-viv-lead">The CID Director serves as Principal Investigator and Systems Architect, directing all research operations and guiding engagement activities in our purpose-built habitat.</p>
                 <p className="cid-viv-lead">As a division of <span className="cid-ooo">Ooo!</span> Digital Media Studio, CID is designed to:</p>
                 <ul className="cid-viv-lead-list">
                   <li>Expand public access to collective intelligence</li>
                   <li>Pursue research imperatives set by <span className="cid-ooo">Ooo!</span> Digital Media Studio</li>
                 </ul>
+
+                {/* Digital products and studio services offered by CID. */}
+                <div className="cid-viv-offer">
+                  <div className="cid-viv-offer-row">
+                    <p className="cid-viv-offer-label">Digital Products</p>
+                    <div className="cid-viv-offer-pills">
+                      <span className="cid-viv-pill">Radical Strategic Intelligence</span>
+                      <span className="cid-viv-pill">AI Experiments</span>
+                      <span className="cid-viv-pill">AI4XD</span>
+                    </div>
+                    <p className="cid-viv-offer-note">AI4XD: Artificial Intelligence for Experience Design</p>
+                  </div>
+                  <div className="cid-viv-offer-row">
+                    <p className="cid-viv-offer-label">Studio Services</p>
+                    <div className="cid-viv-offer-pills">
+                      <span className="cid-viv-pill">Market Research</span>
+                      <span className="cid-viv-pill">Sector Support</span>
+                      <span className="cid-viv-pill">Internationalization</span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* The three researchers side by side under the copy, in the
