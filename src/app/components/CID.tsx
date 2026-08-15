@@ -170,7 +170,7 @@ function Disclosure({ title, tag, children }: { title: string; tag?: string; chi
 // each panel shows a labelled placeholder slot.
 function GregLensSlider({ base }: { base: string }) {
   const LENSES = [
-    { key: "ethel",  device: "ⓔMage",   station: "ΩStation 7.83", glyph: "꩜", label: "Greg, as Ethel sees him",  video: "", img: `${base}assets/E-STATION-Gregplacehold.png` },
+    { key: "ethel",  device: "ⓔMage",   station: "ΩStation 7.83", glyph: "꩜", label: "Greg, as Ethel sees him",  video: "", img: `${base}assets/greg-ethel-field.webp` },
     { key: "icarus", device: "ⅢVision", station: "αLiveShow",     glyph: "🔺", label: "Greg, as Icarus sees him", video: `${base}assets/video/greg-icarus-lens.mp4`, img: "" },
   ];
   const [view, setView] = useState(0);
