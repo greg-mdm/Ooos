@@ -197,6 +197,20 @@ const VERT = 'attribute vec2 a_pos; void main(){ gl_Position = vec4(a_pos,0.0,1.
     visible = !!e.data.visible;
     if (visible) startLoop();
   });
+
+  // Self-start rather than waiting to be told we are visible. The parent posts
+  // 'room-visible' from an IntersectionObserver, but this iframe is lazy-loaded:
+  // when the observer fires before this document has finished loading, that
+  // message lands with no listener attached and is lost forever, leaving the
+  // walls frozen on frame one (the shaders are time-driven, so a stalled loop
+  // reads as "the walls didn't render"). Own visibility here too, so the room
+  // animates on its own and the parent's message only ever pauses/resumes it.
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      visible = entries[0].isIntersecting;
+      if (visible) startLoop();
+    }, { rootMargin: '200px 0px' }).observe(document.getElementById('stage'));
+  }
   startLoop();
 })();
 </script>

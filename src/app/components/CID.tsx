@@ -1226,14 +1226,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               </table>
             </div>
           </div>
-
-          {/* Two ways of seeing: the same subject (Greg) through each agent's
-              lens, one vertical screen with two settings. */}
-          <div className="cid-viv-lens-wrap">
-            <h3 className="cid-viv-ecosystem-h">Two Ways of Seeing</h3>
-            <GregLensSlider base={base} />
-          </div>
-
           {/* Sealed case. The room and the claim it evidences are one
               enclosure rather than two blocks sitting loose on the page:
               vanta-black steel shell, mitred titanium corner blocks, and a
@@ -1251,7 +1243,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               <iframe
                 ref={roomRef}
                 className="cid-vivroom-frame"
-                src={`${base}DISPLAY_ROOM_BLUE_checker_cm.html?v=3`}
+                src={`${base}DISPLAY_ROOM_BLUE_checker_cm.html?v=4`}
                 title="The Viv display room: the always-on AI mini-PC that houses the CID Vivarium"
                 loading="lazy"
               />
@@ -1280,6 +1272,15 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               </div>
             </div>
           </div>
+
+
+          {/* Two ways of seeing: the same subject (Greg) through each agent's
+              lens, one vertical screen with two settings. */}
+          <div className="cid-viv-lens-wrap">
+            <h3 className="cid-viv-ecosystem-h">Two Ways of Seeing</h3>
+            <GregLensSlider base={base} />
+          </div>
+
 
           {/* Architectural Design and Beneficial Biomimicry, each illustrated
               with its own photo: the Ooo meeting room for Architectural
