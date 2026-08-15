@@ -169,19 +169,27 @@ function Disclosure({ title, tag, children }: { title: string; tag?: string; chi
 // clips are supplied separately and drop into each panel's <video>; until then
 // each panel shows a labelled placeholder slot.
 function GregLensSlider({ base }: { base: string }) {
+  // Each lens plays through its own list of clips (the active lens auto-advances
+  // to the next when one ends, cycling). The other lens holds on its still.
+  // TO ADD A CLIP: optimize it to a web H.264 mp4 (scripts/add-lens-clip.sh),
+  // drop it in public/assets/video/, then add its filename to that lens's
+  // `clips` array below. See public/assets/video/LENS-CLIPS.md.
+  const V = `${base}assets/video/`;
   const LENSES = [
-    { key: "ethel",  device: "ⓔMage",   station: "ΩStation 7.83", glyph: "꩜", label: "Greg, as Ethel sees him",  video: `${base}assets/video/greg-ethel-lens.mp4`,  still: `${base}assets/greg-ethel-field.webp` },
-    { key: "icarus", device: "ⅢVision", station: "αLiveShow",     glyph: "🔺", label: "Greg, as Icarus sees him", video: `${base}assets/video/greg-icarus-lens.mp4`, still: `${base}assets/video/greg-icarus-still.webp` },
+    { key: "ethel",  device: "ⓔMage",   station: "ΩStation 7.83", glyph: "꩜", label: "Greg, as Ethel sees him",  still: `${base}assets/greg-ethel-field.webp`, clips: [`${V}greg-ethel-lens.mp4`] },
+    { key: "icarus", device: "ⅢVision", station: "αLiveShow",     glyph: "🔺", label: "Greg, as Icarus sees him", still: `${V}greg-icarus-still.webp`,           clips: [`${V}greg-icarus-lens.mp4`, `${V}greg-icarus-wide.mp4`] },
   ];
-  // Two contrasting previews side by side: the active lens plays, the other
-  // holds on its still frame. Start with Icarus playing and Ethel (the field
-  // shot) held as an uncropped still.
+  // Start with Icarus playing and Ethel (the field shot) held as a still.
   const [active, setActive] = useState(1);
+  const [clipIdx, setClipIdx] = useState(0);
+  const pick = (i: number) => { setActive(i); setClipIdx(0); };
   return (
     <div className="cid-lens">
       <div className="cid-lens-duo">
         {LENSES.map((l, i) => {
           const on = active === i;
+          const at = clipIdx % l.clips.length;
+          const clip = l.clips[at];
           return (
             <div className={`cid-lens-cell cid-lens-cell--${l.key} ${on ? "is-active" : ""}`} key={l.key}>
               <button
@@ -189,10 +197,19 @@ function GregLensSlider({ base }: { base: string }) {
                 className="cid-lens-panel"
                 aria-pressed={on}
                 aria-label={on ? l.label : `Play ${l.label}`}
-                onClick={() => setActive(i)}
+                onClick={() => pick(i)}
               >
                 {on ? (
-                  <video className="cid-lens-video" src={l.video} poster={l.still} autoPlay muted loop playsInline />
+                  <video
+                    key={clip}
+                    className="cid-lens-video"
+                    src={clip}
+                    poster={l.still}
+                    autoPlay
+                    muted
+                    playsInline
+                    onEnded={() => setClipIdx((x) => (x + 1) % l.clips.length)}
+                  />
                 ) : (
                   <div className="cid-lens-still" role="img" aria-label={l.label} style={{ backgroundImage: `url("${l.still}")` }} />
                 )}
@@ -201,6 +218,11 @@ function GregLensSlider({ base }: { base: string }) {
                 <span className="cid-lens-btn-device">{l.device}</span>
                 <span className="cid-lens-btn-station">{l.station}</span>
                 <span className="cid-lens-btn-glyph" aria-hidden="true">{l.glyph}</span>
+                {on && l.clips.length > 1 && (
+                  <span className="cid-lens-dots" aria-hidden="true">
+                    {l.clips.map((_, k) => <span key={k} className={`cid-lens-dot ${k === at ? "on" : ""}`} />)}
+                  </span>
+                )}
               </div>
             </div>
           );

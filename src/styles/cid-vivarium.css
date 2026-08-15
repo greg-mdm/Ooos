@@ -357,6 +357,9 @@
 .cid-scope .cid-lens-cell.is-active .cid-lens-btn-device { color: var(--lens); }
 .cid-scope .cid-lens-btn-station { font-size: 12px; letter-spacing: .04em; color: #5b5f86; }
 .cid-scope .cid-lens-btn-glyph { font-size: 18px; line-height: 1; color: var(--lens); }
+.cid-scope .cid-lens-dots { display: inline-flex; gap: 5px; margin-top: 5px; }
+.cid-scope .cid-lens-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(75,0,182,.25); transition: background .2s; }
+.cid-scope .cid-lens-dot.on { background: var(--lens); }
 
 /* The Flicker card: image slot over a name plate + one-line function. The
    image is supplied separately and drops into cid-viv-flicker-img; until then
