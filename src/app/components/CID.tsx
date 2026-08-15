@@ -170,7 +170,7 @@ function Disclosure({ title, tag, children }: { title: string; tag?: string; chi
 // each panel shows a labelled placeholder slot.
 function GregLensSlider({ base }: { base: string }) {
   const LENSES = [
-    { key: "ethel",  device: "ⓔMage",   station: "ΩStation 7.83", glyph: "꩜", label: "Greg, as Ethel sees him",  video: "", img: `${base}assets/greg-ethel-field.webp` },
+    { key: "ethel",  device: "ⓔMage",   station: "ΩStation 7.83", glyph: "꩜", label: "Greg, as Ethel sees him",  video: `${base}assets/video/greg-ethel-lens.mp4`, img: `${base}assets/greg-ethel-field.webp` },
     { key: "icarus", device: "ⅢVision", station: "αLiveShow",     glyph: "🔺", label: "Greg, as Icarus sees him", video: `${base}assets/video/greg-icarus-lens.mp4`, img: "" },
   ];
   const [view, setView] = useState(0);
@@ -181,7 +181,7 @@ function GregLensSlider({ base }: { base: string }) {
           {LENSES.map((l) => (
             <figure className={`cid-lens-panel cid-lens-panel--${l.key}`} key={l.key}>
               {l.video ? (
-                <video className="cid-lens-video" src={l.video} autoPlay muted loop playsInline aria-label={l.label} />
+                <video className="cid-lens-video" src={l.video} poster={l.img || undefined} autoPlay muted loop playsInline aria-label={l.label} />
               ) : l.img ? (
                 <div className="cid-lens-slot cid-lens-slot--img" role="img" aria-label={l.label} style={{ backgroundImage: `url("${l.img}")` }} />
               ) : (
