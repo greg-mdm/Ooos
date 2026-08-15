@@ -7,7 +7,15 @@
 .cid-scope .cid-viv { background: #F0F4F5; padding: clamp(30px,5vh,56px) 0 clamp(34px,6vh,64px); }
 .cid-scope .cid-viv-stack { display: flex; flex-direction: column; gap: clamp(22px,3.4vh,34px); }
 
-.cid-scope .cid-viv-lead { margin: 0; font-size: clamp(15px,1.5vw,18px); line-height: 1.55; color: #33384a; max-width: 66ch; }
+/* Prose blocks read as one crisp shape, not three ragged edges: text-wrap
+   balance evens the line lengths so the last line fills out instead of
+   trailing off short, and the measure sits at 62ch rather than the wide end
+   of comfortable. Browsers without text-wrap simply fall back to normal
+   wrapping, so this is additive. */
+.cid-scope .cid-viv-lead {
+  margin: 0; font-size: clamp(15px,1.5vw,18px); line-height: 1.55; color: #33384a;
+  max-width: 62ch; text-wrap: balance;
+}
 .cid-scope .cid-viv-lead strong { color: #5B04DE; }
 
 /* The lede stack: the welcome title, the two paragraphs, the boundaries list
@@ -243,7 +251,7 @@
   margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
   font-size: clamp(19px,2vw,23px); letter-spacing: -.2px; color: #4B00B6;
 }
-.cid-scope .cid-viv-ecosystem-copy { margin: 0; font-size: clamp(15px,1.5vw,17px); line-height: 1.6; color: #33384a; max-width: 62ch; }
+.cid-scope .cid-viv-ecosystem-copy { margin: 0; font-size: clamp(15px,1.5vw,17px); line-height: 1.6; color: #33384a; max-width: 62ch; text-wrap: balance; }
 
 /* Ecosystem row: the Flicker card beside the inputs/tags glossary, filling the
    band next to the reference card. Wraps to a stack on narrow viewports. */

@@ -50,6 +50,11 @@ NEVER an acronym without its meaning spelled out on first use.
 NEVER invent facts (e.g., don't call a video and an ad campaign "two films").
 Use Greg's supplied copy verbatim; any NEW text (even button labels) must be
 flagged for approval before it ships.
+CRISP PARAGRAPH BLOCKS (standing, from Greg). Body copy should read as one clean shape,
+not three ragged edges with a short trailing last line. Set a measure in the 55-65ch range
+(not wider) and add `text-wrap: balance` so line lengths even out and the bottom line fills
+out. Applied to `.cid-viv-lead` / `.cid-viv-ecosystem-copy`; use the same treatment on any
+new prose block.
 Robin's-egg background `#F0F4F5` is the homepage/page background (`--bg`, `--ot-bg`).
 Lovelo is a single 900-weight face (self-hosted "Lovelo Black", `src/styles/fonts.css`).
 Always use `font-weight: 900` for Lovelo — any other weight makes the browser distort the
