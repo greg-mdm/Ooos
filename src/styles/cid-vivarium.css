@@ -316,7 +316,7 @@
 .cid-scope .cid-viv-lens-wrap { display: flex; flex-direction: column; gap: 14px; }
 .cid-scope .cid-lens { display: flex; flex-direction: column; gap: 16px; align-items: center; }
 .cid-scope .cid-lens-stage {
-  width: 100%; max-width: 320px; aspect-ratio: 9 / 16; overflow: hidden;
+  width: 100%; max-width: 640px; aspect-ratio: 16 / 9; overflow: hidden;
   border-radius: 20px; background: #0d0820;
   border: 1px solid rgba(75,0,182,.2); box-shadow: 0 26px 60px -34px rgba(6,2,28,.55);
 }
