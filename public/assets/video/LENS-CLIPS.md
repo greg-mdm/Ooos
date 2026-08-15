@@ -25,8 +25,15 @@ its still frame. Panels are 3:2 so the field still fills with no crop.
 
 | Lens | Clips (in play order) | Still |
 |------|-----------------------|-------|
-| **ethel** (ⓔMage) | `greg-ethel-lens.mp4` | `assets/greg-ethel-field.webp` (the field shot) |
-| **icarus** (ⅢVision) | `greg-icarus-lens.mp4` (close-up), `greg-icarus-wide.mp4` (wide) | `greg-icarus-still.webp` |
+| **ethel** (ⓔMage) | `greg-ethel-lens.mp4` (calm, at the portal), `greg-ethel-emage1.mp4`, `greg-ethel-emage783.mp4` (eMAGE channel idents) | `assets/greg-ethel-field.webp` (the field shot) |
+| **icarus** (Ⅲ Vision) | `greg-icarus-lens.mp4` (close-up), `greg-icarus-wide.mp4` (wide) | `greg-icarus-still.webp` |
+
+`greg-ethel-lens.mp4` is `Ethel Preview.mp4` trimmed to 0–7.1s: the source clip
+cuts hard from a calm portal scene into a lightning/transformation climax at
+~7.15s, and Ethel's side is meant to stay calm, so only the calm portion is
+used. If a replacement calm clip is ever needed, re-trim from the original
+`Ethel Preview.mp4` before that cut point, not after it.
 
 Spares kept in this folder as raw sources: `iVision-Wide.mp4`,
-`I-vision-CloseUp.MOV`, `Ethel Preview.mp4`, `Wide-Field-GL.png`.
+`I-vision-CloseUp.MOV`, `Ethel Preview.mp4`, `Wide-Field-GL.png`,
+`E-Mage 1.mp4`, `eMAGE-7.83.mp4`.

@@ -176,8 +176,8 @@ function GregLensSlider({ base }: { base: string }) {
   // `clips` array below. See public/assets/video/LENS-CLIPS.md.
   const V = `${base}assets/video/`;
   const LENSES = [
-    { key: "ethel",  device: "ⓔMage",   station: "ΩStation 7.83", glyph: "꩜", label: "Greg, as Ethel sees him",  still: `${base}assets/greg-ethel-field.webp`, clips: [`${V}greg-ethel-lens.mp4`] },
-    { key: "icarus", device: "ⅢVision", station: "αLiveShow",     glyph: "🔺", label: "Greg, as Icarus sees him", still: `${V}greg-icarus-still.webp`,           clips: [`${V}greg-icarus-lens.mp4`, `${V}greg-icarus-wide.mp4`] },
+    { key: "ethel",  device: "ⓔMage",   station: "ΩStation 7.83", glyph: "꩜", label: "Greg, as Ethel sees him",  still: `${base}assets/greg-ethel-field.webp`, clips: [`${V}greg-ethel-lens.mp4`, `${V}greg-ethel-emage1.mp4`, `${V}greg-ethel-emage783.mp4`] },
+    { key: "icarus", device: "Ⅲ Vision", station: "αLiveShow",     glyph: "🔺", label: "Greg, as Icarus sees him", still: `${V}greg-icarus-still.webp`,           clips: [`${V}greg-icarus-lens.mp4`, `${V}greg-icarus-wide.mp4`] },
   ];
   // Start with Icarus playing and Ethel (the field shot) held as a still.
   const [active, setActive] = useState(1);
