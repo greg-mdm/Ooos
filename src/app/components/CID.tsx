@@ -5,7 +5,69 @@ import "../../styles/cid-continuum.css";
 import "../../styles/cid-forest.css";
 import "../../styles/cid-coins.css";
 import "../../styles/cid-vivarium.css";
+// The strategy keys reuse the homepage division-key design (.ood-key et al).
+import "../../styles/ooodivisions2.css";
 import { SC } from "./cid/statcan-links";
+
+// The three CID strategy pillars, set as the same pressable black keys the
+// homepage uses on the division cards. Design is shared deliberately: the
+// gradients, shadow ramp and Bright Silver legend are lifted verbatim from
+// the CID column in OooDivisions.tsx (top key brightest, fading down), so
+// the two places read as one system. Only the text differs, and here each
+// key carries its two statements as separate bullets rather than one line.
+const KEY_GRAD = (a: string, b: string, c: string) =>
+  `radial-gradient(135% 165% at 50% -34%,${a} 0%,${b} 42%,${c} 100%)`;
+
+const STRATEGY_KEYS: { bg: string; shadow: string; lines: [string, string] }[] = [
+  {
+    bg: KEY_GRAD("rgb(174,153,201)", "rgb(70,46,134)", "rgb(24,16,46)"),
+    shadow: "0 19px 42px rgba(8,2,24,0.38)",
+    lines: ["Energize economic expansion.", "Empower inclusive growth."],
+  },
+  {
+    bg: KEY_GRAD("rgb(152,133,179)", "rgb(54,35,104)", "rgb(18,12,35)"),
+    shadow: "0 16px 36px rgba(8,2,24,0.32)",
+    lines: ["Gather collective intelligence.", "Integrate verified data sources."],
+  },
+  {
+    bg: KEY_GRAD("rgb(126,110,151)", "rgb(37,23,74)", "rgb(13,8,25)"),
+    shadow: "0 13px 30px rgba(8,2,24,0.27)",
+    lines: ["Boost business confidence.", "Build global partnerships."],
+  },
+];
+
+/** The three pillars as pressable keys, matching the homepage exactly in
+ *  behaviour as well as look: each key toggles lit on click and reports its
+ *  state with aria-pressed. */
+function StrategyKeys() {
+  const [lit, setLit] = useState<Record<number, boolean>>({});
+  return (
+    <ul className="ood-keys cid-strategy-keys">
+      {STRATEGY_KEYS.map((k, i) => {
+        const on = !!lit[i];
+        return (
+          <li className="ood-key-wrap" key={i} style={{ filter: `drop-shadow(${k.shadow})` }}>
+            <button
+              type="button"
+              className={`ood-key${on ? " is-on" : ""}`}
+              aria-pressed={on}
+              onClick={() => setLit((s) => ({ ...s, [i]: !s[i] }))}
+              style={{ background: k.bg }}
+            >
+              <span className="ood-label">
+                <span className="cid-strategy-bullets">
+                  {k.lines.map((line) => (
+                    <span className="cid-strategy-bullet" key={line}>{line}</span>
+                  ))}
+                </span>
+              </span>
+            </button>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
 
 // Underground / terrain layer — the page floor. Plain link cards (these gov
 // viewers block cross-origin framing, so they open in a new tab).
@@ -632,6 +694,17 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   </div>
                 </div>
               </div>
+
+              {/* Strategies: the three CID pillars, sitting below Leadership
+                  and pushing the Viv display case down the page. The keys
+                  reuse the homepage's .ood-key design (see StrategyKeys
+                  above); the sheet is imported for those rules. */}
+              <section className="cid-strategy" aria-labelledby="cid-strategy-title">
+                <p className="cid-strategy-eyebrow">Strategies</p>
+                <h3 id="cid-strategy-title" className="cid-strategy-h">Micro-Studio. Massive Creative Capacity.</h3>
+                <p className="cid-strategy-sub">Research reimagined</p>
+                <StrategyKeys />
+              </section>
 
               {/* Sealed case. The room and the claim it evidences are one
                   enclosure rather than two blocks sitting loose on the page:
