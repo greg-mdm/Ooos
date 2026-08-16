@@ -192,6 +192,38 @@ bar, not proof of correctness.
 - `public/` — served at the site root. Assets in `public/assets/`. Reference as
   `${import.meta.env.BASE_URL}assets/<file>` and URL-encode spaces (`%20`).
 
+### Getting images and video in: use Google Drive
+
+**Preferred: Greg drops the file in Google Drive, Claude pulls it directly.**
+Verified working — Drive tools reach the `studio@ooos.ca` account, return the
+real bytes, and those write straight to disk as a normal asset.
+
+```
+mcp__Google_Drive__search_files    → find it (query by title / mimeType / parentId)
+mcp__Google_Drive__download_file_content → base64 bytes
+→ decode, optimize (WebP / H.264), commit
+```
+
+Useful queries:
+
+```
+title contains 'poppy'
+mimeType contains 'image/' or mimeType contains 'video/'
+parentId = '<folder id>'          # a whole shared sprint folder
+modifiedTime > '2026-08-01T00:00:00Z'
+```
+
+**Why this is better than the two current routes:**
+
+| Route | Problem |
+|---|---|
+| Paste into chat with `+` | Arrives as an **inline capture, not a file**. Claude can see it but cannot save it as an asset, so it can't be committed. This is why the poppy-field image stalled. |
+| Upload to GitHub | Works, but **it moves `main`**, so Claude's in-flight branch diverges. That's the "one step forward, two steps back" rebase churn. |
+| **Google Drive** | Neither problem. Real bytes, and `main` stays still. |
+
+Sprints 1–3 also live in Drive, so the same tools can pull historical reference
+material without it being copied into this repo.
+
 ### Media rules
 
 - **Optimize before use.** Large art must be downscaled and converted to WebP
