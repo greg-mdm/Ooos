@@ -846,9 +846,20 @@
 }
 /* Three across, since these read as pillars rather than a stacked list.
    Stretch so the keys share one height however the bullets wrap. */
+/* Each bullet is a single clause and reads as one line. That needs the full
+   container: inside the 820px intro column the longest ("Integrate verified
+   data sources.") wanted 311px against 228px available and broke in two.
+   The Strategies band is a direct child of .cid-viv-stack now rather than a
+   nested item of the intro column, so the row gives each key ~385px and the
+   band clears the side panel instead of running under it. */
 .cid-scope .cid-strategy-keys {
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(12px,1.6vw,18px); align-items: stretch;
+}
+/* One line per bullet once there is room for it; below the point where the
+   longest clause stops fitting, they wrap as before rather than shrink. */
+@media (min-width: 1240px) {
+  .cid-scope .cid-strategy-bullet { text-wrap: nowrap; }
 }
 .cid-scope .cid-strategy-keys .ood-key-wrap { height: 100%; }
 .cid-scope .cid-strategy-keys .ood-key { height: 100%; align-items: flex-start; }
@@ -863,7 +874,11 @@
   width: 7px; height: 7px; border-radius: 2px;
   background: #E8ECF4; opacity: .85;
 }
-@media (max-width: 860px) {
+/* Stack below the width where three across can still hold a bullet on one
+   line. Between 860px and 1240px the three-column grid put each key at
+   ~314px, which is 50px short of the longest clause, so the keys stacked
+   later than the copy needed them to. */
+@media (max-width: 1239px) {
   .cid-scope .cid-strategy-keys { grid-template-columns: minmax(0, 1fr); }
   .cid-scope .cid-strategy-keys .ood-key { align-items: center; }
 }
