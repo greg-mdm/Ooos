@@ -438,8 +438,18 @@
      compartments are capped again below, which keeps the era copy on a
      readable measure and leaves the vanta-black shell as the museum
      surround on wide screens. */
+  /* Break out from the page gutter, not from 50% of the parent. The vitrine
+     sits inside .cid-viv-intro-col -- the narrow left column of the intro row,
+     not a viewport-centred block -- so calc(50% - 50vw) centres it on that
+     820px column instead of the page, throwing it ~186px off to the left and
+     straight across the side panel in the right column. The gutter is the
+     container's own offset: half the leftover viewport plus the 24px padding,
+     floored at 24px on narrow screens where .cid-hero-container (max-width
+     1240px) already runs edge to edge. Keep the 1240px in step with it. */
+  --viv-gutter: max(24px, (100vw - 1240px) / 2 + 24px);
   width: 100vw; max-width: none;
-  margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
+  margin-left: calc(-1 * var(--viv-gutter));
+  margin-right: calc(-1 * var(--viv-gutter));
   position: relative; isolation: isolate;
   padding: clamp(13px,1.5vw,20px) clamp(16px,3vw,48px);
   border-radius: 0;
