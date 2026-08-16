@@ -1,0 +1,1463 @@
+From 25fcbcc65fa547b59ddbec4c39ed67b742324d6e Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Sun, 16 Aug 2026 10:03:56 +0000
+Subject: [PATCH 1/5] Transplant the yellow block from /cid to /cid/iwatchlist
+
+Move the seven yellow sections off /cid, stopping before the cave.
+/cid keeps the hero, Vivarium, portal band, flag block, Underground and
+the cid-join gradient. /cid/iwatchlist takes the embed, the continuum,
+the living wall, A Force of Nature, the forest and the canopy.
+
+Untangle the state coupling first, since the build does not typecheck:
+
+- New src/app/components/cid/: statcan-links.ts holds the shared SC link
+  map (/cid keeps the underground cards, the subpage takes the
+  continuum), plus DataAccessContinuum.tsx and LivingWallSlider.tsx,
+  which were module-scope and unexported in CID.tsx. Disclosure,
+  RouteItem, ROUTES, INDICATORS and SPECTRUM are used only by the
+  continuum, so they travel with it.
+- usePopulationModel moves to IWatchlist. It is a read-only hook with a
+  24h cache, so no retained /cid section needs it.
+- embedRef and its postMessage effect are deleted from CID.tsx; the
+  subpage already had its own copy.
+- roomRef stays on /cid with the Viv display room.
+- lwSlide is dropped, not moved: it was set via onIndexChange and never
+  read anywhere in the repo.
+
+The portal band and the Innovation Watchlist flag block are signposts,
+so they render on both pages. The flag is the red/white/red wl-flagrow
+panel inside public/Innovation Watchlist.dc.html, reached through
+section.cid-wl-hero, not a standalone asset.
+
+CSS is imported, not forked: IWatchlist pulls cid-continuum, cid-forest
+and cid-coins, and already renders inside .cid-scope.
+
+Still open, pending Greg: the blue observatory lockup lives at the top of
+the watchlist embed, so moving the embed takes the blue off /cid; the
+Support CTA has no home and onSupport is still an unused prop on CID.
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01EvRZJin2PNdFtPMRwTJCdt
+---
+ src/app/components/CID.tsx                    | 647 +-----------------
+ src/app/components/IWatchlist.tsx             | 225 +++++-
+ .../components/cid/DataAccessContinuum.tsx    | 328 +++++++++
+ src/app/components/cid/LivingWallSlider.tsx   |  80 +++
+ src/app/components/cid/statcan-links.ts       |  26 +
+ 5 files changed, 661 insertions(+), 645 deletions(-)
+ create mode 100644 src/app/components/cid/DataAccessContinuum.tsx
+ create mode 100644 src/app/components/cid/LivingWallSlider.tsx
+ create mode 100644 src/app/components/cid/statcan-links.ts
+
+diff --git a/src/app/components/CID.tsx b/src/app/components/CID.tsx
+index 020186f..897e61c 100644
+--- a/src/app/components/CID.tsx
++++ b/src/app/components/CID.tsx
+@@ -5,38 +5,7 @@ import "../../styles/cid-continuum.css";
+ import "../../styles/cid-forest.css";
+ import "../../styles/cid-coins.css";
+ import "../../styles/cid-vivarium.css";
+-import {
+-  PopClockCard,
+-  PopulationSourcesStrip,
+-  usePopulationModel,
+-  type PopulationModelState,
+-} from "./population/PopulationClockCard";
+-
+-// --- Canada's Continuum of Data Access -------------------------------------
+-// Real StatsCan destinations behind each route on the official "Continuum of
+-// Data Access" graphic (links read off the graphic itself), plus the general
+-// resources referenced in the section copy.
+-const SC = {
+-  api: "https://www.statcan.gc.ca/en/developers/wds",
+-  data: "https://www150.statcan.gc.ca/n1/en/type/data?MM=1",
+-  pumf: "https://www150.statcan.gc.ca/n1/en/type/data?MM=1#publicusemicrodata",
+-  rtra: "https://www.statcan.gc.ca/en/microdata/rtra/data",
+-  vrdc: "https://www.statcan.gc.ca/en/microdata/data-centres/data",
+-  microdata: "https://www.statcan.gc.ca/en/microdata",
+-  explore: "https://www150.statcan.gc.ca/n1/en/type/data",
+-  strategy: "https://www.statcan.gc.ca/en/about/datastrategy",
+-  openGov: "https://open.canada.ca/en/open-data",
+-  ontario: "https://www.ontario.ca/document/ontario-employment-reports",
+-  start: "https://www.statcan.gc.ca/en/start",
+-  // Ontario observatory + underground layer
+-  onReport: "https://www.ontario.ca/document/ontario-employment-reports/january-march-2026",
+-  onRegions: "https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4",
+-  jobbankScan: "https://www.jobbank.gc.ca/trend-analysis/job-market-reports/ontario/environmental-scan",
+-  caps: "https://www.lioapplications.lrc.gov.on.ca/Pits_And_Quarries/index.html?viewer=Pits_and_Quarries.Pits_and_Quarries&locale=en-CA",
+-  forceOfNature: "https://www.canada.ca/en/services/environment/nature/nature-strategy.html#toc6",
+-  radarDsm: "https://data.ontario.ca/dataset/ontario-radar-digital-surface-model",
+-  geohub: "https://geohub.lio.gov.on.ca",
+-};
++import { SC } from "./cid/statcan-links";
+ 
+ // Underground / terrain layer — the page floor. Plain link cards (these gov
+ // viewers block cross-origin framing, so they open in a new tab).
+@@ -64,106 +33,6 @@ const UNDERGROUND = [
+   },
+ ];
+ 
+-type AccessRoute = {
+-  key: string;
+-  name: string;
+-  blurb: string;
+-  tag: string;
+-  href: string;
+-  access: string;
+-  location: string;
+-  data: string;
+-};
+-
+-const ROUTES: AccessRoute[] = [
+-  {
+-    key: "products",
+-    name: "Data products",
+-    blurb: "Explore tables, publications, visualizations and downloads.",
+-    tag: "Tables",
+-    href: SC.data,
+-    access: "View or download data tables · visualize key data sets · consult articles and publications",
+-    location: "StatCan website · StatsCAN app",
+-    data: "Social and economic data",
+-  },
+-  {
+-    key: "ingestion",
+-    name: "Automated data ingestion",
+-    blurb: "Connect to aggregate data and metadata through an API.",
+-    tag: "API",
+-    href: SC.api,
+-    access: "Application Programming Interface (API)",
+-    location: "StatCan Web Data Service",
+-    data: "Social and economic data",
+-  },
+-  {
+-    key: "pumf",
+-    name: "Public-use microdata",
+-    blurb: "Analyze anonymized, non-aggregated records.",
+-    tag: "PUMF",
+-    href: SC.pumf,
+-    access: "Free download · subscription to the Public Use Microdata File (PUMF) platform",
+-    location: "StatCan website",
+-    data: "Social data",
+-  },
+-  {
+-    key: "tabulation",
+-    name: "Self-serve tabulation",
+-    blurb: "Produce custom, non-confidential statistical results.",
+-    tag: "RTRA",
+-    href: SC.rtra,
+-    access: "Subscription to Real Time Remote Access (RTRA)",
+-    location: "StatCan website",
+-    data: "Social data",
+-  },
+-  {
+-    key: "confidential",
+-    name: "Confidential microdata",
+-    blurb: "Conduct approved research in a secure environment.",
+-    tag: "Secure",
+-    href: SC.vrdc,
+-    access: "Virtual Data Lab (vDL) · Virtual Research Data Centre (vRDC)",
+-    location: "StatCan premises · secure room · authorized workspace",
+-    data: "Social and economic data",
+-  },
+-];
+-
+-const INDICATORS = [
+-  { name: "Quarterly population estimate", value: "41,417,056", arrow: "▼", change: "-0.1%", period: "April 1, 2026", note: "quarterly change", dir: "down" },
+-  { name: "Consumer Price Index", value: "3.2%", arrow: "▲", change: "", period: "May 2026", note: "12-month change", dir: "up" },
+-  { name: "Unemployment rate", value: "6.6%", arrow: "▼", change: "-0.3 pts", period: "May 2026", note: "monthly change", dir: "down" },
+-  { name: "Real GDP by expenditure", value: "0.0%", arrow: "—", change: "", period: "First quarter 2026", note: "quarterly change", dir: "flat" },
+-];
+-
+-const slug = (s: string) => s.replace(/[^a-z0-9]+/gi, "-").toLowerCase();
+-
+-/** Shared progressive-disclosure panel — same a11y contract as Exhibition's
+- *  ProgramItem: a button toggles aria-expanded on a [hidden] body. */
+-function Disclosure({ title, tag, children }: { title: string; tag?: string; children: ReactNode }) {
+-  const [open, setOpen] = useState(false);
+-  const id = `cid-cont-${slug(title)}`;
+-  return (
+-    <div className={`cid-disc ${open ? "is-open" : ""}`}>
+-      <button
+-        type="button"
+-        className="cid-disc-toggle"
+-        aria-expanded={open}
+-        aria-controls={id}
+-        onClick={() => setOpen((v) => !v)}
+-      >
+-        <span className="cid-disc-name">
+-          {title}
+-          {tag && <span className="cid-disc-tag">{tag}</span>}
+-        </span>
+-        <span className="cid-disc-arrow" aria-hidden="true">{open ? "−" : "+"}</span>
+-      </button>
+-      <div id={id} className="cid-disc-body" hidden={!open}>
+-        {children}
+-      </div>
+-    </div>
+-  );
+-}
+-
+ // "Two ways of seeing Greg": one vertical screen, two settings. Pressing a lens
+ // button slides the stage to that view (Ethel's or Icarus's), animated. The
+ // clips are supplied separately and drop into each panel's <video>; until then
+@@ -238,230 +107,6 @@ function GregLensSlider({ base }: { base: string }) {
+   );
+ }
+ 
+-// Stages 1–3 stay vibrant (accessible) on the brand cyan→gold ramp; stages 4–5
+-// are "greyed out" using the robin's-egg neutrals (600 #728488 / 700 #5C6C70)
+-// so they read as restricted. Stage 5 keeps the ruby as a RING around a grey
+-// circle, not a fill. accent = left edge / tag / underline · fill = circle bg ·
+-// ring = circle border · ink = number (kept dark, like 1–3).
+-const SPECTRUM: { accent: string; fill: string; ring: string; ink: string }[] = [
+-  { accent: "#1FCECB", fill: "#1FCECB", ring: "transparent", ink: "#06231F" }, // 1 cyan
+-  { accent: "#88C786", fill: "#88C786", ring: "transparent", ink: "#0E2A14" }, // 2 cyan + gold
+-  { accent: "#F0C040", fill: "#F0C040", ring: "transparent", ink: "#3A2D00" }, // 3 gold
+-  { accent: "#5C6C70", fill: "#D8DBDE", ring: "#5C6C70",     ink: "#0F031C" }, // 4 chrome-silver fill + grey ring · midnight-black text
+-  { accent: "#822F00", fill: "#D8DBDE", ring: "#822F00",     ink: "#0F031C" }, // 5 chrome-silver fill + ruby ring · midnight-black text
+-];
+-
+-/** One route on the continuum. The route name is the disclosure trigger;
+- *  opening it reveals the StatsCan access card + a link to that program. */
+-function RouteItem({ route, index, tone }: { route: AccessRoute; index: number; tone: { accent: string; fill: string; ring: string; ink: string } }) {
+-  const [open, setOpen] = useState(false);
+-  const id = `cid-route-${route.key}`;
+-  return (
+-    <li
+-      className={`cid-route ${open ? "is-open" : ""}`}
+-      style={{
+-        ["--route-accent"]: tone.accent,
+-        ["--route-fill"]: tone.fill,
+-        ["--route-ring"]: tone.ring,
+-        ["--route-ink"]: tone.ink,
+-      } as CSSProperties}
+-    >
+-      <button
+-        type="button"
+-        className="cid-route-toggle"
+-        aria-expanded={open}
+-        aria-controls={id}
+-        onClick={() => setOpen((v) => !v)}
+-      >
+-        <span className="cid-route-num" aria-hidden="true">{index}</span>
+-        <span className="cid-route-head">
+-          <span className="cid-route-name">
+-            {route.name}
+-            <span className="cid-route-tag">{route.tag}</span>
+-          </span>
+-          <span className="cid-route-blurb">{route.blurb}</span>
+-        </span>
+-        <span className="cid-route-arrow" aria-hidden="true">{open ? "−" : "+"}</span>
+-      </button>
+-      <div id={id} className="cid-route-body" hidden={!open}>
+-        <dl className="cid-route-meta">
+-          <div><dt>Access solution</dt><dd>{route.access}</dd></div>
+-          <div><dt>Location of access</dt><dd>{route.location}</dd></div>
+-          <div><dt>Type of data</dt><dd>{route.data}</dd></div>
+-        </dl>
+-        <a className="cid-route-link" href={route.href} target="_blank" rel="noopener noreferrer">
+-          Open on Statistics Canada ↗
+-        </a>
+-      </div>
+-    </li>
+-  );
+-}
+-
+-/** The full "Canada's Continuum of Data Access" block — a contained data
+- *  observatory panel that reveals the StatsCan map through interaction. */
+-function DataAccessContinuum() {
+-  return (
+-    <section className="cid-continuum" aria-labelledby="cid-continuum-title">
+-      <div className="cid-continuum-inner">
+-        <p className="cid-continuum-eyebrow">Start with the evidence</p>
+-        <h2 id="cid-continuum-title" className="cid-continuum-title">
+-          Canada&rsquo;s Continuum of Data Access
+-        </h2>
+-
+-        <div className="cid-continuum-lede">
+-          <p>
+-            Statistics Canada holds over a century of trusted data that has fostered research,
+-            informed policy advancements, and helped illuminate public opinion as we navigate
+-            profound social, economic, and environmental transformations together.
+-          </p>
+-          <p>
+-            For information on governing laws, policies, and proactive disclosures, visit{" "}
+-            <a href="https://www.statcan.gc.ca" target="_blank" rel="noopener noreferrer">
+-              statcan.gc.ca
+-            </a>.
+-          </p>
+-        </div>
+-
+-        <figure className="cid-continuum-gov">
+-          {/* the cool -> hot gradient bar sits above the graphic, echoing its
+-              Self-Serve -> Secure arrow */}
+-          <div className="cid-continuum-ends" aria-hidden="true">
+-            <span className="cid-continuum-end cid-continuum-end--open">Self-serve access</span>
+-            <span className="cid-continuum-end-mid">more controlled access</span>
+-            <span className="cid-continuum-end cid-continuum-end--secure">Secure access</span>
+-          </div>
+-          <div className="cid-continuum-track" aria-hidden="true" />
+-          <img
+-            className="cid-continuum-gov-img"
+-            src={`${import.meta.env.BASE_URL}assets/images/microdata-continuum-eng.webp`}
+-            alt="Statistics Canada — Continuum of Data Access: from Self-Serve (Automated Data Ingestion, Data Products) through Public Use Microdata Files and the Self-Serve Tabulation Tool to Secure Access (Confidential Microdata Files), listing each route's access solution, location of access and type of data."
+-            loading="lazy"
+-            width={1140}
+-            height={667}
+-          />
+-          <p className="cid-continuum-foot">
+-            As you move from left to right, the data may become more detailed or sensitive, so
+-            the privacy, authorization and security requirements increase.
+-          </p>
+-          <figcaption className="cid-continuum-source">
+-            Source: Statistics Canada, Continuum of Data Access.{" "}
+-            <a href="https://www.statcan.gc.ca/en/microdata" target="_blank" rel="noopener noreferrer">
+-              statcan.gc.ca/en/microdata
+-            </a>
+-          </figcaption>
+-        </figure>
+-
+-        <div className="cid-continuum-scale">
+-          <h3 className="cid-continuum-guide-heading">
+-            Use the guide below to navigate this data ecosystem.
+-          </h3>
+-          <div className="cid-continuum-routes-wrap">
+-            <div className="cid-continuum-routes-col">
+-              <ol className="cid-continuum-routes">
+-                {ROUTES.map((r, i) => (
+-                  <RouteItem key={r.key} route={r} index={i + 1} tone={SPECTRUM[i]} />
+-                ))}
+-              </ol>
+-              <p className="cid-continuum-guide-desc">
+-                Statistics Canada offers secure access to anonymized survey data, administrative
+-                records, and integrated datasets. These resources are designed to support research
+-                and statistical analysis for project development, program management, and to improve
+-                public understanding. The available data covers key topics such as the digital
+-                economy, international trade, health, wealth, and languages.
+-              </p>
+-            </div>
+-            <aside className="cid-continuum-aside">
+-              <img
+-                src={`${import.meta.env.BASE_URL}assets/images/Ooo-Rene.png`}
+-                alt="This is not a ranking of data quality — it is a guide to choosing the right level of access for your question."
+-                loading="lazy"
+-              />
+-            </aside>
+-          </div>
+-        </div>
+-
+-        <div className="cid-continuum-panels">
+-          <Disclosure title="Choose your starting point">
+-            <ul className="cid-start-list">
+-              <li>Looking for a fact, trend or comparison? Start with{" "}
+-                <a href={SC.data} target="_blank" rel="noopener noreferrer">data products</a>.</li>
+-              <li>Building an application or live data feature? Explore the{" "}
+-                <a href={SC.api} target="_blank" rel="noopener noreferrer">Web Data Service API</a>.</li>
+-              <li>Studying records rather than published totals? Look for a{" "}
+-                <a href={SC.pumf} target="_blank" rel="noopener noreferrer">Public Use Microdata File</a>.</li>
+-              <li>Need a custom statistical result? Review the{" "}
+-                <a href={SC.rtra} target="_blank" rel="noopener noreferrer">self-serve tabulation</a> option.</li>
+-              <li>Need sensitive or highly detailed information? Learn about{" "}
+-                <a href={SC.vrdc} target="_blank" rel="noopener noreferrer">authorized secure access</a>.</li>
+-            </ul>
+-          </Disclosure>
+-
+-          <Disclosure title="Key terms">
+-            <dl className="cid-terms">
+-              <dt>Aggregate data</dt>
+-              <dd>Totals, averages, rates, indexes and other summaries created by combining many records.</dd>
+-              <dt>Microdata</dt>
+-              <dd>Records at the business, household or personal level. They provide more detail than aggregate statistics and are used for analytical and research purposes.</dd>
+-              <dt>Public Use Microdata File &mdash; PUMF</dt>
+-              <dd>A file containing non-aggregated records that have been carefully modified and reviewed to prevent a person or business from being identified. Selected files are free, while broader collection access may require a subscription.</dd>
+-              <dt>Data stewardship</dt>
+-              <dd>The responsible governance and management of data so that it remains useful, consistent, accessible, secure and privacy-preserving throughout its lifecycle.</dd>
+-            </dl>
+-          </Disclosure>
+-
+-          <Disclosure title="Web resources">
+-            <ul className="cid-resources">
+-              <li><a href={SC.microdata} target="_blank" rel="noopener noreferrer">Access to microdata</a>
+-                <span>The official continuum, access-program descriptions and guidance for public-use and confidential microdata.</span></li>
+-              <li><a href={SC.explore} target="_blank" rel="noopener noreferrer">Explore Statistics Canada data</a>
+-                <span>Search tables, visualizations, indicators, downloadable datasets and analytical products.</span></li>
+-              <li><a href={SC.api} target="_blank" rel="noopener noreferrer">Web Data Service API guide</a>
+-                <span>Technical guidance for connecting applications to Statistics Canada data and metadata.</span></li>
+-              <li><a href={SC.strategy} target="_blank" rel="noopener noreferrer">Statistics Canada Data Strategy</a>
+-                <span>Background on data governance, discovery, interoperability, public trust, privacy and evidence-informed decision-making.</span></li>
+-              <li><a href={SC.openGov} target="_blank" rel="noopener noreferrer">Open Government Portal</a>
+-                <span>Search datasets and information published by federal departments and agencies beyond Statistics Canada.</span></li>
+-              <li><a href={SC.ontario} target="_blank" rel="noopener noreferrer">Ontario Employment Reports</a>
+-                <span>A practical example of public evidence organized across employment, industries, regions, age, education, immigration and wages.</span></li>
+-              <li><a href={SC.jobbankScan} target="_blank" rel="noopener noreferrer">Ontario environmental scan — Job Bank</a>
+-                <span>A regional read on Ontario's labour market: outlooks, in-demand occupations and the trends shaping employment.</span></li>
+-            </ul>
+-          </Disclosure>
+-
+-          <Disclosure title="Key indicators" tag="Snapshot · 2026">
+-            <div className="cid-keyind">
+-              <div className="cid-keyind-grid">
+-                {INDICATORS.map((k) => (
+-                  <div className="cid-keyind-card" key={k.name}>
+-                    <div className="cid-keyind-name">{k.name}</div>
+-                    <div className="cid-keyind-value">
+-                      {k.value}
+-                      <span className={`cid-keyind-arrow cid-keyind-arrow--${k.dir}`} aria-hidden="true">{k.arrow}</span>
+-                      {k.change && <span className="cid-keyind-change">{k.change}</span>}
+-                    </div>
+-                    <div className="cid-keyind-period">{k.period}</div>
+-                    <div className="cid-keyind-note">({k.note})</div>
+-                  </div>
+-                ))}
+-              </div>
+-              <div className="cid-keyind-foot">
+-                <span>Static snapshot &mdash; Statistics Canada key indicators, April&ndash;May 2026 and Q1 2026 releases. Not live data; newer figures may be available.</span>
+-                <a href={SC.start} target="_blank" rel="noopener noreferrer">View live key indicators ↗</a>
+-              </div>
+-            </div>
+-          </Disclosure>
+-        </div>
+-
+-        <p className="cid-continuum-caption">
+-          From self-serve tools with minimal restrictions to secure research environments with
+-          formal safeguards, Statistics Canada provides different access routes for different
+-          research needs.
+-        </p>
+-      </div>
+-    </section>
+-  );
+-}
+-
+ /** The page floor — the "underground" layer of the public record. Sits flush
+  *  above the site footer with a deep subsurface field and terrain link cards. */
+ /** ESG advantages — progressive disclosure. The summary line is the trigger;
+@@ -747,82 +392,6 @@ function Underground() {
+   );
+ }
+ 
+-/** The living wall's white-panel slider — prime real estate rotating between
+- *  the National Strategy feature (slide 1 — the live-estimate medallion sits
+- *  beside it in the art's misty circle) and the Ooo! Pop Clock Mini card with
+- *  its publishable details (slide 2 — the panel shifts up and the solid card
+- *  covers the baked "A Force of Nature" title, reclaiming that space).
+- *  Auto-advances every 8s until the visitor interacts, pauses on hover/focus,
+- *  and sits still under prefers-reduced-motion. Inactive slides are
+- *  visibility:hidden (out of the tab order and a11y tree); the grid stack
+- *  keeps the panel height stable across slides. */
+-const LW_SLIDES = ["Live estimate", "Full model"] as const;
+-
+-function LivingWallSlider({
+-  populationModel,
+-  onIndexChange,
+-}: {
+-  populationModel: PopulationModelState;
+-  onIndexChange?: (index: number) => void;
+-}) {
+-  const [index, setIndex] = useState(0);
+-  const [userTouched, setUserTouched] = useState(false);
+-  const [paused, setPaused] = useState(false);
+-
+-  useEffect(() => {
+-    onIndexChange?.(index);
+-  }, [index, onIndexChange]);
+-
+-  useEffect(() => {
+-    if (userTouched || paused) return;
+-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+-    const id = window.setInterval(() => setIndex((i) => (i + 1) % LW_SLIDES.length), 8000);
+-    return () => window.clearInterval(id);
+-  }, [userTouched, paused]);
+-
+-  const goTo = (i: number) => {
+-    setIndex(i);
+-    setUserTouched(true);
+-  };
+-
+-  return (
+-    <div
+-      className="cid-lw-slider"
+-      role="group"
+-      aria-roledescription="carousel"
+-      aria-label="Ooo! Pop Clock Mini — live estimate, then the full ring model"
+-      onMouseEnter={() => setPaused(true)}
+-      onMouseLeave={() => setPaused(false)}
+-      onFocus={() => setPaused(true)}
+-      onBlur={() => setPaused(false)}
+-    >
+-      <div className="cid-lw-slides">
+-        <div className={`cid-lw-slide${index === 0 ? " is-active" : ""}`}>
+-          {/* The live clock as a compact, bordered device; the arrow advances
+-              to the full ring model on slide 2. It now owns the whole panel —
+-              the nature blurb + National Strategy link moved to the block below. */}
+-          <PopClockCard state={populationModel} wide onAdvance={() => goTo(1)} />
+-        </div>
+-        <div className={`cid-lw-slide${index === 1 ? " is-active" : ""}`}>
+-          <PopClockCard state={populationModel} wide detailed />
+-        </div>
+-      </div>
+-      <div className="cid-lw-dots">
+-        {LW_SLIDES.map((name, i) => (
+-          <button
+-            key={name}
+-            type="button"
+-            className={`cid-lw-dot${index === i ? " is-active" : ""}`}
+-            aria-label={`Show ${name}`}
+-            aria-current={index === i}
+-            onClick={() => goTo(i)}
+-          />
+-        ))}
+-      </div>
+-    </div>
+-  );
+-}
+-
+ /** Roman numeral three, drawn as vector strokes so no font substitution,
+  *  copy-paste or OCR pass can turn it back into the letters "III" (which
+  *  get misread as 111 or iii). This is the canonical way to set Icarus's
+@@ -906,26 +475,8 @@ function TeamTags() {
+ 
+ export function CID({ onSupport }: { onSupport: () => void }) {
+   const base = import.meta.env.BASE_URL;
+-  // One StatCan data load shared by the pop clock cards, the medallion and
+-  // the sources strip.
+-  const populationModel = usePopulationModel();
+-  // Which living-wall slide is showing: the medallion accompanies the nature
+-  // slide (0); on the pop clock slide (1) the panel shifts up so the solid
+-  // card covers the baked "A Force of Nature" title.
+-  const [lwSlide, setLwSlide] = useState(0);
+-  // Size the watchlist embed iframe to its content so the page scrolls as one
+-  // (no nested-iframe scroll trap). The embed reports its height via postMessage.
+-  const embedRef = useRef<HTMLIFrameElement>(null);
+-  useEffect(() => {
+-    function onMsg(e: MessageEvent) {
+-      if (e.origin !== window.location.origin) return;
+-      const d = e.data as { type?: string; height?: number };
+-      if (!d || d.type !== "cid-watchlist-embed-height" || !d.height) return;
+-      if (embedRef.current) embedRef.current.style.height = d.height + "px";
+-    }
+-    window.addEventListener("message", onMsg);
+-    return () => window.removeEventListener("message", onMsg);
+-  }, []);
++  // The population model, the living-wall slide index and the watchlist embed's
++  // height listener all moved to IWatchlist with the sections that used them.
+   // The Viv display room runs a continuous WebGL render loop once loaded, on
+   // or off screen, which competes with the page's own scroll repaints and
+   // reads as lag/ghosting while scrolling past it. Tell the room to pause
+@@ -1347,198 +898,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
+         />
+       </section>
+ 
+-      <section className="cid-watchlist-embed">
+-        <iframe
+-          ref={embedRef}
+-          src={`${base}cid/watchlist-embed/`}
+-          title="Canadian Innovation Watchlist"
+-          loading="lazy"
+-          className="cid-watchlist-frame"
+-        />
+-      </section>
+-
+-      <DataAccessContinuum />
+-
+-      {/* Forest layer — a looping portrait of a Canadian conservation area
+-          (Halton Falls) behind the vine frame, carrying the lid-led pop-clock on
+-          the clean cliff panel. Placed right after the data section because the
+-          pop-clock is a live demonstration of what StatCan's open data enables.
+-          Two assets kept separate: a plain rectangular video UNDER a transparent
+-          PNG frame ON TOP, aligned to the frame's inner window by exact %. */}
+-      <section className="cid-livingwall" aria-label="Ooo! Pop Clock Mini on the living wall">
+-        {/* clean cliff/clouds canvas (cliffcanvas-blank.png) — the ruby title is
+-            gone from the art now; the white panel is the pop-clock's backdrop */}
+-        <div className="cid-lw-stage">
+-          <div
+-            className="hf-framed-wall"
+-            role="img"
+-            aria-label="Live looping footage of Halton Falls Conservation Area, Ontario, framed with a decorative purple wood and vine border"
+-          >
+-            <div className="hf-video-window">
+-              <video
+-                autoPlay
+-                muted
+-                loop
+-                playsInline
+-                preload="metadata"
+-                poster={`${base}assets/images/halton-falls-poster.webp`}
+-                aria-hidden="true"
+-              >
+-                <source src={`${base}assets/ooo-halton-falls.webm`} type="video/webm" />
+-                <source src={`${base}assets/Halton%20H.264%20fallback.mp4`} type="video/mp4" />
+-              </video>
+-              <img
+-                className="hf-poster"
+-                src={`${base}assets/images/halton-falls-poster.webp`}
+-                alt="Still frame of Halton Falls Conservation Area, Ontario."
+-              />
+-            </div>
+-            <img
+-              className="hf-frame-art"
+-              src={`${base}assets/Ooo-Digital-Frame.png`}
+-              alt=""
+-              aria-hidden="true"
+-            />
+-          </div>
+-
+-          <div className="cid-lw-text">
+-            {/* The pop-clock owns the whole white panel now (compact → full model). */}
+-            <LivingWallSlider populationModel={populationModel} onIndexChange={setLwSlide} />
+-          </div>
+-        </div>
+-
+-        {/* Sources for the mini model — small text kept off the white panel. */}
+-        <PopulationSourcesStrip state={populationModel} />
+-      </section>
+-
+-      {/* A Force of Nature — Canada's Strategy to Protect Nature. The National
+-          Strategy narrative + the three pillars, now BELOW the pop-clock demo. */}
+-      <section className="np-strategy" aria-label="A Force of Nature: Canada's Strategy to Protect Nature">
+-        <div className="np-inner">
+-          <div className="np-kicker">A Force of Nature</div>
+-          <h3 className="np-title">Canada&rsquo;s Strategy to Protect Nature</h3>
+-          <p className="np-lede">
+-            Canada&rsquo;s plan to halt and reverse biodiversity loss and protect the land
+-            and water above the bedrock.
+-          </p>
+-          <a
+-            className="np-strategy-link"
+-            href={SC.forceOfNature}
+-            target="_blank"
+-            rel="noopener noreferrer"
+-          >
+-            <svg
+-              className="np-strategy-icon"
+-              viewBox="0 0 24 24"
+-              fill="none"
+-              stroke="currentColor"
+-              strokeWidth="2"
+-              strokeLinecap="round"
+-              strokeLinejoin="round"
+-              aria-hidden="true"
+-            >
+-              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+-              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+-            </svg>
+-            Open our National Strategy
+-          </a>
+-          <h4 className="np-pillars-head">Three pillars</h4>
+-          <div className="np-grid">
+-            <div className="np-pillar">
+-              <span className="np-num">1</span>
+-              <h4>Protecting Nature in Canada</h4>
+-              <p>By protecting and conserving more lands and waters and connecting habitats so species can move more safely.</p>
+-            </div>
+-            <div className="np-pillar">
+-              <span className="np-num">2</span>
+-              <h4>Building Canada Well</h4>
+-              <p>By designing infrastructure projects that work with nature rather than against it.</p>
+-            </div>
+-            <div className="np-pillar np-pillar--finance">
+-              <span className="np-num">3</span>
+-              <h4>Valuing Nature &amp; Mobilizing Capital</h4>
+-              <p>By using finance tools to fund conservation in a sustainable, long-term way.</p>
+-            </div>
+-          </div>
+-          <a
+-            className="np-link"
+-            href="https://www.canada.ca/en/services/environment/nature/nature-strategy.html#toc6"
+-            target="_blank"
+-            rel="noopener noreferrer"
+-          >
+-            Learn more ↗
+-          </a>
+-        </div>
+-      </section>
+-
+-      <section className="cid-forest" aria-label="Above the bedrock: Canada's living landscape">
+-        <div className="cid-forest-inner">
+-          <video
+-            className="cid-forest-video"
+-            src={`${import.meta.env.BASE_URL}assets/images/CID-Forest-Layer.mp4`}
+-            autoPlay
+-            loop
+-            muted
+-            playsInline
+-            aria-hidden="true"
+-          />
+-        </div>
+-      </section>
+-
+-      <section className="cid-canopy" aria-label="Above ground: Canada's natural wealth">
+-        <div className="cid-canopy-grid">
+-          {/* Wetlands — left column, under the wetlands photo half of the video above */}
+-          <article className="cid-canopy-tile cid-canopy-tile--left">
+-            <h3 className="cid-canopy-h">Wetlands</h3>
+-            <p className="cid-canopy-desc">
+-              Absorbing carbon and excess rainfall helps maintain ecological stability and
+-              resilience to severe weather impacts.
+-            </p>
+-            <p className="cid-canopy-metric">
+-              <span className="cid-canopy-k">Value</span>$225&nbsp;billion, backed by our{" "}
+-              <strong>25%</strong> share of the world&rsquo;s wetlands.
+-            </p>
+-            <p className="cid-canopy-metric">
+-              <span className="cid-canopy-k">Strengths</span>Enhances water quality, absorbs
+-              carbon emissions, and mitigates the effects of climate change. Canada possesses{" "}
+-              <strong>20%</strong> of the world&rsquo;s fresh water.
+-            </p>
+-          </article>
+-
+-          {/* Middle column — nature-rich summary + the pull quote, straddling the divider */}
+-          <div className="cid-canopy-midcol">
+-            <aside className="cid-canopy-mid">
+-              <p className="cid-canopy-mid-lead">
+-                Canada is one of the most nature-rich countries on Earth.
+-              </p>
+-              <ul className="cid-canopy-mid-stats">
+-                <li><span className="cid-canopy-mid-n">20%</span> of the world&rsquo;s fresh water</li>
+-                <li><span className="cid-canopy-mid-n">25%</span> of global wetlands</li>
+-              </ul>
+-            </aside>
+-            <figure className="cid-canopy-quote">
+-              <blockquote>&ldquo;The best offence is a strong defence.&rdquo;</blockquote>
+-              <figcaption>&mdash; most hockey coaches agree.</figcaption>
+-            </figure>
+-          </div>
+-
+-          {/* Boreal forests — right column, under the raining-canopy half of the video above */}
+-          <article className="cid-canopy-tile cid-canopy-tile--right">
+-            <h3 className="cid-canopy-h">Boreal forests</h3>
+-            <p className="cid-canopy-desc">
+-              Canada stewards <strong>54%</strong> of the world&rsquo;s boreal forests. This
+-              vast terrestrial storehouse greatly enhances carbon capture and storage (CCS).
+-            </p>
+-            <p className="cid-canopy-metric">
+-              <span className="cid-canopy-k">Value</span>~$703&nbsp;billion.
+-            </p>
+-            <p className="cid-canopy-metric">
+-              <span className="cid-canopy-k">Strengths</span>Carbon storage, flood and pest control.
+-            </p>
+-          </article>
+-        </div>
+-      </section>
+-
+       <Underground />
+ 
+       {/* The join copy and its CTA moved off this page. The band itself stays:
+diff --git a/src/app/components/IWatchlist.tsx b/src/app/components/IWatchlist.tsx
+index a303f8e..d662c34 100644
+--- a/src/app/components/IWatchlist.tsx
++++ b/src/app/components/IWatchlist.tsx
+@@ -1,6 +1,16 @@
+ import { Link } from "react-router-dom";
+ import { useEffect, useRef } from "react";
+ import "../../styles/cid-iwatchlist.css";
++import "../../styles/cid-continuum.css";
++import "../../styles/cid-forest.css";
++import "../../styles/cid-coins.css";
++import { SC } from "./cid/statcan-links";
++import { DataAccessContinuum } from "./cid/DataAccessContinuum";
++import { LivingWallSlider } from "./cid/LivingWallSlider";
++import {
++  PopulationSourcesStrip,
++  usePopulationModel,
++} from "./population/PopulationClockCard";
+ 
+ /**
+  * CID Innovation Watchlist — prototype page.
+@@ -10,14 +20,23 @@ import "../../styles/cid-iwatchlist.css";
+  * the same lockup that still sits on /cid, where it now acts as the doorway in:
+  * the entrance and the header match, so the transition reads as one move.
+  *
++ * Everything from the watchlist embed down to the canopy lives here now. /cid
++ * keeps the CID introduction, the Vivarium, the team, the research areas and
++ * the cave. The portal band and the Innovation Watchlist flag block are
++ * signposts: they appear on both pages, re-placed to read correctly in each.
++ *
+  * Reachable at both /cid/iwatchlist and /iwatchlist.
+  */
+ export function IWatchlist() {
+   const base = import.meta.env.BASE_URL;
++  // One StatCan data load shared by the pop clock cards, the medallion and the
++  // sources strip. Read-only, with its own 24h cache, so calling it here rather
++  // than on /cid costs nothing.
++  const populationModel = usePopulationModel();
+ 
+   // Size the watchlist embed to its content so the page scrolls as one, rather
+   // than trapping the scroll inside a nested iframe. Same postMessage contract
+-  // the CID page uses.
++  // the CID page used.
+   const embedRef = useRef<HTMLIFrameElement>(null);
+   useEffect(() => {
+     function onMsg(e: MessageEvent) {
+@@ -76,6 +95,27 @@ export function IWatchlist() {
+         </div>
+       </section>
+ 
++      {/* Signpost, shared with /cid: the portal band announcing the prototype.
++          On /cid it leads into the doorway; here it confirms the arrival. */}
++      <section className="cid-portal-band" aria-label="CID prototype announcement">
++        <p className="cid-portal-line">
++          <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v9" /><path d="M6.4 6.4a8 8 0 1 0 11.2 0" /></svg>
++          <span>A PORTAL HAS OPENED: CID releases an electric debut prototype!</span>
++        </p>
++      </section>
++
++      {/* Signpost, shared with /cid: the Innovation Watchlist title block and
++          the red-white-red Canada flag panel, from
++          public/Innovation Watchlist.dc.html (full-bleed, self-sizing iframe). */}
++      <section className="cid-wl-hero" aria-label="Innovation Watchlist">
++        <iframe
++          className="cid-wl-frame"
++          src={`${base}Innovation%20Watchlist.dc.html?v=9`}
++          title="Innovation Watchlist"
++          loading="lazy"
++        />
++      </section>
++
+       {/* The watchlist prototype itself. */}
+       <section className="iw-embed" aria-label="Canadian Innovation Watchlist">
+         <iframe
+@@ -86,6 +126,189 @@ export function IWatchlist() {
+           className="iw-embed-frame"
+         />
+       </section>
++
++
++      <DataAccessContinuum />
++
++      {/* Forest layer — a looping portrait of a Canadian conservation area
++          (Halton Falls) behind the vine frame, carrying the lid-led pop-clock on
++          the clean cliff panel. Placed right after the data section because the
++          pop-clock is a live demonstration of what StatCan's open data enables.
++          Two assets kept separate: a plain rectangular video UNDER a transparent
++          PNG frame ON TOP, aligned to the frame's inner window by exact %. */}
++      <section className="cid-livingwall" aria-label="Ooo! Pop Clock Mini on the living wall">
++        {/* clean cliff/clouds canvas (cliffcanvas-blank.png) — the ruby title is
++            gone from the art now; the white panel is the pop-clock's backdrop */}
++        <div className="cid-lw-stage">
++          <div
++            className="hf-framed-wall"
++            role="img"
++            aria-label="Live looping footage of Halton Falls Conservation Area, Ontario, framed with a decorative purple wood and vine border"
++          >
++            <div className="hf-video-window">
++              <video
++                autoPlay
++                muted
++                loop
++                playsInline
++                preload="metadata"
++                poster={`${base}assets/images/halton-falls-poster.webp`}
++                aria-hidden="true"
++              >
++                <source src={`${base}assets/ooo-halton-falls.webm`} type="video/webm" />
++                <source src={`${base}assets/Halton%20H.264%20fallback.mp4`} type="video/mp4" />
++              </video>
++              <img
++                className="hf-poster"
++                src={`${base}assets/images/halton-falls-poster.webp`}
++                alt="Still frame of Halton Falls Conservation Area, Ontario."
++              />
++            </div>
++            <img
++              className="hf-frame-art"
++              src={`${base}assets/Ooo-Digital-Frame.png`}
++              alt=""
++              aria-hidden="true"
++            />
++          </div>
++
++          <div className="cid-lw-text">
++            {/* The pop-clock owns the whole white panel now (compact → full model). */}
++            <LivingWallSlider populationModel={populationModel} />
++          </div>
++        </div>
++
++        {/* Sources for the mini model — small text kept off the white panel. */}
++        <PopulationSourcesStrip state={populationModel} />
++      </section>
++
++      {/* A Force of Nature — Canada's Strategy to Protect Nature. The National
++          Strategy narrative + the three pillars, now BELOW the pop-clock demo. */}
++      <section className="np-strategy" aria-label="A Force of Nature: Canada's Strategy to Protect Nature">
++        <div className="np-inner">
++          <div className="np-kicker">A Force of Nature</div>
++          <h3 className="np-title">Canada&rsquo;s Strategy to Protect Nature</h3>
++          <p className="np-lede">
++            Canada&rsquo;s plan to halt and reverse biodiversity loss and protect the land
++            and water above the bedrock.
++          </p>
++          <a
++            className="np-strategy-link"
++            href={SC.forceOfNature}
++            target="_blank"
++            rel="noopener noreferrer"
++          >
++            <svg
++              className="np-strategy-icon"
++              viewBox="0 0 24 24"
++              fill="none"
++              stroke="currentColor"
++              strokeWidth="2"
++              strokeLinecap="round"
++              strokeLinejoin="round"
++              aria-hidden="true"
++            >
++              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
++              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
++            </svg>
++            Open our National Strategy
++          </a>
++          <h4 className="np-pillars-head">Three pillars</h4>
++          <div className="np-grid">
++            <div className="np-pillar">
++              <span className="np-num">1</span>
++              <h4>Protecting Nature in Canada</h4>
++              <p>By protecting and conserving more lands and waters and connecting habitats so species can move more safely.</p>
++            </div>
++            <div className="np-pillar">
++              <span className="np-num">2</span>
++              <h4>Building Canada Well</h4>
++              <p>By designing infrastructure projects that work with nature rather than against it.</p>
++            </div>
++            <div className="np-pillar np-pillar--finance">
++              <span className="np-num">3</span>
++              <h4>Valuing Nature &amp; Mobilizing Capital</h4>
++              <p>By using finance tools to fund conservation in a sustainable, long-term way.</p>
++            </div>
++          </div>
++          <a
++            className="np-link"
++            href="https://www.canada.ca/en/services/environment/nature/nature-strategy.html#toc6"
++            target="_blank"
++            rel="noopener noreferrer"
++          >
++            Learn more ↗
++          </a>
++        </div>
++      </section>
++
++      <section className="cid-forest" aria-label="Above the bedrock: Canada's living landscape">
++        <div className="cid-forest-inner">
++          <video
++            className="cid-forest-video"
++            src={`${import.meta.env.BASE_URL}assets/images/CID-Forest-Layer.mp4`}
++            autoPlay
++            loop
++            muted
++            playsInline
++            aria-hidden="true"
++          />
++        </div>
++      </section>
++
++      <section className="cid-canopy" aria-label="Above ground: Canada's natural wealth">
++        <div className="cid-canopy-grid">
++          {/* Wetlands — left column, under the wetlands photo half of the video above */}
++          <article className="cid-canopy-tile cid-canopy-tile--left">
++            <h3 className="cid-canopy-h">Wetlands</h3>
++            <p className="cid-canopy-desc">
++              Absorbing carbon and excess rainfall helps maintain ecological stability and
++              resilience to severe weather impacts.
++            </p>
++            <p className="cid-canopy-metric">
++              <span className="cid-canopy-k">Value</span>$225&nbsp;billion, backed by our{" "}
++              <strong>25%</strong> share of the world&rsquo;s wetlands.
++            </p>
++            <p className="cid-canopy-metric">
++              <span className="cid-canopy-k">Strengths</span>Enhances water quality, absorbs
++              carbon emissions, and mitigates the effects of climate change. Canada possesses{" "}
++              <strong>20%</strong> of the world&rsquo;s fresh water.
++            </p>
++          </article>
++
++          {/* Middle column — nature-rich summary + the pull quote, straddling the divider */}
++          <div className="cid-canopy-midcol">
++            <aside className="cid-canopy-mid">
++              <p className="cid-canopy-mid-lead">
++                Canada is one of the most nature-rich countries on Earth.
++              </p>
++              <ul className="cid-canopy-mid-stats">
++                <li><span className="cid-canopy-mid-n">20%</span> of the world&rsquo;s fresh water</li>
++                <li><span className="cid-canopy-mid-n">25%</span> of global wetlands</li>
++              </ul>
++            </aside>
++            <figure className="cid-canopy-quote">
++              <blockquote>&ldquo;The best offence is a strong defence.&rdquo;</blockquote>
++              <figcaption>&mdash; most hockey coaches agree.</figcaption>
++            </figure>
++          </div>
++
++          {/* Boreal forests — right column, under the raining-canopy half of the video above */}
++          <article className="cid-canopy-tile cid-canopy-tile--right">
++            <h3 className="cid-canopy-h">Boreal forests</h3>
++            <p className="cid-canopy-desc">
++              Canada stewards <strong>54%</strong> of the world&rsquo;s boreal forests. This
++              vast terrestrial storehouse greatly enhances carbon capture and storage (CCS).
++            </p>
++            <p className="cid-canopy-metric">
++              <span className="cid-canopy-k">Value</span>~$703&nbsp;billion.
++            </p>
++            <p className="cid-canopy-metric">
++              <span className="cid-canopy-k">Strengths</span>Carbon storage, flood and pest control.
++            </p>
++          </article>
++        </div>
++      </section>
+     </div>
+   );
+ }
+diff --git a/src/app/components/cid/DataAccessContinuum.tsx b/src/app/components/cid/DataAccessContinuum.tsx
+new file mode 100644
+index 0000000..6679d2b
+--- /dev/null
++++ b/src/app/components/cid/DataAccessContinuum.tsx
+@@ -0,0 +1,328 @@
++import { useState, type ReactNode, type CSSProperties } from "react";
++import { SC } from "./statcan-links";
++
++type AccessRoute = {
++  key: string;
++  name: string;
++  blurb: string;
++  tag: string;
++  href: string;
++  access: string;
++  location: string;
++  data: string;
++};
++
++const ROUTES: AccessRoute[] = [
++  {
++    key: "products",
++    name: "Data products",
++    blurb: "Explore tables, publications, visualizations and downloads.",
++    tag: "Tables",
++    href: SC.data,
++    access: "View or download data tables · visualize key data sets · consult articles and publications",
++    location: "StatCan website · StatsCAN app",
++    data: "Social and economic data",
++  },
++  {
++    key: "ingestion",
++    name: "Automated data ingestion",
++    blurb: "Connect to aggregate data and metadata through an API.",
++    tag: "API",
++    href: SC.api,
++    access: "Application Programming Interface (API)",
++    location: "StatCan Web Data Service",
++    data: "Social and economic data",
++  },
++  {
++    key: "pumf",
++    name: "Public-use microdata",
++    blurb: "Analyze anonymized, non-aggregated records.",
++    tag: "PUMF",
++    href: SC.pumf,
++    access: "Free download · subscription to the Public Use Microdata File (PUMF) platform",
++    location: "StatCan website",
++    data: "Social data",
++  },
++  {
++    key: "tabulation",
++    name: "Self-serve tabulation",
++    blurb: "Produce custom, non-confidential statistical results.",
++    tag: "RTRA",
++    href: SC.rtra,
++    access: "Subscription to Real Time Remote Access (RTRA)",
++    location: "StatCan website",
++    data: "Social data",
++  },
++  {
++    key: "confidential",
++    name: "Confidential microdata",
++    blurb: "Conduct approved research in a secure environment.",
++    tag: "Secure",
++    href: SC.vrdc,
++    access: "Virtual Data Lab (vDL) · Virtual Research Data Centre (vRDC)",
++    location: "StatCan premises · secure room · authorized workspace",
++    data: "Social and economic data",
++  },
++];
++
++const INDICATORS = [
++  { name: "Quarterly population estimate", value: "41,417,056", arrow: "▼", change: "-0.1%", period: "April 1, 2026", note: "quarterly change", dir: "down" },
++  { name: "Consumer Price Index", value: "3.2%", arrow: "▲", change: "", period: "May 2026", note: "12-month change", dir: "up" },
++  { name: "Unemployment rate", value: "6.6%", arrow: "▼", change: "-0.3 pts", period: "May 2026", note: "monthly change", dir: "down" },
++  { name: "Real GDP by expenditure", value: "0.0%", arrow: "—", change: "", period: "First quarter 2026", note: "quarterly change", dir: "flat" },
++];
++
++const slug = (s: string) => s.replace(/[^a-z0-9]+/gi, "-").toLowerCase();
++
++/** Shared progressive-disclosure panel — same a11y contract as Exhibition's
++ *  ProgramItem: a button toggles aria-expanded on a [hidden] body. */
++function Disclosure({ title, tag, children }: { title: string; tag?: string; children: ReactNode }) {
++  const [open, setOpen] = useState(false);
++  const id = `cid-cont-${slug(title)}`;
++  return (
++    <div className={`cid-disc ${open ? "is-open" : ""}`}>
++      <button
++        type="button"
++        className="cid-disc-toggle"
++        aria-expanded={open}
++        aria-controls={id}
++        onClick={() => setOpen((v) => !v)}
++      >
++        <span className="cid-disc-name">
++          {title}
++          {tag && <span className="cid-disc-tag">{tag}</span>}
++        </span>
++        <span className="cid-disc-arrow" aria-hidden="true">{open ? "−" : "+"}</span>
++      </button>
++      <div id={id} className="cid-disc-body" hidden={!open}>
++        {children}
++      </div>
++    </div>
++  );
++}
++
++// Stages 1–3 stay vibrant (accessible) on the brand cyan→gold ramp; stages 4–5
++// are "greyed out" using the robin's-egg neutrals (600 #728488 / 700 #5C6C70)
++// so they read as restricted. Stage 5 keeps the ruby as a RING around a grey
++// circle, not a fill. accent = left edge / tag / underline · fill = circle bg ·
++// ring = circle border · ink = number (kept dark, like 1–3).
++const SPECTRUM: { accent: string; fill: string; ring: string; ink: string }[] = [
++  { accent: "#1FCECB", fill: "#1FCECB", ring: "transparent", ink: "#06231F" }, // 1 cyan
++  { accent: "#88C786", fill: "#88C786", ring: "transparent", ink: "#0E2A14" }, // 2 cyan + gold
++  { accent: "#F0C040", fill: "#F0C040", ring: "transparent", ink: "#3A2D00" }, // 3 gold
++  { accent: "#5C6C70", fill: "#D8DBDE", ring: "#5C6C70",     ink: "#0F031C" }, // 4 chrome-silver fill + grey ring · midnight-black text
++  { accent: "#822F00", fill: "#D8DBDE", ring: "#822F00",     ink: "#0F031C" }, // 5 chrome-silver fill + ruby ring · midnight-black text
++];
++
++/** One route on the continuum. The route name is the disclosure trigger;
++ *  opening it reveals the StatsCan access card + a link to that program. */
++function RouteItem({ route, index, tone }: { route: AccessRoute; index: number; tone: { accent: string; fill: string; ring: string; ink: string } }) {
++  const [open, setOpen] = useState(false);
++  const id = `cid-route-${route.key}`;
++  return (
++    <li
++      className={`cid-route ${open ? "is-open" : ""}`}
++      style={{
++        ["--route-accent"]: tone.accent,
++        ["--route-fill"]: tone.fill,
++        ["--route-ring"]: tone.ring,
++        ["--route-ink"]: tone.ink,
++      } as CSSProperties}
++    >
++      <button
++        type="button"
++        className="cid-route-toggle"
++        aria-expanded={open}
++        aria-controls={id}
++        onClick={() => setOpen((v) => !v)}
++      >
++        <span className="cid-route-num" aria-hidden="true">{index}</span>
++        <span className="cid-route-head">
++          <span className="cid-route-name">
++            {route.name}
++            <span className="cid-route-tag">{route.tag}</span>
++          </span>
++          <span className="cid-route-blurb">{route.blurb}</span>
++        </span>
++        <span className="cid-route-arrow" aria-hidden="true">{open ? "−" : "+"}</span>
++      </button>
++      <div id={id} className="cid-route-body" hidden={!open}>
++        <dl className="cid-route-meta">
++          <div><dt>Access solution</dt><dd>{route.access}</dd></div>
++          <div><dt>Location of access</dt><dd>{route.location}</dd></div>
++          <div><dt>Type of data</dt><dd>{route.data}</dd></div>
++        </dl>
++        <a className="cid-route-link" href={route.href} target="_blank" rel="noopener noreferrer">
++          Open on Statistics Canada ↗
++        </a>
++      </div>
++    </li>
++  );
++}
++
++/** The full "Canada's Continuum of Data Access" block — a contained data
++ *  observatory panel that reveals the StatsCan map through interaction. */
++export function DataAccessContinuum() {
++  return (
++    <section className="cid-continuum" aria-labelledby="cid-continuum-title">
++      <div className="cid-continuum-inner">
++        <p className="cid-continuum-eyebrow">Start with the evidence</p>
++        <h2 id="cid-continuum-title" className="cid-continuum-title">
++          Canada&rsquo;s Continuum of Data Access
++        </h2>
++
++        <div className="cid-continuum-lede">
++          <p>
++            Statistics Canada holds over a century of trusted data that has fostered research,
++            informed policy advancements, and helped illuminate public opinion as we navigate
++            profound social, economic, and environmental transformations together.
++          </p>
++          <p>
++            For information on governing laws, policies, and proactive disclosures, visit{" "}
++            <a href="https://www.statcan.gc.ca" target="_blank" rel="noopener noreferrer">
++              statcan.gc.ca
++            </a>.
++          </p>
++        </div>
++
++        <figure className="cid-continuum-gov">
++          {/* the cool -> hot gradient bar sits above the graphic, echoing its
++              Self-Serve -> Secure arrow */}
++          <div className="cid-continuum-ends" aria-hidden="true">
++            <span className="cid-continuum-end cid-continuum-end--open">Self-serve access</span>
++            <span className="cid-continuum-end-mid">more controlled access</span>
++            <span className="cid-continuum-end cid-continuum-end--secure">Secure access</span>
++          </div>
++          <div className="cid-continuum-track" aria-hidden="true" />
++          <img
++            className="cid-continuum-gov-img"
++            src={`${import.meta.env.BASE_URL}assets/images/microdata-continuum-eng.webp`}
++            alt="Statistics Canada — Continuum of Data Access: from Self-Serve (Automated Data Ingestion, Data Products) through Public Use Microdata Files and the Self-Serve Tabulation Tool to Secure Access (Confidential Microdata Files), listing each route's access solution, location of access and type of data."
++            loading="lazy"
++            width={1140}
++            height={667}
++          />
++          <p className="cid-continuum-foot">
++            As you move from left to right, the data may become more detailed or sensitive, so
++            the privacy, authorization and security requirements increase.
++          </p>
++          <figcaption className="cid-continuum-source">
++            Source: Statistics Canada, Continuum of Data Access.{" "}
++            <a href="https://www.statcan.gc.ca/en/microdata" target="_blank" rel="noopener noreferrer">
++              statcan.gc.ca/en/microdata
++            </a>
++          </figcaption>
++        </figure>
++
++        <div className="cid-continuum-scale">
++          <h3 className="cid-continuum-guide-heading">
++            Use the guide below to navigate this data ecosystem.
++          </h3>
++          <div className="cid-continuum-routes-wrap">
++            <div className="cid-continuum-routes-col">
++              <ol className="cid-continuum-routes">
++                {ROUTES.map((r, i) => (
++                  <RouteItem key={r.key} route={r} index={i + 1} tone={SPECTRUM[i]} />
++                ))}
++              </ol>
++              <p className="cid-continuum-guide-desc">
++                Statistics Canada offers secure access to anonymized survey data, administrative
++                records, and integrated datasets. These resources are designed to support research
++                and statistical analysis for project development, program management, and to improve
++                public understanding. The available data covers key topics such as the digital
++                economy, international trade, health, wealth, and languages.
++              </p>
++            </div>
++            <aside className="cid-continuum-aside">
++              <img
++                src={`${import.meta.env.BASE_URL}assets/images/Ooo-Rene.png`}
++                alt="This is not a ranking of data quality — it is a guide to choosing the right level of access for your question."
++                loading="lazy"
++              />
++            </aside>
++          </div>
++        </div>
++
++        <div className="cid-continuum-panels">
++          <Disclosure title="Choose your starting point">
++            <ul className="cid-start-list">
++              <li>Looking for a fact, trend or comparison? Start with{" "}
++                <a href={SC.data} target="_blank" rel="noopener noreferrer">data products</a>.</li>
++              <li>Building an application or live data feature? Explore the{" "}
++                <a href={SC.api} target="_blank" rel="noopener noreferrer">Web Data Service API</a>.</li>
++              <li>Studying records rather than published totals? Look for a{" "}
++                <a href={SC.pumf} target="_blank" rel="noopener noreferrer">Public Use Microdata File</a>.</li>
++              <li>Need a custom statistical result? Review the{" "}
++                <a href={SC.rtra} target="_blank" rel="noopener noreferrer">self-serve tabulation</a> option.</li>
++              <li>Need sensitive or highly detailed information? Learn about{" "}
++                <a href={SC.vrdc} target="_blank" rel="noopener noreferrer">authorized secure access</a>.</li>
++            </ul>
++          </Disclosure>
++
++          <Disclosure title="Key terms">
++            <dl className="cid-terms">
++              <dt>Aggregate data</dt>
++              <dd>Totals, averages, rates, indexes and other summaries created by combining many records.</dd>
++              <dt>Microdata</dt>
++              <dd>Records at the business, household or personal level. They provide more detail than aggregate statistics and are used for analytical and research purposes.</dd>
++              <dt>Public Use Microdata File &mdash; PUMF</dt>
++              <dd>A file containing non-aggregated records that have been carefully modified and reviewed to prevent a person or business from being identified. Selected files are free, while broader collection access may require a subscription.</dd>
++              <dt>Data stewardship</dt>
++              <dd>The responsible governance and management of data so that it remains useful, consistent, accessible, secure and privacy-preserving throughout its lifecycle.</dd>
++            </dl>
++          </Disclosure>
++
++          <Disclosure title="Web resources">
++            <ul className="cid-resources">
++              <li><a href={SC.microdata} target="_blank" rel="noopener noreferrer">Access to microdata</a>
++                <span>The official continuum, access-program descriptions and guidance for public-use and confidential microdata.</span></li>
++              <li><a href={SC.explore} target="_blank" rel="noopener noreferrer">Explore Statistics Canada data</a>
++                <span>Search tables, visualizations, indicators, downloadable datasets and analytical products.</span></li>
++              <li><a href={SC.api} target="_blank" rel="noopener noreferrer">Web Data Service API guide</a>
++                <span>Technical guidance for connecting applications to Statistics Canada data and metadata.</span></li>
++              <li><a href={SC.strategy} target="_blank" rel="noopener noreferrer">Statistics Canada Data Strategy</a>
++                <span>Background on data governance, discovery, interoperability, public trust, privacy and evidence-informed decision-making.</span></li>
++              <li><a href={SC.openGov} target="_blank" rel="noopener noreferrer">Open Government Portal</a>
++                <span>Search datasets and information published by federal departments and agencies beyond Statistics Canada.</span></li>
++              <li><a href={SC.ontario} target="_blank" rel="noopener noreferrer">Ontario Employment Reports</a>
++                <span>A practical example of public evidence organized across employment, industries, regions, age, education, immigration and wages.</span></li>
++              <li><a href={SC.jobbankScan} target="_blank" rel="noopener noreferrer">Ontario environmental scan — Job Bank</a>
++                <span>A regional read on Ontario's labour market: outlooks, in-demand occupations and the trends shaping employment.</span></li>
++            </ul>
++          </Disclosure>
++
++          <Disclosure title="Key indicators" tag="Snapshot · 2026">
++            <div className="cid-keyind">
++              <div className="cid-keyind-grid">
++                {INDICATORS.map((k) => (
++                  <div className="cid-keyind-card" key={k.name}>
++                    <div className="cid-keyind-name">{k.name}</div>
++                    <div className="cid-keyind-value">
++                      {k.value}
++                      <span className={`cid-keyind-arrow cid-keyind-arrow--${k.dir}`} aria-hidden="true">{k.arrow}</span>
++                      {k.change && <span className="cid-keyind-change">{k.change}</span>}
++                    </div>
++                    <div className="cid-keyind-period">{k.period}</div>
++                    <div className="cid-keyind-note">({k.note})</div>
++                  </div>
++                ))}
++              </div>
++              <div className="cid-keyind-foot">
++                <span>Static snapshot &mdash; Statistics Canada key indicators, April&ndash;May 2026 and Q1 2026 releases. Not live data; newer figures may be available.</span>
++                <a href={SC.start} target="_blank" rel="noopener noreferrer">View live key indicators ↗</a>
++              </div>
++            </div>
++          </Disclosure>
++        </div>
++
++        <p className="cid-continuum-caption">
++          From self-serve tools with minimal restrictions to secure research environments with
++          formal safeguards, Statistics Canada provides different access routes for different
++          research needs.
++        </p>
++      </div>
++    </section>
++  );
++}
++
++export default DataAccessContinuum;
+diff --git a/src/app/components/cid/LivingWallSlider.tsx b/src/app/components/cid/LivingWallSlider.tsx
+new file mode 100644
+index 0000000..41bbf3d
+--- /dev/null
++++ b/src/app/components/cid/LivingWallSlider.tsx
+@@ -0,0 +1,80 @@
++import { useEffect, useState } from "react";
++import { PopClockCard, type PopulationModelState } from "../population/PopulationClockCard";
++
++/** The living wall's white-panel slider — prime real estate rotating between
++ *  the National Strategy feature (slide 1 — the live-estimate medallion sits
++ *  beside it in the art's misty circle) and the Ooo! Pop Clock Mini card with
++ *  its publishable details (slide 2 — the panel shifts up and the solid card
++ *  covers the baked "A Force of Nature" title, reclaiming that space).
++ *  Auto-advances every 8s until the visitor interacts, pauses on hover/focus,
++ *  and sits still under prefers-reduced-motion. Inactive slides are
++ *  visibility:hidden (out of the tab order and a11y tree); the grid stack
++ *  keeps the panel height stable across slides. */
++const LW_SLIDES = ["Live estimate", "Full model"] as const;
++
++export function LivingWallSlider({
++  populationModel,
++  onIndexChange,
++}: {
++  populationModel: PopulationModelState;
++  onIndexChange?: (index: number) => void;
++}) {
++  const [index, setIndex] = useState(0);
++  const [userTouched, setUserTouched] = useState(false);
++  const [paused, setPaused] = useState(false);
++
++  useEffect(() => {
++    onIndexChange?.(index);
++  }, [index, onIndexChange]);
++
++  useEffect(() => {
++    if (userTouched || paused) return;
++    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
++    const id = window.setInterval(() => setIndex((i) => (i + 1) % LW_SLIDES.length), 8000);
++    return () => window.clearInterval(id);
++  }, [userTouched, paused]);
++
++  const goTo = (i: number) => {
++    setIndex(i);
++    setUserTouched(true);
++  };
++
++  return (
++    <div
++      className="cid-lw-slider"
++      role="group"
++      aria-roledescription="carousel"
++      aria-label="Ooo! Pop Clock Mini — live estimate, then the full ring model"
++      onMouseEnter={() => setPaused(true)}
++      onMouseLeave={() => setPaused(false)}
++      onFocus={() => setPaused(true)}
++      onBlur={() => setPaused(false)}
++    >
++      <div className="cid-lw-slides">
++        <div className={`cid-lw-slide${index === 0 ? " is-active" : ""}`}>
++          {/* The live clock as a compact, bordered device; the arrow advances
++              to the full ring model on slide 2. It now owns the whole panel —
++              the nature blurb + National Strategy link moved to the block below. */}
++          <PopClockCard state={populationModel} wide onAdvance={() => goTo(1)} />
++        </div>
++        <div className={`cid-lw-slide${index === 1 ? " is-active" : ""}`}>
++          <PopClockCard state={populationModel} wide detailed />
++        </div>
++      </div>
++      <div className="cid-lw-dots">
++        {LW_SLIDES.map((name, i) => (
++          <button
++            key={name}
++            type="button"
++            className={`cid-lw-dot${index === i ? " is-active" : ""}`}
++            aria-label={`Show ${name}`}
++            aria-current={index === i}
++            onClick={() => goTo(i)}
++          />
++        ))}
++      </div>
++    </div>
++  );
++}
++
++export default LivingWallSlider;
+diff --git a/src/app/components/cid/statcan-links.ts b/src/app/components/cid/statcan-links.ts
+new file mode 100644
+index 0000000..dc9ed32
+--- /dev/null
++++ b/src/app/components/cid/statcan-links.ts
+@@ -0,0 +1,26 @@
++// Real Statistics Canada (StatCan) destinations behind each route on the
++// official "Continuum of Data Access" graphic (links read off the graphic
++// itself), plus the general resources referenced in the section copy.
++// Shared: /cid keeps the underground/terrain cards, /cid/iwatchlist carries
++// the continuum and the National Strategy link, and both read from here.
++export const SC = {
++  api: "https://www.statcan.gc.ca/en/developers/wds",
++  data: "https://www150.statcan.gc.ca/n1/en/type/data?MM=1",
++  pumf: "https://www150.statcan.gc.ca/n1/en/type/data?MM=1#publicusemicrodata",
++  rtra: "https://www.statcan.gc.ca/en/microdata/rtra/data",
++  vrdc: "https://www.statcan.gc.ca/en/microdata/data-centres/data",
++  microdata: "https://www.statcan.gc.ca/en/microdata",
++  explore: "https://www150.statcan.gc.ca/n1/en/type/data",
++  strategy: "https://www.statcan.gc.ca/en/about/datastrategy",
++  openGov: "https://open.canada.ca/en/open-data",
++  ontario: "https://www.ontario.ca/document/ontario-employment-reports",
++  start: "https://www.statcan.gc.ca/en/start",
++  // Ontario observatory + underground layer
++  onReport: "https://www.ontario.ca/document/ontario-employment-reports/january-march-2026",
++  onRegions: "https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4",
++  jobbankScan: "https://www.jobbank.gc.ca/trend-analysis/job-market-reports/ontario/environmental-scan",
++  caps: "https://www.lioapplications.lrc.gov.on.ca/Pits_And_Quarries/index.html?viewer=Pits_and_Quarries.Pits_and_Quarries&locale=en-CA",
++  forceOfNature: "https://www.canada.ca/en/services/environment/nature/nature-strategy.html#toc6",
++  radarDsm: "https://data.ontario.ca/dataset/ontario-radar-digital-surface-model",
++  geohub: "https://geohub.lio.gov.on.ca",
++};
+-- 
+2.43.0
+
