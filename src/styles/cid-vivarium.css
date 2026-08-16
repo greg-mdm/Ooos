@@ -303,15 +303,23 @@
 /* Pills that carry a definition. Same shape as a plain pill so the row still
    reads as one set, with a dotted underline as the only affordance that this
    one opens. */
+/* The dotted rule under a pill is the affordance and the state in one: muted
+   while the pill is idle, gold while its definition is the one showing. Gold is
+   the Gated tier's #B67A00, already the page's accent for "there is more here",
+   so the signal is not a new colour to learn. Thickened as well as recoloured,
+   since colour alone is not a state cue. */
 .cid-scope .cid-viv-pill--def {
   font-family: inherit; cursor: pointer;
-  text-decoration: underline dotted rgba(75,0,182,.5); text-underline-offset: 3px;
-  transition: background .16s, border-color .16s, color .16s;
+  text-decoration: underline dotted rgba(75,0,182,.45);
+  text-decoration-thickness: 2px; text-underline-offset: 4px;
+  transition: background .16s, border-color .16s, color .16s, text-decoration-color .16s;
 }
-.cid-scope .cid-viv-pill--def:hover,
-.cid-scope .cid-viv-pill--def.is-open {
+.cid-scope .cid-viv-pill--def:hover {
   background: rgba(75,0,182,.14); border-color: rgba(75,0,182,.38); color: #1f0447;
-  text-decoration-color: rgba(75,0,182,.85);
+}
+.cid-scope .cid-viv-pill--def.is-open {
+  background: rgba(182,122,0,.12); border-color: rgba(182,122,0,.46); color: #5a3c00;
+  text-decoration-color: #B67A00; text-decoration-thickness: 3px;
 }
 .cid-scope .cid-viv-pill--def:focus-visible { outline: 2px solid #4B00B6; outline-offset: 2px; }
 /* One reserved line under the row: the slot holds a non-breaking space when
@@ -862,6 +870,14 @@
    system; everything here is the surround plus the two-bullet split inside
    each key, which the homepage keys do not have. ---- */
 .cid-scope .cid-strategy { display: flex; flex-direction: column; gap: 10px; }
+/* The opening A of "Agile", set in the display serif. A real Latin A, so the
+   word stays readable to screen readers and search; only the letterform
+   changes. Slightly larger and optically nudged so the serif sits on the same
+   baseline and cap height as the sans it leads into. */
+.cid-scope .cid-strategy-a {
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  font-weight: 700; font-size: 1.12em; line-height: 0; letter-spacing: 0;
+}
 .cid-scope .cid-strategy-h {
   margin: 0;
   font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
@@ -870,9 +886,6 @@
      forced a break regardless of the room the column had. No cap, and balance
      only steps in on narrow screens where one line genuinely will not fit. */
   color: #1a1646; max-width: none; text-wrap: balance;
-}
-.cid-scope .cid-strategy-sub {
-  margin: 0 0 4px; font-size: clamp(15px,1.5vw,18px); line-height: 1.55; color: #33384a;
 }
 /* Three across, since these read as pillars rather than a stacked list.
    Stretch so the keys share one height however the bullets wrap. */

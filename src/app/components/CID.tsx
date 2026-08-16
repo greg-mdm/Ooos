@@ -246,7 +246,11 @@ function DigitalProducts() {
   // Pinned survives the pointer leaving; peeked is the transient hover/focus.
   // Peek wins while it lasts so the pill under the cursor is always the one
   // being described.
-  const [pinned, setPinned] = useState<string | null>(null);
+  // AI4XD opens by default: the slot under the row is reserved either way, so
+  // leaving it blank reads as a formatting gap rather than a held space. A
+  // definition already printed also shows what the dotted rule under the other
+  // pill does, which a dotted rule alone does not.
+  const [pinned, setPinned] = useState<string | null>("AI4XD");
   const [peeked, setPeeked] = useState<string | null>(null);
   const active = peeked ?? pinned;
   const def = PRODUCT_DEFS.find(([term]) => term === active);
@@ -392,6 +396,8 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   <li>Pursue research imperatives set by <span className="cid-ooo">Ooo!</span> Digital Media Studio</li>
                 </ul>
 
+                <h3 className="cid-viv-ecosystem-h">Research Reimagined</h3>
+
                 {/* Digital products and studio services offered by CID. */}
                 <div className="cid-viv-offer">
                   <DigitalProducts />
@@ -496,19 +502,12 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           </div>
 
           <section className="cid-strategy" aria-labelledby="cid-strategy-title">
-            {/* Greek capital alpha (U+0391) opens "Agile" -- visually a Latin A but a
-                different character, so it is written as an escape rather than pasted
-                in, where it would look like a typo and get "corrected" later. The
-                aria-label carries the plain-Latin title so screen readers and the
-                section name built from this heading still read the word Agile. */}
-            <h3
-              id="cid-strategy-title"
-              className="cid-strategy-h"
-              aria-label="Agile Micro-Studio. Massive Creative Capacity."
-            >
-              {"\u0391"}gile Micro-Studio. Massive Creative Capacity.
+            {/* The opening A is a real Latin A set in the display serif, not a Greek
+                alpha lookalike: the letterform carries the flourish while "Agile"
+                stays a word that screen readers speak and search engines index. */}
+            <h3 id="cid-strategy-title" className="cid-strategy-h">
+              <span className="cid-strategy-a">A</span>gile Micro-Studio. Massive Creative Capacity.
             </h3>
-            <p className="cid-strategy-sub">Research reimagined</p>
             <StrategyKeys />
           </section>
 
@@ -593,9 +592,9 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <div className="cid-etym-row">
                   <p className="cid-etym-key">User inputs</p>
                   <ul className="cid-etym-list">
-                    <li><span className="cid-etym-abbr">FO</span> · Field Observation directly recorded by a verified contributor</li>
-                    <li><span className="cid-etym-abbr">RT</span> · Research Theory that tips off an investigation</li>
-                    <li><span className="cid-etym-abbr">TS</span> · Trading Strategy proposed for analysis or controlled testing</li>
+                    <li><span className="cid-etym-abbr">UC</span> · User Contribution recorded by a CID community member. Includes personal observations. Therefore, the individual experiences are generally unverifiable.</li>
+                    <li><span className="cid-etym-abbr">PCD</span> · Proof Confirmed Digitally: CID reviewed substantial, convincing proof.</li>
+                    <li><span className="cid-etym-abbr">TS</span> · Trading Strategy proposed for analysis, risk review, or scenario modelling.</li>
                   </ul>
                 </div>
                 <div className="cid-etym-row">
