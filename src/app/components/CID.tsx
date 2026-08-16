@@ -416,12 +416,12 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   <h3 className="cid-viv-ecosystem-h">Strategic Priorities</h3>
                   <dl className="cid-viv-priority-list">
                     <div className="cid-viv-priority">
-                      <dt>Trust and Transparency</dt>
+                      <dt>Merit and Research Integrity</dt>
                       <dd>Verify credentials and evaluate evidence. Machine-learning detection and automated controls help identify and exclude Material Non-Public Information (MNPI) from research and trading workflows.</dd>
                     </div>
                     <div className="cid-viv-priority">
-                      <dt>Interoperability</dt>
-                      <dd>Make Canadian content, services and materials discoverable across platforms and markets.</dd>
+                      <dt>Trust and Transparency</dt>
+                      <dd>Protect privacy and confidentiality while documenting sources, responsibilities, and decision boundaries. The Vivarium is constantly under surveillance. Consistent human oversight ensures CID authorizes all automated processes, interactions with external tools, and methods.</dd>
                     </div>
                   </dl>
                 </div>
