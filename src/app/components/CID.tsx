@@ -586,13 +586,36 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   <li>Pursue research imperatives set by <span className="cid-ooo">Ooo!</span> Digital Media Studio</li>
                 </ul>
 
+                {/* Greg's supplied wording, set verbatim and marked DRAFT per
+                    the Habitat display plan's guardrail: draft copy lives in
+                    named slots behind a flag that is easy to remove. Two
+                    things flagged back to him rather than silently corrected:
+                    "Our research are driven by", and whether "B20" is meant
+                    to be "B2O" for business to organization. The four
+                    cooperation modes are set as a definition list so every
+                    acronym sits with its meaning, per the house rule. */}
+                <div className="cid-viv-drivers">
+                  <p className="cid-viv-draft-flag">Draft copy, not approved</p>
+                  <p className="cid-viv-lead">Our research are driven by</p>
+                  <ul className="cid-viv-lead-list">
+                    <li><strong>Radical Strategic Intelligence</strong></li>
+                    <li><strong>Collective problem solving</strong></li>
+                    <li><strong>Creative Cooperation</strong></li>
+                  </ul>
+                  <dl className="cid-viv-coop">
+                    <div><dt>B2B</dt><dd>Business to Business</dd></div>
+                    <div><dt>B2G</dt><dd>Business to Government</dd></div>
+                    <div><dt>P2P</dt><dd>Peer to Peer</dd></div>
+                    <div><dt>B20</dt><dd>Business to Organization</dd></div>
+                  </dl>
+                </div>
+
                 {/* Digital products and studio services offered by CID. */}
                 <div className="cid-viv-offer">
                   <div className="cid-viv-offer-row">
                     <p className="cid-viv-offer-label">Digital Products</p>
                     <div className="cid-viv-offer-pills">
-                      <span className="cid-viv-pill">Radical Strategic Intelligence</span>
-                      <span className="cid-viv-pill">AI Experiments</span>
+                      <span className="cid-viv-pill">Experimental Research Design</span>
                       <span className="cid-viv-pill">AI4XD</span>
                       <span className="cid-viv-pill">Data Viz</span>
                     </div>
