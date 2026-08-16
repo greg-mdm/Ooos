@@ -4,7 +4,11 @@
    light robin's-egg canvas. Scoped under .cid-scope like the rest of the
    CID page. */
 
-.cid-scope .cid-viv { background: #F0F4F5; padding: clamp(30px,5vh,56px) 0 clamp(34px,6vh,64px); }
+/* overflow-x: clip contains the full-bleed .cid-vault band (100vw) so the
+   scrollbar's width cannot turn into a horizontal scroll. clip rather than
+   hidden: it does not create a scroll container, so nothing inside is
+   trapped or made scrollable. */
+.cid-scope .cid-viv { background: #F0F4F5; padding: clamp(30px,5vh,56px) 0 clamp(34px,6vh,64px); overflow-x: clip; }
 .cid-scope .cid-viv-stack { display: flex; flex-direction: column; gap: clamp(22px,3.4vh,34px); }
 
 /* Prose blocks read as one crisp shape, not three ragged edges: text-wrap
@@ -427,9 +431,18 @@
   --vault-petrol: 14, 58, 86;
   --vault-teal: 14, 110, 115;
   --vault-nacre: 111, 195, 249;
+  /* The vitrine escapes the text column and runs the full width of the
+     viewport, so the room reads as something you stand in front of rather
+     than a figure set into the copy. Break-out matches .cid-wl-hero; the
+     calc() form survives being a flex item of .cid-viv-stack. The inner
+     compartments are capped again below, which keeps the era copy on a
+     readable measure and leaves the vanta-black shell as the museum
+     surround on wide screens. */
+  width: 100vw; max-width: none;
+  margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
   position: relative; isolation: isolate;
-  padding: clamp(13px,1.5vw,20px);
-  border-radius: 18px;
+  padding: clamp(13px,1.5vw,20px) clamp(16px,3vw,48px);
+  border-radius: 0;
   background:
     /* shadow side: light falls from above, so depth gathers at the foot */
     linear-gradient(172deg, rgba(var(--vault-petrol),.20) 0%, transparent 34%, transparent 62%, rgba(var(--vault-petrol),.15) 100%),
@@ -451,6 +464,15 @@
   background: linear-gradient(104deg, transparent 18%, rgba(var(--vault-nacre),.05) 33%, transparent 44%);
 }
 .cid-scope .cid-vault > * { position: relative; z-index: 1; }
+/* Inner compartments stay on a readable width inside the full-bleed shell:
+   the room gets far more room than the old column allowed, and the era copy
+   keeps its measure instead of stretching to the viewport on a wide screen.
+   The corner blocks are absolute to the shell, so they stay at its edges. */
+.cid-scope .cid-vault > .cid-vivroom,
+.cid-scope .cid-vault > .cid-vault-mullion,
+.cid-scope .cid-vault > .cid-viv-era {
+  max-width: 1500px; margin-inline: auto;
+}
 
 /* Mitred titanium corner blocks. Sharp, structural, and the only place the
    shell reads as machined metal. */
@@ -463,10 +485,10 @@
   clip-path: polygon(0 0, 34px 0, 26px 8px, 8px 8px, 8px 26px, 0 34px);
   box-shadow: 0 0 12px -2px rgba(var(--vault-nacre),.3);
 }
-.cid-scope .cid-vault-corner--tl { top: -1px; left: -1px; border-top-left-radius: 18px; }
-.cid-scope .cid-vault-corner--tr { top: -1px; right: -1px; transform: scaleX(-1); border-top-left-radius: 18px; }
-.cid-scope .cid-vault-corner--bl { bottom: -1px; left: -1px; transform: scaleY(-1); border-top-left-radius: 18px; }
-.cid-scope .cid-vault-corner--br { bottom: -1px; right: -1px; transform: scale(-1,-1); border-top-left-radius: 18px; }
+.cid-scope .cid-vault-corner--tl { top: -1px; left: -1px; }
+.cid-scope .cid-vault-corner--tr { top: -1px; right: -1px; transform: scaleX(-1); }
+.cid-scope .cid-vault-corner--bl { bottom: -1px; left: -1px; transform: scaleY(-1); }
+.cid-scope .cid-vault-corner--br { bottom: -1px; right: -1px; transform: scale(-1,-1); }
 @media (max-width: 700px) {
   .cid-scope .cid-vault-corner { width: 24px; height: 24px; clip-path: polygon(0 0, 24px 0, 18px 6px, 6px 6px, 6px 18px, 0 24px); }
 }
@@ -788,3 +810,116 @@
   font-size: 13.5px; line-height: 1.6; color: #5b5f86;
 }
 .cid-scope .cid-viv-disc strong { display: block; max-width: 70ch; color: #5b5f86; font-weight: 700; }
+
+/* ---- Research drivers: the three things the work is driven by, with the
+   four cooperation modes set as a definition list so no acronym appears
+   without its meaning beside it. Draft copy, so it carries a removable
+   flag: delete .cid-viv-draft-flag and its markup once the copy is
+   approved and nothing else changes. ---- */
+.cid-scope .cid-viv-drivers { display: flex; flex-direction: column; gap: 10px; }
+.cid-scope .cid-viv-draft-flag {
+  align-self: flex-start; margin: 0; padding: 3px 10px; border-radius: 20px;
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 10px;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: #822F00; background: rgba(130,47,0,.08); border: 1px dashed rgba(130,47,0,.42);
+}
+.cid-scope .cid-viv-drivers .cid-viv-lead-list li strong { color: #4B00B6; font-weight: 800; }
+.cid-scope .cid-viv-coop {
+  margin: 2px 0 0; padding: 0 0 0 22px;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px clamp(14px,2vw,26px); max-width: 62ch;
+}
+.cid-scope .cid-viv-coop > div { display: flex; align-items: baseline; gap: 9px; }
+.cid-scope .cid-viv-coop dt {
+  flex: 0 0 auto; min-width: 3.1em;
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 12.5px;
+  letter-spacing: .06em; color: #4B00B6;
+}
+.cid-scope .cid-viv-coop dd { margin: 0; font-size: 14px; line-height: 1.5; color: #33384a; }
+@media (max-width: 620px) {
+  .cid-scope .cid-viv-coop { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---- Strategies: the three pillars, below Leadership and above the Viv
+   display case. The keys themselves are the homepage's .ood-key design,
+   imported unchanged from ooodivisions2.css so the two places stay one
+   system; everything here is the surround plus the two-bullet split inside
+   each key, which the homepage keys do not have. ---- */
+.cid-scope .cid-strategy { display: flex; flex-direction: column; gap: 10px; }
+.cid-scope .cid-strategy-eyebrow {
+  margin: 0;
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 11px;
+  letter-spacing: .22em; text-transform: uppercase; color: #822F00;
+}
+.cid-scope .cid-strategy-h {
+  margin: 0;
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: clamp(20px,2.4vw,28px); line-height: 1.18; letter-spacing: -.01em;
+  color: #1a1646; max-width: 24ch; text-wrap: balance;
+}
+.cid-scope .cid-strategy-sub {
+  margin: 0 0 4px; font-size: clamp(15px,1.5vw,18px); line-height: 1.55; color: #33384a;
+}
+/* Three across, since these read as pillars rather than a stacked list.
+   Stretch so the keys share one height however the bullets wrap. */
+.cid-scope .cid-strategy-keys {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px,1.6vw,18px); align-items: stretch;
+}
+.cid-scope .cid-strategy-keys .ood-key-wrap { height: 100%; }
+.cid-scope .cid-strategy-keys .ood-key { height: 100%; align-items: flex-start; }
+/* Two statements, two bullets. The marker is drawn rather than a list-style
+   so it keeps the Bright Silver legend's colour and sits on the cap height. */
+.cid-scope .cid-strategy-bullets { display: flex; flex-direction: column; gap: 7px; }
+.cid-scope .cid-strategy-bullet {
+  position: relative; padding-left: 18px; display: block;
+}
+.cid-scope .cid-strategy-bullet::before {
+  content: ""; position: absolute; left: 0; top: .55em;
+  width: 7px; height: 7px; border-radius: 2px;
+  background: #E8ECF4; opacity: .85;
+}
+@media (max-width: 860px) {
+  .cid-scope .cid-strategy-keys { grid-template-columns: minmax(0, 1fr); }
+  .cid-scope .cid-strategy-keys .ood-key { align-items: center; }
+}
+
+/* The keys are copied, the homepage's dark ground is not. On the aurora
+   field the .ood-key hover and pressed states bloom purple into darkness,
+   which is what makes them read as lit. On robin's-egg there is nothing for
+   a bloom to land in: it just hazes the pale ground and drops contrast. So
+   here the same states are drawn as a ring plus a travel, which reads as a
+   physical key pressed into a light surface. The key faces, the gradients
+   and the Bright Silver legend are untouched, so the two pages still show
+   the same object. */
+/* The resting key gets NOTHING added. On the homepage .ood-key carries no
+   box-shadow at rest: the face is the bare gradient and that is the colour
+   Greg reads off the homepage. An inset highlight or a rim here would light
+   the edges and lift the whole plate, so the key would no longer be the
+   same colour it is over there. Only the cast shadow (set per key in
+   CID.tsx) and the two interactive states below adapt to the pale ground. */
+/* Hover and pressed mirror the homepage layer for layer, same colours and
+   same opacities, with ONE layer removed from each: the wide purple bloom
+   (0 0 18px and 0 0 16px). That layer is the only one that needs darkness
+   behind it to work. Everything that touches the key itself, the lavender
+   inset, the white pressed highlight, the violet rim, is kept exactly, so
+   the lit key is the same colour here as on the homepage. */
+.cid-scope .cid-strategy-keys .ood-key:hover {
+  box-shadow:
+    inset 0 1px 1px rgba(190,150,250,.42),
+    0 0 0 1px rgba(75,0,182,.42),
+    0 8px 18px -6px rgba(26,22,70,.34);
+  transform: translateY(1px);
+}
+.cid-scope .cid-strategy-keys .ood-key.is-on {
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,.30),
+    0 0 0 1px rgba(91,4,222,.72),
+    0 6px 16px -6px rgba(75,0,182,.42);
+  transform: translateY(2px);
+}
+/* The lit lift on the homepage is a purple drop-shadow bloom. On light it
+   would fog the ground, so the pressed key simply settles instead. */
+.cid-scope .cid-strategy-keys .ood-key-wrap:has(.ood-key.is-on) {
+  filter: drop-shadow(0 6px 12px rgba(26,22,70,.28)) !important;
+}
