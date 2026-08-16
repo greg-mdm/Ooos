@@ -4,5 +4,5 @@
   "capturedAt": "2026-07-15T22:39:35Z",
   "ratePerSecond": 0.0143506,
   "source": "Statistics Canada, Canada's population clock (real-time model)",
-  "_README": "Calibration snapshot for the Ooo! Pop Clock Mini (see scripts/rebase-pop-clock.mjs and src/app/components/population/README.md). enabled+population+capturedAt re-base the widget to this official reading; ratePerSecond (optional) pins the speed to StatCan own rate. The figure is read off StatCan public clock by a human -- never scraped. Snapshots older than 21 days, malformed, or future-dated are ignored automatically."
+  "_README": "Calibration snapshot for the Ooo! Pop Clock Mini (see scripts/rebase-pop-clock.mjs and SPRINT 4 - REFERENCES/population-README.md). enabled+population+capturedAt re-base the widget to this official reading; ratePerSecond (optional) pins the speed to StatCan own rate. The figure is read off StatCan public clock by a human -- never scraped. Snapshots older than 21 days, malformed, or future-dated are ignored automatically."
 }

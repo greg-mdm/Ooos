@@ -5,7 +5,7 @@
  * Writes public/pop-clock/calibration.json -- a snapshot of Statistics Canada's
  * official population clock. The widget re-bases its projection to that reading,
  * so it only ever extrapolates the short time since capture and stays within a
- * minimal margin of the official clock. See src/app/components/population/README.md.
+ * minimal margin of the official clock. See SPRINT 4 - REFERENCES/population-README.md.
  *
  * NO SCRAPING BY DESIGN. StatCan's clock ticks client-side and the page isn't
  * open to programmatic reads, and ooos.ca deliberately promotes StatCan's own
@@ -119,7 +119,7 @@ async function main() {
     source: SOURCE,
     _README:
       'Calibration snapshot for the Ooo! Pop Clock Mini (see scripts/rebase-pop-clock.mjs and ' +
-      'src/app/components/population/README.md). enabled+population+capturedAt re-base the widget ' +
+      'SPRINT 4 - REFERENCES/population-README.md). enabled+population+capturedAt re-base the widget ' +
       'to this official reading; ratePerSecond (optional) pins the speed to StatCan own rate. ' +
       'The figure is read off StatCan public clock by a human -- never scraped. ' +
       'Snapshots older than 21 days, malformed, or future-dated are ignored automatically.',

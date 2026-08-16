@@ -177,7 +177,7 @@ function GregLensSlider({ base }: { base: string }) {
   // are reused across edits (e.g. re-trimming greg-ethel-lens.mp4), and
   // browsers cache video by URL, so without a version bump a visitor who
   // already loaded the page can keep playing the old cached clip indefinitely.
-  // See public/assets/video/LENS-CLIPS.md.
+  // See SPRINT 4 - REFERENCES/LENS-CLIPS.md.
   const LENS_V = 2;
   const V = `${base}assets/video/`;
   const cv = (name: string) => `${V}${name}?v=${LENS_V}`;

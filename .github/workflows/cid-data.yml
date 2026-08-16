@@ -1,7 +1,7 @@
 name: CID data refresh
 
 # PROTOTYPE PHASE: manual trigger only. The daily cron is intentionally commented
-# out until the wiring is finalized — see scripts/README-cid-data.md. When ready,
+# out until the wiring is finalized — see SPRINT 4 - REFERENCES/README-cid-data.md. When ready,
 # uncomment the schedule block (runs 14:00 UTC on business days, after StatCan's
 # 08:30 ET release).
 on:
