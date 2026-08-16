@@ -1025,6 +1025,40 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <p className="cid-viv-lead">The Vivarium makes global research collaboration into a gamified information ecosystem. Our 24/7 team is designed to facilitate group creativity and knowledge exchange within synthetic research environments built to protect people while nurturing artificial intelligences evolving within them.</p>
               </div>
 
+              {/* Leadership: who runs the Vivarium, and the division's mandate. */}
+              <div className="cid-viv-leadership">
+                <h3 className="cid-viv-ecosystem-h">Leadership</h3>
+                <p className="cid-viv-lead">The CID Director serves as Principal Investigator and Systems Architect, directing all research operations and guiding engagement activities in our purpose-built habitat.</p>
+                <p className="cid-viv-lead">As a division of <span className="cid-ooo">Ooo!</span> Digital Media Studio, CID is designed to:</p>
+                <ul className="cid-viv-lead-list">
+                  <li>Expand public access to collective intelligence</li>
+                  <li>Pursue research imperatives set by <span className="cid-ooo">Ooo!</span> Digital Media Studio</li>
+                </ul>
+
+                {/* Digital products and studio services offered by CID. */}
+                <div className="cid-viv-offer">
+                  <div className="cid-viv-offer-row">
+                    <p className="cid-viv-offer-label">Digital Products</p>
+                    <div className="cid-viv-offer-pills">
+                      <span className="cid-viv-pill">Radical Strategic Intelligence</span>
+                      <span className="cid-viv-pill">AI Experiments</span>
+                      <span className="cid-viv-pill">AI4XD</span>
+                      <span className="cid-viv-pill">Data Viz</span>
+                    </div>
+                    <p className="cid-viv-offer-note">AI4XD: Artificial Intelligence for Experience Design</p>
+                    <p className="cid-viv-offer-note">Data Viz: Immersive Data Visualizations</p>
+                  </div>
+                  <div className="cid-viv-offer-row">
+                    <p className="cid-viv-offer-label">Studio Services</p>
+                    <div className="cid-viv-offer-pills">
+                      <span className="cid-viv-pill">Market Research</span>
+                      <span className="cid-viv-pill">Sector Support</span>
+                      <span className="cid-viv-pill">Internationalization</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               {/* Sealed case. The room and the claim it evidences are one
                   enclosure rather than two blocks sitting loose on the page:
                   vanta-black steel shell, mitred titanium corner blocks, and a
@@ -1068,40 +1102,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                       <p className="cid-viv-era-stat">&lt; 1KG</p>
                     </div>
                     <p className="cid-viv-era-copy">Now you can palm it.<br />Weighing less than one kilogram,<br />CID contains a cutting-edge research facility.</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Leadership: who runs the Vivarium, and the division's mandate. */}
-              <div className="cid-viv-leadership">
-                <h3 className="cid-viv-ecosystem-h">Leadership</h3>
-                <p className="cid-viv-lead">The CID Director serves as Principal Investigator and Systems Architect, directing all research operations and guiding engagement activities in our purpose-built habitat.</p>
-                <p className="cid-viv-lead">As a division of <span className="cid-ooo">Ooo!</span> Digital Media Studio, CID is designed to:</p>
-                <ul className="cid-viv-lead-list">
-                  <li>Expand public access to collective intelligence</li>
-                  <li>Pursue research imperatives set by <span className="cid-ooo">Ooo!</span> Digital Media Studio</li>
-                </ul>
-
-                {/* Digital products and studio services offered by CID. */}
-                <div className="cid-viv-offer">
-                  <div className="cid-viv-offer-row">
-                    <p className="cid-viv-offer-label">Digital Products</p>
-                    <div className="cid-viv-offer-pills">
-                      <span className="cid-viv-pill">Radical Strategic Intelligence</span>
-                      <span className="cid-viv-pill">AI Experiments</span>
-                      <span className="cid-viv-pill">AI4XD</span>
-                      <span className="cid-viv-pill">Data Viz</span>
-                    </div>
-                    <p className="cid-viv-offer-note">AI4XD: Artificial Intelligence for Experience Design</p>
-                    <p className="cid-viv-offer-note">Data Viz: Immersive Data Visualizations</p>
-                  </div>
-                  <div className="cid-viv-offer-row">
-                    <p className="cid-viv-offer-label">Studio Services</p>
-                    <div className="cid-viv-offer-pills">
-                      <span className="cid-viv-pill">Market Research</span>
-                      <span className="cid-viv-pill">Sector Support</span>
-                      <span className="cid-viv-pill">Internationalization</span>
-                    </div>
                   </div>
                 </div>
               </div>
