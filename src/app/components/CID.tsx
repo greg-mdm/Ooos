@@ -496,7 +496,18 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           </div>
 
           <section className="cid-strategy" aria-labelledby="cid-strategy-title">
-            <h3 id="cid-strategy-title" className="cid-strategy-h">Micro-Studio. Massive Creative Capacity.</h3>
+            {/* Greek capital alpha (U+0391) opens "Agile" -- visually a Latin A but a
+                different character, so it is written as an escape rather than pasted
+                in, where it would look like a typo and get "corrected" later. The
+                aria-label carries the plain-Latin title so screen readers and the
+                section name built from this heading still read the word Agile. */}
+            <h3
+              id="cid-strategy-title"
+              className="cid-strategy-h"
+              aria-label="Agile Micro-Studio. Massive Creative Capacity."
+            >
+              {"\u0391"}gile Micro-Studio. Massive Creative Capacity.
+            </h3>
             <p className="cid-strategy-sub">Research reimagined</p>
             <StrategyKeys />
           </section>
