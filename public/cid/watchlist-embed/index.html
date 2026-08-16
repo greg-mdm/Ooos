@@ -1494,6 +1494,12 @@
       .cid-observatory-frame { min-height: 1640px; }
     }
 
+    /* The whole lockup is the doorway into /cid/iwatchlist. */
+    .title-banner-link { display: block; text-decoration: none; color: inherit; cursor: pointer;
+      border-radius: 14px; transition: transform .15s ease, filter .15s ease; }
+    .title-banner-link:hover { transform: translateY(-2px); filter: brightness(1.08); }
+    .title-banner-link:focus-visible { outline: 2px solid #1FCECB; outline-offset: 3px; }
+
     /* Observatory title card — two symmetric blocks (CID | Live Data Observatory)
        beside the kept IEP image (locked 2fr/1fr outer layout). */
     .title-banner.obs-card {
@@ -1581,6 +1587,10 @@
 
   <main>
     <!-- CID · Live Data Observatory — IEP image + titles merged into one section -->
+    <!-- Doorway: this lockup opens the Innovation Watchlist prototype page.
+         target="_top" breaks out of the embed iframe so the parent navigates. -->
+    <a class="title-banner-link" href="/cid/iwatchlist" target="_top"
+       aria-label="Open the Innovation Watchlist prototype">
     <div class="title-banner-wrap">
       <div class="title-banner-stack">
         <div class="title-banner obs-card">
@@ -1604,6 +1614,7 @@
         <img src="/assets/INNOVATION-IEP.webp" alt="Innovation · Entrepreneurship · Partnership">
       </div>
     </div>
+    </a>
 
     <!-- LIVE DATA OBSERVATORY (embedded for CID-page refinement) -->
     <section class="cid-observatory-wrap" aria-label="Live Data Observatory">

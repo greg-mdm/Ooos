@@ -4,6 +4,7 @@ import { Nav, Footer, SkipLink } from "./components/Layout";
 import { Home } from "./components/Home";
 import { Ostara } from "./components/Ostara";
 import { Exhibition } from "./components/Exhibition";
+import { IWatchlist } from "./components/IWatchlist";
 import { CID } from "./components/CID";
 import { PopClockMini } from "./components/PopClockMini";
 import { About } from "./components/About";
@@ -23,6 +24,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home onSupport={open} />} />
           <Route path="/ostara" element={<Ostara onSupport={open} />} />
+          <Route path="/cid/iwatchlist" element={<IWatchlist />} />
+          <Route path="/iwatchlist" element={<IWatchlist />} />
           <Route path="/cid" element={<CID onSupport={open} />} />
           <Route path="/pop-clock-mini" element={<PopClockMini />} />
           <Route path="/exhibition" element={<Exhibition onSupport={open} />} />

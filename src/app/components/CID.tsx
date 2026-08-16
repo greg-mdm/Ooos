@@ -1541,16 +1541,10 @@ export function CID({ onSupport }: { onSupport: () => void }) {
 
       <Underground />
 
-      <section className="cid-join" aria-labelledby="cid-join-title">
-        <div className="cid-join-inner">
-          <h2 id="cid-join-title" className="cid-join-title">
-            Join the movement to protect Canada&rsquo;s valuable natural resources!
-          </h2>
-          <button type="button" onClick={onSupport} className="btn btn-primary cid-join-cta">
-            Support the work →
-          </button>
-        </div>
-      </section>
+      {/* The join copy and its CTA moved off this page. The band itself stays:
+          it carries the indigo-to-portal gradient that closes the cave and
+          hands off into the footer, so removing it would leave a hard edge. */}
+      <section className="cid-join" aria-hidden="true" />
 
     </div>
   );
