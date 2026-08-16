@@ -285,6 +285,26 @@
   background: rgba(75,0,182,.07); border: 1px solid rgba(75,0,182,.16);
 }
 .cid-scope .cid-viv-offer-note { margin: 7px 0 0; font-size: 12px; color: #5b5f86; }
+/* Pills that carry a definition. Same shape as a plain pill so the row still
+   reads as one set, with a dotted underline as the only affordance that this
+   one opens. */
+.cid-scope .cid-viv-pill--def {
+  font-family: inherit; cursor: pointer;
+  text-decoration: underline dotted rgba(75,0,182,.5); text-underline-offset: 3px;
+  transition: background .16s, border-color .16s, color .16s;
+}
+.cid-scope .cid-viv-pill--def:hover,
+.cid-scope .cid-viv-pill--def.is-open {
+  background: rgba(75,0,182,.14); border-color: rgba(75,0,182,.38); color: #1f0447;
+  text-decoration-color: rgba(75,0,182,.85);
+}
+.cid-scope .cid-viv-pill--def:focus-visible { outline: 2px solid #4B00B6; outline-offset: 2px; }
+/* One reserved line under the row: the slot holds a non-breaking space when
+   nothing is open, so revealing a definition never nudges the layout. */
+.cid-scope .cid-viv-offer-def { min-height: 1.35em; }
+@media (prefers-reduced-motion: reduce) {
+  .cid-scope .cid-viv-pill--def { transition: none; }
+}
 
 /* Access tiers: the Vivarium's openness ladder, from open access down to the
    restricted Floor 0 lairs. Each card carries its tier colour on --tier. */

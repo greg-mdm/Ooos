@@ -231,6 +231,54 @@ function TeamTags() {
   );
 }
 
+/* The two abbreviated products carry their expansion behind the pill rather
+   than as standing lines under the row: hovering or tabbing to a pill previews
+   its definition, clicking pins it open (click again to close). One reserved
+   slot under the row holds whichever is active, so revealing a definition
+   never shifts the pills or the copy below them. "Experimental Research
+   Design" needs no expansion, so it stays a plain pill and is not focusable. */
+const PRODUCT_DEFS: [string, string][] = [
+  ["AI4XD", "Artificial Intelligence for Experience Design"],
+  ["Data Viz", "Immersive Data Visualizations"],
+];
+
+function DigitalProducts() {
+  // Pinned survives the pointer leaving; peeked is the transient hover/focus.
+  // Peek wins while it lasts so the pill under the cursor is always the one
+  // being described.
+  const [pinned, setPinned] = useState<string | null>(null);
+  const [peeked, setPeeked] = useState<string | null>(null);
+  const active = peeked ?? pinned;
+  const def = PRODUCT_DEFS.find(([term]) => term === active);
+  return (
+    <div className="cid-viv-offer-row">
+      <p className="cid-viv-offer-label">Digital Products</p>
+      <div className="cid-viv-offer-pills">
+        <span className="cid-viv-pill">Experimental Research Design</span>
+        {PRODUCT_DEFS.map(([term]) => (
+          <button
+            key={term}
+            type="button"
+            className={`cid-viv-pill cid-viv-pill--def${active === term ? " is-open" : ""}`}
+            aria-expanded={active === term}
+            aria-controls="cid-viv-product-def"
+            onClick={() => setPinned((p) => (p === term ? null : term))}
+            onPointerEnter={() => setPeeked(term)}
+            onPointerLeave={() => setPeeked(null)}
+            onFocus={() => setPeeked(term)}
+            onBlur={() => setPeeked(null)}
+          >
+            {term}
+          </button>
+        ))}
+      </div>
+      <p className="cid-viv-offer-note cid-viv-offer-def" id="cid-viv-product-def">
+        {def ? `${def[0]}: ${def[1]}` : "\u00a0"}
+      </p>
+    </div>
+  );
+}
+
 export function CID({ onSupport }: { onSupport: () => void }) {
   const base = import.meta.env.BASE_URL;
   // The population model, the living-wall slide index and the watchlist embed's
@@ -346,16 +394,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
 
                 {/* Digital products and studio services offered by CID. */}
                 <div className="cid-viv-offer">
-                  <div className="cid-viv-offer-row">
-                    <p className="cid-viv-offer-label">Digital Products</p>
-                    <div className="cid-viv-offer-pills">
-                      <span className="cid-viv-pill">Experimental Research Design</span>
-                      <span className="cid-viv-pill">AI4XD</span>
-                      <span className="cid-viv-pill">Data Viz</span>
-                    </div>
-                    <p className="cid-viv-offer-note">AI4XD: Artificial Intelligence for Experience Design</p>
-                    <p className="cid-viv-offer-note">Data Viz: Immersive Data Visualizations</p>
-                  </div>
+                  <DigitalProducts />
                   <div className="cid-viv-offer-row">
                     <p className="cid-viv-offer-label">Studio Services</p>
                     <div className="cid-viv-offer-pills">
