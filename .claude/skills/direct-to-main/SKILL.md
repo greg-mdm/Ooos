@@ -25,10 +25,12 @@ replaces the older branch-and-PR flow for this repo.
    git rebase origin/main        # only if main moved; keeps history linear
    git push origin HEAD:main     # fast-forward → auto-deploys
    ```
-   If the ambient token is stale, use gh as the credential helper:
-   ```bash
-   git -c credential.helper='!gh auth git-credential' push origin HEAD:main
-   ```
+   Auth comes from the ambient `GITHUB_TOKEN`/`GH_TOKEN`; no extra flags needed.
+   Do **not** reach for `gh auth` or a `credential.helper='!gh ...'` prefix:
+   `gh` is not installed in these environments, so that recipe silently does
+   nothing. If a push is rejected the cause is almost always non-fast-forward
+   (`main` moved, or you are on a divergent `claude/*` session branch), not
+   credentials. Re-fetch, rebase onto `origin/main`, and push again.
 5. **Confirm the deploy.** Check the latest `deploy.yml` run on `main` is green,
    then tell Greg it's live. GitHub Pages caches briefly, so a hard refresh may
    be needed.
