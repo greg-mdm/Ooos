@@ -1025,6 +1025,53 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <p className="cid-viv-lead">The Vivarium makes global research collaboration into a gamified information ecosystem. Our 24/7 team is designed to facilitate group creativity and knowledge exchange within synthetic research environments built to protect people while nurturing artificial intelligences evolving within them.</p>
               </div>
 
+              {/* Sealed case. The room and the claim it evidences are one
+                  enclosure rather than two blocks sitting loose on the page:
+                  vanta-black steel shell, mitred titanium corner blocks, and a
+                  single mullion between the two compartments. */}
+              <div className="cid-vault">
+                <span className="cid-vault-corner cid-vault-corner--tl" aria-hidden="true" />
+                <span className="cid-vault-corner cid-vault-corner--tr" aria-hidden="true" />
+                <span className="cid-vault-corner cid-vault-corner--bl" aria-hidden="true" />
+                <span className="cid-vault-corner cid-vault-corner--br" aria-hidden="true" />
+
+                {/* The Viv itself: the always-on AI mini-PC that houses the
+                    facility, on show in its own display room. Self-contained
+                    WebGL scene, so it rides in an iframe like the other embeds. */}
+                <div className="cid-vivroom">
+                  <iframe
+                    ref={roomRef}
+                    className="cid-vivroom-frame"
+                    src={`${base}DISPLAY_ROOM_BLUE_checker_cm.html?v=4`}
+                    title="The Viv display room: the always-on AI mini-PC that houses the CID Vivarium"
+                    loading="lazy"
+                  />
+                </div>
+
+                <div className="cid-vault-mullion" aria-hidden="true" />
+
+                {/* "1976 vs 2026" storage comparison: makes the case for why a
+                    device this small earns a display room. Sealed into the same
+                    case as the room, so the claim and the object it is about are
+                    read as one piece. */}
+                <div className="cid-viv-era">
+                  <div className="cid-viv-era-row cid-viv-era-then">
+                    <div className="cid-viv-era-headline">
+                      <p className="cid-viv-era-label"><span className="y">1976</span><span className="tag">50 years ago</span></p>
+                      <p className="cid-viv-era-stat">~3,150 DISKS</p>
+                    </div>
+                    <p className="cid-viv-era-copy">Storing two terabytes of data required ~3,150 disk drives. That much information technology (IT) could fill a machine-room floor nearly the size of a Canadian football field. <span className="cid-viv-era-aside">*Ours is bigger.</span></p>
+                  </div>
+                  <div className="cid-viv-era-row cid-viv-era-now">
+                    <div className="cid-viv-era-headline">
+                      <p className="cid-viv-era-label"><span className="y">2026</span><span className="tag">Today</span></p>
+                      <p className="cid-viv-era-stat">&lt; 1KG</p>
+                    </div>
+                    <p className="cid-viv-era-copy">Now you can palm it.<br />Weighing less than one kilogram,<br />CID contains a cutting-edge research facility.</p>
+                  </div>
+                </div>
+              </div>
+
               {/* Leadership: who runs the Vivarium, and the division's mandate. */}
               <div className="cid-viv-leadership">
                 <h3 className="cid-viv-ecosystem-h">Leadership</h3>
@@ -1224,52 +1271,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   <tr><td><span className="cid-viv-code">FUM</span></td><td>Future Uncertainty Matrix</td><td>Maps intersecting issues</td></tr>
                 </tbody>
               </table>
-            </div>
-          </div>
-          {/* Sealed case. The room and the claim it evidences are one
-              enclosure rather than two blocks sitting loose on the page:
-              vanta-black steel shell, mitred titanium corner blocks, and a
-              single mullion between the two compartments. */}
-          <div className="cid-vault">
-            <span className="cid-vault-corner cid-vault-corner--tl" aria-hidden="true" />
-            <span className="cid-vault-corner cid-vault-corner--tr" aria-hidden="true" />
-            <span className="cid-vault-corner cid-vault-corner--bl" aria-hidden="true" />
-            <span className="cid-vault-corner cid-vault-corner--br" aria-hidden="true" />
-
-            {/* The Viv itself: the always-on AI mini-PC that houses the
-                facility, on show in its own display room. Self-contained
-                WebGL scene, so it rides in an iframe like the other embeds. */}
-            <div className="cid-vivroom">
-              <iframe
-                ref={roomRef}
-                className="cid-vivroom-frame"
-                src={`${base}DISPLAY_ROOM_BLUE_checker_cm.html?v=4`}
-                title="The Viv display room: the always-on AI mini-PC that houses the CID Vivarium"
-                loading="lazy"
-              />
-            </div>
-
-            <div className="cid-vault-mullion" aria-hidden="true" />
-
-            {/* "1976 vs 2026" storage comparison: makes the case for why a
-                device this small earns a display room. Sealed into the same
-                case as the room, so the claim and the object it is about are
-                read as one piece. */}
-            <div className="cid-viv-era">
-              <div className="cid-viv-era-row cid-viv-era-then">
-                <div className="cid-viv-era-headline">
-                  <p className="cid-viv-era-label"><span className="y">1976</span><span className="tag">50 years ago</span></p>
-                  <p className="cid-viv-era-stat">~3,150 DISKS</p>
-                </div>
-                <p className="cid-viv-era-copy">Storing two terabytes of data required ~3,150 disk drives. That much information technology (IT) could fill a machine-room floor nearly the size of a Canadian football field. <span className="cid-viv-era-aside">*Ours is bigger.</span></p>
-              </div>
-              <div className="cid-viv-era-row cid-viv-era-now">
-                <div className="cid-viv-era-headline">
-                  <p className="cid-viv-era-label"><span className="y">2026</span><span className="tag">Today</span></p>
-                  <p className="cid-viv-era-stat">&lt; 1KG</p>
-                </div>
-                <p className="cid-viv-era-copy">Now you can palm it.<br />Weighing less than one kilogram,<br />CID contains a cutting-edge research facility.</p>
-              </div>
             </div>
           </div>
 
