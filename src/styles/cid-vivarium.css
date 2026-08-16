@@ -821,35 +821,6 @@
 }
 .cid-scope .cid-viv-disc strong { display: block; max-width: 70ch; color: #5b5f86; font-weight: 700; }
 
-/* ---- Research drivers: the three things the work is driven by, with the
-   four cooperation modes set as a definition list so no acronym appears
-   without its meaning beside it. Draft copy, so it carries a removable
-   flag: delete .cid-viv-draft-flag and its markup once the copy is
-   approved and nothing else changes. ---- */
-.cid-scope .cid-viv-drivers { display: flex; flex-direction: column; gap: 10px; }
-.cid-scope .cid-viv-draft-flag {
-  align-self: flex-start; margin: 0; padding: 3px 10px; border-radius: 20px;
-  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 10px;
-  letter-spacing: .18em; text-transform: uppercase;
-  color: #822F00; background: rgba(130,47,0,.08); border: 1px dashed rgba(130,47,0,.42);
-}
-.cid-scope .cid-viv-drivers .cid-viv-lead-list li strong { color: #4B00B6; font-weight: 800; }
-.cid-scope .cid-viv-coop {
-  margin: 2px 0 0; padding: 0 0 0 22px;
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 6px clamp(14px,2vw,26px); max-width: 62ch;
-}
-.cid-scope .cid-viv-coop > div { display: flex; align-items: baseline; gap: 9px; }
-.cid-scope .cid-viv-coop dt {
-  flex: 0 0 auto; min-width: 3.1em;
-  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 12.5px;
-  letter-spacing: .06em; color: #4B00B6;
-}
-.cid-scope .cid-viv-coop dd { margin: 0; font-size: 14px; line-height: 1.5; color: #33384a; }
-@media (max-width: 620px) {
-  .cid-scope .cid-viv-coop { grid-template-columns: minmax(0, 1fr); }
-}
-
 /* ---- Strategies: the three pillars, below Leadership and above the Viv
    display case. The keys themselves are the homepage's .ood-key design,
    imported unchanged from ooodivisions2.css so the two places stay one
@@ -865,7 +836,10 @@
   margin: 0;
   font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
   font-size: clamp(20px,2.4vw,28px); line-height: 1.18; letter-spacing: -.01em;
-  color: #1a1646; max-width: 24ch; text-wrap: balance;
+  /* Reads as one line: the phrase is 40 characters, so the old 24ch measure
+     forced a break regardless of the room the column had. No cap, and balance
+     only steps in on narrow screens where one line genuinely will not fit. */
+  color: #1a1646; max-width: none; text-wrap: balance;
 }
 .cid-scope .cid-strategy-sub {
   margin: 0 0 4px; font-size: clamp(15px,1.5vw,18px); line-height: 1.55; color: #33384a;
