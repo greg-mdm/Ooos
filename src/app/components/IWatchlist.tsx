@@ -7,6 +7,7 @@ import "../../styles/cid-coins.css";
 import { SC } from "./cid/statcan-links";
 import { DataAccessContinuum } from "./cid/DataAccessContinuum";
 import { LivingWallSlider } from "./cid/LivingWallSlider";
+import { Underground } from "./cid/Underground";
 import {
   PopulationSourcesStrip,
   usePopulationModel,
@@ -309,6 +310,11 @@ export function IWatchlist() {
           </article>
         </div>
       </section>
+
+      {/* The cave, transplanted off /cid with the rest of this block. It keeps
+          its role as the page floor: full structure, sitting flush above the
+          site footer. */}
+      <Underground />
     </div>
   );
 }
