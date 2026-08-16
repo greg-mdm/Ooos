@@ -285,6 +285,21 @@
   background: rgba(75,0,182,.07); border: 1px solid rgba(75,0,182,.16);
 }
 .cid-scope .cid-viv-offer-note { margin: 7px 0 0; font-size: 12px; color: #5b5f86; }
+
+/* Strategic priorities: the block that fills the band under the offer rows,
+   level with the reference card in the side panel. Term and description as a
+   definition list; descriptions sit on a 62ch measure with balanced wrapping
+   so each reads as one clean shape rather than a ragged edge. */
+.cid-scope .cid-viv-priorities { display: flex; flex-direction: column; gap: 11px; }
+.cid-scope .cid-viv-priority-list { margin: 0; display: flex; flex-direction: column; gap: 13px; }
+.cid-scope .cid-viv-priority dt {
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: 14.5px; line-height: 1.3; color: #4B00B6;
+}
+.cid-scope .cid-viv-priority dd {
+  margin: 3px 0 0; max-width: 62ch; text-wrap: balance;
+  font-size: 14.5px; line-height: 1.55; color: #33384a;
+}
 /* Pills that carry a definition. Same shape as a plain pill so the row still
    reads as one set, with a dotted underline as the only affordance that this
    one opens. */
@@ -847,11 +862,6 @@
    system; everything here is the surround plus the two-bullet split inside
    each key, which the homepage keys do not have. ---- */
 .cid-scope .cid-strategy { display: flex; flex-direction: column; gap: 10px; }
-.cid-scope .cid-strategy-eyebrow {
-  margin: 0;
-  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 11px;
-  letter-spacing: .22em; text-transform: uppercase; color: #822F00;
-}
 .cid-scope .cid-strategy-h {
   margin: 0;
   font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;

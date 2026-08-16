@@ -404,6 +404,27 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     </div>
                   </div>
                 </div>
+
+                {/* Strategic priorities: fills the band under the offer rows,
+                    opposite the reference card, so the intro column runs to
+                    roughly the same depth as the side panel instead of leaving
+                    a hole above the Strategies band and the display case.
+                    Greg's supplied copy, set verbatim. Term and description as
+                    a definition list, per the house rule that no acronym
+                    appears without its meaning beside it. */}
+                <div className="cid-viv-priorities">
+                  <h3 className="cid-viv-ecosystem-h">Strategic Priorities</h3>
+                  <dl className="cid-viv-priority-list">
+                    <div className="cid-viv-priority">
+                      <dt>Trust and Transparency</dt>
+                      <dd>Verify credentials and evaluate evidence. Machine-learning detection and automated controls help identify and exclude Material Non-Public Information (MNPI) from research and trading workflows.</dd>
+                    </div>
+                    <div className="cid-viv-priority">
+                      <dt>Interoperability</dt>
+                      <dd>Make Canadian content, services and materials discoverable across platforms and markets.</dd>
+                    </div>
+                  </dl>
+                </div>
               </div>
 
               {/* Strategies: the three CID pillars, sitting below Leadership
@@ -475,7 +496,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           </div>
 
           <section className="cid-strategy" aria-labelledby="cid-strategy-title">
-            <p className="cid-strategy-eyebrow">Strategies</p>
             <h3 id="cid-strategy-title" className="cid-strategy-h">Micro-Studio. Massive Creative Capacity.</h3>
             <p className="cid-strategy-sub">Research reimagined</p>
             <StrategyKeys />
