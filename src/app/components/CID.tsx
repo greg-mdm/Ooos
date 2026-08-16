@@ -417,7 +417,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   <dl className="cid-viv-priority-list">
                     <div className="cid-viv-priority">
                       <dt>Merit and Research Integrity</dt>
-                      <dd>Verify credentials and evaluate evidence. Machine-learning detection and automated controls help identify and exclude Material Non-Public Information (MNPI) from research and trading workflows.</dd>
+                      <dd>Verify credentials and evaluate evidence. Machine-learning detection and automated controls help identify and exclude Material Non-Public Information (MNPI) from AI agent and trading workflows.</dd>
                     </div>
                     <div className="cid-viv-priority">
                       <dt>Trust and Transparency</dt>
