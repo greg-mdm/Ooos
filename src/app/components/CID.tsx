@@ -10,28 +10,36 @@ import "../../styles/ooodivisions2.css";
 import { SC } from "./cid/statcan-links";
 
 // The three CID strategy pillars, set as the same pressable black keys the
-// homepage uses on the division cards. Design is shared deliberately: the
-// gradients, shadow ramp and Bright Silver legend are lifted verbatim from
-// the CID column in OooDivisions.tsx (top key brightest, fading down), so
-// the two places read as one system. Only the text differs, and here each
-// key carries its two statements as separate bullets rather than one line.
+// homepage uses on the division cards. The KEY FACES are lifted verbatim
+// from the CID column in OooDivisions.tsx: same radial gradients, same
+// brightest-to-darkest ramp, same Bright Silver legend. That is the part
+// Greg means by "the same design", and it is what carries between pages.
+//
+// The SURROUND is not shared, because the ground is not the same. On the
+// homepage these keys glow out of a dark aurora field, so their shadows are
+// near-black at high opacity and the lit state blooms purple. Dropped
+// unchanged onto CID's robin's-egg they read as soot: a heavy black smear
+// under each key on a pale ground. So the shadows here are the site indigo
+// at lower opacity with a negative spread, which reads as lift rather than
+// dirt, and the hover and pressed states swap the bloom for a ring (see
+// cid-vivarium.css). The keys themselves are untouched.
 const KEY_GRAD = (a: string, b: string, c: string) =>
   `radial-gradient(135% 165% at 50% -34%,${a} 0%,${b} 42%,${c} 100%)`;
 
 const STRATEGY_KEYS: { bg: string; shadow: string; lines: [string, string] }[] = [
   {
     bg: KEY_GRAD("rgb(174,153,201)", "rgb(70,46,134)", "rgb(24,16,46)"),
-    shadow: "0 19px 42px rgba(8,2,24,0.38)",
+    shadow: "0 18px 34px -18px rgba(26,22,70,0.46)",
     lines: ["Energize economic expansion.", "Empower inclusive growth."],
   },
   {
     bg: KEY_GRAD("rgb(152,133,179)", "rgb(54,35,104)", "rgb(18,12,35)"),
-    shadow: "0 16px 36px rgba(8,2,24,0.32)",
+    shadow: "0 15px 30px -16px rgba(26,22,70,0.40)",
     lines: ["Gather collective intelligence.", "Integrate verified data sources."],
   },
   {
     bg: KEY_GRAD("rgb(126,110,151)", "rgb(37,23,74)", "rgb(13,8,25)"),
-    shadow: "0 13px 30px rgba(8,2,24,0.27)",
+    shadow: "0 12px 26px -14px rgba(26,22,70,0.34)",
     lines: ["Boost business confidence.", "Build global partnerships."],
   },
 ];
