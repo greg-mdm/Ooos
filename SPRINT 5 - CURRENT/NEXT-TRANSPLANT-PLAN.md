@@ -9,6 +9,7 @@ is the transplant itself.
 | Colour | Content | Where it goes |
 |---|---|---|
 | **Blue** | Observatory lockup (Canadian Innovation Dimension · Zoom in Ontario Data \| Live Data Observatory · Viewing: Ontario, + the IEP art) | **Stays on `/cid`** *and* is the header of `/cid/iwatchlist`. **DONE** |
+| **Signposts** | `cid-portal-band` ("A PORTAL HAS OPENED") and the **Canada flag graphic** | **Move + stay.** Both appear on *both* pages |
 | **Yellow** | Everything from below the blue header down to **just above the cave** | **Moves** to `/cid/iwatchlist` |
 | Cave | `Underground` + the `cid-join` gradient band | **Stays on `/cid`**, design and gradient intact, all text removed. **DONE** |
 
@@ -18,19 +19,28 @@ prototype released by the CID.
 
 ## Sections to move (in order, from `CID.tsx`)
 
-1. `<section className="cid-portal-band">` — the "A PORTAL HAS OPENED" drum roll
-2. `<section className="cid-wl-hero">` — Innovation Watchlist hero iframe
-3. `<section className="cid-watchlist-embed">` — the watchlist embed
-4. `<DataAccessContinuum />`
-5. `<section className="cid-livingwall">` — Pop Clock / living wall
-6. `<section className="np-strategy">` — A Force of Nature
-7. `<section className="cid-forest">`
-8. `<section className="cid-canopy">`
+1. `<section className="cid-wl-hero">` — Innovation Watchlist hero iframe
+2. `<section className="cid-watchlist-embed">` — the watchlist embed
+3. `<DataAccessContinuum />`
+4. `<section className="cid-livingwall">` — Pop Clock / living wall
+5. `<section className="np-strategy">` — A Force of Nature
+6. `<section className="cid-forest">`
+7. `<section className="cid-canopy">`
 
 **Stop before `<Underground />`.** Underground and `cid-join` stay on `/cid`.
 
-> Check the portal band (1) with Greg. It reads as the lead-in to the watchlist,
-> so it probably travels, but it was not explicitly colour-coded.
+### Signposts: duplicate, do not move
+
+`cid-portal-band` ("A PORTAL HAS OPENED") and the **Canada flag graphic** are
+**move + stay**. They lead into the prototype on `/cid` *and* reappear on
+`/cid/iwatchlist`, so both pages keep them. Confirmed by Greg.
+
+Their placement on the subpage will differ from `/cid` — they are signposts, so
+they need to read correctly in their new position rather than sit at the same
+offset. Expect to re-place the portal text once the rest of the block is in.
+
+Locate the flag graphic before starting: it sits with the portal/watchlist lead-in
+but was not identified in this pass.
 
 ## The coupling to untangle (this is the whole job)
 
@@ -67,6 +77,6 @@ the rules apply unchanged. Do not copy rule bodies; that would fork them.
 - `/cid` still renders: intro, Leadership, Viv case, team, ecosystem, Research
   Access, lens previews, cave, gradient into the footer, and no orphaned gap
   where the yellow block was.
-- `/cid/iwatchlist` renders the header plus all eight moved sections.
+- `/cid/iwatchlist` renders the header plus all seven moved sections plus the two signposts.
 - The pop clock still shows a live figure on whichever page it now lives on.
 - Both `/cid/iwatchlist` and `/iwatchlist` resolve.
