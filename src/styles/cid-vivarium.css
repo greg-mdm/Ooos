@@ -501,7 +501,18 @@
   content: "\25B6"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
   font-size: 34px; color: rgba(255,255,255,.92); text-shadow: 0 2px 14px rgba(0,0,0,.55); pointer-events: none;
 }
-.cid-scope .cid-lens-video { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Contain, not cover. The stage is 3:2 and every clip but the field wave is
+   wider than that (1.68 to 1.78), so cover was trimming the sides off all of
+   them -- visible on the Station 7.83 commercial, where the station name sits
+   near the right edge and was being cut. Contain fits the full frame and
+   leaves a thin band above and below, about 8% of the stage each for a 16:9
+   clip; the gradient behind fills that band so it reads as a screen surround
+   rather than a gap. The wave clip is 3:2 and still fills edge to edge. */
+.cid-scope .cid-lens-video {
+  width: 100%; height: 100%; object-fit: contain; display: block;
+  background:
+    radial-gradient(120% 120% at 50% 0%, #191033 0%, #0b0620 62%, #06021a 100%);
+}
 .cid-scope .cid-lens-still { width: 100%; height: 100%; background-size: cover; background-position: center; }
 .cid-scope .cid-lens-cap { display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center; }
 .cid-scope .cid-lens-btn-glyph { font-size: 34px; line-height: 1; color: var(--lens); margin-bottom: 4px; }
