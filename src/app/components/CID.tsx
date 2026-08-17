@@ -427,7 +427,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     </div>
                     <div className="cid-viv-priority">
                       <dt>Trust and Transparency</dt>
-                      <dd>Protect privacy and confidentiality while documenting sources, responsibilities, and decisions. The Vivarium is constantly under surveillance. Consistent human oversight ensures CID authorizes all automated processes, approves methods, and monitors interactions with external tools.</dd>
+                      <dd>Protect privacy and confidentiality while documenting sources, responsibilities, and decisions. Consistent human oversight ensures CID authorizes all automated processes, approves methods, and monitors interactions with external tools.</dd>
                     </div>
                   </dl>
                 </div>
