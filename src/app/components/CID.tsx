@@ -122,6 +122,10 @@ function GregLensSlider({ base }: { base: string }) {
                     className="cid-lens-video"
                     src={clip}
                     poster={l.still}
+                    /* The still beside it carries role="img" and this same label,
+                       so without it the lens announces itself when paused and goes
+                       silent the moment it plays. */
+                    aria-label={l.label}
                     autoPlay
                     muted
                     playsInline
