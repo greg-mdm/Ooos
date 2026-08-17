@@ -645,7 +645,13 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 access only" reads as a distinct tier of the page, not just
                 another card in the row. */}
             <div className="cid-viv-access-restricted">
-              <div className="cid-viv-tier cid-viv-tier--dark" style={{ "--tier": "#822F00" } as CSSProperties}>
+              {/* Gold, not the burnt sienna this carried before: against this card's
+                  #150A2E the old #822F00 measured 2.11:1, well under the 4.5 the
+                  label needs. #F0C040 is the page's existing gold and clears it at
+                  11.05:1. On the dark variant --tier reaches the label only, since
+                  .cid-viv-tier--dark overrides border-color for both restricted
+                  cards, so this changes the word and nothing else. */}
+              <div className="cid-viv-tier cid-viv-tier--dark" style={{ "--tier": "#F0C040" } as CSSProperties}>
                 <p className="cid-viv-tier-label">Restricted</p>
                 <p className="cid-viv-tier-name">LAIRS</p>
                 <p className="cid-viv-tier-desc">Private Floor 0 environments for authorized researchers and funding partners. Access reflects research purpose, qualifications, experience and authorization.</p>
