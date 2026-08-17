@@ -630,7 +630,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               </div>
               <div className="cid-viv-tier" style={{ "--tier": "#B67A00" } as CSSProperties}>
                 <p className="cid-viv-tier-label">Gated</p>
-                <p className="cid-viv-tier-name">Community Partners</p>
+                <p className="cid-viv-tier-name">Community Information</p>
                 <p className="cid-viv-tier-desc">Protected spaces for creative partners and approved participants. Access controls support consent, age verification and privacy requirements.</p>
               </div>
               <div className="cid-viv-tier" style={{ "--tier": "#6C01F4" } as CSSProperties}>
