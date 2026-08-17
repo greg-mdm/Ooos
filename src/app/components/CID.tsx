@@ -433,6 +433,13 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                       <dt>Trust and Transparency</dt>
                       <dd>Protect privacy and confidentiality while documenting sources, responsibilities, and decisions. Consistent human oversight ensures CID authorizes all automated processes, approves methods, and monitors interactions with tools.</dd>
                     </div>
+                    {/* Runs the full row under the pair above: one sentence, so a
+                        double-wide card fills the band at about half the height
+                        rather than leaving a column empty beside it. */}
+                    <div className="cid-viv-priority cid-viv-priority--wide">
+                      <dt>Interoperability</dt>
+                      <dd>Connect Canadian content, services and materials with audiences across platforms and markets.</dd>
+                    </div>
                   </dl>
                 </div>
               </div>

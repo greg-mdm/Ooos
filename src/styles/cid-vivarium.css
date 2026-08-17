@@ -314,6 +314,11 @@
 .cid-scope .cid-viv-priority dd {
   margin: 5px 0 0; font-size: 14.5px; line-height: 1.55; color: #33384a;
 }
+/* The third priority spans both columns. Its copy is a single sentence, so a
+   half-height card across the full row reads as deliberate, where a normal
+   card would strand an empty column beside it. Nothing is done to the wrapping
+   here: the card is the measure, same as the pair above. */
+.cid-scope .cid-viv-priority--wide { grid-column: 1 / -1; }
 @media (max-width: 900px) {
   .cid-scope .cid-viv-priority-list { grid-template-columns: minmax(0, 1fr); }
 }
