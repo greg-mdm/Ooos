@@ -427,7 +427,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     </div>
                     <div className="cid-viv-priority">
                       <dt>Trust and Transparency</dt>
-                      <dd>Protect privacy and confidentiality while documenting sources, responsibilities, and decision boundaries. The Vivarium is constantly under surveillance. Consistent human oversight ensures CID authorizes all automated processes, interactions with external tools, and methods.</dd>
+                      <dd>Protect privacy and confidentiality while documenting sources, responsibilities, and decisions. The Vivarium is constantly under surveillance. Consistent human oversight ensures CID authorizes all automated processes, approves methods, and monitors interactions with external tools.</dd>
                     </div>
                   </dl>
                 </div>
@@ -584,7 +584,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <div className="cid-viv-flicker-img" role="img" aria-label="The Flicker" />
                 <figcaption className="cid-viv-flicker-cap">
                   <p className="cid-viv-flicker-name">CID Flicker</p>
-                  <p className="cid-viv-flicker-desc">Controls access to the Vivarium at all times. Possessed by our sole proprietor at all times.</p>
+                  <p className="cid-viv-flicker-desc">Controls access to the Vivarium. Our sole proprietor possesses CID Flicker at all times.</p>
                 </figcaption>
               </figure>
 
@@ -593,7 +593,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   <p className="cid-etym-key">User inputs</p>
                   <ul className="cid-etym-list">
                     <li><span className="cid-etym-abbr">UC</span> · User Contribution recorded by a CID community member. Includes personal observations. Therefore, the individual experiences are generally unverifiable.</li>
-                    <li><span className="cid-etym-abbr">PCD</span> · Proof Confirmed Digitally: CID reviewed substantial, convincing proof.</li>
+                    <li><span className="cid-etym-abbr">PCD</span> · Proof Confirmed Digitally (substantial &amp; convincing proof)</li>
                     <li><span className="cid-etym-abbr">TS</span> · Trading Strategy proposed for analysis, risk review, or scenario modelling.</li>
                   </ul>
                 </div>
