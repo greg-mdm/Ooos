@@ -623,12 +623,20 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           <div className="cid-viv-access">
             <h3 className="cid-viv-access-h">Research Access</h3>
             <div className="cid-viv-access-grid">
-              <div className="cid-viv-tier" style={{ "--tier": "#17A398" } as CSSProperties}>
+              {/* The Vivarium's own teal, --vault-teal 14,110,115. The card carried
+                  a lighter #17A398 that measured 3.12:1 on white, under the 4.5 the
+                  label needs; the signature colour clears it at 6.01:1. */}
+              <div className="cid-viv-tier" style={{ "--tier": "#0E6E73" } as CSSProperties}>
                 <p className="cid-viv-tier-label">Public</p>
                 <p className="cid-viv-tier-name">Open Access</p>
                 <p className="cid-viv-tier-desc">Open source development and data analytics tools.<br />Free resources for innovators and entrepreneurs</p>
               </div>
-              <div className="cid-viv-tier" style={{ "--tier": "#B67A00" } as CSSProperties}>
+              {/* Gold for caution. Deep gold rather than the page's bright #F0C040:
+                  gold is a light hue, so on a white card the bright value reads at
+                  1.7:1 and even the old #B67A00 only reached 3.64:1. #9A6600 is the
+                  same amber family at 4.91:1. Bright gold is available on the dark
+                  cards, which is why Restricted can carry it. */}
+              <div className="cid-viv-tier" style={{ "--tier": "#9A6600" } as CSSProperties}>
                 <p className="cid-viv-tier-label">Gated</p>
                 <p className="cid-viv-tier-name">Community Information</p>
                 <p className="cid-viv-tier-desc">Protected spaces for creative partners and approved participants. Access controls support consent, age verification and privacy requirements.</p>
