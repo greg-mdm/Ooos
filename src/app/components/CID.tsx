@@ -770,6 +770,24 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <p className="cid-viv-gloss-eq" aria-hidden="true">=</p>
                 <p className="cid-viv-gloss-mean">Imitate</p>
               </div>
+              {/* Quoted material, marked up as a quotation rather than styled to
+                  look like one. Both halves of this panel come from the same
+                  source: the Bios/Mimic gloss and the second definition sit on
+                  page 3 of the field guide, this quote on page 7, so one Chicago
+                  note at the foot covers the panel and carries both pages. */}
+              <figure className="cid-viv-gloss-quote">
+                <p className="cid-viv-gloss-q-lead">Why practice biomimicry?</p>
+                <blockquote>
+                  Organisms and ecosystems face the same challenges that we humans do,
+                  but, they meet those challenges sustainably.
+                </blockquote>
+              </figure>
+              <p className="cid-viv-gloss-src">
+                Learn Biomimicry, <cite>A Field Guide to Biomimicry: A Brief Overview
+                of the Core Elements and Practice of Biomimicry</cite>, version 01
+                (Learn Biomimicry, 2021), 3, 7,{" "}
+                <a href="https://www.learnbiomimicry.com" target="_blank" rel="noreferrer noopener">learnbiomimicry.com</a>.
+              </p>
             </aside>
           </div>
 

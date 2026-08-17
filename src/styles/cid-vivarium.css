@@ -1019,7 +1019,7 @@
 /* Word pairs, stacked: term, equals, meaning. Narrow on purpose -- it is a
    gloss, not a paragraph, and the stacked equals reads as a definition rather
    than a sentence someone has to parse. */
-.cid-scope .cid-viv-gloss-pair { margin-top: 16px; }
+.cid-scope .cid-viv-gloss-pair { margin-top: 13px; }
 .cid-scope .cid-viv-gloss-pair:first-of-type { margin-top: 12px; }
 .cid-scope .cid-viv-gloss-term {
   margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
@@ -1032,6 +1032,31 @@
 .cid-scope .cid-viv-gloss-mean {
   margin: 0; font-size: clamp(15px,1.5vw,17px); line-height: 1.5; color: #33384a;
 }
+
+/* Set as a quotation, not as body copy that happens to have quote marks: the
+   rule and the indent do the work so the words read as borrowed. */
+.cid-scope .cid-viv-gloss-quote {
+  margin: 16px 0 0; padding-top: 13px;
+  border-top: 1px solid rgba(75,0,182,.16);
+}
+.cid-scope .cid-viv-gloss-q-lead {
+  margin: 0 0 8px; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: 13px; letter-spacing: .01em; color: #4B00B6;
+}
+.cid-scope .cid-viv-gloss-quote blockquote {
+  margin: 0; padding-left: 12px; border-left: 3px solid rgba(75,0,182,.28);
+  font-size: 14.5px; line-height: 1.55; color: #33384a; font-style: italic;
+}
+
+/* Source note. Small and quiet, but present: the panel quotes a published work
+   and the words are not the site's own. */
+.cid-scope .cid-viv-gloss-src {
+  margin: 12px 0 0; padding-top: 10px;
+  border-top: 1px solid rgba(75,0,182,.12);
+  font-size: 11.5px; line-height: 1.5; color: #5b5f86;
+}
+.cid-scope .cid-viv-gloss-src cite { font-style: italic; }
+.cid-scope .cid-viv-gloss-src a { color: #4B00B6; text-underline-offset: 2px; }
 
 .cid-scope .cid-viv-disc {
   margin: 0; padding-top: 16px; border-top: 1px solid rgba(75,0,182,.22);
