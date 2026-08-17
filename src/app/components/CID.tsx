@@ -91,10 +91,19 @@ function GregLensSlider({ base }: { base: string }) {
   // See SPRINT 4 - REFERENCES/LENS-CLIPS.md.
   const LENS_V = 5;
   const V = `${base}assets/video/`;
-  const cv = (name: string) => `${V}${name}?v=${LENS_V}`;
+  // Each clip carries its own aspect so the lids can be sized to the exact
+  // letterbox band it leaves. Without the ratio a lid is guesswork, and a lid
+  // that guesses high covers picture.
+  const cv = (name: string, ar: number) => ({ src: `${V}${name}?v=${LENS_V}`, ar });
+  // The stage is 3:2. A clip wider than that leaves a band above and below
+  // under object-fit: contain; one at or under 3:2 fills and leaves none. Lenses
+  // set to cover never band at all, because cover trims the sides instead.
+  const STAGE_AR = 1.5;
+  const bandOf = (ar: number, fit: string) =>
+    fit === "cover" ? 0 : Math.max(0, (1 - STAGE_AR / ar) / 2);
   const LENSES = [
-    { key: "ethel",  device: "ⓔMage",   station: "ΩStation 7.83", glyph: "꩜", label: "Greg, as Ethel sees him",  still: `${base}assets/greg-ethel-field-v2.webp?v=${LENS_V}`, clips: [cv("greg-ethel-wave.mp4"), cv("greg-ethel-emage1.mp4"), cv("greg-ethel-emage783.mp4")] },
-    { key: "icarus", device: "Ⅲ Vision", station: "αLiveShow",     glyph: "🔺", label: "Greg, as Icarus sees him", still: `${V}greg-icarus-still.webp?v=${LENS_V}`,           clips: [cv("greg-icarus-lens.mp4"), cv("greg-icarus-wide.mp4")] },
+    { key: "ethel",  fit: "contain", device: "ⓔMage",   station: "ΩStation 7.83", glyph: "꩜", label: "Greg, as Ethel sees him",  still: `${base}assets/greg-ethel-field-v2.webp?v=${LENS_V}`, clips: [cv("greg-ethel-wave.mp4", 1280/854), cv("greg-ethel-emage1.mp4", 16/9), cv("greg-ethel-emage783.mp4", 16/9)] },
+    { key: "icarus", fit: "cover",   device: "Ⅲ Vision", station: "αLiveShow",     glyph: "🔺", label: "Greg, as Icarus sees him", still: `${V}greg-icarus-still.webp?v=${LENS_V}`,           clips: [cv("greg-icarus-lens.mp4", 888/528), cv("greg-icarus-wide.mp4", 16/9)] },
   ];
   // Start with Icarus playing and Ethel (the field shot) held as a still.
   const [active, setActive] = useState(1);
@@ -107,6 +116,7 @@ function GregLensSlider({ base }: { base: string }) {
           const on = active === i;
           const at = clipIdx % l.clips.length;
           const clip = l.clips[at];
+          const band = bandOf(clip.ar, l.fit);
           return (
             <div className={`cid-lens-cell cid-lens-cell--${l.key} ${on ? "is-active" : ""}`} key={l.key}>
               <button
@@ -115,12 +125,13 @@ function GregLensSlider({ base }: { base: string }) {
                 aria-pressed={on}
                 aria-label={on ? l.label : `Play ${l.label}`}
                 onClick={() => pick(i)}
+                style={{ "--lid": `${(band * 100).toFixed(3)}%` } as CSSProperties}
               >
                 {on ? (
                   <video
-                    key={clip}
+                    key={clip.src}
                     className="cid-lens-video"
-                    src={clip}
+                    src={clip.src}
                     poster={l.still}
                     /* The still beside it carries role="img" and this same label,
                        so without it the lens announces itself when paused and goes
@@ -134,6 +145,11 @@ function GregLensSlider({ base }: { base: string }) {
                 ) : (
                   <div className="cid-lens-still" role="img" aria-label={l.label} style={{ backgroundImage: `url("${l.still}")` }} />
                 )}
+                {/* Eyelids. They occupy exactly the letterbox band the current
+                    clip leaves, so they never reach into the picture: at --lid 0
+                    they have no height and nothing renders. Decorative only. */}
+                <span className="cid-lens-lid cid-lens-lid--top" aria-hidden="true" />
+                <span className="cid-lens-lid cid-lens-lid--bot" aria-hidden="true" />
               </button>
               <div className="cid-lens-cap">
                 <span className="cid-lens-btn-glyph" aria-hidden="true">{l.glyph}</span>
