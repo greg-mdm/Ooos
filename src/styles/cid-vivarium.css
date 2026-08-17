@@ -297,10 +297,22 @@
    is given, the block reads as two things rather than four loose paragraphs,
    and the pair fills the band instead of trailing down it. Stretch so both
    cards share a height however the copy wraps. */
+/* Three across, reaching past the intro column into the side panel's. The
+   column's left edge is already the container's, so only the right side has to
+   grow. Row one keeps its third cell empty on purpose: the reference card lives
+   there, and a card placed in it would run underneath. Everything from the
+   third priority on is pinned to row two, where the panel above has ended and
+   the full width is free. */
 .cid-scope .cid-viv-priority-list {
-  margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(12px,1.4vw,16px); align-items: stretch;
+  width: min(1192px, 100vw - 48px);
 }
+.cid-scope .cid-viv-priority:nth-child(1) { grid-row: 1; grid-column: 1; }
+.cid-scope .cid-viv-priority:nth-child(2) { grid-row: 1; grid-column: 2; }
+.cid-scope .cid-viv-priority:nth-child(3) { grid-row: 2; grid-column: 1; }
+.cid-scope .cid-viv-priority:nth-child(4) { grid-row: 2; grid-column: 2; }
+.cid-scope .cid-viv-priority:nth-child(5) { grid-row: 2; grid-column: 3; }
 .cid-scope .cid-viv-priority {
   background: #fff; border-radius: 14px; padding: 15px 17px;
   border: 1px solid rgba(75,0,182,.14); border-left: 4px solid #4B00B6;
@@ -318,9 +330,26 @@
    half-height card across the full row reads as deliberate, where a normal
    card would strand an empty column beside it. Nothing is done to the wrapping
    here: the card is the measure, same as the pair above. */
-.cid-scope .cid-viv-priority--wide { grid-column: 1 / -1; }
-@media (max-width: 900px) {
-  .cid-scope .cid-viv-priority-list { grid-template-columns: minmax(0, 1fr); }
+/* Some priorities carry two commitments rather than one statement. Same marker
+   as the principle cards so a bullet means the same thing wherever it appears. */
+.cid-scope .cid-viv-priority-points {
+  margin: 0; padding: 0; list-style: none;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.cid-scope .cid-viv-priority-points li {
+  position: relative; padding-left: 20px;
+  font-size: 14.5px; line-height: 1.5; color: #33384a;
+}
+.cid-scope .cid-viv-priority-points li::before {
+  content: ""; position: absolute; left: 1px; top: 7px; width: 8px; height: 8px;
+  border-radius: 3px; background: linear-gradient(135deg, #7C18E7, #5B04DE);
+}
+
+/* Below the width where three cards can hold a readable measure, the row
+   collapses and the explicit placement is released so they simply stack. */
+@media (max-width: 1100px) {
+  .cid-scope .cid-viv-priority-list { grid-template-columns: minmax(0, 1fr); width: 100%; }
+  .cid-scope .cid-viv-priority:nth-child(n) { grid-row: auto; grid-column: auto; }
 }
 /* Pills that carry a definition. Same shape as a plain pill so the row still
    reads as one set, with a dotted underline as the only affordance that this
