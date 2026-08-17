@@ -413,9 +413,15 @@
     inset 0 1px 0 rgba(206,182,255,.30),
     0 22px 50px -30px rgba(6,2,28,.7);
 }
-.cid-scope .cid-viv-tier--cauldron .cid-viv-tier-label { color: #E4D6FF; }
-.cid-scope .cid-viv-tier--cauldron .cid-viv-tier-name { color: #FFFFFF; }
-.cid-scope .cid-viv-tier--cauldron .cid-viv-tier-desc { color: #E2DBF5; }
+/* Fire opal: the complement of the vessel's indigo, so the type reads as the
+   thing glowing rather than a label on top of it. Set at #FF6B4A rather than
+   the textbook #E95C4B -- that value clears 4.5:1 where the lines sit today
+   (4.93 at worst) but falls to 4.01 against the brightest part of the glow,
+   and the glow moves under the text as the card reflows. This holds the same
+   red-orange with headroom at every point: 6.0:1 or better throughout. */
+.cid-scope .cid-viv-tier--cauldron .cid-viv-tier-label { color: #FF6B4A; }
+.cid-scope .cid-viv-tier--cauldron .cid-viv-tier-name { color: #FF6B4A; }
+.cid-scope .cid-viv-tier--cauldron .cid-viv-tier-desc { color: #FF6B4A; }
 
 /* Restricted tiers (LAIRS, Portal 60) set apart from the three open ones: a
    labelled divider, then dark cards so "authorized access only" reads at a
