@@ -716,6 +716,13 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           {/* Architectural Design and Beneficial Biomimicry, each illustrated
               with its own photo: the Ooo meeting room for Architectural
               Design, the distillation chamber for Beneficial Biomimicry. */}
+          {/* The helper column carries on here. Above, the intro row runs an 820px
+              column against a 340px side panel; the principle cards used to take
+              the whole 1192 and drop that column, so the etymology convention
+              stopped halfway down the page. They yield the same 340 slot now and
+              the panel picks the thread back up, glossing the word the card
+              beside it is named for. */}
+          <div className="cid-viv-principles-row">
           <div className="cid-viv-principles">
             <figure className="cid-viv-pcard">
               <div
@@ -749,6 +756,21 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 </ul>
               </figcaption>
             </figure>
+          </div>
+            <aside className="cid-etym cid-viv-gloss" aria-label="Etymology of biomimicry">
+              <p className="cid-etym-label">Etymology</p>
+              <p className="cid-etym-sub">Roots of the living word</p>
+              <div className="cid-viv-gloss-pair">
+                <p className="cid-viv-gloss-term">Bios</p>
+                <p className="cid-viv-gloss-eq" aria-hidden="true">=</p>
+                <p className="cid-viv-gloss-mean">Life</p>
+              </div>
+              <div className="cid-viv-gloss-pair">
+                <p className="cid-viv-gloss-term">Mimic</p>
+                <p className="cid-viv-gloss-eq" aria-hidden="true">=</p>
+                <p className="cid-viv-gloss-mean">Imitate</p>
+              </div>
+            </aside>
           </div>
 
           <p className="cid-viv-disc">

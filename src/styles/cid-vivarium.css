@@ -945,6 +945,18 @@
    list keeps a plain, legible field underneath rather than sitting over
    a busy image. Photo is a background (not an <img>), consistent with the
    case art: no zoom/save affordance on what is scene-setting, not content. */
+/* The principle cards sit against the helper column, on the same measures the
+   intro row uses: an 820px content column, a 32px gutter, a 340px panel. That
+   keeps the side panel a continuous edge down the page rather than something
+   that stops once the intro ends. Below 1100px the panel drops under the cards
+   instead of squeezing all three. */
+.cid-scope .cid-viv-principles-row {
+  display: grid; grid-template-columns: minmax(0, 820fr) 340fr; gap: 32px;
+  align-items: start;
+}
+@media (max-width: 1100px) {
+  .cid-scope .cid-viv-principles-row { grid-template-columns: minmax(0, 1fr); }
+}
 .cid-scope .cid-viv-principles {
   display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px,3vw,44px);
 }
@@ -1003,6 +1015,23 @@
   color: #cfc8ee; text-shadow: 0 0 18px rgba(124,24,231,.35);
 }
 .cid-scope .cid-portal-line svg { flex: 0 0 auto; color: #9a8fd6; opacity: .85; }
+
+/* Word pairs, stacked: term, equals, meaning. Narrow on purpose -- it is a
+   gloss, not a paragraph, and the stacked equals reads as a definition rather
+   than a sentence someone has to parse. */
+.cid-scope .cid-viv-gloss-pair { margin-top: 16px; }
+.cid-scope .cid-viv-gloss-pair:first-of-type { margin-top: 12px; }
+.cid-scope .cid-viv-gloss-term {
+  margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: clamp(19px,2vw,23px); letter-spacing: -.2px; color: #1a1646;
+}
+.cid-scope .cid-viv-gloss-eq {
+  margin: 1px 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: 15px; color: #4B00B6;
+}
+.cid-scope .cid-viv-gloss-mean {
+  margin: 0; font-size: clamp(15px,1.5vw,17px); line-height: 1.5; color: #33384a;
+}
 
 .cid-scope .cid-viv-disc {
   margin: 0; padding-top: 16px; border-top: 1px solid rgba(75,0,182,.22);
