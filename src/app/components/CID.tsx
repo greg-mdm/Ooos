@@ -89,7 +89,7 @@ function GregLensSlider({ base }: { base: string }) {
   // browsers cache video by URL, so without a version bump a visitor who
   // already loaded the page can keep playing the old cached clip indefinitely.
   // See SPRINT 4 - REFERENCES/LENS-CLIPS.md.
-  const LENS_V = 4;
+  const LENS_V = 5;
   const V = `${base}assets/video/`;
   const cv = (name: string) => `${V}${name}?v=${LENS_V}`;
   const LENSES = [
