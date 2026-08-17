@@ -89,11 +89,11 @@ function GregLensSlider({ base }: { base: string }) {
   // browsers cache video by URL, so without a version bump a visitor who
   // already loaded the page can keep playing the old cached clip indefinitely.
   // See SPRINT 4 - REFERENCES/LENS-CLIPS.md.
-  const LENS_V = 3;
+  const LENS_V = 4;
   const V = `${base}assets/video/`;
   const cv = (name: string) => `${V}${name}?v=${LENS_V}`;
   const LENSES = [
-    { key: "ethel",  device: "ⓔMage",   station: "ΩStation 7.83", glyph: "꩜", label: "Greg, as Ethel sees him",  still: `${base}assets/greg-ethel-field-v2.webp?v=${LENS_V}`, clips: [cv("greg-ethel-lens.mp4"), cv("greg-ethel-emage1.mp4"), cv("greg-ethel-emage783.mp4")] },
+    { key: "ethel",  device: "ⓔMage",   station: "ΩStation 7.83", glyph: "꩜", label: "Greg, as Ethel sees him",  still: `${base}assets/greg-ethel-field-v2.webp?v=${LENS_V}`, clips: [cv("greg-ethel-wave.mp4"), cv("greg-ethel-emage1.mp4"), cv("greg-ethel-emage783.mp4")] },
     { key: "icarus", device: "Ⅲ Vision", station: "αLiveShow",     glyph: "🔺", label: "Greg, as Icarus sees him", still: `${V}greg-icarus-still.webp?v=${LENS_V}`,           clips: [cv("greg-icarus-lens.mp4"), cv("greg-icarus-wide.mp4")] },
   ];
   // Start with Icarus playing and Ethel (the field shot) held as a still.
