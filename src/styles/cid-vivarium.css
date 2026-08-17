@@ -400,11 +400,20 @@
      inside, so the glow rises out of the vessel instead of falling across a
      plate. That one inversion is what separates a thing you press from a thing
      that holds something. */
+  /* Lava sits at the rim, not the base: you look down into a pot and the
+     molten surface is at the top, throwing heat up out of the opening. Three
+     layers, no single pinned colour doing the work -- a hot core just under
+     the lip, a wider ember haze falling away from it, and the iron body
+     underneath. A boil is only visible at the surface, so the heat is spent
+     within ~16px of the lip rather than washing down the vessel. */
   background:
-    radial-gradient(78% 58% at 50% 118%, rgba(140,110,222,.50) 0%, transparent 72%),
-    linear-gradient(180deg, #241547 0%, #150c2c 56%, #0d0819 100%);
+    radial-gradient(44% 11% at 50% 0%, rgba(255,150,70,.52) 0%, transparent 74%),
+    radial-gradient(88% 15% at 50% -2%, rgba(214,74,38,.26) 0%, transparent 80%),
+    linear-gradient(180deg, #1e1236 0%, #180e30 14%, #150c2c 52%, #0d0819 100%);
   /* Heavier at the base than at the lip: a pot, not a card. The keys are an
      even 13px all round. */
+  /* Just enough room above the type for the molten line to sit clear of it. */
+  padding-top: 22px;
   border-radius: 14px 14px 24px 24px;
   border-color: rgba(185,140,255,.26);
   /* Iron lip catching light along the top edge, and the vessel's own weight
