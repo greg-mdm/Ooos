@@ -384,6 +384,39 @@
 }
 .cid-scope .cid-viv-tier-desc { margin: 7px 0 0; font-size: 13.5px; line-height: 1.5; color: #33384a; }
 
+/* CAULDRONS is a vessel, not a card. Black iron with the Ooo indigo coming up
+   through it, taking the third strategy key's gradient verbatim -- the darkest
+   of the three -- so the cauldron and that pillar read as one object in two
+   places rather than two dark purples that nearly match. The violet rail stays
+   at full strength as the signature coming through the iron.
+
+   Text flips to the light end. The gradient's light stop is centred above the
+   card, so the top edge (where the small caps label sits) is the worst case for
+   contrast, not the body; every ratio is measured against the pixels actually
+   rendered behind each line rather than against a nominal fill. */
+.cid-scope .cid-viv-tier--cauldron {
+  /* Same palette as the third key, opposite light. The key is a faceplate lit
+     from above at 50% -34%; the cauldron is lit from 50% 118%, below and
+     inside, so the glow rises out of the vessel instead of falling across a
+     plate. That one inversion is what separates a thing you press from a thing
+     that holds something. */
+  background:
+    radial-gradient(78% 58% at 50% 118%, rgba(140,110,222,.50) 0%, transparent 72%),
+    linear-gradient(180deg, #241547 0%, #150c2c 56%, #0d0819 100%);
+  /* Heavier at the base than at the lip: a pot, not a card. The keys are an
+     even 13px all round. */
+  border-radius: 14px 14px 24px 24px;
+  border-color: rgba(185,140,255,.26);
+  /* Iron lip catching light along the top edge, and the vessel's own weight
+     under it. No hover or press state: this is not a control. */
+  box-shadow:
+    inset 0 1px 0 rgba(206,182,255,.30),
+    0 22px 50px -30px rgba(6,2,28,.7);
+}
+.cid-scope .cid-viv-tier--cauldron .cid-viv-tier-label { color: #E4D6FF; }
+.cid-scope .cid-viv-tier--cauldron .cid-viv-tier-name { color: #FFFFFF; }
+.cid-scope .cid-viv-tier--cauldron .cid-viv-tier-desc { color: #E2DBF5; }
+
 /* Restricted tiers (LAIRS, Portal 60) set apart from the three open ones: a
    labelled divider, then dark cards so "authorized access only" reads at a
    glance, not just another card in the same row. */
