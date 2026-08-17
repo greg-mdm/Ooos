@@ -626,7 +626,8 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               <div className="cid-viv-tier" style={{ "--tier": "#17A398" } as CSSProperties}>
                 <p className="cid-viv-tier-label">Public</p>
                 <p className="cid-viv-tier-name">Open Access</p>
-                <p className="cid-viv-tier-desc">Open research, tools, and resources for curious minds.</p>
+                <p className="cid-viv-tier-desc">Open source development and data analytics tools.</p>
+                <p className="cid-viv-tier-desc">Free resources for innovators and entrepreneurs</p>
               </div>
               <div className="cid-viv-tier" style={{ "--tier": "#B67A00" } as CSSProperties}>
                 <p className="cid-viv-tier-label">Gated</p>
