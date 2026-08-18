@@ -556,11 +556,14 @@
    the picture: when a clip fills the stage --lid is 0 and the lid has no height
    at all.
 
-   Curved, not flat. The inner corners take a wide, shallow radius so the edge
-   sweeps up at the sides instead of ending in two square corners, and the lid
-   sits a step lighter than the surround behind it so the curve is legible
-   rather than dark-on-dark. The sweep is the reason to size from the band and
-   not from a guess: the curve lives inside the band, never over the frame.
+   One arch, not two lens halves. An eyelid arches over the eye: the opening's
+   top edge peaks at centre and the lid hangs lower toward the sides. That is a
+   concave edge, which border-radius cannot draw (it only bulges outward), so
+   each lid is a full-height dark band with the arch carved out of it by a
+   mask: a wide ellipse whose centre sits outside the band, so only its arc
+   crosses the lid. The top lid gets the deep arch; the bottom lid gets a much
+   shallower one, the way a lower lid sits flatter than the upper. The lid
+   still sits a step lighter than the surround so the curve reads.
 
    The height is a variable on purpose. Contracting a lid to nothing, or drawing
    it down to close, is the same property animated, and anything else that needs
@@ -570,18 +573,22 @@
   position: absolute; left: 0; right: 0; height: var(--lid, 0%);
   pointer-events: none; z-index: 2;
   background: linear-gradient(180deg, rgba(38,26,74,.96) 0%, rgba(22,14,48,.88) 100%);
-  box-shadow: inset 0 0 0 1px rgba(150,120,235,.10);
   /* transition in place ready for the open/close pass */
   transition: height .9s cubic-bezier(.32,.72,.28,1);
 }
 .cid-scope .cid-lens-lid--top {
   top: 0;
-  border-radius: 0 0 46% 46% / 0 0 78% 78%;
+  /* ellipse centred below the band; its top arc cuts the arched opening:
+     lid ~55% deep at centre, near full depth at the sides */
+  -webkit-mask: radial-gradient(75% 170% at 50% 225%, transparent 98.5%, #000 100%);
+  mask: radial-gradient(75% 170% at 50% 225%, transparent 98.5%, #000 100%);
 }
 .cid-scope .cid-lens-lid--bot {
   bottom: 0;
-  border-radius: 46% 46% 0 0 / 78% 78% 0 0;
   background: linear-gradient(0deg, rgba(38,26,74,.96) 0%, rgba(22,14,48,.88) 100%);
+  /* mirrored and much flatter: the opening dips only ~30% into the band */
+  -webkit-mask: radial-gradient(90% 195% at 50% -165%, transparent 98.5%, #000 100%);
+  mask: radial-gradient(90% 195% at 50% -165%, transparent 98.5%, #000 100%);
 }
 @media (prefers-reduced-motion: reduce) {
   .cid-scope .cid-lens-lid { transition: none; }

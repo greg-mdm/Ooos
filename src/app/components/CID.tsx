@@ -781,7 +781,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           </div>
             <aside className="cid-etym cid-viv-gloss" aria-label="Etymology of biomimicry">
               <p className="cid-etym-label">Etymology</p>
-              <p className="cid-etym-sub">Roots of the living word</p>
+              <p className="cid-etym-sub">History of the living word</p>
               <div className="cid-viv-gloss-pair">
                 <p className="cid-viv-gloss-term">Bios</p>
                 <p className="cid-viv-gloss-eq" aria-hidden="true">=</p>
