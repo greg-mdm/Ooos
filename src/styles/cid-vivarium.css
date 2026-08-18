@@ -1052,6 +1052,20 @@
 }
 .cid-scope .cid-portal-line svg { flex: 0 0 auto; color: #9a8fd6; opacity: .85; }
 
+/* On /cid the portal line is the entrance to the prototype, so it is a link.
+   It keeps the band's typography exactly; only the hover state is new. */
+.cid-scope a.cid-portal-door { text-decoration: none; color: #cfc8ee; }
+.cid-scope a.cid-portal-door:hover,
+.cid-scope a.cid-portal-door:focus-visible {
+  color: #efeaff;
+  text-shadow: 0 0 22px rgba(124,24,231,.6);
+}
+.cid-scope a.cid-portal-door:hover svg,
+.cid-scope a.cid-portal-door:focus-visible svg { color: #c9a3ff; opacity: 1; }
+.cid-scope a.cid-portal-door:focus-visible {
+  outline: 2px solid #9a8fd6; outline-offset: 6px; border-radius: 4px;
+}
+
 /* Word pairs, stacked: term, equals, meaning. Narrow on purpose -- it is a
    gloss, not a paragraph, and the stacked equals reads as a definition rather
    than a sentence someone has to parse. */

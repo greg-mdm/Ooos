@@ -822,20 +822,30 @@ export function CID({ onSupport }: { onSupport: () => void }) {
       {/* Innovation Watchlist hero — self-contained DC block from
           public/Innovation Watchlist.dc.html (full-bleed, self-sizing iframe). */}
       {/* Portal drum roll: a quiet dark-galaxy band bridging the Vivarium and
-          the Innovation Watchlist. A drum roll, not a splash. */}
+          the Innovation Watchlist. A drum roll, not a splash. On this page the
+          line and the flag panel below it are the entrance to the prototype,
+          so both are links to /cid/iwatchlist. */}
       <section className="cid-portal-band" aria-label="CID prototype announcement">
-        <p className="cid-portal-line">
+        <Link to="/cid/iwatchlist" className="cid-portal-line cid-portal-door">
           <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v9" /><path d="M6.4 6.4a8 8 0 1 0 11.2 0" /></svg>
           <span>A PORTAL HAS OPENED: CID releases an electric debut prototype!</span>
-        </p>
+        </Link>
       </section>
 
-      <section className="cid-wl-hero" aria-label="Innovation Watchlist">
+      <section className="cid-wl-hero cid-wl-hero-door" aria-label="Innovation Watchlist">
         <iframe
           className="cid-wl-frame"
           src={`${base}Innovation%20Watchlist.dc.html?v=9`}
           title="Innovation Watchlist"
           loading="lazy"
+        />
+        {/* The flag block is art inside an iframe, so it cannot carry a link of
+            its own. This transparent overlay makes the whole panel the doorway
+            into the prototype, matching the portal line above it. */}
+        <Link
+          to="/cid/iwatchlist"
+          className="cid-wl-door"
+          aria-label="Innovation Watchlist prototype"
         />
       </section>
 

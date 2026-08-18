@@ -2053,6 +2053,23 @@ a:hover { color: var(--electric); }
   border: 0;
   margin: 0;
 }
+
+/* Doorway overlay: on /cid the flag panel is the entrance to the prototype.
+   The panel is art inside an iframe and cannot carry its own link, so this
+   transparent anchor sits over it. Only /cid gets the door class, so the
+   same block on /cid/iwatchlist stays inert. */
+.cid-scope .cid-wl-hero-door .cid-wl-door {
+  position: absolute; inset: 0; z-index: 2;
+  display: block;
+  background: transparent;
+  transition: background .25s ease;
+}
+.cid-scope .cid-wl-hero-door .cid-wl-door:hover {
+  background: rgba(124,24,231,.05);
+}
+.cid-scope .cid-wl-hero-door .cid-wl-door:focus-visible {
+  outline: 3px solid #7C18E7; outline-offset: -6px;
+}
 .cid-scope .cid-wl-cta {
   position: relative;
   left: 50%; right: 50%;
