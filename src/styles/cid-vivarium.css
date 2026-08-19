@@ -1114,6 +1114,28 @@
 }
 .cid-scope .cid-viv-disc strong { display: block; max-width: 70ch; color: #5b5f86; font-weight: 700; }
 
+/* Closing pair above the flag: the waiver and the Viv reference, as two cards
+   on one row. The waiver is the wider of the two because it is a sentence and
+   the reference is a short key/value list. They stack on narrow screens. */
+.cid-scope .cid-viv-footer-cards {
+  margin-top: clamp(22px, 3vw, 34px);
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: clamp(14px, 1.6vw, 20px);
+  align-items: stretch;   /* the pair reads as one row, not two loose notes */
+}
+/* Inside its card the waiver keeps no rule of its own: the card edge already
+   separates it from the gloss above. */
+.cid-scope .cid-viv-disc-card .cid-viv-disc {
+  padding-top: 0; border-top: 0; font-size: 14px;
+}
+.cid-scope .cid-viv-disc-card .cid-viv-disc strong {
+  max-width: 62ch; text-wrap: balance;
+}
+@media (max-width: 760px) {
+  .cid-scope .cid-viv-footer-cards { grid-template-columns: 1fr; }
+}
+
 /* ---- Strategies: the three pillars, below Leadership and above the Viv
    display case. The keys themselves are the homepage's .ood-key design,
    imported unchanged from ooodivisions2.css so the two places stay one

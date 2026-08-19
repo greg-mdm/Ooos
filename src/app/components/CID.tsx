@@ -488,7 +488,9 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   above); the sheet is imported for those rules. */}
             </div>
             {/* Right column, one panel: the Radical Strategic Intelligence
-                rail, then the etymology card beneath it. */}
+                rail, then the etymology card beneath it. The Reference card
+                that used to close this column now sits beside the waiver at
+                the foot of the section. */}
             <div className="cid-viv-side">
               <aside className="cid-viv-rail" aria-label="Radical Strategic Intelligence">
                 <div className="cid-viv-brand">
@@ -530,23 +532,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 </div>
               </aside>
 
-              <aside className="cid-etym" aria-label="Vivarium reference">
-                <p className="cid-etym-label">Reference</p>
-                <div className="cid-etym-row">
-                  <p className="cid-etym-key">Field name</p>
-                  <div className="cid-etym-inline">
-                    <p className="cid-etym-val"><code className="cid-etym-code">the_viv</code></p>
-                    <p className="cid-etym-note">Database identifier</p>
-                  </div>
-                </div>
-                <div className="cid-etym-row">
-                  <p className="cid-etym-key">Call sign</p>
-                  <div className="cid-etym-inline">
-                    <p className="cid-etym-val">CID Viv</p>
-                    <p className="cid-etym-note">Operational name</p>
-                  </div>
-                </div>
-              </aside>
             </div>
           </div>
 
@@ -813,9 +798,35 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             </aside>
           </div>
 
-          <p className="cid-viv-disc">
-            <strong>Ostara and the experimental Canadian Innovation Dimension (CID) do not provide future predictions or financial advice.</strong>
-          </p>
+          {/* Closing pair, above the flag: the waiver and the Viv reference sit
+              side by side as two cards. The reference card moved down out of
+              the intro column so the identifiers read as a footer note next to
+              the notice rather than as an aside beside the priorities. */}
+          <div className="cid-viv-footer-cards">
+            <aside className="cid-etym cid-viv-disc-card">
+              <p className="cid-viv-disc">
+                <strong>Ostara and the experimental Canadian Innovation Dimension (CID) do not provide future predictions or financial advice.</strong>
+              </p>
+            </aside>
+
+            <aside className="cid-etym" aria-label="Vivarium reference">
+              <p className="cid-etym-label">Reference</p>
+              <div className="cid-etym-row">
+                <p className="cid-etym-key">Field name</p>
+                <div className="cid-etym-inline">
+                  <p className="cid-etym-val"><code className="cid-etym-code">the_viv</code></p>
+                  <p className="cid-etym-note">Database identifier</p>
+                </div>
+              </div>
+              <div className="cid-etym-row">
+                <p className="cid-etym-key">Call sign</p>
+                <div className="cid-etym-inline">
+                  <p className="cid-etym-val">CID Viv</p>
+                  <p className="cid-etym-note">Operational name</p>
+                </div>
+              </div>
+            </aside>
+          </div>
         </div>
       </section>
 
