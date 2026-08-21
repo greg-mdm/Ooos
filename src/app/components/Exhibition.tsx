@@ -68,8 +68,15 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             </div>
           </div>
         </div>
+      </div>
 
-        <div className="exhibit-intro-anim exhibit-programs">
+      {/* Interactive Programming and the co-marketing block used to be nested
+          in the right-hand .exhibit-intro-anim panel beside the intro copy.
+          That slot was built as an animation panel, so two of the page's
+          longest passages were reading at half width in a side rail. They are
+          bands of their own now, full width under the intro: sidebar keeps
+          sidebar content, body content stays in the body. */}
+      <div className="exhibit-band exhibit-programs">
           <h2 className="exhibit-programs-heading exhibit-intro-h2--centered">
             Interactive Programming
           </h2>
@@ -134,6 +141,9 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             <p>Enter artist-created worlds</p>
           </ProgramItem>
 
+      </div>
+
+      <div className="exhibit-band">
           <div className="exhibit-reach">
             <div className="exhibit-reach__feature">
               <img
@@ -215,7 +225,6 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               </PlayItem>
             </div>
           </div>
-        </div>
       </div>
       </section>
 

@@ -1244,3 +1244,42 @@
 .cid-scope .cid-strategy-keys .ood-key-wrap:has(.ood-key.is-on) {
   filter: drop-shadow(0 6px 12px rgba(26,22,70,.28)) !important;
 }
+
+/* ---- The cooperative lab: two views of the facility, paired under the team
+   case. A plain two-up row rather than a feature/thumb split, because neither
+   shot is subordinate to the other: one is the room, one is the case that
+   stands in it. Both are cropped to a single ratio so the two panels line up
+   on their top and bottom edges regardless of the source crops (2.17 and 1.79
+   respectively), and the captions below then start on the same line. ---- */
+.cid-scope .cid-viv-lab { margin: 36px 0 0; }
+.cid-scope .cid-viv-lab-row {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px;
+}
+.cid-scope .cid-viv-lab-shot { display: flex; flex-direction: column; gap: 10px; }
+.cid-scope .cid-viv-lab-img {
+  display: block; width: 100%; height: auto; aspect-ratio: 13 / 6;
+  object-fit: cover; border-radius: 14px;
+  background-color: #04030e;
+  box-shadow: 0 18px 40px -24px rgba(6,2,28,.7);
+  user-select: none;
+}
+.cid-scope .cid-viv-lab-cap { margin: 0; }
+/* Montserrat label over Inter copy, matching the Flicker card beneath: these
+   two captions and that one are the same kind of object, so they carry the
+   same type. Body copy stays dark indigo at full opacity for the contrast
+   floor; the label takes the Vivarium teal, which clears 4.5:1 on white. */
+.cid-scope .cid-viv-lab-name {
+  font-family: var(--font-elevated, var(--sans));
+  font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: #0E6E73; margin: 0 0 4px;
+}
+.cid-scope .cid-viv-lab-desc {
+  font-family: var(--font-body, var(--sans));
+  font-size: 14px; line-height: 1.45; color: var(--ink, #1A0033); margin: 0;
+  max-width: 62ch;
+}
+/* One column below 900px, where two panels leave each shot too narrow to read
+   the bench detail and the caption drops under 45 characters a line. */
+@media (max-width: 900px) {
+  .cid-scope .cid-viv-lab-row { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+}

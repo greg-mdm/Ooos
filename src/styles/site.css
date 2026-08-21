@@ -2907,18 +2907,39 @@ textarea:focus-visible,
   background: #ffffff;
   border-top: 1px solid rgba(0, 0, 0, 0.18);
 }
+/* Single column. This was a 1fr 1fr grid whose right half held Interactive
+   Programming and the whole co-marketing block; both are their own full-width
+   bands below now, so the row carries only the intro copy and the vertical
+   divider that separated the two halves has nothing left to divide. */
 .exhibit-intro-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
   background: #ffffff;
   max-width: 1200px;
   margin: 0 auto;
   padding: 56px 40px;
 }
 .exhibit-intro-text {
-  padding-right: 48px;
-  border-right: 1px solid rgba(26,0,51,0.1);
+  padding-right: 0;
+}
+/* The copy used to be held to a readable measure by the column it sat in. At
+   full width it needs the measure set explicitly, or the paragraphs run well
+   past the 75-character line the rest of the site keeps to. The image and the
+   two advantage boxes are not prose and stay full width. */
+.exhibit-intro-text > p,
+.exhibit-intro-text > h2,
+.exhibit-intro-text > h3,
+.exhibit-intro-text > ul {
+  max-width: 68ch;
+}
+
+/* ---- Full-width bands under the intro. Same max-width and gutters as the
+   intro row so every band on the page lines up on one left edge. ---- */
+.exhibit-band {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px 56px;
+}
+@media (max-width: 768px) {
+  .exhibit-band { padding: 0 24px 36px; }
 }
 .exhibit-intro-text h2 {
   font-family: var(--serif);
@@ -2949,10 +2970,14 @@ textarea:focus-visible,
   opacity: 0.82;
   margin-bottom: 24px;
 }
+/* Pinned to roughly the width it rendered at inside the old half-width
+   column. As a full-width block child it would scale to 1120px, more than
+   doubling a raster diagram and letting it dominate the intro. */
 .exhibit-match-image-wrap {
   text-align: center;
-  margin: 28px 0 28px;
+  margin: 28px auto 28px;
   padding: 0 8px;
+  max-width: 560px;
 }
 .exhibit-match-heading {
   font-family: var(--serif);
@@ -3010,11 +3035,15 @@ textarea:focus-visible,
   font-weight: 400;
 }
 
+/* At the band's full 1120px each box would be 550px, far wider than the short
+   bullet lists inside them. 820px keeps the pair near its designed proportion
+   without stranding the rest of the band. */
 .exhibit-match-table {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
   margin: 18px 0 0;
+  max-width: 820px;
 }
 .exhibit-match-box {
   background: rgba(75, 0, 182, 0.04);
@@ -3058,8 +3087,9 @@ textarea:focus-visible,
   opacity: 0.85;
 }
 
-.exhibit-intro-anim {
-  padding-left: 48px;
+/* Was .exhibit-intro-anim, the right-hand animation panel. The panel is gone;
+   the stacking it provided now belongs to the programs band itself. */
+.exhibit-programs {
   display: flex;
   flex-direction: column;
   gap: 28px;
@@ -3086,17 +3116,14 @@ textarea:focus-visible,
 
 @media (max-width: 768px) {
   .exhibit-intro-row {
-    grid-template-columns: 1fr;
     padding: 36px 24px;
   }
   .exhibit-intro-text {
     padding-right: 0;
-    border-right: none;
     border-bottom: 1px solid rgba(26,0,51,0.1);
     padding-bottom: 32px;
     margin-bottom: 32px;
   }
-  .exhibit-intro-anim { padding-left: 0; }
 }
 
 /* Pill next to the left-column h2 */
@@ -3138,10 +3165,7 @@ textarea:focus-visible,
   opacity: 0.82;
 }
 
-/* Interactive Programming column */
-.exhibit-programs {
-  gap: 0;
-}
+/* Interactive Programming band */
 .exhibit-programs-heading {
   font-family: var(--serif);
   font-size: clamp(1.25rem, 2vw, 1.75rem);
@@ -3230,6 +3254,7 @@ textarea:focus-visible,
   color: var(--ink);
 }
 .exhibit-reach__item-body {
+  max-width: 72ch;
   margin: 0;
   font-size: 14px;
   line-height: 1.55;
@@ -3270,6 +3295,7 @@ textarea:focus-visible,
   margin: 0 0 6px;
 }
 .exhibit-reach__feature-text {
+  max-width: 72ch;
   margin: 0;
   font-size: 14.5px;
   line-height: 1.55;
@@ -3294,6 +3320,7 @@ textarea:focus-visible,
 .exhibit-reach__pill-sep { opacity: 0.7; }
 .exhibit-reach__pill-date { font-weight: 500; letter-spacing: 0.08em; }
 .exhibit-reach__intro {
+  max-width: 68ch;
   margin: 0 0 14px;
   font-size: 15.5px;
   line-height: 1.6;
@@ -3421,6 +3448,7 @@ textarea:focus-visible,
   line-height: 1.6;
   color: var(--ink);
   opacity: 0.88;
+  max-width: 72ch;
 }
 .exhibit-play-body p + p {
   margin-top: 10px;
@@ -3571,6 +3599,7 @@ textarea:focus-visible,
   color: var(--ink);
   opacity: 0.82;
   margin: 0;
+  max-width: 72ch;
 }
 .exhibit-program-list {
   margin: 0;
