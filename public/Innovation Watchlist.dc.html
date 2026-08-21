@@ -54,6 +54,106 @@
 
   /* The team banner now lives in the Vivarium section on the /cid page
      (native React, cid-vivarium.css); this embed keeps heading + flag. */
+
+  /* ---- The player window --------------------------------------------
+     Two beats. A click anywhere on the promo wakes the MIDDLE panel into
+     a player: the copy recedes, a portal opens at its centre, embers draw
+     inward. The red panels never change, before or after. The second
+     click, on the disc, travels: it blooms past the frame while the window
+     floods violet, the colour of the portal band and the cave it leads
+     to, so the transition carries one world into the other. Nothing is
+     labelled anywhere; the motion is the whole invitation. ----------- */
+  #wl-window .wl-stage,
+  #wl-window .wl-fx,
+  #wl-window .wl-portal,
+  #wl-window .wl-ring,
+  #wl-window .wl-veil{opacity:0;transition:opacity .7s ease;}
+  /* The window switches on: the frosted panel goes to ink so the portal
+     has something to burn against. The frame stays exactly where it was. */
+  .wl-stage{position:absolute;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(circle at 50% 46%,#20040f 0%,#0d0209 58%,#050004 100%);
+    box-shadow:inset 0 0 0 1px rgba(226,58,88,.34),inset 0 0 70px rgba(0,0,0,.7);}
+  #wl-window.wl-live .wl-stage{opacity:1;}
+  #wl-window.wl-live{cursor:pointer;}
+  .wl-fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;}
+  #wl-window.wl-live .wl-fx{opacity:1;}
+
+  /* Copy recedes when the window wakes, and clears when it opens. */
+  .wl-mid-copy{z-index:4;transition:opacity .7s ease,filter .7s ease,transform .9s cubic-bezier(.4,0,.2,1);}
+  #wl-window.wl-live .wl-mid-copy{opacity:0;filter:blur(3px);}
+  #wl-window.wl-going .wl-mid-copy{opacity:0;filter:blur(7px);transform:scale(1.06);}
+
+  .wl-portal{
+    position:absolute;top:50%;left:50%;width:var(--wl-d);height:var(--wl-d);
+    margin-top:calc(var(--wl-d) / -2);margin-left:calc(var(--wl-d) / -2);
+    border-radius:50%;pointer-events:none;z-index:2;
+    background:radial-gradient(circle at 40% 36%,
+      rgba(255,246,232,.96) 0%, rgba(255,150,170,.86) 12%,
+      rgba(226,58,88,.80) 30%, rgba(150,10,34,.62) 58%,
+      rgba(48,2,14,.40) 80%, rgba(10,0,4,0) 100%);
+  }
+  #wl-window.wl-live .wl-portal{
+    opacity:.9;animation:wl-breath 5.5s ease-in-out infinite;
+    transition:opacity .7s ease,transform .55s cubic-bezier(.2,.7,.2,1);
+  }
+  @keyframes wl-breath{
+    0%,100%{box-shadow:0 0 52px rgba(226,58,88,.50),0 0 120px rgba(150,10,34,.28)}
+    50%{box-shadow:0 0 92px rgba(255,90,120,.68),0 0 190px rgba(198,22,54,.38)}
+  }
+
+  /* Two rings, counter-turning: an aperture, not a button. */
+  .wl-ring{
+    position:absolute;top:50%;left:50%;border-radius:50%;pointer-events:none;z-index:2;
+    border:1px solid rgba(255,120,145,.34);
+    transition:opacity .7s ease,border-color .5s ease;
+  }
+  #wl-window.wl-live .wl-ring{opacity:.85;}
+  .wl-ring-a{width:calc(var(--wl-d) * 1.28);height:calc(var(--wl-d) * 1.28);
+    margin-top:calc(var(--wl-d) * -0.64);margin-left:calc(var(--wl-d) * -0.64);}
+  .wl-ring-b{width:calc(var(--wl-d) * 1.64);height:calc(var(--wl-d) * 1.64);
+    margin-top:calc(var(--wl-d) * -0.82);margin-left:calc(var(--wl-d) * -0.82);
+    border-color:rgba(255,120,145,.18);}
+  #wl-window.wl-live .wl-ring-a{animation:wl-spin 26s linear infinite;}
+  #wl-window.wl-live .wl-ring-b{animation:wl-spin 44s linear infinite reverse;}
+  .wl-ring::before{content:'';position:absolute;top:-2px;left:50%;width:4px;height:4px;
+    margin-left:-2px;border-radius:50%;background:rgba(255,216,226,.9);
+    box-shadow:0 0 9px rgba(226,58,88,.95);}
+  @keyframes wl-spin{to{transform:rotate(360deg)}}
+
+  /* Hover, once the window is awake. */
+  #wl-window.wl-live.wl-hot .wl-portal{transform:scale(1.06);}
+  #wl-window.wl-live.wl-hot .wl-ring{border-color:rgba(255,150,175,.75);}
+
+  /* The opening. */
+  #wl-window.wl-going .wl-portal{
+    opacity:1;animation:wl-open 1.05s cubic-bezier(.45,0,.2,1) forwards;
+  }
+  @keyframes wl-open{
+    0%{transform:scale(1)}
+    26%{transform:scale(1.24)}
+    100%{transform:scale(11);opacity:0}
+  }
+  #wl-window.wl-going .wl-ring{animation:wl-ringout .7s cubic-bezier(.4,0,.2,1) forwards;}
+  @keyframes wl-ringout{
+    0%{transform:scale(1);opacity:.9}
+    100%{transform:scale(.14);opacity:0}
+  }
+  .wl-veil{position:absolute;inset:0;pointer-events:none;z-index:3;
+    background:radial-gradient(circle at 50% 50%,
+      rgba(255,255,255,.94) 0%, rgba(196,120,255,.74) 16%,
+      rgba(108,1,244,.88) 44%, rgba(26,0,80,.97) 100%);}
+  #wl-window.wl-going .wl-veil{animation:wl-flood 1.05s cubic-bezier(.5,0,.25,1) forwards;}
+  @keyframes wl-flood{
+    0%{opacity:0}
+    28%{opacity:.3}
+    100%{opacity:1}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    #wl-window .wl-portal,#wl-window .wl-ring{animation:none!important}
+    #wl-window.wl-going .wl-portal,#wl-window.wl-going .wl-ring{animation:none!important;opacity:0}
+    #wl-window.wl-going .wl-veil{animation:none!important;opacity:1}
+  }
 </style>
 </helmet>
 
@@ -82,10 +182,17 @@
         <p class="wl-word">Intelligence</p>
       </div>
 
-      <!-- MIDDLE FROSTED WHITE -->
-      <div style="position:relative;overflow:hidden;border-radius:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px 44px;background:linear-gradient(160deg,rgba(255,255,255,0.97),rgba(240,243,249,0.92));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.7);box-shadow:0 22px 60px -26px rgba(120,130,160,0.55),inset 0 1px 0 rgba(255,255,255,0.9),inset 0 0 0 1px rgba(198,22,54,0.06);transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s ease,filter .5s ease,border-color .5s ease;" style-hover="transform:translateY(-4px);filter:brightness(1.04);border-color:rgba(198,22,54,0.35);box-shadow:0 34px 90px -24px rgba(150,20,44,var(--glow,0.6)),0 0 70px -10px rgba(232,236,244,var(--glow,0.6)),inset 0 1px 0 rgba(255,255,255,1),inset 0 0 0 1px rgba(198,22,54,0.18);">
+      <!-- MIDDLE FROSTED WHITE — doubles as the player window; the portal
+           disc and its rings sit behind the copy until the window wakes. -->
+      <div id="wl-window" style="--wl-d:clamp(150px,20vw,232px);position:relative;overflow:hidden;border-radius:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px 44px;background:linear-gradient(160deg,rgba(255,255,255,0.97),rgba(240,243,249,0.92));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.7);box-shadow:0 22px 60px -26px rgba(120,130,160,0.55),inset 0 1px 0 rgba(255,255,255,0.9),inset 0 0 0 1px rgba(198,22,54,0.06);transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s ease,filter .5s ease,border-color .5s ease;" style-hover="transform:translateY(-4px);filter:brightness(1.04);border-color:rgba(198,22,54,0.35);box-shadow:0 34px 90px -24px rgba(150,20,44,var(--glow,0.6)),0 0 70px -10px rgba(232,236,244,var(--glow,0.6)),inset 0 1px 0 rgba(255,255,255,1),inset 0 0 0 1px rgba(198,22,54,0.18);">
         <div style="position:absolute;top:-20%;left:0;width:46%;height:140%;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(198,22,54,0.10),transparent);filter:blur(10px);animation:wl-sheen 9s linear infinite;animation-delay:1.2s;animation-play-state:var(--shimmer,running);"></div>
-        <p style="position:relative;width:100%;margin:0;font-family:'Inter',system-ui,sans-serif;font-weight:400;font-size:clamp(16px,1.6vw,20px);line-height:1.55;color:#06021C;"><span style="display:block;font-family:'Montserrat',system-ui,sans-serif;font-weight:700;font-size:clamp(20px,2vw,26px);letter-spacing:0.02em;">Monitors:</span><span style="display:block;margin-top:1.05em;"><span style="color:var(--kw,#B31237);font-weight:700;">Space</span>, <span style="color:var(--kw,#B31237);font-weight:700;">AI</span>, <span style="color:var(--kw,#B31237);font-weight:700;">Defence</span>, <span style="color:var(--kw,#B31237);font-weight:700;">Energy</span>, <span style="color:var(--kw,#B31237);font-weight:700;">Maritime</span>, <span style="color:var(--kw,#B31237);font-weight:700;">Photonics</span>, and <span style="color:var(--kw,#B31237);font-weight:700;">Quantum</span> sectors.</span><span style="display:block;margin-top:1.05em;">Cooperation across <span style="color:#06021C;font-weight:700;">Canada</span>, the <span style="color:#06021C;font-weight:700;">EU</span>, <span style="color:#06021C;font-weight:700;">Nordic countries</span>, and <span style="color:#06021C;font-weight:700;">Indo-Pacific</span>.</span><span style="display:block;margin-top:1.05em;">Strategic initiatives in the <span style="color:#06021C;font-weight:700;">Americas</span>, <span style="color:#06021C;font-weight:700;">Africa</span>, and the <span style="color:#06021C;font-weight:700;">Middle East</span>.</span></p>
+        <p class="wl-mid-copy" style="position:relative;width:100%;margin:0;font-family:'Inter',system-ui,sans-serif;font-weight:400;font-size:clamp(16px,1.6vw,20px);line-height:1.55;color:#06021C;"><span style="display:block;font-family:'Montserrat',system-ui,sans-serif;font-weight:700;font-size:clamp(20px,2vw,26px);letter-spacing:0.02em;">Monitors:</span><span style="display:block;margin-top:1.05em;"><span style="color:var(--kw,#B31237);font-weight:700;">Space</span>, <span style="color:var(--kw,#B31237);font-weight:700;">AI</span>, <span style="color:var(--kw,#B31237);font-weight:700;">Defence</span>, <span style="color:var(--kw,#B31237);font-weight:700;">Energy</span>, <span style="color:var(--kw,#B31237);font-weight:700;">Maritime</span>, <span style="color:var(--kw,#B31237);font-weight:700;">Photonics</span>, and <span style="color:var(--kw,#B31237);font-weight:700;">Quantum</span> sectors.</span><span style="display:block;margin-top:1.05em;">Cooperation across <span style="color:#06021C;font-weight:700;">Canada</span>, the <span style="color:#06021C;font-weight:700;">EU</span>, <span style="color:#06021C;font-weight:700;">Nordic countries</span>, and <span style="color:#06021C;font-weight:700;">Indo-Pacific</span>.</span><span style="display:block;margin-top:1.05em;">Strategic initiatives in the <span style="color:#06021C;font-weight:700;">Americas</span>, <span style="color:#06021C;font-weight:700;">Africa</span>, and the <span style="color:#06021C;font-weight:700;">Middle East</span>.</span></p>
+        <div class="wl-stage" aria-hidden="true"></div>
+        <canvas class="wl-fx" aria-hidden="true"></canvas>
+        <div class="wl-ring wl-ring-b" aria-hidden="true"></div>
+        <div class="wl-ring wl-ring-a" aria-hidden="true"></div>
+        <div class="wl-portal" aria-hidden="true"></div>
+        <div class="wl-veil" aria-hidden="true"></div>
       </div>
 
       <!-- RIGHT RUBY GLASS -->
@@ -139,5 +246,121 @@ class Component extends DCLogic {
     schedule();
   })();
 </script>
+
+<script>
+/* ── The player window ──────────────────────────────────────────────────
+   Beat one: a click anywhere on the promo wakes the middle panel. Beat
+   two: a click on the woken window travels through the portal. The red
+   panels are never touched by either.
+
+   Every handler is delegated off the document and every element resolved
+   at use, because the block is templated at boot and its nodes are
+   replaced underneath us. Live only where the host asks for it (the /cid
+   embed passes entry=1), so the same block stays inert on the watchlist
+   page it leads to.
+──────────────────────────────────────────────────────────────────────── */
+(function () {
+  if (!/[?&]entry=1(?:&|$)/.test(location.search)) return;
+
+  var calm = false;
+  try { calm = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+
+  var live = false, going = false;
+  var win = function () { return document.getElementById('wl-window'); };
+
+  function travel() {
+    if (going) return;
+    var w = win(); if (!w) return;
+    going = true;
+    w.classList.add('wl-going');
+    var go = function () {
+      try { parent.postMessage({ type: 'ooos:watchlist-portal' }, location.origin); } catch (e) {}
+    };
+    calm ? go() : setTimeout(go, 880);
+  }
+
+  document.addEventListener('click', function (e) {
+    var promo = e.target && e.target.closest && e.target.closest('#watchblock');
+    if (!promo) return;
+    var w = win(); if (!w) return;
+    if (!live) { live = true; w.classList.add('wl-live'); return; }
+    if (w.contains(e.target)) travel();
+  }, true);
+
+  document.addEventListener('mouseover', function (e) {
+    var w = win(); if (!w || !live) return;
+    var over = e.target && e.target.closest && e.target.closest('#wl-window');
+    w.classList.toggle('wl-hot', !!over);
+  }, true);
+
+  /* ── Embers: the window's own weather, drawn only once it is awake ──
+     They drift across the panel and lean toward the portal; when it opens
+     they are taken by it. Cheap: a few dozen points, no connections. */
+  if (calm) return;
+  var seeds = [], N = 46, W = 0, H = 0, dpr = Math.min(window.devicePixelRatio || 1, 2), fx = null, ctx = null;
+  for (var i = 0; i < N; i++) {
+    seeds.push({
+      x: Math.random(), y: Math.random(),
+      vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4,
+      r: Math.random() * 1.5 + 0.5, warm: Math.random() < 0.34
+    });
+  }
+
+  function frame() {
+    requestAnimationFrame(frame);
+    var w = win(); if (!w || !live) return;
+
+    var c = w.querySelector('canvas.wl-fx');
+    if (!c) return;
+    if (c !== fx) { fx = c; ctx = fx.getContext('2d'); W = 0; }
+
+    var r = w.getBoundingClientRect();
+    if (Math.abs(r.width - W) > 1 || Math.abs(r.height - H) > 1) {
+      W = r.width; H = r.height;
+      fx.width = Math.round(W * dpr); fx.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    if (!W || !H) return;
+
+    ctx.clearRect(0, 0, W, H);
+    var cx = W / 2, cy = H / 2, reach = Math.min(W, H) * 0.5;
+
+    for (var i = 0; i < seeds.length; i++) {
+      var s = seeds[i];
+      var px = s.x * W, py = s.y * H;
+      var dx = cx - px, dy = cy - py;
+      var d = Math.sqrt(dx * dx + dy * dy) || 1;
+      var pull = (going ? 90 : 11) / d;
+
+      /* A little tangent, so the drift curls in rather than falling straight. */
+      var curl = going ? 2.6 : 0.4;
+      s.vx += (dx / d) * pull + (-dy / d) * pull * curl;
+      s.vy += (dy / d) * pull + ( dx / d) * pull * curl;
+
+      var sp = Math.sqrt(s.vx * s.vx + s.vy * s.vy);
+      var cap = going ? 9 : 0.8;
+      if (sp > cap) { s.vx *= cap / sp; s.vy *= cap / sp; }
+
+      px += s.vx; py += s.vy;
+      if (!going) {
+        if (px < 0) px = W; else if (px > W) px = 0;
+        if (py < 0) py = H; else if (py > H) py = 0;
+      }
+      s.x = px / W; s.y = py / H;
+
+      var near = Math.max(0, 1 - d / reach);
+      var a = (going ? 0.9 : 0.5) * (0.32 + near * 0.68);
+      ctx.beginPath();
+      ctx.arc(px, py, s.r + near * 0.9, 0, Math.PI * 2);
+      ctx.fillStyle = s.warm
+        ? 'rgba(255,190,205,' + a.toFixed(3) + ')'
+        : 'rgba(255,86,118,' + (a * 0.8).toFixed(3) + ')';
+      ctx.fill();
+    }
+  }
+  frame();
+})();
+</script>
+
 </body>
 </html>

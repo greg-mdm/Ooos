@@ -111,7 +111,7 @@ export function IWatchlist() {
       <section className="cid-wl-hero" aria-label="Innovation Watchlist">
         <iframe
           className="cid-wl-frame"
-          src={`${base}Innovation%20Watchlist.dc.html?v=9`}
+          src={`${base}Innovation%20Watchlist.dc.html?v=10`}
           title="Innovation Watchlist"
           loading="lazy"
         />

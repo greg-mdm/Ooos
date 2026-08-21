@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState, type ReactNode, type CSSProperties } from "react";
 import "../../styles/cid-continuum.css";
 import "../../styles/cid-forest.css";
@@ -304,6 +304,20 @@ function DigitalProducts() {
 }
 
 export function CID({ onSupport }: { onSupport: () => void }) {
+  // The flag embed runs the portal: a click anywhere on the promo wakes its
+  // middle panel, a second click on that window plays the opening and then
+  // asks us to travel. Same-origin, and we check the origin before moving.
+  const navigate = useNavigate();
+  useEffect(() => {
+    function onPortal(e: MessageEvent) {
+      if (e.origin !== window.location.origin) return;
+      if ((e.data as { type?: string })?.type !== "ooos:watchlist-portal") return;
+      navigate("/cid/iwatchlist");
+    }
+    window.addEventListener("message", onPortal);
+    return () => window.removeEventListener("message", onPortal);
+  }, [navigate]);
+
   const base = import.meta.env.BASE_URL;
   // The population model, the living-wall slide index and the watchlist embed's
   // height listener all moved to IWatchlist with the sections that used them.
@@ -813,21 +827,17 @@ export function CID({ onSupport }: { onSupport: () => void }) {
         </Link>
       </section>
 
-      <section className="cid-wl-hero cid-wl-hero-door" aria-label="Innovation Watchlist">
+      <section className="cid-wl-hero" aria-label="Innovation Watchlist">
         <iframe
           className="cid-wl-frame"
-          src={`${base}Innovation%20Watchlist.dc.html?v=9`}
+          src={`${base}Innovation%20Watchlist.dc.html?v=10&entry=1`}
           title="Innovation Watchlist"
           loading="lazy"
         />
-        {/* The flag block is art inside an iframe, so it cannot carry a link of
-            its own. This transparent overlay makes the whole panel the doorway
-            into the prototype, matching the portal line above it. */}
-        <Link
-          to="/cid/iwatchlist"
-          className="cid-wl-door"
-          aria-label="Innovation Watchlist prototype"
-        />
+        {/* No click overlay here: it would swallow every click before the
+            embed could see it. The flag is still the doorway, but the embed
+            runs it now, and the portal line above stays a real link so the
+            destination is reachable by keyboard. */}
       </section>
 
       {/* The waiver closes the invitation rather than opening it, so it sits
