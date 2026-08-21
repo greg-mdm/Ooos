@@ -797,36 +797,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               </p>
             </aside>
           </div>
-
-          {/* Closing pair, above the flag: the waiver and the Viv reference sit
-              side by side as two cards. The reference card moved down out of
-              the intro column so the identifiers read as a footer note next to
-              the notice rather than as an aside beside the priorities. */}
-          <div className="cid-viv-footer-cards">
-            <aside className="cid-etym cid-viv-disc-card">
-              <p className="cid-viv-disc">
-                <strong>Ostara and the experimental Canadian Innovation Dimension (CID) do not provide future predictions or financial advice.</strong>
-              </p>
-            </aside>
-
-            <aside className="cid-etym" aria-label="Vivarium reference">
-              <p className="cid-etym-label">Reference</p>
-              <div className="cid-etym-row">
-                <p className="cid-etym-key">Field name</p>
-                <div className="cid-etym-inline">
-                  <p className="cid-etym-val"><code className="cid-etym-code">the_viv</code></p>
-                  <p className="cid-etym-note">Database identifier</p>
-                </div>
-              </div>
-              <div className="cid-etym-row">
-                <p className="cid-etym-key">Call sign</p>
-                <div className="cid-etym-inline">
-                  <p className="cid-etym-val">CID Viv</p>
-                  <p className="cid-etym-note">Operational name</p>
-                </div>
-              </div>
-            </aside>
-          </div>
         </div>
       </section>
 
@@ -858,6 +828,38 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           className="cid-wl-door"
           aria-label="Innovation Watchlist prototype"
         />
+      </section>
+
+      {/* The waiver closes the invitation rather than opening it, so it sits
+          below the flag with the Viv reference card beside it. Same silver as
+          the panel above, so the two read as one band handing off to the cave. */}
+      <section className="cid-viv-footer" aria-label="Notice and reference">
+        <div className="container cid-hero-container">
+          <div className="cid-viv-footer-cards">
+            <aside className="cid-etym cid-viv-disc-card">
+              <p className="cid-viv-disc">
+                <strong>Ostara and the experimental Canadian Innovation Dimension (CID) do not provide future predictions or financial advice.</strong>
+              </p>
+            </aside>
+            <aside className="cid-etym" aria-label="Vivarium reference">
+              <p className="cid-etym-label">Reference</p>
+              <div className="cid-etym-row">
+                <p className="cid-etym-key">Field name</p>
+                <div className="cid-etym-inline">
+                  <p className="cid-etym-val"><code className="cid-etym-code">the_viv</code></p>
+                  <p className="cid-etym-note">Database identifier</p>
+                </div>
+              </div>
+              <div className="cid-etym-row">
+                <p className="cid-etym-key">Call sign</p>
+                <div className="cid-etym-inline">
+                  <p className="cid-etym-val">CID Viv</p>
+                  <p className="cid-etym-note">Operational name</p>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
       </section>
 
       {/* The cave's content is transplanted to /cid/iwatchlist, where the full
