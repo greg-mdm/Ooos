@@ -546,6 +546,43 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 </div>
               </aside>
 
+              {/* The biomimicry gloss continues the etymology thread, so it
+                  carries no header of its own: the card above already says
+                  Etymology once, and saying it again reads as a repeat. */}
+              <aside className="cid-etym cid-viv-gloss" aria-label="Etymology of biomimicry">
+                <div className="cid-viv-gloss-pair">
+                  <p className="cid-viv-gloss-term">Bios</p>
+                  <p className="cid-viv-gloss-eq" aria-hidden="true">=</p>
+                  <p className="cid-viv-gloss-mean">Life</p>
+                </div>
+                <div className="cid-viv-gloss-pair">
+                  <p className="cid-viv-gloss-term">Mimic</p>
+                  <p className="cid-viv-gloss-eq" aria-hidden="true">=</p>
+                  <p className="cid-viv-gloss-mean">Imitate</p>
+                </div>
+                <div className="cid-etym-row">
+                  <p className="cid-etym-key">Language</p>
+                  <p className="cid-etym-val">Greek</p>
+                </div>
+                {/* Quoted material, marked up as a quotation rather than styled to
+                    look like one. Both halves come from the same source: the
+                    Bios/Mimic gloss sits on page 3 of the field guide, the quote
+                    on page 7, so one Chicago note at the foot carries both. */}
+                <figure className="cid-viv-gloss-quote">
+                  <p className="cid-viv-gloss-q-lead">Why practice biomimicry?</p>
+                  <blockquote>
+                    Organisms and ecosystems face the same challenges that we humans do,
+                    but, they meet those challenges sustainably.
+                  </blockquote>
+                </figure>
+                <p className="cid-viv-gloss-src">
+                  Learn Biomimicry, <cite>A Field Guide to Biomimicry: A Brief Overview
+                  of the Core Elements and Practice of Biomimicry</cite>, version 01
+                  (Learn Biomimicry, 2021), 3, 7,{" "}
+                  <a href="https://www.learnbiomimicry.com" target="_blank" rel="noreferrer noopener">learnbiomimicry.com</a>.
+                </p>
+              </aside>
+
             </div>
           </div>
 
@@ -780,13 +817,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           {/* Architectural Design and Beneficial Biomimicry, each illustrated
               with its own photo: the Ooo meeting room for Architectural
               Design, the distillation chamber for Beneficial Biomimicry. */}
-          {/* The helper column carries on here. Above, the intro row runs an 820px
-              column against a 340px side panel; the principle cards used to take
-              the whole 1192 and drop that column, so the etymology convention
-              stopped halfway down the page. They yield the same 340 slot now and
-              the panel picks the thread back up, glossing the word the card
-              beside it is named for. */}
-          <div className="cid-viv-principles-row">
           <div className="cid-viv-principles">
             <figure className="cid-viv-pcard">
               <div
@@ -820,39 +850,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 </ul>
               </figcaption>
             </figure>
-          </div>
-            <aside className="cid-etym cid-viv-gloss" aria-label="Etymology of biomimicry">
-              <p className="cid-etym-label">Etymology</p>
-              <p className="cid-etym-sub">History of the living word</p>
-              <div className="cid-viv-gloss-pair">
-                <p className="cid-viv-gloss-term">Bios</p>
-                <p className="cid-viv-gloss-eq" aria-hidden="true">=</p>
-                <p className="cid-viv-gloss-mean">Life</p>
-              </div>
-              <div className="cid-viv-gloss-pair">
-                <p className="cid-viv-gloss-term">Mimic</p>
-                <p className="cid-viv-gloss-eq" aria-hidden="true">=</p>
-                <p className="cid-viv-gloss-mean">Imitate</p>
-              </div>
-              {/* Quoted material, marked up as a quotation rather than styled to
-                  look like one. Both halves of this panel come from the same
-                  source: the Bios/Mimic gloss and the second definition sit on
-                  page 3 of the field guide, this quote on page 7, so one Chicago
-                  note at the foot covers the panel and carries both pages. */}
-              <figure className="cid-viv-gloss-quote">
-                <p className="cid-viv-gloss-q-lead">Why practice biomimicry?</p>
-                <blockquote>
-                  Organisms and ecosystems face the same challenges that we humans do,
-                  but, they meet those challenges sustainably.
-                </blockquote>
-              </figure>
-              <p className="cid-viv-gloss-src">
-                Learn Biomimicry, <cite>A Field Guide to Biomimicry: A Brief Overview
-                of the Core Elements and Practice of Biomimicry</cite>, version 01
-                (Learn Biomimicry, 2021), 3, 7,{" "}
-                <a href="https://www.learnbiomimicry.com" target="_blank" rel="noreferrer noopener">learnbiomimicry.com</a>.
-              </p>
-            </aside>
           </div>
         </div>
       </section>

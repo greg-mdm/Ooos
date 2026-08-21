@@ -303,16 +303,16 @@
    there, and a card placed in it would run underneath. Everything from the
    third priority on is pinned to row two, where the panel above has ended and
    the full width is free. */
+/* Two columns inside the content column. The list once reached across into
+   the side panel's space, but the etymology cards now run further down that
+   column, so column 3 is no longer free to borrow: reaching over would put
+   Collective Problem Solving under the gloss. Collective spans the last row
+   instead. */
 .cid-scope .cid-viv-priority-list {
-  margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(12px,1.4vw,16px); align-items: stretch;
-  width: min(1192px, 100vw - 48px);
 }
-.cid-scope .cid-viv-priority:nth-child(1) { grid-row: 1; grid-column: 1; }
-.cid-scope .cid-viv-priority:nth-child(2) { grid-row: 1; grid-column: 2; }
-.cid-scope .cid-viv-priority:nth-child(3) { grid-row: 2; grid-column: 1; }
-.cid-scope .cid-viv-priority:nth-child(4) { grid-row: 2; grid-column: 2; }
-.cid-scope .cid-viv-priority:nth-child(5) { grid-row: 2; grid-column: 3; }
+.cid-scope .cid-viv-priority:nth-child(5) { grid-column: 1 / -1; }
 .cid-scope .cid-viv-priority {
   background: #fff; border-radius: 14px; padding: 15px 17px;
   border: 1px solid rgba(75,0,182,.14); border-left: 4px solid #4B00B6;
@@ -345,8 +345,8 @@
   border-radius: 3px; background: linear-gradient(135deg, #7C18E7, #5B04DE);
 }
 
-/* Below the width where three cards can hold a readable measure, the row
-   collapses and the explicit placement is released so they simply stack. */
+/* Below the width where two cards can hold a readable measure, the grid
+   collapses and the wide last row is released so the cards simply stack. */
 @media (max-width: 1100px) {
   .cid-scope .cid-viv-priority-list { grid-template-columns: minmax(0, 1fr); width: 100%; }
   .cid-scope .cid-viv-priority:nth-child(n) { grid-row: auto; grid-column: auto; }
@@ -981,18 +981,6 @@
    list keeps a plain, legible field underneath rather than sitting over
    a busy image. Photo is a background (not an <img>), consistent with the
    case art: no zoom/save affordance on what is scene-setting, not content. */
-/* The principle cards sit against the helper column, on the same measures the
-   intro row uses: an 820px content column, a 32px gutter, a 340px panel. That
-   keeps the side panel a continuous edge down the page rather than something
-   that stops once the intro ends. Below 1100px the panel drops under the cards
-   instead of squeezing all three. */
-.cid-scope .cid-viv-principles-row {
-  display: grid; grid-template-columns: minmax(0, 820fr) 340fr; gap: 32px;
-  align-items: start;
-}
-@media (max-width: 1100px) {
-  .cid-scope .cid-viv-principles-row { grid-template-columns: minmax(0, 1fr); }
-}
 .cid-scope .cid-viv-principles {
   display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px,3vw,44px);
 }
