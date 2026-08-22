@@ -688,6 +688,44 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             </div>
           </figure>
 
+          {/* Architectural Design and Beneficial Biomimicry, each illustrated
+              with its own photo: the Ooo meeting room for Architectural
+              Design, the distillation chamber for Beneficial Biomimicry. */}
+          <div className="cid-viv-principles">
+            <figure className="cid-viv-pcard">
+              <div
+                className="cid-viv-pcard-photo"
+                role="img"
+                aria-label="The Ooo meeting room: a glowing Ooo! orb on a lit pedestal, framed by lantern-lit garden walls and a waterfall view"
+                style={{ backgroundImage: `url("${base}assets/images/cid-arch-meeting-room.webp")` }}
+              />
+              <figcaption className="cid-viv-pcard-body">
+                <h3>Architectural Design</h3>
+                <ul>
+                  <li>Distinct environments for observation, collaboration, experimentation</li>
+                  <li>Agents use external tools while remaining securely enclosed in the vivarium</li>
+                  <li>Interfaces bind actions with fixed rules, restrictions, and limitations</li>
+                </ul>
+              </figcaption>
+            </figure>
+
+            <figure className="cid-viv-pcard">
+              <div
+                className="cid-viv-pcard-photo"
+                role="img"
+                aria-label="The distillation chamber: a copper apparatus beside a crystal-lined river cave"
+                style={{ backgroundImage: `url("${base}assets/images/cid-biomimicry-distillation.webp")` }}
+              />
+              <figcaption className="cid-viv-pcard-body">
+                <h3>Beneficial Biomimicry</h3>
+                <ul>
+                  <li>Information flows through environments inspired by the functional principles and geometries found in nature.</li>
+                  <li>The information ecosystem evolves through applied research on sustainable design for human-AI interactions.</li>
+                </ul>
+              </figcaption>
+            </figure>
+          </div>
+
           {/* Information Ecosystem + the Flicker card sit in the left
               column beneath the team case, filling the space beside the
               taller reference card in the right column. */}
@@ -806,43 +844,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           </div>
 
 
-          {/* Architectural Design and Beneficial Biomimicry, each illustrated
-              with its own photo: the Ooo meeting room for Architectural
-              Design, the distillation chamber for Beneficial Biomimicry. */}
-          <div className="cid-viv-principles">
-            <figure className="cid-viv-pcard">
-              <div
-                className="cid-viv-pcard-photo"
-                role="img"
-                aria-label="The Ooo meeting room: a glowing Ooo! orb on a lit pedestal, framed by lantern-lit garden walls and a waterfall view"
-                style={{ backgroundImage: `url("${base}assets/images/cid-arch-meeting-room.webp")` }}
-              />
-              <figcaption className="cid-viv-pcard-body">
-                <h3>Architectural Design</h3>
-                <ul>
-                  <li>Distinct environments for observation, collaboration, experimentation</li>
-                  <li>Agents use external tools while remaining securely enclosed in the vivarium</li>
-                  <li>Interfaces bind actions with fixed rules, restrictions, and limitations</li>
-                </ul>
-              </figcaption>
-            </figure>
-
-            <figure className="cid-viv-pcard">
-              <div
-                className="cid-viv-pcard-photo"
-                role="img"
-                aria-label="The distillation chamber: a copper apparatus beside a crystal-lined river cave"
-                style={{ backgroundImage: `url("${base}assets/images/cid-biomimicry-distillation.webp")` }}
-              />
-              <figcaption className="cid-viv-pcard-body">
-                <h3>Beneficial Biomimicry</h3>
-                <ul>
-                  <li>Information flows through environments inspired by the functional principles and geometries found in nature.</li>
-                  <li>The information ecosystem evolves through applied research on sustainable design for human-AI interactions.</li>
-                </ul>
-              </figcaption>
-            </figure>
-          </div>
         </div>
       </section>
 
