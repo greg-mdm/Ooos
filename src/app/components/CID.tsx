@@ -550,15 +550,19 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   carries no header of its own: the card above already says
                   Etymology once, and saying it again reads as a repeat. */}
               <aside className="cid-etym cid-viv-gloss" aria-label="Etymology of biomimicry">
+                {/* Etymologically precise: the exact Greek roots, each with its
+                    Greek script, rather than an English word beside its own
+                    definition. lang="el" so screen readers voice the Greek as
+                    Greek instead of spelling out letter names. */}
                 <div className="cid-viv-gloss-pair">
-                  <p className="cid-viv-gloss-term">Bios</p>
+                  <p className="cid-viv-gloss-term">Bios <span className="cid-viv-gloss-el" lang="el">βίος</span></p>
                   <p className="cid-viv-gloss-eq" aria-hidden="true">=</p>
                   <p className="cid-viv-gloss-mean">Life</p>
                 </div>
                 <div className="cid-viv-gloss-pair">
-                  <p className="cid-viv-gloss-term">Mimic</p>
+                  <p className="cid-viv-gloss-term">Mimesis <span className="cid-viv-gloss-el" lang="el">μίμησις</span></p>
                   <p className="cid-viv-gloss-eq" aria-hidden="true">=</p>
-                  <p className="cid-viv-gloss-mean">Imitate</p>
+                  <p className="cid-viv-gloss-mean">Imitation</p>
                 </div>
                 <div className="cid-etym-row">
                   <p className="cid-etym-key">Language</p>
