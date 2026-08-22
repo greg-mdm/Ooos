@@ -653,14 +653,10 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               the two AI agents. */}
           <TeamCase base={base} />
 
-          {/* The cooperative lab: the two rooms the case sits between. Left,
-              the shared bench where the living wall meets the workstations;
-              right, the case itself photographed empty, before the three
-              researchers take their compartments. Paired as one figure row so
-              they read as two views of one facility rather than two spot
-              illustrations. Real <img> here rather than a background: unlike
-              the case art above, nothing in these two is a person, so there is
-              no one to be trapped inside the picture. */}
+          {/* Two lab shots paired as one figure row under the team case.
+              Real <img> here rather than a background: unlike the case art
+              above, nothing in these two is a person, so there is no one to be
+              trapped inside the picture. Uncaptioned by request. */}
           <figure className="cid-viv-lab">
             <div className="cid-viv-lab-row">
               <div className="cid-viv-lab-shot">
@@ -669,14 +665,10 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   src={`${base}assets/images/cid-lab-cooperative-1376.webp`}
                   srcSet={`${base}assets/images/cid-lab-cooperative-800.webp 800w, ${base}assets/images/cid-lab-cooperative-1376.webp 1376w`}
                   sizes="(max-width: 900px) 92vw, 46vw"
-                  alt="Inside the Vivarium: a glass partition divides a living wall of moss, ferns and hanging terrariums from a lit bench of workstations running code, a 3D printer and circuit boards."
+                  alt="A glass partition divides a wall of moss, ferns and hanging terrariums from a lit bench of workstations, a 3D printer and circuit boards."
                   loading="lazy"
                   decoding="async"
                 />
-                <figcaption className="cid-viv-lab-cap">
-                  <p className="cid-viv-lab-name">The cooperative lab</p>
-                  <p className="cid-viv-lab-desc">One bench, two halves. The living wall and the workstations share a room, so the growing and the computing happen in sight of each other.</p>
-                </figcaption>
               </div>
               <div className="cid-viv-lab-shot">
                 <img
@@ -684,14 +676,10 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   src={`${base}assets/images/cid-lab-case-empty-1376.webp`}
                   srcSet={`${base}assets/images/cid-lab-case-empty-800.webp 800w, ${base}assets/images/cid-lab-case-empty-1376.webp 1376w`}
                   sizes="(max-width: 900px) 92vw, 46vw"
-                  alt="The three-compartment glass display case standing empty on an iridescent floor, moss and ferns banked against its left edge."
+                  alt="An empty three-compartment glass display case on an iridescent floor, with moss and ferns against its left edge."
                   loading="lazy"
                   decoding="async"
                 />
-                <figcaption className="cid-viv-lab-cap">
-                  <p className="cid-viv-lab-name">The case, empty</p>
-                  <p className="cid-viv-lab-desc">Three compartments and a floor. The vessel above, photographed before Ethel, Greg and Icarus took their places in it.</p>
-                </figcaption>
               </div>
             </div>
           </figure>
