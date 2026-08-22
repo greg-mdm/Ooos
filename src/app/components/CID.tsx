@@ -590,74 +590,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             </div>
           </div>
 
-          <section className="cid-strategy" aria-labelledby="cid-strategy-title">
-            {/* The opening A is a real Latin A set in the display serif, not a Greek
-                alpha lookalike: the letterform carries the flourish while "Agile"
-                stays a word that screen readers speak and search engines index. */}
-            <h3 id="cid-strategy-title" className="cid-strategy-h">
-              <span className="cid-strategy-a">A</span>gile Micro-Studio. Massive Creative Capacity.
-            </h3>
-            <StrategyKeys />
-          </section>
-
-          {/* Sealed case. The room and the claim it evidences are one
-              enclosure rather than two blocks sitting loose on the page:
-              vanta-black steel shell, mitred titanium corner blocks, and a
-              single mullion between the two compartments. */}
-          <div className="cid-vault">
-            <span className="cid-vault-corner cid-vault-corner--tl" aria-hidden="true" />
-            <span className="cid-vault-corner cid-vault-corner--tr" aria-hidden="true" />
-            <span className="cid-vault-corner cid-vault-corner--bl" aria-hidden="true" />
-            <span className="cid-vault-corner cid-vault-corner--br" aria-hidden="true" />
-
-            {/* The Viv itself: the always-on AI mini-PC that houses the
-                facility, on show in its own display room. Self-contained
-                WebGL scene, so it rides in an iframe like the other embeds. */}
-            <div className="cid-vivroom">
-              <iframe
-                ref={roomRef}
-                className="cid-vivroom-frame"
-                src={`${base}DISPLAY_ROOM_BLUE_checker_cm.html?v=4`}
-                title="The Viv display room: the always-on AI mini-PC that houses the CID Vivarium"
-                loading="lazy"
-              />
-            </div>
-
-            <div className="cid-vault-mullion" aria-hidden="true" />
-
-            {/* "1976 vs 2026" storage comparison: makes the case for why a
-                device this small earns a display room. Sealed into the same
-                case as the room, so the claim and the object it is about are
-                read as one piece. */}
-            <div className="cid-viv-era">
-              <div className="cid-viv-era-row cid-viv-era-then">
-                <div className="cid-viv-era-headline">
-                  <p className="cid-viv-era-label"><span className="y">1976</span><span className="tag">50 years ago</span></p>
-                  <p className="cid-viv-era-stat">~3,150 DISKS</p>
-                </div>
-                <p className="cid-viv-era-copy">Storing two terabytes of data required ~3,150 disk drives. That much information technology (IT) could fill a machine-room floor nearly the size of a Canadian football field. <span className="cid-viv-era-aside">*Ours is bigger.</span></p>
-              </div>
-              <div className="cid-viv-era-row cid-viv-era-now">
-                <div className="cid-viv-era-headline">
-                  <p className="cid-viv-era-label"><span className="y">2026</span><span className="tag">Today</span></p>
-                  <p className="cid-viv-era-stat">&lt; 1KG</p>
-                </div>
-                <p className="cid-viv-era-copy">Now you can palm it.<br />Weighing less than one kilogram,<br />CID contains a cutting-edge research facility.</p>
-              </div>
-            </div>
-          </div>
-
-          {/* The three researchers side by side under the copy, in the
-              same order as the case art below: Ethel, Greg in the middle,
-              Icarus. */}
-          <TeamTags />
-
-          {/* Vivarium team display case: the three researchers set in one
-              glass case, the human principal investigator centred between
-              the two AI agents. */}
-          <TeamCase base={base} />
-
-          {/* Two lab shots paired as one figure row under the team case.
+          {/* Two lab shots paired as one figure row above the strategy band.
               Real <img> here rather than a background: unlike the case art
               above, nothing in these two is a person, so there is no one to be
               trapped inside the picture. Uncaptioned by request. */}
@@ -725,6 +658,73 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               </figcaption>
             </figure>
           </div>
+          <section className="cid-strategy" aria-labelledby="cid-strategy-title">
+            {/* The opening A is a real Latin A set in the display serif, not a Greek
+                alpha lookalike: the letterform carries the flourish while "Agile"
+                stays a word that screen readers speak and search engines index. */}
+            <h3 id="cid-strategy-title" className="cid-strategy-h">
+              <span className="cid-strategy-a">A</span>gile Micro-Studio. Massive Creative Capacity.
+            </h3>
+            <StrategyKeys />
+          </section>
+
+          {/* Sealed case. The room and the claim it evidences are one
+              enclosure rather than two blocks sitting loose on the page:
+              vanta-black steel shell, mitred titanium corner blocks, and a
+              single mullion between the two compartments. */}
+          <div className="cid-vault">
+            <span className="cid-vault-corner cid-vault-corner--tl" aria-hidden="true" />
+            <span className="cid-vault-corner cid-vault-corner--tr" aria-hidden="true" />
+            <span className="cid-vault-corner cid-vault-corner--bl" aria-hidden="true" />
+            <span className="cid-vault-corner cid-vault-corner--br" aria-hidden="true" />
+
+            {/* The Viv itself: the always-on AI mini-PC that houses the
+                facility, on show in its own display room. Self-contained
+                WebGL scene, so it rides in an iframe like the other embeds. */}
+            <div className="cid-vivroom">
+              <iframe
+                ref={roomRef}
+                className="cid-vivroom-frame"
+                src={`${base}DISPLAY_ROOM_BLUE_checker_cm.html?v=4`}
+                title="The Viv display room: the always-on AI mini-PC that houses the CID Vivarium"
+                loading="lazy"
+              />
+            </div>
+
+            <div className="cid-vault-mullion" aria-hidden="true" />
+
+            {/* "1976 vs 2026" storage comparison: makes the case for why a
+                device this small earns a display room. Sealed into the same
+                case as the room, so the claim and the object it is about are
+                read as one piece. */}
+            <div className="cid-viv-era">
+              <div className="cid-viv-era-row cid-viv-era-then">
+                <div className="cid-viv-era-headline">
+                  <p className="cid-viv-era-label"><span className="y">1976</span><span className="tag">50 years ago</span></p>
+                  <p className="cid-viv-era-stat">~3,150 DISKS</p>
+                </div>
+                <p className="cid-viv-era-copy">Storing two terabytes of data required ~3,150 disk drives. That much information technology (IT) could fill a machine-room floor nearly the size of a Canadian football field. <span className="cid-viv-era-aside">*Ours is bigger.</span></p>
+              </div>
+              <div className="cid-viv-era-row cid-viv-era-now">
+                <div className="cid-viv-era-headline">
+                  <p className="cid-viv-era-label"><span className="y">2026</span><span className="tag">Today</span></p>
+                  <p className="cid-viv-era-stat">&lt; 1KG</p>
+                </div>
+                <p className="cid-viv-era-copy">Now you can palm it.<br />Weighing less than one kilogram,<br />CID contains a cutting-edge research facility.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* The three researchers side by side under the copy, in the
+              same order as the case art below: Ethel, Greg in the middle,
+              Icarus. */}
+          <TeamTags />
+
+          {/* Vivarium team display case: the three researchers set in one
+              glass case, the human principal investigator centred between
+              the two AI agents. */}
+          <TeamCase base={base} />
+
 
           {/* Information Ecosystem + the Flicker card sit in the left
               column beneath the team case, filling the space beside the
