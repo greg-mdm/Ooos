@@ -496,10 +496,18 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 </div>
               </div>
 
-              {/* Strategies: the three CID pillars, sitting below Leadership
-                  and pushing the Viv display case down the page. The keys
-                  reuse the homepage's .ood-key design (see StrategyKeys
-                  above); the sheet is imported for those rules. */}
+              {/* The Greek lexicon: the designed panel that replaced the
+                  word-pair rows on the side card. A bundled 1920x1080 design
+                  block; the file carries its own embed shim that scales the
+                  stage to the frame, and the frame holds 16:9. */}
+              <figure className="cid-viv-lex">
+                <iframe
+                  className="cid-viv-lex-frame"
+                  src={`${base}Greek%20Lexicon.dc.html?v=1`}
+                  title="Greek lexicon. Bios, life. Mimesis, imitation. Ancient Greek."
+                  loading="lazy"
+                />
+              </figure>
             </div>
             {/* Right column, one panel: the Radical Strategic Intelligence
                 rail, then the etymology card beneath it. The Reference card
@@ -546,32 +554,12 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 </div>
               </aside>
 
-              {/* The biomimicry gloss continues the etymology thread, so it
-                  carries no header of its own: the card above already says
-                  Etymology once, and saying it again reads as a repeat. */}
-              <aside className="cid-etym cid-viv-gloss" aria-label="Etymology of biomimicry">
-                {/* Etymologically precise: the exact Greek roots, each with its
-                    Greek script, rather than an English word beside its own
-                    definition. lang="el" so screen readers voice the Greek as
-                    Greek instead of spelling out letter names. */}
-                <div className="cid-viv-gloss-pair">
-                  <p className="cid-viv-gloss-term">Bios <span className="cid-viv-gloss-el" lang="el">βίος</span></p>
-                  <p className="cid-viv-gloss-eq" aria-hidden="true">=</p>
-                  <p className="cid-viv-gloss-mean">Life</p>
-                </div>
-                <div className="cid-viv-gloss-pair">
-                  <p className="cid-viv-gloss-term">Mimesis <span className="cid-viv-gloss-el" lang="el">μίμησις</span></p>
-                  <p className="cid-viv-gloss-eq" aria-hidden="true">=</p>
-                  <p className="cid-viv-gloss-mean">Imitation</p>
-                </div>
-                <div className="cid-etym-row">
-                  <p className="cid-etym-key">Language</p>
-                  <p className="cid-etym-val">Greek</p>
-                </div>
-                {/* Quoted material, marked up as a quotation rather than styled to
-                    look like one. Both halves come from the same source: the
-                    Bios/Mimic gloss sits on page 3 of the field guide, the quote
-                    on page 7, so one Chicago note at the foot carries both. */}
+              {/* The word-pair rows moved into the Greek Lexicon panel in the
+                  left column; this card carries only the quotation now.
+                  Quoted material, marked up as a quotation rather than styled
+                  to look like one; the Chicago note at the foot covers both
+                  the quote (page 7) and the lexicon gloss (page 3). */}
+              <aside className="cid-etym cid-viv-gloss" aria-label="Why practice biomimicry">
                 <figure className="cid-viv-gloss-quote">
                   <p className="cid-viv-gloss-q-lead">Why practice biomimicry?</p>
                   <blockquote>
