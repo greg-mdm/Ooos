@@ -1320,17 +1320,40 @@
    rather than a feature/thumb split, because neither shot is subordinate to
    the other. Both are cropped to a single ratio so the two panels line up on
    their top and bottom edges regardless of the source crops (2.17 and 1.79
-   respectively). The row carries no captions. ---- */
+   respectively). ---- */
 .cid-scope .cid-viv-lab { margin: 36px 0 0; }
 .cid-scope .cid-viv-lab-row {
   display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px;
 }
+/* The shot is the positioning context for its title card. line-height 0 so the
+   img's inline baseline gap does not leave a sliver of ground under the card. */
+.cid-scope .cid-viv-lab-shot { position: relative; margin: 0; line-height: 0; }
 .cid-scope .cid-viv-lab-img {
   display: block; width: 100%; height: auto; aspect-ratio: 13 / 6;
   object-fit: cover; border-radius: 14px;
   background-color: #04030e;
   box-shadow: 0 18px 40px -24px rgba(6,2,28,.7);
   user-select: none;
+}
+/* Mirrored so the stations sit where the story puts them. Only the image is
+   transformed; the card is a sibling, so its type is never reversed with it. */
+.cid-scope .cid-viv-lab-img--mirror { transform: scaleX(-1); }
+/* Title card: a near-opaque band across the foot of the shot that says what
+   the room is for. Midnight Black at .88, which is opaque enough to read as a
+   card rather than a tint but still lets the floor move under it. That alpha
+   is the accessible floor as well as the design one: composited over pure
+   white it still gives Bright Silver 12.9:1, so the card holds AAA over any
+   pixel the photograph can put behind it. Bottom corners follow the image's
+   own 14px radius. ---- */
+.cid-scope .cid-viv-lab-cap {
+  position: absolute; left: 0; right: 0; bottom: 0; margin: 0;
+  padding: clamp(9px,1vw,13px) clamp(12px,1.4vw,18px);
+  border-radius: 0 0 14px 14px;
+  background: rgba(15,3,28,.88);
+  font-family: 'Lovelo', 'Impact', 'Arial Black', sans-serif;
+  font-weight: 900; font-size: clamp(10.5px,1vw,13px);
+  letter-spacing: .1em; line-height: 1.35; text-transform: uppercase;
+  color: #E8ECF4; text-align: center;
 }
 /* One column below 900px, where two panels leave each shot too narrow to read
    the bench detail. */

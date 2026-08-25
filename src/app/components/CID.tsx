@@ -622,20 +622,36 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           {/* Two lab shots paired as one figure row above the strategy band.
               Real <img> here rather than a background: unlike the case art
               above, nothing in these two is a person, so there is no one to be
-              trapped inside the picture. Uncaptioned by request. */}
+              trapped inside the picture. */}
           <figure className="cid-viv-lab">
             <div className="cid-viv-lab-row">
-              <div className="cid-viv-lab-shot">
+              {/* Mirrored. The source has the bench on the right of the glass
+                  and the planting on the left, which puts the stations the
+                  wrong way round for the story: Ethel sits on the right and
+                  Icarus III on the left. Flipped in CSS rather than re-exported,
+                  so the asset stays the one Greg supplied and the change is one
+                  line to undo. Nothing in the frame is lettered, so there is no
+                  reversed text to give the mirror away.
+
+                  The card is a caption, not decoration, so it is a real
+                  <figcaption> on its own <figure> rather than text floated over
+                  a div. Written in sentence case and set to uppercase in CSS:
+                  it renders exactly as Greg typed it, while screen readers get
+                  a word instead of six letters spelled out. */}
+              <figure className="cid-viv-lab-shot">
                 <img
-                  className="cid-viv-lab-img"
+                  className="cid-viv-lab-img cid-viv-lab-img--mirror"
                   src={`${base}assets/images/cid-lab-cooperative-1376.webp`}
                   srcSet={`${base}assets/images/cid-lab-cooperative-800.webp 800w, ${base}assets/images/cid-lab-cooperative-1376.webp 1376w`}
                   sizes="(max-width: 900px) 92vw, 46vw"
-                  alt="A glass partition divides a wall of moss, ferns and hanging terrariums from a lit bench of workstations, a 3D printer and circuit boards."
+                  alt="A lit bench of workstations, a 3D printer and circuit boards, divided by a glass partition from a wall of moss, ferns and hanging terrariums."
                   loading="lazy"
                   decoding="async"
                 />
-              </div>
+                <figcaption className="cid-viv-lab-cap">
+                  Cooperation Stations: Icarus III (left), Ethel (right)
+                </figcaption>
+              </figure>
               <div className="cid-viv-lab-shot">
                 <img
                   className="cid-viv-lab-img"
