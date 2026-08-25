@@ -470,10 +470,24 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                       <dt>Interoperability</dt>
                       <dd>Connect Canadian content, services and materials with audiences across platforms and markets.</dd>
                     </div>
-                    {/* These two arrive as bullets rather than prose. Kept as
-                        lists rather than flattened into sentences: they are two
-                        separate commitments each, and running them together
-                        would read as one hedged claim. */}
+                  </dl>
+                  {/* Methods, not priorities. The three above are commitments,
+                      what CID holds itself to; these two are how the work is
+                      actually carried out, which is why they arrived as bullets
+                      where the others arrived as prose. Splitting them under
+                      their own heading stops the reader taking a method for a
+                      principle.
+
+                      Not "Tactics": that word is already spoken for as the
+                      Reclaiming Agency division's card heading, where CID's is
+                      Strategies (WORKING-GUIDE.md, divisions table). Borrowing
+                      it here would blur the division taxonomy.
+
+                      Kept as lists rather than flattened into sentences: each
+                      is two separate commitments, and running them together
+                      would read as one hedged claim. */}
+                  <h3 className="cid-viv-ecosystem-h cid-viv-methods-h">Methods</h3>
+                  <dl className="cid-viv-priority-list">
                     <div className="cid-viv-priority">
                       <dt>Inclusive Innovation</dt>
                       <dd>

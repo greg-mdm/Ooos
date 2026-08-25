@@ -305,14 +305,20 @@
    the full width is free. */
 /* Two columns inside the content column. The list once reached across into
    the side panel's space, but the etymology cards now run further down that
-   column, so column 3 is no longer free to borrow: reaching over would put
-   Collective Problem Solving under the gloss. Collective spans the last row
-   instead. */
+   column, so column 3 is no longer free to borrow. */
 .cid-scope .cid-viv-priority-list {
   margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(12px,1.4vw,16px); align-items: stretch;
 }
-.cid-scope .cid-viv-priority:nth-child(5) { grid-column: 1 / -1; }
+/* An odd last card spans the row rather than stranding an empty cell beside
+   it. Stated as a rule about the count instead of pinning one nth-child: the
+   priorities run three and the methods two, and hardcoding "the fifth" broke
+   the moment the list was split in two. Three cards: the third spans. Two:
+   neither does. */
+.cid-scope .cid-viv-priority:last-child:nth-child(odd) { grid-column: 1 / -1; }
+/* The second heading needs air above it that the flex gap alone does not give;
+   it opens a section rather than continuing one. */
+.cid-scope .cid-viv-methods-h { margin-top: clamp(14px,1.6vw,20px); }
 .cid-scope .cid-viv-priority {
   background: #fff; border-radius: 14px; padding: 15px 17px;
   border: 1px solid rgba(75,0,182,.14); border-left: 4px solid #4B00B6;
