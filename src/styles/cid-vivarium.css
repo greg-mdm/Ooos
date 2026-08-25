@@ -923,17 +923,24 @@
    one being lit and the other switched off: 1976 is cold chrome, 2026 is warm
    gold. They also differ in how they carry light, which is what keeps them
    from reading as the same object twice. The chrome is FLAT and reflective:
-   Chrome Silver #D8DBDE at a single value with a soft top edge and a steel
-   rim, no ramp and no glow. A gradient across it read as polish, which is
-   what a chrome plate at this size should not have; Bright Silver #E8ECF4
-   was brighter still. The gold EMITS: a warm ramp, a pale rim and a halo
-   spilling past the edge. Dull past, lit present.
+   Chrome Silver at a single value with a soft top edge and a steel rim, no
+   ramp and no glow. A gradient across it read as polish, which is what a
+   chrome plate at this size should not have; Bright Silver was brighter
+   still. The gold EMITS: a ramp, a pale rim and a halo spilling past the
+   edge. Dull past, lit present.
 
-   Both grounds are light, so both take dark type. Chrome carries near black,
-   #12161B at 13.1:1, its tag at 7.3:1, its stat at 11.1:1. Gold carries the
-   darkest indigo, #1a1646 at 9.9:1. Every pairing here clears AAA at its
-   size, and no plate uses a text glow: a shadow that reads as light against
-   black turns to grime on a light ground. */
+   Every value here comes off the palette on /about, which is canon (see
+   About.tsx). An earlier pass invented four of them and all four were worse:
+   #12161B for chrome ink where the palette names #0A0614 as Chrome Silver's
+   own ink, #1a1646 for gold ink where the ramp names #1A1203, and #FFDE8A /
+   #DFA827 as gold stops where Sunshine and Gold 950 already exist and the
+   ramp has nothing darker than #F0C040 by design.
+
+   Both grounds are light, so both take dark ink. Chrome carries #0A0614 at
+   14.4:1, its tag Robin's Egg 900 at 7.8:1, its stat Robin's Egg 950 at
+   11.5:1. Gold carries #1A1203 at 10.9:1. All AAA at their sizes, and better
+   than the invented values scored. No plate uses a text glow: a shadow that
+   reads as light against black turns to grime on a light ground. */
 .cid-scope .cid-viv-era-headline {
   display: flex; align-items: center; flex-wrap: wrap; gap: 10px 18px;
   margin: 0 0 10px;
@@ -945,12 +952,15 @@
   margin: 0; padding: 0; background: none; box-shadow: none;
 }
 .cid-scope .cid-viv-era-then .cid-viv-era-headline {
-  background: #D8DBDE;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.6), 0 0 0 1px rgba(147,160,173,.55);
+  background: #D8DBDE;                                   /* Chrome Silver */
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.6),
+              0 0 0 1px rgba(139,156,160,.55);           /* Robin's Egg 500 */
 }
 .cid-scope .cid-viv-era-now .cid-viv-era-headline {
-  background: linear-gradient(135deg, #FFDE8A 0%, #F0C040 54%, #DFA827 100%);
-  box-shadow: 0 0 0 1px rgba(255,228,158,.75), 0 0 52px -10px rgba(240,192,64,.6);
+  /* Straight down the canon gold ramp: Sunshine 500, Gold 800, Gold 950. */
+  background: linear-gradient(135deg, #FFF3B0 0%, #F6D573 46%, #F0C040 100%);
+  box-shadow: 0 0 0 1px rgba(252,233,156,.75),           /* Gold 600 */
+              0 0 52px -10px rgba(240,192,64,.6);        /* Gold 950 */
 }
 .cid-scope .cid-viv-era-label .y {
   font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
@@ -960,11 +970,13 @@
   font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
   font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase;
 }
-.cid-scope .cid-viv-era-then .y { color: #12161B; }
-.cid-scope .cid-viv-era-then .tag { color: #3A424D; }
-/* Indigo on the lit plate, not gold: the gold is the ground now. */
-.cid-scope .cid-viv-era-now .y { color: #1a1646; }
-.cid-scope .cid-viv-era-now .tag { color: #2E1A5E; }
+/* Each plate takes the ink the palette specifies for its own ground: #0A0614
+   for Chrome Silver, #1A1203 for every stop on the gold ramp. The tags step
+   back a value rather than changing hue. */
+.cid-scope .cid-viv-era-then .y { color: #0A0614; }
+.cid-scope .cid-viv-era-then .tag { color: #353F42; }   /* Robin's Egg 900 */
+.cid-scope .cid-viv-era-now .y { color: #1A1203; }
+.cid-scope .cid-viv-era-now .tag { color: #1A1203; }
 /* Stat callout: the headline figure pulled out of the paragraph below it,
    format-matched between sides (count + unit) rather than one side reading
    as a number and the other as a comparison. Same two accent colours as the
@@ -976,9 +988,9 @@
 /* The stat sits inside the plate, so it takes the plate's own contrast: near
    black on silver, indigo on gold. No glow on either -- a text-shadow that
    read as light against black turns to grime on a light ground. */
-.cid-scope .cid-viv-era-then .cid-viv-era-stat { color: #1E252E; }
+.cid-scope .cid-viv-era-then .cid-viv-era-stat { color: #1C2325; }  /* Robin's Egg 950 */
 .cid-scope .cid-viv-era-now .cid-viv-era-stat {
-  color: #1a1646; text-shadow: none;
+  color: #1A1203; text-shadow: none;
 }
 /* balance, so the two blocks end on even lines instead of leaving a one-word
    last line under a full one. This is what carries the spacing now that the
