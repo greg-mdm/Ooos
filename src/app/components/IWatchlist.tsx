@@ -117,18 +117,18 @@ export function IWatchlist() {
         />
       </section>
 
-      {/* The watchlist prototype itself. */}
-      <section className="iw-embed" aria-label="Canadian Innovation Watchlist">
-        <iframe
-          ref={embedRef}
-          src={`${base}cid/watchlist-embed/`}
-          title="Canadian Innovation Watchlist"
-          loading="lazy"
-          className="iw-embed-frame"
-        />
-      </section>
+      {/* The page runs Ontario, then Canada, then Global.
 
+          The hero above is Ontario. Everything from here to the canopy is the
+          Canadian evidence: what the data is and how to reach it, who the
+          country is, what it holds above the bedrock. The watchlist embed is
+          last of the three, because it is where the scale opens out: its own
+          closing section is "Zoom out · Global engagement".
 
+          That ordering is also why the embed moved below this block rather
+          than the block moving up around it. The embed led the page before,
+          which put the stock comparison in front of the evidence for it, and
+          put Global ahead of Canada. */}
       <DataAccessContinuum />
 
       {/* Forest layer — a looping portrait of a Canadian conservation area
@@ -311,9 +311,24 @@ export function IWatchlist() {
         </div>
       </section>
 
+      {/* The watchlist prototype itself, and the last of the three scales: it
+          closes on "Zoom out · Global engagement", so it reads as the widening
+          the page has been building toward rather than an opening claim. The
+          evidence for its stock comparison now sits above it instead of after
+          it. */}
+      <section className="iw-embed" aria-label="Canadian Innovation Watchlist">
+        <iframe
+          ref={embedRef}
+          src={`${base}cid/watchlist-embed/`}
+          title="Canadian Innovation Watchlist"
+          loading="lazy"
+          className="iw-embed-frame"
+        />
+      </section>
+
       {/* The cave, transplanted off /cid with the rest of this block. It keeps
           its role as the page floor: full structure, sitting flush above the
-          site footer. */}
+          site footer, and it stays there. */}
       <Underground />
     </div>
   );
