@@ -24,9 +24,30 @@
   height: auto;
 }
 
-/* ---- Above-ground canopy: RB -> Teal -> Cyan gradient ---- */
+/* ---- Above-ground canopy: Viv's phthalo, descending into shadow ----
+
+   The band used to run Robin's Egg -> Teal -> Cyan. Every stop was canon, but
+   the path between them was seafoam: a pale warm white sliding through mid
+   teal into bright cyan is that colour's exact recipe, whatever the endpoints
+   are called. It also broke the tiles. They are dark glass, rgba(6,22,26,.52),
+   and over the pale top stop they composited to rgb(118,129,131), which put
+   the tile body text at 3.55:1. The head of this band was failing AA.
+
+   The replacement is Viv's own phthalo, sampled from the tour renders rather
+   than picked by eye: the tech-wall panels mean #124D4F, the deep shadows
+   #051612, and #0E6E73, the deep phthalo Greg has named before, as the light
+   end. Running light-to-dark instead of pale-to-bright means the tiles now sit
+   on ground darker than they are the whole way down, so they read as lit glass
+   rather than dissolving at the top.
+
+   The moss wash is the second half of Viv, and it is placed rather than
+   general: it sits top left, under the moss half of the forest video above and
+   behind the Wetlands tile, in the moss mean sampled off the same renders
+   (#3B4C2B). Low enough to read as ground, not as a shape. ---- */
 .cid-scope .cid-canopy {
-  background: linear-gradient(160deg, #F0F4F5 0%, #008080 56%, #1FCECB 100%);
+  background:
+    radial-gradient(130% 95% at 4% 6%, rgba(59,76,43,.55) 0%, rgba(59,76,43,0) 60%),
+    linear-gradient(160deg, #0E6E73 0%, #124D4F 54%, #051612 100%);
   padding: clamp(30px, 4vw, 60px) clamp(20px, 4vw, 56px);
 }
 /* Left tile | reserved middle gap | right tile. The middle column straddles
