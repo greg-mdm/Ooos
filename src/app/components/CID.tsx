@@ -715,7 +715,13 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   <p className="cid-viv-era-label"><span className="y">2026</span><span className="tag">Today</span></p>
                   <p className="cid-viv-era-stat">&lt; 1KG</p>
                 </div>
-                <p className="cid-viv-era-copy">Now you can palm it.<br />Weighing less than one kilogram,<br />CID contains a cutting-edge research facility.</p>
+                {/* Flowing prose, not three forced lines. The hard breaks put a
+                    line end after "kilogram," which is mid-sentence, so the
+                    block read as a list of fragments and its spacing came from
+                    where the <br /> happened to fall rather than from the
+                    column. Same two sentences, wrapping to the measure like the
+                    1976 copy beside it. */}
+                <p className="cid-viv-era-copy">Now you can palm it. Weighing less than one kilogram, CID contains a cutting-edge research facility.</p>
               </div>
             </div>
           </div>
