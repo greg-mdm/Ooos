@@ -496,6 +496,24 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 </div>
               </div>
 
+              {/* The Strategies band, closing the body column in the space the
+                  lexicon vacated when it moved into the side panel. It sat as
+                  a direct child of .cid-viv-stack while that space was taken,
+                  running the full container width under the side panel; back
+                  in the column it takes the column's own measure and stops
+                  where the priorities above it stop. The cost is the bullets:
+                  at ~260px a key cannot hold "Integrate verified data
+                  sources." on one line, so they wrap to two (see the keys
+                  rule in cid-vivarium.css). */}
+              <section className="cid-strategy" aria-labelledby="cid-strategy-title">
+                {/* The opening A is a real Latin A set in the display serif, not a Greek
+                    alpha lookalike: the letterform carries the flourish while "Agile"
+                    stays a word that screen readers speak and search engines index. */}
+                <h3 id="cid-strategy-title" className="cid-strategy-h">
+                  <span className="cid-strategy-a">A</span>gile Micro-Studio. Massive Creative Capacity.
+                </h3>
+                <StrategyKeys />
+              </section>
             </div>
             {/* Right column, one panel: the Radical Strategic Intelligence
                 rail, the etymology card beneath it, then the Greek lexicon,
@@ -655,16 +673,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               </figcaption>
             </figure>
           </div>
-          <section className="cid-strategy" aria-labelledby="cid-strategy-title">
-            {/* The opening A is a real Latin A set in the display serif, not a Greek
-                alpha lookalike: the letterform carries the flourish while "Agile"
-                stays a word that screen readers speak and search engines index. */}
-            <h3 id="cid-strategy-title" className="cid-strategy-h">
-              <span className="cid-strategy-a">A</span>gile Micro-Studio. Massive Creative Capacity.
-            </h3>
-            <StrategyKeys />
-          </section>
-
           {/* Sealed case. The room and the claim it evidences are one
               enclosure rather than two blocks sitting loose on the page:
               vanta-black steel shell, mitred titanium corner blocks, and a

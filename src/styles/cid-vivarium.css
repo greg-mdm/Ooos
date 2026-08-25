@@ -1178,9 +1178,14 @@
    word stays readable to screen readers and search; only the letterform
    changes. Slightly larger and optically nudged so the serif sits on the same
    baseline and cap height as the sans it leads into. */
+/* 900, not 700: at 700 Playfair's thin diagonal on the left of the A read as a
+   hairline beside the 800-weight Montserrat it leads into. The upright 800 and
+   900 cuts are pulled in fonts.css for this; without them the browser would
+   round 900 back down to the heaviest upright it has, which is 700, and the
+   letter would not change at all. */
 .cid-scope .cid-strategy-a {
   font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
-  font-weight: 700; font-size: 1.12em; line-height: 0; letter-spacing: 0;
+  font-weight: 900; font-size: 1.12em; line-height: 0; letter-spacing: 0;
 }
 .cid-scope .cid-strategy-h {
   margin: 0;
@@ -1193,20 +1198,17 @@
 }
 /* Three across, since these read as pillars rather than a stacked list.
    Stretch so the keys share one height however the bullets wrap. */
-/* Each bullet is a single clause and reads as one line. That needs the full
-   container: inside the 820px intro column the longest ("Integrate verified
-   data sources.") wanted 311px against 228px available and broke in two.
-   The Strategies band is a direct child of .cid-viv-stack now rather than a
-   nested item of the intro column, so the row gives each key ~385px and the
-   band clears the side panel instead of running under it. */
+/* The band sits back inside the intro column, filling the space the lexicon
+   left, so it takes the column's ~820px rather than the full container. Three
+   keys share that at ~260px each, and the longest clause ("Integrate verified
+   data sources.") wants 311px, so bullets wrap to two lines here. That is the
+   trade for keeping the band on the column's measure: there is no width at
+   which one clause per line and a column-width band are both true. Hence no
+   `text-wrap: nowrap` on the bullet -- it would not shrink the clause, it
+   would push it out past the key's rounded edge. */
 .cid-scope .cid-strategy-keys {
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(12px,1.6vw,18px); align-items: stretch;
-}
-/* One line per bullet once there is room for it; below the point where the
-   longest clause stops fitting, they wrap as before rather than shrink. */
-@media (min-width: 1240px) {
-  .cid-scope .cid-strategy-bullet { text-wrap: nowrap; }
 }
 .cid-scope .cid-strategy-keys .ood-key-wrap { height: 100%; }
 .cid-scope .cid-strategy-keys .ood-key { height: 100%; align-items: flex-start; }
