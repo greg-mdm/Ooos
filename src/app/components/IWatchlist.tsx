@@ -359,7 +359,11 @@ export function IWatchlist() {
       <section className="iw-embed" aria-label="Canadian Innovation Watchlist">
         <iframe
           ref={embedRef}
-          src={`${base}cid/watchlist-embed/`}
+          /* Cache-busted per build rather than by hand. This embed carries live
+             figures and news and changes often, and it is served from public/
+             with a ten minute max-age, so a hand-bumped ?v=N only works while
+             somebody remembers to bump it. See the note in vite.config.ts. */
+          src={`${base}cid/watchlist-embed/?v=${__EMBED_BUILD__}`}
           title="Canadian Innovation Watchlist"
           loading="lazy"
           className="iw-embed-frame"
