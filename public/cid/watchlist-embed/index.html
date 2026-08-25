@@ -1636,59 +1636,6 @@
       </iframe>
     </section>
 
-    <!-- ONTARIO DATA OBSERVATORY — below the data pools, above the partnership blocks -->
-    <style>
-      .on-obs {
-        margin: 0; padding: 2.6rem 0 2.8rem;
-        background: #F0F4F5;
-      }
-      .on-obs-inner { max-width: 1400px; margin: 0 auto; padding: 0 3rem; }
-      .on-obs-ca { color: #822F00; font-weight: 800; }
-      .on-obs-top { display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start; justify-content: space-between; margin-bottom: 1.6rem; }
-      .on-obs-lede { color: #16222b; font-size: 1.26rem; line-height: 1.55; max-width: 72ch; margin: 0; text-wrap: balance; flex: 1 1 600px; }
-      .on-obs-toplinks { flex: 0 0 auto; min-width: 280px; padding-top: 0.2rem; }
-      .on-obs-side-label {
-        color: #822F00; text-transform: uppercase; letter-spacing: 0.12em;
-        font-size: 0.86rem; font-weight: 800; margin: 0 0 0.6rem;
-      }
-      .on-obs-links { display: grid; gap: 0.5rem; }
-      .on-obs-links a {
-        color: #7C18E7; font-weight: 700; font-size: 0.98rem; text-decoration: none;
-        border-bottom: 1px solid rgba(124,24,231,0.35); padding-bottom: 2px; width: fit-content;
-      }
-      .on-obs-links a:hover { color: #6C0BF4; border-color: #6C0BF4; }
-      /* The command-deck image IS the section (a mock) — full-bleed, no figure frame. */
-      .on-obs-panel { display: block; width: 100%; margin: 0; text-decoration: none; }
-      .on-obs-panel img { width: 100%; height: auto; display: block; }
-      @media (max-width: 760px) {
-        .on-obs { margin: 1.5rem 1rem 2.2rem; }
-        .on-obs-inner { padding: 0 1rem; }
-      }
-    </style>
-    <section class="on-obs" aria-label="Ontario data">
-      <div class="on-obs-inner">
-      <div class="on-obs-top">
-        <p class="on-obs-lede"><span class="on-obs-ca">Ontario</span> is <span class="on-obs-ca">Canada&rsquo;s</span> largest province by population and has the highest GDP per capita. It actively monitors public records on employment, industries, wages, education, and immigration across its 11 economic regions. This data can be mapped, compared, and analyzed over time.</p>
-        <div class="on-obs-toplinks">
-          <div class="on-obs-side-label">Ontario data</div>
-          <div class="on-obs-links">
-            <a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026" target="_blank" rel="noopener noreferrer">Ontario Employment Reports ↗</a>
-            <a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">Map of regions: Report §4 ↗</a>
-            <a href="https://www.jobbank.gc.ca/trend-analysis/job-market-reports/ontario/environmental-scan" target="_blank" rel="noopener noreferrer">Ontario environmental scan: Job Bank ↗</a>
-          </div>
-        </div>
-      </div>
-      </div>
-      <a class="on-obs-panel" href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">
-        <picture>
-          <source media="(max-width: 760px)" type="image/webp" srcset="/on-mobile.webp">
-          <source media="(max-width: 760px)" srcset="/on-mobile-png.png">
-          <source type="image/webp" srcset="/on-webp.webp">
-          <img src="/media-1783054854738.png" alt="Ontario regions command deck — provincial map with employment change for the five geographic zones (Greater Toronto Area +2.7K, Northern +4.9K, Eastern −33.8K, Southwestern −11.6K, Central +0.6K) and the 11 economic regions grouped by zone. Source: Statistics Canada, Labour Force Survey, Q2 2026." loading="lazy">
-        </picture>
-      </a>
-    </section>
-
     <style>
       /* ===== Ontario → global transition: FIFA World Cup 2026 + live vote ===== */
       .ck-transition {
@@ -1740,6 +1687,8 @@
       .ck-market-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.9rem; font-family: 'Courier New', Courier, monospace; }
       .ck-market-brand { font-size: 0.72rem; letter-spacing: 0.18em; color: #fff; }
       .ck-market-live { font-size: 0.6rem; letter-spacing: 0.16em; color: #00e676; border: 1px solid rgba(0,230,118,0.35); background: rgba(0,230,118,0.08); padding: 3px 9px 3px 17px; border-radius: 999px; position: relative; }
+      .ck-market-live--done { color: #D8DBDE; border-color: rgba(216,219,222,0.35); background: rgba(216,219,222,0.08); }
+      .ck-market-live--done::before { background: #D8DBDE; box-shadow: none; animation: none; }
       .ck-market-live::before { content: ""; position: absolute; left: 7px; top: 50%; transform: translateY(-50%); width: 6px; height: 6px; border-radius: 50%; background: #00e676; box-shadow: 0 0 8px #00e676; animation: ckLive 1.8s ease-in-out infinite; }
       @keyframes ckLive { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
       .ck-market-title { font-size: 1.3rem; font-weight: 800; line-height: 1.3; color: #fff; margin-bottom: 0.9rem; }
@@ -1773,26 +1722,26 @@
       <div class="ck-kicker">Zoom out · Global engagement</div>
       <div class="ck-grid">
         <div class="ck-text">
-          <p class="ck-lede">Canada is hosting the <strong>FIFA World Cup 2026&trade;</strong> alongside Mexico and the United States. The biggest tournament in FIFA history is happening now and runs until <strong>July&nbsp;19,&nbsp;2026</strong>!</p>
+          <p class="ck-lede">Canada co-hosted the <strong>FIFA World Cup 2026&trade;</strong> alongside Mexico and the United States. The biggest tournament in FIFA history ran to <strong>July&nbsp;19,&nbsp;2026</strong>, where <strong>Spain</strong> beat Argentina 1&ndash;0 in extra time to take a second title.</p>
           <div class="ck-stat-row">
             <span class="ck-stat-num">48</span>
             <span class="ck-stat-label">countries</span>
           </div>
-          <p class="ck-note">Canada is hosting matches in <strong>Toronto</strong> and <strong>Vancouver</strong>. The first phase of public engagement is an interactive learning experience hosted by <strong>Ooo.Play</strong> on Kahoot &mdash; join us to exchange insights, explore opportunities, and expand your network.</p>
+          <p class="ck-note">Canada hosted matches in <strong>Toronto</strong> and <strong>Vancouver</strong>. The first phase of public engagement was an interactive learning experience hosted by <strong>Ooo.Play</strong> on Kahoot &mdash; join us to exchange insights, explore opportunities, and expand your network.</p>
         </div>
         <div class="ck-vote">
-          <p class="ck-vote-label">Prediction market · Vote: World Cup winner</p>
+          <p class="ck-vote-label">Prediction market · Resolved: World Cup winner</p>
           <a class="ck-market" href="https://polymarket.com/event/world-cup-winner" target="_blank" rel="noopener noreferrer">
             <div class="ck-market-head">
               <span class="ck-market-brand">POLYMARKET</span>
-              <span class="ck-market-live">LIVE</span>
+              <span class="ck-market-live ck-market-live--done">RESOLVED</span>
             </div>
-            <div class="ck-market-title">Who will win the FIFA World Cup 2026&trade;?</div>
-            <div class="ck-market-vol">Trading volume: <strong>$3,306,992,257</strong></div>
-            <p class="ck-market-note">Odds change in real time as new traders buy shares based on their predictions.</p>
-            <span class="ck-market-link">View the live board on Polymarket &#8599;</span>
+            <div class="ck-market-title">Who won the FIFA World Cup 2026&trade;?</div>
+            <div class="ck-market-vol">Final trading volume: <strong>$4,327,988,660</strong></div>
+            <p class="ck-market-note">Odds moved in real time as traders bought shares. The market settled on <strong>Spain</strong> at $1.00 with no dispute; every other outcome settled at zero.</p>
+            <span class="ck-market-link">View the resolved board on Polymarket &#8599;</span>
           </a>
-          <a class="ck-vote-cta" href="https://kahoot.it/challenge/01297559" target="_blank" rel="noopener noreferrer">Experiment with prediction markets by voting for free on Kahoot!</a>
+          <a class="ck-vote-cta" href="https://kahoot.it/challenge/01297559" target="_blank" rel="noopener noreferrer">Experiment with prediction markets for free on Kahoot!</a>
         </div>
       </div>
       </div>

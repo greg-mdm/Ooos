@@ -117,18 +117,58 @@ export function IWatchlist() {
         />
       </section>
 
+      {/* Ontario spotlight, lifted out of the watchlist embed onto the page so
+          it sits directly under the flag. The reason is palette: the flag panel
+          is set on a light ground, and this is the other light-ground block in
+          the sequence, so the two read as one light passage instead of being
+          separated by everything between them. It also puts Ontario genuinely
+          first in the page's Ontario -> Canada -> Global run, where before it
+          arrived two thirds of the way down inside the embed.
+
+          Markup is the embed's, unchanged. The command deck is a single image
+          rather than live markup (it is a mock) and its four sources sit at the
+          site root, so the paths resolve the same from here. Removed from the
+          embed in the same commit so it appears once, not twice. */}
+      <section className="on-obs" aria-label="Ontario data">
+        <div className="on-obs-inner">
+          <div className="on-obs-top">
+            <p className="on-obs-lede">
+              <span className="on-obs-ca">Ontario</span> is <span className="on-obs-ca">Canada&rsquo;s</span> largest
+              province by population and has the highest GDP per capita. It actively monitors public
+              records on employment, industries, wages, education, and immigration across its 11
+              economic regions. This data can be mapped, compared, and analyzed over time.
+            </p>
+            <div className="on-obs-toplinks">
+              <div className="on-obs-side-label">Ontario data</div>
+              <div className="on-obs-links">
+                <a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026" target="_blank" rel="noopener noreferrer">Ontario Employment Reports &#8599;</a>
+                <a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">Map of regions: Report &sect;4 &#8599;</a>
+                <a href="https://www.jobbank.gc.ca/trend-analysis/job-market-reports/ontario/environmental-scan" target="_blank" rel="noopener noreferrer">Ontario environmental scan: Job Bank &#8599;</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a className="on-obs-panel" href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">
+          <picture>
+            <source media="(max-width: 760px)" type="image/webp" srcSet={`${base}on-mobile.webp`} />
+            <source media="(max-width: 760px)" srcSet={`${base}on-mobile-png.png`} />
+            <source type="image/webp" srcSet={`${base}on-webp.webp`} />
+            <img
+              src={`${base}media-1783054854738.png`}
+              alt="Ontario regions command deck: provincial map with employment change for the five geographic zones (Greater Toronto Area +2.7K, Northern +4.9K, Eastern -33.8K, Southwestern -11.6K, Central +0.6K) and the 11 economic regions grouped by zone. Source: Statistics Canada, Labour Force Survey, Q2 2026."
+              loading="lazy"
+            />
+          </picture>
+        </a>
+      </section>
+
       {/* The page runs Ontario, then Canada, then Global.
 
-          The hero above is Ontario. Everything from here to the canopy is the
-          Canadian evidence: what the data is and how to reach it, who the
-          country is, what it holds above the bedrock. The watchlist embed is
-          last of the three, because it is where the scale opens out: its own
-          closing section is "Zoom out · Global engagement".
-
-          That ordering is also why the embed moved below this block rather
-          than the block moving up around it. The embed led the page before,
-          which put the stock comparison in front of the evidence for it, and
-          put Global ahead of Canada. */}
+          Ontario is the hero and the spotlight above. Everything from here to
+          the canopy is the Canadian evidence: what the data is and how to reach
+          it, who the country is, what it holds above the bedrock. The watchlist
+          embed is last of the three, because it is where the scale opens out:
+          its own closing section is "Zoom out · Global engagement". */}
       <DataAccessContinuum />
 
       {/* Forest layer — a looping portrait of a Canadian conservation area

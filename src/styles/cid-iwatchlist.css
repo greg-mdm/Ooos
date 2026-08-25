@@ -65,3 +65,47 @@
   .iw-block + .iw-block { border-left: 0; border-top: 1px solid rgba(31,206,203,.32); margin-top: .6rem; padding-top: 1rem; }
   .iw-compass { min-height: 180px; }
 }
+
+/* ---- Ontario spotlight -------------------------------------------------
+   Lifted out of the watchlist embed and onto the page itself, directly under
+   the flag. The reason is palette, not order: the flag panel is set on a light
+   ground, and this section is the other light-ground block in the sequence, so
+   the two belong together rather than separated by everything in between. It
+   also puts Ontario first in the page's Ontario -> Canada -> Global run,
+   instead of arriving two thirds of the way down inside the embed.
+
+   Ported verbatim from the embed, only rescoped under .cid-scope. The command
+   deck is a single image rather than live markup (it is a mock), and its four
+   sources sit at the site root, so the paths resolve unchanged from here. ---- */
+.cid-scope .on-obs {
+  margin: 0; padding: 2.6rem 0 2.8rem;
+  background: #F0F4F5;
+}
+.cid-scope .on-obs-inner { max-width: 1400px; margin: 0 auto; padding: 0 3rem; }
+.cid-scope .on-obs-ca { color: #822F00; font-weight: 800; }
+.cid-scope .on-obs-top {
+  display: flex; flex-wrap: wrap; gap: 2rem;
+  align-items: flex-start; justify-content: space-between; margin-bottom: 1.6rem;
+}
+.cid-scope .on-obs-lede {
+  color: #16222b; font-size: 1.26rem; line-height: 1.55;
+  max-width: 72ch; margin: 0; text-wrap: balance; flex: 1 1 600px;
+}
+.cid-scope .on-obs-toplinks { flex: 0 0 auto; min-width: 280px; padding-top: 0.2rem; }
+.cid-scope .on-obs-side-label {
+  color: #822F00; text-transform: uppercase; letter-spacing: 0.12em;
+  font-size: 0.86rem; font-weight: 800; margin: 0 0 0.6rem;
+}
+.cid-scope .on-obs-links { display: grid; gap: 0.5rem; }
+.cid-scope .on-obs-links a {
+  color: #7C18E7; font-weight: 700; font-size: 0.98rem; text-decoration: none;
+  border-bottom: 1px solid rgba(124,24,231,0.35); padding-bottom: 2px; width: fit-content;
+}
+.cid-scope .on-obs-links a:hover { color: #6C0BF4; border-color: #6C0BF4; }
+/* The command-deck image IS the section (a mock) -- full-bleed, no figure frame. */
+.cid-scope .on-obs-panel { display: block; width: 100%; margin: 0; text-decoration: none; }
+.cid-scope .on-obs-panel img { width: 100%; height: auto; display: block; }
+@media (max-width: 760px) {
+  .cid-scope .on-obs { margin: 1.5rem 1rem 2.2rem; }
+  .cid-scope .on-obs-inner { padding: 0 1rem; }
+}
