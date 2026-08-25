@@ -496,25 +496,13 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 </div>
               </div>
 
-              {/* The Greek lexicon: the designed panel that replaced the
-                  word-pair rows on this card, set into the body column below the
-                  priorities. The bundle renders a fixed 1920x1080 stage
-                  whose right side is empty ground, so the frame is set wider
-                  than its box and the overflow clipped: what shows is the
-                  type and the ribbon, not the dead black beside them. */}
-              <figure className="cid-viv-lex">
-                <iframe
-                  className="cid-viv-lex-frame"
-                  src={`${base}Greek%20Lexicon.dc.html?v=2`}
-                  title="Greek lexicon. Bios, life. Mimesis, imitation. Ancient Greek."
-                  loading="lazy"
-                />
-              </figure>
             </div>
             {/* Right column, one panel: the Radical Strategic Intelligence
-                rail, then the etymology card beneath it. The Reference card
-                that used to close this column now sits beside the waiver at
-                the foot of the section. */}
+                rail, the etymology card beneath it, the biomimicry quote, and
+                the Greek lexicon closing the column under the card whose
+                word-pairs it took over. The Reference card that used to close
+                this column now sits beside the waiver at the foot of the
+                section. */}
             <div className="cid-viv-side">
               <aside className="cid-viv-rail" aria-label="Radical Strategic Intelligence">
                 <div className="cid-viv-brand">
@@ -577,7 +565,21 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 </p>
               </aside>
 
-
+              {/* The Greek lexicon: the designed panel that replaced the
+                  word-pair rows on the card above, closing the side panel
+                  directly beneath the card whose rows it took over. The bundle
+                  renders a fixed 1920x1080 stage whose right side is empty
+                  ground, so the frame is set wider than its box and the
+                  overflow clipped: what shows is the type and the ribbon, not
+                  the dead black beside them. */}
+              <figure className="cid-viv-lex">
+                <iframe
+                  className="cid-viv-lex-frame"
+                  src={`${base}Greek%20Lexicon.dc.html?v=2`}
+                  title="Greek lexicon. Bios, life. Mimesis, imitation. Ancient Greek."
+                  loading="lazy"
+                />
+              </figure>
             </div>
           </div>
 

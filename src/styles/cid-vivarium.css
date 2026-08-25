@@ -1054,10 +1054,8 @@
   outline: 2px solid #9a8fd6; outline-offset: 6px; border-radius: 4px;
 }
 
-/* The Greek Lexicon panel: a bundled 16:9 design block at the content
-   column's width, closing the intro column below the priorities so the dark
-   panel sits beside the quote card in the helper column. */
-/* The Greek Lexicon panel, in the body column under the priorities.
+/* The Greek Lexicon panel: the bundled design block closing the side column,
+   directly under the quote card whose word-pair rows it took over.
 
    The bundle draws a fixed 1920x1080 stage and puts everything -- the two
    entries, the ribbon, the footer line -- in its left three-fifths; the rest
@@ -1066,12 +1064,14 @@
    surplus clipped by overflow. The visible share is the fraction worth
    keeping, and the box takes that fraction's own ratio: 1920 * .6 by 1080.
 
-   Sized down rather than run to the column's full measure: it is a gloss, so
-   it sits at roughly half the body width and leaves the rest as air. */
+   Full width of the side column, which is 240-340px, so the min() only bites
+   below 760px where the row collapses to one column and the panel would
+   otherwise run the whole page. No top margin: .cid-viv-side is a flex column
+   whose gap already spaces the cards, and a margin here would double it. */
 .cid-scope .cid-viv-lex {
   --lex-keep: .6;
   width: min(480px, 100%);
-  margin: 24px 0 0; position: relative;
+  margin: 0; position: relative;
   aspect-ratio: calc(1920 * var(--lex-keep)) / 1080;
   border-radius: 14px; overflow: hidden;
   box-shadow: 0 22px 50px -34px rgba(6,2,28,.55);
