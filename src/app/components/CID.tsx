@@ -505,7 +505,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               <figure className="cid-viv-lex">
                 <iframe
                   className="cid-viv-lex-frame"
-                  src={`${base}Greek%20Lexicon.dc.html?v=1`}
+                  src={`${base}Greek%20Lexicon.dc.html?v=2`}
                   title="Greek lexicon. Bios, life. Mimesis, imitation. Ancient Greek."
                   loading="lazy"
                 />
