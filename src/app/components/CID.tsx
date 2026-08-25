@@ -496,6 +496,20 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 </div>
               </div>
 
+              {/* The Greek lexicon: the designed panel that replaced the
+                  word-pair rows on this card, set into the body column below the
+                  priorities. The bundle renders a fixed 1920x1080 stage
+                  whose right side is empty ground, so the frame is set wider
+                  than its box and the overflow clipped: what shows is the
+                  type and the ribbon, not the dead black beside them. */}
+              <figure className="cid-viv-lex">
+                <iframe
+                  className="cid-viv-lex-frame"
+                  src={`${base}Greek%20Lexicon.dc.html?v=1`}
+                  title="Greek lexicon. Bios, life. Mimesis, imitation. Ancient Greek."
+                  loading="lazy"
+                />
+              </figure>
             </div>
             {/* Right column, one panel: the Radical Strategic Intelligence
                 rail, then the etymology card beneath it. The Reference card
@@ -563,20 +577,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 </p>
               </aside>
 
-              {/* The Greek lexicon: the designed panel that replaced the
-                  word-pair rows on this card, sitting under it in the same
-                  helper column. The bundle renders a fixed 1920x1080 stage
-                  whose right side is empty ground, so the frame is set wider
-                  than its box and the overflow clipped: what shows is the
-                  type and the ribbon, not the dead black beside them. */}
-              <figure className="cid-viv-lex">
-                <iframe
-                  className="cid-viv-lex-frame"
-                  src={`${base}Greek%20Lexicon.dc.html?v=1`}
-                  title="Greek lexicon. Bios, life. Mimesis, imitation. Ancient Greek."
-                  loading="lazy"
-                />
-              </figure>
 
             </div>
           </div>

@@ -1057,18 +1057,21 @@
 /* The Greek Lexicon panel: a bundled 16:9 design block at the content
    column's width, closing the intro column below the priorities so the dark
    panel sits beside the quote card in the helper column. */
-/* The Greek Lexicon panel, in the helper column under the quote card.
+/* The Greek Lexicon panel, in the body column under the priorities.
 
    The bundle draws a fixed 1920x1080 stage and puts everything -- the two
    entries, the ribbon, the footer line -- in its left three-fifths; the rest
-   is empty ground. Showing the whole stage in a 340px column would shrink the
-   type to nothing to make room for black, so the frame is sized wider than
-   its box (1 / --lex-keep) and the surplus clipped by overflow. The visible
-   share is the fraction worth keeping, and the box takes that fraction's own
-   ratio: 1920 * .6 wide by 1080 tall. */
+   is empty ground. Showing the whole stage would spend most of the panel on
+   black, so the frame is sized wider than its box (1 / --lex-keep) and the
+   surplus clipped by overflow. The visible share is the fraction worth
+   keeping, and the box takes that fraction's own ratio: 1920 * .6 by 1080.
+
+   Sized down rather than run to the column's full measure: it is a gloss, so
+   it sits at roughly half the body width and leaves the rest as air. */
 .cid-scope .cid-viv-lex {
   --lex-keep: .6;
-  margin: 18px 0 0; position: relative;
+  width: min(480px, 100%);
+  margin: 24px 0 0; position: relative;
   aspect-ratio: calc(1920 * var(--lex-keep)) / 1080;
   border-radius: 14px; overflow: hidden;
   box-shadow: 0 22px 50px -34px rgba(6,2,28,.55);
