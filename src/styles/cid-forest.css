@@ -40,53 +40,20 @@
    on ground darker than they are the whole way down, so they read as lit glass
    rather than dissolving at the top.
 
-   The moss wash is the second half of Viv, and it is placed rather than
-   general: it sits top left, under the moss half of the forest video above and
-   behind the Wetlands tile, in the moss mean sampled off the same renders
-   (#3B4C2B). Low enough to read as ground, not as a shape. ---- */
+   Phthalo and nothing else. Two attempts at carrying Viv's greenery into this
+   band were tried and dropped: a moss wash top left, and a photographic
+   overhang of vines cropped from the tour render. Greg's call on the second
+   was that it did not read, and the wash went with it, because a green wash
+   under a phthalo band is the same idea at lower volume. The greenery stays
+   where it works, in the forest video directly above this section, and the
+   band is the ground under it. ---- */
 .cid-scope .cid-canopy {
-  /* Height reserved at the top for the greenery to hang into, so the tiles
-     start below it rather than under it. */
-  --viv-overhang: clamp(84px, 10.5vw, 164px);
-  position: relative;
-  overflow: hidden;
-  background:
-    radial-gradient(130% 95% at 4% 6%, rgba(59,76,43,.55) 0%, rgba(59,76,43,0) 60%),
-    linear-gradient(160deg, #0E6E73 0%, #124D4F 54%, #051612 100%);
-  padding:
-    calc(var(--viv-overhang) + clamp(16px, 2vw, 28px))
-    clamp(20px, 4vw, 56px)
-    clamp(30px, 4vw, 60px);
+  background: linear-gradient(160deg, #0E6E73 0%, #124D4F 54%, #051612 100%);
+  padding: clamp(30px, 4vw, 60px) clamp(20px, 4vw, 56px);
 }
-/* The overhang itself: vines and a monstera leaf hanging into the phthalo,
-   cropped from the Vivarium tour render (LAB 360, x660 y0, 716x300). The crop
-   keeps its own phthalo wall and cyan strips, which is why it sits down onto
-   this gradient without a seam -- it is the same room.
-
-   Two corners off one file: ::before is the crop as shot, ::after is the same
-   crop mirrored, so the greenery comes in from both sides without a second
-   asset or a visible tile repeat. Each is masked to fade out before it reaches
-   the tiles, so nothing photographic ever lands behind type. */
-.cid-scope .cid-canopy::before,
-.cid-scope .cid-canopy::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  height: var(--viv-overhang);
-  width: min(48%, 540px);
-  background: url("/assets/images/cid-viv-overhang.webp") center top / cover no-repeat;
-  pointer-events: none;
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 38%, transparent 96%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 38%, transparent 96%);
-}
-.cid-scope .cid-canopy::before { right: 0; }
-.cid-scope .cid-canopy::after { left: 0; transform: scaleX(-1); }
 /* Left tile | reserved middle gap | right tile. The middle column straddles
-   the video's centre divider and is held open for content TBD. Positioned so
-   it stacks above the overhang rather than under it. */
+   the video's centre divider and is held open for content TBD. */
 .cid-scope .cid-canopy-grid {
-  position: relative;
-  z-index: 1;
   display: grid;
   grid-template-columns: 1fr minmax(240px, 0.8fr) 1fr;
   gap: clamp(20px, 3vw, 40px);
