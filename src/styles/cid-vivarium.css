@@ -1054,8 +1054,12 @@
   outline: 2px solid #9a8fd6; outline-offset: 6px; border-radius: 4px;
 }
 
-/* The Greek Lexicon panel: the bundled design block closing the side column,
-   directly under the quote card whose word-pair rows it took over.
+/* The Greek Lexicon panel: the bundled design block set between the two white
+   cards of the side column, directly above the quote card whose word-pair rows
+   it took over. It is the one dark object in that column, so it goes between
+   them rather than at the foot: the column reads light, dark, light, and the
+   panel's picture breaks up the two runs of type instead of trailing off
+   under them.
 
    The bundle draws a fixed 1920x1080 stage and puts everything -- the two
    entries, the ribbon, the footer line -- in its left three-fifths; the rest

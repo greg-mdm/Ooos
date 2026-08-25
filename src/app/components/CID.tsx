@@ -498,11 +498,12 @@ export function CID({ onSupport }: { onSupport: () => void }) {
 
             </div>
             {/* Right column, one panel: the Radical Strategic Intelligence
-                rail, the etymology card beneath it, the biomimicry quote, and
-                the Greek lexicon closing the column under the card whose
-                word-pairs it took over. The Reference card that used to close
-                this column now sits beside the waiver at the foot of the
-                section. */}
+                rail, the etymology card beneath it, then the Greek lexicon,
+                then the biomimicry quote closing the column. The lexicon sits
+                between the two white cards rather than under them, so the dark
+                panel separates the two blocks of type. The Reference card that
+                used to close this column now sits beside the waiver at the
+                foot of the section. */}
             <div className="cid-viv-side">
               <aside className="cid-viv-rail" aria-label="Radical Strategic Intelligence">
                 <div className="cid-viv-brand">
@@ -544,11 +545,30 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 </div>
               </aside>
 
-              {/* The word-pair rows moved into the Greek Lexicon panel in the
-                  left column; this card carries only the quotation now.
-                  Quoted material, marked up as a quotation rather than styled
-                  to look like one; the Chicago note at the foot covers both
-                  the quote (page 7) and the lexicon gloss (page 3). */}
+              {/* The Greek lexicon: the designed panel that replaced the
+                  word-pair rows on the quote card, sitting directly above it.
+                  It is the one dark object in a column of white cards, so it
+                  goes between them rather than at the foot: the column reads
+                  light, dark, light, and the panel's picture breaks up the two
+                  runs of type instead of trailing off under them. The bundle
+                  renders a fixed 1920x1080 stage whose right side is empty
+                  ground, so the frame is set wider than its box and the
+                  overflow clipped: what shows is the type and the ribbon, not
+                  the dead black beside them. */}
+              <figure className="cid-viv-lex">
+                <iframe
+                  className="cid-viv-lex-frame"
+                  src={`${base}Greek%20Lexicon.dc.html?v=2`}
+                  title="Greek lexicon. Bios, life. Mimesis, imitation. Ancient Greek."
+                  loading="lazy"
+                />
+              </figure>
+
+              {/* The word-pair rows moved into the Greek Lexicon panel above;
+                  this card carries only the quotation now. Quoted material,
+                  marked up as a quotation rather than styled to look like one;
+                  the Chicago note at the foot covers both the quote (page 7)
+                  and the lexicon gloss (page 3). */}
               <aside className="cid-etym cid-viv-gloss" aria-label="Why practice biomimicry">
                 <figure className="cid-viv-gloss-quote">
                   <p className="cid-viv-gloss-q-lead">Why practice biomimicry?</p>
@@ -564,22 +584,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   <a href="https://www.learnbiomimicry.com" target="_blank" rel="noreferrer noopener">learnbiomimicry.com</a>.
                 </p>
               </aside>
-
-              {/* The Greek lexicon: the designed panel that replaced the
-                  word-pair rows on the card above, closing the side panel
-                  directly beneath the card whose rows it took over. The bundle
-                  renders a fixed 1920x1080 stage whose right side is empty
-                  ground, so the frame is set wider than its box and the
-                  overflow clipped: what shows is the type and the ribbon, not
-                  the dead black beside them. */}
-              <figure className="cid-viv-lex">
-                <iframe
-                  className="cid-viv-lex-frame"
-                  src={`${base}Greek%20Lexicon.dc.html?v=2`}
-                  title="Greek lexicon. Bios, life. Mimesis, imitation. Ancient Greek."
-                  loading="lazy"
-                />
-              </figure>
             </div>
           </div>
 
