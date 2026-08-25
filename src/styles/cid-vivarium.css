@@ -920,17 +920,20 @@
    against a vanta-black shell.
 
    Both plates are light now, and the pair reads by temperature rather than by
-   one being lit and the other switched off: 1976 is cold silver, 2026 is warm
+   one being lit and the other switched off: 1976 is cold chrome, 2026 is warm
    gold. They also differ in how they carry light, which is what keeps them
-   from reading as the same object twice. The silver REFLECTS: a white top
-   edge, a steel rim, no glow, the way brushed metal behaves. The gold EMITS:
-   a pale rim and a halo spilling past the edge. Reflective past, lit present.
+   from reading as the same object twice. The chrome is FLAT and reflective:
+   Chrome Silver #D8DBDE at a single value with a soft top edge and a steel
+   rim, no ramp and no glow. A gradient across it read as polish, which is
+   what a chrome plate at this size should not have; Bright Silver #E8ECF4
+   was brighter still. The gold EMITS: a warm ramp, a pale rim and a halo
+   spilling past the edge. Dull past, lit present.
 
-   Both grounds are light, so both take dark type. Silver carries near black,
-   #12161B at 13.4:1, its tag at 7.8:1, its stat at 11.9:1. Gold carries the
-   darkest indigo, #1a1646 at 9.9:1. Every pairing here is AAA at this size,
-   and no plate uses a text glow: a shadow that reads as light against black
-   turns to grime on a light ground. */
+   Both grounds are light, so both take dark type. Chrome carries near black,
+   #12161B at 13.1:1, its tag at 7.3:1, its stat at 11.1:1. Gold carries the
+   darkest indigo, #1a1646 at 9.9:1. Every pairing here clears AAA at its
+   size, and no plate uses a text glow: a shadow that reads as light against
+   black turns to grime on a light ground. */
 .cid-scope .cid-viv-era-headline {
   display: flex; align-items: center; flex-wrap: wrap; gap: 10px 18px;
   margin: 0 0 10px;
@@ -942,8 +945,8 @@
   margin: 0; padding: 0; background: none; box-shadow: none;
 }
 .cid-scope .cid-viv-era-then .cid-viv-era-headline {
-  background: linear-gradient(135deg, #F5F8FC 0%, #DCE2EC 54%, #B8C2CF 100%);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.85), 0 0 0 1px rgba(147,160,173,.55);
+  background: #D8DBDE;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.6), 0 0 0 1px rgba(147,160,173,.55);
 }
 .cid-scope .cid-viv-era-now .cid-viv-era-headline {
   background: linear-gradient(135deg, #FFDE8A 0%, #F0C040 54%, #DFA827 100%);
