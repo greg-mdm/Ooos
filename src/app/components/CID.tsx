@@ -624,7 +624,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               above, nothing in these two is a person, so there is no one to be
               trapped inside the picture. */}
           <figure className="cid-viv-lab">
-            <div className="cid-viv-lab-row">
+            <div className="cid-viv-lab-row cid-viv-lab-row--single">
               {/* Mirrored. The source has the bench on the right of the glass
                   and the planting on the left, which puts the stations the
                   wrong way round for the story: Ethel sits on the right and
@@ -639,30 +639,24 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   it renders exactly as Greg typed it, while screen readers get
                   a word instead of six letters spelled out. */}
               <figure className="cid-viv-lab-shot">
-                <img
-                  className="cid-viv-lab-img cid-viv-lab-img--mirror"
-                  src={`${base}assets/images/cid-lab-cooperative-1376.webp`}
-                  srcSet={`${base}assets/images/cid-lab-cooperative-800.webp 800w, ${base}assets/images/cid-lab-cooperative-1376.webp 1376w`}
-                  sizes="(max-width: 900px) 92vw, 46vw"
-                  alt="A lit bench of workstations, a 3D printer and circuit boards, divided by a glass partition from a wall of moss, ferns and hanging terrariums."
-                  loading="lazy"
-                  decoding="async"
+                {/* preload="metadata" is the whole reason this can sit in the
+                    body of the page: it fetches a few KB of header, not the
+                    8MB file, so a reader who never presses play never pays
+                    for it. The poster carries the visual weight until then. */}
+                <video
+                  className="cid-viv-lab-video"
+                  src={`${base}assets/video/vivarium-floor-tour.mp4`}
+                  poster={`${base}assets/images/vivarium-floor-tour-poster.webp`}
+                  controls
+                  muted
+                  playsInline
+                  preload="metadata"
+                  aria-label="A walking tour of one floor of the Vivarium: Ethel's planted shelves, the shared lab, Icarus III's bust and apiary foundry, and Ethel's tank."
                 />
-                <figcaption className="cid-viv-lab-cap">
-                  Cooperation Stations: Icarus III (left), Ethel (right)
+                <figcaption className="cid-viv-lab-cap cid-viv-lab-cap--below">
+                  Cooperation Stations: Icarus III and Ethel
                 </figcaption>
               </figure>
-              <div className="cid-viv-lab-shot">
-                <img
-                  className="cid-viv-lab-img"
-                  src={`${base}assets/images/cid-lab-case-empty-1376.webp`}
-                  srcSet={`${base}assets/images/cid-lab-case-empty-800.webp 800w, ${base}assets/images/cid-lab-case-empty-1376.webp 1376w`}
-                  sizes="(max-width: 900px) 92vw, 46vw"
-                  alt="An empty three-compartment glass display case on an iridescent floor, with moss and ferns against its left edge."
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
             </div>
           </figure>
 

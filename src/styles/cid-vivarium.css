@@ -1338,6 +1338,18 @@
 /* Mirrored so the stations sit where the story puts them. Only the image is
    transformed; the card is a sibling, so its type is never reversed with it. */
 .cid-scope .cid-viv-lab-img--mirror { transform: scaleX(-1); }
+
+/* The two stills that used to sit here were a lit bench and an empty case:
+   the two ends of the floor, with everything between them left to the
+   imagination. The tour walks it instead, so one 16:9 panel replaces the
+   pair and the row drops to a single column. */
+.cid-scope .cid-viv-lab-row--single { grid-template-columns: minmax(0, 1fr); }
+.cid-scope .cid-viv-lab-video {
+  display: block; width: 100%; height: auto; aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  background-color: #04030e;
+  box-shadow: 0 18px 40px -24px rgba(6,2,28,.7);
+}
 /* Title card: a near-opaque band across the foot of the shot that says what
    the room is for. Midnight Black at .88, which is opaque enough to read as a
    card rather than a tint but still lets the floor move under it. That alpha
@@ -1354,6 +1366,15 @@
   font-weight: 900; font-size: clamp(10.5px,1vw,13px);
   letter-spacing: .1em; line-height: 1.35; text-transform: uppercase;
   color: #E8ECF4; text-align: center;
+}
+/* Video variant of the card: sits under the panel instead of across its foot,
+   because overlaid it would cover the native controls, which live in exactly
+   that band. Must come after the rule above, not before: the two selectors
+   have the same specificity, so order is what decides it. Ground removed
+   since there is no photograph behind it to hold off any more. */
+.cid-scope .cid-viv-lab-cap--below {
+  position: static; background: none; border-radius: 0;
+  padding: 10px 2px 0; text-align: left; color: #E8ECF4;
 }
 /* One column below 900px, where two panels leave each shot too narrow to read
    the bench detail. */
