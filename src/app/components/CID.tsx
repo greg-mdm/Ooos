@@ -89,7 +89,7 @@ function GregLensSlider({ base }: { base: string }) {
   // browsers cache video by URL, so without a version bump a visitor who
   // already loaded the page can keep playing the old cached clip indefinitely.
   // See SPRINT 4 - REFERENCES/LENS-CLIPS.md.
-  const LENS_V = 5;
+  const LENS_V = 6;
   const V = `${base}assets/video/`;
   // Each clip carries its own aspect so the lids can be sized to the exact
   // letterbox band it leaves. Without the ratio a lid is guesswork, and a lid
