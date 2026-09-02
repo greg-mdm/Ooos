@@ -697,6 +697,32 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               </figcaption>
             </figure>
           </div>
+          {/* The creature the facility exists around, given its own panel
+              rather than folded into the floor tour. The tour is teal and
+              violet throughout; this is cold grey Arctic. Cutting it into
+              that sequence made the reveal look dull and the tour look
+              inconsistent, so it stands alone where its own palette reads.
+
+              Kept at its native 4:3 and deliberately not cropped to the
+              tour's 16:9: the wide profile is the whole point, and trimming
+              it to match a shape it was never framed for is exactly the
+              compromise that flattened it. */}
+          <figure className="cid-viv-reveal">
+            <video
+              className="cid-viv-reveal-video"
+              src={`${base}assets/video/STURGEN GEN CID Creature Reveal.mp4`}
+              poster={`${base}assets/images/sturgeon-general-reveal-poster.webp`}
+              controls
+              muted
+              playsInline
+              preload="metadata"
+              aria-label="The Sturgeon General in profile above an Arctic ice field, then a close view of the eye housing as it powers up."
+            />
+            <figcaption className="cid-viv-reveal-cap">
+              The Sturgeon General
+            </figcaption>
+          </figure>
+
           {/* Sealed case. The room and the claim it evidences are one
               enclosure rather than two blocks sitting loose on the page:
               vanta-black steel shell, mitred titanium corner blocks, and a

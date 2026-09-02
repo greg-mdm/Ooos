@@ -1381,3 +1381,30 @@
 @media (max-width: 900px) {
   .cid-scope .cid-viv-lab-row { grid-template-columns: minmax(0, 1fr); gap: 24px; }
 }
+
+/* ---- The Sturgeon General ---------------------------------------------
+   Its own panel above the display room, not a clip inside the floor tour.
+   Native 4:3 and never cropped: the wide profile is the shot, and forcing
+   it into the tour's 16:9 was what made it read as dull.
+
+   Capped at 860px rather than filling the column, because 4:3 at full
+   width would stand ~890px tall and swallow the section it introduces. */
+.cid-scope .cid-viv-reveal {
+  margin: 36px auto 0;
+  max-width: 860px;
+}
+.cid-scope .cid-viv-reveal-video {
+  display: block; width: 100%; height: auto; aspect-ratio: 4 / 3;
+  border-radius: 14px;
+  background-color: #04030e;
+  box-shadow: 0 18px 40px -24px rgba(6,2,28,.7);
+}
+/* Caption sits under the panel, clear of the native controls, and matches
+   the lab card's type so the two figures read as one family. */
+.cid-scope .cid-viv-reveal-cap {
+  margin: 0; padding: 10px 2px 0;
+  font-family: 'Lovelo', 'Impact', 'Arial Black', sans-serif;
+  font-weight: 900; font-size: clamp(10.5px,1vw,13px);
+  letter-spacing: .1em; line-height: 1.35; text-transform: uppercase;
+  color: #E8ECF4; text-align: left;
+}
