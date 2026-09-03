@@ -529,6 +529,30 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 </h3>
                 <StrategyKeys />
               </section>
+
+              {/* The creature closes this column, under the keys. It sits in
+                  their indigo rather than against the wide robins-egg band
+                  where its cold Arctic grey read as dull, and the column is
+                  narrower than the page, which suits a 4:3 frame.
+
+                  Native 1112x834, never cropped: aspect-ratio 4/3 matches the
+                  source exactly. Squeezing it to the tour's 16:9 is what
+                  flattened it the first time. */}
+              <figure className="cid-viv-reveal-media">
+                <video
+                  className="cid-viv-reveal-video"
+                  src={`${base}assets/video/STURGEN GEN CID Creature Reveal.mp4`}
+                  poster={`${base}assets/images/sturgeon-general-reveal-poster.webp`}
+                  controls
+                  muted
+                  playsInline
+                  preload="metadata"
+                  aria-label="The Sturgeon General in profile above an Arctic ice field, then a close view of the eye housing as it powers up."
+                />
+                <figcaption className="cid-viv-reveal-cap">
+                  The Sturgeon General
+                </figcaption>
+              </figure>
             </div>
             {/* Right column, one panel: the Radical Strategic Intelligence
                 rail, the etymology card beneath it, then the Greek lexicon,
@@ -626,16 +650,29 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   Tiles borrow the carved-slab treatment from the twelve-signs
                   board: robins-egg to chrome on a 145deg with inset light and
                   dark. No new colour is invented to get the effect. */}
-              <dl className="cid-viv-raci-key" aria-label="RACI key">
-                <div><dt><span className="cid-raci-tile" aria-hidden="true">R</span>Responsible</dt>
-                  <dd>Completes the assigned task or deliverable.</dd></div>
-                <div><dt><span className="cid-raci-tile" aria-hidden="true">A</span>Accountable</dt>
-                  <dd>Final ownership and decision authority. Held exclusively by the Principal Investigator.</dd></div>
-                <div><dt><span className="cid-raci-tile" aria-hidden="true">C</span>Consulted</dt>
-                  <dd>Contributes before the work proceeds.</dd></div>
-                <div><dt><span className="cid-raci-tile" aria-hidden="true">I</span>Informed</dt>
-                  <dd>Role-separated architecture gives agents access to information needed for designated roles.</dd></div>
-              </dl>
+              {/* The title bar carries the same indigo the strategy keys use,
+                  so the panel reads as part of that family rather than a
+                  fifth white card. Gradient is the keys' own KEY_GRAD, the
+                  lightest of the three, with their Bright Silver legend. */}
+              <section className="cid-raci-panel" aria-labelledby="cid-raci-key-title">
+                <h3
+                  id="cid-raci-key-title"
+                  className="cid-raci-panel-title"
+                  style={{ background: KEY_GRAD("rgb(174,153,201)", "rgb(70,46,134)", "rgb(24,16,46)") }}
+                >
+                  CID RACI Matrix for AI Models
+                </h3>
+                <dl className="cid-viv-raci-key">
+                  <div><dt><span className="cid-raci-tile" aria-hidden="true">R</span>Responsible</dt>
+                    <dd>Completes the assigned task or deliverable.</dd></div>
+                  <div><dt><span className="cid-raci-tile" aria-hidden="true">A</span>Accountable</dt>
+                    <dd>Final ownership and decision authority. Held exclusively by the Principal Investigator.</dd></div>
+                  <div><dt><span className="cid-raci-tile" aria-hidden="true">C</span>Consulted</dt>
+                    <dd>Contributes before the work proceeds.</dd></div>
+                  <div><dt><span className="cid-raci-tile" aria-hidden="true">I</span>Informed</dt>
+                    <dd>Role-separated architecture gives agents access to information needed for designated roles.</dd></div>
+                </dl>
+              </section>
             </div>
           </div>
 
@@ -744,21 +781,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           </div>
 
           <div className="cid-viv-reveal">
-            <figure className="cid-viv-reveal-media">
-              <video
-                className="cid-viv-reveal-video"
-                src={`${base}assets/video/STURGEN GEN CID Creature Reveal.mp4`}
-                poster={`${base}assets/images/sturgeon-general-reveal-poster.webp`}
-                controls
-                muted
-                playsInline
-                preload="metadata"
-                aria-label="The Sturgeon General in profile above an Arctic ice field, then a close view of the eye housing as it powers up."
-              />
-              <figcaption className="cid-viv-reveal-cap">
-                The Sturgeon General
-              </figcaption>
-            </figure>
 
             {/* A real table, not a grid of divs: this is tabular data with two
                 axes, and a screen reader needs the row and column headers to

@@ -1416,10 +1416,9 @@
   .cid-scope .cid-viv-reveal-lede { grid-template-columns: minmax(0,1fr); }
 }
 
-.cid-scope .cid-viv-reveal {
-  display: grid; grid-template-columns: minmax(0,0.92fr) minmax(0,1.08fr);
-  gap: clamp(18px,2.2vw,28px); align-items: start; margin: 0;
-}
+/* The film left this row for the strategy column, so the chart has it
+   to itself and the table gets the full measure for its operation names. */
+.cid-scope .cid-viv-reveal { display: block; margin: 0; }
 .cid-scope .cid-viv-reveal-media { margin: 0; }
 .cid-scope .cid-viv-reveal-video {
   display: block; width: 100%; height: auto; aspect-ratio: 4 / 3;
@@ -1514,10 +1513,7 @@
    The column is minmax(240px, 340px), so the type is set for the narrow end
    and the tile shrinks with it. */
 .cid-scope .cid-viv-raci-key {
-  margin: 0; border-radius: 16px; background: #fff;
-  border: 1px solid rgba(75,0,182,.16);
-  box-shadow: 0 22px 50px -32px rgba(6,2,28,.4);
-  padding: clamp(16px,1.8vw,20px);
+  margin: 0; padding: clamp(15px,1.7vw,18px);
   display: flex; flex-direction: column; gap: 13px;
 }
 .cid-scope .cid-viv-raci-key > div {
@@ -1542,4 +1538,32 @@
 .cid-scope .cid-viv-raci-key dd {
   grid-column: 2; margin: 3px 0 0;
   font-size: 12px; line-height: 1.45; color: #5c6076;
+}
+
+/* ---- RACI panel: indigo title bar over the acrostic ---------------------
+   The card is the panel, not the list: the title bar bleeds to its edges and
+   the key sits on white beneath it, so the two read as one object. The bar
+   takes the strategy keys' own gradient (KEY_GRAD, the lightest of the three,
+   applied inline in CID.tsx) and their Bright Silver legend, which is what
+   ties this to the keys rather than to the four white cards above it. */
+.cid-scope .cid-raci-panel {
+  border-radius: 16px; background: #fff; overflow: hidden;
+  border: 1px solid rgba(75,0,182,.16);
+  box-shadow: 0 22px 50px -32px rgba(6,2,28,.4);
+}
+.cid-scope .cid-raci-panel-title {
+  margin: 0; padding: 13px clamp(14px,1.6vw,18px);
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 700;
+  font-size: clamp(12.5px,1.2vw,14px); line-height: 1.35; letter-spacing: .3px;
+  text-wrap: balance;
+  /* Bright Silver on the indigo, with the keys' own shadow so the type sits
+     on the gradient the same way theirs does. */
+  color: #E8ECF4; text-shadow: 0 1px 2px rgba(0,0,0,.55);
+}
+
+/* The film sits under the strategy keys, so it takes that column's width
+   rather than half a row. Capped so a 4:3 frame in a wide column does not
+   stand taller than the keys above it. */
+.cid-scope .cid-strategy + .cid-viv-reveal-media {
+  margin: clamp(14px,1.8vw,20px) 0 0; max-width: 620px;
 }
