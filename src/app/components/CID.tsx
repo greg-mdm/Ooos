@@ -728,10 +728,19 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               tour's 16:9: the wide profile is the whole point, and trimming
               it to match a shape it was never framed for is exactly the
               compromise that flattened it. */}
+          {/* Two columns, because the lead lines are short and left a wide
+              gutter beside them. The safeguards used to sit under the whole
+              row; they read better here, opposite the claims they qualify. */}
           <div className="cid-viv-reveal-lede">
-            <p>Investing in your future is complex and continuously changing.</p>
-            <p>Markets demand new digital diversification strategies.</p>
-            <p>Rules are evolving. Allies are forming. Our governance remains sovereign.</p>
+            <div className="cid-viv-reveal-lede-col">
+              <p>Investing in your future is complex and continuously changing.</p>
+              <p>Markets demand new digital diversification strategies.</p>
+              <p>Rules are evolving. Allies are forming. Our governance remains sovereign.</p>
+            </div>
+            <ul className="cid-viv-reveal-notes">
+              <li>Automating Safety First: Hard-coded Conflict Checks and MNPI Exclusions filter and destroy risky or compromised data before human or AI agent review.</li>
+              <li>Optimizing Agent Solutions: High-performance teams leverage programmatic auditing to detect and pluck personally identifiable information and protect data silos.</li>
+            </ul>
           </div>
 
           <div className="cid-viv-reveal">
@@ -797,10 +806,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             </div>
           </div>
 
-          <ul className="cid-viv-reveal-notes">
-            <li>Automating Safety First: Hard-coded Conflict Checks and MNPI Exclusions filter and destroy risky or compromised data before human or AI agent review.</li>
-            <li>Optimizing Agent Solutions: High-performance teams leverage programmatic auditing to detect and pluck personally identifiable information and protect data silos.</li>
-          </ul>
 
           {/* Sealed case. The room and the claim it evidences are one
               enclosure rather than two blocks sitting loose on the page:
@@ -819,7 +824,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               <iframe
                 ref={roomRef}
                 className="cid-vivroom-frame"
-                src={`${base}DISPLAY_ROOM_BLUE_checker_cm.html?v=4`}
+                src={`${base}DISPLAY_ROOM_BLUE_checker_cm.html?v=5`}
                 title="The Viv display room: the always-on AI mini-PC that houses the CID Vivarium"
                 loading="lazy"
               />

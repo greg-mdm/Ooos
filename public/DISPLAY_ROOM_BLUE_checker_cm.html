@@ -179,6 +179,19 @@ const VERT = 'attribute vec2 a_pos; void main(){ gl_Position = vec4(a_pos,0.0,1.
   render();
   window.addEventListener('resize', render);
 
+  // Redraw whenever the canvas actually gets a size, not just when the window
+  // reports one. fit() reads canvas.clientWidth, so a render that lands before
+  // this iframe has laid out clamps the drawing buffer to 1x1 and every later
+  // frame keeps it there. The rAF loop normally papers over that by calling
+  // fit() again a frame later, but the loop does not start under
+  // prefers-reduced-motion (see startLoop), and window 'resize' does not fire
+  // for an iframe that is merely being laid out. Those two together leave a
+  // 1x1 buffer stretched across the whole room, which reads as a flat smear
+  // where the walls should be. This is the only signal that always arrives.
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(function () { render(); }).observe(canvas);
+  }
+
   // The loop runs forever once started, which costs a frame of paint/GPU
   // work on every tick whether or not this room is actually on screen. Left
   // unchecked, that competes with the parent page's own scroll repaints and

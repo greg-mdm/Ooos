@@ -1391,12 +1391,31 @@
    have is already cropped from a wider original; at this column width it
    holds up, so there is no need to re-cut the wide version. ------------- */
 .cid-scope .cid-viv-reveal-lede {
-  margin: 36px 0 18px; display: flex; flex-direction: column; gap: 6px;
+  margin: 36px 0 18px;
+  display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  gap: clamp(18px,2.6vw,32px); align-items: start;
 }
+.cid-scope .cid-viv-reveal-lede-col { display: flex; flex-direction: column; gap: 6px; }
 .cid-scope .cid-viv-reveal-lede p {
   margin: 0; max-width: 62ch; text-wrap: balance;
   font-size: clamp(15px,1.5vw,17px); line-height: 1.55; color: #33384a;
 }
+.cid-scope .cid-viv-reveal-notes {
+  margin: 0; padding: 0; list-style: none;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.cid-scope .cid-viv-reveal-notes li {
+  position: relative; padding-left: 22px; max-width: 62ch;
+  font-size: clamp(13px,1.3vw,15px); line-height: 1.55; color: #33384a;
+}
+.cid-scope .cid-viv-reveal-notes li::before {
+  content: ""; position: absolute; left: 2px; top: 8px; width: 9px; height: 9px;
+  border-radius: 3px; background: linear-gradient(135deg, #7C18E7, #5B04DE);
+}
+@media (max-width: 980px) {
+  .cid-scope .cid-viv-reveal-lede { grid-template-columns: minmax(0,1fr); }
+}
+
 .cid-scope .cid-viv-reveal {
   display: grid; grid-template-columns: minmax(0,0.92fr) minmax(0,1.08fr);
   gap: clamp(18px,2.2vw,28px); align-items: start; margin: 0;
@@ -1469,25 +1488,15 @@
 
 
 
-.cid-scope .cid-viv-reveal-notes {
-  margin: clamp(16px,2vw,22px) 0 0; padding: 0; list-style: none;
-  display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px 24px;
-}
-.cid-scope .cid-viv-reveal-notes li {
-  position: relative; padding-left: 22px; max-width: 62ch;
-  font-size: clamp(13px,1.3vw,15px); line-height: 1.55; color: #33384a;
-}
-.cid-scope .cid-viv-reveal-notes li::before {
-  content: ""; position: absolute; left: 2px; top: 8px; width: 9px; height: 9px;
-  border-radius: 3px; background: linear-gradient(135deg, #7C18E7, #5B04DE);
-}
+
+
+
 
 /* Below 980px the chart has no room to stay legible beside a 4:3 video, so
    the two stack and each gets the full width. */
 @media (max-width: 980px) {
   .cid-scope .cid-viv-reveal { grid-template-columns: minmax(0,1fr); }
   .cid-scope .cid-viv-reveal-media { max-width: 640px; }
-  .cid-scope .cid-viv-reveal-notes { grid-template-columns: minmax(0,1fr); }
 }
 
 
