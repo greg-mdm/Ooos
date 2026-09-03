@@ -1467,17 +1467,7 @@
 .cid-scope .cid-viv-raci-table tbody td[data-w="1"] { color: #4B00B6; font-weight: 800; }
 .cid-scope .cid-viv-raci-table abbr { text-decoration: none; border: none; cursor: help; }
 
-.cid-scope .cid-viv-raci-key {
-  margin: 14px 0 0; padding-top: 12px; border-top: 1px solid rgba(75,0,182,.16);
-  display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 9px 18px;
-}
-.cid-scope .cid-viv-raci-key div { margin: 0; }
-.cid-scope .cid-viv-raci-key dt {
-  font-weight: 700; font-size: clamp(11px,1vw,12.5px); color: #4B00B6; margin-bottom: 2px;
-}
-.cid-scope .cid-viv-raci-key dd {
-  margin: 0; font-size: clamp(11px,1vw,12.5px); line-height: 1.45; color: #5c6076;
-}
+
 
 .cid-scope .cid-viv-reveal-notes {
   margin: clamp(16px,2vw,22px) 0 0; padding: 0; list-style: none;
@@ -1499,6 +1489,36 @@
   .cid-scope .cid-viv-reveal-media { max-width: 640px; }
   .cid-scope .cid-viv-reveal-notes { grid-template-columns: minmax(0,1fr); }
 }
-@media (max-width: 560px) {
-  .cid-scope .cid-viv-raci-key { grid-template-columns: minmax(0,1fr); }
+
+/* ---- RACI key: an acrostic under the film ------------------------------
+   Read down, the tiles spell RACI. It sits in the left column rather than
+   inside the chart card because the card already ran taller than the video
+   and left dead space here, and a key beside the grid it explains is easier
+   to use than one buried under it.
+
+   Tiles reuse the carved-slab treatment from the twelve-signs board: the
+   robins-egg to chrome ramp on a 145 degree axis with inset light and dark,
+   which is what gives a flat square its edge. Nothing new is invented. */
+.cid-scope .cid-viv-reveal-col { display: flex; flex-direction: column; gap: 18px; }
+.cid-scope .cid-viv-raci-key { margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.cid-scope .cid-viv-raci-key > div { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0 12px; align-items: start; }
+.cid-scope .cid-viv-raci-key dt {
+  grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; align-items: center;
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: clamp(12.5px,1.2vw,14px); letter-spacing: .4px; color: #4B00B6;
+}
+/* The tile. Square by aspect-ratio rather than a fixed height, so it keeps
+   its shape when the type scales. */
+.cid-scope .cid-raci-tile {
+  width: clamp(30px,3vw,36px); aspect-ratio: 1 / 1; border-radius: 5px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: linear-gradient(145deg, #F0F4F5, #D8DBDE);
+  box-shadow: inset 2px 2px 4px #c2c7d4, inset -2px -2px 4px #ffffff,
+              0 2px 5px -2px rgba(6,2,28,.35);
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: clamp(15px,1.5vw,18px); line-height: 1; color: #06021C;
+}
+.cid-scope .cid-viv-raci-key dd {
+  grid-column: 2; margin: 4px 0 0; max-width: 46ch; text-wrap: balance;
+  font-size: clamp(11.5px,1.1vw,13px); line-height: 1.5; color: #5c6076;
 }

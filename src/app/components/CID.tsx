@@ -396,21 +396,43 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           </div>
 
           <div className="cid-viv-reveal">
-            <figure className="cid-viv-reveal-media">
-              <video
-                className="cid-viv-reveal-video"
-                src={`${base}assets/video/STURGEN GEN CID Creature Reveal.mp4`}
-                poster={`${base}assets/images/sturgeon-general-reveal-poster.webp`}
-                controls
-                muted
-                playsInline
-                preload="metadata"
-                aria-label="The Sturgeon General in profile above an Arctic ice field, then a close view of the eye housing as it powers up."
-              />
-              <figcaption className="cid-viv-reveal-cap">
-                The Sturgeon General
-              </figcaption>
-            </figure>
+            <div className="cid-viv-reveal-col">
+              <figure className="cid-viv-reveal-media">
+                <video
+                  className="cid-viv-reveal-video"
+                  src={`${base}assets/video/STURGEN GEN CID Creature Reveal.mp4`}
+                  poster={`${base}assets/images/sturgeon-general-reveal-poster.webp`}
+                  controls
+                  muted
+                  playsInline
+                  preload="metadata"
+                  aria-label="The Sturgeon General in profile above an Arctic ice field, then a close view of the eye housing as it powers up."
+                />
+                <figcaption className="cid-viv-reveal-cap">
+                  The Sturgeon General
+                </figcaption>
+              </figure>
+
+              {/* The key, read down as an acrostic. It sits under the film
+                  rather than inside the chart because the card was already
+                  taller than the video and left dead space here; this fills
+                  exactly that gap, and a definition list beside the grid it
+                  defines beats one buried underneath it.
+
+                  Tiles borrow the carved-slab treatment from the twelve-signs
+                  board: robins-egg to chrome on a 145deg, inset light and
+                  dark. No new colour is invented for them. */}
+              <dl className="cid-viv-raci-key">
+                <div><dt><span className="cid-raci-tile" aria-hidden="true">R</span>Responsible</dt>
+                  <dd>Completes the assigned task or deliverable.</dd></div>
+                <div><dt><span className="cid-raci-tile" aria-hidden="true">A</span>Accountable</dt>
+                  <dd>Final ownership and decision authority. Held exclusively by the Principal Investigator.</dd></div>
+                <div><dt><span className="cid-raci-tile" aria-hidden="true">C</span>Consulted</dt>
+                  <dd>Contributes before the work proceeds.</dd></div>
+                <div><dt><span className="cid-raci-tile" aria-hidden="true">I</span>Informed</dt>
+                  <dd>Role-separated architecture gives agents access to information needed for designated roles.</dd></div>
+              </dl>
+            </div>
 
             {/* A real table, not a grid of divs: this is tabular data with two
                 axes, and a screen reader needs the row and column headers to
@@ -455,12 +477,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 </tbody>
               </table>
 
-              <dl className="cid-viv-raci-key">
-                <div><dt>A · Accountable</dt><dd>Final ownership and decision authority. Held only by the Principal Investigator.</dd></div>
-                <div><dt>R · Responsible</dt><dd>Completes the assigned task or deliverable.</dd></div>
-                <div><dt>C · Consulted</dt><dd>Contributes before the work proceeds.</dd></div>
-                <div><dt>I · Informed</dt><dd>Receives the information needed for a defined role.</dd></div>
-              </dl>
             </div>
           </div>
 
