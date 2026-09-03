@@ -617,6 +617,25 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   <a href="https://www.learnbiomimicry.com" target="_blank" rel="noreferrer noopener">learnbiomimicry.com</a>.
                 </p>
               </aside>
+
+              {/* The RACI key, closing the side column with the rest of the
+                  panel content. Read down, the tiles spell RACI, which is why
+                  the order here is R A C I rather than the A R C I the table
+                  itself uses.
+
+                  Tiles borrow the carved-slab treatment from the twelve-signs
+                  board: robins-egg to chrome on a 145deg with inset light and
+                  dark. No new colour is invented to get the effect. */}
+              <dl className="cid-viv-raci-key" aria-label="RACI key">
+                <div><dt><span className="cid-raci-tile" aria-hidden="true">R</span>Responsible</dt>
+                  <dd>Completes the assigned task or deliverable.</dd></div>
+                <div><dt><span className="cid-raci-tile" aria-hidden="true">A</span>Accountable</dt>
+                  <dd>Final ownership and decision authority. Held exclusively by the Principal Investigator.</dd></div>
+                <div><dt><span className="cid-raci-tile" aria-hidden="true">C</span>Consulted</dt>
+                  <dd>Contributes before the work proceeds.</dd></div>
+                <div><dt><span className="cid-raci-tile" aria-hidden="true">I</span>Informed</dt>
+                  <dd>Role-separated architecture gives agents access to information needed for designated roles.</dd></div>
+              </dl>
             </div>
           </div>
 
@@ -716,43 +735,21 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           </div>
 
           <div className="cid-viv-reveal">
-            <div className="cid-viv-reveal-col">
-              <figure className="cid-viv-reveal-media">
-                <video
-                  className="cid-viv-reveal-video"
-                  src={`${base}assets/video/STURGEN GEN CID Creature Reveal.mp4`}
-                  poster={`${base}assets/images/sturgeon-general-reveal-poster.webp`}
-                  controls
-                  muted
-                  playsInline
-                  preload="metadata"
-                  aria-label="The Sturgeon General in profile above an Arctic ice field, then a close view of the eye housing as it powers up."
-                />
-                <figcaption className="cid-viv-reveal-cap">
-                  The Sturgeon General
-                </figcaption>
-              </figure>
-
-              {/* The key, read down as an acrostic. It sits under the film
-                  rather than inside the chart because the card was already
-                  taller than the video and left dead space here; this fills
-                  exactly that gap, and a definition list beside the grid it
-                  defines beats one buried underneath it.
-
-                  Tiles borrow the carved-slab treatment from the twelve-signs
-                  board: robins-egg to chrome on a 145deg, inset light and
-                  dark. No new colour is invented for them. */}
-              <dl className="cid-viv-raci-key">
-                <div><dt><span className="cid-raci-tile" aria-hidden="true">R</span>Responsible</dt>
-                  <dd>Completes the assigned task or deliverable.</dd></div>
-                <div><dt><span className="cid-raci-tile" aria-hidden="true">A</span>Accountable</dt>
-                  <dd>Final ownership and decision authority. Held exclusively by the Principal Investigator.</dd></div>
-                <div><dt><span className="cid-raci-tile" aria-hidden="true">C</span>Consulted</dt>
-                  <dd>Contributes before the work proceeds.</dd></div>
-                <div><dt><span className="cid-raci-tile" aria-hidden="true">I</span>Informed</dt>
-                  <dd>Role-separated architecture gives agents access to information needed for designated roles.</dd></div>
-              </dl>
-            </div>
+            <figure className="cid-viv-reveal-media">
+              <video
+                className="cid-viv-reveal-video"
+                src={`${base}assets/video/STURGEN GEN CID Creature Reveal.mp4`}
+                poster={`${base}assets/images/sturgeon-general-reveal-poster.webp`}
+                controls
+                muted
+                playsInline
+                preload="metadata"
+                aria-label="The Sturgeon General in profile above an Arctic ice field, then a close view of the eye housing as it powers up."
+              />
+              <figcaption className="cid-viv-reveal-cap">
+                The Sturgeon General
+              </figcaption>
+            </figure>
 
             {/* A real table, not a grid of divs: this is tabular data with two
                 axes, and a screen reader needs the row and column headers to

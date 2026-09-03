@@ -1490,35 +1490,47 @@
   .cid-scope .cid-viv-reveal-notes { grid-template-columns: minmax(0,1fr); }
 }
 
-/* ---- RACI key: an acrostic under the film ------------------------------
-   Read down, the tiles spell RACI. It sits in the left column rather than
-   inside the chart card because the card already ran taller than the video
-   and left dead space here, and a key beside the grid it explains is easier
-   to use than one buried under it.
 
-   Tiles reuse the carved-slab treatment from the twelve-signs board: the
-   robins-egg to chrome ramp on a 145 degree axis with inset light and dark,
-   which is what gives a flat square its edge. Nothing new is invented. */
-.cid-scope .cid-viv-reveal-col { display: flex; flex-direction: column; gap: 18px; }
-.cid-scope .cid-viv-raci-key { margin: 0; display: flex; flex-direction: column; gap: 12px; }
-.cid-scope .cid-viv-raci-key > div { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0 12px; align-items: start; }
+/* ---- RACI key: an acrostic closing the side column ---------------------
+   Lives in cid-viv-side with the etymology, the lexicon and the biomimicry
+   quote, so it takes the same white card as its siblings rather than
+   floating loose on the ground. Read down, the tiles spell RACI, which is
+   why the order here is R A C I and not the A R C I the table uses.
+
+   Tiles borrow the carved-slab treatment from the twelve-signs board: the
+   robins-egg to chrome ramp on a 145 degree axis with inset light and dark.
+   That is what makes a flat square read as a physical tile, and it means no
+   new colour enters the palette to get the effect.
+
+   The column is minmax(240px, 340px), so the type is set for the narrow end
+   and the tile shrinks with it. */
+.cid-scope .cid-viv-raci-key {
+  margin: 0; border-radius: 16px; background: #fff;
+  border: 1px solid rgba(75,0,182,.16);
+  box-shadow: 0 22px 50px -32px rgba(6,2,28,.4);
+  padding: clamp(16px,1.8vw,20px);
+  display: flex; flex-direction: column; gap: 13px;
+}
+.cid-scope .cid-viv-raci-key > div {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0 11px; align-items: start;
+}
 .cid-scope .cid-viv-raci-key dt {
   grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; align-items: center;
   font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
-  font-size: clamp(12.5px,1.2vw,14px); letter-spacing: .4px; color: #4B00B6;
+  font-size: 12.5px; letter-spacing: .3px; color: #4B00B6;
 }
-/* The tile. Square by aspect-ratio rather than a fixed height, so it keeps
-   its shape when the type scales. */
+/* Square by aspect-ratio rather than a fixed height, so the tile keeps its
+   shape when the column is at its narrow end. */
 .cid-scope .cid-raci-tile {
-  width: clamp(30px,3vw,36px); aspect-ratio: 1 / 1; border-radius: 5px;
+  width: 32px; aspect-ratio: 1 / 1; border-radius: 5px;
   display: inline-flex; align-items: center; justify-content: center;
   background: linear-gradient(145deg, #F0F4F5, #D8DBDE);
   box-shadow: inset 2px 2px 4px #c2c7d4, inset -2px -2px 4px #ffffff,
               0 2px 5px -2px rgba(6,2,28,.35);
   font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
-  font-size: clamp(15px,1.5vw,18px); line-height: 1; color: #06021C;
+  font-size: 16px; line-height: 1; color: #06021C;
 }
 .cid-scope .cid-viv-raci-key dd {
-  grid-column: 2; margin: 4px 0 0; max-width: 46ch; text-wrap: balance;
-  font-size: clamp(11.5px,1.1vw,13px); line-height: 1.5; color: #5c6076;
+  grid-column: 2; margin: 3px 0 0;
+  font-size: 12px; line-height: 1.45; color: #5c6076;
 }
