@@ -1382,29 +1382,123 @@
   .cid-scope .cid-viv-lab-row { grid-template-columns: minmax(0, 1fr); gap: 24px; }
 }
 
-/* ---- The Sturgeon General ---------------------------------------------
-   Its own panel above the display room, not a clip inside the floor tour.
-   Native 4:3 and never cropped: the wide profile is the shot, and forcing
-   it into the tour's 16:9 was what made it read as dull.
+/* ---- The Sturgeon General + RACI ---------------------------------------
+   The reveal ran centred at 860px and left a wide empty gutter beside it.
+   The chart fills that gutter, so the creature and the governance it stands
+   for read as one statement rather than two stacked blocks.
 
-   Capped at 860px rather than filling the column, because 4:3 at full
-   width would stand ~890px tall and swallow the section it introduces. */
-.cid-scope .cid-viv-reveal {
-  margin: 36px auto 0;
-  max-width: 860px;
+   The video keeps its native 4:3 and is still never cropped. The copy we
+   have is already cropped from a wider original; at this column width it
+   holds up, so there is no need to re-cut the wide version. ------------- */
+.cid-scope .cid-viv-reveal-lede {
+  margin: 36px 0 18px; display: flex; flex-direction: column; gap: 6px;
 }
+.cid-scope .cid-viv-reveal-lede p {
+  margin: 0; max-width: 62ch; text-wrap: balance;
+  font-size: clamp(15px,1.5vw,17px); line-height: 1.55; color: #33384a;
+}
+.cid-scope .cid-viv-reveal {
+  display: grid; grid-template-columns: minmax(0,0.92fr) minmax(0,1.08fr);
+  gap: clamp(18px,2.2vw,28px); align-items: start; margin: 0;
+}
+.cid-scope .cid-viv-reveal-media { margin: 0; }
 .cid-scope .cid-viv-reveal-video {
   display: block; width: 100%; height: auto; aspect-ratio: 4 / 3;
-  border-radius: 14px;
-  background-color: #04030e;
+  border-radius: 14px; background-color: #04030e;
   box-shadow: 0 18px 40px -24px rgba(6,2,28,.7);
 }
-/* Caption sits under the panel, clear of the native controls, and matches
-   the lab card's type so the two figures read as one family. */
 .cid-scope .cid-viv-reveal-cap {
   margin: 0; padding: 10px 2px 0;
   font-family: 'Lovelo', 'Impact', 'Arial Black', sans-serif;
   font-weight: 900; font-size: clamp(10.5px,1vw,13px);
   letter-spacing: .1em; line-height: 1.35; text-transform: uppercase;
-  color: #E8ECF4; text-align: left;
+  color: #33384a; text-align: left;
+}
+
+/* Same white card as the principles pair above, so the section holds one
+   material rather than inventing a second. */
+.cid-scope .cid-viv-raci {
+  border-radius: 16px; background: #fff; border: 1px solid rgba(75,0,182,.16);
+  box-shadow: 0 22px 50px -32px rgba(6,2,28,.4);
+  padding: clamp(18px,2vw,24px);
+}
+.cid-scope .cid-viv-raci h3 {
+  margin: 0 0 8px; font-family: 'Montserrat', system-ui, sans-serif;
+  font-weight: 800; font-size: clamp(15px,1.5vw,18px); letter-spacing: .3px;
+  color: #4B00B6; text-wrap: balance;
+}
+.cid-scope .cid-viv-raci-sub {
+  margin: 0 0 4px; font-size: clamp(12.5px,1.2vw,14px); line-height: 1.5; color: #5c6076;
+}
+
+.cid-scope .cid-viv-raci-table {
+  width: 100%; border-collapse: collapse; margin-top: 14px;
+  font-size: clamp(11.5px,1.05vw,13px);
+}
+/* The caption states what the grid means. Visually hidden because the
+   heading above already says it, but a screen reader meets the table first. */
+.cid-scope .cid-viv-raci-cap {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+.cid-scope .cid-viv-raci-table thead th {
+  text-align: center; vertical-align: bottom; padding: 0 6px 9px;
+  font-weight: 700; color: #4B00B6; line-height: 1.25;
+  border-bottom: 1.5px solid rgba(75,0,182,.22);
+}
+.cid-scope .cid-viv-raci-table thead th:first-child { text-align: left; padding-left: 0; }
+.cid-scope .cid-viv-raci-table thead th span {
+  display: block; margin-top: 2px; font-weight: 500;
+  font-size: .84em; letter-spacing: .2px; color: #6f7488;
+}
+.cid-scope .cid-viv-raci-table tbody th {
+  text-align: left; padding: 9px 12px 9px 0; font-weight: 500;
+  color: #33384a; line-height: 1.4;
+  border-bottom: 1px solid rgba(6,2,28,.08);
+}
+.cid-scope .cid-viv-raci-table tbody td {
+  text-align: center; padding: 9px 6px; color: #6f7488;
+  border-bottom: 1px solid rgba(6,2,28,.08);
+}
+.cid-scope .cid-viv-raci-table tbody tr:last-child th,
+.cid-scope .cid-viv-raci-table tbody tr:last-child td { border-bottom: none; }
+/* A and R carry the weight, so they are the only cells that get it. C and I
+   stay quiet: the point of the chart is who owns and who does. */
+.cid-scope .cid-viv-raci-table tbody td[data-w="1"] { color: #4B00B6; font-weight: 800; }
+.cid-scope .cid-viv-raci-table abbr { text-decoration: none; border: none; cursor: help; }
+
+.cid-scope .cid-viv-raci-key {
+  margin: 14px 0 0; padding-top: 12px; border-top: 1px solid rgba(75,0,182,.16);
+  display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 9px 18px;
+}
+.cid-scope .cid-viv-raci-key div { margin: 0; }
+.cid-scope .cid-viv-raci-key dt {
+  font-weight: 700; font-size: clamp(11px,1vw,12.5px); color: #4B00B6; margin-bottom: 2px;
+}
+.cid-scope .cid-viv-raci-key dd {
+  margin: 0; font-size: clamp(11px,1vw,12.5px); line-height: 1.45; color: #5c6076;
+}
+
+.cid-scope .cid-viv-reveal-notes {
+  margin: clamp(16px,2vw,22px) 0 0; padding: 0; list-style: none;
+  display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px 24px;
+}
+.cid-scope .cid-viv-reveal-notes li {
+  position: relative; padding-left: 22px; max-width: 62ch;
+  font-size: clamp(13px,1.3vw,15px); line-height: 1.55; color: #33384a;
+}
+.cid-scope .cid-viv-reveal-notes li::before {
+  content: ""; position: absolute; left: 2px; top: 8px; width: 9px; height: 9px;
+  border-radius: 3px; background: linear-gradient(135deg, #7C18E7, #5B04DE);
+}
+
+/* Below 980px the chart has no room to stay legible beside a 4:3 video, so
+   the two stack and each gets the full width. */
+@media (max-width: 980px) {
+  .cid-scope .cid-viv-reveal { grid-template-columns: minmax(0,1fr); }
+  .cid-scope .cid-viv-reveal-media { max-width: 640px; }
+  .cid-scope .cid-viv-reveal-notes { grid-template-columns: minmax(0,1fr); }
+}
+@media (max-width: 560px) {
+  .cid-scope .cid-viv-raci-key { grid-template-columns: minmax(0,1fr); }
 }
