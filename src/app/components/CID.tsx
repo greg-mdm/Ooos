@@ -379,6 +379,96 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           verbatim at the foot. */}
       <section className="cid-viv" aria-label="CID Vivarium">
         <div className="container cid-hero-container cid-viv-stack">
+          {/* The creature the facility exists around, given its own panel
+              rather than folded into the floor tour. The tour is teal and
+              violet throughout; this is cold grey Arctic. Cutting it into
+              that sequence made the reveal look dull and the tour look
+              inconsistent, so it stands alone where its own palette reads.
+
+              Kept at its native 4:3 and deliberately not cropped to the
+              tour's 16:9: the wide profile is the whole point, and trimming
+              it to match a shape it was never framed for is exactly the
+              compromise that flattened it. */}
+          <div className="cid-viv-reveal-lede">
+            <p>Investing in your future is complex and continuously changing.</p>
+            <p>Markets demand new digital diversification strategies.</p>
+            <p>Rules are evolving. Allies are forming. Our governance remains sovereign.</p>
+          </div>
+
+          <div className="cid-viv-reveal">
+            <figure className="cid-viv-reveal-media">
+              <video
+                className="cid-viv-reveal-video"
+                src={`${base}assets/video/STURGEN GEN CID Creature Reveal.mp4`}
+                poster={`${base}assets/images/sturgeon-general-reveal-poster.webp`}
+                controls
+                muted
+                playsInline
+                preload="metadata"
+                aria-label="The Sturgeon General in profile above an Arctic ice field, then a close view of the eye housing as it powers up."
+              />
+              <figcaption className="cid-viv-reveal-cap">
+                The Sturgeon General
+              </figcaption>
+            </figure>
+
+            {/* A real table, not a grid of divs: this is tabular data with two
+                axes, and a screen reader needs the row and column headers to
+                announce "Evidence verification, Ethel, Responsible" rather
+                than reading twenty-eight loose letters. */}
+            <div className="cid-viv-raci">
+              <h3>Accountable Leadership. Advanced AI. High-Performance Team.</h3>
+              <p className="cid-viv-raci-sub">Automated Safeguards (Conflict Checks, MNPI Exclusions).</p>
+              <p className="cid-viv-raci-sub">Proactive Risk Management. Predictive Analytics.</p>
+
+              <table className="cid-viv-raci-table">
+                <caption className="cid-viv-raci-cap">
+                  Who is accountable, responsible, consulted and informed for each research operation
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Research operation</th>
+                    <th scope="col">Greg Long <span>Principal Investigator</span></th>
+                    <th scope="col">Ethel <span>Ethical Analyst</span></th>
+                    <th scope="col">Icarus III <span>Executive Trader</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    ["Raw-data interpretation", "A", "R", "I"],
+                    ["Evidence verification", "A", "R", "I"],
+                    ["Privacy and research integrity", "A", "R", "I"],
+                    ["Strategy synthesis", "A", "R", "C"],
+                    ["Risk review and scenario modelling", "A", "C", "R"],
+                    ["Bounded trading execution", "A", "I", "R"],
+                    ["Execution records", "A", "I", "R"],
+                  ].map(([op, g, e, i]) => (
+                    <tr key={op}>
+                      <th scope="row">{op}</th>
+                      {[g, e, i].map((v, n) => (
+                        <td key={n} data-w={v === "A" || v === "R" ? "1" : "0"}>
+                          <abbr title={{ A: "Accountable", R: "Responsible", C: "Consulted", I: "Informed" }[v]}>{v}</abbr>
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <dl className="cid-viv-raci-key">
+                <div><dt>A · Accountable</dt><dd>Final ownership and decision authority. Held only by the Principal Investigator.</dd></div>
+                <div><dt>R · Responsible</dt><dd>Completes the assigned task or deliverable.</dd></div>
+                <div><dt>C · Consulted</dt><dd>Contributes before the work proceeds.</dd></div>
+                <div><dt>I · Informed</dt><dd>Receives the information needed for a defined role.</dd></div>
+              </dl>
+            </div>
+          </div>
+
+          <ul className="cid-viv-reveal-notes">
+            <li>Automating Safety First: Hard-coded Conflict Checks and MNPI Exclusions filter and destroy risky or compromised data before human or AI agent review.</li>
+            <li>Optimizing Agent Solutions: High-performance teams leverage programmatic auditing to detect and pluck personally identifiable information and protect data silos.</li>
+          </ul>
+
           {/* CID intro sits directly under the page title, so it carries no
               heading of its own. Then the Vivarium. The three researchers'
               nametags used to sit overlaid on the case art below; moved up
@@ -697,95 +787,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               </figcaption>
             </figure>
           </div>
-          {/* The creature the facility exists around, given its own panel
-              rather than folded into the floor tour. The tour is teal and
-              violet throughout; this is cold grey Arctic. Cutting it into
-              that sequence made the reveal look dull and the tour look
-              inconsistent, so it stands alone where its own palette reads.
-
-              Kept at its native 4:3 and deliberately not cropped to the
-              tour's 16:9: the wide profile is the whole point, and trimming
-              it to match a shape it was never framed for is exactly the
-              compromise that flattened it. */}
-          <div className="cid-viv-reveal-lede">
-            <p>Investing in your future is complex and continuously changing.</p>
-            <p>Markets demand new digital diversification strategies.</p>
-            <p>Rules are evolving. Allies are forming. Our governance remains sovereign.</p>
-          </div>
-
-          <div className="cid-viv-reveal">
-            <figure className="cid-viv-reveal-media">
-              <video
-                className="cid-viv-reveal-video"
-                src={`${base}assets/video/STURGEN GEN CID Creature Reveal.mp4`}
-                poster={`${base}assets/images/sturgeon-general-reveal-poster.webp`}
-                controls
-                muted
-                playsInline
-                preload="metadata"
-                aria-label="The Sturgeon General in profile above an Arctic ice field, then a close view of the eye housing as it powers up."
-              />
-              <figcaption className="cid-viv-reveal-cap">
-                The Sturgeon General
-              </figcaption>
-            </figure>
-
-            {/* A real table, not a grid of divs: this is tabular data with two
-                axes, and a screen reader needs the row and column headers to
-                announce "Evidence verification, Ethel, Responsible" rather
-                than reading twenty-eight loose letters. */}
-            <div className="cid-viv-raci">
-              <h3>Accountable Leadership. Advanced AI. High-Performance Team.</h3>
-              <p className="cid-viv-raci-sub">Automated Safeguards (Conflict Checks, MNPI Exclusions).</p>
-              <p className="cid-viv-raci-sub">Proactive Risk Management. Predictive Analytics.</p>
-
-              <table className="cid-viv-raci-table">
-                <caption className="cid-viv-raci-cap">
-                  Who is accountable, responsible, consulted and informed for each research operation
-                </caption>
-                <thead>
-                  <tr>
-                    <th scope="col">Research operation</th>
-                    <th scope="col">Greg Long <span>Principal Investigator</span></th>
-                    <th scope="col">Ethel <span>Ethical Analyst</span></th>
-                    <th scope="col">Icarus III <span>Executive Trader</span></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {[
-                    ["Raw-data interpretation", "A", "R", "I"],
-                    ["Evidence verification", "A", "R", "I"],
-                    ["Privacy and research integrity", "A", "R", "I"],
-                    ["Strategy synthesis", "A", "R", "C"],
-                    ["Risk review and scenario modelling", "A", "C", "R"],
-                    ["Bounded trading execution", "A", "I", "R"],
-                    ["Execution records", "A", "I", "R"],
-                  ].map(([op, g, e, i]) => (
-                    <tr key={op}>
-                      <th scope="row">{op}</th>
-                      {[g, e, i].map((v, n) => (
-                        <td key={n} data-w={v === "A" || v === "R" ? "1" : "0"}>
-                          <abbr title={{ A: "Accountable", R: "Responsible", C: "Consulted", I: "Informed" }[v]}>{v}</abbr>
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-
-              <dl className="cid-viv-raci-key">
-                <div><dt>A · Accountable</dt><dd>Final ownership and decision authority. Held only by the Principal Investigator.</dd></div>
-                <div><dt>R · Responsible</dt><dd>Completes the assigned task or deliverable.</dd></div>
-                <div><dt>C · Consulted</dt><dd>Contributes before the work proceeds.</dd></div>
-                <div><dt>I · Informed</dt><dd>Receives the information needed for a defined role.</dd></div>
-              </dl>
-            </div>
-          </div>
-
-          <ul className="cid-viv-reveal-notes">
-            <li>Automating Safety First: Hard-coded Conflict Checks and MNPI Exclusions filter and destroy risky or compromised data before human or AI agent review.</li>
-            <li>Optimizing Agent Solutions: High-performance teams leverage programmatic auditing to detect and pluck personally identifiable information and protect data silos.</li>
-          </ul>
 
           {/* Sealed case. The room and the claim it evidences are one
               enclosure rather than two blocks sitting loose on the page:
