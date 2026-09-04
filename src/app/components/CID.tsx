@@ -248,10 +248,6 @@ type CidCharacter = {
    *  this shape, so nothing is letterboxed or cropped; on wider screens the
    *  frame is a fixed height and the media is contained inside it. */
   ratio: number;
-  /** object-position for the cropped state. A frame off the spotlight is
-   *  much taller than it is wide, so centre is not always the right slice:
-   *  the Sturgeon is a long horizontal fish and centre cuts his head off. */
-  focus?: string;
   alt: string;
   /** Sector nodes, set as pills under a "Sector Nodes" heading. */
   nodes?: string[];
@@ -311,7 +307,6 @@ const CAST = (base: string): CidCharacter[] => [
     },
     thumb: `${base}assets/images/sturgeon-general-reveal-poster.webp`,
     ratio: 4 / 3,
-    focus: "38% center",
     alt: "The Sturgeon General in profile above an Arctic ice field, then a close view of the eye housing as it powers up.",
     specs: [],
   },
@@ -323,7 +318,6 @@ const CAST = (base: string): CidCharacter[] => [
     media: { kind: "image", src: `${base}assets/images/cid-char-icarus.webp` },
     thumb: `${base}assets/images/cid-char-icarus.webp`,
     ratio: 4 / 5,
-    focus: "center 28%",
     alt: "Icarus the Third seated on a mound of world currency coins in a vault, holding a top hat that pours out more.",
     specs: [],
   },
@@ -497,7 +491,6 @@ function CharacterRoll({ base }: { base: string }) {
                       className="cid-cast-media"
                       src={on && p.media.kind === "image" ? p.media.src : p.thumb}
                       alt=""
-                      style={on ? undefined : ({ objectPosition: p.focus ?? "center" } as CSSProperties)}
                       /* Eager only for the frame that opens lit, which is no
                          longer the first one now that the General sits in the
                          middle. Everything else waits until the band is near. */

@@ -1763,25 +1763,24 @@
    on the same near-black as the bay. */
 .cid-scope .cid-cast-media:fullscreen { object-fit: contain; background: #04030e; }
 
-/* THE SPOTLIT FRAME NEVER CROPS. Its three pieces do not share an aspect
-   (film 4:3, Ethel 16:9, Icarus 4:5 portrait) and squeezing them to a
-   common one is what flattened the Sturgeon the first time, so the lit
-   frame contains and lets the near-black show at the edges. Off the
-   spotlight a frame is far taller than it is wide and a contained image
-   would be a stamp in the middle of it, so those cover and carry an
-   object-position per character to keep the right slice: the Sturgeon is a
-   long horizontal fish and dead centre cuts his head off. */
+/* NO FRAME CROPS, lit or not. The three pieces do not share an aspect (film
+   4:3, Ethel 16:9, Icarus 4:5 portrait) and squeezing any of them to the
+   shape of its bay is what flattened the Sturgeon the first time. Unlit
+   frames used to cover, with an object-position per character to keep the
+   right slice, on the theory that a contained picture in a bay far taller
+   than it is wide would be a stamp in the middle of it. Greg rejected the
+   trade the moment he saw it: with Icarus lit, the General had lost his head
+   and Ethel her hair. So every frame contains, and the near-black shows
+   around the picture wherever the bay is the wrong shape for it. On a phone
+   the shot takes the media's own aspect (see the phone block), so cover
+   there crops nothing either.
+
+   The picture keeps the full box and lets object-fit do the letterboxing,
+   rather than shrink-wrapping with width/height auto. Auto sizes from the
+   intrinsic dimensions, so an image that has not decoded yet is 0x0 and
+   collapses the frame to an empty black panel until it lands. */
 .cid-scope .cid-cast-media {
-  display: block; width: 100%; height: 100%; object-fit: cover;
-}
-/* The lit frame keeps the full box and lets object-fit do the letterboxing,
-   rather than shrink-wrapping the picture with width/height auto. Auto sizes
-   from the intrinsic dimensions, so an image that has not decoded yet is
-   0x0 and collapses the spotlight to an empty black panel until it lands.
-   The result looks identical either way, because what shows around a
-   contained picture is the same near-black the shot already carries. */
-.cid-scope .cid-cast-frame.is-on .cid-cast-media {
-  width: 100%; height: 100%; object-fit: contain;
+  display: block; width: 100%; height: 100%; object-fit: contain;
 }
 
 /* The nameplate is a bar at the foot of the art, not an overlay, and the
