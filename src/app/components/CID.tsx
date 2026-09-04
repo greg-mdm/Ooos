@@ -716,6 +716,15 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <StrategyKeys />
               </section>
 
+              {/* The cast, directly under the keys. Page-width from inside a
+                  narrow column, which is what --viv-gutter is for: see the
+                  break-out note in cid-vivarium.css. It sat outside the
+                  container for one commit to get that width the easy way, but
+                  the section runs on for hundreds of lines past the stack, so
+                  it landed far below the keys instead of under them. Position
+                  is the requirement; the break-out is the cost of meeting it. */}
+              <CharacterRoll base={base} />
+
             </div>
             {/* Right column, one panel: the Radical Strategic Intelligence
                 rail, the etymology card beneath it, then the Greek lexicon,
@@ -1192,11 +1201,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
 
         </div>
 
-        {/* The character roll, page-width. Outside the container above on
-            purpose: see the note on CharacterRoll. It lands where it used to
-            sit inside the body column, because the side panel has run out by
-            this point in the section. */}
-        <CharacterRoll base={base} />
       </section>
 
       {/* Innovation Watchlist hero — self-contained DC block from

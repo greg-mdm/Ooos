@@ -1643,13 +1643,30 @@
    width, not a border: the chosen frame widens and the others give up the
    room, so the art itself is the state rather than a ring drawn around it.
 
-   NO BREAK-OUT MATH HERE. The band is a direct child of section.cid-viv,
-   outside .cid-viv-stack, so 100% already is the page width. Every trick
-   for escaping the container has a cost -- calc(50% - 50vw) centres on
-   whatever column it sits in, and .cid-vault's --viv-gutter leans on 100vw,
-   which counts the scrollbar and overshoots -- and none of them apply once
-   the element simply is not in the container. */
-.cid-scope .cid-cast { width: 100%; margin: clamp(26px,3.4vw,44px) 0 0; }
+   IT BREAKS OUT OF THE COLUMN, the same way .cid-vault does and for the same
+   reason. Position is the requirement: the roll belongs directly under the
+   strategy keys, which puts it inside the narrow body column of
+   .cid-viv-stack. It briefly sat outside the container instead, where 100%
+   is already the page width and no break-out is needed, but the section runs
+   on for hundreds of lines past the stack, so the band landed near the foot
+   of the page rather than under the keys.
+
+   So: --viv-gutter, which is the container's own left offset, half the
+   leftover viewport plus the 24px padding. calc(50% - 50vw) is the wrong
+   tool here because it centres on whatever column it sits in, which for an
+   820px column throws the band ~186px to the left. Keep the 1240px in step
+   with .cid-hero-container's max-width, as .cid-vault's copy of this says.
+
+   The known cost is the scrollbar: 100vw counts it, so the band overhangs by
+   that much on each side. .cid-vault already does this and is where the
+   page's existing horizontal overflow comes from. Fixing it properly means
+   subtracting a measured scrollbar width from both, which is a change to
+   .cid-vault as much as to this, and is not this commit. */
+.cid-scope .cid-cast {
+  --viv-gutter: max(24px, (100vw - 1240px) / 2 + 24px);
+  width: 100vw; max-width: none;
+  margin: clamp(26px,3.4vw,44px) calc(-1 * var(--viv-gutter)) 0;
+}
 
 .cid-scope .cid-cast-rollwrap { position: relative; }
 
