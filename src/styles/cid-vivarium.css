@@ -1555,14 +1555,52 @@
   border: 1px solid rgba(75,0,182,.16);
   box-shadow: 0 22px 50px -32px rgba(6,2,28,.4);
 }
+/* Heading bar: the claim on the left over the chart, the matrix name on the
+   right over the key column. The kicker's width tracks the key column so the
+   bar reads as two labelled halves rather than one line with a gap at the
+   end. */
+.cid-scope .cid-raci-panel-head {
+  display: grid; grid-template-columns: minmax(0,1fr) minmax(230px,300px);
+  align-items: center; gap: 0;
+}
 .cid-scope .cid-raci-panel-title {
-  margin: 0; padding: 13px clamp(14px,1.6vw,18px);
-  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 700;
-  font-size: clamp(12.5px,1.2vw,14px); line-height: 1.35; letter-spacing: .3px;
+  margin: 0; padding: 15px clamp(16px,1.8vw,22px);
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: clamp(14px,1.5vw,17px); line-height: 1.3; letter-spacing: .2px;
   text-wrap: balance;
-  /* Bright Silver on the indigo, with the keys' own shadow so the type sits
-     on the gradient the same way theirs does. */
   color: #E8ECF4; text-shadow: 0 1px 2px rgba(0,0,0,.55);
+}
+.cid-scope .cid-raci-panel-kicker {
+  margin: 0; padding: 15px clamp(16px,1.8vw,22px);
+  border-left: 1px solid rgba(232,236,244,.22);
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 700;
+  font-size: clamp(11px,1.1vw,12.5px); letter-spacing: .16em; text-transform: uppercase;
+  line-height: 1.3; color: #E8ECF4; text-shadow: 0 1px 2px rgba(0,0,0,.55);
+}
+
+/* Safeguards as a checked list. These are controls that either hold or do
+   not, so a tick carries the state faster than a sentence ending in a full
+   stop. The mark is a stroked path, not a glyph, so it keeps its weight at
+   any size and takes currentColor. */
+.cid-scope .cid-raci-safe {
+  margin: 0 0 4px; padding: 0; list-style: none;
+  display: flex; flex-direction: column; gap: 7px;
+}
+.cid-scope .cid-raci-safe li {
+  display: grid; grid-template-columns: auto minmax(0,1fr); gap: 9px; align-items: start;
+  font-size: clamp(12.5px,1.2vw,14px); line-height: 1.5; color: #5c6076;
+}
+.cid-scope .cid-raci-check {
+  width: 17px; height: 17px; margin-top: 2px; flex: none; color: #4B00B6;
+}
+
+@media (max-width: 900px) {
+  .cid-scope .cid-raci-panel-head { grid-template-columns: minmax(0,1fr); }
+  .cid-scope .cid-raci-panel-kicker {
+    border-left: none; border-top: 1px solid rgba(232,236,244,.22);
+    padding-top: 11px; padding-bottom: 13px;
+  }
+  .cid-scope .cid-raci-panel-title { padding-bottom: 4px; }
 }
 
 /* The film sits under the strategy keys, so it takes that column's width

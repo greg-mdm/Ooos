@@ -754,13 +754,19 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               in the side column, which left a grid of twenty-eight loose letters
               several screens from the thing that explains them. */}
           <section className="cid-raci-panel" aria-labelledby="cid-raci-title">
-            <h3
-              id="cid-raci-title"
-              className="cid-raci-panel-title"
+            {/* One heading line across the whole panel. The claim sits over the
+                chart and the matrix name sits over the key column, so the bar
+                labels both halves of what is under it rather than leaving its
+                right end empty. */}
+            <div
+              className="cid-raci-panel-head"
               style={{ background: KEY_GRAD("rgb(174,153,201)", "rgb(70,46,134)", "rgb(24,16,46)") }}
             >
-              CID RACI Matrix for AI Models
-            </h3>
+              <h3 id="cid-raci-title" className="cid-raci-panel-title">
+                Accountable Leadership. Advanced AI. High-Performance Team.
+              </h3>
+              <p className="cid-raci-panel-kicker">CID RACI Matrix</p>
+            </div>
           <div className="cid-viv-reveal">
 
             {/* A real table, not a grid of divs: this is tabular data with two
@@ -768,9 +774,24 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 announce "Evidence verification, Ethel, Responsible" rather
                 than reading twenty-eight loose letters. */}
             <div className="cid-viv-raci">
-              <h3>Accountable Leadership. Advanced AI. High-Performance Team.</h3>
-              <p className="cid-viv-raci-sub">Automated Safeguards (Conflict Checks, MNPI Exclusions).</p>
-              <p className="cid-viv-raci-sub">Proactive Risk Management. Predictive Analytics.</p>
+              {/* Safeguards as a checked list, not two loose sentences: these are
+                  controls that either hold or do not, and a tick says that faster
+                  than a full stop does. Marks are aria-hidden - the list already
+                  reads as a list, and "check" spoken four times adds nothing. */}
+              <ul className="cid-raci-safe">
+                <li>
+                  <svg className="cid-raci-check" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+                    <path d="M4 10.6 8.2 14.8 16 6" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  Automated Safeguards (Conflict Checks, MNPI Exclusions).
+                </li>
+                <li>
+                  <svg className="cid-raci-check" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+                    <path d="M4 10.6 8.2 14.8 16 6" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  Proactive Risk Management. Predictive Analytics.
+                </li>
+              </ul>
 
               <table className="cid-viv-raci-table">
                 <caption className="cid-viv-raci-cap">
