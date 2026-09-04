@@ -1528,16 +1528,35 @@
   font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
   font-size: 12.5px; letter-spacing: .3px; color: #4B00B6;
 }
-/* Square by aspect-ratio rather than a fixed height, so the tile keeps its
-   shape when the column is at its narrow end. */
+/* The tile is a wooden one, like the game piece it borrows from, cut from the
+   dark red stock of the meeting-room table rather than from the site palette.
+   These reds are a material, not brand colours: nothing here is a token and
+   nothing else on the site should pull from them.
+
+   Three layers do the work. A repeating gradient lays the grain at a slight
+   angle so it does not read as stripes; a broad linear gradient lights the
+   board from the top left; and the inset pair cuts the bevel. Bright Silver
+   for the letter, which is a brand colour, and it holds at every point of the
+   grain: 4.96:1 on the lightest highlight, 13.26:1 in the darkest line. */
 .cid-scope .cid-raci-tile {
   width: 32px; aspect-ratio: 1 / 1; border-radius: 5px;
   display: inline-flex; align-items: center; justify-content: center;
-  background: linear-gradient(145deg, #F0F4F5, #D8DBDE);
-  box-shadow: inset 2px 2px 4px #c2c7d4, inset -2px -2px 4px #ffffff,
-              0 2px 5px -2px rgba(6,2,28,.35);
+  background:
+    repeating-linear-gradient(97deg,
+      rgba(65,21,12,.55) 0 1px,
+      rgba(65,21,12,0) 1px 4px,
+      rgba(163,74,46,.30) 4px 5px,
+      rgba(163,74,46,0) 5px 9px),
+    linear-gradient(145deg, #A34A2E 0%, #8C3A22 34%, #752C1A 66%, #5E2114 100%);
+  box-shadow:
+    inset 1px 1px 2px rgba(214,140,110,.55),
+    inset -1px -1px 3px rgba(48,15,8,.75),
+    0 2px 5px -2px rgba(6,2,28,.5);
   font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
-  font-size: 16px; line-height: 1; color: #06021C;
+  font-size: 16px; line-height: 1;
+  /* Bright Silver, with a dark seat so the letter never has to rely on the
+     lightest part of the grain for its edge. */
+  color: #E8ECF4; text-shadow: 0 1px 2px rgba(30,9,4,.85);
 }
 .cid-scope .cid-viv-raci-key dd {
   grid-column: 2; margin: 3px 0 0;
