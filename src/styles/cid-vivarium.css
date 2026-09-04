@@ -1813,7 +1813,10 @@
    rounded label the hero chips use. Partnerships are keys, the pressable
    indigo face of the strategy keys directly above the roll, at tag size.
    The two groups are set apart by a rule, because that is how Greg set them
-   apart in the copy, with no heading on the second. */
+   apart in the copy. Each heading sits on the same line as its chips, to
+   the left, so the row fills the lit bay instead of stacking a short heading
+   over a short row of tags. On a phone the groups go back to columns; see
+   the mobile block. */
 .cid-scope .cid-cast-detail {
   flex: 0 0 auto;
   display: flex; flex-direction: column; gap: 12px;
@@ -1821,7 +1824,15 @@
   font-family: 'Montserrat', system-ui, sans-serif;
   text-align: left;
 }
-.cid-scope .cid-cast-group { display: flex; flex-direction: column; gap: 8px; }
+/* A row: heading at the left, chips beside it. The list has a flex-basis of
+   240px, so when the bay cannot hold the heading and 240px of chips on one
+   line the list wraps under the heading rather than crushing the chips. */
+.cid-scope .cid-cast-group {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px;
+}
+.cid-scope .cid-cast-group-h { flex: 0 0 auto; }
+.cid-scope .cid-cast-group > .cid-cast-pills,
+.cid-scope .cid-cast-group > .cid-cast-keys { flex: 1 1 240px; min-width: 0; }
 .cid-scope .cid-cast-group-h {
   margin: 0;
   font-weight: 600; font-size: 10.5px; letter-spacing: .14em;
@@ -1955,6 +1966,11 @@
   .cid-scope .cid-cast-name { font-size: 15px; }
   .cid-scope .cid-cast-role { font-size: 11px; }
   .cid-scope .cid-cast-detail { padding: 2px 16px 18px; }
+  /* Heading over its chips again: at phone width the row form has no room
+     for a heading beside a 240px run of tags. */
+  .cid-scope .cid-cast-group { flex-direction: column; align-items: stretch; gap: 8px; }
+  .cid-scope .cid-cast-group > .cid-cast-pills,
+  .cid-scope .cid-cast-group > .cid-cast-keys { flex: 0 0 auto; }
 }
 @media (max-width: 700px) {
   .cid-scope .cid-cast-arrow { width: 38px; height: 38px; font-size: 22px; }
