@@ -642,37 +642,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 </p>
               </aside>
 
-              {/* The RACI key, closing the side column with the rest of the
-                  panel content. Read down, the tiles spell RACI, which is why
-                  the order here is R A C I rather than the A R C I the table
-                  itself uses.
-
-                  Tiles borrow the carved-slab treatment from the twelve-signs
-                  board: robins-egg to chrome on a 145deg with inset light and
-                  dark. No new colour is invented to get the effect. */}
-              {/* The title bar carries the same indigo the strategy keys use,
-                  so the panel reads as part of that family rather than a
-                  fifth white card. Gradient is the keys' own KEY_GRAD, the
-                  lightest of the three, with their Bright Silver legend. */}
-              <section className="cid-raci-panel" aria-labelledby="cid-raci-key-title">
-                <h3
-                  id="cid-raci-key-title"
-                  className="cid-raci-panel-title"
-                  style={{ background: KEY_GRAD("rgb(174,153,201)", "rgb(70,46,134)", "rgb(24,16,46)") }}
-                >
-                  CID RACI Matrix for AI Models
-                </h3>
-                <dl className="cid-viv-raci-key">
-                  <div><dt><span className="cid-raci-tile" aria-hidden="true">R</span>Responsible</dt>
-                    <dd>Completes the assigned task or deliverable.</dd></div>
-                  <div><dt><span className="cid-raci-tile" aria-hidden="true">A</span>Accountable</dt>
-                    <dd>Final ownership and decision authority. Held exclusively by the Principal Investigator.</dd></div>
-                  <div><dt><span className="cid-raci-tile" aria-hidden="true">C</span>Consulted</dt>
-                    <dd>Contributes before the work proceeds.</dd></div>
-                  <div><dt><span className="cid-raci-tile" aria-hidden="true">I</span>Informed</dt>
-                    <dd>Role-separated architecture gives agents access to information needed for designated roles.</dd></div>
-                </dl>
-              </section>
             </div>
           </div>
 
@@ -780,6 +749,18 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             </ul>
           </div>
 
+          {/* The chart and the key that defines it, in one block under one
+              title. They were split across the page, chart down here and key up
+              in the side column, which left a grid of twenty-eight loose letters
+              several screens from the thing that explains them. */}
+          <section className="cid-raci-panel" aria-labelledby="cid-raci-title">
+            <h3
+              id="cid-raci-title"
+              className="cid-raci-panel-title"
+              style={{ background: KEY_GRAD("rgb(174,153,201)", "rgb(70,46,134)", "rgb(24,16,46)") }}
+            >
+              CID RACI Matrix for AI Models
+            </h3>
           <div className="cid-viv-reveal">
 
             {/* A real table, not a grid of divs: this is tabular data with two
@@ -826,7 +807,21 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               </table>
 
             </div>
+            {/* Read down, the tiles spell RACI, which is why the order here is
+                R A C I and not the A R C I the table itself uses. Tiles take the
+                carved-slab treatment from the twelve-signs board. */}
+            <dl className="cid-viv-raci-key">
+              <div><dt><span className="cid-raci-tile" aria-hidden="true">R</span>Responsible</dt>
+                <dd>Completes the assigned task or deliverable.</dd></div>
+              <div><dt><span className="cid-raci-tile" aria-hidden="true">A</span>Accountable</dt>
+                <dd>Final ownership and decision authority. Held exclusively by the Principal Investigator.</dd></div>
+              <div><dt><span className="cid-raci-tile" aria-hidden="true">C</span>Consulted</dt>
+                <dd>Contributes before the work proceeds.</dd></div>
+              <div><dt><span className="cid-raci-tile" aria-hidden="true">I</span>Informed</dt>
+                <dd>Role-separated architecture gives agents access to information needed for designated roles.</dd></div>
+            </dl>
           </div>
+          </section>
 
 
           {/* Sealed case. The room and the claim it evidences are one

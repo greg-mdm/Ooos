@@ -1416,9 +1416,13 @@
   .cid-scope .cid-viv-reveal-lede { grid-template-columns: minmax(0,1fr); }
 }
 
-/* The film left this row for the strategy column, so the chart has it
-   to itself and the table gets the full measure for its operation names. */
-.cid-scope .cid-viv-reveal { display: block; margin: 0; }
+/* Inside the panel: the chart and, beside it, the key that defines its
+   letters. Together, because reading a grid of A R C I means nothing
+   without the four words, and those were on the far side of the page. */
+.cid-scope .cid-viv-reveal {
+  display: grid; grid-template-columns: minmax(0,1fr) minmax(230px,300px);
+  gap: 0; align-items: stretch; margin: 0;
+}
 .cid-scope .cid-viv-reveal-media { margin: 0; }
 .cid-scope .cid-viv-reveal-video {
   display: block; width: 100%; height: auto; aspect-ratio: 4 / 3;
@@ -1435,11 +1439,9 @@
 
 /* Same white card as the principles pair above, so the section holds one
    material rather than inventing a second. */
-.cid-scope .cid-viv-raci {
-  border-radius: 16px; background: #fff; border: 1px solid rgba(75,0,182,.16);
-  box-shadow: 0 22px 50px -32px rgba(6,2,28,.4);
-  padding: clamp(18px,2vw,24px);
-}
+/* No card of its own: it sits inside .cid-raci-panel, which is the card.
+   Nesting a second white box inside the first read as a mistake. */
+.cid-scope .cid-viv-raci { padding: clamp(18px,2vw,24px); }
 .cid-scope .cid-viv-raci h3 {
   margin: 0 0 8px; font-family: 'Montserrat', system-ui, sans-serif;
   font-weight: 800; font-size: clamp(15px,1.5vw,18px); letter-spacing: .3px;
@@ -1513,8 +1515,10 @@
    The column is minmax(240px, 340px), so the type is set for the narrow end
    and the tile shrinks with it. */
 .cid-scope .cid-viv-raci-key {
-  margin: 0; padding: clamp(15px,1.7vw,18px);
+  margin: 0; padding: clamp(18px,2vw,24px);
   display: flex; flex-direction: column; gap: 13px;
+  border-left: 1px solid rgba(75,0,182,.14);
+  background: rgba(75,0,182,.026);
 }
 .cid-scope .cid-viv-raci-key > div {
   display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0 11px; align-items: start;
@@ -1566,4 +1570,13 @@
    stand taller than the keys above it. */
 .cid-scope .cid-strategy + .cid-viv-reveal-media {
   margin: clamp(14px,1.8vw,20px) 0 0; max-width: 620px;
+}
+
+/* Below 900px the key cannot hold its measure beside a four-column table, so
+   it drops under the chart and the hairline moves to the top edge. */
+@media (max-width: 900px) {
+  .cid-scope .cid-viv-reveal { grid-template-columns: minmax(0,1fr); }
+  .cid-scope .cid-viv-raci-key {
+    border-left: none; border-top: 1px solid rgba(75,0,182,.14);
+  }
 }
