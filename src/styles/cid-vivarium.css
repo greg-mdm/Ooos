@@ -1717,21 +1717,51 @@
 .cid-scope .cid-cast-frame:hover { filter: brightness(.86) saturate(.94); }
 .cid-scope .cid-cast-frame.is-on:hover { filter: none; }
 
-/* The shot is the button. It carries the resets the frame used to, and the
-   focus ring, since it is what the keyboard lands on. */
+/* The shot is a box: the media fills it, and a transparent hit button lies
+   over the media so the art is still what you press. The button is a sibling
+   of the media rather than its parent, which is what lets the video take
+   native controls in full screen (interactive content cannot nest inside a
+   button). The focus ring is on the hit button, since that is what the
+   keyboard lands on. */
 .cid-scope .cid-cast-shot {
-  appearance: none; -webkit-appearance: none;
+  position: relative;
   flex: 1 1 auto; min-height: 0; width: 100%;
   display: flex; align-items: center; justify-content: center;
-  padding: 0; border: 0; margin: 0;
-  font: inherit; color: inherit; cursor: inherit;
   background:
     radial-gradient(120% 90% at 50% 42%, rgba(75,0,182,.16) 0%, rgba(4,3,14,0) 70%),
     #04030e;
 }
-.cid-scope .cid-cast-shot:focus-visible {
+.cid-scope .cid-cast-hit {
+  position: absolute; inset: 0; z-index: 1;
+  appearance: none; -webkit-appearance: none;
+  width: 100%; height: 100%;
+  padding: 0; border: 0; margin: 0;
+  background: transparent; color: inherit; cursor: inherit;
+}
+.cid-scope .cid-cast-hit:focus-visible {
   outline: 3px solid #4B00B6; outline-offset: -3px;
 }
+
+/* Full screen, on a lit video only. A corner control in the arrows' glass,
+   above the hit button so the press reaches it. Big enough for a thumb. */
+.cid-scope .cid-cast-full {
+  position: absolute; right: 10px; bottom: 10px; z-index: 2;
+  appearance: none; -webkit-appearance: none;
+  width: 42px; height: 42px; padding: 0;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(232,236,244,.28); border-radius: 50%;
+  background: rgba(6,2,28,.62); backdrop-filter: blur(6px);
+  color: #E8ECF4; cursor: pointer;
+  transition: background .18s ease, border-color .18s ease;
+}
+.cid-scope .cid-cast-full svg { width: 20px; height: 20px; }
+.cid-scope .cid-cast-full:hover {
+  background: rgba(75,0,182,.72); border-color: rgba(232,236,244,.5);
+}
+.cid-scope .cid-cast-full:focus-visible { outline: 2px solid #E8ECF4; outline-offset: 2px; }
+/* In full screen the film is the whole display: contained, never cropped,
+   on the same near-black as the bay. */
+.cid-scope .cid-cast-media:fullscreen { object-fit: contain; background: #04030e; }
 
 /* THE SPOTLIT FRAME NEVER CROPS. Its three pieces do not share an aspect
    (film 4:3, Ethel 16:9, Icarus 4:5 portrait) and squeezing them to a
@@ -1862,15 +1892,69 @@
 .cid-scope .cid-cast-arrow--next { right: clamp(8px,1.4vw,22px); }
 
 @media (prefers-reduced-motion: reduce) {
+  .cid-scope .cid-cast-roll,
   .cid-scope .cid-cast-frame,
   .cid-scope .cid-cast-arrow { transition: none; }
 }
 
-/* On a phone three frames cannot share one screen and still show anything,
-   so the lit frame takes most of it and the others become edge slivers the
-   arrows move through. */
+/* ---- Phone and small tablet: the roll is a pager ------------------------
+   Below this width three frames cannot share one screen and still show
+   anything. The old answer, a 74% lit frame with 13% slivers of the other
+   two either side, squished the art: the frame was a fixed 500 to 600px
+   tall, so a 16:9 film contained in it became a thin band between two slabs
+   of black, and the slivers cost the width that was left. Greg's brief for
+   the redesign: one card on screen at a time, no neighbour visible, and the
+   film playable full screen.
+
+   So every frame is exactly the band's width, and the roll is a mandatory
+   snap pager: the others wait offscreen and a swipe or an arrow brings the
+   next one across. The frame's height is its content. The shot takes the
+   media's own aspect ratio (--ratio, per character, set by CharacterRoll),
+   so nothing is letterboxed or cropped, and the plate and detail hang below
+   at their natural height.
+
+   The arrows sit at the vertical centre of the lit shot rather than of the
+   whole frame, which on the General would put them across his pills.
+   --lit-ratio is the lit character's ratio, so the centre is the band width
+   over that ratio, halved. The band is 100vw wide here, by the break-out
+   above. */
+@media (max-width: 900px) {
+  /* Height follows the lit frame (--roll-h, measured by CharacterRoll) so a
+     card with nothing under its nameplate is not padded out to the height of
+     the one that has pills. Neighbours mid-swipe clip to it, which is fine:
+     what shows of them is the shot and the plate. */
+  .cid-scope .cid-cast-roll {
+    scroll-snap-type: x mandatory;
+    align-items: flex-start;
+    height: var(--roll-h, auto);
+    transition: height .32s cubic-bezier(.4,0,.2,1);
+  }
+  .cid-scope .cid-cast-frame,
+  .cid-scope .cid-cast-frame.is-on {
+    width: 100%; min-width: 0; height: auto;
+    scroll-snap-align: start; scroll-snap-stop: always;
+    transition: filter .42s ease;
+  }
+  .cid-scope .cid-cast-shot {
+    flex: 0 0 auto; height: auto;
+    aspect-ratio: var(--ratio, 1.7778);
+  }
+  /* Unlit frames are only ever seen mid-swipe, as the next card sliding in.
+     The still covers the shot at the same aspect its video will take, so the
+     swap from poster to film when it lights does not move anything. */
+  .cid-scope .cid-cast-media,
+  .cid-scope .cid-cast-frame.is-on .cid-cast-media {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  }
+  .cid-scope .cid-cast-arrow {
+    top: calc(100vw / var(--lit-ratio, 1.7778) / 2);
+  }
+  .cid-scope .cid-cast-plate { padding: 14px 16px; gap: 8px 12px; }
+  .cid-scope .cid-cast-name { font-size: 15px; }
+  .cid-scope .cid-cast-role { font-size: 11px; }
+  .cid-scope .cid-cast-detail { padding: 2px 16px 18px; }
+}
 @media (max-width: 700px) {
-  .cid-scope .cid-cast-frame { width: 13%; min-width: 40px; height: clamp(500px, 115vw, 600px); }
-  .cid-scope .cid-cast-frame.is-on { width: 74%; }
   .cid-scope .cid-cast-arrow { width: 38px; height: 38px; font-size: 22px; }
+  .cid-scope .cid-cast-full { right: 8px; bottom: 8px; }
 }

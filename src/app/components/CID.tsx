@@ -214,11 +214,21 @@ function IcarusName() {
    same place it did inside the column, because the side panel has already
    run out by then.
 
-   FRAMES ARE BUTTONS WRAPPING THEIR MEDIA, the idiom GregLensSlider already
-   uses above. That is what rules out native video controls here: controls
-   are interactive, and interactive content cannot nest inside a button. So
-   the film autoplays muted on a loop while it holds the spotlight and shows
-   its poster otherwise, exactly as the lens panels do. */
+   THE MEDIA IS NOT INSIDE THE BUTTON. It used to be, in the GregLensSlider
+   idiom, and that ruled out native video controls: controls are interactive,
+   and interactive content cannot nest inside a button. Now the shot is a
+   plain box holding the media, a transparent hit button laid over it (the
+   art is still the control, and the keyboard still lands on it), and, on a
+   lit video, a full-screen button in the corner. The film autoplays muted on
+   a loop while it holds the spotlight and shows its poster otherwise; full
+   screen hands it to the browser's own player, controls and all.
+
+   ON A PHONE THE ROLL IS A PAGER. One frame fills the band edge to edge and
+   the others wait offscreen, so no neighbour is ever visible beside the lit
+   card; a swipe or an arrow brings the next one across and the spotlight
+   follows whichever frame settles. Each shot keeps its own aspect ratio
+   there (16:9, 4:3, 4:5), which is what stops the film being letterboxed
+   into a fixed-height box, the squish the September mobile shots showed. */
 type CidSpec = { label: string; value: string };
 type CidCharacter = {
   key: string;
@@ -234,6 +244,10 @@ type CidCharacter = {
     | { kind: "image"; src: string };
   /** Still shown in the roll when this frame is not spotlighted. */
   thumb: string;
+  /** Width over height of the lit media. On a phone the shot takes exactly
+   *  this shape, so nothing is letterboxed or cropped; on wider screens the
+   *  frame is a fixed height and the media is contained inside it. */
+  ratio: number;
   /** object-position for the cropped state. A frame off the spotlight is
    *  much taller than it is wide, so centre is not always the right slice:
    *  the Sturgeon is a long horizontal fish and centre cuts his head off. */
@@ -266,6 +280,7 @@ const CAST = (base: string): CidCharacter[] => [
       poster: `${base}assets/images/cid-char-ethel.webp`,
     },
     thumb: `${base}assets/images/cid-char-ethel.webp`,
+    ratio: 16 / 9,
     alt: "Ethel at her station in a cavern of violet light, masked, her hands over a glowing circular console.",
     specs: [],
   },
@@ -289,6 +304,7 @@ const CAST = (base: string): CidCharacter[] => [
       poster: `${base}assets/images/sturgeon-general-reveal-poster.webp`,
     },
     thumb: `${base}assets/images/sturgeon-general-reveal-poster.webp`,
+    ratio: 4 / 3,
     focus: "38% center",
     alt: "The Sturgeon General in profile above an Arctic ice field, then a close view of the eye housing as it powers up.",
     specs: [],
@@ -300,6 +316,7 @@ const CAST = (base: string): CidCharacter[] => [
     role: "Executive Trader",
     media: { kind: "image", src: `${base}assets/images/cid-char-icarus.webp` },
     thumb: `${base}assets/images/cid-char-icarus.webp`,
+    ratio: 4 / 5,
     focus: "center 28%",
     alt: "Icarus the Third seated on a mound of world currency coins in a vault, holding a top hat that pours out more.",
     specs: [],
@@ -317,20 +334,112 @@ function CharacterRoll({ base }: { base: string }) {
   // so a bad key cannot leave the roll with nothing lit.
   const opensAt = Math.max(0, cast.findIndex((c) => c.key === OPENS_LIT));
   const [at, setAt] = useState(opensAt);
+  const roll = useRef<HTMLDivElement | null>(null);
   const frames = useRef<(HTMLButtonElement | null)[]>([]);
+  const lit = useRef<HTMLVideoElement | null>(null);
+
+  // Scrolls the roll so frame i sits centred, horizontally only. Not
+  // scrollIntoView: that also scrolls the page vertically to the frame, and
+  // on load the band is below the fold, so the opening scroll would yank the
+  // reader down the page to it.
+  const centre = (i: number, behavior: ScrollBehavior) => {
+    const r = roll.current;
+    const el = frames.current[i]?.closest<HTMLElement>(".cid-cast-frame");
+    if (!r || !el) return;
+    const left = el.offsetLeft + el.offsetWidth / 2 - r.clientWidth / 2;
+    r.scrollTo({ left, behavior });
+  };
   // Moving the spotlight also brings the frame into view, which is the whole
-  // point of the arrows once the roll is longer than the page is wide.
+  // point of the arrows once the roll is longer than the page is wide, and on
+  // a phone is the only way the next card arrives at all.
   const go = (n: number, focus: boolean) => {
     const i = (n + cast.length) % cast.length;
     setAt(i);
-    const el = frames.current[i];
-    if (!el) return;
-    if (focus) el.focus();
+    if (focus) frames.current[i]?.focus({ preventScroll: true });
     const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    el.scrollIntoView({ inline: "center", block: "nearest", behavior: still ? "auto" : "smooth" });
+    centre(i, still ? "auto" : "smooth");
   };
+
+  // The phone pager opens on the lit frame rather than on Ethel at the left
+  // edge. Instant, so nothing animates before the page has settled.
+  useEffect(() => { centre(opensAt, "auto"); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // THE ROLL IS AS TALL AS THE LIT FRAME, on a phone. A flex row is as tall
+  // as its tallest child, and the General's pills make his frame the tallest,
+  // so Ethel's card would otherwise carry his height as a slab of black under
+  // her nameplate. Measured, because the height is the content's. The CSS
+  // only reads --roll-h inside the phone block; wider layouts keep their
+  // fixed frame height and ignore it.
+  const [rollH, setRollH] = useState<number | null>(null);
+  useEffect(() => {
+    const el = frames.current[at]?.closest<HTMLElement>(".cid-cast-frame");
+    if (!el || typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver(([e]) => setRollH(Math.round(e.contentRect.height)));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [at]);
+
+  // A SWIPE IS ALSO A CHOICE. When the roll is a pager (one frame per
+  // screen) the spotlight follows whichever frame the scroll settles on, so
+  // swiping to Ethel lights Ethel instead of leaving a dimmed still beside
+  // the arrows. Nearest-centre after the scroll goes quiet; the arrows set
+  // the same index they scroll to, so this never fights them. Off the phone
+  // the three frames fill the band and nothing scrolls, so it never runs.
+  useEffect(() => {
+    const r = roll.current;
+    if (!r) return;
+    let t = 0;
+    const settle = () => {
+      if (r.scrollWidth <= r.clientWidth + 1) return;
+      const mid = r.scrollLeft + r.clientWidth / 2;
+      let best = 0, gap = Infinity;
+      frames.current.forEach((b, i) => {
+        const el = b?.closest<HTMLElement>(".cid-cast-frame");
+        if (!el) return;
+        const d = Math.abs(el.offsetLeft + el.offsetWidth / 2 - mid);
+        if (d < gap) { gap = d; best = i; }
+      });
+      setAt(best);
+    };
+    const onScroll = () => { window.clearTimeout(t); t = window.setTimeout(settle, 140); };
+    r.addEventListener("scroll", onScroll, { passive: true });
+    return () => { r.removeEventListener("scroll", onScroll); window.clearTimeout(t); };
+  }, []);
+
+  // FULL SCREEN HANDS THE FILM TO THE BROWSER'S PLAYER. The roll's video is
+  // a muted loop with no controls, because it sits under a hit button and
+  // controls cannot be reached there. In full screen it is the top layer on
+  // its own, so it gets the native controls for as long as it is there, and
+  // loses them again on the way out. iPhone Safari has no element full
+  // screen at all, only the video's own webkitEnterFullscreen, which opens
+  // the system player with its controls built in; that is the fallback.
+  useEffect(() => {
+    const sync = () => {
+      const v = lit.current;
+      if (v) v.controls = document.fullscreenElement === v;
+    };
+    document.addEventListener("fullscreenchange", sync);
+    return () => document.removeEventListener("fullscreenchange", sync);
+  }, []);
+  const fullScreen = () => {
+    const v = lit.current;
+    if (!v) return;
+    type IOSVideo = HTMLVideoElement & { webkitEnterFullscreen?: () => void };
+    if (document.fullscreenEnabled && v.requestFullscreen) {
+      v.requestFullscreen().catch(() => (v as IOSVideo).webkitEnterFullscreen?.());
+    } else {
+      (v as IOSVideo).webkitEnterFullscreen?.();
+    }
+  };
+
   return (
-    <div className="cid-cast">
+    <div
+      className="cid-cast"
+      style={{
+        "--lit-ratio": String(cast[at].ratio),
+        "--roll-h": rollH ? `${rollH}px` : undefined,
+      } as CSSProperties}
+    >
       <div className="cid-cast-rollwrap">
         <button
           type="button"
@@ -340,43 +449,35 @@ function CharacterRoll({ base }: { base: string }) {
         >
           <span aria-hidden="true">&#8249;</span>
         </button>
-        <div className="cid-cast-roll">
+        <div className="cid-cast-roll" ref={roll}>
           {cast.map((p, i) => {
             const on = i === at;
             const hasDetail =
               (p.nodes?.length ?? 0) + (p.partners?.length ?? 0) + p.specs.length > 0;
             return (
-              /* THE SHOT IS THE BUTTON, NOT THE FRAME. The frame used to be the
-                 button, wrapping everything. Two things broke that once a
-                 character had content under its nameplate. A button carrying
-                 aria-label hides its own children from assistive tech, so the
-                 pills below would have been invisible to a screen reader. And
-                 interactive content cannot nest inside a button, which rules
-                 out ever making a tag pressable. So the art is the control,
-                 which is what Greg asked for, and the plate and detail are
-                 siblings of it. The frame keeps a click handler as a mouse
-                 convenience, so pressing the nameplate still spotlights; the
-                 button underneath is the keyboard and screen-reader path. */
+              /* THE HIT BUTTON LIES OVER THE ART, NOT AROUND IT. The frame
+                 used to be the button, wrapping everything, and then the shot
+                 was. Both broke in the same way: a button carrying aria-label
+                 hides its own children from assistive tech, and interactive
+                 content cannot nest inside a button, which ruled out native
+                 video controls and any pressable tag. So the media is a
+                 sibling of a transparent button that covers it. The art is
+                 still what you press, which is what Greg asked for, the
+                 button is still the keyboard and screen-reader path, and the
+                 plate, the detail and the full-screen control all sit beside
+                 it rather than inside it. The frame keeps a click handler as
+                 a mouse convenience, so pressing the nameplate spotlights. */
               <div
                 key={p.key}
                 className={`cid-cast-frame ${on ? "is-on" : ""}`}
+                style={{ "--ratio": String(p.ratio) } as CSSProperties}
                 onClick={() => setAt(i)}
               >
-                <button
-                  type="button"
-                  ref={(el) => { frames.current[i] = el; }}
-                  className="cid-cast-shot"
-                  aria-pressed={on}
-                  aria-label={on ? p.plain : `Spotlight ${p.plain}`}
-                  onKeyDown={(e) => {
-                    if (e.key === "ArrowRight") { e.preventDefault(); go(at + 1, true); }
-                    if (e.key === "ArrowLeft") { e.preventDefault(); go(at - 1, true); }
-                    if (e.key === "Home") { e.preventDefault(); go(0, true); }
-                    if (e.key === "End") { e.preventDefault(); go(cast.length - 1, true); }
-                  }}
-                >
+                <div className="cid-cast-shot">
                   {on && p.media.kind === "video" ? (
                     <video
+                      key={p.media.src}
+                      ref={lit}
                       className="cid-cast-media"
                       src={p.media.src}
                       poster={p.media.poster}
@@ -398,7 +499,32 @@ function CharacterRoll({ base }: { base: string }) {
                       decoding="async"
                     />
                   )}
-                </button>
+                  <button
+                    type="button"
+                    ref={(el) => { frames.current[i] = el; }}
+                    className="cid-cast-hit"
+                    aria-pressed={on}
+                    aria-label={on ? p.plain : `Spotlight ${p.plain}`}
+                    onKeyDown={(e) => {
+                      if (e.key === "ArrowRight") { e.preventDefault(); go(at + 1, true); }
+                      if (e.key === "ArrowLeft") { e.preventDefault(); go(at - 1, true); }
+                      if (e.key === "Home") { e.preventDefault(); go(0, true); }
+                      if (e.key === "End") { e.preventDefault(); go(cast.length - 1, true); }
+                    }}
+                  />
+                  {on && p.media.kind === "video" && (
+                    <button
+                      type="button"
+                      className="cid-cast-full"
+                      aria-label={`Play ${p.plain} full screen`}
+                      onClick={(e) => { e.stopPropagation(); fullScreen(); }}
+                    >
+                      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+                        <path d="M3 8V3h5M12 3h5v5M17 12v5h-5M8 17H3v-5" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </button>
+                  )}
+                </div>
                 <div className="cid-cast-plate">
                   <span className="cid-cast-name">{p.name}</span>
                   {on && p.role && <span className="cid-cast-role">{p.role}</span>}
