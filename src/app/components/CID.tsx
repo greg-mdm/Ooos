@@ -244,22 +244,9 @@ type CidCharacter = {
   specs: CidSpec[];
 };
 
+/* Reading order is the staging: Ethel at the left, Icarus at the right, and
+   the Sturgeon General swimming between them. */
 const CAST = (base: string): CidCharacter[] => [
-  {
-    key: "sturgeon",
-    name: "The Sturgeon General",
-    plain: "The Sturgeon General",
-    role: "",
-    media: {
-      kind: "video",
-      src: `${base}assets/video/STURGEN GEN CID Creature Reveal.mp4`,
-      poster: `${base}assets/images/sturgeon-general-reveal-poster.webp`,
-    },
-    thumb: `${base}assets/images/sturgeon-general-reveal-poster.webp`,
-    focus: "38% center",
-    alt: "The Sturgeon General in profile above an Arctic ice field, then a close view of the eye housing as it powers up.",
-    specs: [],
-  },
   {
     key: "ethel",
     name: "Ethel",
@@ -278,6 +265,21 @@ const CAST = (base: string): CidCharacter[] => [
     specs: [],
   },
   {
+    key: "sturgeon",
+    name: "The Sturgeon General",
+    plain: "The Sturgeon General",
+    role: "",
+    media: {
+      kind: "video",
+      src: `${base}assets/video/STURGEN GEN CID Creature Reveal.mp4`,
+      poster: `${base}assets/images/sturgeon-general-reveal-poster.webp`,
+    },
+    thumb: `${base}assets/images/sturgeon-general-reveal-poster.webp`,
+    focus: "38% center",
+    alt: "The Sturgeon General in profile above an Arctic ice field, then a close view of the eye housing as it powers up.",
+    specs: [],
+  },
+  {
     key: "icarus",
     name: <IcarusName />,
     plain: "Icarus the Third",
@@ -290,9 +292,17 @@ const CAST = (base: string): CidCharacter[] => [
   },
 ];
 
+/** Who holds the spotlight when the page loads. By key, not by index: the
+ *  General opens the roll from the middle, and naming him means reordering the
+ *  cast again cannot quietly hand the spotlight to whoever lands first. */
+const OPENS_LIT = "sturgeon";
+
 function CharacterRoll({ base }: { base: string }) {
   const cast = CAST(base);
-  const [at, setAt] = useState(0);
+  // Falls back to the first frame if the named character ever leaves the cast,
+  // so a bad key cannot leave the roll with nothing lit.
+  const opensAt = Math.max(0, cast.findIndex((c) => c.key === OPENS_LIT));
+  const [at, setAt] = useState(opensAt);
   const frames = useRef<(HTMLButtonElement | null)[]>([]);
   // Moving the spotlight also brings the frame into view, which is the whole
   // point of the arrows once the roll is longer than the page is wide.
@@ -352,7 +362,10 @@ function CharacterRoll({ base }: { base: string }) {
                       src={on && p.media.kind === "image" ? p.media.src : p.thumb}
                       alt=""
                       style={on ? undefined : ({ objectPosition: p.focus ?? "center" } as CSSProperties)}
-                      loading={i === 0 ? undefined : "lazy"}
+                      /* Eager only for the frame that opens lit, which is no
+                         longer the first one now that the General sits in the
+                         middle. Everything else waits until the band is near. */
+                      loading={i === opensAt ? undefined : "lazy"}
                       decoding="async"
                     />
                   )}
