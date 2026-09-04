@@ -239,6 +239,11 @@ type CidCharacter = {
    *  the Sturgeon is a long horizontal fish and centre cuts his head off. */
   focus?: string;
   alt: string;
+  /** Sector nodes, set as pills under a "Sector Nodes" heading. */
+  nodes?: string[];
+  /** Partnership tags, set as small keys in the strategy-key idiom. A node
+   *  rather than a string so an acronym can carry its expansion in <abbr>. */
+  partners?: { key: string; label: ReactNode }[];
   /** Stats block, per character. Empty until the copy is written; the frame
    *  omits the list entirely, so adding a row here is the only edit needed. */
   specs: CidSpec[];
@@ -268,7 +273,16 @@ const CAST = (base: string): CidCharacter[] => [
     key: "sturgeon",
     name: "The Sturgeon General",
     plain: "The Sturgeon General",
-    role: "",
+    role: "High North Vanguard",
+    // Greg's copy, verbatim, including the plus signs and the en dashes. The
+    // en dash is his own character in CANADA–EU and not the em dash the
+    // house rule bans; the plus is how he set the sector pairs.
+    nodes: ["Maritime + Subsea Systems", "Defence + Simulation", "Geospatial Intelligence"],
+    partners: [
+      { key: "indigenous", label: "CANADA–INDIGENOUS" },
+      { key: "eu", label: <>CANADA–<abbr title="European Union">EU</abbr></> },
+      { key: "nordic", label: "CANADA–NORDIC" },
+    ],
     media: {
       kind: "video",
       src: `${base}assets/video/STURGEN GEN CID Creature Reveal.mp4`,
@@ -329,23 +343,38 @@ function CharacterRoll({ base }: { base: string }) {
         <div className="cid-cast-roll">
           {cast.map((p, i) => {
             const on = i === at;
+            const hasDetail =
+              (p.nodes?.length ?? 0) + (p.partners?.length ?? 0) + p.specs.length > 0;
             return (
-              <button
+              /* THE SHOT IS THE BUTTON, NOT THE FRAME. The frame used to be the
+                 button, wrapping everything. Two things broke that once a
+                 character had content under its nameplate. A button carrying
+                 aria-label hides its own children from assistive tech, so the
+                 pills below would have been invisible to a screen reader. And
+                 interactive content cannot nest inside a button, which rules
+                 out ever making a tag pressable. So the art is the control,
+                 which is what Greg asked for, and the plate and detail are
+                 siblings of it. The frame keeps a click handler as a mouse
+                 convenience, so pressing the nameplate still spotlights; the
+                 button underneath is the keyboard and screen-reader path. */
+              <div
                 key={p.key}
-                type="button"
-                ref={(el) => { frames.current[i] = el; }}
                 className={`cid-cast-frame ${on ? "is-on" : ""}`}
-                aria-pressed={on}
-                aria-label={on ? p.plain : `Spotlight ${p.plain}`}
                 onClick={() => setAt(i)}
-                onKeyDown={(e) => {
-                  if (e.key === "ArrowRight") { e.preventDefault(); go(at + 1, true); }
-                  if (e.key === "ArrowLeft") { e.preventDefault(); go(at - 1, true); }
-                  if (e.key === "Home") { e.preventDefault(); go(0, true); }
-                  if (e.key === "End") { e.preventDefault(); go(cast.length - 1, true); }
-                }}
               >
-                <span className="cid-cast-shot">
+                <button
+                  type="button"
+                  ref={(el) => { frames.current[i] = el; }}
+                  className="cid-cast-shot"
+                  aria-pressed={on}
+                  aria-label={on ? p.plain : `Spotlight ${p.plain}`}
+                  onKeyDown={(e) => {
+                    if (e.key === "ArrowRight") { e.preventDefault(); go(at + 1, true); }
+                    if (e.key === "ArrowLeft") { e.preventDefault(); go(at - 1, true); }
+                    if (e.key === "Home") { e.preventDefault(); go(0, true); }
+                    if (e.key === "End") { e.preventDefault(); go(cast.length - 1, true); }
+                  }}
+                >
                   {on && p.media.kind === "video" ? (
                     <video
                       className="cid-cast-media"
@@ -369,22 +398,45 @@ function CharacterRoll({ base }: { base: string }) {
                       decoding="async"
                     />
                   )}
-                </span>
-                <span className="cid-cast-plate">
+                </button>
+                <div className="cid-cast-plate">
                   <span className="cid-cast-name">{p.name}</span>
                   {on && p.role && <span className="cid-cast-role">{p.role}</span>}
-                </span>
-                {on && p.specs.length > 0 && (
-                  <span className="cid-cast-specs">
-                    {p.specs.map((s) => (
-                      <span className="cid-cast-spec" key={s.label}>
-                        <span className="cid-cast-spec-k">{s.label}</span>
-                        <span className="cid-cast-spec-v">{s.value}</span>
-                      </span>
-                    ))}
-                  </span>
+                </div>
+                {on && hasDetail && (
+                  <div className="cid-cast-detail">
+                    {p.nodes && p.nodes.length > 0 && (
+                      <div className="cid-cast-group">
+                        <p className="cid-cast-group-h">Sector Nodes</p>
+                        <ul className="cid-cast-pills">
+                          {p.nodes.map((n) => (
+                            <li className="cid-cast-pill" key={n}>{n}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                    {p.partners && p.partners.length > 0 && (
+                      /* No heading: Greg's copy sets these apart with a rule
+                         and nothing else, so a rule is what separates them. */
+                      <ul className="cid-cast-keys">
+                        {p.partners.map((t) => (
+                          <li className="cid-cast-key" key={t.key}>{t.label}</li>
+                        ))}
+                      </ul>
+                    )}
+                    {p.specs.length > 0 && (
+                      <dl className="cid-cast-specs">
+                        {p.specs.map((s) => (
+                          <div className="cid-cast-spec" key={s.label}>
+                            <dt className="cid-cast-spec-k">{s.label}</dt>
+                            <dd className="cid-cast-spec-v">{s.value}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                    )}
+                  </div>
                 )}
-              </button>
+              </div>
             );
           })}
         </div>
