@@ -1839,7 +1839,9 @@
   font-weight: 600; font-size: 11.5px; letter-spacing: .04em; line-height: 1.2;
   color: #E8ECF4;
 }
-.cid-scope .cid-cast-keys {
+/* The rule that sets the partners apart from the sector nodes now sits on
+   the group, above its heading, rather than on the list. */
+.cid-scope .cid-cast-group--keys {
   padding-top: 12px; border-top: 1px solid rgba(174,153,201,.13);
 }
 /* The strategy-key face, scaled to a tag: same radial ramp, same Bright

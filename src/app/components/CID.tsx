@@ -258,6 +258,8 @@ type CidCharacter = {
   /** Partnership tags, set as small keys in the strategy-key idiom. A node
    *  rather than a string so an acronym can carry its expansion in <abbr>. */
   partners?: { key: string; label: ReactNode }[];
+  /** Heading over the partner keys. Greg's copy, verbatim. */
+  partnersHeading?: string;
   /** Stats block, per character. Empty until the copy is written; the frame
    *  omits the list entirely, so adding a row here is the only edit needed. */
   specs: CidSpec[];
@@ -293,6 +295,10 @@ const CAST = (base: string): CidCharacter[] => [
     // en dash is his own character in CANADA–EU and not the em dash the
     // house rule bans; the plus is how he set the sector pairs.
     nodes: ["Maritime + Subsea Systems", "Defence + Simulation", "Geospatial Intelligence"],
+    // "Partners in PEARL" is Greg's heading for this group, verbatim. PEARL
+    // is set as he supplied it; no expansion has been given for it yet, so
+    // none is invented here.
+    partnersHeading: "Partners in PEARL",
     partners: [
       { key: "indigenous", label: "CANADA–INDIGENOUS" },
       { key: "eu", label: <>CANADA–<abbr title="European Union">EU</abbr></> },
@@ -542,13 +548,16 @@ function CharacterRoll({ base }: { base: string }) {
                       </div>
                     )}
                     {p.partners && p.partners.length > 0 && (
-                      /* No heading: Greg's copy sets these apart with a rule
-                         and nothing else, so a rule is what separates them. */
-                      <ul className="cid-cast-keys">
-                        {p.partners.map((t) => (
-                          <li className="cid-cast-key" key={t.key}>{t.label}</li>
-                        ))}
-                      </ul>
+                      /* Same group idiom as the sector nodes: a rule, then
+                         the heading, then the keys. */
+                      <div className="cid-cast-group cid-cast-group--keys">
+                        {p.partnersHeading && <p className="cid-cast-group-h">{p.partnersHeading}</p>}
+                        <ul className="cid-cast-keys">
+                          {p.partners.map((t) => (
+                            <li className="cid-cast-key" key={t.key}>{t.label}</li>
+                          ))}
+                        </ul>
+                      </div>
                     )}
                     {p.specs.length > 0 && (
                       <dl className="cid-cast-specs">
