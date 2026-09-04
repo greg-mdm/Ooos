@@ -195,6 +195,155 @@ function IcarusName() {
   );
 }
 
+/* ---- Character cards ---------------------------------------------------
+   A character-select rail: one big card at a time, three tabs under it.
+   Built as an ARIA tablist rather than a transform track because only the
+   chosen card is ever mounted, which means the Sturgeon General's video
+   element does not exist until someone asks for it, and the two character
+   stills stay unfetched until then too.
+
+   THE STAGE IS FIXED HEIGHT AND THE ART IS CONTAINED. The three pieces do
+   not share an aspect: the film is 4:3, Ethel is 16:9, Icarus is 4:5
+   portrait. Sizing the stage to each in turn would make the page jump by
+   ~270px on every tab press, and cropping them to a common ratio is the
+   thing that flattened the Sturgeon the first time. So the stage holds one
+   height, each piece sits inside it whole, and the surround is the same
+   near-black the film already carries. All three are dark-edged art, so
+   the ground reads as a lit stage rather than as a gap. */
+type CidSpec = { label: string; value: string };
+type CidCharacter = {
+  key: string;
+  /** Nameplate and tab label. A node, so Icarus keeps his vector numeral. */
+  name: ReactNode;
+  /** Role line. Verbatim from CASE_BAYS, which is where these are canon.
+   *  An empty string renders no line rather than inventing one. */
+  role: string;
+  media:
+    | { kind: "video"; src: string; poster: string }
+    | { kind: "image"; src: string; w: number; h: number };
+  alt: string;
+  /** Stats block, per character. Empty until the copy is written; the card
+   *  simply omits the list, so adding a row here is the only edit needed. */
+  specs: CidSpec[];
+};
+
+const CAST = (base: string): CidCharacter[] => [
+  {
+    key: "sturgeon",
+    name: "The Sturgeon General",
+    role: "",
+    media: {
+      kind: "video",
+      src: `${base}assets/video/STURGEN GEN CID Creature Reveal.mp4`,
+      poster: `${base}assets/images/sturgeon-general-reveal-poster.webp`,
+    },
+    alt: "The Sturgeon General in profile above an Arctic ice field, then a close view of the eye housing as it powers up.",
+    specs: [],
+  },
+  {
+    key: "ethel",
+    name: "Ethel",
+    role: "Ethical Analyst",
+    media: { kind: "image", src: `${base}assets/images/cid-char-ethel.webp`, w: 1240, h: 698 },
+    alt: "Ethel at her station in a cavern of violet light, masked, her hands over a glowing circular console.",
+    specs: [],
+  },
+  {
+    key: "icarus",
+    name: <IcarusName />,
+    role: "Executive Trader",
+    media: { kind: "image", src: `${base}assets/images/cid-char-icarus.webp`, w: 1000, h: 1250 },
+    alt: "Icarus the Third seated on a mound of world currency coins in a vault, holding a top hat that pours out more.",
+    specs: [],
+  },
+];
+
+function CharacterCards({ base }: { base: string }) {
+  const cast = CAST(base);
+  const [at, setAt] = useState(0);
+  const tabs = useRef<(HTMLButtonElement | null)[]>([]);
+  // Roving tabindex: arrows move selection AND focus, which is what the
+  // tablist pattern expects and what makes the rail usable without a mouse.
+  const go = (n: number) => {
+    const i = (n + cast.length) % cast.length;
+    setAt(i);
+    tabs.current[i]?.focus();
+  };
+  const one = cast[at];
+  return (
+    <div className="cid-cast">
+      <div
+        className="cid-cast-card"
+        role="tabpanel"
+        id={`cid-cast-panel-${one.key}`}
+        aria-labelledby={`cid-cast-tab-${one.key}`}
+      >
+        <div className="cid-cast-stage">
+          {one.media.kind === "video" ? (
+            <video
+              className="cid-cast-media"
+              src={one.media.src}
+              poster={one.media.poster}
+              controls
+              muted
+              playsInline
+              preload="metadata"
+              aria-label={one.alt}
+            />
+          ) : (
+            <img
+              className="cid-cast-media"
+              src={one.media.src}
+              alt={one.alt}
+              width={one.media.w}
+              height={one.media.h}
+              decoding="async"
+            />
+          )}
+        </div>
+        <div className="cid-cast-plate">
+          <p className="cid-cast-name">{one.name}</p>
+          {one.role && <p className="cid-cast-role">{one.role}</p>}
+        </div>
+        {one.specs.length > 0 && (
+          <dl className="cid-cast-specs">
+            {one.specs.map((s) => (
+              <div key={s.label}>
+                <dt>{s.label}</dt>
+                <dd>{s.value}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
+      </div>
+      <div className="cid-cast-rail" role="tablist" aria-label="Choose a character">
+        {cast.map((p, i) => (
+          <button
+            key={p.key}
+            type="button"
+            ref={(el) => { tabs.current[i] = el; }}
+            id={`cid-cast-tab-${p.key}`}
+            role="tab"
+            className={`cid-cast-tab ${i === at ? "is-on" : ""}`}
+            aria-selected={i === at}
+            aria-controls={`cid-cast-panel-${p.key}`}
+            tabIndex={i === at ? 0 : -1}
+            onClick={() => setAt(i)}
+            onKeyDown={(e) => {
+              if (e.key === "ArrowRight") { e.preventDefault(); go(at + 1); }
+              if (e.key === "ArrowLeft") { e.preventDefault(); go(at - 1); }
+              if (e.key === "Home") { e.preventDefault(); go(0); }
+              if (e.key === "End") { e.preventDefault(); go(cast.length - 1); }
+            }}
+          >
+            {p.name}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 /** The Vivarium team: the research facility's glass case (a background, not
  *  a picture, so browsers offer no image zoom, visual search or save
  *  affordance to get stuck in) and the three researchers' nametags, which
@@ -530,29 +679,13 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <StrategyKeys />
               </section>
 
-              {/* The creature closes this column, under the keys. It sits in
-                  their indigo rather than against the wide robins-egg band
-                  where its cold Arctic grey read as dull, and the column is
-                  narrower than the page, which suits a 4:3 frame.
-
-                  Native 1112x834, never cropped: aspect-ratio 4/3 matches the
-                  source exactly. Squeezing it to the tour's 16:9 is what
-                  flattened it the first time. */}
-              <figure className="cid-viv-reveal-media">
-                <video
-                  className="cid-viv-reveal-video"
-                  src={`${base}assets/video/STURGEN GEN CID Creature Reveal.mp4`}
-                  poster={`${base}assets/images/sturgeon-general-reveal-poster.webp`}
-                  controls
-                  muted
-                  playsInline
-                  preload="metadata"
-                  aria-label="The Sturgeon General in profile above an Arctic ice field, then a close view of the eye housing as it powers up."
-                />
-                <figcaption className="cid-viv-reveal-cap">
-                  The Sturgeon General
-                </figcaption>
-              </figure>
+              {/* The cast closes this column, under the keys. It sits in
+                  their indigo rather than against the wide robins-egg band,
+                  where the Sturgeon's cold Arctic grey read as dull, and all
+                  three pieces are violet-lit art that belongs with the keys.
+                  The column is also narrower than the page, which suits a
+                  card. */}
+              <CharacterCards base={base} />
             </div>
             {/* Right column, one panel: the Radical Strategic Intelligence
                 rail, the etymology card beneath it, then the Greek lexicon,
