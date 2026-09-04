@@ -265,7 +265,14 @@ const CAST = (base: string): CidCharacter[] => [
     name: "Ethel",
     plain: "Ethel",
     role: "Ethical Analyst",
-    media: { kind: "image", src: `${base}assets/images/cid-char-ethel.webp` },
+    // Video only once she holds the spotlight; off it, the frame is the still.
+    // The two are the same shape, 1280x720 against a 1240x698 still, so the
+    // frame does not change size when the video takes over from the poster.
+    media: {
+      kind: "video",
+      src: `${base}assets/video/ethel-preview-web.mp4`,
+      poster: `${base}assets/images/cid-char-ethel.webp`,
+    },
     thumb: `${base}assets/images/cid-char-ethel.webp`,
     alt: "Ethel at her station in a cavern of violet light, masked, her hands over a glowing circular console.",
     specs: [],
