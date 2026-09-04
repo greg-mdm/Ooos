@@ -195,35 +195,52 @@ function IcarusName() {
   );
 }
 
-/* ---- Character cards ---------------------------------------------------
-   A character-select rail: one big card at a time, three tabs under it.
-   Built as an ARIA tablist rather than a transform track because only the
-   chosen card is ever mounted, which means the Sturgeon General's video
-   element does not exist until someone asks for it, and the two character
-   stills stay unfetched until then too.
+/* ---- Character film roll ----------------------------------------------
+   A roll of character frames running the full width of the page, one of
+   them spotlighted. Pressing a frame widens it and drops the others back;
+   the arrows move the spotlight along the roll and scroll it into view.
+   Greg's sketch: the art itself is the control, not a nametag under it, and
+   the roll runs to the page edges rather than sitting inside the text
+   column.
 
-   THE STAGE IS FIXED HEIGHT AND THE ART IS CONTAINED. The three pieces do
-   not share an aspect: the film is 4:3, Ethel is 16:9, Icarus is 4:5
-   portrait. Sizing the stage to each in turn would make the page jump by
-   ~270px on every tab press, and cropping them to a common ratio is the
-   thing that flattened the Sturgeon the first time. So the stage holds one
-   height, each piece sits inside it whole, and the surround is the same
-   near-black the film already carries. All three are dark-edged art, so
-   the ground reads as a lit stage rather than as a gap. */
+   IT LIVES OUTSIDE .cid-viv-stack, as a direct child of the section. The
+   band has to be page-width, and every break-out trick for escaping the
+   container costs something: calc(50% - 50vw) centres on whatever column it
+   sits in (which is why .cid-vault carries a --viv-gutter instead), and
+   --viv-gutter itself leans on 100vw, which counts the scrollbar and
+   overshoots by exactly the 8px this page has been carrying. Outside the
+   container none of that applies: width is 100% of a full-width section,
+   which is the real viewport width, scrollbar excluded. It renders in the
+   same place it did inside the column, because the side panel has already
+   run out by then.
+
+   FRAMES ARE BUTTONS WRAPPING THEIR MEDIA, the idiom GregLensSlider already
+   uses above. That is what rules out native video controls here: controls
+   are interactive, and interactive content cannot nest inside a button. So
+   the film autoplays muted on a loop while it holds the spotlight and shows
+   its poster otherwise, exactly as the lens panels do. */
 type CidSpec = { label: string; value: string };
 type CidCharacter = {
   key: string;
-  /** Nameplate and tab label. A node, so Icarus keeps his vector numeral. */
+  /** Nameplate label. A node, so Icarus keeps his vector numeral. */
   name: ReactNode;
+  /** The same name as plain text, for the button's accessible name. */
+  plain: string;
   /** Role line. Verbatim from CASE_BAYS, which is where these are canon.
    *  An empty string renders no line rather than inventing one. */
   role: string;
   media:
     | { kind: "video"; src: string; poster: string }
-    | { kind: "image"; src: string; w: number; h: number };
+    | { kind: "image"; src: string };
+  /** Still shown in the roll when this frame is not spotlighted. */
+  thumb: string;
+  /** object-position for the cropped state. A frame off the spotlight is
+   *  much taller than it is wide, so centre is not always the right slice:
+   *  the Sturgeon is a long horizontal fish and centre cuts his head off. */
+  focus?: string;
   alt: string;
-  /** Stats block, per character. Empty until the copy is written; the card
-   *  simply omits the list, so adding a row here is the only edit needed. */
+  /** Stats block, per character. Empty until the copy is written; the frame
+   *  omits the list entirely, so adding a row here is the only edit needed. */
   specs: CidSpec[];
 };
 
@@ -231,114 +248,134 @@ const CAST = (base: string): CidCharacter[] => [
   {
     key: "sturgeon",
     name: "The Sturgeon General",
+    plain: "The Sturgeon General",
     role: "",
     media: {
       kind: "video",
       src: `${base}assets/video/STURGEN GEN CID Creature Reveal.mp4`,
       poster: `${base}assets/images/sturgeon-general-reveal-poster.webp`,
     },
+    thumb: `${base}assets/images/sturgeon-general-reveal-poster.webp`,
+    focus: "38% center",
     alt: "The Sturgeon General in profile above an Arctic ice field, then a close view of the eye housing as it powers up.",
     specs: [],
   },
   {
     key: "ethel",
     name: "Ethel",
+    plain: "Ethel",
     role: "Ethical Analyst",
-    media: { kind: "image", src: `${base}assets/images/cid-char-ethel.webp`, w: 1240, h: 698 },
+    media: { kind: "image", src: `${base}assets/images/cid-char-ethel.webp` },
+    thumb: `${base}assets/images/cid-char-ethel.webp`,
     alt: "Ethel at her station in a cavern of violet light, masked, her hands over a glowing circular console.",
     specs: [],
   },
   {
     key: "icarus",
     name: <IcarusName />,
+    plain: "Icarus the Third",
     role: "Executive Trader",
-    media: { kind: "image", src: `${base}assets/images/cid-char-icarus.webp`, w: 1000, h: 1250 },
+    media: { kind: "image", src: `${base}assets/images/cid-char-icarus.webp` },
+    thumb: `${base}assets/images/cid-char-icarus.webp`,
+    focus: "center 28%",
     alt: "Icarus the Third seated on a mound of world currency coins in a vault, holding a top hat that pours out more.",
     specs: [],
   },
 ];
 
-function CharacterCards({ base }: { base: string }) {
+function CharacterRoll({ base }: { base: string }) {
   const cast = CAST(base);
   const [at, setAt] = useState(0);
-  const tabs = useRef<(HTMLButtonElement | null)[]>([]);
-  // Roving tabindex: arrows move selection AND focus, which is what the
-  // tablist pattern expects and what makes the rail usable without a mouse.
-  const go = (n: number) => {
+  const frames = useRef<(HTMLButtonElement | null)[]>([]);
+  // Moving the spotlight also brings the frame into view, which is the whole
+  // point of the arrows once the roll is longer than the page is wide.
+  const go = (n: number, focus: boolean) => {
     const i = (n + cast.length) % cast.length;
     setAt(i);
-    tabs.current[i]?.focus();
+    const el = frames.current[i];
+    if (!el) return;
+    if (focus) el.focus();
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    el.scrollIntoView({ inline: "center", block: "nearest", behavior: still ? "auto" : "smooth" });
   };
-  const one = cast[at];
   return (
     <div className="cid-cast">
-      <div
-        className="cid-cast-card"
-        role="tabpanel"
-        id={`cid-cast-panel-${one.key}`}
-        aria-labelledby={`cid-cast-tab-${one.key}`}
-      >
-        <div className="cid-cast-stage">
-          {one.media.kind === "video" ? (
-            <video
-              className="cid-cast-media"
-              src={one.media.src}
-              poster={one.media.poster}
-              controls
-              muted
-              playsInline
-              preload="metadata"
-              aria-label={one.alt}
-            />
-          ) : (
-            <img
-              className="cid-cast-media"
-              src={one.media.src}
-              alt={one.alt}
-              width={one.media.w}
-              height={one.media.h}
-              decoding="async"
-            />
-          )}
+      <div className="cid-cast-rollwrap">
+        <button
+          type="button"
+          className="cid-cast-arrow cid-cast-arrow--prev"
+          aria-label="Spotlight the previous character"
+          onClick={() => go(at - 1, false)}
+        >
+          <span aria-hidden="true">&#8249;</span>
+        </button>
+        <div className="cid-cast-roll">
+          {cast.map((p, i) => {
+            const on = i === at;
+            return (
+              <button
+                key={p.key}
+                type="button"
+                ref={(el) => { frames.current[i] = el; }}
+                className={`cid-cast-frame ${on ? "is-on" : ""}`}
+                aria-pressed={on}
+                aria-label={on ? p.plain : `Spotlight ${p.plain}`}
+                onClick={() => setAt(i)}
+                onKeyDown={(e) => {
+                  if (e.key === "ArrowRight") { e.preventDefault(); go(at + 1, true); }
+                  if (e.key === "ArrowLeft") { e.preventDefault(); go(at - 1, true); }
+                  if (e.key === "Home") { e.preventDefault(); go(0, true); }
+                  if (e.key === "End") { e.preventDefault(); go(cast.length - 1, true); }
+                }}
+              >
+                <span className="cid-cast-shot">
+                  {on && p.media.kind === "video" ? (
+                    <video
+                      className="cid-cast-media"
+                      src={p.media.src}
+                      poster={p.media.poster}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                    />
+                  ) : (
+                    <img
+                      className="cid-cast-media"
+                      src={on && p.media.kind === "image" ? p.media.src : p.thumb}
+                      alt=""
+                      style={on ? undefined : ({ objectPosition: p.focus ?? "center" } as CSSProperties)}
+                      loading={i === 0 ? undefined : "lazy"}
+                      decoding="async"
+                    />
+                  )}
+                </span>
+                <span className="cid-cast-plate">
+                  <span className="cid-cast-name">{p.name}</span>
+                  {on && p.role && <span className="cid-cast-role">{p.role}</span>}
+                </span>
+                {on && p.specs.length > 0 && (
+                  <span className="cid-cast-specs">
+                    {p.specs.map((s) => (
+                      <span className="cid-cast-spec" key={s.label}>
+                        <span className="cid-cast-spec-k">{s.label}</span>
+                        <span className="cid-cast-spec-v">{s.value}</span>
+                      </span>
+                    ))}
+                  </span>
+                )}
+              </button>
+            );
+          })}
         </div>
-        <div className="cid-cast-plate">
-          <p className="cid-cast-name">{one.name}</p>
-          {one.role && <p className="cid-cast-role">{one.role}</p>}
-        </div>
-        {one.specs.length > 0 && (
-          <dl className="cid-cast-specs">
-            {one.specs.map((s) => (
-              <div key={s.label}>
-                <dt>{s.label}</dt>
-                <dd>{s.value}</dd>
-              </div>
-            ))}
-          </dl>
-        )}
-      </div>
-      <div className="cid-cast-rail" role="tablist" aria-label="Choose a character">
-        {cast.map((p, i) => (
-          <button
-            key={p.key}
-            type="button"
-            ref={(el) => { tabs.current[i] = el; }}
-            id={`cid-cast-tab-${p.key}`}
-            role="tab"
-            className={`cid-cast-tab ${i === at ? "is-on" : ""}`}
-            aria-selected={i === at}
-            aria-controls={`cid-cast-panel-${p.key}`}
-            tabIndex={i === at ? 0 : -1}
-            onClick={() => setAt(i)}
-            onKeyDown={(e) => {
-              if (e.key === "ArrowRight") { e.preventDefault(); go(at + 1); }
-              if (e.key === "ArrowLeft") { e.preventDefault(); go(at - 1); }
-              if (e.key === "Home") { e.preventDefault(); go(0); }
-              if (e.key === "End") { e.preventDefault(); go(cast.length - 1); }
-            }}
-          >
-            {p.name}
-          </button>
-        ))}
+        <button
+          type="button"
+          className="cid-cast-arrow cid-cast-arrow--next"
+          aria-label="Spotlight the next character"
+          onClick={() => go(at + 1, false)}
+        >
+          <span aria-hidden="true">&#8250;</span>
+        </button>
       </div>
     </div>
   );
@@ -679,13 +716,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <StrategyKeys />
               </section>
 
-              {/* The cast closes this column, under the keys. It sits in
-                  their indigo rather than against the wide robins-egg band,
-                  where the Sturgeon's cold Arctic grey read as dull, and all
-                  three pieces are violet-lit art that belongs with the keys.
-                  The column is also narrower than the page, which suits a
-                  card. */}
-              <CharacterCards base={base} />
             </div>
             {/* Right column, one panel: the Radical Strategic Intelligence
                 rail, the etymology card beneath it, then the Greek lexicon,
@@ -1161,6 +1191,12 @@ export function CID({ onSupport }: { onSupport: () => void }) {
 
 
         </div>
+
+        {/* The character roll, page-width. Outside the container above on
+            purpose: see the note on CharacterRoll. It lands where it used to
+            sit inside the body column, because the side panel has run out by
+            this point in the section. */}
+        <CharacterRoll base={base} />
       </section>
 
       {/* Innovation Watchlist hero — self-contained DC block from

@@ -1638,128 +1638,166 @@
   }
 }
 
-/* ---- Character cards ---------------------------------------------------
-   One big card at a time with a three-name rail under it. Sits where the
-   lone Sturgeon film used to, under the strategy keys, and takes that
-   column's measure rather than half a row.
+/* ---- Character film roll ----------------------------------------------
+   A page-width roll of character frames, one spotlighted. The spotlight is
+   width, not a border: the chosen frame widens and the others give up the
+   room, so the art itself is the state rather than a ring drawn around it.
 
-   THE STAGE HOLDS ONE HEIGHT for all three. The film is 4:3, Ethel 16:9,
-   Icarus 4:5 portrait; letting each set its own would jump the page by
-   ~270px per tab press, and cropping to a shared ratio is what flattened
-   the Sturgeon the first time. So: fixed height, object-fit contain,
-   near-black ground. Every piece is dark-edged violet art, so the surround
-   reads as an unlit stage rather than as a gap. */
-   No max-width, unlike the lone film it replaces. That 620px cap existed so
-   a 4:3 frame in an 820px column could not stand taller than the keys above
-   it; the stage sets its own height now, so the cap only made the art small
-   for no reason. The card takes the column. */
-.cid-scope .cid-cast { margin: clamp(14px,1.8vw,20px) 0 0; }
+   NO BREAK-OUT MATH HERE. The band is a direct child of section.cid-viv,
+   outside .cid-viv-stack, so 100% already is the page width. Every trick
+   for escaping the container has a cost -- calc(50% - 50vw) centres on
+   whatever column it sits in, and .cid-vault's --viv-gutter leans on 100vw,
+   which counts the scrollbar and overshoots -- and none of them apply once
+   the element simply is not in the container. */
+.cid-scope .cid-cast { width: 100%; margin: clamp(26px,3.4vw,44px) 0 0; }
 
-.cid-scope .cid-cast-card {
-  border-radius: 16px; overflow: hidden;
-  background: linear-gradient(168deg, #120b2e 0%, #0a0620 52%, #04030e 100%);
-  box-shadow: 0 18px 40px -24px rgba(6,2,28,.7);
+.cid-scope .cid-cast-rollwrap { position: relative; }
+
+.cid-scope .cid-cast-roll {
+  display: flex; align-items: stretch; gap: 0;
+  overflow-x: auto; overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  background: #04030e;
+}
+.cid-scope .cid-cast-roll::-webkit-scrollbar { display: none; }
+
+/* Frames never shrink: the roll is meant to run past the right edge once the
+   cast outgrows the page, which is the point of the arrows. 26 + 26 + 48
+   comes to exactly 100%, so the three fill the band today and a fourth
+   character puts it at 126% and starts the scroll. That is why these are
+   fixed percentages on flex: 0 0 auto rather than flex-grow factors, which
+   would keep redistributing to fit and never overflow at all.
+
+   Percentages rather than vw because vw counts the scrollbar, and the band
+   is already flush to both page edges: vw would overshoot by ~15px and add
+   to the horizontal overflow this page carries. */
+.cid-scope .cid-cast-frame {
+  appearance: none; -webkit-appearance: none;
+  flex: 0 0 auto; width: 26%; min-width: 112px;
+  height: clamp(360px, 44vw, 660px);
+  display: flex; flex-direction: column;
+  padding: 0; border: 0; margin: 0;
+  background: #04030e; color: inherit;
+  scroll-snap-align: center;
+  cursor: pointer; overflow: hidden;
+  /* Hairline between frames, as an inset shadow so the separator costs no
+     layout and the percentages keep summing to 100. */
+  box-shadow: inset -1px 0 0 rgba(174,153,201,.16);
+  transition: width .42s cubic-bezier(.4,0,.2,1), filter .42s ease;
+  /* Off the spotlight the art is dimmed and cooled, so the lit frame reads
+     as lit without needing a ring drawn around it. */
+  filter: brightness(.62) saturate(.82);
+}
+.cid-scope .cid-cast-frame.is-on {
+  width: 48%;
+  filter: none; cursor: default;
+}
+.cid-scope .cid-cast-frame:hover { filter: brightness(.86) saturate(.94); }
+.cid-scope .cid-cast-frame.is-on:hover { filter: none; }
+.cid-scope .cid-cast-frame:focus-visible {
+  outline: 3px solid #4B00B6; outline-offset: -3px;
 }
 
-.cid-scope .cid-cast-stage {
+.cid-scope .cid-cast-shot {
+  flex: 1 1 auto; min-height: 0;
   display: flex; align-items: center; justify-content: center;
-  /* Tall enough that Icarus's portrait is the point of the card rather than
-     a stamp in the middle of it: at the cap he stands 496x620, which is the
-     tallest of the three and the reason the number is this high. */
-  height: clamp(340px, 44vw, 620px);
   background:
     radial-gradient(120% 90% at 50% 42%, rgba(75,0,182,.16) 0%, rgba(4,3,14,0) 70%),
     #04030e;
 }
+
+/* THE SPOTLIT FRAME NEVER CROPS. Its three pieces do not share an aspect
+   (film 4:3, Ethel 16:9, Icarus 4:5 portrait) and squeezing them to a
+   common one is what flattened the Sturgeon the first time, so the lit
+   frame contains and lets the near-black show at the edges. Off the
+   spotlight a frame is far taller than it is wide and a contained image
+   would be a stamp in the middle of it, so those cover and carry an
+   object-position per character to keep the right slice: the Sturgeon is a
+   long horizontal fish and dead centre cuts his head off. */
 .cid-scope .cid-cast-media {
-  display: block; max-width: 100%; max-height: 100%;
-  width: auto; height: auto; object-fit: contain;
+  display: block; width: 100%; height: 100%; object-fit: cover;
+}
+.cid-scope .cid-cast-frame.is-on .cid-cast-media {
+  width: auto; height: auto; max-width: 100%; max-height: 100%;
+  object-fit: contain;
 }
 
-/* The nameplate sits under the stage, not over it: overlaid, it would land
-   exactly on the film's own controls. */
+/* The nameplate is a bar at the foot of the frame, not an overlay: over the
+   art it would land on the film's own controls, and it has to hold specs
+   underneath it later. */
 .cid-scope .cid-cast-plate {
+  flex: 0 0 auto;
   display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
-  padding: 13px clamp(14px,1.6vw,18px);
+  padding: 12px clamp(10px,1.4vw,18px);
   border-top: 1px solid rgba(174,153,201,.18);
+  text-align: left;
 }
 .cid-scope .cid-cast-name {
-  margin: 0;
   font-family: 'Lovelo', 'Impact', 'Arial Black', sans-serif;
-  font-weight: 900; font-size: clamp(15px,1.6vw,19px);
+  font-weight: 900; font-size: clamp(11px,1.3vw,18px);
   letter-spacing: .06em; line-height: 1.2; text-transform: uppercase;
   color: #E8ECF4;
 }
 .cid-scope .cid-cast-role {
-  margin: 0;
   font-family: 'Montserrat', system-ui, sans-serif;
-  font-weight: 600; font-size: clamp(10.5px,1vw,12.5px);
+  font-weight: 600; font-size: clamp(10px,.9vw,12.5px);
   letter-spacing: .13em; line-height: 1.2; text-transform: uppercase;
   color: #AE99C9;
 }
+.cid-scope .cid-cast-frame .cid-icarus-num { fill: currentColor; }
 
-/* Stats. Nothing renders until a character has rows, so this rule is the
-   whole cost of the empty state. Two columns, label left, value right, one
-   hairline per row. */
+/* Stats. Nothing renders until a character has rows, so this block is the
+   whole cost of the empty state. */
 .cid-scope .cid-cast-specs {
-  margin: 0; padding: 4px clamp(14px,1.6vw,18px) 16px;
+  flex: 0 0 auto;
+  display: flex; flex-direction: column;
+  padding: 0 clamp(10px,1.4vw,18px) 14px;
   font-family: 'Montserrat', system-ui, sans-serif;
 }
-.cid-scope .cid-cast-specs > div {
+.cid-scope .cid-cast-spec {
   display: flex; align-items: baseline; gap: 12px;
-  padding: 8px 0; border-top: 1px solid rgba(174,153,201,.13);
+  padding: 7px 0; border-top: 1px solid rgba(174,153,201,.13);
 }
-.cid-scope .cid-cast-specs dt {
-  flex: 0 0 auto; margin: 0;
-  font-weight: 600; font-size: 11px; letter-spacing: .12em;
+.cid-scope .cid-cast-spec-k {
+  flex: 0 0 auto; font-weight: 600; font-size: 11px; letter-spacing: .12em;
   text-transform: uppercase; color: #9A8BB8;
 }
-.cid-scope .cid-cast-specs dd {
-  flex: 1 1 auto; margin: 0; text-align: right;
+.cid-scope .cid-cast-spec-v {
+  flex: 1 1 auto; text-align: right;
   font-weight: 700; font-size: 13.5px; line-height: 1.4; color: #E8ECF4;
 }
 
-/* The rail. Three names, the chosen one lit. Same key vocabulary as the
-   strategy keys above it, at a fraction of the weight, so it reads as the
-   same family of controls without competing with them. */
-.cid-scope .cid-cast-rail {
-  display: grid; grid-template-columns: repeat(3, minmax(0,1fr));
-  gap: 8px; margin-top: 10px;
-}
-.cid-scope .cid-cast-tab {
+/* Arrows sit on the band's edges rather than under it, because the roll
+   runs to the page edges and there is no margin left to put them in. */
+.cid-scope .cid-cast-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
   appearance: none; -webkit-appearance: none;
+  width: 46px; height: 46px; padding: 0;
   display: flex; align-items: center; justify-content: center;
-  min-height: 44px; padding: 9px 8px;
-  border: 1px solid rgba(75,0,182,.22); border-radius: 10px;
-  background: rgba(255,255,255,.62);
+  border: 1px solid rgba(232,236,244,.28); border-radius: 50%;
+  background: rgba(6,2,28,.62); backdrop-filter: blur(6px);
   font-family: 'Montserrat', system-ui, sans-serif;
-  font-weight: 700; font-size: clamp(10px,1vw,12px);
-  letter-spacing: .08em; line-height: 1.25; text-align: center;
-  text-transform: uppercase; color: #2C2350;
-  cursor: pointer; transition: background .18s ease, color .18s ease,
-    border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+  font-size: 26px; line-height: 1; color: #E8ECF4;
+  cursor: pointer; transition: background .18s ease, border-color .18s ease;
 }
-.cid-scope .cid-cast-tab:hover { border-color: rgba(75,0,182,.42); transform: translateY(-1px); }
-.cid-scope .cid-cast-tab:focus-visible {
-  outline: 2px solid #4B00B6; outline-offset: 2px;
+.cid-scope .cid-cast-arrow:hover {
+  background: rgba(75,0,182,.72); border-color: rgba(232,236,244,.5);
 }
-.cid-scope .cid-cast-tab.is-on {
-  border-color: transparent; color: #E8ECF4;
-  background: radial-gradient(135% 165% at 50% -34%,rgb(174,153,201) 0%,rgb(70,46,134) 42%,rgb(24,16,46) 100%);
-  box-shadow: 0 12px 26px -14px rgba(26,22,70,.46);
-}
-/* Icarus's numeral is drawn, so it inherits currentColor and has to be told
-   to sit on the name's baseline at the rail's smaller size. */
-.cid-scope .cid-cast-tab .cid-icarus-num,
-.cid-scope .cid-cast-name .cid-icarus-num { fill: currentColor; }
+.cid-scope .cid-cast-arrow:focus-visible { outline: 2px solid #E8ECF4; outline-offset: 2px; }
+.cid-scope .cid-cast-arrow--prev { left: clamp(8px,1.4vw,22px); }
+.cid-scope .cid-cast-arrow--next { right: clamp(8px,1.4vw,22px); }
 
 @media (prefers-reduced-motion: reduce) {
-  .cid-scope .cid-cast-tab { transition: none; }
-  .cid-scope .cid-cast-tab:hover { transform: none; }
+  .cid-scope .cid-cast-frame,
+  .cid-scope .cid-cast-arrow { transition: none; }
 }
 
-/* On a phone the rail's three names cannot hold one line each at a legible
-   size, so they stack. */
-@media (max-width: 520px) {
-  .cid-scope .cid-cast-rail { grid-template-columns: minmax(0,1fr); }
+/* On a phone three frames cannot share one screen and still show anything,
+   so the lit frame takes most of it and the others become edge slivers the
+   arrows move through. */
+@media (max-width: 700px) {
+  .cid-scope .cid-cast-frame { width: 13%; min-width: 40px; height: clamp(320px, 78vw, 460px); }
+  .cid-scope .cid-cast-frame.is-on { width: 74%; }
+  .cid-scope .cid-cast-arrow { width: 38px; height: 38px; font-size: 22px; }
 }
