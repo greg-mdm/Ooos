@@ -876,11 +876,15 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                         in cid-vivarium.css). Open by default: the one the reader
                         sees expanded. In this section the unfolded card wears the
                         ruby edge rather than the indigo, per Greg, so the open
-                        content is highlighted at rest. Heading and sentence are
-                        his copy, verbatim. */}
+                        content is highlighted at rest. Heading and both paragraphs
+                        are his copy, verbatim; the two organisation names are
+                        italic as his draft marked them. The heading is set in
+                        title case here and uppercased by the summary rule, as
+                        the others are, so assistive tech reads words. */}
                     <details className="cid-viv-priority cid-viv-priority--fold" open>
-                      <summary>Global Interoperability Taskforce (GIT)</summary>
-                      <p>Connect valuable Canadian content, services, and materials with audiences across platforms and markets.</p>
+                      <summary>Global Interoperability</summary>
+                      <p><em>Global Interoperability Taskforce (GIT)</em> connects Canadian content, services, and materials with audiences across platforms and markets.</p>
+                      <p><em>Toronto Interoperability Trust (TIT)</em> advances privacy protection, informed consent, and national standards. TIT expands public access to collective intelligence by sharing Toronto’s resources across Canada.</p>
                     </details>
                   </div>
                   {/* Methods, not priorities. The three above are commitments,
