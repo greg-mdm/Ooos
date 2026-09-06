@@ -874,26 +874,31 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                       is two separate commitments, and running them together
                       would read as one hedged claim. */}
                   <h3 className="cid-viv-ecosystem-h cid-viv-methods-h">Methods</h3>
-                  <dl className="cid-viv-priority-list">
-                    <div className="cid-viv-priority">
-                      <dt>Inclusive Innovation</dt>
-                      <dd>
-                        <ul className="cid-viv-priority-points">
-                          <li>Create opportunities for diverse people to engage in global citizen science projects.</li>
-                          <li>Publish aggregated findings with no personally identifiable information (PII)</li>
-                        </ul>
-                      </dd>
-                    </div>
-                    <div className="cid-viv-priority">
-                      <dt>Collective Problem Solving</dt>
-                      <dd>
-                        <ul className="cid-viv-priority-points">
-                          <li>Synthesize evidence to track systemic issues and report emerging national trends.</li>
-                          <li>Connect potential allies through cross-sector cooperation in the circular economy.</li>
-                        </ul>
-                      </dd>
-                    </div>
-                  </dl>
+                  {/* Progressive disclosure, per Greg: at rest each method is its
+                      heading alone, set in caps, and the two commitments open on
+                      demand. Native details/summary, so the fold is keyboard and
+                      screen-reader native with no script. A div wrapper rather
+                      than the dl the other list uses, because dl admits only
+                      dt, dd and div as children and details is none of them.
+                      The caps are a text-transform, so the source keeps the
+                      heading as Greg wrote it and assistive tech reads a word
+                      rather than a string of initials. */}
+                  <div className="cid-viv-priority-list cid-viv-priority-list--fold">
+                    <details className="cid-viv-priority cid-viv-priority--fold">
+                      <summary>Inclusive Innovation</summary>
+                      <ul className="cid-viv-priority-points">
+                        <li>Create opportunities for diverse people to engage in global citizen science projects.</li>
+                        <li>Publish aggregated findings with no personally identifiable information (PII)</li>
+                      </ul>
+                    </details>
+                    <details className="cid-viv-priority cid-viv-priority--fold">
+                      <summary>Collective Problem Solving</summary>
+                      <ul className="cid-viv-priority-points">
+                        <li>Synthesize evidence to track systemic issues and report emerging national trends.</li>
+                        <li>Connect potential allies through cross-sector cooperation in the circular economy.</li>
+                      </ul>
+                    </details>
+                  </div>
                 </div>
               </div>
 
@@ -1401,10 +1406,22 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           </div>
 
 
-          {/* Two ways of seeing: the same subject (Greg) through each agent's
-              lens, one vertical screen with two settings. */}
+          {/* Working in two worlds: the same subject (Greg) through each agent's
+              lens, one vertical screen with two settings. The heading carries
+              the sitemap glyph Greg staged for it in Figma (his page of the
+              same name). It is the outline "sitemap" icon from Jam Icons by
+              Michael Amprimo, MIT, inlined from the jam-icons package rather
+              than re-exported from Figma, so the path is the original.
+              Decorative: the words carry the meaning, so it is hidden from
+              assistive tech. Colour is currentColor, so it takes the
+              heading's indigo and follows it if that ever changes. */}
           <div className="cid-viv-lens-wrap">
-            <h3 className="cid-viv-ecosystem-h">Two Ways of Seeing</h3>
+            <h3 className="cid-viv-ecosystem-h cid-viv-ecosystem-h--icon">
+              <svg className="cid-viv-ecosystem-icon" viewBox="-2 -2 24 24" aria-hidden="true" focusable="false">
+                <path d="M2 14v4h4v-4H2zm12-3H6a1 1 0 0 0-1 1h1a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h1a3 3 0 0 1 3-3h3V8H8a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-1v1h3a3 3 0 0 1 3 3h1a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h1a1 1 0 0 0-1-1zM8 2v4h4V2H8zm6 12v4h4v-4h-4z" />
+              </svg>
+              Working in Two Worlds
+            </h3>
             <GregLensSlider base={base} />
           </div>
 
