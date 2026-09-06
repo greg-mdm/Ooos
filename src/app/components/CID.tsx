@@ -1319,7 +1319,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     where the <br /> happened to fall rather than from the
                     column. Same two sentences, wrapping to the measure like the
                     1976 copy beside it. */}
-                <p className="cid-viv-era-copy">Now you can palm it. Weighing less than one kilogram, CID contains a cutting-edge research facility.</p>
+                <p className="cid-viv-era-copy">Now you can palm it. Weighing less than one kilogram, CID contains a cutting-edge research facility. Miniaturized AI infrastructure secures our data on premises.</p>
               </div>
             </div>
           </div>
