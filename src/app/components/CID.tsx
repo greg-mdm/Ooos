@@ -883,8 +883,19 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                         the others are, so assistive tech reads words. */}
                     <details className="cid-viv-priority cid-viv-priority--fold" open>
                       <summary>Global Interoperability</summary>
-                      <p><em>Global Interoperability Taskforce (GIT)</em> connects Canadian content, services, and materials with audiences across platforms and markets.</p>
-                      <p><em>Toronto Interoperability Trust (TIT)</em> advances privacy protection, informed consent, and national standards. TIT expands public access to collective intelligence by sharing Toronto’s resources across Canada.</p>
+                      {/* The two sister organisations as a pair of round cards, side
+                          by side, per Greg. Each circle holds its own sentence with
+                          the name leading it, in the ruby this section uses for its
+                          active state. The circle's padding is set to its inscribed
+                          square, so the text block never reaches past the ring. */}
+                      <div className="cid-viv-orbs">
+                        <div className="cid-viv-orb">
+                          <p><em className="cid-viv-orb-name">Global Interoperability Taskforce (GIT)</em> connects Canadian content, services, and materials with audiences across platforms and markets.</p>
+                        </div>
+                        <div className="cid-viv-orb">
+                          <p><em className="cid-viv-orb-name">Toronto Interoperability Trust (TIT)</em> advances privacy protection, informed consent, and national standards. TIT expands public access to collective intelligence by sharing Toronto’s resources across Canada.</p>
+                        </div>
+                      </div>
                     </details>
                   </div>
                   {/* Methods, not priorities. The three above are commitments,

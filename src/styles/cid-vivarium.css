@@ -411,6 +411,29 @@
    a modifier on that list, not by the wrapper above it, because the wrapper
    also holds Methods, which keeps the indigo. */
 .cid-scope .cid-viv-priority-list--ruby .cid-viv-priority--fold[open] { border-left-color: #822F00; }
+
+/* The two sister organisations under Global Interoperability, each in a round
+   card, side by side. The ring and the name take the section's ruby. Padding
+   is 15% of the diameter, which keeps the text box inside the inscribed
+   square (diameter over root two), so no line reaches past the ring. Stacks
+   under 700. */
+.cid-scope .cid-viv-orbs {
+  display: grid; grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: clamp(16px,2.4vw,32px); margin-top: 14px; justify-items: center;
+}
+.cid-scope .cid-viv-orb {
+  width: min(100%, 320px); aspect-ratio: 1; border-radius: 50%; box-sizing: border-box;
+  display: grid; place-items: center; padding: 15%; text-align: center;
+  background: rgba(130,47,0,.05); border: 2px solid rgba(130,47,0,.30);
+  box-shadow: inset 0 0 0 6px #fff, 0 14px 30px -20px rgba(130,47,0,.5);
+}
+.cid-scope .cid-viv-orb p {
+  margin: 0; font-size: 13.5px; line-height: 1.5; color: #33384a; text-wrap: balance;
+}
+.cid-scope .cid-viv-orb-name { font-style: italic; font-weight: 700; color: #822F00; }
+@media (max-width: 700px) {
+  .cid-scope .cid-viv-orbs { grid-template-columns: minmax(0,1fr); }
+}
 /* Paragraph body inside a folded card: the dd's type. No measure cap, as
    with the dd, because the card is the measure. */
 .cid-scope .cid-viv-priority--fold > p {
