@@ -863,7 +863,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                       open card, muted on a closed one. So the reader lands on
                       one open card with a strong edge beside two quiet ones, which
                       is the cue that the quiet ones open too. Greg's call. */}
-                  <div className="cid-viv-priority-list cid-viv-priority-list--fold">
+                  <div className="cid-viv-priority-list cid-viv-priority-list--fold cid-viv-priority-list--ruby">
                     <details className="cid-viv-priority cid-viv-priority--fold">
                       <summary>Merit and Research Integrity</summary>
                       <p>Verify credentials and evaluate evidence. Machine-learning detection and automated controls help identify and exclude Material Non-Public Information (MNPI) from AI agent and trading workflows.</p>
@@ -874,11 +874,13 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     </details>
                     {/* Third of three, so it spans the row (see the :last-child rule
                         in cid-vivarium.css). Open by default: the one the reader
-                        sees expanded, and the one whose border shows the active
-                        colour. */}
+                        sees expanded. In this section the unfolded card wears the
+                        ruby edge rather than the indigo, per Greg, so the open
+                        content is highlighted at rest. Heading and sentence are
+                        his copy, verbatim. */}
                     <details className="cid-viv-priority cid-viv-priority--fold" open>
-                      <summary>Interoperability</summary>
-                      <p>Connect Canadian content, services and materials with audiences across platforms and markets.</p>
+                      <summary>Global Interoperability Taskforce (GIT)</summary>
+                      <p>Connect valuable Canadian content, services, and materials with audiences across platforms and markets.</p>
                     </details>
                   </div>
                   {/* Methods, not priorities. The three above are commitments,

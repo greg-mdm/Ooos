@@ -406,6 +406,11 @@
   transition: border-left-color .2s ease;
 }
 .cid-scope .cid-viv-priority--fold[open] { border-left-color: #4B00B6; }
+/* Strategic Priorities only: an unfolded card wears the ruby edge, per Greg,
+   so the content open at rest is highlighted rather than merely lit. Scoped by
+   a modifier on that list, not by the wrapper above it, because the wrapper
+   also holds Methods, which keeps the indigo. */
+.cid-scope .cid-viv-priority-list--ruby .cid-viv-priority--fold[open] { border-left-color: #822F00; }
 /* Paragraph body inside a folded card: the dd's type. No measure cap, as
    with the dd, because the card is the measure. */
 .cid-scope .cid-viv-priority--fold > p {
