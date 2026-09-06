@@ -828,8 +828,11 @@
 /* Three across under the copy, in case-art order. Stacked below 900px, where
    three columns leave each name too little width to hold its line, and Greg
    returns to the top there. */
+/* Over the RACI chart now. The top margin keeps them off whatever closes
+   the block above; the panel's own 36px keeps the chart off them. */
 .cid-scope .cid-viv-tags {
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;
+  margin-top: clamp(26px,3vw,36px);
 }
 @media (max-width: 900px) {
   .cid-scope .cid-viv-tags { grid-template-columns: minmax(0, 1fr); }

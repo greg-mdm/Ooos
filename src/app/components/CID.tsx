@@ -1149,6 +1149,15 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               tour's 16:9: the wide profile is the whole point, and trimming
               it to match a shape it was never framed for is exactly the
               compromise that flattened it. */}
+          {/* The three researchers' nametags, directly over the chart that
+              cites them by name and title: Ethel, Greg in the middle, Icarus.
+              Greg's placement. They used to open the Information Ecosystem
+              stretch beside a glass-case image of the three; that image is
+              gone, since the character roll carries Ethel and Icarus at full
+              size, and its four renders stay in public/assets/images as
+              cid-team-case-*.webp, unreferenced. */}
+          <TeamTags />
+
           {/* The chart and the key that defines it, in one block under one
               title. They were split across the page, chart down here and key up
               in the side column, which left a grid of twenty-eight loose letters
@@ -1361,15 +1370,9 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             </div>
           </div>
 
-          {/* The three researchers side by side under the copy: Ethel, Greg
-              in the middle, Icarus. The glass-case image that used to follow,
-              the three of them set in one vitrine, is gone: the character roll
-              now carries Ethel and Icarus at full size, and the case repeated
-              them. Greg's call. Its four renders stay in public/assets/images
-              as cid-team-case-*.webp, unreferenced. */}
-          <TeamTags />
-
-          {/* Information Ecosystem, then the Flicker card and the glossary. */}
+          {/* Information Ecosystem, then the Flicker card and the glossary. The
+              three nametags that used to open this stretch now sit over the
+              RACI chart, which is where their names are cited. */}
           <div className="cid-viv-ecosystem">
             <h3 className="cid-viv-ecosystem-h">Information Ecosystem</h3>
             {/* Two columns, per Greg, so the paragraph uses the width instead
