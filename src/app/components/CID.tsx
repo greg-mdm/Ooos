@@ -613,13 +613,12 @@ function CharacterRoll({ base }: { base: string }) {
   );
 }
 
-/** The Vivarium team: the research facility's glass case (a background, not
- *  a picture, so browsers offer no image zoom, visual search or save
- *  affordance to get stuck in) and the three researchers' nametags, which
- *  stand apart from it as their own cards rather than overlaid on the art. */
+/** The Vivarium team: the three researchers' nametags, which stand as
+ *  their own cards. They used to accompany a glass-case image of the three;
+ *  that image is gone (see the note where TeamTags is used). */
 type CaseBay = { key: string; cls: string; role: ReactNode; name: ReactNode; sub?: string; orb?: string; title?: string };
 
-// Left to right, matching the case art below: Ethel, Greg in the middle,
+// Left to right: Ethel, Greg in the middle,
 // Icarus. Stacked on narrow screens Greg comes first again, via CSS order.
 const CASE_BAYS: CaseBay[] = [
   { key: "ethel", cls: "cid-tag--ethel", role: <>Ethical<br />Analyst</>, name: "Ethel" },
@@ -627,21 +626,6 @@ const CASE_BAYS: CaseBay[] = [
   { key: "icarus", cls: "cid-tag--icarus", role: <>Executive<br />Trader</>, name: <IcarusName /> },
 ];
 
-function TeamCase({ base }: { base: string }) {
-  const img = (w: number) => `${base}assets/images/cid-team-case-${w}.webp`;
-  return (
-    <div className="cid-case-wrap">
-      <div
-        className="cid-case"
-        role="img"
-        aria-label="The CID Vivarium: a dark glass research facility holding Ethel the Ethical Analyst on the left, Greg Long the Principal Investigator in the centre, and Icarus the Third, Executive Trader, on the right"
-        style={{
-          backgroundImage: `image-set(url("${img(2560)}") 1x, url("${img(3840)}") 2x)`,
-        }}
-      />
-    </div>
-  );
-}
 
 function TeamTags() {
   return (
@@ -1377,23 +1361,25 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             </div>
           </div>
 
-          {/* The three researchers side by side under the copy, in the
-              same order as the case art below: Ethel, Greg in the middle,
-              Icarus. */}
+          {/* The three researchers side by side under the copy: Ethel, Greg
+              in the middle, Icarus. The glass-case image that used to follow,
+              the three of them set in one vitrine, is gone: the character roll
+              now carries Ethel and Icarus at full size, and the case repeated
+              them. Greg's call. Its four renders stay in public/assets/images
+              as cid-team-case-*.webp, unreferenced. */}
           <TeamTags />
 
-          {/* Vivarium team display case: the three researchers set in one
-              glass case, the human principal investigator centred between
-              the two AI agents. */}
-          <TeamCase base={base} />
-
-
-          {/* Information Ecosystem + the Flicker card sit in the left
-              column beneath the team case, filling the space beside the
-              taller reference card in the right column. */}
+          {/* Information Ecosystem, then the Flicker card and the glossary. */}
           <div className="cid-viv-ecosystem">
             <h3 className="cid-viv-ecosystem-h">Information Ecosystem</h3>
-            <p className="cid-viv-ecosystem-copy">CID integrates proprietary data, artificial intelligence (AI) and machine learning (ML) models, digital prototypes, dynamic workflows and reusable skills into our adaptive research ecosystem. The system actively balances transparency and public access with robust security and privacy protections.</p>
+            {/* Two columns, per Greg, so the paragraph uses the width instead
+                of sitting boxed at the left; each column keeps the house measure.
+                His split, verbatim, including the serial comma he added to the
+                first half for this version. */}
+            <div className="cid-viv-ecosystem-cols">
+              <p className="cid-viv-ecosystem-copy">CID integrates proprietary data, artificial intelligence (AI) and machine learning (ML) models, digital prototypes, dynamic workflows, and reusable skills into our adaptive research ecosystem.</p>
+              <p className="cid-viv-ecosystem-copy">The system actively balances transparency and public access with robust security and privacy protections.</p>
+            </div>
 
             {/* The Flicker card and the inputs/tags glossary sit side by
                 side, filling the band beside the reference card. The Flicker

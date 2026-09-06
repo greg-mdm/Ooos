@@ -250,7 +250,17 @@
    only you hold" by naming what that key is, before the sealed case makes
    the physical argument for it. Plain on the page canvas, between the
    rail/hero pairing and the vault. ---- */
-.cid-scope .cid-viv-ecosystem { display: flex; flex-direction: column; gap: 10px; max-width: 820px; }
+/* No 820px cap any more: it held the block to the left column beside a
+   reference card that no longer sits there, and Greg wants the width used. */
+.cid-scope .cid-viv-ecosystem { display: flex; flex-direction: column; gap: 10px; }
+/* The copy in two even columns, each on the house measure. Stacks under 700. */
+.cid-scope .cid-viv-ecosystem-cols {
+  display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  gap: 10px clamp(20px,3vw,44px); align-items: start;
+}
+@media (max-width: 700px) {
+  .cid-scope .cid-viv-ecosystem-cols { grid-template-columns: minmax(0,1fr); }
+}
 .cid-scope .cid-viv-ecosystem-h {
   margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
   font-size: clamp(19px,2vw,23px); letter-spacing: -.2px; color: #4B00B6;
@@ -804,33 +814,6 @@
 }
 @media (max-width: 700px) {
   .cid-scope .cid-vivroom-frame { aspect-ratio: 4 / 3; }
-}
-
-/* ---- The Vivarium environment. This is the research facility itself, so it
-   is painted as a BACKGROUND rather than an <img>: browsers offer no image
-   zoom, visual search, drag or save affordance on a background, which is what
-   was trapping people inside the picture. Later this becomes the entrance to
-   the explorable 3D environment leading down to the cave.
-
-   It now sits alone at the foot of the left column, with no sibling row to
-   borrow a height from, so it carries its own aspect ratio: the source crop,
-   3840x1380. ---- */
-.cid-scope .cid-case-wrap {
-  position: relative; margin: 0; height: auto; aspect-ratio: 3840 / 1380;
-}
-/* contain, not cover. The ratio above matches the art, so in practice nothing
-   letterboxes, but contain guarantees the glass case is never cropped if the
-   box and the art ever disagree by a rounding error. The art also carries a
-   baked fade to this exact background colour top and bottom, so any letterbox
-   blends instead of cutting a hard line: a CSS gradient could not do that job,
-   since the letterbox edge moves with the box and a gradient can only anchor
-   to the box. */
-.cid-scope .cid-case {
-  display: block; width: 100%; height: 100%; border-radius: 16px;
-  background-color: #04030e; background-size: contain; background-position: center;
-  background-repeat: no-repeat;
-  box-shadow: 0 22px 50px -26px rgba(6,2,28,.7);
-  user-select: none;
 }
 
 /* Roman numeral three as vector strokes: no font, no substitution, no OCR
