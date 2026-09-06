@@ -368,6 +368,22 @@
    The list aligns to the top rather than stretching, so an open card does
    not drag its closed neighbour to the same height. */
 .cid-scope .cid-viv-priority-list--fold { align-items: start; }
+/* THE BORDER CARRIES THE STATE. A closed card wears the indigo edge muted; an
+   open one wears it full. On Strategic Priorities the third card ships open,
+   so the reader lands on one strong edge beside two quiet ones, and the
+   contrast is the cue that the quiet ones open too. Methods gets the same
+   rule; both its cards are closed at rest, so both start muted and light up
+   as they open. */
+.cid-scope .cid-viv-priority--fold {
+  border-left-color: rgba(75,0,182,.28);
+  transition: border-left-color .2s ease;
+}
+.cid-scope .cid-viv-priority--fold[open] { border-left-color: #4B00B6; }
+/* Paragraph body inside a folded card: the dd's type. No measure cap, as
+   with the dd, because the card is the measure. */
+.cid-scope .cid-viv-priority--fold > p {
+  margin: 10px 0 0; font-size: 14.5px; line-height: 1.55; color: #33384a;
+}
 .cid-scope .cid-viv-priority--fold summary {
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
   list-style: none; cursor: pointer;
@@ -388,6 +404,7 @@
 }
 .cid-scope .cid-viv-priority--fold[open] .cid-viv-priority-points { margin-top: 10px; }
 @media (prefers-reduced-motion: reduce) {
+  .cid-scope .cid-viv-priority--fold,
   .cid-scope .cid-viv-priority--fold summary::after { transition: none; }
 }
 

@@ -841,23 +841,30 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     appears without its meaning beside it. */}
                 <div className="cid-viv-priorities">
                   <h3 className="cid-viv-ecosystem-h">Strategic Priorities</h3>
-                  <dl className="cid-viv-priority-list">
-                    <div className="cid-viv-priority">
-                      <dt>Merit and Research Integrity</dt>
-                      <dd>Verify credentials and evaluate evidence. Machine-learning detection and automated controls help identify and exclude Material Non-Public Information (MNPI) from AI agent and trading workflows.</dd>
-                    </div>
-                    <div className="cid-viv-priority">
-                      <dt>Trust and Transparency</dt>
-                      <dd>Protect privacy and confidentiality while documenting sources, responsibilities, and decisions. Consistent human oversight ensures CID authorizes all automated processes, approves methods, and monitors interactions with tools.</dd>
-                    </div>
-                    {/* Five priorities in a three-up row: two on the first line
-                        beside the reference card, three on the second where the
-                        panel above has ended and the full width is free. */}
-                    <div className="cid-viv-priority">
-                      <dt>Interoperability</dt>
-                      <dd>Connect Canadian content, services and materials with audiences across platforms and markets.</dd>
-                    </div>
-                  </dl>
+                  {/* Folded like the Methods below: each priority is its heading in
+                      caps at rest and opens on demand. The third ships open, and
+                      the fold's border colour carries the state: full indigo on an
+                      open card, muted on a closed one. So the reader lands on
+                      one open card with a strong edge beside two quiet ones, which
+                      is the cue that the quiet ones open too. Greg's call. */}
+                  <div className="cid-viv-priority-list cid-viv-priority-list--fold">
+                    <details className="cid-viv-priority cid-viv-priority--fold">
+                      <summary>Merit and Research Integrity</summary>
+                      <p>Verify credentials and evaluate evidence. Machine-learning detection and automated controls help identify and exclude Material Non-Public Information (MNPI) from AI agent and trading workflows.</p>
+                    </details>
+                    <details className="cid-viv-priority cid-viv-priority--fold">
+                      <summary>Trust and Transparency</summary>
+                      <p>Protect privacy and confidentiality while documenting sources, responsibilities, and decisions. Consistent human oversight ensures CID authorizes all automated processes, approves methods, and monitors interactions with tools.</p>
+                    </details>
+                    {/* Third of three, so it spans the row (see the :last-child rule
+                        in cid-vivarium.css). Open by default: the one the reader
+                        sees expanded, and the one whose border shows the active
+                        colour. */}
+                    <details className="cid-viv-priority cid-viv-priority--fold" open>
+                      <summary>Interoperability</summary>
+                      <p>Connect Canadian content, services and materials with audiences across platforms and markets.</p>
+                    </details>
+                  </div>
                   {/* Methods, not priorities. The three above are commitments,
                       what CID holds itself to; these two are how the work is
                       actually carried out, which is why they arrived as bullets
