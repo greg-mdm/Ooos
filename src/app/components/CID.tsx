@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState, type ReactNode, type CSSProperties } from "react";
+import { RedShaderOrb } from "./cid/RedShaderOrb";
 import "../../styles/cid-continuum.css";
 import "../../styles/cid-forest.css";
 import "../../styles/cid-vivarium.css";
@@ -884,17 +885,17 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     <details className="cid-viv-priority cid-viv-priority--fold" open>
                       <summary>Global Interoperability</summary>
                       {/* The two sister organisations as a pair of round cards, side
-                          by side, per Greg. Each circle holds its own sentence with
-                          the name leading it, in the ruby this section uses for its
-                          active state. The circle's padding is set to its inscribed
-                          square, so the text block never reaches past the ring. */}
+                          by side, per Greg. At rest each circle shows only its title,
+                          big, over a live red shader; hovering, focusing or tapping
+                          reveals the sentence underneath. The copy is his, verbatim;
+                          the component and its shader are in cid/RedShaderOrb.tsx. */}
                       <div className="cid-viv-orbs">
-                        <div className="cid-viv-orb">
-                          <p><em className="cid-viv-orb-name">Global Interoperability Taskforce (GIT)</em> connects Canadian content, services, and materials with audiences across platforms and markets.</p>
-                        </div>
-                        <div className="cid-viv-orb">
-                          <p><em className="cid-viv-orb-name">Toronto Interoperability Trust (TIT)</em> advances privacy protection, informed consent, and national standards. TIT expands public access to collective intelligence by sharing Toronto’s resources across Canada.</p>
-                        </div>
+                        <RedShaderOrb title="Global Interoperability Taskforce (GIT)">
+                          Global Interoperability Taskforce (GIT) connects Canadian content, services, and materials with audiences across platforms and markets.
+                        </RedShaderOrb>
+                        <RedShaderOrb title="Toronto Interoperability Trust (TIT)">
+                          Toronto Interoperability Trust (TIT) advances privacy protection, informed consent, and national standards. TIT expands public access to collective intelligence by sharing Toronto’s resources across Canada.
+                        </RedShaderOrb>
                       </div>
                     </details>
                   </div>

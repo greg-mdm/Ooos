@@ -412,25 +412,68 @@
    also holds Methods, which keeps the indigo. */
 .cid-scope .cid-viv-priority-list--ruby .cid-viv-priority--fold[open] { border-left-color: #822F00; }
 
-/* The two sister organisations under Global Interoperability, each in a round
-   card, side by side. The ring and the name take the section's ruby. Padding
-   is 15% of the diameter, which keeps the text box inside the inscribed
-   square (diameter over root two), so no line reaches past the ring. Stacks
-   under 700. */
+/* The two sister organisations under Global Interoperability, each a round
+   card with a live red shader behind a big title. At rest only the title
+   shows; hover, focus or tap reveals the sentence on a dark scrim. The
+   shader and its scaffolding live in cid/RedShaderOrb.tsx. The ring is the
+   section's ruby. */
 .cid-scope .cid-viv-orbs {
   display: grid; grid-template-columns: repeat(2, minmax(0,1fr));
   gap: clamp(16px,2.4vw,32px); margin-top: 14px; justify-items: center;
 }
 .cid-scope .cid-viv-orb {
-  width: min(100%, 320px); aspect-ratio: 1; border-radius: 50%; box-sizing: border-box;
-  display: grid; place-items: center; padding: 15%; text-align: center;
-  background: rgba(130,47,0,.05); border: 2px solid rgba(130,47,0,.30);
-  box-shadow: inset 0 0 0 6px #fff, 0 14px 30px -20px rgba(130,47,0,.5);
+  position: relative; width: min(100%, 320px); aspect-ratio: 1; border-radius: 50%;
+  overflow: hidden; isolation: isolate; background: #1a0508;
+  border: 2px solid rgba(130,47,0,.45);
+  box-shadow: inset 0 0 0 4px rgba(6,2,28,.35), 0 18px 36px -22px rgba(130,47,0,.7);
 }
-.cid-scope .cid-viv-orb p {
-  margin: 0; font-size: 13.5px; line-height: 1.5; color: #33384a; text-wrap: balance;
+/* No WebGL: the same field, frozen, as a gradient, so the circle is still a
+   red circle with its title on it. */
+.cid-scope .cid-viv-orb.is-nogl {
+  background:
+    radial-gradient(60% 60% at 40% 35%, rgba(240,192,64,.28) 0%, rgba(240,192,64,0) 70%),
+    radial-gradient(90% 90% at 60% 70%, #822F00 0%, #3a0f0a 60%, #06021c 100%);
 }
-.cid-scope .cid-viv-orb-name { font-style: italic; font-weight: 700; color: #822F00; }
+.cid-scope .cid-viv-orb-gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.cid-scope .cid-viv-orb.is-nogl .cid-viv-orb-gl { display: none; }
+/* The whole circle is the control. The title is the only thing on it at rest,
+   big, Bright Silver on the fire, held inside the inscribed square by the
+   padding so no line reaches past the ring. */
+.cid-scope .cid-viv-orb-hit {
+  position: absolute; inset: 0; z-index: 2;
+  appearance: none; -webkit-appearance: none;
+  width: 100%; height: 100%; padding: 15%; border: 0; margin: 0;
+  background: transparent; cursor: pointer; border-radius: 50%;
+  display: grid; place-items: center; text-align: center;
+  font: inherit; color: inherit;
+}
+.cid-scope .cid-viv-orb-hit:focus-visible { outline: 3px solid #F0C040; outline-offset: -8px; }
+.cid-scope .cid-viv-orb-title {
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: clamp(17px,1.9vw,24px); line-height: 1.2; letter-spacing: -.1px;
+  color: #E8ECF4; text-shadow: 0 1px 2px rgba(6,2,28,.7), 0 0 18px rgba(6,2,28,.5);
+  text-wrap: balance;
+  transition: opacity .22s ease, transform .22s ease;
+}
+/* The sentence: a round scrim over the shader, off until the card is hovered,
+   focused or open. It sits above the button so its text is selectable, and
+   lets clicks through so the button still toggles. */
+.cid-scope .cid-viv-orb-desc {
+  position: absolute; inset: 0; z-index: 3; margin: 0; padding: 15%;
+  border-radius: 50%; display: grid; place-items: center; text-align: center;
+  background: rgba(6,2,28,.78);
+  font-size: 13.5px; line-height: 1.5; color: #E8ECF4; text-wrap: balance;
+  opacity: 0; pointer-events: none; transition: opacity .22s ease;
+}
+.cid-scope .cid-viv-orb:hover .cid-viv-orb-desc,
+.cid-scope .cid-viv-orb:focus-within .cid-viv-orb-desc,
+.cid-scope .cid-viv-orb[data-open="true"] .cid-viv-orb-desc { opacity: 1; }
+.cid-scope .cid-viv-orb:hover .cid-viv-orb-title,
+.cid-scope .cid-viv-orb:focus-within .cid-viv-orb-title,
+.cid-scope .cid-viv-orb[data-open="true"] .cid-viv-orb-title { opacity: 0; transform: scale(.96); }
+@media (prefers-reduced-motion: reduce) {
+  .cid-scope .cid-viv-orb-title, .cid-scope .cid-viv-orb-desc { transition: none; }
+}
 @media (max-width: 700px) {
   .cid-scope .cid-viv-orbs { grid-template-columns: minmax(0,1fr); }
 }
