@@ -1791,6 +1791,9 @@
 .cid-scope .cid-cast-frame:hover { filter: brightness(.86) saturate(.94); }
 .cid-scope .cid-cast-frame.is-on:hover { filter: none; }
 
+/* The <picture> wrapper contributes no box: the img inside it is what the
+   shot lays out, on every viewport. */
+.cid-scope .cid-cast-shot > picture { display: contents; }
 /* The shot is a box: the media fills it, and a transparent hit button lies
    over the media so the art is still what you press. The button is a sibling
    of the media rather than its parent, which is what lets the video take

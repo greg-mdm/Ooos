@@ -239,11 +239,18 @@ type CidCharacter = {
   /** Role line. Verbatim from CASE_BAYS, which is where these are canon.
    *  An empty string renders no line rather than inventing one. */
   role: string;
+  /** For a still, src is the WebP every browser can show and avif, when
+   *  present, is offered first through <picture>. AVIF is here for the
+   *  chroma: lossy WebP is always 4:2:0, which halves colour resolution and
+   *  is what faded the gold cracks on Icarus's face. AVIF at 4:4:4 keeps
+   *  them. */
   media:
     | { kind: "video"; src: string; poster: string }
-    | { kind: "image"; src: string };
-  /** Still shown in the roll when this frame is not spotlighted. */
+    | { kind: "image"; src: string; avif?: string };
+  /** Still shown in the roll when this frame is not spotlighted, with the
+   *  same optional AVIF beside it. */
   thumb: string;
+  thumbAvif?: string;
   /** Width over height of the lit media. On a phone the shot takes exactly
    *  this shape, so nothing is letterboxed or cropped; on wider screens the
    *  frame is a fixed height and the media is contained inside it. */
@@ -315,9 +322,21 @@ const CAST = (base: string): CidCharacter[] => [
     name: <IcarusName />,
     plain: "Icarus the Third",
     role: "Executive Trader",
-    media: { kind: "image", src: `${base}assets/images/cid-char-icarus.webp` },
+    // Two compositions, not one image cropped two ways. Lit, the full wide
+    // reveal Greg made in Artlist (1376x768); off the spotlight, the vertical
+    // shot that used to be the only one. Selecting him zooms out from the
+    // portrait to the room, which is the effect Greg asked for, and neither
+    // frame crops anything: object-fit stays contain, and the zoom is two
+    // pictures. Both ship as AVIF 4:4:4 with a smart-subsampled WebP
+    // behind it, for the cracks on his face; see the note on the type.
+    media: {
+      kind: "image",
+      src: `${base}assets/images/cid-char-icarus-wide.webp`,
+      avif: `${base}assets/images/cid-char-icarus-wide.avif`,
+    },
     thumb: `${base}assets/images/cid-char-icarus.webp`,
-    ratio: 4 / 5,
+    thumbAvif: `${base}assets/images/cid-char-icarus.avif`,
+    ratio: 1376 / 768,
     alt: "Icarus the Third seated on a mound of world currency coins in a vault, holding a top hat that pours out more.",
     specs: [],
   },
@@ -487,16 +506,29 @@ function CharacterRoll({ base }: { base: string }) {
                       playsInline
                     />
                   ) : (
-                    <img
-                      className="cid-cast-media"
-                      src={on && p.media.kind === "image" ? p.media.src : p.thumb}
-                      alt=""
-                      /* Eager only for the frame that opens lit, which is no
-                         longer the first one now that the General sits in the
-                         middle. Everything else waits until the band is near. */
-                      loading={i === opensAt ? undefined : "lazy"}
-                      decoding="async"
-                    />
+                    /* A <picture> so a browser that can decode AVIF takes it and
+                       every other browser falls through to the WebP. The wrapper
+                       is display: contents in CSS, so the img stays the flex item
+                       on wide screens and the absolutely placed media on a phone
+                       still resolves against the shot. */
+                    <picture>
+                      {(on && p.media.kind === "image" ? p.media.avif : p.thumbAvif) && (
+                        <source
+                          type="image/avif"
+                          srcSet={on && p.media.kind === "image" ? p.media.avif : p.thumbAvif}
+                        />
+                      )}
+                      <img
+                        className="cid-cast-media"
+                        src={on && p.media.kind === "image" ? p.media.src : p.thumb}
+                        alt=""
+                        /* Eager only for the frame that opens lit, which is no
+                           longer the first one now that the General sits in the
+                           middle. Everything else waits until the band is near. */
+                        loading={i === opensAt ? undefined : "lazy"}
+                        decoding="async"
+                      />
+                    </picture>
                   )}
                   <button
                     type="button"
