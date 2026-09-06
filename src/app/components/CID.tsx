@@ -916,6 +916,21 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <StrategyKeys />
               </section>
 
+              {/* Two cards, side by side, over the roll. Greg's copy, verbatim:
+                  the two short claims on the left, the one sentence on the
+                  right. These three lines used to share the lede row above
+                  the RACI panel; Greg moved them here and rewrote the third,
+                  which had read "Our governance remains sovereign." */}
+              <div className="cid-viv-thesis">
+                <div className="cid-viv-thesis-card">
+                  <p>Investing in your future is complex and continuously changing.</p>
+                  <p>Markets demand new digital diversification strategies.</p>
+                </div>
+                <div className="cid-viv-thesis-card">
+                  <p>Rules are evolving. Allies are forming. CID is a sovereign network for strategic governance.</p>
+                </div>
+              </div>
+
               {/* The cast, directly under the keys. Page-width from inside a
                   narrow column, which is what --viv-gutter is for: see the
                   break-out note in cid-vivarium.css. It sat outside the
@@ -1106,15 +1121,10 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               tour's 16:9: the wide profile is the whole point, and trimming
               it to match a shape it was never framed for is exactly the
               compromise that flattened it. */}
-          {/* Two columns, because the lead lines are short and left a wide
-              gutter beside them. The safeguards used to sit under the whole
-              row; they read better here, opposite the claims they qualify. */}
+          {/* The safeguards, alone now. The three lead lines that shared this
+              row moved up to sit over the character roll as their own pair of
+              cards (see .cid-viv-thesis), so the notes take the row. */}
           <div className="cid-viv-reveal-lede">
-            <div className="cid-viv-reveal-lede-col">
-              <p>Investing in your future is complex and continuously changing.</p>
-              <p>Markets demand new digital diversification strategies.</p>
-              <p>Rules are evolving. Allies are forming. Our governance remains sovereign.</p>
-            </div>
             <ul className="cid-viv-reveal-notes">
               <li>Automating Safety First: Hard-coded Conflict Checks and MNPI Exclusions filter and destroy risky or compromised data before human or AI agent review.</li>
               <li>Optimizing Agent Solutions: High-performance teams leverage programmatic auditing to detect and pluck personally identifiable information and protect data silos.</li>
