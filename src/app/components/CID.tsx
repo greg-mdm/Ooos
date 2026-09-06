@@ -1208,7 +1208,8 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   predictive phrasing, under a Phosphor Lighthouse. The glyphs are Phosphor Icons (MIT,
                   Phosphor Icons 2023), regular weight, inlined from the
                   @phosphor-icons/core package so the paths are the originals:
-                  ShieldCheck, Crosshair (Greg's pick over Pulse), and LockKey
+                  ShieldCheck, a fence for risk management (Lucide, since Phosphor
+                  has none; it replaced his first pick, Crosshair), and LockKey
                   in the circular badge he asked for. All three sit in the same
                   badge so the column reads as one set; the badge was specified
                   for the lock and extended to its neighbours for that reason.
@@ -1223,8 +1224,20 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 </li>
                 <li>
                   <span className="cid-raci-badge" aria-hidden="true">
-                    {/* Phosphor Crosshair */}
-                    <svg viewBox="0 0 256 256" focusable="false"><path d="M232,120h-8.34A96.14,96.14,0,0,0,136,32.34V24a8,8,0,0,0-16,0v8.34A96.14,96.14,0,0,0,32.34,120H24a8,8,0,0,0,0,16h8.34A96.14,96.14,0,0,0,120,223.66V232a8,8,0,0,0,16,0v-8.34A96.14,96.14,0,0,0,223.66,136H232a8,8,0,0,0,0-16Zm-96,87.6V200a8,8,0,0,0-16,0v7.6A80.15,80.15,0,0,1,48.4,136H56a8,8,0,0,0,0-16H48.4A80.15,80.15,0,0,1,120,48.4V56a8,8,0,0,0,16,0V48.4A80.15,80.15,0,0,1,207.6,120H200a8,8,0,0,0,0,16h7.6A80.15,80.15,0,0,1,136,207.6ZM128,88a40,40,0,1,0,40,40A40,40,0,0,0,128,88Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,152Z" /></svg>
+                    {/* Lucide Fence (ISC, Lucide Contributors), the one icon here not
+                        from Phosphor, which has no fence: Greg asked for a fence, and
+                        Lucide is already a dependency of this project. Lucide draws
+                        in strokes where Phosphor draws in fills, so this one is
+                        stroked by class at a weight matched to the others. */}
+                    <svg className="cid-raci-badge-stroke" viewBox="0 0 24 24" focusable="false">
+                      <path d="M4 3 2 5v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z" />
+                      <path d="M6 8h4" />
+                      <path d="M6 18h4" />
+                      <path d="m12 3-2 2v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z" />
+                      <path d="M14 8h4" />
+                      <path d="M14 18h4" />
+                      <path d="m20 3-2 2v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z" />
+                    </svg>
                   </span>
                   <span>Proactive Risk Management.</span>
                 </li>

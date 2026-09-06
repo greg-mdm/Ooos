@@ -1700,6 +1700,13 @@
   background: rgba(75,0,182,.10); color: #4B00B6;
 }
 .cid-scope .cid-raci-badge svg { width: 16px; height: 16px; fill: currentColor; }
+/* A stroked glyph in the badge: the Lucide fence. Lucide draws in strokes at
+   2px on a 24 grid; Phosphor regular reads at about 1.75 on the same scale,
+   so the width is set to sit with its filled neighbours. */
+.cid-scope .cid-raci-badge svg.cid-raci-badge-stroke {
+  fill: none; stroke: currentColor; stroke-width: 1.75;
+  stroke-linecap: round; stroke-linejoin: round;
+}
 .cid-scope .cid-raci-safe-h {
   display: block; font-weight: 700; color: #33384a;
 }
