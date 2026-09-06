@@ -1200,7 +1200,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 announce "Evidence verification, Ethel, Responsible" rather
                 than reading twenty-eight loose letters. */}
             <div className="cid-viv-raci">
-              {/* Safeguards, each with the glyph Greg picked for it. Three now:
+              {/* Safeguards, each with the glyph Greg picked for it. Four now:
                   the two controls, and the gated strategy circles with their
                   microcopy, which replaces the "Predictive Analytics" that used
                   to share the second line, and the horizon mapping line between
