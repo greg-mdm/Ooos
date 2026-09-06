@@ -1203,7 +1203,9 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               {/* Safeguards, each with the glyph Greg picked for it. Three now:
                   the two controls, and the gated strategy circles with their
                   microcopy, which replaces the "Predictive Analytics" that used
-                  to share the second line. The glyphs are Phosphor Icons (MIT,
+                  to share the second line, and the horizon mapping line between
+                  them, Greg's reframing of strategic foresight with no
+                  predictive phrasing, under a Phosphor Lighthouse. The glyphs are Phosphor Icons (MIT,
                   Phosphor Icons 2023), regular weight, inlined from the
                   @phosphor-icons/core package so the paths are the originals:
                   ShieldCheck, Crosshair (Greg's pick over Pulse), and LockKey
@@ -1225,6 +1227,16 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     <svg viewBox="0 0 256 256" focusable="false"><path d="M232,120h-8.34A96.14,96.14,0,0,0,136,32.34V24a8,8,0,0,0-16,0v8.34A96.14,96.14,0,0,0,32.34,120H24a8,8,0,0,0,0,16h8.34A96.14,96.14,0,0,0,120,223.66V232a8,8,0,0,0,16,0v-8.34A96.14,96.14,0,0,0,223.66,136H232a8,8,0,0,0,0-16Zm-96,87.6V200a8,8,0,0,0-16,0v7.6A80.15,80.15,0,0,1,48.4,136H56a8,8,0,0,0,0-16H48.4A80.15,80.15,0,0,1,120,48.4V56a8,8,0,0,0,16,0V48.4A80.15,80.15,0,0,1,207.6,120H200a8,8,0,0,0,0,16h7.6A80.15,80.15,0,0,1,136,207.6ZM128,88a40,40,0,1,0,40,40A40,40,0,0,0,128,88Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,152Z" /></svg>
                   </span>
                   <span>Proactive Risk Management.</span>
+                </li>
+                <li>
+                  <span className="cid-raci-badge" aria-hidden="true">
+                    {/* Phosphor Lighthouse */}
+                    <svg viewBox="0 0 256 256" focusable="false"><path d="M208,80a8,8,0,0,0-8,8v16H188.85L184,55.2A8,8,0,0,0,181.32,50L138.44,11.88l-.2-.17a16,16,0,0,0-20.48,0l-.2.17L74.68,50A8,8,0,0,0,72,55.2L67.15,104H56V88a8,8,0,0,0-16,0v24a8,8,0,0,0,8,8H65.54l-9.47,94.48A16,16,0,0,0,72,232H184a16,16,0,0,0,15.92-17.56L190.46,120H208a8,8,0,0,0,8-8V88A8,8,0,0,0,208,80ZM128,24l27,24H101ZM87.24,64h81.52l4,40H136V88a8,8,0,0,0-16,0v16H83.23ZM72,216l4-40H180l4,40Zm106.39-56H77.61l4-40h92.76Z" /></svg>
+                  </span>
+                  <span>
+                    <strong className="cid-raci-safe-h">Dynamic Horizon Mapping</strong>
+                    <span className="cid-raci-safe-sub">Scan the horizon. Compare scenarios, possibilities, and probabilities through evidence-based reasoning.</span>
+                  </span>
                 </li>
                 <li>
                   <span className="cid-raci-badge" aria-hidden="true">
