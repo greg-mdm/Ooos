@@ -1671,20 +1671,29 @@
   line-height: 1.3; color: #E8ECF4; text-shadow: 0 1px 2px rgba(0,0,0,.55);
 }
 
-/* Safeguards as a checked list. These are controls that either hold or do
-   not, so a tick carries the state faster than a sentence ending in a full
-   stop. The mark is a stroked path, not a glyph, so it keeps its weight at
-   any size and takes currentColor. */
+/* Safeguards, each led by its own glyph in a round badge: a shield with a
+   check, a crosshair, a lock. The badge is the site indigo at a tint with
+   the glyph in full indigo, so the three read as one set of markers rather
+   than three pictures. The third line carries a label and microcopy. */
 .cid-scope .cid-raci-safe {
   margin: 0 0 4px; padding: 0; list-style: none;
-  display: flex; flex-direction: column; gap: 7px;
+  display: flex; flex-direction: column; gap: 9px;
 }
 .cid-scope .cid-raci-safe li {
-  display: grid; grid-template-columns: auto minmax(0,1fr); gap: 9px; align-items: start;
+  display: grid; grid-template-columns: auto minmax(0,1fr); gap: 10px; align-items: start;
   font-size: clamp(12.5px,1.2vw,14px); line-height: 1.5; color: #5c6076;
 }
-.cid-scope .cid-raci-check {
-  width: 17px; height: 17px; margin-top: 2px; flex: none; color: #4B00B6;
+.cid-scope .cid-raci-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px; border-radius: 50%; margin-top: -2px;
+  background: rgba(75,0,182,.10); color: #4B00B6;
+}
+.cid-scope .cid-raci-badge svg { width: 16px; height: 16px; fill: currentColor; }
+.cid-scope .cid-raci-safe-h {
+  display: block; font-weight: 700; color: #33384a;
+}
+.cid-scope .cid-raci-safe-sub {
+  display: block; margin-top: 1px; max-width: 62ch; text-wrap: balance;
 }
 
 @media (max-width: 900px) {
