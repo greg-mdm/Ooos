@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ooos display room</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0; background:#06021A; overflow:hidden}
+  .stage{position:fixed; inset:0}
+  #gl{position:absolute; inset:0; width:100%; height:100%; display:block}
+
+  /* centre hover mount: the featured asset, the whole point of the room */
+  .mount{
+    position:fixed; left:50%; top:47%; z-index:40;
+    width:min(60vw, 86vh); pointer-events:none;
+    transform:translate(-50%,-50%);
+    will-change:transform;
+  }
+  .mount-inner{position:relative; animation:bob 6s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(-5px)}50%{transform:translateY(5px)}}
+  .obj{display:block; width:100%; height:auto;
+    filter:drop-shadow(0 18px 26px rgba(0,0,0,.55)) drop-shadow(0 0 30px rgba(91,4,222,.45));}
+  /* soft underglow beneath the object */
+  .mount-inner::before{
+    content:''; position:absolute; left:50%; bottom:-6%; width:70%; height:22%;
+    transform:translateX(-50%);
+    background:radial-gradient(ellipse at center, rgba(120,40,240,.55), rgba(91,4,222,0) 70%);
+    filter:blur(10px); z-index:-1;
+  }
+  /* faint floor reflection so it reads as levitating */
+  .reflection{
+    position:absolute; left:0; top:100%; width:100%; height:100%;
+    transform:scaleY(-1); opacity:.16;
+    -webkit-mask-image:linear-gradient(180deg,#000,transparent 60%);
+    mask-image:linear-gradient(180deg,#000,transparent 60%);
+    filter:blur(1px);
+  }
+  .reflection img{display:block; width:100%; height:auto}
+
+  .nogl{position:absolute; inset:0; display:none; place-items:center; text-align:center;
+    padding:32px; background:linear-gradient(160deg,#1A0033,#06021A); color:#F0F4F5;
+    font-family:system-ui,sans-serif; z-index:90}
+
+  /* ---- true measurement callouts, bright silver ---- */
+  .dim{position:absolute; transform:translate(-50%,-50%); pointer-events:none; text-align:center;
+    font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif; line-height:1; white-space:nowrap;
+    filter:drop-shadow(0 1px 2px rgba(0,0,0,.9)) drop-shadow(0 0 12px rgba(0,0,0,.6));}
+  .dim .v{display:block; font-weight:700; letter-spacing:.02em; font-size:clamp(.9rem,1.6vw,1.35rem);
+    background:linear-gradient(180deg,#FFFFFF 0%,#E9EEF4 40%,#AEB8C6 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .dim .mm{display:block; margin-top:.2em; font-weight:600; letter-spacing:.14em;
+    font-size:clamp(.56rem,.92vw,.74rem); color:#B4BFCC;}
+  .dim-h{left:15%; top:62%}
+  .dim-d{left:26.5%; top:40%; transform:translate(-100%,-50%)}
+  .dim-w{left:83%; top:37%}
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <div class="nogl" id="nogl"><p>This room needs WebGL.</p></div>
+</div>
+
+<div class="mount" id="mount">
+  <div class="mount-inner">
+    <img class="obj" id="obj" src="assets/images/viv-contained.webp?v=2" alt="The Viv, the always-on AI mini-PC, 11.7 by 11.2 by 4.5 cm" />
+    <div class="reflection" aria-hidden="true"><img src="" alt="" /></div>
+
+  </div>
+</div>
+
+<template id="__bundler_thumbnail" data-bg-color="#06021A">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#06021A"/>
+    <g stroke="#5B04DE" stroke-width="9" fill="none" opacity="0.9">
+      <path d="M300 240 H900 V560 H300 Z"/>
+      <path d="M120 120 L300 240 M1080 120 L900 240 M120 680 L300 560 M1080 680 L900 560"/>
+    </g>
+    <rect x="455" y="330" width="290" height="206" fill="#19007D" stroke="#E8ECF4" stroke-width="6"/>
+  </svg>
+</template>
+
+<script>
+window.ROOM_FRAG = "// ============================================================\n// room.frag:  the ooos display room  (canonical)\n//\n// One fullscreen triangle. Raycasts a box from a camera sitting just inside\n// its open front, finds which interior surface the ray lands on, and papers\n// that surface with one of the two ooos.ca shaders. One WebGL context for the\n// whole room; the perspective is real, not a CSS transform approximation.\n//\n// Uniforms\n//   u_res    vec2   drawing buffer size in px\n//   u_time   float  seconds since mount\n//   u_mouse  vec2   0..1, smoothed, y flipped\n//   u_mode   float  0.0 = aurora wallpaper, 1.0 = gravity-grid (mixable)\n//   u_dim    float  master brightness\n//   u_niche  float  0..1 strength of the recessed panel on the back wall\n//   u_warm   float  0.0 = Ethel (portal/electric), 1.0 = Icarus (gold/ruby)\n//   u_tint   vec3   accent for the twelve seams and the floor fan\n//   u_camz   float  camera dolly along -Z, for navigation\n//   u_yaw    float  camera yaw in radians, for navigation\n//\n// Surfaces are indexed by dominant axis of the hit point:\n//   |x| dominant -> side walls    (uv = z,y)\n//   |y| dominant -> floor/ceiling (uv = x,z)\n//   |z| dominant -> back wall     (uv = x,y)\n// ============================================================\n\nprecision highp float;\n\nuniform vec2  u_res;\nuniform float u_time;\nuniform vec2  u_mouse;\nuniform float u_mode;\nuniform float u_dim;\nuniform float u_niche;\nuniform float u_warm;\nuniform vec3  u_tint;\nuniform float u_camz;\nuniform float u_yaw;\n\n// ---- ooos palette ----\nconst vec3 DARKEST  = vec3(0.024, 0.008, 0.110);\nconst vec3 DARKINDIGO = vec3(0.098, 0.000, 0.490);\nconst vec3 PORTAL   = vec3(0.294, 0.000, 0.714);\nconst vec3 ELECTRIC = vec3(0.357, 0.016, 0.871);\nconst vec3 EMBER    = vec3(0.620, 0.180, 0.420);\nconst vec3 TEAL     = vec3(0.000, 0.502, 0.502);\nconst vec3 ROBIN    = vec3(0.941, 0.957, 0.961);\nconst vec3 GOLD     = vec3(0.941, 0.753, 0.251);   // #F0C040\nconst vec3 RUBY     = vec3(0.510, 0.184, 0.000);   // #822F00\n\n// room half-extents (x = width, y = height, z = depth)\nconst vec3 ROOM = vec3(1.70, 0.98, 2.60);\nconst float FOV = 1.35;\n\nmat2 rot(float a){ float c = cos(a), s = sin(a); return mat2(c, -s, s, c); }\n\nfloat hash21(vec2 p){\n  p = fract(p * vec2(123.34, 345.45));\n  p += dot(p, p + 34.345);\n  return fract(p.x * p.y);\n}\n\nvec2 hash22(vec2 p){\n  p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)));\n  return fract(sin(p) * 43758.5453);\n}\n\nfloat noise(vec2 p){\n  vec2 i = floor(p), f = fract(p);\n  vec2 u = f * f * (3.0 - 2.0 * f);\n  float a = hash21(i),              b = hash21(i + vec2(1, 0));\n  float c = hash21(i + vec2(0, 1)), d = hash21(i + vec2(1, 1));\n  return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);\n}\n\nfloat fbm(vec2 p){\n  float v = 0.0, a = 0.5;\n  for (int i = 0; i < 4; i++){ v += a * noise(p); p = rot(0.5) * p * 2.0 + 11.3; a *= 0.5; }\n  return v;\n}\n\n// Icarus III trades in gold and ruby, so his room remaps the cool palette by\n// luminance rather than swapping the shaders out. u_warm 0 leaves Ethel alone.\nvec3 warmify(vec3 c){\n  float l = dot(c, vec3(0.299, 0.587, 0.114));\n  vec3 warm = mix(RUBY * 0.9, GOLD, smoothstep(0.04, 0.50, l));\n  return mix(c, warm * (0.42 + l * 1.35), u_warm);\n}\n\n// ---- wallpaper A: the nav aurora, re-parameterised for wall space ----\nvec3 auroraWall(vec2 q, float t){\n  float mt    = t * 0.016;\n  float drift = t * 0.18;\n  vec3 col = DARKEST;\n  for (int i = 0; i < 2; i++){\n    float fi = float(i);\n    float depth = 1.0 + fi * 0.7;\n    vec2 w2 = q / depth;\n    w2 *= vec2(0.62, 2.0);\n    w2.x -= drift * (1.0 + fi * 0.30);\n    vec2 w = vec2(fbm(w2 + vec2(0.0, mt)), fbm(w2 + vec2(3.1, -mt)));\n    float dens = smoothstep(0.36, 0.95, fbm(w2 + 1.7 * w));\n    vec3 lc = mix(PORTAL, ELECTRIC, smoothstep(0.30, 1.0, dens));\n    lc = mix(lc, EMBER, smoothstep(0.35, 0.85, w.x) * 0.22);\n    col = mix(col, lc, dens * (0.62 / depth));\n  }\n  return col;\n}\n\n// ---- wallpaper B: the Kahoot lattice, pointer well only ----\nvec3 gridWall(vec2 q, float t, vec2 m){\n  vec2 d = m - q;\n  vec2 disp = normalize(d + 1e-4) * 0.10 / (length(d) + 0.12);\n  vec2 g = (q + disp) * 6.0 + vec2(t * 0.05, t * 0.025);\n  vec2 f = abs(fract(g) - 0.5);\n  float line = smoothstep(0.06, 0.0, min(f.x, f.y));\n  float wellGlow = smoothstep(0.0, 1.5, length(disp) * 4.0);\n  vec3 col = DARKEST;\n  col += mix(TEAL, ELECTRIC, wellGlow) * line * (0.35 + wellGlow * 1.4);\n  float node = smoothstep(0.10, 0.0, length(f));\n  col += mix(PORTAL, ROBIN, wellGlow) * node * (0.5 + wellGlow);\n  return col;\n}\n\nvec3 wallpaper(vec2 q, float t, vec2 m){\n  vec3 c = mix(auroraWall(q, t), gridWall(q, t, m), clamp(u_mode, 0.0, 1.0));\n  return warmify(c);\n}\n\n// ---- Icarus side walls: fire that rises and blows back toward the rear ----\n// q.x: +1 front .. -1 back    q.y: -1 floor .. +1 ceiling\nvec3 fireWall(vec2 q, float t, vec2 m){\n  float h = q.y * 0.5 + 0.5;                 // 0 at floor, 1 at ceiling\n  vec2 f = q;\n  f.x += h * h * 1.15;                        // lean the whole column back as it climbs\n  f.x += 0.10 * sin(t * 1.9 + q.y * 4.0);    // side-to-side lick sway\n  // vertically stretched, fast-scrolling field -> tall tongues, not blobs\n  vec2 fp = vec2(f.x * 3.2, f.y * 0.9 - t * 2.6);\n  float n = fbm(fp) + 0.55 * fbm(fp * 2.1 + vec2(1.0, -t * 1.3))\n                    + 0.25 * fbm(fp * 4.3 + vec2(0.0, -t * 2.0));\n  n /= 1.8;\n  // envelope: hot base, but tongues reach high where the noise is strong\n  float body   = smoothstep(1.15, -0.15, h);          // fuel falls off upward\n  float tongue = smoothstep(0.35, 0.9, n);            // licks of flame\n  float flame  = body * (0.55 + 1.5 * n) * mix(0.4, 1.35, tongue);\n  float fan = exp(-distance(q, m) * 1.6) * 0.6;        // pointer fans the fire\n  flame += fan * body;\n  flame = clamp(flame, 0.0, 1.6);\n  vec3 col = DARKEST;\n  col = mix(col, RUBY,  smoothstep(0.05, 0.40, flame));\n  col = mix(col, EMBER, smoothstep(0.28, 0.72, flame));\n  col = mix(col, GOLD,  smoothstep(0.60, 1.05, flame));\n  col = mix(col, ROBIN, smoothstep(1.10, 1.5, flame) * 0.75);\n  col += GOLD * fan * 0.6;\n  return col;\n}\n\n// ---- Icarus floor: fresh rink ice, frosted, cursor-lit (reference tint) ----\nvec3 iceFloor(vec2 q, float t2, vec2 m){\n  float t = t2 * 0.05;\n  vec2 p = q * 1.35;\n  vec3 frost = vec3(0.60, 0.80, 1.00);       // reference ice tint\n  vec3 deep  = vec3(0.02, 0.09, 0.15);\n  vec3 pale  = vec3(0.72, 0.90, 0.98);\n  float fr = fbm(p * 1.7 + vec2(t, -t)) * 0.6 + 0.4;   // frosted surface grain\n  vec3 col = mix(deep, TEAL, fr);\n  float sweep = exp(-abs(q.y - sin(t * 2.0) * 0.4) * 3.2);   // rink-light sweep\n  col = mix(col, pale, sweep * 0.45);\n  float scr  = smoothstep(0.02, 0.0, abs(fract(p.x * 3.0 + p.y * 0.4) - 0.5));\n  col += frost * scr * 0.12;                                 // skate scratches\n  float scr2 = smoothstep(0.02, 0.0, abs(fract(p.x * 0.5 - p.y * 2.2) - 0.5));\n  col += frost * scr2 * 0.10;\n  // pointer response, matched to the fire's fan so both sides feel alive\n  float fan = exp(-distance(q, m) * 1.7) * 0.7;\n  col += frost * fan;\n  col += pale * fan * fan * 0.5;                             // bright fresnel-ish core\n  return col;\n}\n\n// ---- Icarus ceiling + back wall: calm frosted ice, no busy pattern ----\nvec3 iceCalm(vec2 q, float t2, vec2 m){\n  float t = t2 * 0.05;\n  vec2 p = q * 1.35;\n  vec3 frost = vec3(0.60, 0.80, 1.00);\n  float fr = fbm(p * 2.2 + vec2(t, -t));\n  vec3 col = mix(vec3(0.015, 0.030, 0.055), vec3(0.06, 0.12, 0.17), fr);\n  float vein = smoothstep(0.50, 0.52, fbm(p * 3.0 + fr));    // faint crystal veins\n  col += frost * vein * 0.06;\n  float fan = exp(-distance(q, m) * 1.7) * 0.6;              // same cursor light\n  col += frost * fan * 0.5;\n  return col;\n}\n\n// ---- wallpaper C: Cell Bloom, for the two side walls only ----\n// voronoi cells whose borders glow and bloom toward the cursor\nvec3 bloomWall(vec2 q, float t2, vec2 m){\n  float t = t2 * 0.05;\n  vec2 g = q * 4.0;\n  vec2 gi = floor(g), gf = fract(g);\n  float d1 = 8.0, d2 = 8.0; vec2 nearest = vec2(0.0);\n  for (int y = -1; y <= 1; y++)\n  for (int x = -1; x <= 1; x++){\n    vec2 o = vec2(float(x), float(y));\n    vec2 fp = hash22(gi + o);\n    fp = 0.5 + 0.5 * sin(t * 6.28318 + fp * 6.28318);   // animate cell sites\n    vec2 r = o + fp - gf;\n    float d = dot(r, r);\n    if (d < d1){ d2 = d1; d1 = d; nearest = gi + o; }\n    else if (d < d2){ d2 = d; }\n  }\n  float edge = smoothstep(0.0, 0.06, sqrt(d2) - sqrt(d1));   // 0 on borders\n  float cellRnd = hash21(nearest);\n  vec2 cellCenter = (nearest + 0.5) / 4.0;\n  float bloom = clamp(exp(-distance(cellCenter, m) * 2.2) * 0.75, 0.0, 1.4);\n  vec3 cellCol = mix(DARKEST, DARKINDIGO, 0.4 + 0.6 * cellRnd);\n  cellCol = mix(cellCol, PORTAL, bloom * 0.7);\n  cellCol = mix(cellCol, ELECTRIC, smoothstep(0.5, 1.2, bloom));\n  vec3 col = cellCol * (1.0 - edge * 0.85);                  // dark cracks\n  vec3 edgeGlow = mix(TEAL, ROBIN, bloom);\n  col += edgeGlow * (1.0 - edge) * (0.25 + bloom);           // glowing borders\n  return warmify(col);\n}\n\nvoid main(){\n  vec2 uv  = gl_FragCoord.xy / u_res;\n  float asp = u_res.x / u_res.y;\n  vec2 ndc = uv * 2.0 - 1.0;\n\n  // camera sits just inside the open front and can dolly toward the back wall\n  float camz = clamp(ROOM.z - 0.30 - u_camz, -ROOM.z + 0.55, ROOM.z - 0.30);\n  vec3 ro = vec3(0.0, -0.10, camz);\n\n  // a whisper of pointer parallax so the room feels inhabited\n  vec3 look = vec3((u_mouse.x - 0.5) * 0.10, (u_mouse.y - 0.5) * 0.06, 0.0);\n  vec3 rd = normalize(vec3(ndc.x * asp, ndc.y, -FOV) + look);\n  rd.xz = rot(u_yaw) * rd.xz;   // navigation: turn on the spot\n\n  // ray-box exit from inside\n  vec3 inv  = 1.0 / rd;\n  vec3 tA   = (-ROOM - ro) * inv;\n  vec3 tB   = ( ROOM - ro) * inv;\n  vec3 tMax = max(tA, tB);\n  float t   = min(min(tMax.x, tMax.y), tMax.z);\n  vec3 p    = ro + rd * t;\n\n  vec3 a = abs(p) / ROOM;                  // dominant component ~1.0\n  float m1 = max(a.x, max(a.y, a.z));\n  float m3 = min(a.x, min(a.y, a.z));\n  float m2 = a.x + a.y + a.z - m1 - m3;    // middle -> distance to nearest edge\n\n  // pick surface + build its uv\n  vec2 q;\n  float isFloor = 0.0;\n  float isBack  = 0.0;\n  float isSide  = 0.0;\n  float isCeil  = 0.0;\n  if (a.z >= a.x && a.z >= a.y){\n    q = vec2(p.x / ROOM.x, p.y / ROOM.y);\n    isBack = 1.0;\n  } else if (a.x >= a.y){\n    q = vec2(p.z / ROOM.z, p.y / ROOM.y);\n    isSide = 1.0;\n  } else {\n    q = vec2(p.x / ROOM.x, p.z / ROOM.z);\n    isFloor = step(p.y, 0.0);\n    isCeil  = 1.0 - isFloor;\n  }\n\n  vec2 m = (u_mouse - 0.5) * 2.0;\n  // Icarus (u_warm) burns on the side walls; Ethel blooms.\n  vec3 col = (isSide > 0.5)\n    ? mix(bloomWall(q * 1.35, u_time, m), fireWall(q, u_time, m), u_warm)\n    : wallpaper(q * 1.35, u_time, m);\n  // Icarus: swap the busy gold grid on ceiling + back wall for calm frosted ice\n  col = mix(col, iceCalm(q, u_time, m), u_warm * max(isBack, isCeil));\n\n  // depth falloff: far surfaces sit back, near ones stay present\n  col *= mix(1.0, 0.42, smoothstep(1.2, 5.2, t));\n\n  // ---- neon edges: 12 seams of the box ----\n  float edge = 1.0 - m2;\n  float core = smoothstep(0.010, 0.0, edge);\n  float halo = exp(-edge * 26.0);\n  vec3 neon = mix(u_tint, ROBIN, core);\n  col += neon * (halo * 0.55 + core * 1.6);\n\n  // ---- floor: perspective checkerboard, indigo and dark tiles ----\n  if (isFloor > 0.5){\n    vec2 fw = vec2(p.x, p.z) * 0.60;\n    float checker = mod(floor(fw.x) + floor(fw.y), 2.0);\n    vec3 tileDark = vec3(0.018, 0.010, 0.065);\n    vec3 tileBlue = vec3(0.055, 0.080, 0.270);\n    vec3 floorCol = mix(tileDark, tileBlue, checker);\n    vec2 fp = fract(fw);\n    float seam = min(min(fp.x, 1.0 - fp.x), min(fp.y, 1.0 - fp.y));\n    floorCol += u_tint * smoothstep(0.05, 0.0, seam) * 0.12;\n    float df = smoothstep(-ROOM.z, ROOM.z * 0.9, p.z);\n    floorCol *= mix(0.30, 1.05, df);\n    float fanF = exp(-distance(q, m) * 1.7) * 0.30;\n    floorCol += ELECTRIC * fanF * 0.32;\n    vec3 refl = wallpaper(vec2(q.x, -abs(q.y)) * 1.35, u_time, m);\n    floorCol = mix(floorCol, floorCol + refl * 0.14, 0.45);\n    col = mix(floorCol, iceFloor(q, u_time, m), u_warm);\n  }\n\n  // ---- back wall: recessed niche where the vitrine stands ----\n  if (isBack > 0.5){\n    vec2 n = abs(q - vec2(0.0, -0.06)) - vec2(0.40, 0.62);\n    float d = max(n.x, n.y);\n    float inside = smoothstep(0.0, -0.02, d);\n    float rim    = smoothstep(0.03, 0.0, abs(d));\n    col = mix(col, col * 0.22 + DARKEST, inside * u_niche);\n    col += ROBIN * rim * 0.45 * u_niche;\n  }\n\n  // ---- finish ----\n  float vig = smoothstep(1.5, 0.30, length(uv - 0.5));\n  col *= 0.62 + 0.38 * vig;\n  col += (hash21(gl_FragCoord.xy + u_time) - 0.5) * 0.012;   // dither, kills banding\n  col *= u_dim;\n\n  gl_FragColor = vec4(col, 1.0);\n}\n";
+</script>
+<script>
+/* Standalone Ethel display room.
+   One room (aurora wallpaper, electric tint). No text. A single object hovers
+   dead centre; the user navigates the room with drag / arrow keys / scroll.
+   Navigation is direction-true: input left turns the view left, right turns right. */
+const ROOM = { tint: [0.357, 0.016, 0.871], warm: 0, mode: 0 };
+const VERT = 'attribute vec2 a_pos; void main(){ gl_Position = vec4(a_pos,0.0,1.0); }';
+
+(function () {
+  const stage  = document.getElementById('stage');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const dpr    = Math.min(window.devicePixelRatio || 1, 1.5);
+  const start  = performance.now();
+
+  let mouse = [0.5, 0.5], target = [0.5, 0.5];
+  let camz = 0, camzS = 0, yaw = 0, yawS = 0;
+
+  const canvas = document.getElementById('gl');
+  const gl = canvas.getContext('webgl', { antialias: false, premultipliedAlpha: false }) ||
+             canvas.getContext('experimental-webgl', { antialias: false });
+
+  let u = {};
+  if (!gl) {
+    document.getElementById('nogl').style.display = 'grid';
+  } else {
+    const compile = (src, type) => {
+      const s = gl.createShader(type);
+      gl.shaderSource(s, src); gl.compileShader(s);
+      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
+      return s;
+    };
+    const prog = gl.createProgram();
+    gl.attachShader(prog, compile(VERT, gl.VERTEX_SHADER));
+    gl.attachShader(prog, compile(window.ROOM_FRAG, gl.FRAGMENT_SHADER));
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
+    gl.useProgram(prog);
+    const b = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, b);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(prog, 'a_pos');
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    ['u_res','u_time','u_mouse','u_mode','u_dim','u_niche','u_warm','u_tint','u_camz','u_yaw']
+      .forEach(n => { u[n] = gl.getUniformLocation(prog, n); });
+  }
+
+  function fit() {
+    const w = Math.max(1, Math.floor(canvas.clientWidth * dpr));
+    const h = Math.max(1, Math.floor(canvas.clientHeight * dpr));
+    if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
+  }
+
+  function render() {
+    mouse[0] += (target[0] - mouse[0]) * 0.07;
+    mouse[1] += (target[1] - mouse[1]) * 0.07;
+    camzS += (camz - camzS) * 0.06;
+    yawS  += (yaw  - yawS ) * 0.06;
+    if (gl) {
+      fit();
+      const t = (performance.now() - start) / 1000;
+      gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+      gl.uniform2f(u.u_res, gl.drawingBufferWidth, gl.drawingBufferHeight);
+      gl.uniform1f(u.u_time, t);
+      gl.uniform2f(u.u_mouse, mouse[0], mouse[1]);
+      gl.uniform1f(u.u_mode, ROOM.mode);
+      gl.uniform1f(u.u_dim, 1.0);
+      gl.uniform1f(u.u_niche, 0.0);
+      gl.uniform1f(u.u_warm, ROOM.warm);
+      gl.uniform3f(u.u_tint, ROOM.tint[0], ROOM.tint[1], ROOM.tint[2]);
+      gl.uniform1f(u.u_camz, camzS);
+      gl.uniform1f(u.u_yaw, yawS);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+    // object keeps the cursor parallax, centred, as the focal point
+    const px = (mouse[0] - 0.5), py = (mouse[1] - 0.5);
+    mount.style.transform = 'translate(calc(-50% + ' + (px * 26).toFixed(1) + 'px), calc(-50% + ' + (-py * 18).toFixed(1) + 'px))';
+  }
+  const mount = document.getElementById('mount');
+
+  const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
+
+  // walls stay responsive to the cursor (aurora parallax + cell-bloom fan);
+  // the camera itself is locked — no nav, this is a fixed showroom.
+  stage.addEventListener('pointermove', e => {
+    const r = stage.getBoundingClientRect();
+    target = [(e.clientX - r.left) / r.width, 1.0 - (e.clientY - r.top) / r.height];
+    if (reduce) render();
+  });
+
+  render();
+  window.addEventListener('resize', render);
+
+  // Redraw whenever the canvas actually gets a size, not just when the window
+  // reports one. fit() reads canvas.clientWidth, so a render that lands before
+  // this iframe has laid out clamps the drawing buffer to 1x1 and every later
+  // frame keeps it there. The rAF loop normally papers over that by calling
+  // fit() again a frame later, but the loop does not start under
+  // prefers-reduced-motion (see startLoop), and window 'resize' does not fire
+  // for an iframe that is merely being laid out. Those two together leave a
+  // 1x1 buffer stretched across the whole room, which reads as a flat smear
+  // where the walls should be. This is the only signal that always arrives.
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(function () { render(); }).observe(canvas);
+  }
+
+  // The loop runs forever once started, which costs a frame of paint/GPU
+  // work on every tick whether or not this room is actually on screen. Left
+  // unchecked, that competes with the parent page's own scroll repaints and
+  // shows up as lag/ghosting elsewhere while scrolling. The embedding page
+  // posts { type:'room-visible', visible } as this iframe scrolls in and out
+  // of view (IntersectionObserver on its side); the loop only schedules its
+  // next frame while visible, and a plain rAF (not a fresh loop) picks back
+  // up exactly where fit()/uniforms left off, so there is no restart glitch.
+  let visible = true;
+  let running = false;
+  function tick() { if (!visible) { running = false; return; } render(); requestAnimationFrame(tick); }
+  function startLoop() { if (!running && !reduce) { running = true; requestAnimationFrame(tick); } }
+  window.addEventListener('message', function (e) {
+    if (e.origin !== window.location.origin) return;
+    if (!e.data || e.data.type !== 'room-visible') return;
+    visible = !!e.data.visible;
+    if (visible) startLoop();
+  });
+
+  // Self-start rather than waiting to be told we are visible. The parent posts
+  // 'room-visible' from an IntersectionObserver, but this iframe is lazy-loaded:
+  // when the observer fires before this document has finished loading, that
+  // message lands with no listener attached and is lost forever, leaving the
+  // walls frozen on frame one (the shaders are time-driven, so a stalled loop
+  // reads as "the walls didn't render"). Own visibility here too, so the room
+  // animates on its own and the parent's message only ever pauses/resumes it.
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      visible = entries[0].isIntersecting;
+      if (visible) startLoop();
+    }, { rootMargin: '200px 0px' }).observe(document.getElementById('stage'));
+  }
+  startLoop();
+})();
+</script>
+<script>(function(){var o=document.getElementById("obj");var r=document.querySelector(".reflection img");if(o&&r){r.src=o.src;}})();</script>
+</body>
+</html>
