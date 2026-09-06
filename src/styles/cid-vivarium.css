@@ -253,11 +253,17 @@
 /* No 820px cap any more: it held the block to the left column beside a
    reference card that no longer sits there, and Greg wants the width used. */
 .cid-scope .cid-viv-ecosystem { display: flex; flex-direction: column; gap: 10px; }
-/* The copy in two even columns, each on the house measure. Stacks under 700. */
+/* Two even columns, each a heading over its copy on the house measure, the
+   headings on one line. Stacks under 700. */
 .cid-scope .cid-viv-ecosystem-cols {
   display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr);
   gap: 10px clamp(20px,3vw,44px); align-items: start;
 }
+.cid-scope .cid-viv-ecosystem-cols > div { display: flex; flex-direction: column; gap: 10px; }
+/* Greg's emphasis on the SWOT line: the acronym, the word Shot, and the
+   capital that opens each of the four words, bold in the ruby accent this
+   stretch already uses for its small labels. */
+.cid-scope .cid-viv-swot { font-weight: 800; color: #822F00; }
 @media (max-width: 700px) {
   .cid-scope .cid-viv-ecosystem-cols { grid-template-columns: minmax(0,1fr); }
 }

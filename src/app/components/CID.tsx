@@ -1374,14 +1374,28 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               three nametags that used to open this stretch now sit over the
               RACI chart, which is where their names are cited. */}
           <div className="cid-viv-ecosystem">
-            <h3 className="cid-viv-ecosystem-h">Information Ecosystem</h3>
-            {/* Two columns, per Greg, so the paragraph uses the width instead
-                of sitting boxed at the left; each column keeps the house measure.
-                His split, verbatim, including the serial comma he added to the
-                first half for this version. */}
+            {/* Two columns, per Greg, each with its own heading on the same
+                line, so the block uses the width and each column keeps the house
+                measure. Both headings and both paragraphs are his copy,
+                verbatim. The SWOT line carries his emphasis as colour and
+                weight: SWOT and Shot bold in the ruby accent, and the same
+                accent on the S, W, O and T that open the four words, so the
+                acronym is spelled out by its own capitals. The asterisk his
+                draft left after "Shot" is read as a stray from the bold
+                markup, not a footnote, since no footnote came with it. */}
             <div className="cid-viv-ecosystem-cols">
-              <p className="cid-viv-ecosystem-copy">CID integrates proprietary data, artificial intelligence (AI) and machine learning (ML) models, digital prototypes, dynamic workflows, and reusable skills into our adaptive research ecosystem.</p>
-              <p className="cid-viv-ecosystem-copy">The system actively balances transparency and public access with robust security and privacy protections.</p>
+              <div>
+                <h3 className="cid-viv-ecosystem-h">Information Ecosystem</h3>
+                <p className="cid-viv-ecosystem-copy">CID integrates proprietary data, artificial intelligence (AI) and machine learning (ML) models, digital prototypes, dynamic workflows, and reusable skills into our adaptive research ecosystem.</p>
+              </div>
+              <div>
+                <h3 className="cid-viv-ecosystem-h">Automated SWOT Analysis</h3>
+                <p className="cid-viv-ecosystem-copy">
+                  Each <strong className="cid-viv-swot">SWOT</strong> <strong className="cid-viv-swot">Shot</strong> highlights{" "}
+                  <em><b className="cid-viv-swot">S</b>trengths, <b className="cid-viv-swot">W</b>eaknesses, <b className="cid-viv-swot">O</b>pportunities, and <b className="cid-viv-swot">T</b>hreats</em>{" "}
+                  in a sector or region. The system balances transparency and public access with robust security and privacy protections.
+                </p>
+              </div>
             </div>
 
             {/* The Flicker card and the inputs/tags glossary sit side by
