@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-label="Stop">
+  <!-- Red stop sign with a Bright Silver exclamation. Octagon on the Feather
+       alert-octagon geometry (MIT), filled Ruby #822F00 with a Bright Silver
+       #E8ECF4 rim; the mark is Bright Silver. ooos.ca canon palette. -->
+  <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86" fill="#822F00" stroke="#E8ECF4" stroke-width="1.4" stroke-linejoin="round"/>
+  <line x1="12" y1="7" x2="12" y2="13.2" stroke="#E8ECF4" stroke-width="2.6" stroke-linecap="round"/>
+  <circle cx="12" cy="17.1" r="1.45" fill="#E8ECF4"/>
+</svg>
