@@ -1090,7 +1090,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <h3>Beneficial Biomimicry</h3>
                 <ul>
                   <li>Information flows through environments inspired by the functional principles and geometries found in nature.</li>
-                  <li>The information ecosystem evolves through applied research on sustainable design for human-AI interactions.</li>
+                  <li>Applied research on sustainable designs for human-AI interaction drives rapid evolution in the information ecosystem.</li>
                 </ul>
               </figcaption>
             </figure>
