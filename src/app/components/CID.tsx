@@ -1165,16 +1165,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               tour's 16:9: the wide profile is the whole point, and trimming
               it to match a shape it was never framed for is exactly the
               compromise that flattened it. */}
-          {/* The safeguards, alone now. The three lead lines that shared this
-              row moved up to sit over the character roll as their own pair of
-              cards (see .cid-viv-thesis), so the notes take the row. */}
-          <div className="cid-viv-reveal-lede">
-            <ul className="cid-viv-reveal-notes">
-              <li>Automating Safety First: Hard-coded Conflict Checks and MNPI Exclusions filter and destroy risky or compromised data before human or AI agent review.</li>
-              <li>Optimizing Agent Solutions: High-performance teams leverage programmatic auditing to detect and pluck personally identifiable information and protect data silos.</li>
-            </ul>
-          </div>
-
           {/* The chart and the key that defines it, in one block under one
               title. They were split across the page, chart down here and key up
               in the side column, which left a grid of twenty-eight loose letters
@@ -1200,7 +1190,12 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 announce "Evidence verification, Ethel, Responsible" rather
                 than reading twenty-eight loose letters. */}
             <div className="cid-viv-raci">
-              {/* Safeguards, each with the glyph Greg picked for it. Four now:
+              {/* Safeguards, each with the glyph Greg picked for it, and each
+                  with a note under its label, folded: at rest a line is its badge
+                  and label, and the note opens on tap, as the Methods and the
+                  Strategic Priorities do. Native details/summary, no script. The notes on the first two used to
+                  stand as a pair of bullets above this panel; Greg moved them in
+                  here under the lines they belong to. Four now:
                   the two controls, and the gated strategy circles with their
                   microcopy, which replaces the "Predictive Analytics" that used
                   to share the second line, and the horizon mapping line between
@@ -1216,50 +1211,64 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   Decorative, aria-hidden: the text carries the meaning. */}
               <ul className="cid-raci-safe">
                 <li>
-                  <span className="cid-raci-badge" aria-hidden="true">
-                    {/* Phosphor ShieldCheck */}
-                    <svg viewBox="0 0 256 256" focusable="false"><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z" /></svg>
-                  </span>
-                  <span>Automated Safeguards (Conflict Checks, MNPI Exclusions).</span>
+                  <details className="cid-raci-safe-fold">
+                    <summary>
+                      <span className="cid-raci-badge" aria-hidden="true">
+                        {/* Phosphor ShieldCheck */}
+                        <svg viewBox="0 0 256 256" focusable="false"><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z" /></svg>
+                      </span>
+                      <span className="cid-raci-safe-h">Automated Safeguards (Conflict Checks, MNPI Exclusions).</span>
+                    </summary>
+                    <p className="cid-raci-safe-sub">Automating Safety First: Hard-coded Conflict Checks and MNPI Exclusions filter and destroy risky or compromised data before human or AI agent review.</p>
+                  </details>
                 </li>
                 <li>
-                  <span className="cid-raci-badge" aria-hidden="true">
-                    {/* Lucide Fence (ISC, Lucide Contributors), the one icon here not
-                        from Phosphor, which has no fence: Greg asked for a fence, and
-                        Lucide is already a dependency of this project. Lucide draws
-                        in strokes where Phosphor draws in fills, so this one is
-                        stroked by class at a weight matched to the others. */}
-                    <svg className="cid-raci-badge-stroke" viewBox="0 0 24 24" focusable="false">
-                      <path d="M4 3 2 5v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z" />
-                      <path d="M6 8h4" />
-                      <path d="M6 18h4" />
-                      <path d="m12 3-2 2v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z" />
-                      <path d="M14 8h4" />
-                      <path d="M14 18h4" />
-                      <path d="m20 3-2 2v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z" />
-                    </svg>
-                  </span>
-                  <span>Proactive Risk Management.</span>
+                  <details className="cid-raci-safe-fold">
+                    <summary>
+                      <span className="cid-raci-badge" aria-hidden="true">
+                        {/* Lucide Fence (ISC, Lucide Contributors), the one icon here not
+                            from Phosphor, which has no fence: Greg asked for a fence, and
+                            Lucide is already a dependency of this project. Lucide draws
+                            in strokes where Phosphor draws in fills, so this one is
+                            stroked by class at a weight matched to the others. */}
+                        <svg className="cid-raci-badge-stroke" viewBox="0 0 24 24" focusable="false">
+                          <path d="M4 3 2 5v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z" />
+                          <path d="M6 8h4" />
+                          <path d="M6 18h4" />
+                          <path d="m12 3-2 2v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z" />
+                          <path d="M14 8h4" />
+                          <path d="M14 18h4" />
+                          <path d="m20 3-2 2v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z" />
+                        </svg>
+                      </span>
+                      <span className="cid-raci-safe-h">Proactive Risk Management.</span>
+                    </summary>
+                    <p className="cid-raci-safe-sub">Optimizing Agent Solutions: High-performance teams leverage programmatic auditing to detect and pluck personally identifiable information and protect data silos.</p>
+                  </details>
                 </li>
                 <li>
-                  <span className="cid-raci-badge" aria-hidden="true">
-                    {/* Phosphor Lighthouse */}
-                    <svg viewBox="0 0 256 256" focusable="false"><path d="M208,80a8,8,0,0,0-8,8v16H188.85L184,55.2A8,8,0,0,0,181.32,50L138.44,11.88l-.2-.17a16,16,0,0,0-20.48,0l-.2.17L74.68,50A8,8,0,0,0,72,55.2L67.15,104H56V88a8,8,0,0,0-16,0v24a8,8,0,0,0,8,8H65.54l-9.47,94.48A16,16,0,0,0,72,232H184a16,16,0,0,0,15.92-17.56L190.46,120H208a8,8,0,0,0,8-8V88A8,8,0,0,0,208,80ZM128,24l27,24H101ZM87.24,64h81.52l4,40H136V88a8,8,0,0,0-16,0v16H83.23ZM72,216l4-40H180l4,40Zm106.39-56H77.61l4-40h92.76Z" /></svg>
-                  </span>
-                  <span>
-                    <strong className="cid-raci-safe-h">Dynamic Horizon Mapping</strong>
-                    <span className="cid-raci-safe-sub">Scan the horizon. Compare scenarios, possibilities, and probabilities through evidence-based reasoning.</span>
-                  </span>
+                  <details className="cid-raci-safe-fold">
+                    <summary>
+                      <span className="cid-raci-badge" aria-hidden="true">
+                        {/* Phosphor Lighthouse */}
+                        <svg viewBox="0 0 256 256" focusable="false"><path d="M208,80a8,8,0,0,0-8,8v16H188.85L184,55.2A8,8,0,0,0,181.32,50L138.44,11.88l-.2-.17a16,16,0,0,0-20.48,0l-.2.17L74.68,50A8,8,0,0,0,72,55.2L67.15,104H56V88a8,8,0,0,0-16,0v24a8,8,0,0,0,8,8H65.54l-9.47,94.48A16,16,0,0,0,72,232H184a16,16,0,0,0,15.92-17.56L190.46,120H208a8,8,0,0,0,8-8V88A8,8,0,0,0,208,80ZM128,24l27,24H101ZM87.24,64h81.52l4,40H136V88a8,8,0,0,0-16,0v16H83.23ZM72,216l4-40H180l4,40Zm106.39-56H77.61l4-40h92.76Z" /></svg>
+                      </span>
+                      <span className="cid-raci-safe-h">Dynamic Horizon Mapping</span>
+                    </summary>
+                    <p className="cid-raci-safe-sub">Scan the horizon. Compare scenarios, possibilities, and probabilities through evidence-based reasoning.</p>
+                  </details>
                 </li>
                 <li>
-                  <span className="cid-raci-badge" aria-hidden="true">
-                    {/* Phosphor LockKey */}
-                    <svg viewBox="0 0 256 256" focusable="false"><path d="M128,112a28,28,0,0,0-8,54.83V184a8,8,0,0,0,16,0V166.83A28,28,0,0,0,128,112Zm0,40a12,12,0,1,1,12-12A12,12,0,0,1,128,152Zm80-72H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z" /></svg>
-                  </span>
-                  <span>
-                    <strong className="cid-raci-safe-h">Interactive Strategy Circles</strong>
-                    <span className="cid-raci-safe-sub">Gated spaces for comparing signals, testing assumptions and shaping shared strategy.</span>
-                  </span>
+                  <details className="cid-raci-safe-fold">
+                    <summary>
+                      <span className="cid-raci-badge" aria-hidden="true">
+                        {/* Phosphor LockKey */}
+                        <svg viewBox="0 0 256 256" focusable="false"><path d="M128,112a28,28,0,0,0-8,54.83V184a8,8,0,0,0,16,0V166.83A28,28,0,0,0,128,112Zm0,40a12,12,0,1,1,12-12A12,12,0,0,1,128,152Zm80-72H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z" /></svg>
+                      </span>
+                      <span className="cid-raci-safe-h">Interactive Strategy Circles</span>
+                    </summary>
+                    <p className="cid-raci-safe-sub">Gated spaces for comparing signals, testing assumptions and shaping shared strategy.</p>
+                  </details>
                 </li>
               </ul>
 

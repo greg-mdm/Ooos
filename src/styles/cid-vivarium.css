@@ -1462,19 +1462,7 @@
    to fill the other column moved up over the character roll as their own
    pair of cards (.cid-viv-thesis below), so this is one column and the
    notes keep their own 62ch measure inside it. */
-.cid-scope .cid-viv-reveal-lede { margin: 36px 0 18px; }
-.cid-scope .cid-viv-reveal-notes {
-  margin: 0; padding: 0; list-style: none;
-  display: flex; flex-direction: column; gap: 12px;
-}
-.cid-scope .cid-viv-reveal-notes li {
-  position: relative; padding-left: 22px; max-width: 62ch;
-  font-size: clamp(13px,1.3vw,15px); line-height: 1.55; color: #33384a;
-}
-.cid-scope .cid-viv-reveal-notes li::before {
-  content: ""; position: absolute; left: 2px; top: 8px; width: 9px; height: 9px;
-  border-radius: 3px; background: linear-gradient(135deg, #7C18E7, #5B04DE);
-}
+
 
 /* ---- Thesis pair: two cards over the character roll --------------------
    Greg's three lead lines, split two and one into side-by-side cards under
@@ -1654,7 +1642,10 @@
    takes the strategy keys' own gradient (KEY_GRAD, the lightest of the three,
    applied inline in CID.tsx) and their Bright Silver legend, which is what
    ties this to the keys rather than to the four white cards above it. */
+/* The 36px above is what the safeguard notes used to hold as their own
+   block before they moved inside; the gap stays, the block does not. */
 .cid-scope .cid-raci-panel {
+  margin-top: 36px;
   border-radius: 16px; background: #fff; overflow: hidden;
   border: 1px solid rgba(75,0,182,.16);
   box-shadow: 0 22px 50px -32px rgba(6,2,28,.4);
@@ -1691,8 +1682,27 @@
   display: flex; flex-direction: column; gap: 9px;
 }
 .cid-scope .cid-raci-safe li {
-  display: grid; grid-template-columns: auto minmax(0,1fr); gap: 10px; align-items: start;
+  display: block;
   font-size: clamp(12.5px,1.2vw,14px); line-height: 1.5; color: #5c6076;
+}
+/* Each line folds. The summary is the row: badge, label, and a chevron at
+   the far right that turns when the line opens; the note sits under the
+   label, indented past the badge. Same chevron as the folded cards above. */
+.cid-scope .cid-raci-safe-fold summary {
+  display: grid; grid-template-columns: auto minmax(0,1fr) auto; gap: 10px; align-items: center;
+  list-style: none; cursor: pointer;
+}
+.cid-scope .cid-raci-safe-fold summary::-webkit-details-marker { display: none; }
+.cid-scope .cid-raci-safe-fold summary::after {
+  content: ""; width: 7px; height: 7px; margin-right: 6px;
+  border-right: 2px solid #4B00B6; border-bottom: 2px solid #4B00B6;
+  transform: rotate(45deg) translateY(-2px); transition: transform .2s ease;
+}
+.cid-scope .cid-raci-safe-fold[open] summary::after { transform: rotate(-135deg) translateY(-1px); }
+.cid-scope .cid-raci-safe-fold summary:focus-visible { outline: 2px solid #4B00B6; outline-offset: 3px; border-radius: 4px; }
+.cid-scope .cid-raci-safe-fold > .cid-raci-safe-sub { margin: 6px 0 2px 36px; }
+@media (prefers-reduced-motion: reduce) {
+  .cid-scope .cid-raci-safe-fold summary::after { transition: none; }
 }
 .cid-scope .cid-raci-badge {
   display: inline-flex; align-items: center; justify-content: center;
@@ -1707,9 +1717,7 @@
   fill: none; stroke: currentColor; stroke-width: 1.75;
   stroke-linecap: round; stroke-linejoin: round;
 }
-.cid-scope .cid-raci-safe-h {
-  display: block; font-weight: 700; color: #33384a;
-}
+.cid-scope .cid-raci-safe-h { font-weight: 700; color: #33384a; }
 .cid-scope .cid-raci-safe-sub {
   display: block; margin-top: 1px; max-width: 62ch; text-wrap: balance;
 }
