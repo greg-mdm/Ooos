@@ -1371,7 +1371,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               taller reference card in the right column. */}
           <div className="cid-viv-ecosystem">
             <h3 className="cid-viv-ecosystem-h">Information Ecosystem</h3>
-            <p className="cid-viv-ecosystem-copy">Miniaturized local AI infrastructure systematically integrates, aggregates, synthesizes, and stores all proprietary CID data. Our models, prototypes, workflows, and reusable skills are secured on-premises.</p>
+            <p className="cid-viv-ecosystem-copy">CID integrates proprietary data, artificial intelligence (AI) and machine learning (ML) models, digital prototypes, dynamic workflows and reusable skills into our adaptive research ecosystem. The system actively balances transparency and public access with robust security and privacy protections.</p>
 
             {/* The Flicker card and the inputs/tags glossary sit side by
                 side, filling the band beside the reference card. The Flicker
