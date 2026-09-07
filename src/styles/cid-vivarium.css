@@ -436,6 +436,28 @@
 }
 .cid-scope .cid-viv-orb-gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .cid-scope .cid-viv-orb.is-nogl .cid-viv-orb-gl { display: none; }
+/* THE DARK CENTRE UNDER THE TITLE. Bright Silver straight on the fire was
+   hard to read where the ember ran gold, and a text shadow alone did not
+   carry it. So a smaller, darker circle sits behind the title, between the
+   shader and the button: a near-black radial well at the middle that thins
+   out into the fire by about two thirds of the radius, with no edge drawn
+   anywhere, so the field still reads as one surface and the rim keeps its
+   colour. Per Greg: a darker areola, a smaller inner circle, a dark radial
+   gradient that blends out, no hard line. The darks are the watchlist's,
+   not the site indigo: the Innovation Watchlist's region cards run from a
+   dark wine (#4f1426) down to a near-black ruby (#1d0612), sampled from
+   Greg's reference shot, and that is the palette the orbs share. Sits under
+   the sentence scrim as well, so the open state is unchanged. */
+.cid-scope .cid-viv-orb::before {
+  content: ""; position: absolute; inset: 0; z-index: 1; border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 50%,
+    rgba(20,3,12,.90) 0%,
+    rgba(23,4,15,.84) 20%,
+    rgba(36,8,20,.58) 36%,
+    rgba(58,14,32,.24) 50%,
+    rgba(79,20,38,0) 64%);
+}
 /* The whole circle is the control. The title is the only thing on it at rest,
    big, Bright Silver on the fire, held inside the inscribed square by the
    padding so no line reaches past the ring. */
