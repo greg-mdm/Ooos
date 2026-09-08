@@ -1900,7 +1900,10 @@
    as before the detail went in. */
 .cid-scope .cid-cast-frame {
   flex: 0 0 auto; width: 26%; min-width: 112px;
-  height: clamp(460px, 54vw, 820px);
+  /* Raised again for Ethel's card, the first with a full spec sheet under
+     the art; at 1440 the lit bay holds her at full width with the two
+     columns of detail and the featured box beneath. */
+  height: clamp(500px, 60vw, 900px);
   display: flex; flex-direction: column;
   padding: 0; border: 0; margin: 0;
   background: #04030e; color: inherit;
@@ -2011,6 +2014,13 @@
   letter-spacing: .13em; line-height: 1.2; text-transform: uppercase;
   color: #AE99C9;
 }
+/* One line under the name and role, on its own line in the plate. */
+.cid-scope .cid-cast-tagline {
+  flex: 1 0 100%; margin-top: 2px;
+  font-family: 'Montserrat', system-ui, sans-serif; font-style: italic;
+  font-weight: 500; font-size: clamp(12px,1vw,13.5px); line-height: 1.4;
+  color: rgba(232,236,244,.82);
+}
 .cid-scope .cid-cast-frame .cid-icarus-num { fill: currentColor; }
 
 /* ---- Detail under the nameplate: pills, keys, spec rows -----------------
@@ -2087,6 +2097,42 @@
 .cid-scope .cid-cast-spec-v {
   flex: 1 1 auto; margin: 0; text-align: right;
   font-weight: 700; font-size: 13.5px; line-height: 1.4; color: #E8ECF4;
+}
+
+/* ---- A full spec sheet: two columns on a wide bay, a featured box below ---
+   Spec rows and grouped rows on the left, the functions list on the right,
+   which is what keeps Ethel's card inside the frame without shrinking her
+   art: side by side the detail is half as tall. Below 1000px viewport the
+   lit bay is too narrow for two columns and they stack. */
+.cid-scope .cid-cast-cols { display: grid; grid-template-columns: minmax(0,1fr); gap: 12px; }
+@media (min-width: 1000px) {
+  .cid-scope .cid-cast-cols--two { grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 4px clamp(16px,2vw,28px); align-items: start; }
+}
+.cid-scope .cid-cast-col { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.cid-scope .cid-cast-specgroup { display: flex; flex-direction: column; gap: 4px; padding-top: 4px; }
+.cid-scope .cid-cast-specgroup .cid-cast-specs > .cid-cast-spec:first-child { border-top: 0; padding-top: 4px; }
+/* Functions: a label and its one line, the label in Bright Silver, the line
+   in the muted mauve the headings use, so the list reads as five verbs. */
+.cid-scope .cid-cast-fns { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.cid-scope .cid-cast-fn {
+  display: flex; flex-direction: column; gap: 1px;
+  padding: 6px 0; border-top: 1px solid rgba(174,153,201,.13);
+}
+.cid-scope .cid-cast-fn:first-child { border-top: 0; padding-top: 2px; }
+.cid-scope .cid-cast-fn-k { font-weight: 700; font-size: 12.5px; line-height: 1.3; color: #E8ECF4; }
+.cid-scope .cid-cast-fn-d { font-weight: 500; font-size: 12px; line-height: 1.4; color: #B9B0CC; }
+/* The featured box: a quiet panel in the plate's own mauve, spanning the
+   card, with the heading inside it and the text on the house measure. */
+.cid-scope .cid-cast-feature {
+  display: flex; flex-direction: column; gap: 5px;
+  padding: 11px 14px 12px; border-radius: 10px;
+  border: 1px solid rgba(174,153,201,.30);
+  background: linear-gradient(160deg, rgba(174,153,201,.14) 0%, rgba(174,153,201,.07) 100%);
+  box-shadow: inset 0 1px 0 rgba(232,236,244,.10);
+}
+.cid-scope .cid-cast-feature-t {
+  margin: 0; max-width: 62ch; text-wrap: balance;
+  font-weight: 500; font-size: 12.5px; line-height: 1.5; color: rgba(232,236,244,.92);
 }
 
 

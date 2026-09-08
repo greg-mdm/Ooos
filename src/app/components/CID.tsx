@@ -264,9 +264,18 @@ type CidCharacter = {
   partners?: { key: string; label: ReactNode }[];
   /** Heading over the partner keys. Greg's copy, verbatim. */
   partnersHeading?: string;
+  /** One line under the name and role, e.g. "Information flows through her." */
+  tagline?: string;
   /** Stats block, per character. Empty until the copy is written; the frame
    *  omits the list entirely, so adding a row here is the only edit needed. */
   specs: CidSpec[];
+  /** Further spec rows under their own heading, e.g. an operating protocol. */
+  specGroups?: { heading: string; rows: CidSpec[] }[];
+  /** A list of labelled one-liners under a heading, e.g. core functions. On a
+   *  wide bay it takes the right-hand column beside the spec rows. */
+  functions?: { heading: string; items: { label: string; desc: string }[] };
+  /** A featured box at the foot of the card, spanning the width. */
+  feature?: { heading: string; text: string };
 };
 
 /* Reading order is the staging: Ethel at the left, Icarus at the right, and
@@ -288,7 +297,38 @@ const CAST = (base: string): CidCharacter[] => [
     thumb: `${base}assets/images/cid-char-ethel.webp`,
     ratio: 16 / 9,
     alt: "Ethel at her station in a cavern of violet light, masked, her hands over a glowing circular console.",
-    specs: [],
+    // Greg's card copy, verbatim, including the middots in the sequence and
+    // the curly apostrophe in the genealogy. ELIS is expanded in place.
+    tagline: "Information flows through her.",
+    specs: [
+      { label: "Ability", value: "Empathic analysis" },
+      { label: "Sex characteristics", value: "Intersex" },
+      { label: "Gender expression", value: "Femme" },
+      { label: "Form", value: "Ancient alien" },
+    ],
+    functions: {
+      heading: "Core Functions",
+      items: [
+        { label: "Verifies evidence", desc: "Compares claims across independent sources." },
+        { label: "Breaks down bias", desc: "Surfaces assumptions, omissions, and distorted frames." },
+        { label: "Maps manipulation", desc: "Traces incentives, influence, and deceptive patterns." },
+        { label: "Co-creates strategy", desc: "Builds clear rationale with the Principal Investigator." },
+        { label: "Guards the threshold", desc: "Flags breaches of permission, protocol, and research boundaries." },
+      ],
+    },
+    specGroups: [
+      {
+        heading: "Operating Protocol",
+        rows: [
+          { label: "Sequence", value: "Observe · Investigate · Test · Analyze · Report" },
+          { label: "Operating frequency", value: "7.83 Hz" },
+        ],
+      },
+    ],
+    feature: {
+      heading: "Digital Genealogy",
+      text: "Ethel’s ethical code evolved from the applied research behind ELIS, the End-of-Life Intelligence System: an experimental chatbot exploring consent, memory, digital identity, grief technology, and posthumous decision-making.",
+    },
   },
   {
     key: "sturgeon",
@@ -473,7 +513,8 @@ function CharacterRoll({ base }: { base: string }) {
           {cast.map((p, i) => {
             const on = i === at;
             const hasDetail =
-              (p.nodes?.length ?? 0) + (p.partners?.length ?? 0) + p.specs.length > 0;
+              (p.nodes?.length ?? 0) + (p.partners?.length ?? 0) + p.specs.length +
+              (p.specGroups?.length ?? 0) + (p.functions ? 1 : 0) + (p.feature ? 1 : 0) > 0;
             return (
               /* THE HIT BUTTON LIES OVER THE ART, NOT AROUND IT. The frame
                  used to be the button, wrapping everything, and then the shot
@@ -560,6 +601,7 @@ function CharacterRoll({ base }: { base: string }) {
                 <div className="cid-cast-plate">
                   <span className="cid-cast-name">{p.name}</span>
                   {on && p.role && <span className="cid-cast-role">{p.role}</span>}
+                  {on && p.tagline && <span className="cid-cast-tagline">{p.tagline}</span>}
                 </div>
                 {on && hasDetail && (
                   <div className="cid-cast-detail">
@@ -585,15 +627,56 @@ function CharacterRoll({ base }: { base: string }) {
                         </ul>
                       </div>
                     )}
-                    {p.specs.length > 0 && (
-                      <dl className="cid-cast-specs">
-                        {p.specs.map((s) => (
-                          <div className="cid-cast-spec" key={s.label}>
-                            <dt className="cid-cast-spec-k">{s.label}</dt>
-                            <dd className="cid-cast-spec-v">{s.value}</dd>
+                    {/* Spec rows and any grouped rows on the left, the functions
+                        list on the right when there is one, the featured box
+                        across the foot. On a narrow bay the columns stack. */}
+                    {(p.specs.length > 0 || p.specGroups || p.functions) && (
+                      <div className={`cid-cast-cols${p.functions ? " cid-cast-cols--two" : ""}`}>
+                        <div className="cid-cast-col">
+                          {p.specs.length > 0 && (
+                            <dl className="cid-cast-specs">
+                              {p.specs.map((s) => (
+                                <div className="cid-cast-spec" key={s.label}>
+                                  <dt className="cid-cast-spec-k">{s.label}</dt>
+                                  <dd className="cid-cast-spec-v">{s.value}</dd>
+                                </div>
+                              ))}
+                            </dl>
+                          )}
+                          {p.specGroups?.map((g) => (
+                            <div className="cid-cast-specgroup" key={g.heading}>
+                              <p className="cid-cast-group-h">{g.heading}</p>
+                              <dl className="cid-cast-specs">
+                                {g.rows.map((s) => (
+                                  <div className="cid-cast-spec" key={s.label}>
+                                    <dt className="cid-cast-spec-k">{s.label}</dt>
+                                    <dd className="cid-cast-spec-v">{s.value}</dd>
+                                  </div>
+                                ))}
+                              </dl>
+                            </div>
+                          ))}
+                        </div>
+                        {p.functions && (
+                          <div className="cid-cast-col">
+                            <p className="cid-cast-group-h">{p.functions.heading}</p>
+                            <ul className="cid-cast-fns">
+                              {p.functions.items.map((f) => (
+                                <li className="cid-cast-fn" key={f.label}>
+                                  <span className="cid-cast-fn-k">{f.label}</span>
+                                  <span className="cid-cast-fn-d">{f.desc}</span>
+                                </li>
+                              ))}
+                            </ul>
                           </div>
-                        ))}
-                      </dl>
+                        )}
+                      </div>
+                    )}
+                    {p.feature && (
+                      <div className="cid-cast-feature">
+                        <p className="cid-cast-group-h">{p.feature.heading}</p>
+                        <p className="cid-cast-feature-t">{p.feature.text}</p>
+                      </div>
                     )}
                   </div>
                 )}
