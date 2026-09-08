@@ -2143,6 +2143,29 @@
    heading already sits above them, and keep the rest. */
 .cid-scope .cid-cast-specs--feature > .cid-cast-spec:first-child { border-top: 0; padding-top: 2px; }
 .cid-scope .cid-cast-feature .cid-cast-group-h { text-wrap: balance; }
+/* The heading carries its label beside it, wrapping under it when the box
+   is narrow. The label keeps Greg's case rather than the heading's caps. */
+.cid-scope .cid-cast-feature-h { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.cid-scope .cid-cast-tag {
+  display: inline-block; padding: 5px 12px;
+  border: 1px solid rgba(174,153,201,.32); background: rgba(174,153,201,.14);
+  font-weight: 600; font-size: 11.5px; letter-spacing: .04em; line-height: 1.2;
+  text-transform: none; color: #E8ECF4;
+}
+/* Shape is the category: an agent's label is a rounded pill, a machine-
+   learning tool's is a square with hard corners, its capabilities boxed in. */
+.cid-scope .cid-cast-tag--pill { border-radius: 20px; }
+.cid-scope .cid-cast-tag--square { border-radius: 0; }
+/* The accent tone, in Blue Light, sets a tool apart from the agents' mauve.
+   Box, heading and label all take it, so the category reads at a glance. */
+.cid-scope .cid-cast-feature--accent {
+  border-color: rgba(77,174,255,.38);
+  background: linear-gradient(160deg, rgba(77,174,255,.14) 0%, rgba(77,174,255,.06) 100%);
+}
+.cid-scope .cid-cast-feature--accent .cid-cast-group-h { color: #4DAEFF; }
+.cid-scope .cid-cast-feature--accent .cid-cast-tag {
+  border-color: rgba(77,174,255,.55); background: rgba(77,174,255,.14);
+}
 
 
 /* Arrows sit on the band's edges rather than under it, because the roll

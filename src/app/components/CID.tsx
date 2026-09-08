@@ -276,7 +276,17 @@ type CidCharacter = {
   functions?: { heading: string; items: { label: string; desc: string }[] };
   /** Featured boxes at the foot of the card. One spans the width; two sit
    *  side by side on a wide bay. A box holds a paragraph, spec rows, or both. */
-  features?: { heading: string; text?: string; rows?: CidSpec[] }[];
+  features?: {
+    heading: string;
+    /** A label set beside the heading. Its shape says what kind of thing
+     *  the character is: a rounded pill for an agent, a square for a
+     *  machine-learning tool, whose capabilities are boxed in. */
+    tag?: { text: string; shape: "pill" | "square" };
+    /** The accent tone marks a different category from the mauve default. */
+    tone?: "accent";
+    text?: string;
+    rows?: CidSpec[];
+  }[];
 };
 
 /* Reading order is the staging: Ethel at the left, Icarus at the right, and
@@ -323,7 +333,8 @@ const CAST = (base: string): CidCharacter[] => [
         text: "Ethel’s ethical code evolved from the applied research behind ELIS, the End-of-Life Intelligence System: an experimental chatbot exploring consent, memory, digital identity, grief technology, and posthumous decision-making.",
       },
       {
-        heading: "CID Model: Artificial Special Intelligence Agent",
+        heading: "CID Model",
+        tag: { text: "Artificial Special Intelligence Agent", shape: "pill" },
         rows: [
           { label: "Generative Sequence", value: "Observe · Investigate · Test · Analyze · Report" },
           { label: "Operating frequency", value: "7.83 Hz" },
@@ -358,6 +369,16 @@ const CAST = (base: string): CidCharacter[] => [
     ratio: 4 / 3,
     alt: "The Sturgeon General in profile above an Arctic ice field, then a close view of the eye housing as it powers up.",
     specs: [],
+    // The General is a machine-learning tool, not an agent, and the card
+    // says so: the accent tone and the square-cornered label are the
+    // category, against Ethel's mauve box and rounded pill.
+    features: [
+      {
+        heading: "High North Vanguard",
+        tag: { text: "Marine Prototype", shape: "square" },
+        tone: "accent",
+      },
+    ],
   },
   {
     key: "icarus",
@@ -676,8 +697,11 @@ function CharacterRoll({ base }: { base: string }) {
                     {p.features && p.features.length > 0 && (
                       <div className={`cid-cast-features${p.features.length > 1 ? " cid-cast-features--two" : ""}`}>
                         {p.features.map((f) => (
-                          <div className="cid-cast-feature" key={f.heading}>
-                            <p className="cid-cast-group-h">{f.heading}</p>
+                          <div className={`cid-cast-feature${f.tone === "accent" ? " cid-cast-feature--accent" : ""}`} key={f.heading}>
+                            <p className="cid-cast-group-h cid-cast-feature-h">
+                              {f.heading}
+                              {f.tag && <span className={`cid-cast-tag cid-cast-tag--${f.tag.shape}`}>{f.tag.text}</span>}
+                            </p>
                             {f.text && <p className="cid-cast-feature-t">{f.text}</p>}
                             {f.rows && f.rows.length > 0 && (
                               <dl className="cid-cast-specs cid-cast-specs--feature">
