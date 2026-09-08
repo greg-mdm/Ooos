@@ -2156,6 +2156,11 @@
    learning tool's is a square with hard corners, its capabilities boxed in. */
 .cid-scope .cid-cast-tag--pill { border-radius: 20px; }
 .cid-scope .cid-cast-tag--square { border-radius: 0; }
+/* An acronym in a value expands on hover, marked the way the partner keys
+   mark theirs: a dotted rule, no underline, the help cursor. */
+.cid-scope .cid-cast-spec-v abbr {
+  text-decoration: none; border-bottom: 1px dotted rgba(232,236,244,.5); cursor: help;
+}
 /* The accent tone, in Blue Light, sets a tool apart from the agents' mauve.
    Box, heading and label all take it, so the category reads at a glance. */
 .cid-scope .cid-cast-feature--accent {

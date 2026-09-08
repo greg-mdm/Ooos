@@ -230,7 +230,8 @@ function IcarusName() {
    follows whichever frame settles. Each shot keeps its own aspect ratio
    there (16:9, 4:3, 4:5), which is what stops the film being letterboxed
    into a fixed-height box, the squish the September mobile shots showed. */
-type CidSpec = { label: string; value: string };
+/** A value may carry markup, so an acronym can expand on hover. */
+type CidSpec = { label: string; value: ReactNode };
 type CidCharacter = {
   key: string;
   /** Nameplate label. A node, so Icarus keeps his vector numeral. */
@@ -377,6 +378,14 @@ const CAST = (base: string): CidCharacter[] => [
         heading: "High North Vanguard",
         tag: { text: "Marine Prototype", shape: "square" },
         tone: "accent",
+        // Greg's acronyms. PLOP expands on hover; BYTE's expansion is still
+        // to come from him, so it carries none yet rather than a guess.
+        rows: [
+          {
+            label: "Generative Operations",
+            value: <><abbr title="Patrol Loop for Ocean Protection">PLOP</abbr> · BYTE</>,
+          },
+        ],
       },
     ],
   },
