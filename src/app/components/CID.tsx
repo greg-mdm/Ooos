@@ -378,12 +378,11 @@ const CAST = (base: string): CidCharacter[] => [
         heading: "High North Vanguard",
         tag: { text: "Marine Prototype", shape: "square" },
         tone: "accent",
-        // Greg's acronyms. PLOP expands on hover; BYTE's expansion is still
-        // to come from him, so it carries none yet rather than a guess.
+        // Greg's acronym, expanded on hover.
         rows: [
           {
             label: "Generative Operations",
-            value: <><abbr title="Patrol Loop for Ocean Protection">PLOP</abbr> · BYTE</>,
+            value: <abbr title="Patrol Loop for Ocean Protection">PLOP</abbr>,
           },
         ],
       },
