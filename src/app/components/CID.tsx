@@ -325,7 +325,7 @@ const CAST = (base: string): CidCharacter[] => [
       {
         heading: "CID Model: Artificial Special Intelligence Agent",
         rows: [
-          { label: "Sequence", value: "Observe · Investigate · Test · Analyze · Report" },
+          { label: "Generative Sequence", value: "Observe · Investigate · Test · Analyze · Report" },
           { label: "Operating frequency", value: "7.83 Hz" },
         ],
       },
