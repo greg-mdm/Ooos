@@ -274,8 +274,9 @@ type CidCharacter = {
   /** A list of labelled one-liners under a heading, e.g. core functions. On a
    *  wide bay it takes the right-hand column beside the spec rows. */
   functions?: { heading: string; items: { label: string; desc: string }[] };
-  /** A featured box at the foot of the card, spanning the width. */
-  feature?: { heading: string; text: string };
+  /** Featured boxes at the foot of the card. One spans the width; two sit
+   *  side by side on a wide bay. A box holds a paragraph, spec rows, or both. */
+  features?: { heading: string; text?: string; rows?: CidSpec[] }[];
 };
 
 /* Reading order is the staging: Ethel at the left, Icarus at the right, and
@@ -316,19 +317,19 @@ const CAST = (base: string): CidCharacter[] => [
         { label: "Guards the threshold", desc: "Flags breaches of permission, protocol, and research boundaries." },
       ],
     },
-    specGroups: [
+    features: [
       {
-        heading: "Operating Protocol",
+        heading: "Digital Genealogy",
+        text: "Ethel’s ethical code evolved from the applied research behind ELIS, the End-of-Life Intelligence System: an experimental chatbot exploring consent, memory, digital identity, grief technology, and posthumous decision-making.",
+      },
+      {
+        heading: "CID Model: Artificial Special Intelligence Agent",
         rows: [
           { label: "Sequence", value: "Observe · Investigate · Test · Analyze · Report" },
           { label: "Operating frequency", value: "7.83 Hz" },
         ],
       },
     ],
-    feature: {
-      heading: "Digital Genealogy",
-      text: "Ethel’s ethical code evolved from the applied research behind ELIS, the End-of-Life Intelligence System: an experimental chatbot exploring consent, memory, digital identity, grief technology, and posthumous decision-making.",
-    },
   },
   {
     key: "sturgeon",
@@ -514,7 +515,7 @@ function CharacterRoll({ base }: { base: string }) {
             const on = i === at;
             const hasDetail =
               (p.nodes?.length ?? 0) + (p.partners?.length ?? 0) + p.specs.length +
-              (p.specGroups?.length ?? 0) + (p.functions ? 1 : 0) + (p.feature ? 1 : 0) > 0;
+              (p.specGroups?.length ?? 0) + (p.functions ? 1 : 0) + (p.features?.length ?? 0) > 0;
             return (
               /* THE HIT BUTTON LIES OVER THE ART, NOT AROUND IT. The frame
                  used to be the button, wrapping everything, and then the shot
@@ -672,10 +673,24 @@ function CharacterRoll({ base }: { base: string }) {
                         )}
                       </div>
                     )}
-                    {p.feature && (
-                      <div className="cid-cast-feature">
-                        <p className="cid-cast-group-h">{p.feature.heading}</p>
-                        <p className="cid-cast-feature-t">{p.feature.text}</p>
+                    {p.features && p.features.length > 0 && (
+                      <div className={`cid-cast-features${p.features.length > 1 ? " cid-cast-features--two" : ""}`}>
+                        {p.features.map((f) => (
+                          <div className="cid-cast-feature" key={f.heading}>
+                            <p className="cid-cast-group-h">{f.heading}</p>
+                            {f.text && <p className="cid-cast-feature-t">{f.text}</p>}
+                            {f.rows && f.rows.length > 0 && (
+                              <dl className="cid-cast-specs cid-cast-specs--feature">
+                                {f.rows.map((s) => (
+                                  <div className="cid-cast-spec" key={s.label}>
+                                    <dt className="cid-cast-spec-k">{s.label}</dt>
+                                    <dd className="cid-cast-spec-v">{s.value}</dd>
+                                  </div>
+                                ))}
+                              </dl>
+                            )}
+                          </div>
+                        ))}
                       </div>
                     )}
                   </div>
