@@ -1900,10 +1900,14 @@
    as before the detail went in. */
 .cid-scope .cid-cast-frame {
   flex: 0 0 auto; width: 26%; min-width: 112px;
-  /* Raised again for Ethel's card, the first with a full spec sheet under
-     the art; at 1440 the lit bay holds her at full width with the two
-     columns of detail and the featured box beneath. */
-  height: clamp(500px, 60vw, 900px);
+  /* A floor, not a ceiling. The lit card sets the band's height from its
+     art plus whatever hangs under the nameplate, so the General's full
+     sheet (his 4:3 film, the barbel box, four squadrons) never squeezes
+     his art to make room, and Ethel's shorter card still fills this much.
+     The unlit bays stretch to match and their shots letterbox the extra,
+     which they already did. The band therefore changes height when the
+     spotlight moves; on a phone it always has. */
+  min-height: clamp(500px, 60vw, 900px); height: auto;
   display: flex; flex-direction: column;
   padding: 0; border: 0; margin: 0;
   background: #04030e; color: inherit;
@@ -2121,6 +2125,20 @@
 .cid-scope .cid-cast-fn:first-child { border-top: 0; padding-top: 2px; }
 .cid-scope .cid-cast-fn-k { font-weight: 700; font-size: 12.5px; line-height: 1.3; color: #E8ECF4; }
 .cid-scope .cid-cast-fn-d { font-weight: 500; font-size: 12px; line-height: 1.4; color: #B9B0CC; }
+/* Items two abreast inside a box that spans the bay, as the General's
+   squadrons do; the rule between them is a top rule on each so the pairs
+   read as rows. Below 1000px they stack, as everything in the sheet does. */
+.cid-scope .cid-cast-fns--grid { display: grid; grid-template-columns: minmax(0,1fr); gap: 0 clamp(16px,2vw,28px); margin-top: 2px; }
+@media (min-width: 1000px) {
+  .cid-scope .cid-cast-fns--grid { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
+  .cid-scope .cid-cast-fns--grid > .cid-cast-fn:nth-child(2) { border-top: 0; padding-top: 2px; }
+}
+/* The closing line of a box, in the plate's italic voice. */
+.cid-scope .cid-cast-feature-foot {
+  margin: 4px 0 0; font-style: italic; font-weight: 500; font-size: 12.5px; line-height: 1.5;
+  color: rgba(232,236,244,.82);
+}
+.cid-scope .cid-cast-feature--accent .cid-cast-feature-foot { color: rgba(77,174,255,.92); }
 /* The featured boxes: quiet panels in the plate's own mauve, the heading
    inside each. One spans the card; two share the width on a wide bay and
    stack below 1000px, on the same break as the columns above them. */

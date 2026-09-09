@@ -287,6 +287,11 @@ type CidCharacter = {
     tone?: "accent";
     text?: string;
     rows?: CidSpec[];
+    /** Labelled one-liners, e.g. the General's squadrons. On a wide bay
+     *  they sit two abreast. */
+    items?: { label: string; desc: string }[];
+    /** A closing line at the foot of the box. */
+    foot?: string;
   }[];
 };
 
@@ -347,7 +352,8 @@ const CAST = (base: string): CidCharacter[] => [
     key: "sturgeon",
     name: "The Sturgeon General",
     plain: "The Sturgeon General",
-    role: "High North Vanguard",
+    // Greg's role line, verbatim: his en dash and his middot.
+    role: "Canada–Nordic · High North Vanguard",
     // Greg's copy, verbatim, including the plus signs and the en dashes. The
     // en dash is his own character in CANADA–EU and not the em dash the
     // house rule bans; the plus is how he set the sector pairs.
@@ -378,13 +384,21 @@ const CAST = (base: string): CidCharacter[] => [
         heading: "High North Vanguard",
         tag: { text: "Marine Prototype", shape: "square" },
         tone: "accent",
-        // Greg's acronym, expanded on hover.
+        // Greg's card copy, verbatim, including his spelling "Sturgen" in
+        // the body, which the nameplate above does not share; flagged to
+        // him rather than normalised here.
         rows: [
-          {
-            label: "Generative Operations",
-            value: <abbr title="Patrol Loop for Ocean Protection">PLOP</abbr>,
-          },
+          { label: "PLOP", value: "Patrol Loop for Ocean Protection" },
+          { label: "BARBEL", value: "Benthic Analysis Replicants: Biomonitoring Environmental Liaison" },
         ],
+        text: "The Sturgen General deploys four pearlescent barbels. Each pod incubates a squadron assigned to a distinct field of observation. BARBEL systematically links the benthic environment and CID Headquarters.",
+        items: [
+          { label: "Life Squadron", desc: "Tracks benthic organisms, biodiversity, and biological health." },
+          { label: "Water Squadron", desc: "Reads temperature, oxygen, salinity, turbidity, and chemical change." },
+          { label: "Floor Squadron", desc: "Maps sediment, bathymetry, seabed structure, and critical-mineral signals." },
+          { label: "Flow Squadron", desc: "Follows currents, ice movement, vessels, subsea infrastructure, and environmental change." },
+        ],
+        foot: "PLOP deploys. BARBEL listens. The Sturgen General maps in real-time.",
       },
     ],
   },
@@ -710,7 +724,6 @@ function CharacterRoll({ base }: { base: string }) {
                               {f.heading}
                               {f.tag && <span className={`cid-cast-tag cid-cast-tag--${f.tag.shape}`}>{f.tag.text}</span>}
                             </p>
-                            {f.text && <p className="cid-cast-feature-t">{f.text}</p>}
                             {f.rows && f.rows.length > 0 && (
                               <dl className="cid-cast-specs cid-cast-specs--feature">
                                 {f.rows.map((s) => (
@@ -721,6 +734,18 @@ function CharacterRoll({ base }: { base: string }) {
                                 ))}
                               </dl>
                             )}
+                            {f.text && <p className="cid-cast-feature-t">{f.text}</p>}
+                            {f.items && f.items.length > 0 && (
+                              <ul className="cid-cast-fns cid-cast-fns--grid">
+                                {f.items.map((it) => (
+                                  <li className="cid-cast-fn" key={it.label}>
+                                    <span className="cid-cast-fn-k">{it.label}</span>
+                                    <span className="cid-cast-fn-d">{it.desc}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                            {f.foot && <p className="cid-cast-feature-foot">{f.foot}</p>}
                           </div>
                         ))}
                       </div>
