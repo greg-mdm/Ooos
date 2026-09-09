@@ -1900,14 +1900,10 @@
    as before the detail went in. */
 .cid-scope .cid-cast-frame {
   flex: 0 0 auto; width: 26%; min-width: 112px;
-  /* A floor, not a ceiling. The lit card sets the band's height from its
-     art plus whatever hangs under the nameplate, so the General's full
-     sheet (his 4:3 film, the barbel box, four squadrons) never squeezes
-     his art to make room, and Ethel's shorter card still fills this much.
-     The unlit bays stretch to match and their shots letterbox the extra,
-     which they already did. The band therefore changes height when the
-     spotlight moves; on a phone it always has. */
-  min-height: clamp(500px, 60vw, 900px); height: auto;
+  /* Content-sized. The lit card is as tall as its art plus whatever hangs
+     under the nameplate; see the stage block below for how the band lays
+     the lit card and the tiles out. */
+  min-height: 0; height: auto;
   display: flex; flex-direction: column;
   padding: 0; border: 0; margin: 0;
   background: #04030e; color: inherit;
@@ -2125,6 +2121,26 @@
 .cid-scope .cid-cast-fn:first-child { border-top: 0; padding-top: 2px; }
 .cid-scope .cid-cast-fn-k { font-weight: 700; font-size: 12.5px; line-height: 1.3; color: #E8ECF4; }
 .cid-scope .cid-cast-fn-d { font-weight: 500; font-size: 12px; line-height: 1.4; color: #B9B0CC; }
+/* A folded list under a heading: the heading is the summary, in the group
+   heading's own type with the chevron the page's other folds carry, and
+   the list comes on a press. Closed at rest. */
+.cid-scope .cid-cast-fold { margin: 0; }
+.cid-scope .cid-cast-fold > summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  list-style: none; cursor: pointer; padding: 8px 0;
+  border-top: 1px solid rgba(174,153,201,.13); border-bottom: 1px solid rgba(174,153,201,.13);
+}
+.cid-scope .cid-cast-fold > summary::-webkit-details-marker { display: none; }
+.cid-scope .cid-cast-fold > summary::after {
+  content: ""; flex: 0 0 auto; width: 7px; height: 7px; margin-right: 3px;
+  border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform .2s ease;
+}
+.cid-scope .cid-cast-fold[open] > summary { color: #E8ECF4; border-bottom-color: transparent; }
+.cid-scope .cid-cast-fold[open] > summary::after { transform: rotate(-135deg) translateY(-1px); }
+.cid-scope .cid-cast-fold > summary:focus-visible { outline: 2px solid #E8ECF4; outline-offset: 3px; border-radius: 3px; }
+.cid-scope .cid-cast-fold > .cid-cast-fns { padding-top: 2px; }
 /* Items two abreast inside a box that spans the bay, as the General's
    squadrons do; the rule between them is a top rule on each so the pairs
    read as rows. Below 1000px they stack, as everything in the sheet does. */
@@ -2210,6 +2226,57 @@
 .cid-scope .cid-cast-arrow:focus-visible { outline: 2px solid #E8ECF4; outline-offset: 2px; }
 .cid-scope .cid-cast-arrow--prev { left: clamp(8px,1.4vw,22px); }
 .cid-scope .cid-cast-arrow--next { right: clamp(8px,1.4vw,22px); }
+
+/* ---- The stage, above the phone: one featured card, a rail of tiles ----
+   The film roll showed all three at once, and the lit card's text ran
+   under the arrows. Now the lit character has the band to itself: art at
+   the top of the stage, nameplate and sheet beneath, and the other two sit
+   in a rail at the right as a thumbnail and a name, nothing more, which is
+   the whole navigation. No arrows here; they stay for the phone pager. A
+   press on a tile moves the spotlight, and the tile and the card change
+   places without a slide, since a grid placement is not a distance. */
+@media (min-width: 901px) {
+  .cid-scope .cid-cast-roll {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) clamp(200px, 17vw, 250px);
+    grid-template-rows: auto auto 1fr;
+    gap: 14px; overflow: visible; scroll-snap-type: none;
+  }
+  .cid-scope .cid-cast-arrow { display: none; }
+  .cid-scope .cid-cast-frame {
+    grid-column: 2; align-self: start;
+    width: auto; min-width: 0;
+    box-shadow: none; border: 1px solid rgba(174,153,201,.16); border-radius: 10px;
+    transition: filter .42s ease, border-color .18s ease;
+  }
+  .cid-scope .cid-cast-frame:hover { border-color: rgba(174,153,201,.36); }
+  .cid-scope .cid-cast-frame.is-on {
+    grid-column: 1; grid-row: 1 / span 3; align-self: stretch;
+    width: auto; border: 0; border-radius: 0;
+  }
+  /* A tile is its still at the tile's width and the name under it. The
+     box is reserved from the still's own ratio, so a thumbnail that is
+     still loading holds its place, and the still is contained in it. */
+  .cid-scope .cid-cast-frame:not(.is-on) .cid-cast-shot {
+    flex: 0 0 auto; aspect-ratio: var(--thumb-ratio, 1.7778);
+  }
+  .cid-scope .cid-cast-frame:not(.is-on) .cid-cast-media {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;
+  }
+  /* The featured art: full width of the stage, capped so a 4:3 film does
+     not run past the fold, contained so nothing is cropped, and where the
+     cap letterboxes it the sides carry the still, blurred and dimmed. */
+  .cid-scope .cid-cast-frame.is-on .cid-cast-shot { overflow: hidden; }
+  .cid-scope .cid-cast-frame.is-on .cid-cast-shot::before {
+    content: ""; position: absolute; inset: -28px; z-index: 0;
+    background: var(--shot-bg) center / cover no-repeat;
+    filter: blur(28px) brightness(.42) saturate(1.15);
+  }
+  .cid-scope .cid-cast-frame.is-on .cid-cast-media {
+    position: relative; z-index: 1;
+    height: auto; max-height: min(72vh, 760px);
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .cid-scope .cid-cast-roll,

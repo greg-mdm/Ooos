@@ -252,6 +252,10 @@ type CidCharacter = {
   /** Still shown in the roll when this frame is not spotlighted, with the
    *  same optional AVIF beside it. */
   thumb: string;
+  /** The still's own width over height, when it differs from the lit
+   *  art's. The rail reserves the tile's box from it before the still
+   *  loads, so the rail does not shift as thumbnails arrive. */
+  thumbRatio?: number;
   thumbAvif?: string;
   /** Width over height of the lit media. On a phone the shot takes exactly
    *  this shape, so nothing is letterboxed or cropped; on wider screens the
@@ -420,6 +424,7 @@ const CAST = (base: string): CidCharacter[] => [
       avif: `${base}assets/images/cid-char-icarus-wide.avif`,
     },
     thumb: `${base}assets/images/cid-char-icarus.webp`,
+    thumbRatio: 4 / 5,
     thumbAvif: `${base}assets/images/cid-char-icarus.avif`,
     ratio: 1376 / 768,
     alt: "Icarus the Third seated on a mound of world currency coins in a vault, holding a top hat that pours out more.",
@@ -578,7 +583,13 @@ function CharacterRoll({ base }: { base: string }) {
                 style={{ "--ratio": String(p.ratio) } as CSSProperties}
                 onClick={() => setAt(i)}
               >
-                <div className="cid-cast-shot">
+                {/* --shot-bg is the still, which the wide stage blurs behind
+                    the art when the art is letterboxed, so a 4:3 film in a
+                    16:9 stage has its own colour beside it, not black. */}
+                <div
+                  className="cid-cast-shot"
+                  style={{ "--shot-bg": `url("${p.thumb}")`, "--thumb-ratio": String(p.thumbRatio ?? p.ratio) } as CSSProperties}
+                >
                   {on && p.media.kind === "video" ? (
                     <video
                       key={p.media.src}
@@ -703,15 +714,20 @@ function CharacterRoll({ base }: { base: string }) {
                         </div>
                         {p.functions && (
                           <div className="cid-cast-col">
-                            <p className="cid-cast-group-h">{p.functions.heading}</p>
-                            <ul className="cid-cast-fns">
-                              {p.functions.items.map((f) => (
-                                <li className="cid-cast-fn" key={f.label}>
-                                  <span className="cid-cast-fn-k">{f.label}</span>
-                                  <span className="cid-cast-fn-d">{f.desc}</span>
-                                </li>
-                              ))}
-                            </ul>
+                            {/* Progressive disclosure, per Greg: the heading
+                                at rest, the list on a press, the same fold
+                                the Methods and the priorities use. */}
+                            <details className="cid-cast-fold">
+                              <summary className="cid-cast-group-h">{p.functions.heading}</summary>
+                              <ul className="cid-cast-fns">
+                                {p.functions.items.map((f) => (
+                                  <li className="cid-cast-fn" key={f.label}>
+                                    <span className="cid-cast-fn-k">{f.label}</span>
+                                    <span className="cid-cast-fn-d">{f.desc}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </details>
                           </div>
                         )}
                       </div>
