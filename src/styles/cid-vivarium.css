@@ -2276,6 +2276,38 @@
     position: relative; z-index: 1;
     height: auto; max-height: min(72vh, 760px);
   }
+  /* Side stage, for art narrower than 3:2: the art takes the left of the
+     stage at its full width there, the nameplate and sheet take the right,
+     which is the space the letterbox used to waste. The art column runs
+     the full height of the card, and where the sheet is the taller the
+     art sits centred in its own blurred still. Everything in the sheet
+     goes to one column, since the column is half a stage wide. */
+  .cid-scope .cid-cast-frame.is-on.is-side {
+    display: grid;
+    grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
+    grid-template-rows: auto 1fr;
+  }
+  .cid-scope .cid-cast-frame.is-on.is-side .cid-cast-shot {
+    grid-column: 1; grid-row: 1 / span 2; align-self: stretch; height: auto;
+  }
+  .cid-scope .cid-cast-frame.is-on.is-side .cid-cast-plate {
+    grid-column: 2; grid-row: 1; align-self: start;
+    border-top: 0; border-left: 1px solid rgba(174,153,201,.16);
+    padding: 16px clamp(14px,1.6vw,22px) 10px;
+  }
+  .cid-scope .cid-cast-frame.is-on.is-side .cid-cast-detail {
+    grid-column: 2; grid-row: 2; align-self: start;
+    border-left: 1px solid rgba(174,153,201,.16);
+    padding: 2px clamp(14px,1.6vw,22px) 18px;
+  }
+  .cid-scope .cid-cast-frame.is-on.is-side .cid-cast-cols--two,
+  .cid-scope .cid-cast-frame.is-on.is-side .cid-cast-features--two,
+  .cid-scope .cid-cast-frame.is-on.is-side .cid-cast-fns--grid {
+    grid-template-columns: minmax(0,1fr);
+  }
+  .cid-scope .cid-cast-frame.is-on.is-side .cid-cast-fns--grid > .cid-cast-fn:nth-child(2) {
+    border-top: 1px solid rgba(174,153,201,.13); padding-top: 6px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

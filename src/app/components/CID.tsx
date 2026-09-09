@@ -579,7 +579,12 @@ function CharacterRoll({ base }: { base: string }) {
                  a mouse convenience, so pressing the nameplate spotlights. */
               <div
                 key={p.key}
-                className={`cid-cast-frame ${on ? "is-on" : ""}`}
+                /* is-side: art narrower than 3:2 leaves the wide stage a
+                   letterbox at the sides, so the sheet goes beside the art
+                   instead of under it, and the art sits at the left edge.
+                   Wide art (Ethel, Icarus) fills the stage and the sheet
+                   hangs below. The phone ignores the class. */
+                className={`cid-cast-frame ${on ? "is-on" : ""}${p.ratio < 1.5 ? " is-side" : ""}`}
                 style={{ "--ratio": String(p.ratio) } as CSSProperties}
                 onClick={() => setAt(i)}
               >
