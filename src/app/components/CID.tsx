@@ -342,7 +342,7 @@ const CAST = (base: string): CidCharacter[] => [
     features: [
       {
         heading: "Digital Genealogy",
-        text: "Ethel’s ethical code evolved from the applied research behind ELIS, the End-of-Life Intelligence System: an experimental chatbot exploring consent, memory, digital identity, grief technology, and posthumous decision-making.",
+        text: "Ethel’s ethical code originated from ELIS (End-of-Life Intelligence System), a griefbot initially designed with a male persona. Research on consent, memory, digital identity, grief technology, and posthumous decision-making informed ELIS’s development before an experimental demo in Spring 2025.",
       },
       {
         heading: "CID Model",
