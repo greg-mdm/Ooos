@@ -723,20 +723,22 @@ function CharacterRoll({ base }: { base: string }) {
                         </div>
                         {p.functions && (
                           <div className="cid-cast-col">
-                            {/* Progressive disclosure, per Greg: the heading
-                                at rest, the list on a press, the same fold
-                                the Methods and the priorities use. */}
-                            <details className="cid-cast-fold">
-                              <summary className="cid-cast-group-h">{p.functions.heading}</summary>
-                              <ul className="cid-cast-fns">
-                                {p.functions.items.map((f) => (
-                                  <li className="cid-cast-fn" key={f.label}>
-                                    <span className="cid-cast-fn-k">{f.label}</span>
+                            {/* Progressive disclosure, per Greg: every function
+                                shows its name at rest, in the space beside
+                                the spec rows, and opens to its line on a
+                                press. Each is its own fold, so two can be
+                                open at once and the rest stay as names. */}
+                            <p className="cid-cast-group-h">{p.functions.heading}</p>
+                            <ul className="cid-cast-fns cid-cast-fns--folds">
+                              {p.functions.items.map((f) => (
+                                <li className="cid-cast-fn" key={f.label}>
+                                  <details className="cid-cast-fn-fold">
+                                    <summary className="cid-cast-fn-k">{f.label}</summary>
                                     <span className="cid-cast-fn-d">{f.desc}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </details>
+                                  </details>
+                                </li>
+                              ))}
+                            </ul>
                           </div>
                         )}
                       </div>
