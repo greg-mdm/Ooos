@@ -2141,14 +2141,27 @@
 .cid-scope .cid-cast-fold[open] > summary::after { transform: rotate(-135deg) translateY(-1px); }
 .cid-scope .cid-cast-fold > summary:focus-visible { outline: 2px solid #E8ECF4; outline-offset: 3px; border-radius: 3px; }
 .cid-scope .cid-cast-fold > .cid-cast-fns { padding-top: 2px; }
-/* Items two abreast inside a box that spans the bay, as the General's
-   squadrons do; the rule between them is a top rule on each so the pairs
-   read as rows. Below 1000px they stack, as everything in the sheet does. */
-.cid-scope .cid-cast-fns--grid { display: grid; grid-template-columns: minmax(0,1fr); gap: 0 clamp(16px,2vw,28px); margin-top: 2px; }
-@media (min-width: 1000px) {
-  .cid-scope .cid-cast-fns--grid { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
-  .cid-scope .cid-cast-fns--grid > .cid-cast-fn:nth-child(2) { border-top: 0; padding-top: 2px; }
+/* The barbels: four squadrons in a row, the way the four barbels hang in
+   a row under a sturgeon's snout. Each is a column with a whisker down its
+   left edge, pearl at the root and fading out toward the tip, the label at
+   the root and the line hanging under it. No rules between them; the
+   whiskers are the structure. A phone shows them two by two. */
+.cid-scope .cid-cast-items-h { margin-top: 4px; }
+.cid-scope .cid-cast-fns--barbels {
+  display: grid; grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 12px clamp(10px,1.2vw,18px); margin-top: 2px;
 }
+@media (min-width: 901px) {
+  .cid-scope .cid-cast-fns--barbels { grid-template-columns: repeat(4, minmax(0,1fr)); }
+}
+.cid-scope .cid-cast-fn.cid-cast-barbel {
+  position: relative; padding: 2px 0 4px 11px; border-top: 0; gap: 3px;
+}
+.cid-scope .cid-cast-barbel::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; border-radius: 2px;
+  background: linear-gradient(180deg, #E8ECF4 0%, rgba(174,153,201,.75) 38%, rgba(77,174,255,.45) 70%, rgba(77,174,255,0) 100%);
+}
+.cid-scope .cid-cast-barbel .cid-cast-fn-d { font-size: 11.5px; line-height: 1.45; }
 /* The closing line of a box, in the plate's italic voice. */
 .cid-scope .cid-cast-feature-foot {
   margin: 4px 0 0; font-style: italic; font-weight: 500; font-size: 12.5px; line-height: 1.5;
@@ -2301,13 +2314,11 @@
     padding: 2px clamp(14px,1.6vw,22px) 18px;
   }
   .cid-scope .cid-cast-frame.is-on.is-side .cid-cast-cols--two,
-  .cid-scope .cid-cast-frame.is-on.is-side .cid-cast-features--two,
-  .cid-scope .cid-cast-frame.is-on.is-side .cid-cast-fns--grid {
+  .cid-scope .cid-cast-frame.is-on.is-side .cid-cast-features--two {
     grid-template-columns: minmax(0,1fr);
   }
-  .cid-scope .cid-cast-frame.is-on.is-side .cid-cast-fns--grid > .cid-cast-fn:nth-child(2) {
-    border-top: 1px solid rgba(174,153,201,.13); padding-top: 6px;
-  }
+  /* The barbels stay four abreast even in the side stage's half width:
+     the row is the point of them. */
 }
 
 @media (prefers-reduced-motion: reduce) {

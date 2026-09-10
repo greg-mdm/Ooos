@@ -291,8 +291,10 @@ type CidCharacter = {
     tone?: "accent";
     text?: string;
     rows?: CidSpec[];
-    /** Labelled one-liners, e.g. the General's squadrons. On a wide bay
-     *  they sit two abreast. */
+    /** Labelled one-liners, e.g. the General's squadrons, set as four
+     *  barbels in a row: a whisker down the left of each, the label at
+     *  the top, the line hanging under it. */
+    itemsHeading?: string;
     items?: { label: string; desc: string }[];
     /** A closing line at the foot of the box. */
     foot?: string;
@@ -396,11 +398,14 @@ const CAST = (base: string): CidCharacter[] => [
           { label: "BARBEL", value: "Benthic Analysis Replicants: Biomonitoring Environmental Liaison" },
         ],
         text: "The Sturgen General deploys four pearlescent barbels. Each pod incubates a squadron assigned to a distinct field of observation. BARBEL systematically links the benthic environment and CID Headquarters.",
+        // Greg's second draft, verbatim, save one stray "Squadron:" after
+        // "Lives:" that the other three lines do not carry; flagged to him.
+        itemsHeading: "BARBEL Squadrons",
         items: [
-          { label: "Life Squadron", desc: "Tracks benthic organisms, biodiversity, and biological health." },
-          { label: "Water Squadron", desc: "Reads temperature, oxygen, salinity, turbidity, and chemical change." },
-          { label: "Floor Squadron", desc: "Maps sediment, bathymetry, seabed structure, and critical-mineral signals." },
-          { label: "Flow Squadron", desc: "Follows currents, ice movement, vessels, subsea infrastructure, and environmental change." },
+          { label: "Lives", desc: "Track living benthic organisms, biodiversity, and biological health." },
+          { label: "Waters", desc: "Read temperature, oxygen, salinity, turbidity, and geothermal chemical changes." },
+          { label: "Bottoms", desc: "Measure bathymetry; map depth, seabed structure, sediment, and mineral deposits." },
+          { label: "Flows", desc: "Follow currents, ice movement, track vessels, subsea infrastructure, and environmental change." },
         ],
         foot: "PLOP deploys. BARBEL listens. The Sturgen General maps in real-time.",
       },
@@ -756,10 +761,11 @@ function CharacterRoll({ base }: { base: string }) {
                               </dl>
                             )}
                             {f.text && <p className="cid-cast-feature-t">{f.text}</p>}
+                            {f.itemsHeading && <p className="cid-cast-group-h cid-cast-items-h">{f.itemsHeading}</p>}
                             {f.items && f.items.length > 0 && (
-                              <ul className="cid-cast-fns cid-cast-fns--grid">
+                              <ul className="cid-cast-fns cid-cast-fns--barbels">
                                 {f.items.map((it) => (
-                                  <li className="cid-cast-fn" key={it.label}>
+                                  <li className="cid-cast-fn cid-cast-barbel" key={it.label}>
                                     <span className="cid-cast-fn-k">{it.label}</span>
                                     <span className="cid-cast-fn-d">{it.desc}</span>
                                   </li>
