@@ -390,14 +390,13 @@ const CAST = (base: string): CidCharacter[] => [
         heading: "High North Vanguard",
         tag: { text: "Marine Prototype", shape: "square" },
         tone: "accent",
-        // Greg's card copy, verbatim, including his spelling "Sturgen" in
-        // the body, which the nameplate above does not share; flagged to
-        // him rather than normalised here.
+        // Greg's card copy, verbatim. Character names are canon and spelled
+        // as the nameplate spells them, whatever a draft in chat says.
         rows: [
           { label: "PLOP", value: "Patrol Loop for Ocean Protection" },
           { label: "BARBEL", value: "Benthic Analysis Replicants: Biomonitoring Environmental Liaison" },
         ],
-        text: "The Sturgen General deploys four pearlescent barbels. Each pod incubates a squadron assigned to a distinct field of observation. BARBEL systematically links the benthic environment and CID Headquarters.",
+        text: "The Sturgeon General deploys four pearlescent barbels. Each pod incubates a squadron assigned to a distinct field of observation. BARBEL systematically links the benthic environment and CID Headquarters.",
         // Greg's second draft, verbatim, save one stray "Squadron:" after
         // "Lives:" that the other three lines do not carry; flagged to him.
         itemsHeading: "BARBEL Squadrons",
@@ -407,7 +406,7 @@ const CAST = (base: string): CidCharacter[] => [
           { label: "Bottoms", desc: "Measure bathymetry; map depth, seabed structure, sediment, and mineral deposits." },
           { label: "Flows", desc: "Follow currents, ice movement, track vessels, subsea infrastructure, and environmental change." },
         ],
-        foot: "PLOP deploys. BARBEL listens. The Sturgen General maps in real-time.",
+        foot: "PLOP deploys. BARBEL listens. The Sturgeon General maps in real-time.",
       },
     ],
   },
