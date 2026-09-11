@@ -1,0 +1,35 @@
+<main>
+	<nav class="nav" role="navigation">
+		<button class="nav__btn" aria-label="Grid">
+			<svg class="icon" viewBox="0 0 24 24">
+				<rect x="4"  y="4"  width="6" height="6" rx="1.5" />
+				<rect x="14" y="4"  width="6" height="6" rx="1.5" />
+				<rect x="4"  y="14" width="6" height="6" rx="1.5" />
+				<rect x="14" y="14" width="6" height="6" rx="1.5" />
+			</svg>
+		</button>
+
+		<button class="nav__btn" aria-label="Profile">
+			<svg class="icon" viewBox="0 0 24 24">
+				<circle cx="12" cy="8.5" r="3.5" />
+				<path d="M4 19.5c0-3.5 3.6-6 8-6s8 2.5 8 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+			</svg>
+		</button>
+
+		<button class="nav__btn" aria-label="Cart">
+			<svg class="icon" viewBox="0 0 24 24">
+				<path d="M6 6h15l-1.5 9h-12z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+				<circle cx="9"  cy="20" r="1.5" />
+				<circle cx="18" cy="20" r="1.5" />
+			</svg>
+		</button>
+
+		<button class="nav__btn" aria-label="Menu">
+			<svg class="icon menuicon" viewBox="0 0 24 24">
+				<rect x="4" y="6"  width="16" height="0.3" rx="1" />
+				<rect x="4" y="12" width="16" height="0.3" rx="1" />
+				<rect x="4" y="18" width="16" height="0.3" rx="1" />
+			</svg>
+		</button>
+	</nav>
+</main>
