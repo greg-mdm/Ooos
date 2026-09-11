@@ -31,8 +31,11 @@
   gap: clamp(16px, 3vw, 44px); max-width: 1240px; margin: 0 auto; }
 .ot-trio__side { color: var(--ot-dark-indigo); font-weight: 500;
   font-size: clamp(1rem, 1.55vw, 1.32rem); line-height: 1.5; }
-.ot-trio__left { display: flex; justify-content: flex-end; align-items: center; align-self: center;
-  padding-right: clamp(0.75rem, 3vw, 3rem); }
+/* bell mirrors the Toronto sign: the sign is 290px wide, right-aligned with a
+   10px outer margin, so its centre sits 155px in from the column edge. The
+   84px bell gets the same centre from the left edge (155 - 42 = 113px). */
+.ot-trio__left { display: flex; justify-content: flex-start; align-items: center; align-self: center;
+  padding-left: 113px; }
 .ot-trio__right { text-align: right; align-self: center; }
 .ot-trio__orb { position: relative; text-align: center; transform: translateY(-16px); }
 
