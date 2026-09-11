@@ -2234,6 +2234,13 @@
 }
 .cid-scope .cid-cast-reading-status { font-weight: 700; color: #E8ECF4; }
 .cid-scope .cid-cast-reading-nums { font-weight: 700; color: #F0C040; font-variant-numeric: tabular-nums; }
+/* The Chicago note, folded under the scorebox in the same fold the
+   functions use, its summary a shade quieter than theirs. */
+.cid-scope .cid-cast-reading-ref { margin-top: 6px; border-top: 1px solid rgba(174,153,201,.13); }
+.cid-scope .cid-cast-reading-ref > summary { font-size: 11.5px; color: #B9B0CC; padding: 7px 0; }
+.cid-scope .cid-cast-reading-ref[open] > summary { color: #E8ECF4; }
+.cid-scope .cid-cast-reading-ref > .cid-cast-fn-d { margin: 0; font-size: 11.5px; line-height: 1.5; }
+.cid-scope .cid-cast-reading-ref cite { font-style: italic; }
 .cid-scope .cid-cast-feature .cid-cast-group-h { text-wrap: balance; }
 /* The heading carries its label beside it, wrapping under it when the box
    is narrow. The label keeps Greg's case rather than the heading's caps. */

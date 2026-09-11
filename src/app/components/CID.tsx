@@ -309,6 +309,10 @@ type CidCharacter = {
     goal: number;
     by: string;
     status: string;
+    /** The full Chicago note for the book, folded under the scorebox. The
+     *  site cites in Chicago, so the short copy above carries only the
+     *  title and a line of provenance and this carries the rest. */
+    ref: ReactNode;
   };
 };
 
@@ -338,13 +342,22 @@ const CAST = (base: string): CidCharacter[] => [
     // the count, and the goal. His words: "Ethel has read the book in full
     // 555 times. On track to reach goal of 555 / 999 times by September
     // 25, 2026." The series name and the author are set as the meta line.
+    // The series is Irwin Law's "Essentials of Canadian Law"; Greg's draft
+    // had "Essential Canadian Law", corrected here since a citation has to
+    // be right, and flagged to him.
     reading: {
       title: "Administrative Law",
-      meta: "Essential Canadian Law · David J. Mullan",
+      meta: "Essentials of Canadian Law · David J. Mullan",
       count: 555,
       goal: 999,
       by: "September 25, 2026",
       status: "On track",
+      ref: (
+        <>
+          David J. Mullan, <cite>Administrative Law</cite>, Essentials of Canadian Law
+          (Toronto: Irwin Law, 2001).
+        </>
+      ),
     },
     specs: [
       { label: "Ability", value: "Empathic analysis" },
@@ -767,6 +780,10 @@ function CharacterRoll({ base }: { base: string }) {
                                 <span className="cid-cast-reading-nums">{p.reading.count} / {p.reading.goal}</span>
                                 <span className="cid-cast-reading-by">by {p.reading.by}</span>
                               </p>
+                              <details className="cid-cast-fn-fold cid-cast-reading-ref">
+                                <summary className="cid-cast-fn-k">Reference</summary>
+                                <p className="cid-cast-fn-d">{p.reading.ref}</p>
+                              </details>
                             </div>
                           )}
                         </div>
