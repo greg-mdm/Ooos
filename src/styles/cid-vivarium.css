@@ -2193,6 +2193,47 @@
 /* Spec rows inside a box lose the top rule on the first row, since the
    heading already sits above them, and keep the rest. */
 .cid-scope .cid-cast-specs--feature > .cid-cast-spec:first-child { border-top: 0; padding-top: 2px; }
+
+/* ---- Currently Reading: a scorebox under the spec rows ------------------
+   Title and provenance, then the count of full reads as the big number,
+   then a bar toward the goal with the status, the fraction and the date on
+   one line under it. Gold is the score, on this page's palette: the
+   number and the bar's fill; the track is the plate's mauve. */
+.cid-scope .cid-cast-reading {
+  display: flex; flex-direction: column; gap: 3px;
+  padding-top: 12px; margin-top: 2px; border-top: 1px solid rgba(174,153,201,.13);
+}
+.cid-scope .cid-cast-reading-title {
+  margin: 4px 0 0; font-weight: 700; font-size: 14px; line-height: 1.3; color: #E8ECF4;
+}
+.cid-scope .cid-cast-reading-meta {
+  margin: 0; font-weight: 500; font-size: 12px; line-height: 1.4; color: #B9B0CC;
+}
+.cid-scope .cid-cast-score {
+  display: flex; align-items: baseline; gap: 8px; margin-top: 8px;
+}
+.cid-scope .cid-cast-score-n {
+  font-family: 'Lovelo', 'Impact', 'Arial Black', sans-serif;
+  font-weight: 900; font-size: clamp(30px, 2.6vw, 38px); line-height: 1;
+  letter-spacing: .02em; color: #F0C040; font-variant-numeric: tabular-nums;
+}
+.cid-scope .cid-cast-score-l {
+  font-weight: 600; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: #9A8BB8;
+}
+.cid-scope .cid-cast-bar {
+  position: relative; height: 6px; margin-top: 8px; border-radius: 3px;
+  background: rgba(174,153,201,.18); overflow: hidden;
+}
+.cid-scope .cid-cast-bar-fill {
+  position: absolute; inset: 0 auto 0 0; border-radius: 3px;
+  background: linear-gradient(90deg, rgba(240,192,64,.7) 0%, #F0C040 100%);
+}
+.cid-scope .cid-cast-reading-goal {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px;
+  margin: 6px 0 0; font-size: 12px; line-height: 1.4; color: #B9B0CC;
+}
+.cid-scope .cid-cast-reading-status { font-weight: 700; color: #E8ECF4; }
+.cid-scope .cid-cast-reading-nums { font-weight: 700; color: #F0C040; font-variant-numeric: tabular-nums; }
 .cid-scope .cid-cast-feature .cid-cast-group-h { text-wrap: balance; }
 /* The heading carries its label beside it, wrapping under it when the box
    is narrow. The label keeps Greg's case rather than the heading's caps. */

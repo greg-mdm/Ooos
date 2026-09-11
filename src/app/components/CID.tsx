@@ -299,6 +299,17 @@ type CidCharacter = {
     /** A closing line at the foot of the box. */
     foot?: string;
   }[];
+  /** What the character is reading, with a scorebox: the count of full
+   *  reads so far, the goal, and the date the goal is due. Sits under the
+   *  spec rows. The numbers are static until a feed supplies them. */
+  reading?: {
+    title: string;
+    meta: string;
+    count: number;
+    goal: number;
+    by: string;
+    status: string;
+  };
 };
 
 /* Reading order is the staging: Ethel at the left, Icarus at the right, and
@@ -323,6 +334,18 @@ const CAST = (base: string): CidCharacter[] => [
     // Greg's card copy, verbatim, including the middots in the sequence and
     // the curly apostrophe in the genealogy. ELIS is expanded in place.
     tagline: "Information flows through her.",
+    // Greg's reading scorebox, condensed to a title, a line of provenance,
+    // the count, and the goal. His words: "Ethel has read the book in full
+    // 555 times. On track to reach goal of 555 / 999 times by September
+    // 25, 2026." The series name and the author are set as the meta line.
+    reading: {
+      title: "Administrative Law",
+      meta: "Essential Canadian Law · David J. Mullan",
+      count: 555,
+      goal: 999,
+      by: "September 25, 2026",
+      status: "On track",
+    },
     specs: [
       { label: "Ability", value: "Empathic analysis" },
       { label: "Sex characteristics", value: "Intersex" },
@@ -720,6 +743,32 @@ function CharacterRoll({ base }: { base: string }) {
                               </dl>
                             </div>
                           ))}
+                          {p.reading && (
+                            <div className="cid-cast-reading">
+                              <p className="cid-cast-group-h">Currently Reading</p>
+                              <p className="cid-cast-reading-title">{p.reading.title}</p>
+                              <p className="cid-cast-reading-meta">{p.reading.meta}</p>
+                              <div className="cid-cast-score">
+                                <span className="cid-cast-score-n">{p.reading.count}</span>
+                                <span className="cid-cast-score-l">reads in full</span>
+                              </div>
+                              <div
+                                className="cid-cast-bar"
+                                role="progressbar"
+                                aria-label={`Reads toward the goal of ${p.reading.goal}`}
+                                aria-valuemin={0}
+                                aria-valuemax={p.reading.goal}
+                                aria-valuenow={p.reading.count}
+                              >
+                                <span className="cid-cast-bar-fill" style={{ width: `${Math.min(100, (p.reading.count / p.reading.goal) * 100)}%` }} />
+                              </div>
+                              <p className="cid-cast-reading-goal">
+                                <span className="cid-cast-reading-status">{p.reading.status}</span>
+                                <span className="cid-cast-reading-nums">{p.reading.count} / {p.reading.goal}</span>
+                                <span className="cid-cast-reading-by">by {p.reading.by}</span>
+                              </p>
+                            </div>
+                          )}
                         </div>
                         {p.functions && (
                           <div className="cid-cast-col">
