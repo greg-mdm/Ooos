@@ -31,73 +31,86 @@
   gap: clamp(16px, 3vw, 44px); max-width: 1240px; margin: 0 auto; }
 .ot-trio__side { color: var(--ot-dark-indigo); font-weight: 500;
   font-size: clamp(1rem, 1.55vw, 1.32rem); line-height: 1.5; }
-.ot-trio__left { text-align: left; align-self: center; padding-left: clamp(1rem, 2vw, 1.75rem); }
+.ot-trio__left { display: flex; justify-content: flex-end; align-items: center; align-self: center;
+  padding-right: clamp(0.75rem, 3vw, 3rem); }
 .ot-trio__right { text-align: right; align-self: center; }
-.ot-trio__orb { text-align: center; transform: translateY(-16px); }
+.ot-trio__orb { position: relative; text-align: center; transform: translateY(-16px); }
 
 /* Toronto / Canada neon sign — committed vector asset in /public */
 .ot-sign { width: 290px; margin: 0 10px 0 auto; transform: translateY(-3px);
   aspect-ratio: 2800 / 860; background-repeat: no-repeat; background-position: center;
   background-size: contain; background-image: url("/Ooo-St.svg.svg"); }
 
-.ot-pill { display: inline-flex; align-items: center; gap: 9px; background: var(--ot-bg);
-  border-radius: 999px; padding: 9px 20px; font-weight: 600;
-  font-size: clamp(1rem, 1.55vw, 1.32rem); line-height: 1.5; white-space: nowrap; }
-.ot-pill__ico { width: 20px; height: 20px; flex: 0 0 auto; display: block; }
-.ot-pill--welcome { border: 1.5px solid var(--ot-electric); color: var(--ot-electric);
-  box-shadow: 0 0 0 4px rgba(91,4,222,0.10), 0 8px 24px rgba(91,4,222,0.22); }
-
-@keyframes otWordRise {
-  from { opacity: 0; transform: translateY(0.5em); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-/* ===== Ding bell: neumorphic reveal control ===============================
-   Technique adapted from "Neumorphism buttons" by TOMAZKI (MIT),
-   https://codepen.io/Podgro/pen/NPqMOzR. The blurred ::before layer carries
-   the soft extruded shadows; ::after is the small LED dot that lights when
-   the bell is pressed. Colours re-keyed to the hero palette. */
-.ot-bell-row { display: flex; justify-content: center; margin: -34px auto 22px; position: relative; }
-.ot-bell { position: relative; width: 84px; height: 84px; border-radius: 50%; border: 0; padding: 0;
-  background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center;
-  -webkit-tap-highlight-color: transparent;
-  transition: transform 0.4s cubic-bezier(.47,1.64,.41,.8); }
-.ot-bell::before { content: ""; position: absolute; inset: 0; border-radius: 50%; z-index: 0;
+/* ===== Ding bell: neumorphic control beside the orb =========================
+   Neumorphic base adapted from "Neumorphism buttons" by TOMAZKI (MIT),
+   https://codepen.io/Podgro/pen/NPqMOzR, wearing the retired welcome pill's
+   1.5px electric border and purple glow. Outer shadows sit on the button so
+   they never paint over the border; the blurred ::before only carries the
+   soft inset surface; ::after is the LED dot that lights when pressed. */
+.ot-bell { position: relative; width: 84px; height: 84px; border-radius: 50%; padding: 0;
+  border: 1.5px solid var(--ot-electric); background: var(--ot-bg); cursor: pointer;
+  display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent;
+  box-shadow: -13px -13px 14px rgba(255,255,255,0.9), 9px 13px 20px rgba(26,0,51,0.16),
+    0 0 0 4px rgba(91,4,222,0.10), 0 8px 24px rgba(91,4,222,0.22);
+  transition: transform 0.4s cubic-bezier(.47,1.64,.41,.8), box-shadow 0.4s ease-in-out; }
+.ot-bell::before { content: ""; position: absolute; inset: 3px; border-radius: 50%; z-index: 0;
   background: var(--ot-bg); filter: blur(2.5px);
-  box-shadow: -13px -13px 14px 0 rgba(255,255,255,0.9), 7px 20px 30px -12px rgba(26,0,51,0.10) inset,
-    rgba(255,255,255,0.85) -20px -18px 36px -18px inset, 9px 13px 20px rgba(26,0,51,0.18);
+  box-shadow: 7px 20px 30px -12px rgba(26,0,51,0.10) inset, rgba(255,255,255,0.85) -20px -18px 36px -18px inset;
   transition: box-shadow 0.4s ease-in-out; }
-.ot-bell::after { content: ""; position: absolute; top: -18px; left: 50%; width: 7px; height: 7px;
+.ot-bell::after { content: ""; position: absolute; top: -21px; left: 50%; width: 7px; height: 7px;
   border-radius: 50%; transform: translateX(-50%); background: #cfd4d8;
   box-shadow: -4px -4px 3px -4px rgba(0,0,0,0.2) inset;
   transition: transform 0.4s cubic-bezier(.47,1.64,.41,.8), background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; }
 .ot-bell__icon { position: relative; z-index: 2; width: 36px; height: 36px; fill: none;
-  stroke: var(--ot-dark-indigo); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  stroke: var(--ot-electric); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
   pointer-events: none; transform-origin: 50% 14%;
   transition: transform 0.4s cubic-bezier(.47,1.64,.41,.8), stroke 0.3s ease-in-out, filter 0.3s ease-in-out; }
+.ot-bell:hover { box-shadow: -13px -13px 14px rgba(255,255,255,0.9), 9px 13px 20px rgba(26,0,51,0.16),
+    0 0 0 4px rgba(91,4,222,0.14), 0 10px 28px rgba(91,4,222,0.30); }
 .ot-bell:focus-visible { outline: 2px solid var(--ot-electric); outline-offset: 6px; }
-.ot-bell:active, .ot-bell.active { transform: translateY(2px); }
+.ot-bell:active, .ot-bell.active { transform: translateY(2px);
+  box-shadow: -6px -8px 14px rgba(255,255,255,0.7), 4px 6px 12px rgba(26,0,51,0.10),
+    0 0 0 4px rgba(91,4,222,0.16), 0 8px 28px rgba(91,4,222,0.34); }
 .ot-bell:active::before, .ot-bell.active::before {
-  box-shadow: -9px -13px 26px rgba(26,0,51,0.12), 9px 13px 20px 6px rgba(26,0,51,0.16) inset,
-    rgba(255,255,255,1) -20px -30px 20px -8px inset, 15px 20px 20px rgba(255,255,255,0.05); }
+  box-shadow: 9px 13px 20px 6px rgba(26,0,51,0.16) inset, rgba(255,255,255,1) -20px -30px 20px -8px inset; }
 .ot-bell:active::after, .ot-bell.active::after { transform: translate(-50%, -2px);
   background: var(--ot-electric); box-shadow: 0 0 8px rgba(91,4,222,0.7); }
 .ot-bell:active .ot-bell__icon, .ot-bell.active .ot-bell__icon { transform: scale(0.9);
-  stroke: var(--ot-electric); filter: drop-shadow(0 0 8px rgba(91,4,222,0.55)); }
+  stroke: var(--ot-portal); filter: drop-shadow(0 0 8px rgba(91,4,222,0.55)); }
 @keyframes otBellSwing {
   0%, 100% { rotate: 0deg; } 20% { rotate: 14deg; } 40% { rotate: -11deg; } 60% { rotate: 7deg; } 80% { rotate: -4deg; }
 }
 .ot-bell.active .ot-bell__icon { animation: otBellSwing 0.9s ease-in-out; }
+
+/* ===== Chat bubbles that pop out of the orb ==================================
+   Absolutely positioned against .ot-trio__orb: the gateway line pops from the
+   orb's upper-left, the welcome line from its upper-right (above the Toronto
+   sign). Same electric border + glow as the bell; a rotated square is the tail. */
+.ot-bubbles { position: absolute; inset: 0; pointer-events: none; }
+@keyframes otBubblePop {
+  0%   { opacity: 0; transform: scale(0.35); }
+  70%  { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.ot-bubble { position: absolute; bottom: calc(100% - 88px); width: max-content;
+  max-width: clamp(15rem, 34vw, 29rem); margin: 0; padding: 0.8rem 1.15rem; border-radius: 20px;
+  background: #fff; color: var(--ot-midnight); text-align: left; pointer-events: auto;
+  font-family: var(--ot-font-body); font-weight: 600; font-size: clamp(1rem, 1.45vw, 1.28rem); line-height: 1.35;
+  border: 1.5px solid var(--ot-electric);
+  box-shadow: 0 0 0 4px rgba(91,4,222,0.10), 0 8px 24px rgba(91,4,222,0.22);
+  animation: otBubblePop 0.55s cubic-bezier(.47,1.64,.41,.8) both; }
+.ot-bubble::before { content: ""; position: absolute; bottom: 14px; width: 16px; height: 16px;
+  background: #fff; border: 1.5px solid var(--ot-electric); transform: rotate(45deg); }
+.ot-bubble--left { right: calc(100% + 4px); border-bottom-right-radius: 6px; transform-origin: 100% 85%; }
+.ot-bubble--left::before { right: -9px; border-left: 0; border-bottom: 0; }
+.ot-bubble--right { left: calc(100% + 4px); border-bottom-left-radius: 6px; transform-origin: 0 85%; }
+.ot-bubble--right::before { left: -9px; border-right: 0; border-top: 0; }
+
 @media (prefers-reduced-motion: reduce) {
   .ot-bell, .ot-bell::before, .ot-bell::after, .ot-bell__icon { transition: none; }
   .ot-bell.active .ot-bell__icon { animation: none; }
+  .ot-bubble { animation: none; }
 }
-
-.ot-arrival { text-align: center; font-family: var(--ot-font-body); font-weight: 600;
-  font-size: clamp(1rem, 1.75vw, 1.5rem); line-height: 1.4; color: var(--ot-midnight);
-  max-width: 1100px; margin: 0 auto 26px; white-space: nowrap; }
-.ot-arrival .w { display: inline-block; opacity: 0; transform: translateY(0.5em);
-  animation: otWordRise 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-@media (prefers-reduced-motion: reduce) { .ot-arrival .w { animation: none; opacity: 1; transform: none; } }
 
 /* two-column: blurb on the left, maple leaf icon on the right. The card hugs
    its content (width: fit-content, centered) so the leaf sits next to the text
@@ -114,14 +127,21 @@
 .ot-bigbox__leaf { flex: 0 0 auto; align-self: center; width: clamp(72px, 8vw, 100px);
   height: auto; display: block; }
 
+/* below ~1000px there is no room beside the orb for a popped bubble, so the
+   bubbles stack under the orb instead (still popping, tails hidden) */
+@media (max-width: 1000px) {
+  .ot-bubbles { position: static; }
+  .ot-bubble { position: static; display: block; width: auto; max-width: none; margin: 14px auto 0;
+    text-align: center; transform-origin: 50% 0; }
+  .ot-bubble::before { display: none; }
+}
+
 @media (max-width: 720px) {
-  .ot-trio { grid-template-columns: 1fr; gap: 18px; }
+  .ot-trio { grid-template-columns: minmax(0, 1fr); gap: 18px; }
   .ot-trio__left, .ot-trio__right { text-align: center; padding-left: 0; }
-  .ot-trio__left { display: flex; justify-content: center; }
+  .ot-trio__left { justify-content: center; padding-right: 0; }
   .ot-trio__orb { order: -1; transform: none; }
   .ot-sign { margin: 0 auto; transform: none; }
-  .ot-bell-row { margin: 6px auto 14px; }
-  .ot-arrival { margin: 0 auto 18px; white-space: normal; }
   .ot-bigbox { flex-direction: column; align-items: flex-start; }
   .ot-bigbox__leaf { align-self: center; width: clamp(64px, 22vw, 96px); }
 }

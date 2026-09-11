@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
-import { Fragment, type ReactNode, useEffect, useRef, useState } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 import { PathwayModal } from "./PathwayModal";
 import { OooDivisions } from "./OooDivisions";
 import { WaterTanks } from "./WaterTanks";
 import "../../styles/hero-top.css";
 
-const ARRIVAL_WORDS =
-  "You have arrived at a gateway to Ontario's vibrant innovation ecosystem.".split(" ");
+const GATEWAY_LINE = "You have arrived at a gateway to Ontario's vibrant innovation ecosystem.";
+const WELCOME_LINE = "Everyone is welcome here!";
+const BELL_LABELS = ["Ring the bell", "Ring the bell again", "Ring the bell to clear the messages"];
 
 /* Soft two-partial "ding" synthesised in WebAudio (no external audio assets). */
 function ding() {
@@ -102,22 +103,33 @@ function OstaraParticleCanvas() {
 
 export function Home({ onSupport }: { onSupport: () => void }) {
   const [pathwayOpen, setPathwayOpen] = useState(false);
-  const [arrived, setArrived] = useState(false);
+  const [rings, setRings] = useState(0);
   return (
     <>
       <section className="ooos-top" aria-label="Welcome">
         <div className="ot-content">
           <div className="ot-trio">
+            {/* Ding bell: neumorphic control wearing the welcome pill's purple
+                border + glow. Ring 1 pops the gateway bubble out of the orb's
+                left side, ring 2 pops the welcome bubble out of the right side
+                (beside the Toronto sign), ring 3 clears both. */}
             <div className="ot-trio__side ot-trio__left">
-              <span className="ot-pill ot-pill--welcome">
-                <img
-                  className="ot-pill__ico"
-                  src={`${import.meta.env.BASE_URL}assets/Ooo-Global-Network-Electric.png?v=2`}
-                  alt=""
-                  aria-hidden="true"
-                />
-                Everyone is welcome here.
-              </span>
+              <button
+                type="button"
+                className={`ot-bell${rings > 0 ? " active" : ""}`}
+                aria-label={BELL_LABELS[rings]}
+                aria-controls="ot-bubbles"
+                onClick={() => {
+                  ding();
+                  setRings((r) => (r + 1) % 3);
+                }}
+              >
+                <svg className="ot-bell__icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M6.5 16.5V11a5.5 5.5 0 0 1 11 0v5.5l1.6 2H4.9z" />
+                  <path d="M10 20.5a2 2 0 0 0 4 0" />
+                  <path d="M12 3v2.5" />
+                </svg>
+              </button>
             </div>
             <div className="ot-trio__orb">
               <img
@@ -127,45 +139,19 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 width="300"
                 height="300"
               />
+              <div id="ot-bubbles" className="ot-bubbles" aria-live="polite">
+                {rings >= 1 && (
+                  <p className="ot-bubble ot-bubble--left">{GATEWAY_LINE}</p>
+                )}
+                {rings >= 2 && (
+                  <p className="ot-bubble ot-bubble--right">{WELCOME_LINE}</p>
+                )}
+              </div>
             </div>
             <div className="ot-trio__side ot-trio__right">
               <div className="ot-sign" role="img" aria-label="Toronto, Canada" />
             </div>
           </div>
-
-          {/* Ding bell: neumorphic reveal control. The arrival line stays hidden
-              until the visitor rings the bell (progressive disclosure). */}
-          <div className="ot-bell-row">
-            <button
-              type="button"
-              className={`ot-bell${arrived ? " active" : ""}`}
-              aria-label={arrived ? "Hide the welcome message" : "Ring the bell"}
-              aria-expanded={arrived}
-              aria-controls="ot-arrival"
-              onClick={() => {
-                if (!arrived) ding();
-                setArrived((a) => !a);
-              }}
-            >
-              <svg className="ot-bell__icon" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M6.5 16.5V11a5.5 5.5 0 0 1 11 0v5.5l1.6 2H4.9z" />
-                <path d="M10 20.5a2 2 0 0 0 4 0" />
-                <path d="M12 3v2.5" />
-              </svg>
-            </button>
-          </div>
-
-          {arrived && (
-            <p className="ot-arrival" id="ot-arrival">
-              {ARRIVAL_WORDS.map((word, i) => (
-                <Fragment key={i}>
-                  <span className="w" style={{ animationDelay: `${(0.15 + i * 0.08).toFixed(2)}s` }}>{word}</span>
-                  {i < ARRIVAL_WORDS.length - 1 ? " " : ""}
-                </Fragment>
-              ))}
-            </p>
-          )}
-
           <div className="ot-bigbox">
             <h1>
               <strong>Ooo Digital Media Studio</strong> designs interactive experiences and creative campaigns for founders, organizations, and communities.
