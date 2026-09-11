@@ -306,18 +306,21 @@ type CidCharacter = {
   /** What the character is reading, with a scorebox: the count of full
    *  reads so far, the goal, and the date the goal is due. Sits under the
    *  spec rows. The numbers are static until a feed supplies them. */
-  reading?: {
-    title: string;
-    meta: string;
-    count: number;
-    goal: number;
-    /** The line under the bar, verbatim from Greg, asterisk and all. */
-    note: string;
-    /** The full Chicago note for the book, folded under the scorebox. The
-     *  site cites in Chicago, so the short copy above carries only the
-     *  title and a line of provenance and this carries the rest. */
-    ref: ReactNode;
-  };
+  reading?: CidReading;
+};
+
+/** What a character reads, in two columns: the professional, what she is
+ *  reading now with its provenance, reading record and Chicago note; and
+ *  the personal, the reigning favourite and one quotation from it. Greg's
+ *  brief, 2026-09-11: keep the ethical training and the character distinct. */
+type CidReading = {
+  title: string;
+  meta: string;
+  count: number;
+  goal: number;
+  target: string;
+  ref: ReactNode;
+  favourite: { title: string; author: string; quote: string };
 };
 
 /* Reading order is the staging: Ethel at the left, Icarus at the right, and
@@ -349,18 +352,25 @@ const CAST = (base: string): CidCharacter[] => [
     // The series is Irwin Law's "Essentials of Canadian Law"; Greg's draft
     // had "Essential Canadian Law", corrected here since a citation has to
     // be right, and flagged to him.
+    // Greg's compact module, verbatim. The quotation keeps his spaced
+    // ellipses, bound with no-break spaces so a line never opens on a dot.
     reading: {
       title: "Administrative Law",
       meta: "Essentials of Canadian Law · David J. Mullan",
       count: 555,
       goal: 999,
-      note: "*On track to reach her knowledge absorption target by September 25, 2026",
+      target: "September 25, 2026",
       ref: (
         <>
           David J. Mullan, <cite>Administrative Law</cite>, Essentials of Canadian Law
           (Toronto: Irwin Law, 2001).
         </>
       ),
+      favourite: {
+        title: "The Bell Jar",
+        author: "Sylvia Plath",
+        quote: "“I felt very still . . . the way the eye of a tornado must feel, moving . . . along in the middle of the surrounding hullabaloo.”",
+      },
     },
     specs: [
       { label: "Ability", value: "Empathic analysis" },
@@ -484,6 +494,57 @@ const CAST = (base: string): CidCharacter[] => [
  *  General opens the roll from the middle, and naming him means reordering the
  *  cast again cannot quietly hand the spotlight to whoever lands first. */
 const OPENS_LIT = "sturgeon";
+
+/* The reading module: two balanced columns under the spec rows. Left, the
+ * professional: the current book, its provenance, a small Reference control
+ * inline beside the title that reveals the Chicago note, the reading record
+ * and a slim bar. Right, the personal: the reigning favourite and its
+ * quotation. The two are kept distinct on purpose; see CidReading. */
+function ReadingModule({ r }: { r: CidReading }) {
+  const [refOpen, setRefOpen] = useState(false);
+  const pct = Math.min(100, (r.count / r.goal) * 100);
+  return (
+    <div className="cid-cast-reading">
+      <div className="cid-cast-read">
+        <p className="cid-cast-group-h">Currently Reading</p>
+        <p className="cid-cast-reading-title">
+          <cite>{r.title}</cite>
+          <button
+            type="button"
+            className="cid-cast-ref-btn"
+            aria-expanded={refOpen}
+            onClick={() => setRefOpen((o) => !o)}
+          >
+            Reference
+          </button>
+        </p>
+        <p className="cid-cast-reading-meta">{r.meta}</p>
+        <p className="cid-cast-reading-refnote" hidden={!refOpen}>{r.ref}</p>
+        <p className="cid-cast-reading-record">
+          Reading record: <b>{r.count} of {r.goal}</b> · Target: {r.target}
+        </p>
+        <div
+          className="cid-cast-bar"
+          role="progressbar"
+          aria-label={`Reads toward the goal of ${r.goal}`}
+          aria-valuemin={0}
+          aria-valuemax={r.goal}
+          aria-valuenow={r.count}
+        >
+          <span className="cid-cast-bar-fill" style={{ width: `${pct}%` }} />
+        </div>
+      </div>
+      <div className="cid-cast-read">
+        <p className="cid-cast-group-h">Reigning Favourite</p>
+        <p className="cid-cast-reading-title">
+          <cite>{r.favourite.title}</cite>
+          <span className="cid-cast-reading-author">· {r.favourite.author}</span>
+        </p>
+        <blockquote className="cid-cast-reading-quote">{r.favourite.quote}</blockquote>
+      </div>
+    </div>
+  );
+}
 
 function CharacterRoll({ base }: { base: string }) {
   const cast = CAST(base);
@@ -764,35 +825,7 @@ function CharacterRoll({ base }: { base: string }) {
                               </dl>
                             </div>
                           ))}
-                          {p.reading && (
-                            <div className="cid-cast-reading">
-                              <p className="cid-cast-group-h">Currently Reading</p>
-                              <p className="cid-cast-reading-title">{p.reading.title}</p>
-                              <p className="cid-cast-reading-meta">{p.reading.meta}</p>
-                              <div className="cid-cast-score">
-                                <span className="cid-cast-score-l">Read in full:</span>
-                                <span className="cid-cast-score-n">{p.reading.count}</span>
-                              </div>
-                              <div
-                                className="cid-cast-bar"
-                                role="progressbar"
-                                aria-label={`Reads toward the goal of ${p.reading.goal}`}
-                                aria-valuemin={0}
-                                aria-valuemax={p.reading.goal}
-                                aria-valuenow={p.reading.count}
-                              >
-                                <span className="cid-cast-bar-fill" style={{ width: `${Math.min(100, (p.reading.count / p.reading.goal) * 100)}%` }} />
-                              </div>
-                              <p className="cid-cast-reading-goal">
-                                <span className="cid-cast-reading-note">{p.reading.note}</span>
-                                <span className="cid-cast-reading-nums">{p.reading.count} / {p.reading.goal}</span>
-                              </p>
-                              <details className="cid-cast-fn-fold cid-cast-reading-ref">
-                                <summary className="cid-cast-fn-k">Reference</summary>
-                                <p className="cid-cast-fn-d">{p.reading.ref}</p>
-                              </details>
-                            </div>
-                          )}
+                          {p.reading && <ReadingModule r={p.reading} />}
                         </div>
                         {p.functions && (
                           <div className="cid-cast-col">

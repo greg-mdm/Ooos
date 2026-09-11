@@ -2221,51 +2221,60 @@
    heading already sits above them, and keep the rest. */
 .cid-scope .cid-cast-specs--feature > .cid-cast-spec:first-child { border-top: 0; padding-top: 2px; }
 
-/* ---- Currently Reading: a scorebox under the spec rows ------------------
-   Title and provenance, then the count of full reads as the big number,
-   then a bar toward the goal with the status, the fraction and the date on
-   one line under it. Gold is the score, on this page's palette: the
-   number and the bar's fill; the track is the plate's mauve. */
+/* ---- Reading: two balanced columns under the spec rows ------------------
+   Left, the professional: the current book, its provenance, a Reference
+   control inline beside the title, the reading record and a slim bar in
+   Gold. Right, the personal: the reigning favourite and its quotation.
+   One column under 1000px, on the sheet's own break. */
 .cid-scope .cid-cast-reading {
-  display: flex; flex-direction: column; gap: 3px;
+  display: grid; grid-template-columns: minmax(0,1fr); gap: 14px clamp(16px,2vw,28px);
   padding-top: 12px; margin-top: 2px; border-top: 1px solid rgba(174,153,201,.13);
 }
+@media (min-width: 1000px) {
+  .cid-scope .cid-cast-reading { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
+}
+.cid-scope .cid-cast-read { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
 .cid-scope .cid-cast-reading-title {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px;
   margin: 4px 0 0; font-weight: 700; font-size: 14px; line-height: 1.3; color: #E8ECF4;
 }
+.cid-scope .cid-cast-reading-title cite { font-style: italic; }
+.cid-scope .cid-cast-reading-author { font-weight: 500; font-size: 12.5px; color: #B9B0CC; }
 .cid-scope .cid-cast-reading-meta {
   margin: 0; font-weight: 500; font-size: 12px; line-height: 1.4; color: #B9B0CC;
 }
-.cid-scope .cid-cast-score {
-  display: flex; align-items: baseline; gap: 10px; margin-top: 8px;
+/* The Reference control: a small pill beside the title, the same shape as
+   the site's other quiet tags, that reveals the Chicago note under the
+   provenance line. */
+.cid-scope .cid-cast-ref-btn {
+  appearance: none; -webkit-appearance: none; cursor: pointer;
+  padding: 2px 8px; border-radius: 20px;
+  border: 1px solid rgba(174,153,201,.32); background: rgba(174,153,201,.10);
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 10px;
+  line-height: 1.2; letter-spacing: .12em; text-transform: uppercase; color: #B9B0CC;
+  transition: color .18s ease, border-color .18s ease;
 }
-/* Plain text, per Greg: the count at the sheet's own size, in Gold, and
-   the label in the meta line's voice. No display number. */
-.cid-scope .cid-cast-score-n {
-  font-weight: 700; font-size: 13.5px; line-height: 1.4; color: #F0C040; font-variant-numeric: tabular-nums;
-}
-.cid-scope .cid-cast-score-l { font-weight: 500; font-size: 12.5px; line-height: 1.4; color: #B9B0CC; }
+.cid-scope .cid-cast-ref-btn:hover,
+.cid-scope .cid-cast-ref-btn[aria-expanded="true"] { color: #E8ECF4; border-color: rgba(232,236,244,.5); }
+.cid-scope .cid-cast-ref-btn:focus-visible { outline: 2px solid #E8ECF4; outline-offset: 2px; }
+.cid-scope .cid-cast-reading-refnote { margin: 2px 0 0; font-size: 11.5px; line-height: 1.5; color: #B9B0CC; }
+.cid-scope .cid-cast-reading-refnote cite { font-style: italic; }
+.cid-scope .cid-cast-reading-record { margin: 6px 0 0; font-size: 12px; line-height: 1.4; color: #B9B0CC; }
+.cid-scope .cid-cast-reading-record b { font-weight: 700; color: #F0C040; font-variant-numeric: tabular-nums; }
 .cid-scope .cid-cast-bar {
-  position: relative; height: 6px; margin-top: 8px; border-radius: 3px;
+  position: relative; height: 6px; margin-top: 6px; border-radius: 3px;
   background: rgba(174,153,201,.18); overflow: hidden;
 }
 .cid-scope .cid-cast-bar-fill {
   position: absolute; inset: 0 auto 0 0; border-radius: 3px;
   background: linear-gradient(90deg, rgba(240,192,64,.7) 0%, #F0C040 100%);
 }
-.cid-scope .cid-cast-reading-goal {
-  display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px;
-  margin: 6px 0 0; font-size: 12px; line-height: 1.4; color: #B9B0CC;
+/* The quotation, verbatim, on a hairline of the plate's mauve. */
+.cid-scope .cid-cast-reading-quote {
+  margin: 6px 0 0; padding: 0 0 0 10px; border-left: 2px solid rgba(174,153,201,.45);
+  font-style: italic; font-size: 12.5px; line-height: 1.5; color: rgba(232,236,244,.9);
+  max-width: 48ch; text-wrap: pretty;
 }
-.cid-scope .cid-cast-reading-note { flex: 1 1 260px; font-style: italic; color: rgba(232,236,244,.82); }
-.cid-scope .cid-cast-reading-nums { flex: 0 0 auto; margin-left: auto; font-weight: 700; color: #F0C040; font-variant-numeric: tabular-nums; }
-/* The Chicago note, folded under the scorebox in the same fold the
-   functions use, its summary a shade quieter than theirs. */
-.cid-scope .cid-cast-reading-ref { margin-top: 6px; border-top: 1px solid rgba(174,153,201,.13); }
-.cid-scope .cid-cast-reading-ref > summary { font-size: 11.5px; color: #B9B0CC; padding: 7px 0; }
-.cid-scope .cid-cast-reading-ref[open] > summary { color: #E8ECF4; }
-.cid-scope .cid-cast-reading-ref > .cid-cast-fn-d { margin: 0; font-size: 11.5px; line-height: 1.5; }
-.cid-scope .cid-cast-reading-ref cite { font-style: italic; }
 .cid-scope .cid-cast-feature .cid-cast-group-h { text-wrap: balance; }
 /* The heading carries its label beside it, wrapping under it when the box
    is narrow. The label keeps Greg's case rather than the heading's caps. */
