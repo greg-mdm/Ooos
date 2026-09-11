@@ -51,9 +51,50 @@
   from { opacity: 0; transform: translateY(0.5em); }
   to   { opacity: 1; transform: translateY(0); }
 }
+/* ===== Ding bell: neumorphic reveal control ===============================
+   Technique adapted from "Neumorphism buttons" by TOMAZKI (MIT),
+   https://codepen.io/Podgro/pen/NPqMOzR. The blurred ::before layer carries
+   the soft extruded shadows; ::after is the small LED dot that lights when
+   the bell is pressed. Colours re-keyed to the hero palette. */
+.ot-bell-row { display: flex; justify-content: center; margin: -34px auto 22px; position: relative; }
+.ot-bell { position: relative; width: 84px; height: 84px; border-radius: 50%; border: 0; padding: 0;
+  background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.4s cubic-bezier(.47,1.64,.41,.8); }
+.ot-bell::before { content: ""; position: absolute; inset: 0; border-radius: 50%; z-index: 0;
+  background: var(--ot-bg); filter: blur(2.5px);
+  box-shadow: -13px -13px 14px 0 rgba(255,255,255,0.9), 7px 20px 30px -12px rgba(26,0,51,0.10) inset,
+    rgba(255,255,255,0.85) -20px -18px 36px -18px inset, 9px 13px 20px rgba(26,0,51,0.18);
+  transition: box-shadow 0.4s ease-in-out; }
+.ot-bell::after { content: ""; position: absolute; top: -18px; left: 50%; width: 7px; height: 7px;
+  border-radius: 50%; transform: translateX(-50%); background: #cfd4d8;
+  box-shadow: -4px -4px 3px -4px rgba(0,0,0,0.2) inset;
+  transition: transform 0.4s cubic-bezier(.47,1.64,.41,.8), background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; }
+.ot-bell__icon { position: relative; z-index: 2; width: 36px; height: 36px; fill: none;
+  stroke: var(--ot-dark-indigo); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  pointer-events: none; transform-origin: 50% 14%;
+  transition: transform 0.4s cubic-bezier(.47,1.64,.41,.8), stroke 0.3s ease-in-out, filter 0.3s ease-in-out; }
+.ot-bell:focus-visible { outline: 2px solid var(--ot-electric); outline-offset: 6px; }
+.ot-bell:active, .ot-bell.active { transform: translateY(2px); }
+.ot-bell:active::before, .ot-bell.active::before {
+  box-shadow: -9px -13px 26px rgba(26,0,51,0.12), 9px 13px 20px 6px rgba(26,0,51,0.16) inset,
+    rgba(255,255,255,1) -20px -30px 20px -8px inset, 15px 20px 20px rgba(255,255,255,0.05); }
+.ot-bell:active::after, .ot-bell.active::after { transform: translate(-50%, -2px);
+  background: var(--ot-electric); box-shadow: 0 0 8px rgba(91,4,222,0.7); }
+.ot-bell:active .ot-bell__icon, .ot-bell.active .ot-bell__icon { transform: scale(0.9);
+  stroke: var(--ot-electric); filter: drop-shadow(0 0 8px rgba(91,4,222,0.55)); }
+@keyframes otBellSwing {
+  0%, 100% { rotate: 0deg; } 20% { rotate: 14deg; } 40% { rotate: -11deg; } 60% { rotate: 7deg; } 80% { rotate: -4deg; }
+}
+.ot-bell.active .ot-bell__icon { animation: otBellSwing 0.9s ease-in-out; }
+@media (prefers-reduced-motion: reduce) {
+  .ot-bell, .ot-bell::before, .ot-bell::after, .ot-bell__icon { transition: none; }
+  .ot-bell.active .ot-bell__icon { animation: none; }
+}
+
 .ot-arrival { text-align: center; font-family: var(--ot-font-body); font-weight: 600;
   font-size: clamp(1rem, 1.75vw, 1.5rem); line-height: 1.4; color: var(--ot-midnight);
-  max-width: 1100px; margin: -52px auto 28px; position: relative; left: -28px; white-space: nowrap; }
+  max-width: 1100px; margin: 0 auto 26px; white-space: nowrap; }
 .ot-arrival .w { display: inline-block; opacity: 0; transform: translateY(0.5em);
   animation: otWordRise 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 @media (prefers-reduced-motion: reduce) { .ot-arrival .w { animation: none; opacity: 1; transform: none; } }
@@ -63,9 +104,9 @@
    instead of being pushed to a far edge. Sizes kept in scale with the page. */
 .ot-bigbox { display: flex; align-items: center; gap: clamp(1rem, 2vw, 1.5rem);
   width: fit-content; max-width: 100%; box-sizing: border-box;
-  background: rgba(255,255,255,0.75); border: 1px solid rgba(91,4,222,0.12); border-radius: 18px;
-  padding: clamp(1.1rem, 2.2vw, 1.6rem); margin: 0 auto 18px;
-  box-shadow: 0 14px 44px rgba(91,4,222,0.14); }
+  /* borderless: the blurb sits directly on the hero ground (card chrome removed) */
+  background: transparent; border: 0; border-radius: 0; box-shadow: none;
+  padding: clamp(1.1rem, 2.2vw, 1.6rem); margin: 0 auto 18px; }
 .ot-bigbox h1 { flex: 0 1 auto; max-width: 56rem; font-family: 'Playfair Display', Georgia, serif; font-weight: 600;
   font-size: clamp(1.2rem, 1.95vw, 1.65rem); line-height: 1.25; letter-spacing: -0.012em;
   color: var(--ot-ink); margin: 0; text-align: left; text-wrap: balance; }
@@ -79,7 +120,8 @@
   .ot-trio__left { display: flex; justify-content: center; }
   .ot-trio__orb { order: -1; transform: none; }
   .ot-sign { margin: 0 auto; transform: none; }
-  .ot-arrival { position: static; left: auto; margin: 16px auto 18px; white-space: normal; }
+  .ot-bell-row { margin: 6px auto 14px; }
+  .ot-arrival { margin: 0 auto 18px; white-space: normal; }
   .ot-bigbox { flex-direction: column; align-items: flex-start; }
   .ot-bigbox__leaf { align-self: center; width: clamp(64px, 22vw, 96px); }
 }

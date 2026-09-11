@@ -8,6 +8,34 @@ import "../../styles/hero-top.css";
 const ARRIVAL_WORDS =
   "You have arrived at a gateway to Ontario's vibrant innovation ecosystem.".split(" ");
 
+/* Soft two-partial "ding" synthesised in WebAudio (no external audio assets). */
+function ding() {
+  try {
+    const AC = window.AudioContext || (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+    if (!AC) return;
+    const ctx = new AC();
+    const t = ctx.currentTime;
+    const master = ctx.createGain();
+    master.gain.setValueAtTime(0.0001, t);
+    master.gain.exponentialRampToValueAtTime(0.07, t + 0.012);
+    master.gain.exponentialRampToValueAtTime(0.0001, t + 1.4);
+    master.connect(ctx.destination);
+    [[1568, 1], [2349, 0.35]].forEach(([freq, level]) => {
+      const osc = ctx.createOscillator();
+      osc.type = "sine";
+      osc.frequency.value = freq;
+      const g = ctx.createGain();
+      g.gain.value = level;
+      osc.connect(g).connect(master);
+      osc.start(t);
+      osc.stop(t + 1.5);
+    });
+    window.setTimeout(() => { void ctx.close(); }, 1700);
+  } catch {
+    /* audio is a garnish; stay silent if the browser refuses */
+  }
+}
+
 const PALETTE = ['#f0c040','#00d4aa','#ff4444','#00e676','#6C01F4','#4488ff'];
 
 function OstaraParticleCanvas() {
@@ -74,6 +102,7 @@ function OstaraParticleCanvas() {
 
 export function Home({ onSupport }: { onSupport: () => void }) {
   const [pathwayOpen, setPathwayOpen] = useState(false);
+  const [arrived, setArrived] = useState(false);
   return (
     <>
       <section className="ooos-top" aria-label="Welcome">
@@ -104,14 +133,38 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             </div>
           </div>
 
-          <p className="ot-arrival">
-            {ARRIVAL_WORDS.map((word, i) => (
-              <Fragment key={i}>
-                <span className="w" style={{ animationDelay: `${(0.6 + i * 0.1).toFixed(2)}s` }}>{word}</span>
-                {i < ARRIVAL_WORDS.length - 1 ? " " : ""}
-              </Fragment>
-            ))}
-          </p>
+          {/* Ding bell: neumorphic reveal control. The arrival line stays hidden
+              until the visitor rings the bell (progressive disclosure). */}
+          <div className="ot-bell-row">
+            <button
+              type="button"
+              className={`ot-bell${arrived ? " active" : ""}`}
+              aria-label={arrived ? "Hide the welcome message" : "Ring the bell"}
+              aria-expanded={arrived}
+              aria-controls="ot-arrival"
+              onClick={() => {
+                if (!arrived) ding();
+                setArrived((a) => !a);
+              }}
+            >
+              <svg className="ot-bell__icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6.5 16.5V11a5.5 5.5 0 0 1 11 0v5.5l1.6 2H4.9z" />
+                <path d="M10 20.5a2 2 0 0 0 4 0" />
+                <path d="M12 3v2.5" />
+              </svg>
+            </button>
+          </div>
+
+          {arrived && (
+            <p className="ot-arrival" id="ot-arrival">
+              {ARRIVAL_WORDS.map((word, i) => (
+                <Fragment key={i}>
+                  <span className="w" style={{ animationDelay: `${(0.15 + i * 0.08).toFixed(2)}s` }}>{word}</span>
+                  {i < ARRIVAL_WORDS.length - 1 ? " " : ""}
+                </Fragment>
+              ))}
+            </p>
+          )}
 
           <div className="ot-bigbox">
             <h1>
