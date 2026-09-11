@@ -289,8 +289,12 @@ type CidCharacter = {
     tag?: { text: string; shape: "pill" | "square" };
     /** The accent tone marks a different category from the mauve default. */
     tone?: "accent";
-    text?: string;
+    /** A section heading over the rows, e.g. "Generative Operations". */
+    rowsHeading?: string;
     rows?: CidSpec[];
+    text?: string;
+    /** Labelled lines after the paragraph, e.g. how the signals are read. */
+    notes?: { label: string; desc: string }[];
     /** Labelled one-liners, e.g. the General's squadrons, set as four
      *  barbels in a row: a whisker down the left of each, the label at
      *  the top, the line hanging under it. */
@@ -424,25 +428,28 @@ const CAST = (base: string): CidCharacter[] => [
     features: [
       {
         heading: "High North Vanguard",
-        tag: { text: "Marine Prototype", shape: "square" },
+        tag: { text: "Marine Machine-Learning Prototype", shape: "square" },
         tone: "accent",
-        // Greg's card copy, verbatim. Character names are canon and spelled
-        // as the nameplate spells them, whatever a draft in chat says.
+        // Greg's third draft of the card, verbatim, in his order: the
+        // operations, then the squadrons, then the closing line. His draft
+        // no longer spells BARBEL out; the expansion he gave earlier rides
+        // on the squadrons heading as a hover title so it is not lost.
+        rowsHeading: "Generative Operations",
         rows: [
           { label: "PLOP", value: "Patrol Loop for Ocean Protection" },
-          { label: "BARBEL", value: "Benthic Analysis Replicants: Biomonitoring Environmental Liaison" },
         ],
-        text: "The Sturgeon General deploys four pearlescent barbels. Each pod incubates a squadron assigned to a distinct field of observation. BARBEL systematically links the benthic environment and CID Headquarters.",
-        // Greg's second draft, verbatim, save one stray "Squadron:" after
-        // "Lives:" that the other three lines do not carry; flagged to him.
+        text: "The Sturgeon General deploys four pearlescent pods. Each incubates a squadron designed for a distinct field of observation. BARBEL links CID Headquarters to benthic environments in real time. Each squad encodes its findings in microscopic bits, which stream into the General’s corresponding sensors.",
+        notes: [
+          { label: "Pattern Recognition", desc: "Predefined if/then rules classify all signals until the patrol loop mission is complete." },
+        ],
         itemsHeading: "BARBEL Squadrons",
         items: [
-          { label: "Lives", desc: "Track living benthic organisms, biodiversity, and biological health." },
-          { label: "Waters", desc: "Read temperature, oxygen, salinity, turbidity, and geothermal chemical changes." },
-          { label: "Bottoms", desc: "Measure bathymetry; map depth, seabed structure, sediment, and mineral deposits." },
-          { label: "Flows", desc: "Follow currents, ice movement, track vessels, subsea infrastructure, and environmental change." },
+          { label: "AQUAE · Lead Integrator", desc: "The smartest squad measures temperature, oxygen, salinity, turbidity, and geothermal chemistry, integrating signals from the swarm to examine how these conditions interact." },
+          { label: "LIVES", desc: "Tracks benthic organisms, biodiversity, and biological health." },
+          { label: "BOTTOMS", desc: "Measures bathymetry and maps depth, seabed structure, sediment, and mineral deposits." },
+          { label: "FLOWS", desc: "Follows currents and ice movement while tracking vessels, subsea infrastructure, and environmental change." },
         ],
-        foot: "PLOP deploys. BARBEL listens. The Sturgeon General maps in real-time.",
+        foot: "PLOP deploys. BARBEL listens. The Sturgeon General maps in real time.",
       },
     ],
   },
@@ -817,6 +824,7 @@ function CharacterRoll({ base }: { base: string }) {
                               {f.heading}
                               {f.tag && <span className={`cid-cast-tag cid-cast-tag--${f.tag.shape}`}>{f.tag.text}</span>}
                             </p>
+                            {f.rowsHeading && <p className="cid-cast-group-h cid-cast-items-h">{f.rowsHeading}</p>}
                             {f.rows && f.rows.length > 0 && (
                               <dl className="cid-cast-specs cid-cast-specs--feature">
                                 {f.rows.map((s) => (
@@ -828,7 +836,23 @@ function CharacterRoll({ base }: { base: string }) {
                               </dl>
                             )}
                             {f.text && <p className="cid-cast-feature-t">{f.text}</p>}
-                            {f.itemsHeading && <p className="cid-cast-group-h cid-cast-items-h">{f.itemsHeading}</p>}
+                            {f.notes && f.notes.length > 0 && (
+                              <ul className="cid-cast-fns cid-cast-fns--notes">
+                                {f.notes.map((it) => (
+                                  <li className="cid-cast-fn" key={it.label}>
+                                    <span className="cid-cast-fn-k">{it.label}</span>
+                                    <span className="cid-cast-fn-d">{it.desc}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                            {f.itemsHeading && (
+                              <p className="cid-cast-group-h cid-cast-items-h">
+                                {f.itemsHeading === "BARBEL Squadrons"
+                                  ? <><abbr title="Benthic Analysis Replicants: Biomonitoring Environmental Liaison">BARBEL</abbr> Squadrons</>
+                                  : f.itemsHeading}
+                              </p>
+                            )}
                             {f.items && f.items.length > 0 && (
                               <ul className="cid-cast-fns cid-cast-fns--barbels">
                                 {f.items.map((it) => (
