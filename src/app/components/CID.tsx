@@ -311,8 +311,8 @@ type CidCharacter = {
     meta: string;
     count: number;
     goal: number;
-    by: string;
-    status: string;
+    /** The line under the bar, verbatim from Greg, asterisk and all. */
+    note: string;
     /** The full Chicago note for the book, folded under the scorebox. The
      *  site cites in Chicago, so the short copy above carries only the
      *  title and a line of provenance and this carries the rest. */
@@ -354,8 +354,7 @@ const CAST = (base: string): CidCharacter[] => [
       meta: "Essentials of Canadian Law · David J. Mullan",
       count: 555,
       goal: 999,
-      by: "September 25, 2026",
-      status: "On track",
+      note: "*On track to reach her knowledge absorption target by September 25, 2026",
       ref: (
         <>
           David J. Mullan, <cite>Administrative Law</cite>, Essentials of Canadian Law
@@ -771,8 +770,8 @@ function CharacterRoll({ base }: { base: string }) {
                               <p className="cid-cast-reading-title">{p.reading.title}</p>
                               <p className="cid-cast-reading-meta">{p.reading.meta}</p>
                               <div className="cid-cast-score">
+                                <span className="cid-cast-score-l">Read in full:</span>
                                 <span className="cid-cast-score-n">{p.reading.count}</span>
-                                <span className="cid-cast-score-l">reads in full</span>
                               </div>
                               <div
                                 className="cid-cast-bar"
@@ -785,9 +784,8 @@ function CharacterRoll({ base }: { base: string }) {
                                 <span className="cid-cast-bar-fill" style={{ width: `${Math.min(100, (p.reading.count / p.reading.goal) * 100)}%` }} />
                               </div>
                               <p className="cid-cast-reading-goal">
-                                <span className="cid-cast-reading-status">{p.reading.status}</span>
+                                <span className="cid-cast-reading-note">{p.reading.note}</span>
                                 <span className="cid-cast-reading-nums">{p.reading.count} / {p.reading.goal}</span>
-                                <span className="cid-cast-reading-by">by {p.reading.by}</span>
                               </p>
                               <details className="cid-cast-fn-fold cid-cast-reading-ref">
                                 <summary className="cid-cast-fn-k">Reference</summary>

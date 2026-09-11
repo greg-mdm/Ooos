@@ -1998,7 +1998,7 @@
 .cid-scope .cid-cast-plate {
   flex: 0 0 auto;
   display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
-  padding: 12px clamp(10px,1.4vw,18px);
+  padding: 12px clamp(18px,2.4vw,40px);
   border-top: 1px solid rgba(174,153,201,.18);
   text-align: left;
 }
@@ -2036,7 +2036,7 @@
 .cid-scope .cid-cast-detail {
   flex: 0 0 auto;
   display: flex; flex-direction: column; gap: 12px;
-  padding: 2px clamp(10px,1.4vw,18px) 16px;
+  padding: 2px clamp(18px,2.4vw,40px) 20px;
   font-family: 'Montserrat', system-ui, sans-serif;
   text-align: left;
 }
@@ -2237,16 +2237,14 @@
   margin: 0; font-weight: 500; font-size: 12px; line-height: 1.4; color: #B9B0CC;
 }
 .cid-scope .cid-cast-score {
-  display: flex; align-items: baseline; gap: 8px; margin-top: 8px;
+  display: flex; align-items: baseline; gap: 10px; margin-top: 8px;
 }
+/* Plain text, per Greg: the count at the sheet's own size, in Gold, and
+   the label in the meta line's voice. No display number. */
 .cid-scope .cid-cast-score-n {
-  font-family: 'Lovelo', 'Impact', 'Arial Black', sans-serif;
-  font-weight: 900; font-size: clamp(30px, 2.6vw, 38px); line-height: 1;
-  letter-spacing: .02em; color: #F0C040; font-variant-numeric: tabular-nums;
+  font-weight: 700; font-size: 13.5px; line-height: 1.4; color: #F0C040; font-variant-numeric: tabular-nums;
 }
-.cid-scope .cid-cast-score-l {
-  font-weight: 600; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: #9A8BB8;
-}
+.cid-scope .cid-cast-score-l { font-weight: 500; font-size: 12.5px; line-height: 1.4; color: #B9B0CC; }
 .cid-scope .cid-cast-bar {
   position: relative; height: 6px; margin-top: 8px; border-radius: 3px;
   background: rgba(174,153,201,.18); overflow: hidden;
@@ -2259,8 +2257,8 @@
   display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px;
   margin: 6px 0 0; font-size: 12px; line-height: 1.4; color: #B9B0CC;
 }
-.cid-scope .cid-cast-reading-status { font-weight: 700; color: #E8ECF4; }
-.cid-scope .cid-cast-reading-nums { font-weight: 700; color: #F0C040; font-variant-numeric: tabular-nums; }
+.cid-scope .cid-cast-reading-note { flex: 1 1 260px; font-style: italic; color: rgba(232,236,244,.82); }
+.cid-scope .cid-cast-reading-nums { flex: 0 0 auto; margin-left: auto; font-weight: 700; color: #F0C040; font-variant-numeric: tabular-nums; }
 /* The Chicago note, folded under the scorebox in the same fold the
    functions use, its summary a shade quieter than theirs. */
 .cid-scope .cid-cast-reading-ref { margin-top: 6px; border-top: 1px solid rgba(174,153,201,.13); }
@@ -2391,7 +2389,7 @@
   .cid-scope .cid-cast-frame.is-on.is-side .cid-cast-full { top: 10px; bottom: auto; }
   .cid-scope .cid-cast-frame.is-on.is-side .cid-cast-plate {
     grid-column: 1; grid-row: 2; align-self: end; position: relative; z-index: 2;
-    border: 0; padding: 44px clamp(14px,1.6vw,22px) 18px;
+    border: 0; padding: 44px clamp(18px,2.4vw,40px) 20px;
     background: linear-gradient(180deg, rgba(4,3,14,0) 0%, rgba(4,3,14,.72) 38%, rgba(4,3,14,.94) 100%);
   }
   .cid-scope .cid-cast-frame.is-on.is-side .cid-cast-tagline {
@@ -2400,7 +2398,7 @@
   .cid-scope .cid-cast-frame.is-on.is-side .cid-cast-detail {
     grid-column: 2; grid-row: 1 / span 2; align-self: start;
     border-left: 1px solid rgba(174,153,201,.16);
-    padding: 16px clamp(14px,1.6vw,22px) 18px;
+    padding: 18px clamp(18px,2vw,32px) 20px;
   }
   .cid-scope .cid-cast-frame.is-on.is-side .cid-cast-cols--two,
   .cid-scope .cid-cast-frame.is-on.is-side .cid-cast-features--two {
