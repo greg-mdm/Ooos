@@ -5,8 +5,9 @@ import { OooDivisions } from "./OooDivisions";
 import { WaterTanks } from "./WaterTanks";
 import "../../styles/hero-top.css";
 
-const GATEWAY_LINE = "You have arrived at a gateway to Ontario's vibrant innovation ecosystem.";
-const WELCOME_LINE = "Everyone is welcome here!";
+const GATEWAY_LINE = "You have arrived at a gateway to digital innovation!";
+const WELCOME_LINE = "Welcome to our vibrant innovation ecosystem!";
+const WELCOME_PLACE = "Toronto, Ontario, Canada";
 const BELL_LABELS = ["Ring the bell", "Ring the bell again", "Ring the bell to clear the messages"];
 
 /* Soft two-partial "ding" synthesised in WebAudio (no external audio assets). */
@@ -144,7 +145,9 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                   <p className="ot-bubble ot-bubble--left">{GATEWAY_LINE}</p>
                 )}
                 {rings >= 2 && (
-                  <p className="ot-bubble ot-bubble--right">{WELCOME_LINE}</p>
+                  <p className="ot-bubble ot-bubble--right">
+                    {WELCOME_LINE} <em className="ot-bubble__place">{WELCOME_PLACE}</em>
+                  </p>
                 )}
               </div>
             </div>

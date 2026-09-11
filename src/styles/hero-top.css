@@ -108,6 +108,8 @@
 .ot-bubble--left::before { right: -9px; border-left: 0; border-bottom: 0; }
 .ot-bubble--right { left: calc(100% + 4px); border-bottom-left-radius: 6px; transform-origin: 0 85%; }
 .ot-bubble--right::before { left: -9px; border-right: 0; border-top: 0; }
+.ot-bubble__place { display: block; margin-top: 2px; font-style: italic; font-weight: 500;
+  color: var(--ot-dark-indigo); }
 
 @media (prefers-reduced-motion: reduce) {
   .ot-bell, .ot-bell::before, .ot-bell::after, .ot-bell__icon { transition: none; }
