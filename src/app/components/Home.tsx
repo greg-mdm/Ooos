@@ -112,8 +112,9 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           <div className="ot-trio">
             {/* Ding bell: neumorphic control wearing the welcome pill's purple
                 border + glow. Ring 1 pops the gateway bubble out of the orb's
-                left side, ring 2 pops the welcome bubble out of the right side
-                (beside the Toronto sign), ring 3 clears both. */}
+                left side, ring 2 pops the welcome bubble and the pinned
+                location out of the right side (beside the Toronto sign),
+                ring 3 clears both. */}
             <div className="ot-trio__side ot-trio__left">
               <button
                 type="button"
@@ -142,12 +143,21 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               />
               <div id="ot-bubbles" className="ot-bubbles" aria-live="polite">
                 {rings >= 1 && (
-                  <p className="ot-bubble ot-bubble--left">{GATEWAY_LINE}</p>
+                  <div className="ot-bubble-group ot-bubble-group--left">
+                    <p className="ot-bubble">{GATEWAY_LINE}</p>
+                  </div>
                 )}
                 {rings >= 2 && (
-                  <p className="ot-bubble ot-bubble--right">
-                    {WELCOME_LINE} <em className="ot-bubble__place">{WELCOME_PLACE}</em>
-                  </p>
+                  <div className="ot-bubble-group ot-bubble-group--right">
+                    <p className="ot-bubble">{WELCOME_LINE}</p>
+                    <p className="ot-bubble ot-bubble--place">
+                      <svg className="ot-bubble__pin" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                        <circle cx="12" cy="10" r="3" />
+                      </svg>
+                      {WELCOME_PLACE}
+                    </p>
+                  </div>
                 )}
               </div>
             </div>
