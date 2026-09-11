@@ -88,27 +88,41 @@
 /* ===== Chat bubbles that pop out of the orb ==================================
    Absolutely positioned against .ot-trio__orb: the gateway line pops from the
    orb's upper-left, the welcome line from its upper-right (above the Toronto
-   sign). Same electric border + glow as the bell; a rotated square is the tail. */
+   sign). Geometry follows the iMessage bubble: 18px corners, 17px text on a
+   22px line, tight padding, a curved tail drawn with two pseudo-elements, and
+   no border or glow, so the bubbles read as messages rather than buttons.
+   The left bubble is the "sent" style (Electric, white ink, tail on the
+   right); the right bubble is the "received" style (Bright Silver, tail on
+   the left). Both tails point back at the orb they popped out of. */
 .ot-bubbles { position: absolute; inset: 0; pointer-events: none; }
+/* Mario-block pop: the bubble rises out of the orb, overshoots with a little
+   squash and stretch, settles. */
 @keyframes otBubblePop {
-  0%   { opacity: 0; transform: scale(0.35); }
-  70%  { opacity: 1; transform: scale(1.05); }
-  100% { opacity: 1; transform: scale(1); }
+  0%   { opacity: 0; transform: translateY(28px) scale(0.55, 0.75); }
+  55%  { opacity: 1; transform: translateY(-10px) scale(1.06, 0.95); }
+  78%  { transform: translateY(3px) scale(0.98, 1.03); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
 }
-.ot-bubble { position: absolute; bottom: calc(100% - 88px); width: max-content;
-  max-width: clamp(15rem, 34vw, 29rem); margin: 0; padding: 0.8rem 1.15rem; border-radius: 20px;
-  background: #fff; color: var(--ot-midnight); text-align: left; pointer-events: auto;
-  font-family: var(--ot-font-body); font-weight: 600; font-size: clamp(1rem, 1.45vw, 1.28rem); line-height: 1.35;
-  border: 1.5px solid var(--ot-electric);
-  box-shadow: 0 0 0 4px rgba(91,4,222,0.10), 0 8px 24px rgba(91,4,222,0.22);
-  animation: otBubblePop 0.55s cubic-bezier(.47,1.64,.41,.8) both; }
-.ot-bubble::before { content: ""; position: absolute; bottom: 14px; width: 16px; height: 16px;
-  background: #fff; border: 1.5px solid var(--ot-electric); transform: rotate(45deg); }
-.ot-bubble--left { right: calc(100% + 4px); border-bottom-right-radius: 6px; transform-origin: 100% 85%; }
-.ot-bubble--left::before { right: -9px; border-left: 0; border-bottom: 0; }
-.ot-bubble--right { left: calc(100% + 4px); border-bottom-left-radius: 6px; transform-origin: 0 85%; }
-.ot-bubble--right::before { left: -9px; border-right: 0; border-top: 0; }
-.ot-bubble__place { display: block; margin-top: 2px; font-style: italic; font-weight: 500;
+.ot-bubble { --ot-bubble-bg: var(--ot-electric); --ot-bubble-ink: #FFFFFF;
+  position: absolute; bottom: calc(100% - 96px); width: max-content;
+  max-width: clamp(13rem, 22vw, 16.5rem); margin: 0; padding: 7px 13px; border-radius: 18px;
+  background: var(--ot-bubble-bg); color: var(--ot-bubble-ink); text-align: left; pointer-events: auto;
+  font-family: var(--ot-font-body); font-weight: 500; font-size: 1.0625rem; line-height: 1.3;
+  letter-spacing: -0.01em; text-wrap: pretty;
+  box-shadow: 0 2px 6px rgba(15,3,28,0.12);
+  animation: otBubblePop 0.6s cubic-bezier(.22,1,.36,1) both; }
+/* tail: a bubble-coloured bulge, then a ground-coloured bite that carves the curl */
+.ot-bubble::before, .ot-bubble::after { content: ""; position: absolute; bottom: 0; height: 20px; }
+.ot-bubble::before { width: 20px; background: var(--ot-bubble-bg); }
+.ot-bubble::after { width: 26px; background: var(--ot-bg); }
+.ot-bubble--left { right: calc(100% + 8px); transform-origin: 100% 100%; }
+.ot-bubble--left::before { right: -7px; border-bottom-left-radius: 16px 14px; }
+.ot-bubble--left::after { right: -26px; border-bottom-left-radius: 10px; }
+.ot-bubble--right { --ot-bubble-bg: #E8ECF4; --ot-bubble-ink: #0A0614;
+  left: calc(100% + 8px); transform-origin: 0 100%; }
+.ot-bubble--right::before { left: -7px; border-bottom-right-radius: 16px 14px; }
+.ot-bubble--right::after { left: -26px; border-bottom-right-radius: 10px; }
+.ot-bubble__place { display: block; margin-top: 1px; font-style: italic; font-weight: 500;
   color: var(--ot-dark-indigo); }
 
 @media (prefers-reduced-motion: reduce) {
@@ -136,9 +150,9 @@
    bubbles stack under the orb instead (still popping, tails hidden) */
 @media (max-width: 1000px) {
   .ot-bubbles { position: static; }
-  .ot-bubble { position: static; display: block; width: auto; max-width: none; margin: 14px auto 0;
-    text-align: center; transform-origin: 50% 0; }
-  .ot-bubble::before { display: none; }
+  .ot-bubble { position: static; display: inline-block; width: auto; max-width: min(100%, 22rem);
+    margin: 12px auto 0; text-align: left; transform-origin: 50% 100%; }
+  .ot-bubble::before, .ot-bubble::after { display: none; }
 }
 
 @media (max-width: 720px) {
