@@ -2354,20 +2354,30 @@
   .cid-scope .cid-cast-frame.is-on.is-side {
     display: grid;
     grid-template-columns: minmax(0, 52fr) minmax(0, 48fr);
-    grid-template-rows: auto 1fr;
+    grid-template-rows: 1fr auto;
   }
+  /* The art column is a poster: the film at the top, the blurred still
+     filling the rest of the column's height, and the nameplate set over
+     the foot of that fill as the headline, on a scrim so it reads. The
+     space the film left above and below itself is one space now, and it
+     carries the name, the role and the closing line. */
   .cid-scope .cid-cast-frame.is-on.is-side .cid-cast-shot {
     grid-column: 1; grid-row: 1 / span 2; align-self: stretch; height: auto;
+    align-items: flex-start;
   }
+  .cid-scope .cid-cast-frame.is-on.is-side .cid-cast-full { top: 10px; bottom: auto; }
   .cid-scope .cid-cast-frame.is-on.is-side .cid-cast-plate {
-    grid-column: 2; grid-row: 1; align-self: start;
-    border-top: 0; border-left: 1px solid rgba(174,153,201,.16);
-    padding: 16px clamp(14px,1.6vw,22px) 10px;
+    grid-column: 1; grid-row: 2; align-self: end; position: relative; z-index: 2;
+    border: 0; padding: 44px clamp(14px,1.6vw,22px) 18px;
+    background: linear-gradient(180deg, rgba(4,3,14,0) 0%, rgba(4,3,14,.72) 38%, rgba(4,3,14,.94) 100%);
+  }
+  .cid-scope .cid-cast-frame.is-on.is-side .cid-cast-tagline {
+    font-size: clamp(13px,1.05vw,15px); color: rgba(232,236,244,.92); margin-top: 6px;
   }
   .cid-scope .cid-cast-frame.is-on.is-side .cid-cast-detail {
-    grid-column: 2; grid-row: 2; align-self: start;
+    grid-column: 2; grid-row: 1 / span 2; align-self: start;
     border-left: 1px solid rgba(174,153,201,.16);
-    padding: 2px clamp(14px,1.6vw,22px) 18px;
+    padding: 16px clamp(14px,1.6vw,22px) 18px;
   }
   .cid-scope .cid-cast-frame.is-on.is-side .cid-cast-cols--two,
   .cid-scope .cid-cast-frame.is-on.is-side .cid-cast-features--two {

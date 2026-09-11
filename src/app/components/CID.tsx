@@ -400,6 +400,9 @@ const CAST = (base: string): CidCharacter[] => [
     plain: "The Sturgeon General",
     // Greg's role line, verbatim: his en dash and his middot.
     role: "Canada–Nordic · High North Vanguard",
+    // Greg's closing line, moved up from the foot of the box to the plate,
+    // where the side stage sets it as the headline under his film.
+    tagline: "PLOP deploys. BARBEL listens. The Sturgeon General maps in real time.",
     // Greg's copy, verbatim, including the plus signs and the en dashes. The
     // en dash is his own character in CANADA–EU and not the em dash the
     // house rule bans; the plus is how he set the sector pairs.
@@ -449,7 +452,6 @@ const CAST = (base: string): CidCharacter[] => [
           { label: "BOTTOMS", desc: "Measures bathymetry and maps depth, seabed structure, sediment, and mineral deposits." },
           { label: "FLOWS", desc: "Follows currents and ice movement while tracking vessels, subsea infrastructure, and environmental change." },
         ],
-        foot: "PLOP deploys. BARBEL listens. The Sturgeon General maps in real time.",
       },
     ],
   },
