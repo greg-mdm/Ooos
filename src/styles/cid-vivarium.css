@@ -2015,6 +2015,7 @@
   color: #AE99C9;
 }
 /* One line under the name and role, on its own line in the plate. */
+.cid-scope .cid-cast-tagline-l { display: block; }
 .cid-scope .cid-cast-tagline {
   flex: 1 0 100%; margin-top: 2px;
   font-family: 'Montserrat', system-ui, sans-serif; font-style: italic;
@@ -2142,6 +2143,17 @@
 .cid-scope .cid-cast-fn-fold[open] > summary::after { transform: rotate(-135deg) translateY(-1px); }
 .cid-scope .cid-cast-fn-fold > summary:focus-visible { outline: 2px solid #E8ECF4; outline-offset: 3px; border-radius: 3px; }
 .cid-scope .cid-cast-fn-fold > .cid-cast-fn-d { display: block; padding: 0 0 9px; max-width: 62ch; }
+/* The profile under the functions: a heading in the group voice and a
+   paragraph or two on the house measure, under a rule that closes the
+   list of folds. */
+.cid-scope .cid-cast-profile {
+  display: flex; flex-direction: column; gap: 6px;
+  padding-top: 12px; margin-top: 4px; border-top: 1px solid rgba(174,153,201,.13);
+}
+.cid-scope .cid-cast-profile-t {
+  margin: 0; max-width: 62ch; text-wrap: pretty;
+  font-weight: 500; font-size: 12.5px; line-height: 1.5; color: rgba(232,236,244,.88);
+}
 @media (prefers-reduced-motion: reduce) {
   .cid-scope .cid-cast-fn-fold > summary::after { transition: none; }
 }

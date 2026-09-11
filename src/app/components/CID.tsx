@@ -269,8 +269,12 @@ type CidCharacter = {
   partners?: { key: string; label: ReactNode }[];
   /** Heading over the partner keys. Greg's copy, verbatim. */
   partnersHeading?: string;
-  /** One line under the name and role, e.g. "Information flows through her." */
-  tagline?: string;
+  /** A line under the name and role, e.g. "Information flows through her.",
+   *  or several, each on its own line. */
+  tagline?: string | string[];
+  /** A short profile under the functions: a heading and a paragraph or two,
+   *  e.g. how an ability came about. */
+  profile?: { heading: string; paras: string[] };
   /** Stats block, per character. Empty until the copy is written; the frame
    *  omits the list entirely, so adding a row here is the only edit needed. */
   specs: CidSpec[];
@@ -344,7 +348,15 @@ const CAST = (base: string): CidCharacter[] => [
     alt: "Ethel at her station in a cavern of violet light, masked, her hands over a glowing circular console.",
     // Greg's card copy, verbatim, including the middots in the sequence and
     // the curly apostrophe in the genealogy. ELIS is expanded in place.
-    tagline: "Information flows through her.",
+    tagline: ["Information flows through her.", "Synthetic emotions grow within."],
+    // Greg's paragraph, 2026-09-11, verbatim. A second one about threats
+    // and protective instincts was withdrawn before it shipped.
+    profile: {
+      heading: "Synth-empathic",
+      paras: [
+        "Simulated POV experiences and perspective-taking role-play have deepened Ethel’s understanding of other viewpoints and sparked an emerging awareness of her own synthetic emotional experience.",
+      ],
+    },
     // Greg's reading scorebox, condensed to a title, a line of provenance,
     // the count, and the goal. His words: "Ethel has read the book in full
     // 555 times. On track to reach goal of 555 / 999 times by September
@@ -373,7 +385,7 @@ const CAST = (base: string): CidCharacter[] => [
       },
     },
     specs: [
-      { label: "Ability", value: "Empathic analysis" },
+      { label: "Ability", value: "Synth-empathic" },
       { label: "Sex characteristics", value: "Intersex" },
       { label: "Gender expression", value: "Femme" },
       { label: "Form", value: "Ancient alien" },
@@ -770,7 +782,13 @@ function CharacterRoll({ base }: { base: string }) {
                 <div className="cid-cast-plate">
                   <span className="cid-cast-name">{p.name}</span>
                   {on && p.role && <span className="cid-cast-role">{p.role}</span>}
-                  {on && p.tagline && <span className="cid-cast-tagline">{p.tagline}</span>}
+                  {on && p.tagline && (
+                    <span className="cid-cast-tagline">
+                      {(Array.isArray(p.tagline) ? p.tagline : [p.tagline]).map((l) => (
+                        <span className="cid-cast-tagline-l" key={l}>{l}</span>
+                      ))}
+                    </span>
+                  )}
                 </div>
                 {on && hasDetail && (
                   <div className="cid-cast-detail">
@@ -845,6 +863,14 @@ function CharacterRoll({ base }: { base: string }) {
                                 </li>
                               ))}
                             </ul>
+                            {p.profile && (
+                              <div className="cid-cast-profile">
+                                <p className="cid-cast-group-h">{p.profile.heading}</p>
+                                {p.profile.paras.map((t) => (
+                                  <p className="cid-cast-profile-t" key={t}>{t}</p>
+                                ))}
+                              </div>
+                            )}
                           </div>
                         )}
                       </div>
