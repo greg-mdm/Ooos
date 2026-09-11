@@ -2145,27 +2145,50 @@
 @media (prefers-reduced-motion: reduce) {
   .cid-scope .cid-cast-fn-fold > summary::after { transition: none; }
 }
-/* The barbels: four squadrons in a row, the way the four barbels hang in
-   a row under a sturgeon's snout. Each is a column with a whisker down its
-   left edge, pearl at the root and fading out toward the tip, the label at
-   the root and the line hanging under it. No rules between them; the
-   whiskers are the structure. A phone shows them two by two. */
+/* The formation: a sitemap. The lead squad sits on top across the full
+   width with its line running across, a stem drops from its centre to a
+   bar, and the three other squads hang from the bar in columns, each on
+   its own stem. The lines are drawn by the items themselves, so the bar
+   sits exactly at the top of the second row whatever height the lead
+   takes: the first child's bar runs from its centre to the right, the
+   last child's from the left to its centre, the middle one's all the way,
+   and the column gap is bridged by running each bar into it. */
 .cid-scope .cid-cast-items-h { margin-top: 4px; }
-.cid-scope .cid-cast-fns--barbels {
-  display: grid; grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: 12px clamp(10px,1.2vw,18px); margin-top: 2px;
+.cid-scope .cid-cast-fns--formation {
+  --form-gap: clamp(10px,1.2vw,18px); --form-drop: 18px;
+  display: grid; grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: var(--form-drop) var(--form-gap); margin-top: 6px;
 }
-@media (min-width: 901px) {
-  .cid-scope .cid-cast-fns--barbels { grid-template-columns: repeat(4, minmax(0,1fr)); }
+.cid-scope .cid-cast-fn.cid-cast-squad {
+  position: relative; padding: 0; border-top: 0; gap: 3px;
 }
-.cid-scope .cid-cast-fn.cid-cast-barbel {
-  position: relative; padding: 2px 0 4px 11px; border-top: 0; gap: 3px;
+.cid-scope .cid-cast-squad .cid-cast-fn-d { font-size: 11.5px; line-height: 1.45; }
+/* The lead: full width, its label and line across, and the stem below. */
+.cid-scope .cid-cast-squad:first-child {
+  grid-column: 1 / -1; padding: 8px 10px 10px; border-radius: 8px;
+  border: 1px solid rgba(77,174,255,.40); background: rgba(77,174,255,.08);
 }
-.cid-scope .cid-cast-barbel::before {
-  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; border-radius: 2px;
-  background: linear-gradient(180deg, #E8ECF4 0%, rgba(174,153,201,.75) 38%, rgba(77,174,255,.45) 70%, rgba(77,174,255,0) 100%);
+.cid-scope .cid-cast-squad:first-child .cid-cast-fn-d { max-width: none; }
+.cid-scope .cid-cast-squad:first-child::after {
+  content: ""; position: absolute; left: 50%; top: 100%; width: 2px; height: var(--form-drop);
+  margin-left: -1px; background: rgba(77,174,255,.55);
 }
-.cid-scope .cid-cast-barbel .cid-cast-fn-d { font-size: 11.5px; line-height: 1.45; }
+/* The rest: a stem up from each to the bar, and the bar itself. */
+.cid-scope .cid-cast-squad:not(:first-child) { padding-top: 14px; }
+.cid-scope .cid-cast-squad:not(:first-child)::before {
+  content: ""; position: absolute; left: 50%; top: 0; width: 2px; height: 10px;
+  margin-left: -1px; background: rgba(77,174,255,.55);
+}
+.cid-scope .cid-cast-squad:not(:first-child)::after {
+  content: ""; position: absolute; top: 0; height: 2px; margin-top: -1px;
+  background: rgba(77,174,255,.55);
+}
+.cid-scope .cid-cast-squad:nth-child(2)::after { left: 50%; right: calc(-1 * var(--form-gap)); }
+.cid-scope .cid-cast-squad:nth-child(3)::after { left: calc(-1 * var(--form-gap)); right: calc(-1 * var(--form-gap)); }
+.cid-scope .cid-cast-squad:last-child::after { left: calc(-1 * var(--form-gap)); right: 50%; }
+/* The stems and bar meet at the bar's own centre line: the bar is drawn
+   1px above the children's top edge and the stems start there. */
+.cid-scope .cid-cast-squad:not(:first-child)::before { top: -1px; height: 11px; }
 /* A note after the paragraph: label and line in the functions' type. */
 .cid-scope .cid-cast-fns--notes > .cid-cast-fn:first-child { border-top: 0; padding-top: 2px; }
 .cid-scope .cid-cast-fns--notes .cid-cast-fn-d { max-width: 62ch; }
@@ -2383,8 +2406,8 @@
   .cid-scope .cid-cast-frame.is-on.is-side .cid-cast-features--two {
     grid-template-columns: minmax(0,1fr);
   }
-  /* The barbels stay four abreast even in the side stage's half width:
-     the row is the point of them. */
+  /* The formation keeps its three columns in the side stage's half width:
+     the shape is the point of it. */
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -296,8 +296,8 @@ type CidCharacter = {
     /** Labelled lines after the paragraph, e.g. how the signals are read. */
     notes?: { label: string; desc: string }[];
     /** Labelled one-liners, e.g. the General's squadrons, set as four
-     *  barbels in a row: a whisker down the left of each, the label at
-     *  the top, the line hanging under it. */
+     *  a formation: the first item leads, across the full width, and the
+     *  rest hang under it in columns, joined by the lines of a sitemap. */
     itemsHeading?: string;
     items?: { label: string; desc: string }[];
     /** A closing line at the foot of the box. */
@@ -856,9 +856,9 @@ function CharacterRoll({ base }: { base: string }) {
                               </p>
                             )}
                             {f.items && f.items.length > 0 && (
-                              <ul className="cid-cast-fns cid-cast-fns--barbels">
+                              <ul className="cid-cast-fns cid-cast-fns--formation">
                                 {f.items.map((it) => (
-                                  <li className="cid-cast-fn cid-cast-barbel" key={it.label}>
+                                  <li className="cid-cast-fn cid-cast-squad" key={it.label}>
                                     <span className="cid-cast-fn-k">{it.label}</span>
                                     <span className="cid-cast-fn-d">{it.desc}</span>
                                   </li>
