@@ -138,20 +138,16 @@
   .ot-bubble { animation: none; }
 }
 
-/* two-column: blurb on the left, maple leaf icon on the right. The card hugs
-   its content (width: fit-content, centered) so the leaf sits next to the text
-   instead of being pushed to a far edge. Sizes kept in scale with the page. */
-.ot-bigbox { display: flex; align-items: center; gap: clamp(1rem, 2vw, 1.5rem);
-  width: fit-content; max-width: 100%; box-sizing: border-box;
-  /* borderless: the blurb sits directly on the hero ground (card chrome removed) */
+/* blurb: centred under the orb on the page's midline (the maple leaf that
+   used to sit beside it is retired). Borderless, so it sits directly on the
+   hero ground. Sizes kept in scale with the page. */
+.ot-bigbox { width: fit-content; max-width: 100%; box-sizing: border-box;
   background: transparent; border: 0; border-radius: 0; box-shadow: none;
   padding: clamp(1.1rem, 2.2vw, 1.6rem); margin: 0 auto 18px; }
-.ot-bigbox h1 { flex: 0 1 auto; max-width: 56rem; font-family: 'Playfair Display', Georgia, serif; font-weight: 600;
+.ot-bigbox h1 { max-width: 56rem; font-family: 'Playfair Display', Georgia, serif; font-weight: 600;
   font-size: clamp(1.2rem, 1.95vw, 1.65rem); line-height: 1.25; letter-spacing: -0.012em;
-  color: var(--ot-ink); margin: 0; text-align: left; text-wrap: balance; }
+  color: var(--ot-ink); margin: 0 auto; text-align: center; text-wrap: balance; }
 .ot-bigbox h1 strong { font-weight: 700; color: #06021c; }
-.ot-bigbox__leaf { flex: 0 0 auto; align-self: center; width: clamp(72px, 8vw, 100px);
-  height: auto; display: block; }
 
 /* below ~1000px there is no room beside the orb for a popped bubble, so the
    bubbles stack under the orb instead (still popping, tails hidden) */
@@ -169,8 +165,6 @@
   .ot-trio__left { justify-content: center; padding-right: 0; }
   .ot-trio__orb { order: -1; transform: none; }
   .ot-sign { margin: 0 auto; transform: none; }
-  .ot-bigbox { flex-direction: column; align-items: flex-start; }
-  .ot-bigbox__leaf { align-self: center; width: clamp(64px, 22vw, 96px); }
 }
 
 /* ===== Bullet / "piano-key" tile pattern — PRESERVED FOR REUSE ============
