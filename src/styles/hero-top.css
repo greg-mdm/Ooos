@@ -90,6 +90,19 @@
   background: var(--ot-electric); box-shadow: 0 0 8px rgba(91,4,222,0.7); }
 .ot-bell:active .ot-bell__icon, .ot-bell.active .ot-bell__icon {
   stroke: var(--ot-portal); filter: drop-shadow(0 0 8px rgba(91,4,222,0.55)); }
+/* first ring: the bell dingles from its crown before the face flips */
+@keyframes otBellSwing {
+  0%, 100% { rotate: 0deg; } 15% { rotate: 16deg; } 35% { rotate: -13deg; } 55% { rotate: 9deg; } 75% { rotate: -5deg; } 90% { rotate: 2deg; }
+}
+.ot-bell.ringing .ot-bell__icon { animation: otBellSwing 0.62s ease-in-out both; transform-origin: 50% 14%; }
+/* second ring: the button presses in and stays in, the surface dished deeper,
+   the outer lift pulled back, the face sinking with it */
+.ot-bell.pressed { transform: translateY(4px);
+  box-shadow: -3px -4px 10px rgba(255,255,255,0.55), 2px 3px 8px rgba(26,0,51,0.06),
+    0 0 0 4px rgba(91,4,222,0.18), 0 3px 16px rgba(91,4,222,0.26); }
+.ot-bell.pressed::before {
+  box-shadow: 12px 16px 24px 6px rgba(26,0,51,0.24) inset, rgba(255,255,255,1) -14px -22px 18px -8px inset; }
+.ot-bell.pressed .ot-bell__icon--globe { width: 34px; height: 34px; }
 
 /* ===== Chat bubbles that pop out of the orb ==================================
    Two bubble groups, absolutely positioned against .ot-trio__orb: the gateway
@@ -121,7 +134,6 @@
   letter-spacing: -0.01em; text-wrap: pretty;
   box-shadow: 0 2px 6px rgba(15,3,28,0.12);
   animation: otBubblePop 0.6s cubic-bezier(.22,1,.36,1) both; }
-.ot-bubble:nth-child(2) { animation-delay: 0.16s; }
 .ot-bubble-group--left .ot-bubble { transform-origin: 100% 100%; }
 .ot-bubble-group--right .ot-bubble { transform-origin: 0 100%; }
 /* tail on the last bubble only: a bubble-coloured bulge, then a ground-coloured
@@ -133,14 +145,33 @@
 .ot-bubble-group--left .ot-bubble:last-child::after { right: -26px; border-bottom-left-radius: 10px; }
 .ot-bubble-group--right .ot-bubble:last-child::before { left: -7px; border-bottom-right-radius: 16px 14px; }
 .ot-bubble-group--right .ot-bubble:last-child::after { left: -26px; border-bottom-right-radius: 10px; }
-/* shared-location bubble: pin glyph, then the place, on one line */
-.ot-bubble--place { display: inline-flex; align-items: center; gap: 7px; font-style: italic; }
-.ot-bubble__pin { flex: 0 0 auto; width: 18px; height: 18px; fill: none; stroke: currentColor;
+/* location line under the Toronto sign, in the provincial map's own label
+   voice (small caps, tracked). Centred on the 290px sign. The circle and the
+   caret are drawn at one size; the pin leads slightly larger. */
+@keyframes otPlaceRise {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.ot-place { display: flex; justify-content: center; width: 290px; margin: 10px 10px 0 auto;
+  font-family: var(--ot-font-body); font-weight: 600; font-size: 0.72rem; line-height: 1.2;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--ot-dark-indigo);
+  animation: otPlaceRise 0.5s cubic-bezier(.22,1,.36,1) 0.12s both; }
+/* one row, centred on the sign; it may overhang the sign's width evenly on
+   both sides (flex "center" overflows symmetrically) */
+.ot-place__row { display: inline-flex; align-items: center; gap: 8px; flex: 0 0 auto; white-space: nowrap; }
+.ot-place__pin { flex: 0 0 auto; width: 16px; height: 16px; fill: none; stroke: var(--ot-electric);
   stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ot-place__glyph { flex: 0 0 auto; width: 11px; height: 11px; fill: var(--ot-electric); }
+/* below ~1340px the one-row line would overhang the viewport edge, so it
+   folds into two centred rows instead */
+@media (max-width: 1340px) {
+  .ot-place__row { flex: 0 1 auto; flex-wrap: wrap; justify-content: center; white-space: normal; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .ot-bell, .ot-bell::before, .ot-bell::after, .ot-bell__icon { transition: none; }
-  .ot-bell__icon { animation: none; }
+  .ot-bell__icon, .ot-bell.ringing .ot-bell__icon { animation: none; }
+  .ot-place { animation: none; }
   .ot-bubble { animation: none; }
 }
 
@@ -171,6 +202,8 @@
   .ot-trio__left { justify-content: center; padding-right: 0; }
   .ot-trio__orb { order: -1; transform: none; }
   .ot-sign { margin: 0 auto; transform: none; }
+  .ot-place { margin-inline: auto; max-width: 100%; }
+  .ot-place__row { flex: 0 1 auto; flex-wrap: wrap; justify-content: center; white-space: normal; }
 }
 
 /* ===== Bullet / "piano-key" tile pattern — PRESERVED FOR REUSE ============

@@ -7,11 +7,14 @@ import "../../styles/hero-top.css";
 
 const GATEWAY_LINE = "You have arrived at a gateway to digital innovation!";
 const WELCOME_LINE = "Welcome to our vibrant innovation ecosystem!";
-const WELCOME_PLACE = "Toronto, Ontario, Canada";
+const PLACE_LINE = ["Ontario", "Provincial Map", "Economic Regions"];
 const BELL_LABELS = ["Ring the bell", "Ring the bell again", "Ring the bell to clear the messages"];
+const BELL_SWING_MS = 620;
 
-/* Soft two-partial "ding" synthesised in WebAudio (no external audio assets). */
-function ding() {
+/* Soft two-partial "ding" synthesised in WebAudio (no external audio assets).
+   `pitch` scales both partials: 1 is the bell's ding, 1.5 (a fifth up) is the
+   higher ping that answers the press-in on the second ring. */
+function ding(pitch = 1) {
   try {
     const AC = window.AudioContext || (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
     if (!AC) return;
@@ -25,7 +28,7 @@ function ding() {
     [[1568, 1], [2349, 0.35]].forEach(([freq, level]) => {
       const osc = ctx.createOscillator();
       osc.type = "sine";
-      osc.frequency.value = freq;
+      osc.frequency.value = freq * pitch;
       const g = ctx.createGain();
       g.gain.value = level;
       osc.connect(g).connect(master);
@@ -105,26 +108,48 @@ function OstaraParticleCanvas() {
 export function Home({ onSupport }: { onSupport: () => void }) {
   const [pathwayOpen, setPathwayOpen] = useState(false);
   const [rings, setRings] = useState(0);
+  const [ringing, setRinging] = useState(false);
+  const swingTimer = useRef<number | undefined>(undefined);
+  useEffect(() => () => window.clearTimeout(swingTimer.current), []);
+  const ring = () => {
+    if (ringing) return;
+    if (rings === 0) {
+      /* first ring: the bell dingles for a beat, then flips to the pin and
+         the gateway line pops */
+      ding();
+      setRinging(true);
+      swingTimer.current = window.setTimeout(() => {
+        setRinging(false);
+        setRings(1);
+      }, BELL_SWING_MS);
+    } else if (rings === 1) {
+      /* second ring: the pin presses in with a higher ping as the welcome
+         line pops and the location line lights up under the sign */
+      ding(1.5);
+      setRings(2);
+    } else {
+      ding();
+      setRings(0);
+    }
+  };
   return (
     <>
       <section className="ooos-top" aria-label="Welcome">
         <div className="ot-content">
           <div className="ot-trio">
             {/* Ding bell: neumorphic control wearing the welcome pill's purple
-                border + glow. Ring 1 pops the gateway bubble out of the orb's
-                left side, ring 2 pops the welcome bubble and the pinned
-                location out of the right side (beside the Toronto sign),
-                ring 3 clears both. The bell face flips with each ring. */}
+                border + glow. Ring 1 wiggles the bell, then pops the gateway
+                bubble out of the orb's left side. Ring 2 presses the button
+                in, pops the welcome bubble out of the right side, and lights
+                the location line under the Toronto sign. Ring 3 clears all.
+                The bell face flips with each ring. */}
             <div className="ot-trio__side ot-trio__left">
               <button
                 type="button"
-                className={`ot-bell${rings > 0 ? " active" : ""}`}
+                className={`ot-bell${rings > 0 ? " active" : ""}${rings === 2 ? " pressed" : ""}${ringing ? " ringing" : ""}`}
                 aria-label={BELL_LABELS[rings]}
                 aria-controls="ot-bubbles"
-                onClick={() => {
-                  ding();
-                  setRings((r) => (r + 1) % 3);
-                }}
+                onClick={ring}
               >
                 {/* the face flips with each ring: bell, then a location pin
                     (a hint that the next message is a place), then the
@@ -170,19 +195,34 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 {rings >= 2 && (
                   <div className="ot-bubble-group ot-bubble-group--right">
                     <p className="ot-bubble">{WELCOME_LINE}</p>
-                    <p className="ot-bubble ot-bubble--place">
-                      <svg className="ot-bubble__pin" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                        <circle cx="12" cy="10" r="3" />
-                      </svg>
-                      {WELCOME_PLACE}
-                    </p>
                   </div>
                 )}
               </div>
             </div>
             <div className="ot-trio__side ot-trio__right">
               <div className="ot-sign" role="img" aria-label="Toronto, Canada" />
+              {/* location line under the sign: pin, then the map's own label
+                  rhythm (province, dot, map, caret, regions). Lights on the
+                  second ring; later this becomes the way into the map reveal. */}
+              {rings >= 2 && (
+                <p className="ot-place">
+                  <span className="ot-place__row">
+                  <svg className="ot-place__pin" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                  <span>{PLACE_LINE[0]}</span>
+                  <svg className="ot-place__glyph" viewBox="0 0 12 12" aria-hidden="true">
+                    <circle cx="6" cy="6" r="4.25" />
+                  </svg>
+                  <span>{PLACE_LINE[1]}</span>
+                  <svg className="ot-place__glyph" viewBox="0 0 12 12" aria-hidden="true">
+                    <path d="M6 1.5 11 10.5H1z" />
+                  </svg>
+                  <span>{PLACE_LINE[2]}</span>
+                  </span>
+                </p>
+              )}
             </div>
           </div>
           <div className="ot-bigbox">
