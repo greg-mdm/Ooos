@@ -201,25 +201,28 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             </div>
             <div className="ot-trio__side ot-trio__right">
               <div className="ot-sign" role="img" aria-label="Toronto, Canada" />
-              {/* location line under the sign: pin, then the map's own label
-                  rhythm (province, dot, map, caret, regions). Lights on the
-                  second ring; later this becomes the way into the map reveal. */}
+              {/* location stack under the sign: the pinned province on top,
+                  the two sub-points (circle, map; caret, regions) smaller
+                  beneath, all centred on the sign. Lights on the second ring;
+                  later this becomes the way into the map reveal. */}
               {rings >= 2 && (
                 <p className="ot-place">
                   <span className="ot-place__row">
-                  <svg className="ot-place__pin" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                    <circle cx="12" cy="10" r="3" />
-                  </svg>
-                  <span>{PLACE_LINE[0]}</span>
-                  <svg className="ot-place__glyph" viewBox="0 0 12 12" aria-hidden="true">
-                    <circle cx="6" cy="6" r="4.25" />
-                  </svg>
-                  <span>{PLACE_LINE[1]}</span>
-                  <svg className="ot-place__glyph" viewBox="0 0 12 12" aria-hidden="true">
-                    <path d="M6 1.5 11 10.5H1z" />
-                  </svg>
-                  <span>{PLACE_LINE[2]}</span>
+                    <svg className="ot-place__pin" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                      <circle cx="12" cy="10" r="3" />
+                    </svg>
+                    <span>{PLACE_LINE[0]}</span>
+                  </span>
+                  <span className="ot-place__row ot-place__row--sub">
+                    <svg className="ot-place__glyph" viewBox="0 0 12 12" aria-hidden="true">
+                      <circle cx="6" cy="6" r="4.25" />
+                    </svg>
+                    <span>{PLACE_LINE[1]}</span>
+                    <svg className="ot-place__glyph" viewBox="0 0 12 12" aria-hidden="true">
+                      <path d="M6 1.5 11 10.5H1z" />
+                    </svg>
+                    <span>{PLACE_LINE[2]}</span>
                   </span>
                 </p>
               )}
