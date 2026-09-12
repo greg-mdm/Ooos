@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import { type ReactNode, useEffect, useRef, useState } from "react";
+import { type CSSProperties, type ReactNode, useEffect, useRef, useState } from "react";
 import { PathwayModal } from "./PathwayModal";
 import { OooDivisions } from "./OooDivisions";
 import { WaterTanks } from "./WaterTanks";
+import { ONTARIO_MAP_VIEWBOX, ONTARIO_REGION_PATHS, ONTARIO_ZONES } from "./ontarioRegions";
 import "../../styles/hero-top.css";
 
 const GATEWAY_LINE = "You have arrived at a gateway to digital innovation!";
@@ -109,8 +110,19 @@ export function Home({ onSupport }: { onSupport: () => void }) {
   const [pathwayOpen, setPathwayOpen] = useState(false);
   const [rings, setRings] = useState(0);
   const [ringing, setRinging] = useState(false);
+  const [mapOpen, setMapOpen] = useState(false);
+  const [hotZone, setHotZone] = useState<string | null>(null);
   const swingTimer = useRef<number | undefined>(undefined);
   useEffect(() => () => window.clearTimeout(swingTimer.current), []);
+  /* Escape closes the map tray */
+  useEffect(() => {
+    if (!mapOpen) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setMapOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [mapOpen]);
+  const hot = ONTARIO_ZONES.find((z) => z.id === hotZone) ?? null;
+  const zoneClass = (id: string) => (hotZone === id ? " is-hot" : hotZone ? " is-dim" : "");
   const ring = () => {
     if (ringing) return;
     if (rings === 0) {
@@ -130,6 +142,8 @@ export function Home({ onSupport }: { onSupport: () => void }) {
     } else {
       ding();
       setRings(0);
+      setMapOpen(false);
+      setHotZone(null);
     }
   };
   return (
@@ -203,10 +217,17 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               <div className="ot-sign" role="img" aria-label="Toronto, Canada" />
               {/* location stack under the sign: the pinned province on top,
                   the two sub-points (circle, map; caret, regions) smaller
-                  beneath, all centred on the sign. Lights on the second ring;
-                  later this becomes the way into the map reveal. */}
+                  beneath, all centred on the sign. Lights on the second ring
+                  and opens the map tray below the hero; the caret turns to
+                  point down while the tray is open. */}
               {rings >= 2 && (
-                <p className="ot-place">
+                <button
+                  type="button"
+                  className="ot-place"
+                  aria-expanded={mapOpen}
+                  aria-controls="ot-tray"
+                  onClick={() => setMapOpen((o) => !o)}
+                >
                   <span className="ot-place__row">
                     <svg className="ot-place__pin" viewBox="0 0 24 24" aria-hidden="true">
                       <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
@@ -219,13 +240,71 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                       <circle cx="6" cy="6" r="4.25" />
                     </svg>
                     <span>{PLACE_LINE[1]}</span>
-                    <svg className="ot-place__glyph" viewBox="0 0 12 12" aria-hidden="true">
+                    <svg className="ot-place__glyph ot-place__caret" viewBox="0 0 12 12" aria-hidden="true">
                       <path d="M6 1.5 11 10.5H1z" />
                     </svg>
                     <span>{PLACE_LINE[2]}</span>
                   </span>
-                </p>
+                </button>
               )}
+            </div>
+          </div>
+          {/* Map tray: the provincial map (five zones, eleven economic regions,
+              no statistics) drops open beneath the trio when the location
+              stack is pressed. Hovering a zone on the map or in the list
+              lights it in both places. */}
+          <div id="ot-tray" className={`ot-tray${mapOpen ? " open" : ""}`} aria-hidden={!mapOpen}>
+            <div className="ot-tray__clip">
+              <div className="ot-tray__panel" onMouseLeave={() => setHotZone(null)}>
+                <div className="ot-tray__map">
+                  <svg
+                    className="ot-map"
+                    viewBox={ONTARIO_MAP_VIEWBOX}
+                    role="img"
+                    aria-label="Ontario provincial map: five geographic zones and eleven economic regions"
+                  >
+                    {ONTARIO_ZONES.map((z) => (
+                      <g
+                        key={z.id}
+                        className={`ot-map__zone${zoneClass(z.id)}`}
+                        style={{ "--zone": z.colour } as CSSProperties}
+                        onMouseEnter={() => setHotZone(z.id)}
+                      >
+                        <title>{z.name}</title>
+                        {z.regions.map((r) => (
+                          <path key={r.id} d={ONTARIO_REGION_PATHS[r.id]} />
+                        ))}
+                      </g>
+                    ))}
+                  </svg>
+                  <p className="ot-map__caption" aria-live="polite">{hot ? hot.name : PLACE_LINE[0]}</p>
+                </div>
+                <div className="ot-tray__list">
+                  <p className="ot-tray__eyebrow">
+                    <span>{PLACE_LINE[2]}</span>
+                    <span className="ot-tray__chip">11 Sub-Regions</span>
+                  </p>
+                  <ul className="ot-zones">
+                    {ONTARIO_ZONES.map((z) => (
+                      <li
+                        key={z.id}
+                        className={`ot-zone${zoneClass(z.id)}`}
+                        style={{ "--zone": z.colour } as CSSProperties}
+                        onMouseEnter={() => setHotZone(z.id)}
+                      >
+                        <h3 className="ot-zone__name">
+                          {z.short}
+                          <small>{z.name}</small>
+                        </h3>
+                        <ul className="ot-zone__regions">
+                          {z.regions.map((r) => <li key={r.id}>{r.name}</li>)}
+                        </ul>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="ot-tray__source">Source: Statistics Canada</p>
+                </div>
+              </div>
             </div>
           </div>
           <div className="ot-bigbox">

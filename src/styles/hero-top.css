@@ -154,9 +154,15 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 .ot-place { display: flex; flex-direction: column; align-items: center; gap: 5px; width: 290px;
-  margin: 10px 10px 0 auto; font-family: var(--ot-font-body); font-weight: 600; font-size: 0.72rem;
+  margin: 10px 10px 0 auto; padding: 6px 0 4px; border: 0; background: transparent; cursor: pointer;
+  font-family: var(--ot-font-body); font-weight: 600; font-size: 0.72rem;
   line-height: 1.2; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ot-dark-indigo);
+  -webkit-tap-highlight-color: transparent; transition: transform 0.3s cubic-bezier(.22,1,.36,1), color 0.2s ease;
   animation: otPlaceRise 0.5s cubic-bezier(.22,1,.36,1) 0.12s both; }
+.ot-place:hover, .ot-place[aria-expanded="true"] { transform: translateY(-2px); color: var(--ot-electric); }
+.ot-place:focus-visible { outline: 2px solid var(--ot-electric); outline-offset: 4px; border-radius: 8px; }
+.ot-place__caret { transition: transform 0.35s cubic-bezier(.22,1,.36,1); }
+.ot-place[aria-expanded="true"] .ot-place__caret { transform: rotate(180deg); }
 .ot-place__row { display: inline-flex; align-items: center; justify-content: center; gap: 7px;
   flex-wrap: wrap; }
 .ot-place__row--sub { font-size: 0.6rem; letter-spacing: 0.1em; font-weight: 600; }
@@ -164,7 +170,60 @@
   stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .ot-place__glyph { flex: 0 0 auto; width: 9px; height: 9px; fill: var(--ot-electric); }
 
+/* ===== Map tray ==============================================================
+   Drops open under the trio (grid-row 0fr to 1fr, so the blurb below simply
+   moves down). Left: the provincial map, one <g> per zone with a path per
+   economic region, fills from canon. Right: the zones and their regions in
+   the deck's reading order. Hovering either side lights the zone in both. */
+.ot-tray { display: grid; grid-template-rows: 0fr; max-width: 1240px; margin: 0 auto;
+  transition: grid-template-rows 0.6s cubic-bezier(.22,1,.36,1); }
+.ot-tray.open { grid-template-rows: 1fr; }
+.ot-tray__clip { overflow: hidden; min-height: 0; }
+.ot-tray__panel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 44px);
+  align-items: center; padding: 22px 8px 30px; opacity: 0; transform: translateY(-12px);
+  transition: opacity 0.35s ease 0.08s, transform 0.55s cubic-bezier(.22,1,.36,1) 0.08s; }
+.ot-tray.open .ot-tray__panel { opacity: 1; transform: translateY(0); }
+.ot-tray__map { display: flex; flex-direction: column; align-items: center; }
+.ot-map { width: 100%; max-width: 520px; height: auto; display: block; overflow: visible; }
+.ot-map__zone path { fill: var(--zone); stroke: var(--ot-bg); stroke-width: 2.5; stroke-linejoin: round;
+  cursor: pointer; transition: fill-opacity 0.25s ease, filter 0.25s ease; }
+.ot-map__zone.is-dim path { fill-opacity: 0.32; }
+.ot-map__zone.is-hot path { filter: drop-shadow(0 6px 14px rgba(15,3,28,0.28)); }
+.ot-map__caption { margin: 10px 0 0; min-height: 1.2em; font-family: var(--ot-font-body); font-weight: 600;
+  font-size: 0.75rem; line-height: 1.2; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ot-dark-indigo); text-align: center; }
+.ot-tray__eyebrow { display: flex; align-items: center; gap: 12px; margin: 0 0 14px;
+  font-family: var(--ot-font-body); font-weight: 700; font-size: 0.78rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ot-ink); }
+.ot-tray__chip { padding: 4px 10px; border-radius: 999px; background: var(--ot-electric); color: #fff;
+  font-size: 0.66rem; font-weight: 600; letter-spacing: 0.08em; text-transform: none; }
+.ot-zones { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 18px; }
+.ot-zone { padding: 10px 14px 12px; border-radius: 12px; border-left: 4px solid var(--zone); background: #fff;
+  box-shadow: 0 2px 6px rgba(15,3,28,0.06); cursor: default;
+  transition: opacity 0.25s ease, box-shadow 0.25s ease, transform 0.3s cubic-bezier(.22,1,.36,1); }
+.ot-zone.is-hot { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(91,4,222,0.16); }
+.ot-zone.is-dim { opacity: 0.45; }
+.ot-zone__name { margin: 0 0 6px; font-family: var(--ot-font-body); font-weight: 700; font-size: 0.72rem;
+  line-height: 1.2; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ot-ink); }
+.ot-zone__name small { display: block; margin-top: 2px; font-weight: 500; font-size: 0.72rem;
+  letter-spacing: 0.02em; text-transform: none; color: var(--ot-dark-indigo); }
+.ot-zone__regions { list-style: none; margin: 0; padding: 0; }
+.ot-zone__regions li { font-family: var(--ot-font-body); font-weight: 500; font-size: 0.9rem; line-height: 1.4;
+  color: var(--ot-ink); }
+.ot-zone__regions li::before { content: "\203A"; margin-right: 7px; color: var(--zone); font-weight: 700; }
+.ot-tray__source { margin: 14px 0 0; font-family: var(--ot-font-body); font-weight: 600; font-size: 0.66rem;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--ot-dark-indigo); opacity: 0.8; }
+
+@media (max-width: 900px) {
+  .ot-tray__panel { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 560px) {
+  .ot-zones { grid-template-columns: minmax(0, 1fr); }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .ot-tray, .ot-tray__panel, .ot-place, .ot-place__caret, .ot-zone, .ot-map__zone path { transition: none; }
   .ot-bell, .ot-bell::before, .ot-bell::after, .ot-bell__icon { transition: none; }
   .ot-bell__icon, .ot-bell.ringing .ot-bell__icon { animation: none; }
   .ot-place { animation: none; }
