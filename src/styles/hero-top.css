@@ -170,60 +170,82 @@
   stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .ot-place__glyph { flex: 0 0 auto; width: 9px; height: 9px; fill: var(--ot-electric); }
 
-/* ===== Map tray ==============================================================
-   Drops open under the trio (grid-row 0fr to 1fr, so the blurb below simply
-   moves down). Left: the provincial map, one <g> per zone with a path per
-   economic region, fills from canon. Right: the zones and their regions in
-   the deck's reading order. Hovering either side lights the zone in both. */
-.ot-tray { display: grid; grid-template-rows: 0fr; max-width: 1240px; margin: 0 auto;
-  transition: grid-template-rows 0.6s cubic-bezier(.22,1,.36,1); }
-.ot-tray.open { grid-template-rows: 1fr; }
-.ot-tray__clip { overflow: hidden; min-height: 0; }
-.ot-tray__panel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 44px);
-  align-items: center; padding: 22px 8px 30px; opacity: 0; transform: translateY(-12px);
-  transition: opacity 0.35s ease 0.08s, transform 0.55s cubic-bezier(.22,1,.36,1) 0.08s; }
-.ot-tray.open .ot-tray__panel { opacity: 1; transform: translateY(0); }
-.ot-tray__map { display: flex; flex-direction: column; align-items: center; }
-.ot-map { width: 100%; max-width: 520px; height: auto; display: block; overflow: visible; }
-.ot-map__zone path { fill: var(--zone); stroke: var(--ot-bg); stroke-width: 2.5; stroke-linejoin: round;
+/* ===== Viewbook ==============================================================
+   A medium panel that floats over the page (fixed, above everything, no
+   backdrop, the page stays usable). It opens centred near the top, and the
+   visitor drags it anywhere by the title bar or closes it with the X. Left:
+   the provincial map, one <g> per zone with a path per economic region,
+   fills from canon. Right: the zones and their regions in the deck's reading
+   order. Hovering either side lights the zone in both. */
+@keyframes otBookPop {
+  0%   { opacity: 0; scale: 0.9; }
+  60%  { opacity: 1; scale: 1.02; }
+  100% { opacity: 1; scale: 1; }
+}
+.ot-viewbook { position: fixed; z-index: 80; left: 50%; top: max(96px, 10vh); transform: translateX(-50%);
+  width: min(760px, 92vw); max-height: min(86vh, 640px); display: flex; flex-direction: column;
+  background: #fff; color: var(--ot-ink); border-radius: 18px; border: 1.5px solid var(--ot-electric);
+  box-shadow: 0 0 0 4px rgba(91,4,222,0.10), 0 24px 60px rgba(15,3,28,0.30); overflow: hidden;
+  animation: otBookPop 0.45s cubic-bezier(.22,1,.36,1) both; }
+.ot-viewbook.placed { transform: none; }
+.ot-viewbook:focus { outline: none; }
+.ot-viewbook:focus-visible { box-shadow: 0 0 0 4px rgba(91,4,222,0.32), 0 24px 60px rgba(15,3,28,0.30); }
+.ot-viewbook__bar { display: flex; align-items: center; gap: 12px; flex: 0 0 auto; padding: 10px 10px 10px 16px;
+  background: var(--ot-bg); border-bottom: 1px solid #E8ECF4; cursor: grab; touch-action: none; user-select: none; }
+.ot-viewbook__bar:active { cursor: grabbing; }
+.ot-viewbook__title { flex: 1 1 auto; margin: 0; display: inline-flex; align-items: center; gap: 8px; min-width: 0;
+  font-family: var(--ot-font-body); font-weight: 600; font-size: 0.72rem; line-height: 1.2; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ot-dark-indigo); }
+.ot-viewbook__chip { flex: 0 0 auto; padding: 4px 10px; border-radius: 999px; background: var(--ot-electric); color: #fff;
+  font-family: var(--ot-font-body); font-size: 0.66rem; font-weight: 600; letter-spacing: 0.08em; }
+.ot-viewbook__close { flex: 0 0 auto; width: 34px; height: 34px; padding: 0; border-radius: 50%;
+  border: 1.5px solid var(--ot-electric); background: #fff; color: var(--ot-electric); cursor: pointer;
+  display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.3s cubic-bezier(.22,1,.36,1); }
+.ot-viewbook__close svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; }
+.ot-viewbook__close:hover { background: var(--ot-electric); color: #fff; transform: rotate(90deg); }
+.ot-viewbook__close:focus-visible { outline: 2px solid var(--ot-electric); outline-offset: 3px; }
+.ot-viewbook__body { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 20px;
+  align-items: center; padding: 18px 20px 20px; overflow: auto; min-height: 0; }
+.ot-viewbook__map { display: flex; flex-direction: column; align-items: center; }
+.ot-map { width: 100%; max-width: 340px; height: auto; display: block; overflow: visible; }
+.ot-map__zone path { fill: var(--zone); stroke: #fff; stroke-width: 2.5; stroke-linejoin: round;
   cursor: pointer; transition: fill-opacity 0.25s ease, filter 0.25s ease; }
 .ot-map__zone.is-dim path { fill-opacity: 0.32; }
 .ot-map__zone.is-hot path { filter: drop-shadow(0 6px 14px rgba(15,3,28,0.28)); }
 .ot-map__caption { margin: 10px 0 0; min-height: 1.2em; font-family: var(--ot-font-body); font-weight: 600;
-  font-size: 0.75rem; line-height: 1.2; letter-spacing: 0.14em; text-transform: uppercase;
+  font-size: 0.72rem; line-height: 1.2; letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--ot-dark-indigo); text-align: center; }
-.ot-tray__eyebrow { display: flex; align-items: center; gap: 12px; margin: 0 0 14px;
-  font-family: var(--ot-font-body); font-weight: 700; font-size: 0.78rem; letter-spacing: 0.16em;
-  text-transform: uppercase; color: var(--ot-ink); }
-.ot-tray__chip { padding: 4px 10px; border-radius: 999px; background: var(--ot-electric); color: #fff;
-  font-size: 0.66rem; font-weight: 600; letter-spacing: 0.08em; text-transform: none; }
+.ot-viewbook__eyebrow { margin: 0 0 10px; font-family: var(--ot-font-body); font-weight: 700; font-size: 0.74rem;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--ot-ink); }
 .ot-zones { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px 18px; }
-.ot-zone { padding: 10px 14px 12px; border-radius: 12px; border-left: 4px solid var(--zone); background: #fff;
-  box-shadow: 0 2px 6px rgba(15,3,28,0.06); cursor: default;
-  transition: opacity 0.25s ease, box-shadow 0.25s ease, transform 0.3s cubic-bezier(.22,1,.36,1); }
-.ot-zone.is-hot { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(91,4,222,0.16); }
+  gap: 10px 12px; }
+.ot-zone { padding: 8px 10px 10px; border-radius: 10px; border-left: 4px solid var(--zone); background: var(--ot-bg);
+  cursor: default; transition: opacity 0.25s ease, box-shadow 0.25s ease, transform 0.3s cubic-bezier(.22,1,.36,1); }
+.ot-zone.is-hot { transform: translateY(-2px); background: #fff; box-shadow: 0 10px 24px rgba(91,4,222,0.16); }
 .ot-zone.is-dim { opacity: 0.45; }
-.ot-zone__name { margin: 0 0 6px; font-family: var(--ot-font-body); font-weight: 700; font-size: 0.72rem;
+.ot-zone__name { margin: 0 0 4px; font-family: var(--ot-font-body); font-weight: 700; font-size: 0.68rem;
   line-height: 1.2; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ot-ink); }
-.ot-zone__name small { display: block; margin-top: 2px; font-weight: 500; font-size: 0.72rem;
+.ot-zone__name small { display: block; margin-top: 2px; font-weight: 500; font-size: 0.66rem;
   letter-spacing: 0.02em; text-transform: none; color: var(--ot-dark-indigo); }
 .ot-zone__regions { list-style: none; margin: 0; padding: 0; }
-.ot-zone__regions li { font-family: var(--ot-font-body); font-weight: 500; font-size: 0.9rem; line-height: 1.4;
+.ot-zone__regions li { font-family: var(--ot-font-body); font-weight: 500; font-size: 0.82rem; line-height: 1.35;
   color: var(--ot-ink); }
-.ot-zone__regions li::before { content: "\203A"; margin-right: 7px; color: var(--zone); font-weight: 700; }
-.ot-tray__source { margin: 14px 0 0; font-family: var(--ot-font-body); font-weight: 600; font-size: 0.66rem;
+.ot-zone__regions li::before { content: "\203A"; margin-right: 6px; color: var(--zone); font-weight: 700; }
+.ot-viewbook__source { margin: 12px 0 0; font-family: var(--ot-font-body); font-weight: 600; font-size: 0.62rem;
   letter-spacing: 0.14em; text-transform: uppercase; color: var(--ot-dark-indigo); opacity: 0.8; }
 
-@media (max-width: 900px) {
-  .ot-tray__panel { grid-template-columns: minmax(0, 1fr); }
+@media (max-width: 640px) {
+  .ot-viewbook__body { grid-template-columns: minmax(0, 1fr); align-items: start; }
+  .ot-viewbook__chip { display: none; }
 }
-@media (max-width: 560px) {
+@media (max-width: 460px) {
   .ot-zones { grid-template-columns: minmax(0, 1fr); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ot-tray, .ot-tray__panel, .ot-place, .ot-place__caret, .ot-zone, .ot-map__zone path { transition: none; }
+  .ot-viewbook__close, .ot-place, .ot-place__caret, .ot-zone, .ot-map__zone path { transition: none; }
+  .ot-viewbook { animation: none; }
   .ot-bell, .ot-bell::before, .ot-bell::after, .ot-bell__icon { transition: none; }
   .ot-bell__icon, .ot-bell.ringing .ot-bell__icon { animation: none; }
   .ot-place { animation: none; }

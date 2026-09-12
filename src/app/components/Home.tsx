@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { type CSSProperties, type ReactNode, useEffect, useRef, useState } from "react";
+import { type CSSProperties, type PointerEvent as ReactPointerEvent, type ReactNode, useEffect, useRef, useState } from "react";
 import { PathwayModal } from "./PathwayModal";
 import { OooDivisions } from "./OooDivisions";
 import { WaterTanks } from "./WaterTanks";
@@ -112,15 +112,49 @@ export function Home({ onSupport }: { onSupport: () => void }) {
   const [ringing, setRinging] = useState(false);
   const [mapOpen, setMapOpen] = useState(false);
   const [hotZone, setHotZone] = useState<string | null>(null);
+  /* where the viewbook sits once the visitor has dragged it; null means the
+     default spot (centred near the top of the viewport) */
+  const [bookPos, setBookPos] = useState<{ x: number; y: number } | null>(null);
+  const bookRef = useRef<HTMLDivElement>(null);
+  const placeRef = useRef<HTMLButtonElement>(null);
+  const grip = useRef<{ dx: number; dy: number } | null>(null);
   const swingTimer = useRef<number | undefined>(undefined);
   useEffect(() => () => window.clearTimeout(swingTimer.current), []);
-  /* Escape closes the map tray */
+  /* Escape closes the viewbook; focus lands on it when it opens and returns
+     to the location stack when it closes */
   useEffect(() => {
     if (!mapOpen) return;
+    bookRef.current?.focus({ preventScroll: true });
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setMapOpen(false); };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      placeRef.current?.focus({ preventScroll: true });
+    };
   }, [mapOpen]);
+  /* drag by the title bar: pointer events so mouse, pen and touch all work;
+     the panel is kept at least partly on screen */
+  const onGrab = (e: ReactPointerEvent<HTMLDivElement>) => {
+    if ((e.target as HTMLElement).closest("button")) return;
+    const el = bookRef.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    grip.current = { dx: e.clientX - r.left, dy: e.clientY - r.top };
+    setBookPos({ x: r.left, y: r.top });
+    e.currentTarget.setPointerCapture(e.pointerId);
+  };
+  const onDrag = (e: ReactPointerEvent<HTMLDivElement>) => {
+    const g = grip.current, el = bookRef.current;
+    if (!g || !el) return;
+    const w = el.offsetWidth;
+    const x = Math.min(Math.max(e.clientX - g.dx, 140 - w), window.innerWidth - 140);
+    const y = Math.min(Math.max(e.clientY - g.dy, 8), window.innerHeight - 60);
+    setBookPos({ x, y });
+  };
+  const onRelease = (e: ReactPointerEvent<HTMLDivElement>) => {
+    grip.current = null;
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) e.currentTarget.releasePointerCapture(e.pointerId);
+  };
   const hot = ONTARIO_ZONES.find((z) => z.id === hotZone) ?? null;
   const zoneClass = (id: string) => (hotZone === id ? " is-hot" : hotZone ? " is-dim" : "");
   const ring = () => {
@@ -222,10 +256,11 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                   point down while the tray is open. */}
               {rings >= 2 && (
                 <button
+                  ref={placeRef}
                   type="button"
                   className="ot-place"
                   aria-expanded={mapOpen}
-                  aria-controls="ot-tray"
+                  aria-controls="ot-viewbook"
                   onClick={() => setMapOpen((o) => !o)}
                 >
                   <span className="ot-place__row">
@@ -249,64 +284,6 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               )}
             </div>
           </div>
-          {/* Map tray: the provincial map (five zones, eleven economic regions,
-              no statistics) drops open beneath the trio when the location
-              stack is pressed. Hovering a zone on the map or in the list
-              lights it in both places. */}
-          <div id="ot-tray" className={`ot-tray${mapOpen ? " open" : ""}`} aria-hidden={!mapOpen}>
-            <div className="ot-tray__clip">
-              <div className="ot-tray__panel" onMouseLeave={() => setHotZone(null)}>
-                <div className="ot-tray__map">
-                  <svg
-                    className="ot-map"
-                    viewBox={ONTARIO_MAP_VIEWBOX}
-                    role="img"
-                    aria-label="Ontario provincial map: five geographic zones and eleven economic regions"
-                  >
-                    {ONTARIO_ZONES.map((z) => (
-                      <g
-                        key={z.id}
-                        className={`ot-map__zone${zoneClass(z.id)}`}
-                        style={{ "--zone": z.colour } as CSSProperties}
-                        onMouseEnter={() => setHotZone(z.id)}
-                      >
-                        <title>{z.name}</title>
-                        {z.regions.map((r) => (
-                          <path key={r.id} d={ONTARIO_REGION_PATHS[r.id]} />
-                        ))}
-                      </g>
-                    ))}
-                  </svg>
-                  <p className="ot-map__caption" aria-live="polite">{hot ? hot.name : PLACE_LINE[0]}</p>
-                </div>
-                <div className="ot-tray__list">
-                  <p className="ot-tray__eyebrow">
-                    <span>{PLACE_LINE[2]}</span>
-                    <span className="ot-tray__chip">11 Sub-Regions</span>
-                  </p>
-                  <ul className="ot-zones">
-                    {ONTARIO_ZONES.map((z) => (
-                      <li
-                        key={z.id}
-                        className={`ot-zone${zoneClass(z.id)}`}
-                        style={{ "--zone": z.colour } as CSSProperties}
-                        onMouseEnter={() => setHotZone(z.id)}
-                      >
-                        <h3 className="ot-zone__name">
-                          {z.short}
-                          <small>{z.name}</small>
-                        </h3>
-                        <ul className="ot-zone__regions">
-                          {z.regions.map((r) => <li key={r.id}>{r.name}</li>)}
-                        </ul>
-                      </li>
-                    ))}
-                  </ul>
-                  <p className="ot-tray__source">Source: Statistics Canada</p>
-                </div>
-              </div>
-            </div>
-          </div>
           <div className="ot-bigbox">
             <h1>
               <strong>Ooo Digital Media Studio</strong> designs interactive experiences and creative campaigns for founders, organizations, and communities.
@@ -314,6 +291,94 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           </div>
         </div>
       </section>
+
+      {/* Viewbook: the provincial map (five zones, eleven economic regions,
+          no statistics) floats over the page in a medium panel the visitor
+          can drag by its title bar and close with the X. Nothing on the page
+          moves underneath it. Hovering a zone on the map or in the list
+          lights it in both places. */}
+      {mapOpen && (
+        <div
+          ref={bookRef}
+          id="ot-viewbook"
+          className={`ot-viewbook${bookPos ? " placed" : ""}`}
+          role="dialog"
+          aria-labelledby="ot-viewbook-title"
+          tabIndex={-1}
+          style={bookPos ? { left: bookPos.x, top: bookPos.y } : undefined}
+        >
+          <div
+            className="ot-viewbook__bar"
+            onPointerDown={onGrab}
+            onPointerMove={onDrag}
+            onPointerUp={onRelease}
+            onPointerCancel={onRelease}
+          >
+            <p id="ot-viewbook-title" className="ot-viewbook__title">
+              <svg className="ot-place__pin" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              <span>{PLACE_LINE[0]}</span>
+              <svg className="ot-place__glyph" viewBox="0 0 12 12" aria-hidden="true">
+                <circle cx="6" cy="6" r="4.25" />
+              </svg>
+              <span>{PLACE_LINE[1]}</span>
+            </p>
+            <span className="ot-viewbook__chip">11 Sub-Regions</span>
+            <button type="button" className="ot-viewbook__close" aria-label="Close" onClick={() => setMapOpen(false)}>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+            </button>
+          </div>
+          <div className="ot-viewbook__body" onMouseLeave={() => setHotZone(null)}>
+            <div className="ot-viewbook__map">
+              <svg
+                className="ot-map"
+                viewBox={ONTARIO_MAP_VIEWBOX}
+                role="img"
+                aria-label="Ontario provincial map: five geographic zones and eleven economic regions"
+              >
+                {ONTARIO_ZONES.map((z) => (
+                  <g
+                    key={z.id}
+                    className={`ot-map__zone${zoneClass(z.id)}`}
+                    style={{ "--zone": z.colour } as CSSProperties}
+                    onMouseEnter={() => setHotZone(z.id)}
+                  >
+                    <title>{z.name}</title>
+                    {z.regions.map((r) => (
+                      <path key={r.id} d={ONTARIO_REGION_PATHS[r.id]} />
+                    ))}
+                  </g>
+                ))}
+              </svg>
+              <p className="ot-map__caption" aria-live="polite">{hot ? hot.name : PLACE_LINE[0]}</p>
+            </div>
+            <div className="ot-viewbook__list">
+              <p className="ot-viewbook__eyebrow">{PLACE_LINE[2]}</p>
+              <ul className="ot-zones">
+                {ONTARIO_ZONES.map((z) => (
+                  <li
+                    key={z.id}
+                    className={`ot-zone${zoneClass(z.id)}`}
+                    style={{ "--zone": z.colour } as CSSProperties}
+                    onMouseEnter={() => setHotZone(z.id)}
+                  >
+                    <h3 className="ot-zone__name">
+                      {z.short}
+                      <small>{z.name}</small>
+                    </h3>
+                    <ul className="ot-zone__regions">
+                      {z.regions.map((r) => <li key={r.id}>{r.name}</li>)}
+                    </ul>
+                  </li>
+                ))}
+              </ul>
+              <p className="ot-viewbook__source">Source: Statistics Canada</p>
+            </div>
+          </div>
+        </div>
+      )}
 
       <OooDivisions />
 
