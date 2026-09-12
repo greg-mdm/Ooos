@@ -114,7 +114,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 border + glow. Ring 1 pops the gateway bubble out of the orb's
                 left side, ring 2 pops the welcome bubble and the pinned
                 location out of the right side (beside the Toronto sign),
-                ring 3 clears both. */}
+                ring 3 clears both. The bell face flips with each ring. */}
             <div className="ot-trio__side ot-trio__left">
               <button
                 type="button"
@@ -126,11 +126,31 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                   setRings((r) => (r + 1) % 3);
                 }}
               >
-                <svg className="ot-bell__icon" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M6.5 16.5V11a5.5 5.5 0 0 1 11 0v5.5l1.6 2H4.9z" />
-                  <path d="M10 20.5a2 2 0 0 0 4 0" />
-                  <path d="M12 3v2.5" />
-                </svg>
+                {/* the face flips with each ring: bell, then a location pin
+                    (a hint that the next message is a place), then the
+                    Electric global-network globe from the testimonials */}
+                {rings === 0 && (
+                  <svg key="bell" className="ot-bell__icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M6.5 16.5V11a5.5 5.5 0 0 1 11 0v5.5l1.6 2H4.9z" />
+                    <path d="M10 20.5a2 2 0 0 0 4 0" />
+                    <path d="M12 3v2.5" />
+                  </svg>
+                )}
+                {rings === 1 && (
+                  <svg key="pin" className="ot-bell__icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                )}
+                {rings === 2 && (
+                  <img
+                    key="globe"
+                    className="ot-bell__icon ot-bell__icon--globe"
+                    src="/assets/Ooo-Global-Network-Electric.png?v=2"
+                    alt=""
+                    aria-hidden="true"
+                  />
+                )}
               </button>
             </div>
             <div className="ot-trio__orb">
