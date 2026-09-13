@@ -5,7 +5,9 @@
    site.css. The site's own <Nav> (Layout.tsx) is kept — this file styles the
    hero body only. */
 
-.ooos-top {
+/* the viewbook is rendered outside .ooos-top (it floats over the page), so
+   it needs the same tokens */
+.ooos-top, .ot-viewbook {
   --ot-midnight: #0F031C;
   --ot-darkest-indigo: #06021C;
   --ot-dark-indigo: #19007D;
@@ -14,6 +16,8 @@
   --ot-ink: #1A0033;
   --ot-bg: #F0F4F5;
   --ot-font-body: 'Inter', system-ui, sans-serif;
+}
+.ooos-top {
   background: var(--ot-bg);
   color: var(--ot-ink);
   padding: 56px 24px 28px;
@@ -208,9 +212,27 @@
 .ot-viewbook__body { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 20px;
   align-items: center; padding: 18px 20px 20px; overflow: auto; min-height: 0; }
 .ot-viewbook__map { display: flex; flex-direction: column; align-items: center; }
-.ot-map { width: 100%; max-width: 340px; height: auto; display: block; overflow: visible; }
-.ot-map__zone path { fill: var(--zone); stroke: #fff; stroke-width: 2.5; stroke-linejoin: round;
+.ot-map { width: 100%; max-width: 340px; height: auto; display: block; overflow: hidden; border-radius: 12px; }
+.ot-map__water { fill: #DCEBF3; }
+.ot-map__land { fill: #E4E6EC; stroke: #fff; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.ot-map__lake { fill: #DCEBF3; }
+.ot-map__zone path { fill: var(--zone); stroke: #fff; stroke-width: 1; vector-effect: non-scaling-stroke; stroke-linejoin: round;
   cursor: pointer; transition: fill-opacity 0.25s ease, filter 0.25s ease; }
+.ot-map__label { font-family: var(--ot-font-body); font-weight: 600; font-size: 20px; letter-spacing: 0.02em;
+  text-anchor: middle; pointer-events: none; }
+.ot-map__label--water { fill: #4A7A9B; font-style: italic; }
+.ot-map__label--land { fill: #6E6F7A; text-transform: uppercase; letter-spacing: 0.14em; font-size: 18px; }
+.ot-map--gta .ot-map__label { font-size: 7.5px; }
+.ot-map--gta .ot-map__label--land { font-size: 6px; }
+.ot-map__city circle { fill: var(--ot-dark-indigo); stroke: #fff; stroke-width: 0.6; }
+.ot-map__city text { font-family: var(--ot-font-body); font-weight: 600; font-size: 6.5px; fill: var(--ot-ink); pointer-events: none;
+  paint-order: stroke; stroke: rgba(255,255,255,0.85); stroke-width: 1.4px; stroke-linejoin: round; }
+.ot-map__views { display: flex; gap: 6px; margin-top: 10px; }
+.ot-map__view { padding: 5px 11px; border-radius: 999px; border: 1.5px solid var(--ot-electric); background: #fff;
+  color: var(--ot-electric); font-family: var(--ot-font-body); font-weight: 600; font-size: 0.66rem; letter-spacing: 0.06em;
+  cursor: pointer; transition: background-color 0.2s ease, color 0.2s ease; }
+.ot-map__view[aria-pressed="true"] { background: var(--ot-electric); color: #fff; }
+.ot-map__view:focus-visible { outline: 2px solid var(--ot-electric); outline-offset: 3px; }
 .ot-map__zone.is-dim path { fill-opacity: 0.32; }
 .ot-map__zone.is-hot path { filter: drop-shadow(0 6px 14px rgba(15,3,28,0.28)); }
 .ot-map__caption { margin: 10px 0 0; min-height: 1.2em; font-family: var(--ot-font-body); font-weight: 600;

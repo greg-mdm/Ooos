@@ -3,7 +3,8 @@ import { type CSSProperties, type PointerEvent as ReactPointerEvent, type ReactN
 import { PathwayModal } from "./PathwayModal";
 import { OooDivisions } from "./OooDivisions";
 import { WaterTanks } from "./WaterTanks";
-import { ONTARIO_MAP_VIEWBOX, ONTARIO_REGION_PATHS, ONTARIO_ZONES } from "./ontarioRegions";
+import { ONTARIO_REGION_PATHS, ONTARIO_ZONES } from "./ontarioRegions";
+import { CONTEXT_PATHS, GTA_CITIES, GTA_LABELS, GTA_VIEWBOX, ONTARIO_CONTEXT_VIEWBOX, ONTARIO_LABELS } from "./ontarioContext";
 import "../../styles/hero-top.css";
 
 const GATEWAY_LINE = "You have arrived at a gateway to digital innovation!";
@@ -112,6 +113,10 @@ export function Home({ onSupport }: { onSupport: () => void }) {
   const [ringing, setRinging] = useState(false);
   const [mapOpen, setMapOpen] = useState(false);
   const [hotZone, setHotZone] = useState<string | null>(null);
+  /* the map at two scales: the whole province on its water, or the western
+     end of Lake Ontario with the GTA facing Niagara Falls and the American
+     shore */
+  const [mapView, setMapView] = useState<"ontario" | "gta">("ontario");
   /* where the viewbook sits once the visitor has dragged it; null means the
      default spot (centred near the top of the viewport) */
   const [bookPos, setBookPos] = useState<{ x: number; y: number } | null>(null);
@@ -333,11 +338,18 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           <div className="ot-viewbook__body" onMouseLeave={() => setHotZone(null)}>
             <div className="ot-viewbook__map">
               <svg
-                className="ot-map"
-                viewBox={ONTARIO_MAP_VIEWBOX}
+                className={`ot-map ot-map--${mapView}`}
+                viewBox={mapView === "gta" ? GTA_VIEWBOX : ONTARIO_CONTEXT_VIEWBOX}
                 role="img"
-                aria-label="Ontario provincial map: five geographic zones and eleven economic regions"
+                aria-label={mapView === "gta"
+                  ? "The Greater Toronto Area on the western shore of Lake Ontario, across the water from Niagara Falls and the United States"
+                  : "Ontario provincial map on its water: five geographic zones and eleven economic regions, with the Great Lakes, Hudson Bay and the neighbouring shores"}
               >
+                {/* water underneath everything, then the neighbouring land
+                    and the lakes, so the province sits on its water */}
+                <rect className="ot-map__water" x="-1000" y="-1000" width="4000" height="4000" />
+                <path className="ot-map__land" d={CONTEXT_PATHS[mapView].land} />
+                <path className="ot-map__lake" d={CONTEXT_PATHS[mapView].lakes} />
                 {ONTARIO_ZONES.map((z) => (
                   <g
                     key={z.id}
@@ -351,8 +363,24 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                     ))}
                   </g>
                 ))}
+                {(mapView === "gta" ? GTA_LABELS : ONTARIO_LABELS).map((t) => (
+                  <text key={t.name} className={`ot-map__label ot-map__label--${t.kind ?? "land"}`} x={t.x} y={t.y}>{t.name}</text>
+                ))}
+                {mapView === "gta" && GTA_CITIES.map((c) => (
+                  <g key={c.name} className="ot-map__city">
+                    <circle cx={c.x} cy={c.y} r="1.6" />
+                    <text x={c.x + 2.8} y={c.y + 1.2}>{c.name}</text>
+                  </g>
+                ))}
               </svg>
               <p className="ot-map__caption" aria-live="polite">{hot ? hot.name : PLACE_LINE[0]}</p>
+              <div className="ot-map__views" role="group" aria-label="Map scale">
+                {([["ontario", "Ontario"], ["gta", "Greater Toronto Area"]] as const).map(([v, label]) => (
+                  <button key={v} type="button" className="ot-map__view" aria-pressed={mapView === v} onClick={() => setMapView(v)}>
+                    {label}
+                  </button>
+                ))}
+              </div>
             </div>
             <div className="ot-viewbook__list">
               <p className="ot-viewbook__eyebrow">{PLACE_LINE[2]}</p>
