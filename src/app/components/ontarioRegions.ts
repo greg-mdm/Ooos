@@ -6,6 +6,9 @@
    converter in the session scratchpad rather than editing paths by hand. */
 
 export type OntarioRegion = { id: string; name: string };
+/** A municipal grouping inside a zone: the upper-tier region (or single-tier
+    city) and the lower-tier towns, cities and townships it contains. */
+export type OntarioPlaceGroup = { group: string; places: string[] };
 export type OntarioZone = {
   id: string;
   /** deck numbering, 01 to 05 */
@@ -15,9 +18,39 @@ export type OntarioZone = {
   colour: string;
   ink: string;
   regions: OntarioRegion[];
+  /** Municipalities listed by name so the zone reads as its towns and cities,
+      not as a single label. Only the GTA carries this today. */
+  municipalities?: OntarioPlaceGroup[];
+  /** one line of positioning shown under the municipalities */
+  note?: string;
 };
 
 export const ONTARIO_MAP_VIEWBOX = "0 0 1000 1008";
+
+/* The Greater Toronto Area as drawn on the Region of Peel GTA map (Peel Data
+   Centre, March 2022): the City of Toronto plus the four regional
+   municipalities of Halton, Peel, York and Durham, 25 municipalities in all.
+   Groups follow the map's order, west to east; places are alphabetical.
+   Designations checked September 2026: cities are Toronto, Burlington,
+   Brampton, Mississauga, Markham, Richmond Hill, Vaughan, Oshawa and
+   Pickering; Clarington is a Municipality; Brock, King, Scugog and Uxbridge
+   are Townships; the rest are Towns. */
+export const GTA_MUNICIPALITIES: OntarioPlaceGroup[] = [
+  { group: "City of Toronto", places: ["Toronto"] },
+  { group: "Region of Halton", places: ["Burlington", "Halton Hills", "Milton", "Oakville"] },
+  { group: "Region of Peel", places: ["Brampton", "Caledon", "Mississauga"] },
+  {
+    group: "Region of York",
+    places: [
+      "Aurora", "East Gwillimbury", "Georgina", "King", "Markham", "Newmarket",
+      "Richmond Hill", "Vaughan", "Whitchurch-Stouffville",
+    ],
+  },
+  {
+    group: "Region of Durham",
+    places: ["Ajax", "Brock", "Clarington", "Oshawa", "Pickering", "Scugog", "Uxbridge", "Whitby"],
+  },
+];
 
 /* listed in the deck's reading order: Northern, Eastern, Southwestern, Central, GTA */
 export const ONTARIO_ZONES: OntarioZone[] = [
@@ -113,7 +146,9 @@ export const ONTARIO_ZONES: OntarioZone[] = [
         "id": "3530",
         "name": "Toronto"
       }
-    ]
+    ],
+    "municipalities": GTA_MUNICIPALITIES,
+    "note": "Strategically positioned across Lake Ontario from the wonder of Niagara Falls and the American border."
   }
 ];
 

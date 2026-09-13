@@ -360,7 +360,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 {ONTARIO_ZONES.map((z) => (
                   <li
                     key={z.id}
-                    className={`ot-zone${zoneClass(z.id)}`}
+                    className={`ot-zone${z.municipalities ? " ot-zone--wide" : ""}${zoneClass(z.id)}`}
                     style={{ "--zone": z.colour } as CSSProperties}
                     onMouseEnter={() => setHotZone(z.id)}
                   >
@@ -371,6 +371,20 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                     <ul className="ot-zone__regions">
                       {z.regions.map((r) => <li key={r.id}>{r.name}</li>)}
                     </ul>
+                    {z.municipalities && (
+                      /* Every town and city by name, grouped by its region, so
+                         the zone reads as the whole area rather than one city
+                         and each place is plain, searchable text. */
+                      <ul className="ot-zone__places" aria-label={`${z.name} municipalities`}>
+                        {z.municipalities.map((g) => (
+                          <li key={g.group}>
+                            <span className="ot-zone__group">{g.group}</span>
+                            <span className="ot-zone__names">{g.places.join(", ")}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    {z.note && <p className="ot-zone__note">{z.note}</p>}
                   </li>
                 ))}
               </ul>
