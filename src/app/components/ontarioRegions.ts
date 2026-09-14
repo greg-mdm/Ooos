@@ -22,7 +22,6 @@ export type OntarioZone = {
       not as a single label. Only the GTA carries this today. */
   municipalities?: OntarioPlaceGroup[];
   /** one line of positioning shown under the municipalities */
-  note?: string;
 };
 
 export const ONTARIO_MAP_VIEWBOX = "0 0 1000 1008";
@@ -147,8 +146,7 @@ export const ONTARIO_ZONES: OntarioZone[] = [
         "name": "Toronto"
       }
     ],
-    "municipalities": GTA_MUNICIPALITIES,
-    "note": "Strategically positioned across Lake Ontario from the wonder of Niagara Falls and the American border."
+    "municipalities": GTA_MUNICIPALITIES
   }
 ];
 

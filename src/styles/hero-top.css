@@ -268,8 +268,6 @@
 .ot-zone__group { display: block; font-weight: 700; font-size: 0.62rem; letter-spacing: 0.12em;
   text-transform: uppercase; color: var(--zone); }
 .ot-zone__names { display: block; font-weight: 500; }
-.ot-zone__note { margin: 8px 0 0; font-family: var(--ot-font-body); font-weight: 500; font-style: italic;
-  font-size: 0.74rem; line-height: 1.4; color: var(--ot-dark-indigo); max-width: 60ch; text-wrap: balance; }
 .ot-viewbook__source { margin: 12px 0 0; font-family: var(--ot-font-body); font-weight: 600; font-size: 0.62rem;
   letter-spacing: 0.14em; text-transform: uppercase; color: var(--ot-dark-indigo); opacity: 0.8; }
 

@@ -426,7 +426,6 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                         ))}
                       </ul>
                     )}
-                    {z.note && <p className="ot-zone__note">{z.note}</p>}
                   </li>
                 ))}
               </ul>
