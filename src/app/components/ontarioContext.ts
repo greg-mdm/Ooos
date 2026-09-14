@@ -6,7 +6,11 @@
    to the same 1000-wide viewBox, then clipped and simplified. Regenerate
    with the converter in the session scratchpad rather than editing by hand. */
 
-export type MapLabel = { name: string; x: number; y: number; kind?: "water" | "land" };
+/* size and rotate let a lake name fit inside its lake: computed from the lake
+   polygon (Natural Earth 1:10m lakes, same projection) as the point deepest
+   inside the water, on the Canadian side of the boundary where there is
+   room, tilted along the lake when that gives the name more room. */
+export type MapLabel = { name: string; x: number; y: number; kind?: "water" | "land"; size?: number; rotate?: number };
 export type MapCity = { name: string; x: number; y: number };
 
 /** the province with its water around it */
@@ -15,22 +19,22 @@ export const ONTARIO_CONTEXT_VIEWBOX = "-170 -60 1250 1180";
 export const GTA_VIEWBOX = "628.8 748.2 300.0 200.0";
 
 export const ONTARIO_LABELS: MapLabel[] = [
-  { name: "Lake Superior", x: 350.1, y: 617.2, kind: "water" },
-  { name: "Lake Huron", x: 592.0, y: 818.4, kind: "water" },
-  { name: "Lake Erie", x: 696.9, y: 976.5, kind: "water" },
-  { name: "Lake Ontario", x: 892.7, y: 830.9, kind: "water" },
+  { name: "Lake Superior", x: 374, y: 582.4, kind: "water", size: 18.6, rotate: 30 },
+  { name: "Lake Huron", x: 619.3, y: 737.8, kind: "water", size: 20, rotate: 5 },
+  { name: "Lake Erie", x: 708.6, y: 965.5, kind: "water", size: 20, rotate: -30 },
+  { name: "Lake Ontario", x: 862.1, y: 833.1, kind: "water", size: 20, rotate: -10 },
   { name: "Hudson Bay", x: 300.0, y: -22.0, kind: "water" },
   { name: "James Bay", x: 599.9, y: 195.3, kind: "water" },
-  { name: "Lake Michigan", x: 386.3, y: 851.1, kind: "water" },
+  { name: "Lake Michigan", x: 397, y: 950.6, kind: "water", size: 11 },
   { name: "Quebec", x: 875.3, y: 398.4, kind: "land" },
   { name: "Manitoba", x: -113.9, y: 161.1, kind: "land" },
   { name: "United States", x: 738.0, y: 1048.0, kind: "land" },
 ];
 export const GTA_LABELS: MapLabel[] = [
-  { name: "Lake Ontario", x: 830.8, y: 834.8, kind: "water" },
+  { name: "Lake Ontario", x: 860.3, y: 818.6, kind: "water", size: 7.5, rotate: -15 },
   { name: "United States", x: 853.3, y: 865.8, kind: "land" },
-  { name: "Lake Erie", x: 803.5, y: 905.2, kind: "water" },
-  { name: "Lake Simcoe", x: 767.1, y: 783.7, kind: "water" },
+  { name: "Lake Erie", x: 768.6, y: 920.2, kind: "water", size: 7.5, rotate: -20 },
+  { name: "Lake Simcoe", x: 772.3, y: 790.4, kind: "water", size: 4.6 },
 ];
 export const GTA_CITIES: MapCity[] = [
   { name: "Toronto", x: 778.8, y: 843.2 },

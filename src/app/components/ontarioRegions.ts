@@ -116,7 +116,7 @@ export const ONTARIO_ZONES: OntarioZone[] = [
     "code": "05",
     "short": "Central",
     "name": "Central Ontario",
-    "colour": "#4DAEFF",
+    "colour": "#F0C040",
     "ink": "#0A0614",
     "regions": [
       {

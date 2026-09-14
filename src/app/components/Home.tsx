@@ -383,7 +383,16 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                   </g>
                 ))}
                 {(mapView === "gta" ? GTA_LABELS : ONTARIO_LABELS).map((t) => (
-                  <text key={t.name} className={`ot-map__label ot-map__label--${t.kind ?? "land"}`} x={t.x} y={t.y}>{t.name}</text>
+                  <text
+                    key={t.name}
+                    className={`ot-map__label ot-map__label--${t.kind ?? "land"}`}
+                    x={t.x}
+                    y={t.y}
+                    style={t.size ? { fontSize: t.size } : undefined}
+                    transform={t.rotate ? `rotate(${t.rotate} ${t.x} ${t.y})` : undefined}
+                  >
+                    {t.name}
+                  </text>
                 ))}
                 {mapView === "gta" && GTA_CITIES.map((c) => (
                   <g key={c.name} className="ot-map__city">
