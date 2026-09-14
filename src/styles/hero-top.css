@@ -310,7 +310,10 @@
 @media (max-width: 720px) {
   .ot-trio { grid-template-columns: minmax(0, 1fr); gap: 18px; }
   .ot-trio__left, .ot-trio__right { text-align: center; padding-left: 0; }
-  .ot-trio__left { justify-content: center; padding-right: 0; }
+  /* the bell's LED dot sits 21px above the button; with the orb stacked
+     above it the 18px row gap is not enough, so give the bell headroom and
+     let it paint over the orb's plate */
+  .ot-trio__left { justify-content: center; padding-right: 0; padding-top: 12px; position: relative; z-index: 1; }
   .ot-trio__orb { order: -1; transform: none; }
   .ot-sign { margin: 0 auto; transform: none; }
   .ot-place { margin-inline: auto; max-width: 100%; }
