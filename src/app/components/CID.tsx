@@ -1229,11 +1229,11 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                           reveals the sentence underneath. The copy is his, verbatim;
                           the component and its shader are in cid/RedShaderOrb.tsx. */}
                       <div className="cid-viv-orbs">
-                        <RedShaderOrb title="Global Interoperability Taskforce (GIT)">
-                          Global Interoperability Taskforce (GIT) connects Canadian content, services, and materials with audiences across platforms and markets.
+                        <RedShaderOrb title="Global Interoperability Trust (GIT)">
+                          Global Interoperability Trust (GIT) builds trusted connections that enable worldwide access to Canadian content and services across platforms and markets.
                         </RedShaderOrb>
-                        <RedShaderOrb title="Toronto Interoperability Trust (TIT)">
-                          Toronto Interoperability Trust (TIT) advances privacy protection, informed consent, and national standards. TIT expands public access to collective intelligence by sharing Toronto’s resources across Canada.
+                        <RedShaderOrb title="Toronto Interoperability Team (TIT)">
+                          Toronto Interoperability Team (TIT) increases public access to information by sharing metropolitan resources nationwide. TIT promotes national standards for privacy and informed consent.
                         </RedShaderOrb>
                       </div>
                     </details>
