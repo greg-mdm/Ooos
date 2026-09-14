@@ -216,6 +216,11 @@
 .ot-map__water { fill: #DCEBF3; }
 .ot-map__land { fill: #E4E6EC; stroke: #fff; stroke-width: 1; vector-effect: non-scaling-stroke; }
 .ot-map__lake { fill: #DCEBF3; }
+/* the neighbour on Chrome Silver (canon), with the boundary dashed over land
+   and water alike; non-scaling so the dashes read the same in both views */
+.ot-map__usa { fill: #D8DBDE; fill-rule: evenodd; stroke: none; }
+.ot-map__border { fill: none; stroke: #6E6F7A; stroke-width: 1.2; stroke-dasharray: 5 3; stroke-linecap: round;
+  stroke-linejoin: round; vector-effect: non-scaling-stroke; pointer-events: none; }
 .ot-map__zone path { fill: var(--zone); stroke: #fff; stroke-width: 1; vector-effect: non-scaling-stroke; stroke-linejoin: round;
   cursor: pointer; transition: fill-opacity 0.25s ease, filter 0.25s ease; }
 .ot-map__label { font-family: var(--ot-font-body); font-weight: 600; font-size: 20px; letter-spacing: 0.02em;

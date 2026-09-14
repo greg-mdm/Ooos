@@ -4,7 +4,7 @@ import { PathwayModal } from "./PathwayModal";
 import { OooDivisions } from "./OooDivisions";
 import { WaterTanks } from "./WaterTanks";
 import { ONTARIO_REGION_PATHS, ONTARIO_ZONES } from "./ontarioRegions";
-import { CONTEXT_PATHS, GTA_CITIES, GTA_LABELS, GTA_VIEWBOX, ONTARIO_CONTEXT_VIEWBOX, ONTARIO_LABELS } from "./ontarioContext";
+import { CANADA_US_BORDER, CONTEXT_PATHS, GTA_CITIES, GTA_LABELS, GTA_VIEWBOX, ONTARIO_CONTEXT_VIEWBOX, ONTARIO_LABELS, USA_PATH } from "./ontarioContext";
 import "../../styles/hero-top.css";
 
 const GATEWAY_LINE = "You have arrived at a gateway to digital innovation!";
@@ -345,11 +345,25 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                   ? "The Greater Toronto Area on the western shore of Lake Ontario, across the water from Niagara Falls and the United States"
                   : "Ontario provincial map on its water: five geographic zones and eleven economic regions, with the Great Lakes, Hudson Bay and the neighbouring shores"}
               >
-                {/* water underneath everything, then the neighbouring land
-                    and the lakes, so the province sits on its water */}
+                {/* water underneath everything, then the neighbouring land,
+                    the United States on its own tint, the lakes, and the
+                    international boundary through them, so the province
+                    sits on its water with its neighbour held inside the
+                    legal border */}
+                <defs>
+                  {/* the basemap carries its lakes as holes in the land, so
+                      the United States (whose source polygon counts lakes
+                      as land) is clipped to that land shape and never paints
+                      over water */}
+                  <clipPath id="ot-map-land-clip">
+                    <path d={CONTEXT_PATHS[mapView].land} />
+                  </clipPath>
+                </defs>
                 <rect className="ot-map__water" x="-1000" y="-1000" width="4000" height="4000" />
                 <path className="ot-map__land" d={CONTEXT_PATHS[mapView].land} />
+                <path className="ot-map__usa" d={USA_PATH} clipPath="url(#ot-map-land-clip)" />
                 <path className="ot-map__lake" d={CONTEXT_PATHS[mapView].lakes} />
+                <path className="ot-map__border" d={CANADA_US_BORDER} />
                 {ONTARIO_ZONES.map((z) => (
                   <g
                     key={z.id}
