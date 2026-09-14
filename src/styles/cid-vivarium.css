@@ -2147,11 +2147,10 @@
    paragraph or two on the house measure, under a rule that closes the
    list of folds. */
 .cid-scope .cid-cast-profile {
-  display: flex; flex-direction: column; gap: 6px;
-  padding-top: 12px; margin-top: 4px; border-top: 1px solid rgba(174,153,201,.13);
+  padding-top: 6px; margin-top: 4px; border-top: 1px solid rgba(174,153,201,.13);
 }
 .cid-scope .cid-cast-profile-t {
-  margin: 0; max-width: 62ch; text-wrap: pretty;
+  margin: 0 0 8px; max-width: 62ch; text-wrap: pretty;
   font-weight: 500; font-size: 12.5px; line-height: 1.5; color: rgba(232,236,244,.88);
 }
 @media (prefers-reduced-motion: reduce) {
@@ -2245,7 +2244,12 @@
 @media (min-width: 1000px) {
   .cid-scope .cid-cast-reading { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
 }
-.cid-scope .cid-cast-read { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.cid-scope .cid-cast-read { min-width: 0; }
+.cid-scope .cid-cast-read-body { display: flex; flex-direction: column; gap: 3px; padding-bottom: 6px; }
+/* The reading and profile folds: the heading is the summary, in its own
+   voice, and the chevron the functions' folds carry. */
+.cid-scope .cid-cast-read > summary,
+.cid-scope .cid-cast-profile > summary { padding: 6px 0; }
 .cid-scope .cid-cast-reading-title {
   display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px;
   margin: 4px 0 0; font-weight: 700; font-size: 14px; line-height: 1.3; color: #E8ECF4;

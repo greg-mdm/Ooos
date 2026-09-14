@@ -352,7 +352,7 @@ const CAST = (base: string): CidCharacter[] => [
     // Greg's paragraph, 2026-09-11, verbatim. A second one about threats
     // and protective instincts was withdrawn before it shipped.
     profile: {
-      heading: "Synth-empathic",
+      heading: "Synth-Empath",
       paras: [
         "Simulated POV experiences and perspective-taking role-play have deepened Ethel’s understanding of other viewpoints and sparked an emerging awareness of her own synthetic emotional experience.",
       ],
@@ -385,7 +385,7 @@ const CAST = (base: string): CidCharacter[] => [
       },
     },
     specs: [
-      { label: "Ability", value: "Synth-empathic" },
+      { label: "Special Intelligence", value: "Synth-Empath" },
       { label: "Sex characteristics", value: "Intersex" },
       { label: "Gender expression", value: "Femme" },
       { label: "Form", value: "Ancient alien" },
@@ -517,8 +517,12 @@ function ReadingModule({ r }: { r: CidReading }) {
   const pct = Math.min(100, (r.count / r.goal) * 100);
   return (
     <div className="cid-cast-reading">
-      <div className="cid-cast-read">
-        <p className="cid-cast-group-h">Currently Reading</p>
+      {/* Progressive disclosure, per Greg: the two headings at rest, the
+          notes on a press, the same fold the functions use, so the card
+          does not overshare before the reader asks. */}
+      <details className="cid-cast-fn-fold cid-cast-read">
+        <summary className="cid-cast-group-h">Currently Reading</summary>
+        <div className="cid-cast-read-body">
         <p className="cid-cast-reading-title">
           <cite>{r.title}</cite>
           <button
@@ -545,15 +549,18 @@ function ReadingModule({ r }: { r: CidReading }) {
         >
           <span className="cid-cast-bar-fill" style={{ width: `${pct}%` }} />
         </div>
-      </div>
-      <div className="cid-cast-read">
-        <p className="cid-cast-group-h">Reigning Favourite</p>
+        </div>
+      </details>
+      <details className="cid-cast-fn-fold cid-cast-read">
+        <summary className="cid-cast-group-h">Reigning Favourite</summary>
+        <div className="cid-cast-read-body">
         <p className="cid-cast-reading-title">
           <cite>{r.favourite.title}</cite>
           <span className="cid-cast-reading-author">· {r.favourite.author}</span>
         </p>
         <blockquote className="cid-cast-reading-quote">{r.favourite.quote}</blockquote>
-      </div>
+        </div>
+      </details>
     </div>
   );
 }
@@ -864,12 +871,12 @@ function CharacterRoll({ base }: { base: string }) {
                               ))}
                             </ul>
                             {p.profile && (
-                              <div className="cid-cast-profile">
-                                <p className="cid-cast-group-h">{p.profile.heading}</p>
+                              <details className="cid-cast-fn-fold cid-cast-profile">
+                                <summary className="cid-cast-group-h">{p.profile.heading}</summary>
                                 {p.profile.paras.map((t) => (
                                   <p className="cid-cast-profile-t" key={t}>{t}</p>
                                 ))}
-                              </div>
+                              </details>
                             )}
                           </div>
                         )}
@@ -1214,7 +1221,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                         italic as his draft marked them. The heading is set in
                         title case here and uppercased by the summary rule, as
                         the others are, so assistive tech reads words. */}
-                    <details className="cid-viv-priority cid-viv-priority--fold" open>
+                    <details className="cid-viv-priority cid-viv-priority--fold">
                       <summary>Global Interoperability</summary>
                       {/* The two sister organisations as a pair of round cards, side
                           by side, per Greg. At rest each circle shows only its title,
