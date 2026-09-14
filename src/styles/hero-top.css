@@ -119,6 +119,9 @@
 .ot-bell__pop { position: absolute; left: 50%; top: 50%; z-index: 5; width: 160px; height: auto;
   pointer-events: none; filter: drop-shadow(0 6px 14px rgba(75,0,182,0.35));
   animation: otWordmarkPop 1.25s cubic-bezier(.22,1,.36,1) both; }
+/* ring three: the maple leaf takes the same pop, in the watchlist's red */
+.ot-bell__pop--leaf { width: 60px; height: 60px; fill: #E8453C;
+  filter: drop-shadow(0 6px 14px rgba(232,69,60,0.35)); }
 
 /* ===== Chat bubbles that pop out of the orb ==================================
    Two bubble groups, absolutely positioned against .ot-trio__orb: the gateway
