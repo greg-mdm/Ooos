@@ -7,6 +7,11 @@ import { ONTARIO_REGION_PATHS, ONTARIO_ZONES } from "./ontarioRegions";
 import { CANADA_US_BORDER, CONTEXT_PATHS, GTA_CITIES, GTA_LABELS, GTA_VIEWBOX, ONTARIO_CONTEXT_VIEWBOX, ONTARIO_LABELS, USA_PATH } from "./ontarioContext";
 import "../../styles/hero-top.css";
 
+/* The workshop and Polymarket vote block ran to 2026-06-30 and 2026-07-31.
+ * Off since 2026-09-14, per Greg, kept intact for the next run: flip this
+ * to bring it back. */
+const SHOW_VOTE_FEATURE = false;
+
 const GATEWAY_LINE = "You have arrived at a gateway to digital innovation!";
 const WELCOME_LINE = "Welcome to our vibrant innovation ecosystem!";
 const PLACE_LINE = ["Ontario", "Provincial Map", "Economic Regions"];
@@ -528,6 +533,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
         </div>
       </section>
 
+      {SHOW_VOTE_FEATURE && (
       <section className="section vote-feature">
         <div className="vote-top-row">
           <div className="vote-guide-box">
@@ -592,6 +598,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           </a>
         </div>
       </section>
+      )}
 
       <section className="section section-light">
         <div className="section-header">
