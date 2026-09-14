@@ -107,6 +107,18 @@
 .ot-bell.pressed::before {
   box-shadow: 12px 16px 24px 6px rgba(26,0,51,0.24) inset, rgba(255,255,255,1) -14px -22px 18px -8px inset; }
 .ot-bell.pressed .ot-bell__icon--globe { width: 34px; height: 34px; }
+/* ring two: the Ooo! wordmark pops up out of the circle, hangs for a beat,
+   then drifts up and fades. It rides on the button (position relative) and
+   never takes the pointer. */
+@keyframes otWordmarkPop {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.2); }
+  22%  { opacity: 1; transform: translate(-50%, -120%) scale(1.08); }
+  40%  { opacity: 1; transform: translate(-50%, -135%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -190%) scale(0.96); }
+}
+.ot-bell__pop { position: absolute; left: 50%; top: 50%; z-index: 5; width: 160px; height: auto;
+  pointer-events: none; filter: drop-shadow(0 6px 14px rgba(75,0,182,0.35));
+  animation: otWordmarkPop 1.25s cubic-bezier(.22,1,.36,1) both; }
 
 /* ===== Chat bubbles that pop out of the orb ==================================
    Two bubble groups, absolutely positioned against .ot-trio__orb: the gateway
@@ -294,6 +306,7 @@
   .ot-viewbook { animation: none; }
   .ot-bell, .ot-bell::before, .ot-bell::after, .ot-bell__icon { transition: none; }
   .ot-bell__icon, .ot-bell.ringing .ot-bell__icon { animation: none; }
+  .ot-bell__pop { animation: none; opacity: 0; }
   .ot-place { animation: none; }
   .ot-bubble { animation: none; }
 }

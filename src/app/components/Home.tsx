@@ -15,8 +15,12 @@ const SHOW_VOTE_FEATURE = false;
 const GATEWAY_LINE = "You have arrived at a gateway to digital innovation!";
 const WELCOME_LINE = "Welcome to our vibrant innovation ecosystem!";
 const PLACE_LINE = ["Ontario", "Provincial Map", "Economic Regions"];
-const BELL_LABELS = ["Ring the bell", "Ring the bell again", "Ring the bell to clear the messages"];
+const BELL_LABELS = ["Ring the bell", "Ring the bell again", "Ring the bell again", "Ring the bell to clear the messages"];
 const BELL_SWING_MS = 620;
+/* the momentary press on the globe, and how long the wordmark takes to pop
+   out of the circle and fade */
+const PRESS_MS = 420;
+const POP_MS = 1250;
 
 /* Soft two-partial "ding" synthesised in WebAudio (no external audio assets).
    `pitch` scales both partials: 1 is the bell's ding, 1.5 (a fifth up) is the
@@ -116,6 +120,9 @@ export function Home({ onSupport }: { onSupport: () => void }) {
   const [pathwayOpen, setPathwayOpen] = useState(false);
   const [rings, setRings] = useState(0);
   const [ringing, setRinging] = useState(false);
+  /* ring two: the globe dips for a beat and the wordmark pops out */
+  const [pressing, setPressing] = useState(false);
+  const [popping, setPopping] = useState(false);
   const [mapOpen, setMapOpen] = useState(false);
   const [hotZone, setHotZone] = useState<string | null>(null);
   /* the map at two scales: the whole province on its water, or the western
@@ -129,7 +136,13 @@ export function Home({ onSupport }: { onSupport: () => void }) {
   const placeRef = useRef<HTMLButtonElement>(null);
   const grip = useRef<{ dx: number; dy: number } | null>(null);
   const swingTimer = useRef<number | undefined>(undefined);
-  useEffect(() => () => window.clearTimeout(swingTimer.current), []);
+  const pressTimer = useRef<number | undefined>(undefined);
+  const popTimer = useRef<number | undefined>(undefined);
+  useEffect(() => () => {
+    window.clearTimeout(swingTimer.current);
+    window.clearTimeout(pressTimer.current);
+    window.clearTimeout(popTimer.current);
+  }, []);
   /* Escape closes the viewbook; focus lands on it when it opens and returns
      to the location stack when it closes */
   useEffect(() => {
@@ -168,10 +181,10 @@ export function Home({ onSupport }: { onSupport: () => void }) {
   const hot = ONTARIO_ZONES.find((z) => z.id === hotZone) ?? null;
   const zoneClass = (id: string) => (hotZone === id ? " is-hot" : hotZone ? " is-dim" : "");
   const ring = () => {
-    if (ringing) return;
+    if (ringing || popping) return;
     if (rings === 0) {
-      /* first ring: the bell dingles for a beat, then flips to the pin and
-         the gateway line pops */
+      /* first ring: the bell dingles for a beat, then the face flips to the
+         globe and the gateway line pops */
       ding();
       setRinging(true);
       swingTimer.current = window.setTimeout(() => {
@@ -179,10 +192,20 @@ export function Home({ onSupport }: { onSupport: () => void }) {
         setRings(1);
       }, BELL_SWING_MS);
     } else if (rings === 1) {
-      /* second ring: the pin presses in with a higher ping as the welcome
-         line pops and the location line lights up under the sign */
+      /* second ring: the globe presses in with a higher ping, the wordmark
+         pops out of the circle and fades while the welcome line appears
+         beside the orb, and the face finishes as the location pin */
       ding(1.5);
+      setPressing(true);
+      setPopping(true);
       setRings(2);
+      pressTimer.current = window.setTimeout(() => setPressing(false), PRESS_MS);
+      popTimer.current = window.setTimeout(() => setPopping(false), POP_MS);
+    } else if (rings === 2) {
+      /* third ring: the pin presses in and stays in, and the location
+         details light up under the sign */
+      ding(1.8);
+      setRings(3);
     } else {
       ding();
       setRings(0);
@@ -190,6 +213,9 @@ export function Home({ onSupport }: { onSupport: () => void }) {
       setHotZone(null);
     }
   };
+  /* the face: bell at rest, the globe after ring one, the pin from the end
+     of ring two on (the globe stays while the wordmark is still popping) */
+  const face = rings === 0 ? "bell" : rings === 1 || popping ? "globe" : "pin";
   return (
     <>
       <section className="ooos-top" aria-label="Welcome">
@@ -197,39 +223,50 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           <div className="ot-trio">
             {/* Ding bell: neumorphic control wearing the welcome pill's purple
                 border + glow. Ring 1 wiggles the bell, then pops the gateway
-                bubble out of the orb's left side. Ring 2 presses the button
-                in, pops the welcome bubble out of the right side, and lights
-                the location line under the Toronto sign. Ring 3 clears all.
-                The bell face flips with each ring. */}
+                bubble out of the orb's left side and flips the face to the
+                globe. Ring 2 presses the globe in: the Ooo! wordmark pops out
+                of the circle and fades, the welcome bubble pops out of the
+                orb's right side, and the face finishes as the location pin.
+                Ring 3 presses the pin in and stays in, lighting the location
+                details under the Toronto sign. Ring 4 clears all. */}
             <div className="ot-trio__side ot-trio__left">
               <button
                 type="button"
-                className={`ot-bell${rings > 0 ? " active" : ""}${rings === 2 ? " pressed" : ""}${ringing ? " ringing" : ""}`}
+                className={`ot-bell${rings > 0 ? " active" : ""}${rings === 3 || pressing ? " pressed" : ""}${ringing ? " ringing" : ""}`}
                 aria-label={BELL_LABELS[rings]}
                 aria-controls="ot-bubbles"
                 onClick={ring}
               >
-                {/* the face flips with each ring: bell, then a location pin
-                    (a hint that the next message is a place), then the
-                    Electric global-network globe from the testimonials */}
-                {rings === 0 && (
+                {/* the face flips with each ring: bell, then the Electric
+                    global-network globe from the testimonials, then the
+                    location pin (a hint that the last message is a place) */}
+                {face === "bell" && (
                   <svg key="bell" className="ot-bell__icon" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M6.5 16.5V11a5.5 5.5 0 0 1 11 0v5.5l1.6 2H4.9z" />
                     <path d="M10 20.5a2 2 0 0 0 4 0" />
                     <path d="M12 3v2.5" />
                   </svg>
                 )}
-                {rings === 1 && (
+                {face === "globe" && (
+                  <img
+                    key="globe"
+                    className="ot-bell__icon ot-bell__icon--globe"
+                    src="/assets/Ooo-Global-Network-Electric.png?v=2"
+                    alt=""
+                    aria-hidden="true"
+                  />
+                )}
+                {face === "pin" && (
                   <svg key="pin" className="ot-bell__icon" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
                     <circle cx="12" cy="10" r="3" />
                   </svg>
                 )}
-                {rings === 2 && (
+                {/* the wordmark, popping out of the circle on ring two */}
+                {popping && (
                   <img
-                    key="globe"
-                    className="ot-bell__icon ot-bell__icon--globe"
-                    src="/assets/Ooo-Global-Network-Electric.png?v=2"
+                    className="ot-bell__pop"
+                    src="/assets/brand/ooo-wordmark-portal-transparent.png"
                     alt=""
                     aria-hidden="true"
                   />
@@ -261,10 +298,10 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               <div className="ot-sign" role="img" aria-label="Toronto, Canada" />
               {/* location stack under the sign: the pinned province on top,
                   the two sub-points (circle, map; caret, regions) smaller
-                  beneath, all centred on the sign. Lights on the second ring
-                  and opens the map tray below the hero; the caret turns to
-                  point down while the tray is open. */}
-              {rings >= 2 && (
+                  beneath, all centred on the sign. Lights on the third ring
+                  and opens the map viewbook; the caret turns to point down
+                  while the viewbook is open. */}
+              {rings >= 3 && (
                 <button
                   ref={placeRef}
                   type="button"
