@@ -232,6 +232,15 @@
 .ot-map__city circle { fill: var(--ot-dark-indigo); stroke: #fff; stroke-width: 0.6; }
 .ot-map__city text { font-family: var(--ot-font-body); font-weight: 600; font-size: 6.5px; fill: var(--ot-ink); pointer-events: none;
   paint-order: stroke; stroke: rgba(255,255,255,0.85); stroke-width: 1.4px; stroke-linejoin: round; }
+/* Simcoe's hover reveal: an invisible hit shape on the lake; the tag (leader
+   arrow plus name) fades in on hover or keyboard focus */
+.ot-map__peek-hit { fill: transparent; stroke: none; pointer-events: all; cursor: help; outline: none; }
+.ot-map__peek-hit:focus-visible { stroke: #4A7A9B; stroke-width: 0.8; stroke-dasharray: 2 1.5; vector-effect: non-scaling-stroke; }
+.ot-map__peek-tag { opacity: 0; transition: opacity 0.2s ease; pointer-events: none; }
+.ot-map__peek:hover .ot-map__peek-tag, .ot-map__peek:focus-within .ot-map__peek-tag { opacity: 1; }
+.ot-map__peek-line { fill: none; stroke: #4A7A9B; stroke-width: 0.8; stroke-linecap: round; }
+.ot-map__peek-head { fill: #4A7A9B; }
+.ot-map__peek-tag .ot-map__label { paint-order: stroke; stroke: rgba(255,255,255,0.85); stroke-width: 1.4px; stroke-linejoin: round; }
 .ot-map__views { display: flex; gap: 6px; margin-top: 10px; }
 .ot-map__view { padding: 5px 11px; border-radius: 999px; border: 1.5px solid var(--ot-electric); background: #fff;
   color: var(--ot-electric); font-family: var(--ot-font-body); font-weight: 600; font-size: 0.66rem; letter-spacing: 0.06em;

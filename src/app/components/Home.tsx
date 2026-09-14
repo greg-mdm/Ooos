@@ -4,7 +4,7 @@ import { PathwayModal } from "./PathwayModal";
 import { OooDivisions } from "./OooDivisions";
 import { WaterTanks } from "./WaterTanks";
 import { ONTARIO_REGION_PATHS, ONTARIO_ZONES } from "./ontarioRegions";
-import { CANADA_US_BORDER, CONTEXT_PATHS, GTA_CITIES, GTA_LABELS, GTA_VIEWBOX, ONTARIO_CONTEXT_VIEWBOX, ONTARIO_LABELS, USA_PATH } from "./ontarioContext";
+import { CANADA_US_BORDER, CONTEXT_PATHS, GTA_CITIES, GTA_LABELS, GTA_VIEWBOX, ONTARIO_CONTEXT_VIEWBOX, ONTARIO_LABELS, SIMCOE_CENTRE, SIMCOE_PATH, USA_PATH } from "./ontarioContext";
 import "../../styles/hero-top.css";
 
 /* The workshop and Polymarket vote block ran to 2026-06-30 and 2026-07-31.
@@ -363,6 +363,9 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                   <clipPath id="ot-map-land-clip">
                     <path d={CONTEXT_PATHS[mapView].land} />
                   </clipPath>
+                  <marker id="ot-map-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4" markerHeight="4" orient="auto">
+                    <path d="M0 0L10 5L0 10z" className="ot-map__peek-head" />
+                  </marker>
                 </defs>
                 <rect className="ot-map__water" x="-1000" y="-1000" width="4000" height="4000" />
                 <path className="ot-map__land" d={CONTEXT_PATHS[mapView].land} />
@@ -400,6 +403,24 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                     <text x={c.x + 2.8} y={c.y + 1.2}>{c.name}</text>
                   </g>
                 ))}
+                {/* Lake Simcoe: hover or focus the lake and its name appears
+                    up and to the left, with a leader arrow to the centre */}
+                {mapView === "gta" && (
+                  <g className="ot-map__peek">
+                    <path className="ot-map__peek-hit" d={SIMCOE_PATH} tabIndex={0} role="img" aria-label="Lake Simcoe" />
+                    <g className="ot-map__peek-tag" aria-hidden="true">
+                      <line
+                        className="ot-map__peek-line"
+                        x1={SIMCOE_CENTRE.x - 11}
+                        y1={SIMCOE_CENTRE.y - 17}
+                        x2={SIMCOE_CENTRE.x}
+                        y2={SIMCOE_CENTRE.y}
+                        markerEnd="url(#ot-map-arrow)"
+                      />
+                      <text className="ot-map__label ot-map__label--water" x={SIMCOE_CENTRE.x - 10} y={SIMCOE_CENTRE.y - 19} textAnchor="end">Lake Simcoe</text>
+                    </g>
+                  </g>
+                )}
               </svg>
               <p className="ot-map__caption" aria-live="polite">{hot ? hot.name : PLACE_LINE[0]}</p>
               <div className="ot-map__views" role="group" aria-label="Map scale">
