@@ -3089,11 +3089,6 @@ textarea:focus-visible,
 
 /* Was .exhibit-intro-anim, the right-hand animation panel. The panel is gone;
    the stacking it provided now belongs to the programs band itself. */
-.exhibit-programs {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
 .exhibit-intro-anim-body p {
   font-size: 15px;
   line-height: 1.7;
@@ -3165,15 +3160,6 @@ textarea:focus-visible,
   opacity: 0.82;
 }
 
-/* Interactive Programming band */
-.exhibit-programs-heading {
-  font-family: var(--serif);
-  font-size: clamp(1.25rem, 2vw, 1.75rem);
-  font-weight: 700;
-  color: var(--ink);
-  margin: 0 0 16px;
-  line-height: 1.2;
-}
 /* Haiku block inside the Thought Garden accordion: each line on its own
    row, slightly serif-styled, with a small author credit beneath. */
 .exhibit-haiku {
@@ -3469,169 +3455,6 @@ textarea:focus-visible,
    so the page reads as a single purple plus red.
    - ruby   #822F00  on white  ~8.4:1  AAA
    - indigo #19007D  on white  ~14:1   AAA */
-.exhibit-program {
-  --tone: #19007D;
-  position: relative;
-  border-top: 1px solid rgba(26, 0, 51, 0.12);
-  transition: background 160ms ease, box-shadow 200ms ease;
-}
-.exhibit-program::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 8px;
-  bottom: 8px;
-  width: 3px;
-  border-radius: 2px;
-  background: var(--tone);
-  opacity: 0;
-  transition: opacity 160ms ease;
-}
-.exhibit-program:hover::before,
-.exhibit-program.is-open::before,
-.exhibit-program:focus-within::before {
-  opacity: 1;
-}
-.exhibit-program:last-child {
-  border-bottom: 1px solid rgba(26, 0, 51, 0.12);
-}
-.exhibit-program.is-open {
-  background: rgba(26, 0, 51, 0.02);
-  box-shadow: inset 0 0 0 1px rgba(26, 0, 51, 0.06), 0 4px 18px -8px var(--tone);
-}
-.exhibit-program--ruby   { --tone: #822F00; }
-.exhibit-program--indigo { --tone: #19007D; }
-
-.exhibit-program-toggle {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 14px 14px 14px 16px;
-  background: transparent;
-  border: 0;
-  cursor: pointer;
-  text-align: left;
-  color: var(--ink);
-  font: inherit;
-}
-.exhibit-program-toggle:focus-visible {
-  outline: 2px solid var(--tone);
-  outline-offset: -2px;
-  border-radius: 4px;
-}
-.exhibit-program-toggle:hover .exhibit-program-name,
-.exhibit-program.is-open .exhibit-program-name {
-  color: var(--tone);
-}
-.exhibit-program-name {
-  font-family: var(--serif);
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--ink);
-  line-height: 1.25;
-  transition: color 160ms ease;
-}
-.exhibit-program-tag {
-  display: inline-block;
-  margin-left: 10px;
-  padding: 3px 10px;
-  font-family: var(--sans, inherit);
-  font-size: 0.66rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--tone);
-  background: color-mix(in srgb, var(--tone) 10%, transparent);
-  border: 1px solid color-mix(in srgb, var(--tone) 30%, transparent);
-  border-radius: 999px;
-  vertical-align: middle;
-  line-height: 1.4;
-}
-
-/* Per-pill accent overrides (used as guiding signals on selected items).
-   AODA contrast checks:
-   - Gold #F0C040 + Dark Indigo #19007D text  ~10:1   AAA
-   - White on Teal #008080                    ~4.83:1 AA  (normal text)
-   - White on Portal #4B00B6                  ~10:1   AAA */
-.exhibit-program-tag--gold {
-  color: #19007D;
-  background: #F0C040;
-  border-color: #F0C040;
-}
-.exhibit-program-tag--teal {
-  color: #ffffff;
-  background: #008080;
-  border-color: #008080;
-}
-.exhibit-program-tag--portal {
-  color: #ffffff;
-  background: #4B00B6;
-  border-color: #4B00B6;
-}
-.exhibit-program-tag--ruby {
-  color: #ffffff;
-  background: #822F00;
-  border-color: #822F00;
-}
-.exhibit-program-tag--indigo {
-  color: #ffffff;
-  background: #19007D;
-  border-color: #19007D;
-}
-.exhibit-program-arrow {
-  font-size: 1.25rem;
-  line-height: 1;
-  color: var(--tone);
-  opacity: 0.7;
-  flex-shrink: 0;
-}
-.exhibit-program-body {
-  padding: 0 16px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.exhibit-program-body p {
-  font-size: 14px;
-  line-height: 1.65;
-  color: var(--ink);
-  opacity: 0.82;
-  margin: 0;
-  max-width: 72ch;
-}
-.exhibit-program-list {
-  margin: 0;
-  padding-left: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.exhibit-program-list li {
-  font-size: 14px;
-  line-height: 1.65;
-  color: var(--ink);
-  opacity: 0.82;
-}
-.exhibit-program-list li::marker { color: var(--tone); }
-.exhibit-program-sub {
-  margin-top: 4px;
-  padding-left: 14px;
-  border-left: 2px solid var(--tone);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.exhibit-program-subname {
-  font-family: var(--serif);
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--ink);
-  margin: 0;
-  line-height: 1.25;
-}
-
 /* ===== NPP ANIMATED DIVIDER (contained) ===== */
 .npp-anim-div {
   position: relative;
@@ -5275,3 +5098,186 @@ textarea:focus-visible,
   .commit-word { font-size: 17px; }
   .commit-center-word { font-size: 18px; }
 }
+
+/* ===== EXHIBITION: INTERACTIVE PROGRAMMING MIDWAY =====
+   A night-sky band with one card per attraction. Palette is canon
+   (About.tsx): Midnight Black #0F031C, Darkest Indigo #06021C, Gold #F0C040
+   with ink #1A1203, Ruby #822F00, Teal #008080, Portal #4B00B6,
+   Electric #5B04DE, Bright Silver #E8ECF4. Gold is decorative here: the
+   marquee bulbs, card borders, the eyebrow on a dark ground. */
+.exhibit-midway {
+  position: relative;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 0%, rgba(75, 0, 182, 0.35), transparent 70%),
+    linear-gradient(180deg, #0F031C 0%, #06021C 100%);
+  color: #E8ECF4;
+  border-top: 1px solid rgba(240, 192, 64, 0.35);
+  border-bottom: 1px solid rgba(240, 192, 64, 0.35);
+  overflow: hidden;
+}
+/* Marquee bulbs along the top edge: two rows of gold dots, the second row
+   offset and twinkling against the first. */
+.exhibit-midway::before,
+.exhibit-midway::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 6px;
+  height: 10px;
+  background-image: radial-gradient(circle, #F0C040 0 2.5px, rgba(240, 192, 64, 0.25) 3px, transparent 3.5px);
+  background-size: 28px 10px;
+  background-repeat: repeat-x;
+  pointer-events: none;
+}
+.exhibit-midway::before { animation: midwayTwinkleA 1.6s steps(1) infinite; }
+.exhibit-midway::after  { background-position: 14px 0; animation: midwayTwinkleB 1.6s steps(1) infinite; }
+@keyframes midwayTwinkleA { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0.35; } }
+@keyframes midwayTwinkleB { 0%, 49% { opacity: 0.35; } 50%, 100% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .exhibit-midway::before,
+  .exhibit-midway::after { animation: none; opacity: 0.8; }
+}
+.exhibit-midway__inner {
+  padding-top: 52px;
+  padding-bottom: 60px;
+}
+.exhibit-midway__eyebrow {
+  margin: 0 0 6px;
+  text-align: center;
+  font-family: var(--font-elevated, var(--sans));
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: #F0C040;
+}
+.exhibit-midway__heading {
+  margin: 0 0 32px;
+  text-align: center;
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #ffffff;
+  text-shadow: 0 0 24px rgba(240, 192, 64, 0.25);
+}
+.exhibit-midway__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
+}
+@media (max-width: 1080px) { .exhibit-midway__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 820px)  { .exhibit-midway__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; } }
+@media (max-width: 520px)  { .exhibit-midway__grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* Card. --tone drives the booth stripes, the tag pill and the hover glow. */
+.midway-card {
+  --tone: #822F00;
+  --tone-ink: #ffffff;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(240, 192, 64, 0.28);
+  box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 200ms ease;
+}
+.midway-card:hover,
+.midway-card:focus-within {
+  transform: translateY(-4px);
+  border-color: rgba(240, 192, 64, 0.7);
+  box-shadow: 0 18px 40px -18px color-mix(in srgb, var(--tone) 70%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .midway-card, .midway-card:hover, .midway-card:focus-within { transform: none; }
+}
+.midway-card--ruby     { --tone: #822F00; }
+.midway-card--gold     { --tone: #F0C040; --tone-ink: #1A1203; }
+.midway-card--teal     { --tone: #008080; }
+.midway-card--portal   { --tone: #4B00B6; }
+.midway-card--electric { --tone: #5B04DE; }
+
+.midway-card__media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #0F031C;
+  border-bottom: 1px solid rgba(240, 192, 64, 0.2);
+}
+.midway-card__video,
+.midway-card__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Booth panel for attractions whose art has not arrived: a striped tent
+   awning in the card's tone, with the booth number on a ticket. */
+.midway-card__booth {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 100%, rgba(6, 2, 28, 0.75), transparent 70%),
+    repeating-linear-gradient(
+      135deg,
+      var(--tone) 0 14px,
+      color-mix(in srgb, var(--tone) 45%, #06021C) 14px 28px
+    );
+}
+.midway-card__booth-no {
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #06021C;
+  border: 1px solid rgba(240, 192, 64, 0.6);
+  font-family: var(--font-elevated, var(--sans));
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #F0C040;
+}
+
+.midway-card__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 16px 18px 20px;
+}
+.midway-card__tag {
+  display: inline-block;
+  padding: 4px 11px;
+  border-radius: 999px;
+  background: var(--tone);
+  color: var(--tone-ink);
+  font-family: var(--font-elevated, var(--sans));
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.midway-card__title {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.08rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #ffffff;
+}
+.midway-card__text p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #E8ECF4;
+  opacity: 0.86;
+}
+/* The Thought Garden haiku keeps its own styles; on this ground its lines
+   and credit read in silver and gold rather than ink and teal. */
+.midway-card__text .exhibit-haiku__line { color: #E8ECF4; }
+.midway-card__text .exhibit-haiku__author { color: #F0C040; margin-top: 12px; }

@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import { RadioAd } from "./RadioAd";
 
 export function Exhibition({ onSupport }: { onSupport: () => void }) {
@@ -70,78 +70,24 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
         </div>
       </div>
 
-      {/* Interactive Programming and the co-marketing block used to be nested
-          in the right-hand .exhibit-intro-anim panel beside the intro copy.
-          That slot was built as an animation panel, so two of the page's
-          longest passages were reading at half width in a side rail. They are
-          bands of their own now, full width under the intro: sidebar keeps
-          sidebar content, body content stays in the body. */}
-      <div className="exhibit-band exhibit-programs">
-          <h2 className="exhibit-programs-heading exhibit-intro-h2--centered">
+      {/* Interactive Programming: the midway. One card per attraction, laid
+          out as a grid on a night-sky band so each attraction can carry its
+          own art. The Idea Accelerator card plays a short muted loop; the
+          others show a striped booth panel until their art arrives. Add an
+          attraction's art by filling in its `media` entry in ATTRACTIONS. */}
+      <section className="exhibit-midway" aria-labelledby="exhibit-midway-heading">
+        <div className="exhibit-band exhibit-midway__inner">
+          <p className="exhibit-midway__eyebrow">Step right up</p>
+          <h2 id="exhibit-midway-heading" className="exhibit-midway__heading">
             Interactive Programming
           </h2>
-
-          <ProgramItem title="National Gallery" tag="Digital Art Influencers" tone="ruby">
-            <ul className="exhibit-program-list">
-              <li>Explore experimental digital artwork from Canadian creators.</li>
-            </ul>
-          </ProgramItem>
-
-          <ProgramItem title="Idea Accelerator" tag="Shoot a beam" tone="indigo" pillTone="gold">
-            <p>
-              Energize your thought beam by sharing an observation. Spinning at
-              the speed of light, different perspectives pull together as
-              opposing ideas attract. When a conflicting insight collides with a
-              cluster, the impact ignites a constellation of vibrant new
-              connections.
-            </p>
-          </ProgramItem>
-
-          <ProgramItem title="Thought Garden" tag="Plant a seed" tone="indigo" pillTone="teal">
-            <div className="exhibit-haiku">
-              <p className="exhibit-haiku__line">Underground roots meet,</p>
-              <p className="exhibit-haiku__line">Trees trade gifts beneath the soil,</p>
-              <p className="exhibit-haiku__line">We grow together.</p>
-              <p className="exhibit-haiku__author">GTL 6/2026</p>
-            </div>
-          </ProgramItem>
-
-          <ProgramItem title="Serious Games Showcase" tag="Play with purpose" tone="ruby">
-            <p>
-              Bias Busting POVs invite visitors into interactive stories that
-              confront hard realities, challenge assumptions, shift perspectives,
-              and strengthen public education.
-            </p>
-          </ProgramItem>
-
-          <ProgramItem title="Sassy Games Spotlight" tag="Play proud" tone="ruby" pillTone="portal">
-            <p>
-              Join us as we welcome community leaders, proud players, allies,
-              anonymous avatars, and anyone seeking a safe space for supportive
-              conversations about gender and sexuality.
-            </p>
-          </ProgramItem>
-
-          <ProgramItem title="The Most Radical Jester" tag="Truth to power" tone="ruby">
-            <p>
-              Speak truth to power, make light of a painful reality, or flip
-              the script in your own twisted way.
-            </p>
-          </ProgramItem>
-
-          <ProgramItem title="Queen of the Night" tag="Your radiant reign" tone="ruby">
-            <p>
-              Experience emotional liberation for one night only. Elusive,
-              elegant, or intense. Flaunt forbidden feelings and do not
-              excuse your beauty.
-            </p>
-          </ProgramItem>
-
-          <ProgramItem title="Gateway Portals" tag="Enter here" tone="indigo">
-            <p>Enter artist-created worlds</p>
-          </ProgramItem>
-
-      </div>
+          <div className="exhibit-midway__grid">
+            {ATTRACTIONS.map((a, i) => (
+              <AttractionCard key={a.id} attraction={a} booth={i + 1} />
+            ))}
+          </div>
+        </div>
+      </section>
 
       <div className="exhibit-band">
           <div className="exhibit-reach">
@@ -333,43 +279,188 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
   );
 }
 
-function ProgramItem({
-  title,
-  tag,
-  tone = "ruby",
-  pillTone,
-  children,
-}: {
+type Tone = "ruby" | "gold" | "teal" | "portal" | "electric";
+
+type Media =
+  | { kind: "video"; mp4: string; webm: string; poster: string; alt: string }
+  | { kind: "image"; src: string; alt: string };
+
+type Attraction = {
+  id: string;
   title: string;
-  tag?: string;
-  tone?: "ruby" | "indigo";
-  pillTone?: "ruby" | "indigo" | "gold" | "teal" | "portal";
-  children: ReactNode;
-}) {
-  const [open, setOpen] = useState(false);
-  const detailId = `exhibit-program-${title.replace(/\s+/g, "-").toLowerCase()}`;
-  const pillClass = pillTone ? ` exhibit-program-tag--${pillTone}` : "";
-  return (
-    <div className={`exhibit-program exhibit-program--${tone} ${open ? "is-open" : ""}`}>
-      <button
-        type="button"
-        className="exhibit-program-toggle"
-        aria-expanded={open}
-        aria-controls={detailId}
-        onClick={() => setOpen((v) => !v)}
-      >
-        <span className="exhibit-program-name">
-          {title}
-          {tag && <span className={`exhibit-program-tag${pillClass}`}>{tag}</span>}
-        </span>
-        <span aria-hidden="true" className="exhibit-program-arrow">
-          {open ? "\u2212" : "+"}
-        </span>
-      </button>
-      <div id={detailId} className="exhibit-program-body" hidden={!open}>
-        {children}
+  tag: string;
+  tone: Tone;
+  media?: Media;
+  body: ReactNode;
+};
+
+const ASSETS = `${import.meta.env.BASE_URL}assets/exhibition/`;
+
+/* Each attraction's art lives in public/assets/exhibition/<id>.* . A still is
+   { kind: "image", src: `${ASSETS}<id>.webp`, alt }; a loop is
+   { kind: "video", mp4, webm, poster, alt }. Cards without media show a
+   striped booth panel in their tone. */
+const ATTRACTIONS: Attraction[] = [
+  {
+    id: "national-gallery",
+    title: "National Gallery",
+    tag: "Digital Art Influencers",
+    tone: "ruby",
+    body: <p>Explore experimental digital artwork from Canadian creators.</p>,
+  },
+  {
+    id: "idea-accelerator",
+    title: "Idea Accelerator",
+    tag: "Shoot a beam",
+    tone: "gold",
+    media: {
+      kind: "video",
+      mp4: `${ASSETS}idea-accelerator.mp4`,
+      webm: `${ASSETS}idea-accelerator.webm`,
+      poster: `${ASSETS}idea-accelerator-poster.webp`,
+      alt: "A golden particle detector lit from within, beams of light igniting a constellation of sparks",
+    },
+    body: (
+      <p>
+        Energize your thought beam by sharing an observation. Spinning at the
+        speed of light, different perspectives pull together as opposing ideas
+        attract. When a conflicting insight collides with a cluster, the
+        impact ignites a constellation of vibrant new connections.
+      </p>
+    ),
+  },
+  {
+    id: "thought-garden",
+    title: "Thought Garden",
+    tag: "Plant a seed",
+    tone: "teal",
+    body: (
+      <div className="exhibit-haiku">
+        <p className="exhibit-haiku__line">Underground roots meet,</p>
+        <p className="exhibit-haiku__line">Trees trade gifts beneath the soil,</p>
+        <p className="exhibit-haiku__line">We grow together.</p>
+        <p className="exhibit-haiku__author">GTL 6/2026</p>
       </div>
-    </div>
+    ),
+  },
+  {
+    id: "serious-games",
+    title: "Serious Games Showcase",
+    tag: "Play with purpose",
+    tone: "electric",
+    body: (
+      <p>
+        Bias Busting POVs invite visitors into interactive stories that confront
+        hard realities, challenge assumptions, shift perspectives, and
+        strengthen public education.
+      </p>
+    ),
+  },
+  {
+    id: "sassy-games",
+    title: "Sassy Games Spotlight",
+    tag: "Play proud",
+    tone: "portal",
+    body: (
+      <p>
+        Join us as we welcome community leaders, proud players, allies,
+        anonymous avatars, and anyone seeking a safe space for supportive
+        conversations about gender and sexuality.
+      </p>
+    ),
+  },
+  {
+    id: "radical-jester",
+    title: "The Most Radical Jester",
+    tag: "Truth to power",
+    tone: "ruby",
+    body: (
+      <p>
+        Speak truth to power, make light of a painful reality, or flip the
+        script in your own twisted way.
+      </p>
+    ),
+  },
+  {
+    id: "queen-of-the-night",
+    title: "Queen of the Night",
+    tag: "Your radiant reign",
+    tone: "portal",
+    body: (
+      <p>
+        Experience emotional liberation for one night only. Elusive, elegant,
+        or intense. Flaunt forbidden feelings and do not excuse your beauty.
+      </p>
+    ),
+  },
+  {
+    id: "gateway-portals",
+    title: "Gateway Portals",
+    tag: "Enter here",
+    tone: "teal",
+    body: <p>Enter artist-created worlds</p>,
+  },
+];
+
+/* Muted, looping card art. Plays only while on screen, and not at all for
+   visitors who asked for reduced motion (they get the poster). */
+function LoopVideo({ media }: { media: Extract<Media, { kind: "video" }> }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) el.play().catch(() => {});
+        else el.pause();
+      },
+      { threshold: 0.25 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return (
+    <video
+      ref={ref}
+      className="midway-card__video"
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      poster={media.poster}
+      aria-label={media.alt}
+    >
+      <source src={media.webm} type="video/webm" />
+      <source src={media.mp4} type="video/mp4" />
+    </video>
+  );
+}
+
+function AttractionCard({ attraction, booth }: { attraction: Attraction; booth: number }) {
+  const { title, tag, tone, media, body } = attraction;
+  const titleId = `midway-${attraction.id}`;
+  return (
+    <article className={`midway-card midway-card--${tone}`} aria-labelledby={titleId}>
+      <div className="midway-card__media">
+        {media?.kind === "video" && <LoopVideo media={media} />}
+        {media?.kind === "image" && (
+          <img className="midway-card__img" src={media.src} alt={media.alt} loading="lazy" />
+        )}
+        {!media && (
+          <div className="midway-card__booth" aria-hidden="true">
+            <span className="midway-card__booth-no">
+              Booth {String(booth).padStart(2, "0")}
+            </span>
+          </div>
+        )}
+      </div>
+      <div className="midway-card__body">
+        <span className="midway-card__tag">{tag}</span>
+        <h3 id={titleId} className="midway-card__title">{title}</h3>
+        <div className="midway-card__text">{body}</div>
+      </div>
+    </article>
   );
 }
 
