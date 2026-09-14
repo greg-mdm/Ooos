@@ -533,9 +533,24 @@
   outline: 2px solid #4B00B6; outline-offset: 4px; border-radius: 4px;
 }
 .cid-scope .cid-viv-priority--fold[open] .cid-viv-priority-points { margin-top: 10px; }
+/* Opening the Global Interoperability fold drops both circles in from above,
+   the second a beat after the first, each settling with a small bounce. The
+   fold's content leaves layout while it is closed, so the drop replays on
+   every open. */
+@keyframes cidOrbDrop {
+  0%   { opacity: 0; transform: translateY(-56px) scale(.96); }
+  60%  { opacity: 1; transform: translateY(8px) scale(1.01); }
+  80%  { transform: translateY(-3px) scale(1); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.cid-scope .cid-viv-priority--fold[open] .cid-viv-orb {
+  animation: cidOrbDrop .62s cubic-bezier(.22,1,.36,1) both;
+}
+.cid-scope .cid-viv-priority--fold[open] .cid-viv-orb:nth-child(2) { animation-delay: .14s; }
 @media (prefers-reduced-motion: reduce) {
   .cid-scope .cid-viv-priority--fold,
   .cid-scope .cid-viv-priority--fold summary::after { transition: none; }
+  .cid-scope .cid-viv-priority--fold[open] .cid-viv-orb { animation: none; }
 }
 
 /* Below the width where two cards can hold a readable measure, the grid
