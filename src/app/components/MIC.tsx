@@ -23,7 +23,7 @@ export function MIC() {
       <section className="mic-feature" aria-label="Twelve Signs decode board">
         <iframe
           className="mic-feature__frame"
-          src={`${base}mic/twelve-signs/index.html?v=1`}
+          src={`${base}mic/twelve-signs/board.html?v=1`}
           title="Twelve Signs decode board"
           loading="lazy"
           allowFullScreen
