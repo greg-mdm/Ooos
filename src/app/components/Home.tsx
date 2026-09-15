@@ -867,6 +867,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
         <div className="path-links">
           <span className="path-links__label">Other project links</span>
           <Link to="/ostara" className="path-links__link">Ostara: Collective Intelligence System</Link>
+          <Link to="/mic" className="path-links__link">Media, Information and Culture (MIC): Twelve Signs</Link>
           <Link to="/cid" className="path-links__link">Canadian Innovation Dimension (CID)</Link>
         </div>
 
