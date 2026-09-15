@@ -12,7 +12,7 @@ import "../../styles/hero-top.css";
  * to bring it back. */
 const SHOW_VOTE_FEATURE = false;
 
-const GATEWAY_LINE = "You have arrived at a gateway to digital innovation!";
+const GATEWAY_LINE = "You have arrived at a gateway to digital engagement!";
 const WELCOME_LINE = "Welcome to our vibrant innovation ecosystem!";
 const PLACE_LINE = ["Ontario", "Provincial Map", "Economic Regions"];
 const BELL_LABELS = ["Ring the bell", "Ring the bell again", "Ring the bell again", "Ring the bell to clear the messages"];
