@@ -470,7 +470,7 @@ const CAST = (base: string): CidCharacter[] => [
         items: [
           { label: "AQUAE · Lead Integrator", desc: "The smartest squad measures temperature, oxygen, salinity, turbidity, and geothermal chemistry, integrating signals from the swarm to examine how these conditions interact." },
           { label: "LIVES", desc: "Tracks benthic organisms, biodiversity, and biological health." },
-          { label: "BOTTOMS", desc: "Measures bathymetry and maps depth, seabed structure, sediment, and mineral deposits." },
+          { label: "WORMS", desc: "Measures bathymetry and maps depth, seabed structure, sediment, and mineral deposits." },
           { label: "FLOWS", desc: "Follows currents and ice movement while tracking vessels, subsea infrastructure, and environmental change." },
         ],
       },
