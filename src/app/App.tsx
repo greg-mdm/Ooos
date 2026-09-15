@@ -6,6 +6,7 @@ import { Ostara } from "./components/Ostara";
 import { Exhibition } from "./components/Exhibition";
 import { IWatchlist } from "./components/IWatchlist";
 import { CID } from "./components/CID";
+import { MIC } from "./components/MIC";
 import { PopClockMini } from "./components/PopClockMini";
 import { About } from "./components/About";
 import { SupportModal } from "./components/SupportModal";
@@ -24,6 +25,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home onSupport={open} />} />
           <Route path="/ostara" element={<Ostara onSupport={open} />} />
+          <Route path="/mic" element={<MIC />} />
+          <Route path="/mic/twelve-signs" element={<MIC />} />
           <Route path="/cid/iwatchlist" element={<IWatchlist />} />
           <Route path="/iwatchlist" element={<IWatchlist />} />
           <Route path="/cid" element={<CID onSupport={open} />} />
