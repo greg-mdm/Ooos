@@ -303,7 +303,9 @@ type CidCharacter = {
      *  a formation: the first item leads, across the full width, and the
      *  rest hang under it in columns, joined by the lines of a sitemap. */
     itemsHeading?: string;
-    items?: { label: string; desc: string }[];
+    /** An item with an icon discloses progressively: at rest the icon and
+     *  the label, and pressing either reveals the sentence. */
+    items?: { label: string; desc: string; icon?: SquadIcon }[];
     /** A closing line at the foot of the box. */
     foot?: string;
   }[];
@@ -469,9 +471,9 @@ const CAST = (base: string): CidCharacter[] => [
         itemsHeading: "BARBEL Squadrons",
         items: [
           { label: "AQUAE · Lead Integrator", desc: "The smartest squad measures temperature, oxygen, salinity, turbidity, and geothermal chemistry, integrating signals from the swarm to examine how these conditions interact." },
-          { label: "LIVES", desc: "Tracks benthic organisms, biodiversity, and biological health." },
-          { label: "WORMS", desc: "Measures bathymetry and maps depth, seabed structure, sediment, and mineral deposits." },
-          { label: "FLOWS", desc: "Follows currents and ice movement while tracking vessels, subsea infrastructure, and environmental change." },
+          { label: "LIVES", icon: "dna", desc: "Tracks benthic organisms, biodiversity, and biological health." },
+          { label: "WORMS", icon: "worm", desc: "Measures bathymetry and maps depth, seabed structure, sediment, and mineral deposits." },
+          { label: "FLOWS", icon: "wave", desc: "Follows currents and ice movement while tracking vessels, subsea infrastructure, and environmental change." },
         ],
       },
     ],
@@ -565,12 +567,31 @@ function ReadingModule({ r }: { r: CidReading }) {
   );
 }
 
+/* The squadron glyphs: a DNA strand for LIVES, a worm for WORMS, waves for
+   FLOWS. Stroke icons in the formation's blue, drawn here so nothing is
+   fetched for them. */
+type SquadIcon = "dna" | "worm" | "wave";
+const SQUAD_ICON_PATHS: Record<SquadIcon, string[]> = {
+  dna: ["M7 2c0 5 10 5 10 10S7 17 7 22", "M17 2c0 5-10 5-10 10s10 5 10 10", "M8.2 5.5h7.6", "M8.2 18.5h7.6", "M9.6 9.2h4.8", "M9.6 14.8h4.8"],
+  worm: ["M3 13c1.5-4.5 3.5-4.5 5 0s3.5 4.5 5 0 3.5-4.5 5 0 2.2 3.2 3 1.5", "M20.2 10.6a1.2 1.2 0 1 0 .01 0"],
+  wave: ["M2 10c2.5-3.2 5-3.2 7.5 0s5 3.2 7.5 0 3.5-3.2 5 0", "M2 16c2.5-3.2 5-3.2 7.5 0s5 3.2 7.5 0 3.5-3.2 5 0"],
+};
+function SquadGlyph({ icon }: { icon: SquadIcon }) {
+  return (
+    <svg className="cid-cast-squad-ico" viewBox="0 0 24 24" aria-hidden="true">
+      {SQUAD_ICON_PATHS[icon].map((d) => <path key={d} d={d} />)}
+    </svg>
+  );
+}
+
 function CharacterRoll({ base }: { base: string }) {
   const cast = CAST(base);
   // Falls back to the first frame if the named character ever leaves the cast,
   // so a bad key cannot leave the roll with nothing lit.
   const opensAt = Math.max(0, cast.findIndex((c) => c.key === OPENS_LIT));
   const [at, setAt] = useState(opensAt);
+  /* which squadron, if any, has its sentence disclosed */
+  const [openSquad, setOpenSquad] = useState<string | null>(null);
   const roll = useRef<HTMLDivElement | null>(null);
   const frames = useRef<(HTMLButtonElement | null)[]>([]);
   const lit = useRef<HTMLVideoElement | null>(null);
@@ -921,7 +942,21 @@ function CharacterRoll({ base }: { base: string }) {
                             )}
                             {f.items && f.items.length > 0 && (
                               <ul className="cid-cast-fns cid-cast-fns--formation">
-                                {f.items.map((it) => (
+                                {f.items.map((it) => it.icon ? (
+                                  <li className="cid-cast-fn cid-cast-squad cid-cast-squad--disclose" key={it.label}>
+                                    <button
+                                      type="button"
+                                      className="cid-cast-squad-btn"
+                                      aria-expanded={openSquad === it.label}
+                                      aria-controls={`squad-${it.label.toLowerCase()}`}
+                                      onClick={() => setOpenSquad((o) => (o === it.label ? null : it.label))}
+                                    >
+                                      <SquadGlyph icon={it.icon} />
+                                      <span className="cid-cast-fn-k">{it.label}</span>
+                                    </button>
+                                    <span id={`squad-${it.label.toLowerCase()}`} className="cid-cast-fn-d" hidden={openSquad !== it.label}>{it.desc}</span>
+                                  </li>
+                                ) : (
                                   <li className="cid-cast-fn cid-cast-squad" key={it.label}>
                                     <span className="cid-cast-fn-k">{it.label}</span>
                                     <span className="cid-cast-fn-d">{it.desc}</span>
