@@ -110,18 +110,32 @@
 /* ring two: the Ooo! wordmark pops up out of the circle, hangs for a beat,
    then drifts up and fades. It rides on the button (position relative) and
    never takes the pointer. */
+/* The flight: the wordmark bursts out of the circle, hangs just above it for
+   a beat, then sails up across the hero along --pop-dx/--pop-dy (set per
+   ring, aimed through the top bar's Ooo! and off the top edge), shrinking
+   as it goes, and is gone before it could settle anywhere. */
 @keyframes otWordmarkPop {
-  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.2); }
-  22%  { opacity: 1; transform: translate(-50%, -120%) scale(1.08); }
-  40%  { opacity: 1; transform: translate(-50%, -135%) scale(1); }
-  100% { opacity: 0; transform: translate(-50%, -190%) scale(0.96); }
+  0%   { opacity: 0; transform: translate(-50%, -50%) translate(0, 0) scale(0.2); }
+  14%  { opacity: 1; transform: translate(-50%, -50%) translate(0, -70px) scale(1.1); }
+  26%  { opacity: 1; transform: translate(-50%, -50%) translate(0, -80px) scale(1); }
+  88%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -50%) translate(var(--pop-dx, 0px), var(--pop-dy, -600px)) scale(0.5); }
 }
 .ot-bell__pop { position: absolute; left: 50%; top: 50%; z-index: 5; width: 160px; height: auto;
   pointer-events: none; filter: drop-shadow(0 6px 14px rgba(75,0,182,0.35));
-  animation: otWordmarkPop 1.25s cubic-bezier(.22,1,.36,1) both; }
-/* ring three: the maple leaf takes the same pop, in the watchlist's red */
+  animation: otWordmarkPop 1.7s cubic-bezier(.4,0,.6,1) both; }
+/* ring three: the maple leaf bursts the same way, then drifts up into the
+   hero with a little sway and fades out well clear of the button */
+@keyframes otLeafPop {
+  0%   { opacity: 0; transform: translate(-50%, -50%) translate(0, 0) scale(0.2) rotate(0deg); }
+  16%  { opacity: 1; transform: translate(-50%, -50%) translate(0, -72px) scale(1.1) rotate(-8deg); }
+  30%  { opacity: 1; transform: translate(-50%, -50%) translate(6px, -90px) scale(1) rotate(6deg); }
+  70%  { opacity: 1; transform: translate(-50%, -50%) translate(-10px, -200px) scale(0.9) rotate(-10deg); }
+  100% { opacity: 0; transform: translate(-50%, -50%) translate(8px, -300px) scale(0.8) rotate(8deg); }
+}
 .ot-bell__pop--leaf { width: 60px; height: 60px; fill: #E8453C;
-  filter: drop-shadow(0 6px 14px rgba(232,69,60,0.35)); }
+  filter: drop-shadow(0 6px 14px rgba(232,69,60,0.35));
+  animation: otLeafPop 1.4s cubic-bezier(.3,0,.5,1) both; }
 
 /* ===== Chat bubbles that pop out of the orb ==================================
    Two bubble groups, absolutely positioned against .ot-trio__orb: the gateway

@@ -20,7 +20,8 @@ const BELL_SWING_MS = 620;
 /* the momentary press on the globe, and how long the wordmark takes to pop
    out of the circle and fade */
 const PRESS_MS = 420;
-const POP_MS = 1250;
+const POP_MS = 1700;
+const LEAF_MS = 1400;
 
 /* Soft two-partial "ding" synthesised in WebAudio (no external audio assets).
    `pitch` scales both partials: 1 is the bell's ding, 1.5 (a fifth up) is the
@@ -125,6 +126,11 @@ export function Home({ onSupport }: { onSupport: () => void }) {
   const [popping, setPopping] = useState(false);
   /* ring three: the maple leaf pops out as the pin is pressed */
   const [leafing, setLeafing] = useState(false);
+  /* where the wordmark flies: from the bell's centre, through the Ooo!
+     wordmark in the top bar, and off the top of the screen. Measured when
+     ring two fires so it holds at any viewport size. */
+  const [popVec, setPopVec] = useState<{ dx: number; dy: number }>({ dx: 0, dy: -600 });
+  const bellRef = useRef<HTMLButtonElement>(null);
   const [mapOpen, setMapOpen] = useState(false);
   const [hotZone, setHotZone] = useState<string | null>(null);
   /* the map at two scales: the whole province on its water, or the western
@@ -200,6 +206,17 @@ export function Home({ onSupport }: { onSupport: () => void }) {
          pops out of the circle and fades while the welcome line appears
          beside the orb, and the face finishes as the location pin */
       ding(1.5);
+      const bell = bellRef.current?.getBoundingClientRect();
+      const mark = document.querySelector(".nav-brand-mark")?.getBoundingClientRect();
+      if (bell) {
+        const cx = bell.left + bell.width / 2, cy = bell.top + bell.height / 2;
+        const tx = mark ? mark.left + mark.width / 2 : cx;
+        const ty = mark ? mark.top + mark.height / 2 : 0;
+        /* aim through the wordmark and keep going until well above the top edge */
+        const endY = -160;
+        const k = ty < cy ? (endY - cy) / (ty - cy) : 1;
+        setPopVec({ dx: (tx - cx) * k, dy: endY - cy });
+      }
       setPressing(true);
       setPopping(true);
       setRings(2);
@@ -212,7 +229,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
       ding(1.8);
       setLeafing(true);
       setRings(3);
-      leafTimer.current = window.setTimeout(() => setLeafing(false), POP_MS);
+      leafTimer.current = window.setTimeout(() => setLeafing(false), LEAF_MS);
     } else {
       ding();
       setRings(0);
@@ -238,6 +255,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 details under the Toronto sign. Ring 4 clears all. */}
             <div className="ot-trio__side ot-trio__left">
               <button
+                ref={bellRef}
                 type="button"
                 className={`ot-bell${rings > 0 ? " active" : ""}${rings === 3 || pressing ? " pressed" : ""}${ringing ? " ringing" : ""}`}
                 aria-label={BELL_LABELS[rings]}
@@ -276,6 +294,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                     src="/assets/brand/ooo-wordmark-portal-transparent.png"
                     alt=""
                     aria-hidden="true"
+                    style={{ "--pop-dx": `${popVec.dx}px`, "--pop-dy": `${popVec.dy}px` } as CSSProperties}
                   />
                 )}
                 {/* the maple leaf, popping out of the circle on ring three.
