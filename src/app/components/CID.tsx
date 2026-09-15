@@ -1202,26 +1202,20 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               <div className="cid-viv-leadership">
                 <h3 className="cid-viv-ecosystem-h">Leadership</h3>
                 <p className="cid-viv-lead">The CID Director serves as Principal Investigator and Systems Architect, directing all research operations and guiding engagement activities in our purpose-built habitat.</p>
-                <p className="cid-viv-lead">As a division of <span className="cid-ooo">Ooo!</span> Digital Media Studio, CID is designed to:</p>
-                <ul className="cid-viv-lead-list">
-                  <li>Expand public access to collective intelligence</li>
-                  <li>Pursue research imperatives set by <span className="cid-ooo">Ooo!</span> Digital Media Studio</li>
-                </ul>
-
                 <h3 className="cid-viv-ecosystem-h">Research Reimagined</h3>
 
-                {/* Digital products and studio services offered by CID. */}
-                <div className="cid-viv-offer">
-                  <DigitalProducts />
-                  <div className="cid-viv-offer-row">
-                    <p className="cid-viv-offer-label">Studio Services</p>
-                    <div className="cid-viv-offer-pills">
-                      <span className="cid-viv-pill">Market Research</span>
-                      <span className="cid-viv-pill">Sector Support</span>
-                      <span className="cid-viv-pill">Internationalization</span>
-                    </div>
-                  </div>
-                </div>
+                {/* The division's mandate, moved here from Leadership and
+                    folded: the sentence is the summary, and the two points
+                    disclose on press. Greg's copy, verbatim. The products and
+                    services that used to open this section now sit in the
+                    side column, beside the body. */}
+                <details className="cid-viv-mandate">
+                  <summary className="cid-viv-lead"><span>As a division of <span className="cid-ooo">Ooo!</span> Digital Media Studio, CID is designed to:</span></summary>
+                  <ul className="cid-viv-lead-list">
+                    <li>Expand public access to collective intelligence</li>
+                    <li>Pursue research imperatives set by <span className="cid-ooo">Ooo!</span> Digital Media Studio</li>
+                  </ul>
+                </details>
 
                 {/* Strategic priorities: fills the band under the offer rows,
                     opposite the reference card, so the intro column runs to
@@ -1387,6 +1381,24 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <div className="cid-viv-pillar">
                   <span className="n">3</span>
                   <div><p className="verb">Navigate</p><p className="desc">Risks and rewards</p></div>
+                </div>
+              </aside>
+
+              {/* Digital products and studio services, moved out of the intro
+                  column to sit beside the body copy: the two groups stacked
+                  in the side column's width, on the same white card as the
+                  etymology beneath. */}
+              <aside className="cid-etym cid-viv-offer-card" aria-label="Digital products and studio services">
+                <div className="cid-viv-offer cid-viv-offer--stack">
+                  <DigitalProducts />
+                  <div className="cid-viv-offer-row">
+                    <p className="cid-viv-offer-label">Studio Services</p>
+                    <div className="cid-viv-offer-pills">
+                      <span className="cid-viv-pill">Market Research</span>
+                      <span className="cid-viv-pill">Sector Support</span>
+                      <span className="cid-viv-pill">Internationalization</span>
+                    </div>
+                  </div>
                 </div>
               </aside>
 

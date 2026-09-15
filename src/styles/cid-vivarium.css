@@ -321,6 +321,30 @@
   background: rgba(75,0,182,.07); border: 1px solid rgba(75,0,182,.16);
 }
 .cid-scope .cid-viv-offer-note { margin: 7px 0 0; font-size: 12px; color: #5b5f86; }
+/* As a side card the two offer groups stack, products over services. */
+.cid-scope .cid-viv-offer-card .cid-viv-offer { grid-template-columns: minmax(0,1fr); gap: 16px; margin-top: 0; }
+
+/* The mandate under Research Reimagined folds: the sentence is the summary,
+   wearing the same chevron as the priority folds, and the two points open
+   beneath it on press. */
+.cid-scope .cid-viv-mandate { margin-top: 2px; }
+.cid-scope .cid-viv-mandate > summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  list-style: none; cursor: pointer; max-width: 66ch;
+}
+.cid-scope .cid-viv-mandate > summary > span { flex: 1 1 auto; }
+.cid-scope .cid-viv-mandate > summary::-webkit-details-marker { display: none; }
+.cid-scope .cid-viv-mandate > summary::after {
+  content: ""; flex: 0 0 auto; width: 8px; height: 8px; margin-right: 3px;
+  border-right: 2px solid #4B00B6; border-bottom: 2px solid #4B00B6;
+  transform: rotate(45deg) translateY(-2px); transition: transform .2s ease;
+}
+.cid-scope .cid-viv-mandate[open] > summary::after { transform: rotate(-135deg) translateY(-1px); }
+.cid-scope .cid-viv-mandate > summary:focus-visible { outline: 2px solid #4B00B6; outline-offset: 4px; border-radius: 4px; }
+.cid-scope .cid-viv-mandate > .cid-viv-lead-list { margin-top: 10px; }
+@media (prefers-reduced-motion: reduce) {
+  .cid-scope .cid-viv-mandate > summary::after { transition: none; }
+}
 
 /* Strategic priorities: the block that fills the band under the offer rows,
    level with the reference card in the side panel. Term and description as a
