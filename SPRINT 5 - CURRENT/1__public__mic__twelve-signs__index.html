@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Twelve Signs: decode board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* field */
+    --indigo:#06021C; --indigo-2:#0b0526; --indigo-3:#120a33;
+    --midnight:#0F031C;
+    /* tablet stock */
+    --robins:#F0F4F5; --silver:#E8ECF4; --chrome:#D8DBDE;
+    --carve-dark:#c2c7d4; --carve-light:#ffffff;
+    /* gold ramp: opaque, 950 to 50 */
+    --gold-950:#F0C040; --gold-900:#F3CA5C; --gold-800:#F6D573; --gold-700:#F9DF88;
+    --gold-600:#FCE99C; --gold-500:#FFF3B0; --gold-400:#FFF6C2; --gold-300:#FFF8D3;
+    --gold-200:#FFFBE4; --gold-100:#FFFDF4; --gold-50:#FFFFFF;
+    --gold-glow:rgba(240,192,64,.55);
+    /* accent */
+    --portal:#4b00b6; --portal-lit:#7a2bff; --portal-soft:rgba(75,0,182,.38);
+    --ink:#06021C; --ink-2:#3b3f52; --ink-3:#6f7488;
+    --page-txt:#cfd4e6; --page-mut:#7d7aa0;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;background:var(--indigo);color:var(--page-txt);
+    font-family:Montserrat,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1120px;margin:0 auto;padding:30px 22px 60px}
+
+  header{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--page-mut)}
+  h1{font-size:21px;letter-spacing:1px;margin:6px 0 0;font-weight:600;color:#eef1fa}
+  .counter{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--page-mut);
+    border:1px solid #251a4d;border-radius:6px;padding:8px 13px;background:var(--indigo-2)}
+  .counter b{color:var(--gold-950);font-weight:500}
+
+  /* ---------- sort console ---------- */
+  .console{margin:20px 0 14px;border-radius:12px;background:var(--indigo-2);
+    padding:14px 15px;box-shadow:6px 6px 16px #02010a,-4px -4px 14px rgba(75,0,182,.22)}
+  .console h2{font-size:9.5px;letter-spacing:2.4px;text-transform:uppercase;color:var(--page-mut);
+    margin:0 0 11px;font-weight:600}
+  .sorts{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}
+  .sortbtn{position:relative;font-family:Montserrat,sans-serif;font-size:10px;letter-spacing:1.2px;
+    text-transform:uppercase;background:var(--indigo-3);color:#dfe3f2;border:none;
+    padding:12px 11px;border-radius:9px;cursor:pointer;text-align:left;line-height:1.35;
+    box-shadow:4px 4px 10px #02010a,-3px -3px 9px rgba(75,0,182,.25);transition:.16s}
+  .sortbtn:hover{color:#fff;box-shadow:5px 5px 12px #02010a,-3px -3px 11px rgba(122,43,255,.38)}
+  .sortbtn[aria-pressed="true"]{color:#fff;background:var(--portal);
+    box-shadow:inset 4px 4px 9px #2e006e,inset -4px -4px 9px #6a12e0}
+  .sortbtn:focus-visible{outline:2px solid var(--portal-lit);outline-offset:2px}
+  .sortbtn .k{display:block;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--page-mut);
+    letter-spacing:.4px;margin-top:4px;text-transform:none}
+  .sortbtn[aria-pressed="true"] .k{color:#d6c4ff}
+  .sortbtn .solved{position:absolute;top:7px;right:8px;font-size:10px;color:var(--gold-950);display:none}
+  .sortbtn[data-solved="1"] .solved{display:block}
+
+  .finding{margin-top:13px;border-left:2px solid var(--gold-950);padding:2px 0 2px 13px;
+    min-height:20px;opacity:0;transform:translateY(5px);transition:opacity .5s ease,transform .5s ease}
+  .finding.show{opacity:1;transform:none}
+  .finding .h{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.4px;
+    text-transform:uppercase;color:var(--gold-950);margin-bottom:6px}
+  .finding .b{font-size:12.5px;line-height:1.55;color:#bfc4da;max-width:82ch}
+  .finding .b ul{margin:0;padding-left:17px;list-style:none}
+  .finding .b li{position:relative;margin:0 0 5px}
+  .finding .b li:before{content:'\2022';position:absolute;left:-15px;top:0;color:var(--gold-950);font-size:13px;line-height:1.35}
+
+  /* ---------- board field ---------- */
+  .board{background:var(--indigo);border-radius:14px;padding:20px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:start}
+
+  /* ---------- the tablet ---------- */
+  .tile{position:relative;aspect-ratio:1.42/1;border:none;cursor:pointer;display:block;width:100%;
+    user-select:none;-webkit-user-select:none;
+    text-align:left;padding:9px;border-radius:16px;
+    background:linear-gradient(145deg,var(--robins),var(--chrome));
+    box-shadow:10px 10px 22px #010009, -7px -7px 20px var(--portal-soft);
+    transition:transform .2s ease, box-shadow .3s ease, aspect-ratio .35s ease}
+  .tile:hover{transform:translateY(-3px);
+    box-shadow:13px 13px 26px #010009,-8px -8px 24px rgba(122,43,255,.5)}
+  .tile:focus-visible{outline:2px solid var(--portal-lit);outline-offset:4px}
+
+  .face{position:relative;height:100%;width:100%;border-radius:11px;overflow:hidden;
+    background:var(--silver);
+    box-shadow:inset 4px 4px 9px var(--carve-dark), inset -4px -4px 9px var(--carve-light);
+    display:flex;align-items:center;justify-content:center;transition:background .45s ease}
+
+  .rank{position:absolute;top:9px;left:11px;font-family:'JetBrains Mono',monospace;font-size:10px;
+    color:#5c6076;z-index:2;transition:color .4s ease}
+  .chip{position:absolute;top:9px;right:11px;font-family:'JetBrains Mono',monospace;font-size:9.5px;
+    color:#5c6076;z-index:2;opacity:0;transition:opacity .4s ease,color .4s ease;text-align:right}
+  .chip.on{opacity:1}
+
+  /* the sign, carved into the slab */
+  .glyph{width:auto;height:52%;aspect-ratio:1/1;margin-bottom:10px;
+    filter:drop-shadow(1px 1px 0.6px rgba(255,255,255,.85));
+    transition:filter .45s ease,height .35s ease}
+  .glyph .ink{stroke:var(--portal);stroke-width:5;fill:none;stroke-linecap:round;stroke-linejoin:round;
+    transition:stroke .45s ease}
+  .glyph .fillink{fill:var(--portal);stroke:none;transition:fill .45s ease}
+
+  /* name: always on the tablet */
+  .label{position:absolute;left:0;right:0;bottom:11px;text-align:center;font-size:9px;
+    letter-spacing:2.2px;text-transform:uppercase;color:#3b3f52;font-weight:700;
+    transition:color .45s ease}
+
+  /* night-sky stock: dark well, gold sign, at rest. Slab perimeter stays grey for every tablet. */
+  .tile[data-sky="1"] .face{
+    background:radial-gradient(125% 120% at 50% 32%, #1A0830 0%, var(--midnight) 55%, #07010F 100%);
+    box-shadow:inset 5px 5px 12px #030008, inset -3px -3px 10px rgba(75,0,182,.18)}
+  .tile[data-sky="1"] .glyph .ink{stroke:var(--gold-950)}
+  .tile[data-sky="1"] .glyph .fillink{fill:var(--gold-950)}
+  .tile[data-sky="1"] .glyph{filter:drop-shadow(0 0 4px rgba(240,192,64,.42))}
+  .tile[data-sky="1"] .label{color:var(--gold-300)}
+  .tile[data-sky="1"] .rank{color:var(--gold-600)}
+  .tile[data-sky="1"] .chip{color:var(--gold-600)}
+
+  /* lit: the carving takes pigment, the slab presses in */
+  .tile[data-lit="1"]{box-shadow:9px 9px 20px #010009, -6px -6px 18px rgba(122,43,255,.5)}
+  /* the well fills with light: 100 at the rim, 300 in the hollow */
+  .tile[data-lit="1"] .face{
+    background:radial-gradient(125% 120% at 50% 34%, #1d1140 0%, #0d0726 58%, var(--indigo) 100%);
+    box-shadow:inset 0 0 0 1.5px rgba(240,192,64,.62),
+               inset 0 0 20px -7px rgba(240,192,64,.95),
+               inset 5px 5px 12px #010009,
+               inset -3px -3px 10px rgba(122,43,255,.35)}
+  .tile[data-lit="1"] .glyph .ink{stroke:var(--gold-950)}
+  .tile[data-lit="1"] .glyph .fillink{fill:var(--gold-950)}
+  .tile[data-lit="1"] .glyph{filter:drop-shadow(0 0 5px rgba(240,192,64,.55))}
+  /* type stays dark on the warm stock: gold is glow, never text */
+  .tile[data-lit="1"] .label{color:var(--gold-300)}
+  .tile[data-lit="1"] .rank{color:var(--gold-600)}
+  .tile[data-lit="1"] .chip{color:var(--gold-600)}
+
+  @keyframes flash{0%{opacity:0}18%{opacity:.55}100%{opacity:0}}
+  .flash{position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,rgba(255,255,255,.75),transparent 70%);
+    opacity:0;pointer-events:none;z-index:3}
+  .tile.igniting .flash{animation:flash .5s ease-out}
+
+  /* ---------- opened tablet ---------- */
+  .tile[data-open="1"]{grid-column:span 3;aspect-ratio:auto}
+  .tile[data-open="1"] .face,
+  .tile[data-lit="1"][data-open="1"] .face{
+    flex-direction:row;align-items:stretch;min-height:300px;padding:0;
+    background:var(--silver);
+    box-shadow:inset 4px 4px 9px var(--carve-dark), inset -4px -4px 9px var(--carve-light)}
+  .tile[data-sky="1"][data-open="1"] .face{
+    background:var(--silver);
+    box-shadow:inset 4px 4px 9px var(--carve-dark), inset -4px -4px 9px var(--carve-light)}
+  .tile[data-sky="1"][data-open="1"] .glyph .ink{stroke:var(--portal)}
+  .tile[data-sky="1"][data-open="1"] .glyph .fillink{fill:var(--portal)}
+  .tile[data-sky="1"][data-open="1"] .glyph{filter:drop-shadow(1px 1px 0.6px rgba(255,255,255,.85))}
+  .tile[data-lit="1"][data-open="1"] .glyph .ink{stroke:var(--portal)}
+  .tile[data-lit="1"][data-open="1"] .glyph .fillink{fill:var(--portal)}
+  .tile[data-lit="1"][data-open="1"] .glyph{filter:drop-shadow(1px 1px 0.6px rgba(255,255,255,.85))}
+  .tile[data-lit="1"][data-open="1"] .rank{color:#5c6076}
+  .tile[data-lit="1"][data-open="1"] .chip{color:#5c6076}
+  .tile[data-open="1"] .glyph{height:auto;width:20%;align-self:center;flex:none;
+    padding:20px 0 20px 20px;margin-bottom:0}
+  .tile[data-open="1"] .label{display:none}
+  .detail{display:none;flex:1;padding:22px 22px 20px;min-width:0;
+    user-select:text;-webkit-user-select:text;cursor:text;position:relative}
+  .closebtn{position:absolute;top:14px;right:16px;font-family:Montserrat,sans-serif;font-size:9px;
+    letter-spacing:1.4px;text-transform:uppercase;background:none;border:1px solid #c2c7d4;
+    color:#5c6076;padding:5px 9px;border-radius:5px;cursor:pointer;transition:.15s}
+  .closebtn:hover{border-color:var(--portal);color:var(--portal)}
+  .closebtn:focus-visible{outline:2px solid var(--portal);outline-offset:2px}
+  .tile[data-open="1"] .detail{display:block;animation:fade .4s ease both .12s}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .detail .nm{font-size:14px;letter-spacing:2.4px;text-transform:uppercase;color:var(--portal);
+    margin-bottom:9px;font-weight:700}
+  .detail .nt{font-size:12.5px;line-height:1.6;color:var(--ink-2);font-weight:400;max-width:64ch}
+  ul.fl{margin:0;padding-left:16px;list-style:none}
+  ul.fl li{position:relative;margin:0 0 6px}
+  ul.fl li:last-child{margin-bottom:0}
+  ul.fl li:before{content:'\2022';position:absolute;left:-14px;top:0;color:var(--portal);
+    font-size:13px;line-height:1.5}
+  .detail .meta{margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:10.5px;
+    color:var(--ink-3);display:flex;gap:14px;flex-wrap:wrap}
+
+  /* route + digital strips, now on light stock */
+  .routewrap{margin:14px 0 4px}
+  svg.route{width:100%;height:auto;max-width:440px;display:block}
+  svg.route .rl{fill:#7b8093;font-family:'JetBrains Mono',monospace;font-size:7.5px;text-anchor:end}
+  svg.route .tk{fill:#9aa0b2;font-family:'JetBrains Mono',monospace;font-size:7px;text-anchor:middle}
+  .rkey{display:flex;flex-wrap:wrap;gap:11px;margin-top:7px}
+  .rkey .kk{display:flex;align-items:center;gap:5px;font-family:'JetBrains Mono',monospace;
+    font-size:8.5px;color:#6f7488}
+  .rkey .kk i{width:12px;height:2.5px;border-radius:2px;display:block}
+  .rconf{margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:8.5px;color:#8d93a6;line-height:1.5}
+  .noroute{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#7b8093;line-height:1.6;
+    border-left:2px solid var(--gold-700);padding-left:11px}
+
+  .digwrap{margin:15px 0 4px;border-top:1px solid var(--gold-700);padding-top:12px}
+  .dhead{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+  .dhead .dn{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--portal);letter-spacing:.6px}
+  .dhead .dc{font-family:'JetBrains Mono',monospace;font-size:8px;color:#8d93a6}
+  .dor{font-family:'JetBrains Mono',monospace;font-size:8.5px;color:#7b8093;margin-top:3px}
+  svg.dig{width:100%;height:auto;max-width:440px;display:block;margin:6px 0 2px;overflow:visible}
+  svg.dig .dl{fill:#6f7488;font-family:'JetBrains Mono',monospace;font-size:6.5px;text-anchor:middle}
+  svg.dig .dll{fill:#9aa0b2;font-family:'JetBrains Mono',monospace;font-size:6px;text-anchor:middle}
+  .dnote{font-size:11.5px;line-height:1.55;color:var(--ink-2);margin-top:8px;max-width:62ch}
+
+  /* ---------- portal 60 ---------- */
+  .portal{margin-top:20px;border-radius:12px;padding:15px 16px;background:var(--indigo-2);
+    display:flex;align-items:center;gap:16px;
+    box-shadow:6px 6px 16px #02010a,-4px -4px 14px rgba(75,0,182,.2);transition:box-shadow .6s ease}
+  .portal .ring{width:48px;height:48px;border-radius:50%;flex:none;position:relative;
+    background:var(--indigo-3);box-shadow:inset 3px 3px 7px #02010a,inset -3px -3px 7px rgba(75,0,182,.35);
+    transition:box-shadow .6s ease}
+  .portal .ring span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:#6b6494;transition:color .6s ease}
+  .portal .txt{flex:1;min-width:0}
+  .portal .t1{font-size:10px;letter-spacing:2.4px;text-transform:uppercase;color:var(--page-mut)}
+  .portal .t2{font-size:12.5px;line-height:1.5;color:#9c9cc0;margin-top:5px}
+  .portal .bar{height:4px;background:var(--indigo);border-radius:3px;margin-top:10px;overflow:hidden;
+    box-shadow:inset 2px 2px 4px #02010a}
+  .portal .bar i{display:block;height:100%;width:0;border-radius:3px;
+    background:linear-gradient(90deg,var(--portal),var(--portal-lit));transition:width .7s cubic-bezier(.2,.7,.2,1)}
+  .portal.open{box-shadow:0 0 46px rgba(122,43,255,.35),6px 6px 16px #02010a}
+  .portal.open .ring{box-shadow:inset 3px 3px 8px #2e006e,inset -3px -3px 8px #7a2bff}
+  .portal.open .ring span{color:#fff}
+  .portal.open .t2{color:#e2ddf5}
+
+  .foot{margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#6b6791;line-height:1.7}
+  .foot b{color:var(--page-txt);font-weight:400}
+
+  @media (max-width:900px){ .sorts{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:760px){
+    .grid{grid-template-columns:repeat(2,1fr);gap:18px}
+    .tile[data-open="1"]{grid-column:span 2}
+  }
+  @media (max-width:560px){
+    .tile[data-open="1"] .face{flex-direction:column}
+    .tile[data-open="1"] .glyph{width:38%;padding:20px 0 0}
+    h1{font-size:17px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow">Media, Information and Culture</div>
+      <h1>Twelve Signs: decode board</h1>
+    </div>
+    <div class="counter"><b id="count">0</b> / 12 lit</div>
+  </header>
+
+  <div class="console">
+    <h2>Run a sort: each ordering returns a record</h2>
+    <div class="sorts" id="sorts"></div>
+    <div class="finding" id="finding"><div class="h" id="fh"></div><div class="b" id="fb"></div></div>
+  </div>
+
+  <div class="board"><div class="grid" id="grid"></div></div>
+
+  <div class="portal" id="portal">
+    <div class="ring"><span id="score">0</span></div>
+    <div class="txt">
+      <div class="t1">Portal 60</div>
+      <div class="t2" id="ptxt">Locked. Each ordering you run is worth 12. Reach 60 to pass.</div>
+      <div class="bar"><i id="pbar"></i></div>
+    </div>
+  </div>
+
+  <div class="foot" id="foot">Tap a tablet to light it and read it. Run a sort to reorder the board.</div>
+  <div class="foot"><b>BP</b> = years Before Present, where "present" is fixed by convention at 1950, the baseline year for radiocarbon dating. 17k–12k BP is therefore roughly 15,050–10,050 BCE.</div>
+</div>
+
+<script>
+/* Twelve of the 32 Ice Age geometric sign types catalogued by Genevieve von Petzinger.
+   Values below are ORDINAL approximations compiled from the published literature
+   (period of first appearance, regional reach, span of use), not precise measurements. */
+
+const SIGNS = [
+ { id:'HAND', name:'Negative hand', first:40000, last:13000, reach:6, pict:3, cont:4, contLbl:'Eur · Asia · Oce · S.Am', dig:{name:'Pointer cursor · 👋', conf:'inferred',
+   origin:'GUI pointing devices · 1970s–80s',
+   note:'Used as a pointer state in graphical interfaces and as an emoji. No documented line of descent connects it to Palaeolithic hand stencils.',
+   stops:[]}, route:{conf:'documented', mode:'vertical',
+   note:'Earliest attestations in Europe and in Sulawesi fall within the same broad window. Decline in use recorded after c. 20,000 BP.',
+   stops:[{lane:0,t:40000,mode:'origin'},{lane:3,t:40000,mode:'vertical'},
+          {lane:1,t:39000,mode:'vertical'},{lane:2,t:37000,mode:'vertical'},
+          {lane:2,t:20000,mode:'decline'}]},
+   where:'Europe · Sulawesi · Australia · Patagonia',
+   facts:['Made by placing a hand against the wall and blowing pigment around it.', 'The mark is therefore the surrounding field, not the hand itself.', 'Among the earliest signs recorded.', 'The most geographically dispersed sign on this board.'],
+   svg:`<defs><mask id="m-hand"><rect x="0" y="0" width="100" height="100" fill="white"/>
+        <path d="M32,86 C26,74 26,64 28,58 L26,40 C25,34 33,33 34,39 L37,52 L36,30 C35,23 44,22 45,29
+                 L47,50 L47,26 C47,19 56,19 56,26 L57,50 L60,32 C61,25 69,26 69,33 L68,55 L73,45
+                 C76,39 83,42 81,49 L74,68 C71,78 70,82 68,86 Z" fill="black"/></mask></defs>
+        <circle cx="50" cy="56" r="40" class="fillink" mask="url(#m-hand)"/>` },
+
+ { id:'DOT', name:'Dots', sky:1, first:40000, last:12000, reach:3, pict:0, cont:1, contLbl:'Europe', dig:{name:'Ellipsis · typing indicator', conf:'inferred',
+   origin:'Typography, then chat clients · 1990s–2000s',
+   note:'Used in typography to mark omission, and in messaging interfaces to indicate a reply in progress.',
+   stops:[]},
+   where:'France · Iberia · Italy',
+   facts:['Occurs as single points, in rows and in clusters.', 'Appears alongside more of the other sign types than any other mark on this board.', 'No referent has been identified.'],
+   svg:`<g class="fillink">
+        <circle cx="30" cy="32" r="7"/><circle cx="52" cy="26" r="7"/><circle cx="73" cy="34" r="7"/>
+        <circle cx="27" cy="58" r="7"/><circle cx="50" cy="52" r="7"/><circle cx="72" cy="60" r="7"/>
+        <circle cx="38" cy="79" r="7"/><circle cx="62" cy="79" r="7"/></g>` },
+
+ { id:'LINE', name:'Parallel lines', first:40000, last:12000, reach:3, pict:0, cont:1, contLbl:'Europe', dig:{name:'Text cursor · pipe', conf:'inferred', origin:'Terminal displays',
+   note:'Used to mark insertion point in text displays and as a delimiter in computing syntax.', stops:[]},
+   where:'France · Iberia · Italy',
+   facts:['Strokes made in sets.', 'Alexander Marshack, in The Roots of Civilization (1972), proposed that sequences of marks record lunar cycles.', 'The proposal is contested and no reading has reached consensus.', 'No referent has been identified.'],
+   svg:`<g class="ink"><path d="M24,20 L20,80"/><path d="M42,18 L39,82"/><path d="M60,18 L62,82"/><path d="M78,20 L81,80"/></g>` },
+
+ { id:'CIRCLE', name:'Circle', sky:1, first:39000, last:12000, reach:3, pict:1, cont:1, contLbl:'Europe', dig:{name:'Record button · zero', conf:'inferred', origin:'Transport controls and numerals',
+   note:'Used as the record control on transport interfaces and as the numeral zero.', stops:[]},
+   where:'France · Iberia · Italy',
+   facts:['A closed round form.', 'Andre Leroi-Gourhan, in Prehistoire de l&rsquo;art occidental (1965), classified ovals and circles as female signs, and dots, lines and penniforms as male, sorting them by where they sit in a cave.', 'Genevieve von Petzinger has observed that this reading came from a field of predominantly male archaeologists who identified a great many vulvas.', 'Jean Clottes has stated that the statistical approach underpinning it was never scientifically demonstrated.', 'No referent has been established.'],
+   svg:`<circle class="ink" cx="50" cy="50" r="34"/>` },
+
+ { id:'ZIGZAG', name:'Zigzag', first:39000, last:12000, reach:3, pict:2, cont:1, contLbl:'Europe', dig:{name:'Wave · signal', conf:'inferred', origin:'Signal notation',
+   note:'Used to denote waveforms, oscillation and signal in technical and interface notation.', stops:[]},
+   where:'France · Iberia · Italy',
+   facts:['A repeating angular line.', 'Commonly associated with water ripple and with the track left by a snake, on grounds of resemblance rather than excavated evidence.', 'Occurs in single and in stacked rows.', 'No referent has been established.'],
+   svg:`<g class="ink"><path d="M14,30 L34,52 L54,30 L74,52 L90,34"/><path d="M14,58 L34,80 L54,58 L74,80 L90,62"/></g>` },
+
+ { id:'CROSS', name:'Cross', first:38000, last:12000, reach:3, pict:1, cont:1, contLbl:'Europe', dig:{name:'Plus · close ✕', conf:'inferred', origin:'Print and GUI convention',
+   note:'Used for addition and, rotated 45 degrees, for dismissal. Conventions established in print and carried into interface design.', stops:[]},
+   where:'France · Iberia · Italy',
+   facts:['Two intersecting strokes dividing a surface into four.', 'Attested from the Aurignacian onward.', 'Much later and unconnected cultures use fourfold designs to mark the four directions.', 'No line of descent has been shown between those uses and the Palaeolithic sign.'],
+   svg:`<g class="ink"><path d="M50,14 L50,86"/><path d="M16,50 L84,50"/></g>` },
+
+ { id:'TRIANGLE', name:'Triangle', first:38000, last:12000, reach:3, pict:0, cont:1, contLbl:'Europe', dig:{name:'Play button', conf:'inferred',
+   origin:'Tape transport controls, 1950s to 1960s. No single designer or date of adoption is documented.',
+   note:'The triangle showed which way the tape moved during playback. Magnetic tape (the recording medium in audio cassettes and video tapes) is no longer the dominant playback format. The symbol remains in general use.',
+   stops:[{y:1960,l:'tape transport (approx.)',m:'origin'},{y:1979,l:'Walkman',m:'touch'},
+          {y:1983,l:'CD players',m:'touch'},{y:2001,l:'software players',m:'touch'},
+          {y:2005,l:'YouTube mark',m:'touch'},{y:2026,l:'referent extinct',m:'orphan'}]},
+   where:'France · Iberia · Italy',
+   facts:['A three-sided enclosed form.', 'Among the more frequently repeated sign types.', 'No consensus reading has been established.'],
+   svg:`<path class="ink" d="M50,16 L86,80 L14,80 Z"/>` },
+
+ { id:'CHEVRON', name:'Chevron', first:37000, last:13000, reach:3, pict:0, cont:1, contLbl:'Europe', dig:{name:'Expand / next ›', conf:'inferred', origin:'GUI navigation convention',
+   note:'Used to indicate direction, expansion and hierarchy in interface navigation.', stops:[]},
+   where:'France · Iberia · Italy',
+   facts:['Nested V forms.', 'At some sites they are stacked in sequences of ten or more.', 'Formally close to the bird and feather sign types.'],
+   svg:`<g class="ink"><path d="M20,36 L50,64 L80,36"/><path d="M20,58 L50,86 L80,58"/><path d="M28,16 L50,36 L72,16"/></g>` },
+
+ { id:'ASTERISK', name:'Asterisk', sky:1, first:30000, last:14000, reach:2, pict:0, cont:1, contLbl:'Europe', dig:{name:'Wildcard · required field', conf:'inferred', origin:'Typography, then computing',
+   note:'Used in computing as a wildcard operator, in typography as a footnote mark, and in forms to denote a required field.', stops:[]},
+   where:'France · Iberia',
+   facts:['Strokes radiating from a single point.', 'More often occurs in isolation than in a set, unlike most sign types here.', 'No referent has been identified.'],
+   svg:`<g class="ink"><path d="M50,14 L50,86"/><path d="M19,32 L81,68"/><path d="M19,68 L81,32"/></g>` },
+
+ { id:'PENNIFORM', name:'Penniform', first:28000, last:13000, reach:3, pict:1, cont:1, contLbl:'Europe', dig:{name:'Compose / quill', conf:'inferred', origin:'Writing-tool skeuomorph',
+   note:'Used as a compose or edit control, deriving from the quill as a writing implement.', stops:[]}, route:{conf:'documented', mode:'lateral',
+   note:'Direction is documented; dates approximate.',
+   stops:[{lane:1,t:28000,mode:'origin'},{lane:2,t:26000,mode:'lateral'},
+          {lane:3,t:24000,mode:'lateral'},{lane:4,t:22000,mode:'lateral'}]},
+   where:'N. France → Iberia',
+   facts:['A central stroke with paired oblique strokes, resembling a feather or plant frond.', 'First recorded in northern France c. 28,000 BP.', 'Recorded subsequently in western France, then Spain and Portugal.'],
+   svg:`<g class="ink"><path d="M50,12 L50,88"/>
+        <path d="M50,26 L28,38"/><path d="M50,26 L72,38"/>
+        <path d="M50,44 L30,56"/><path d="M50,44 L70,56"/>
+        <path d="M50,62 L33,73"/><path d="M50,62 L67,73"/></g>` },
+
+ { id:'SCALARIFORM', name:'Scalariform', sky:1, first:20000, last:13000, reach:2, pict:1, cont:1, contLbl:'Europe', dig:{name:'Hamburger menu', conf:'documented',
+   origin:'Norm Cox · Xerox Star 8010 · 1981',
+   note:'Cox described designing it as a container for contextual menu choices. Adoption declined after the Xerox Star and resumed with mobile interfaces from around 2009.',
+   stops:[{y:1981,l:'Xerox Star',m:'origin'},{y:1985,l:'Windows 1.0',m:'touch'},
+          {y:1995,l:'dormant',m:'dormant'},{y:2009,l:'mobile revival',m:'reticulate'},
+          {y:2013,l:'iOS / Android standard',m:'touch'},{y:2026,l:'global default',m:'touch'}]},
+   where:'France · Iberia',
+   facts:['Two parallel strokes joined by transverse strokes, described as ladder or grid like.', 'The only sign type on this board whose proposed referent is a constructed object.'],
+   svg:`<g class="ink"><path d="M32,14 L32,86"/><path d="M68,14 L68,86"/>
+        <path d="M32,30 L68,30"/><path d="M32,50 L68,50"/><path d="M32,70 L68,70"/></g>` },
+
+ { id:'SPIRAL', name:'Spiral', first:17000, last:12000, reach:2, pict:1, cont:1, contLbl:'Europe', dig:{name:'Loading spinner', conf:'inferred',
+   origin:'GUI wait cursors · 1980s–90s',
+   note:'Used in graphical interfaces to indicate a process in progress. No documented line of descent connects it to earlier spiral forms.',
+   stops:[]}, route:{conf:'inferred', mode:'reticulate',
+   note:'Sparse in the Ice Age record; widespread in later periods. The gap between the two is not bridged by continuous attestation.',
+   stops:[{lane:2,t:17000,mode:'origin'},{lane:4,t:14000,mode:'lateral'},
+          {lane:0,t:12000,mode:'reticulate'}]},
+   where:'France · Iberia (rare in caves)',
+   facts:['A continuous curve winding out from a centre.', 'Rare in the Ice Age cave record.', 'David Lewis-Williams has proposed that some geometric forms, spirals among them, derive from visual patterns experienced in altered states of consciousness.', 'Common in later contexts across many regions, including Neolithic Atlantic Europe and the Pacific.'],
+   svg:`<path class="ink" id="sp"/>` },
+];
+SIGNS.forEach(s=>s.span=s.first-s.last);
+
+/* transmission lanes, north-west to south-west, plus everything beyond Europe */
+const LANES=['Outside Europe','N. France','SW France','Cantabria','Portugal'];
+const T0=42000, T1=11000;
+const MODE={
+  origin:{c:'#4b00b6',dash:null,w:2.4,lab:'origin'},
+  vertical:{c:'#0d7a55',dash:null,w:2.6,lab:'macro: vertical, demic'},
+  lateral:{c:'#7a2bff',dash:'5 4',w:2.0,lab:'micro: lateral, borrowed'},
+  reticulate:{c:'#B4620A',dash:'2 4',w:2.0,lab:'reticulation: returns'},
+  decline:{c:'#B3312A',dash:'1 4',w:1.7,lab:'falls out of use'}
+};
+function routeSVG(sg){
+  const W=430,H=118,padL=76,padR=14,padT=14,padB=22;
+  const x=t=>padL+((T0-t)/(T0-T1))*(W-padL-padR);
+  const y=l=>padT+l*((H-padT-padB)/(LANES.length-1));
+  if(!sg.route){
+    return `<div class="noroute">No directional sequence has been published for this sign type. It is attested at multiple sites without an established order of appearance between them.</div>`;
+  }
+  const r=sg.route; let o='';
+  // lane rules + labels
+  LANES.forEach((nm,i)=>{
+    o+=`<line x1="${padL}" y1="${y(i)}" x2="${W-padR}" y2="${y(i)}" stroke="#cbd0dc" stroke-width="1"/>`;
+    o+=`<text x="${padL-8}" y="${y(i)+3}" class="rl">${nm}</text>`;
+  });
+  // time ticks
+  [40,30,20,12].forEach(k=>{
+    o+=`<line x1="${x(k*1000)}" y1="${padT-6}" x2="${x(k*1000)}" y2="${H-padB+2}" stroke="#dde1ea" stroke-width="1"/>`;
+    o+=`<text x="${x(k*1000)}" y="${H-padB+14}" class="tk">${k}k</text>`;
+  });
+  // segments
+  for(let i=1;i<r.stops.length;i++){
+    const a=r.stops[i-1], b=r.stops[i], m=MODE[b.mode]||MODE.lateral;
+    o+=`<path d="M${x(a.t)},${y(a.lane)} L${x(b.t)},${y(b.lane)}" fill="none"
+         stroke="${m.c}" stroke-width="${m.w}" ${m.dash?`stroke-dasharray="${m.dash}"`:''} stroke-linecap="round"/>`;
+  }
+  // stops
+  r.stops.forEach(st=>{
+    const m=MODE[st.mode]||MODE.lateral;
+    if(st.mode==='reticulate'){
+      o+=`<circle cx="${x(st.t)}" cy="${y(st.lane)}" r="6" fill="none" stroke="${m.c}" stroke-width="2"/>`;
+      o+=`<circle cx="${x(st.t)}" cy="${y(st.lane)}" r="2.2" fill="${m.c}"/>`;
+    } else if(st.mode==='decline'){
+      o+=`<path d="M${x(st.t)-4},${y(st.lane)-4} L${x(st.t)+4},${y(st.lane)+4}
+                  M${x(st.t)+4},${y(st.lane)-4} L${x(st.t)-4},${y(st.lane)+4}"
+           stroke="${m.c}" stroke-width="1.8" stroke-linecap="round"/>`;
+    } else {
+      o+=`<circle cx="${x(st.t)}" cy="${y(st.lane)}" r="4.4" fill="#ffffff" stroke="${m.c}" stroke-width="2.2"/>`;
+    }
+  });
+  const used=[...new Set(r.stops.map(s2=>s2.mode))];
+  const key=used.map(u=>`<span class="kk"><i style="background:${MODE[u].c}"></i>${MODE[u].lab}</span>`).join('');
+  return `<svg class="route" viewBox="0 0 ${W} ${H}" role="img"
+            aria-label="Transmission route across regions over time">${o}</svg>
+          <div class="rkey">${key}</div>
+          <div class="rconf">${r.conf==='documented'?'◆ Documented direction':'◇ Inferred'} · ${r.note}</div>`;
+}
+
+const SORTS = {
+  age:{ label:'Oldest first', key:'By first appearance',
+        val:s=>s.first, fmt:s=>(s.first/1000).toFixed(0)+'k BP', dir:-1,
+        head:'First appearance: what the ordering shows',
+        facts:[
+          'Eight of the twelve are first attested in the Aurignacian, c. 40,000–30,000 BP.',
+          'Three appear later: penniform c. 28,000 BP, scalariform c. 20,000 BP, spiral c. 17,000 BP.',
+          'Von Petzinger reports that almost three-quarters of the 32 sign types were already in use in the Aurignacian.',
+          'The Aurignacian corresponds to the earliest documented presence of modern humans in Europe.',
+          'This ordering does not distinguish between arrival with migrating populations, independent invention, and non-survival of earlier evidence.'
+        ]},
+  reach:{ label:'Widest reach', key:'By regions attested',
+        val:s=>s.reach, fmt:s=>s.reach+' regions', dir:-1,
+        head:'Regional spread: what the ordering shows',
+        facts:[
+          'Negative hand: attested in the largest number of separate regions on this board.',
+          'Nine signs: attested across France, Iberia and Italy.',
+          'Asterisk, scalariform and spiral: attested in two regions in the published record.',
+          'Region counts derive from published site surveys. Survey coverage is uneven between regions.',
+          'Frequency of attestation and frequency of use are not the same measure; only the former is recorded.'
+        ]},
+  span:{ label:'Longest-lived', key:'By span of use',
+        val:s=>s.span, fmt:s=>(s.span/1000).toFixed(0)+'k yrs', dir:-1,
+        head:'Span of use: what the ordering shows',
+        facts:[
+          'Dots and parallel lines show the longest spans, c. 28,000 years between first and last attestation.',
+          'Scalariform (c. 7,000 yrs) and spiral (c. 5,000 yrs) show the shortest.',
+          'Hand stencils are most common around 40,000 BP; von Petzinger records a decline after roughly 20,000 BP.',
+          'Span is measured first attestation to last. Gaps, dormancy and re-emergence inside a span are not visible in this measure.',
+          'A long span is consistent with continuous use and with repeated re-invention; this measure does not separate them.'
+        ]},
+  pict:{ label:'Most picture-like', key:'By resemblance to referent',
+        val:s=>s.pict, fmt:s=>['no referent identified','weak','strong','literal trace'][s.pict], dir:-1,
+        head:'Resemblance: what the ordering shows',
+        facts:[
+          'Negative hand: a direct physical trace of the object it depicts.',
+          'Zigzag: form corresponds to ripple and to snake track.',
+          'Circle, cross, penniform, scalariform, spiral: partial or proposed correspondence to a referent.',
+          'Dots, lines, triangle, chevron, asterisk: no referent identified in the literature.',
+          'These resemblance grades are assigned by the compiler of this board. They are not a measured quantity and other groupings are defensible.'
+        ]},
+  cont:{ label:'By continent', key:'By continents attested',
+        val:s=>s.cont, fmt:s=>s.contLbl, dir:-1,
+        head:'Continental distribution: what the ordering shows',
+        facts:[
+          'Eleven of the twelve are recorded in Europe only within the Ice Age record.',
+          'Negative hand is additionally recorded in Sulawesi, Australia and Patagonia.',
+          'The underlying catalogue was built from fieldwork at 52 cave sites in Spain, Portugal, France and Italy, within a wider dataset of 368 European sites.',
+          'Comparable imbalances exist in folklore datasets: Thompson\'s motif index over-represents Eurasia and North America relative to Africa and Oceania; Berezkin\'s catalogue draws on 469 African sources against Thompson\'s 58.',
+          'The distribution shown reflects both where signs were used and where surveys have been conducted. This ordering does not separate the two.'
+        ]},
+};
+
+function spiralPath(){
+  const pts=[];const turns=3.1,steps=220;
+  for(let i=0;i<=steps;i++){const t=(i/steps)*turns*Math.PI*2;const r=3+(t/(turns*Math.PI*2))*36;
+    pts.push([50+r*Math.cos(t),50+r*Math.sin(t)]);}
+  return 'M'+pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' L');
+}
+
+const DMODE={origin:'#4b00b6',touch:'#7a2bff',dormant:'#b0b5c4',reticulate:'#B4620A',orphan:'#B3312A'};
+function digSVG(sg){
+  const d=sg.dig; if(!d) return '';
+  let head=`<div class="dhead"><span class="dn">${d.name}</span>
+    <span class="dc">${d.conf==='documented'?'◆ provenance logged':'◇ lineage undocumented'}</span></div>
+    <div class="dor">${d.origin}</div>`;
+  if(!d.stops.length) return `<div class="digwrap">${head}<ul class="dnote fl">${d.note.split(/(?<=\.)\s+/).filter(Boolean).map(f=>`<li>${f}</li>`).join('')}</ul></div>`;
+  const W=430,H=52,padL=8,padR=8,padT=20;
+  const ys=d.stops.map(v=>v.y);
+  const Y0=Math.min(...ys)-4, Y1=Math.max(...ys)+4;
+  const x=y=>padL+((y-Y0)/(Y1-Y0))*(W-padL-padR);
+  let o=`<line x1="${padL}" y1="${padT}" x2="${W-padR}" y2="${padT}" stroke="#cbd0dc" stroke-width="1"/>`;
+  for(let i=1;i<d.stops.length;i++){
+    const a=d.stops[i-1],b=d.stops[i];
+    const dormant=(b.m==='dormant'||a.m==='dormant');
+    o+=`<line x1="${x(a.y)}" y1="${padT}" x2="${x(b.y)}" y2="${padT}"
+        stroke="${dormant?'#b0b5c4':(b.m==='reticulate'?'#B4620A':'#7a2bff')}"
+        stroke-width="${dormant?1.2:2.2}" ${dormant?'stroke-dasharray="2 4"':''} stroke-linecap="round"/>`;
+  }
+  d.stops.forEach((st,i)=>{
+    const c=DMODE[st.m]||DMODE.touch;
+    if(st.m==='reticulate'){
+      o+=`<circle cx="${x(st.y)}" cy="${padT}" r="5.5" fill="none" stroke="${c}" stroke-width="2"/>
+          <circle cx="${x(st.y)}" cy="${padT}" r="2" fill="${c}"/>`;
+    } else if(st.m==='orphan'){
+      o+=`<path d="M${x(st.y)-4},${padT-4} L${x(st.y)+4},${padT+4} M${x(st.y)+4},${padT-4} L${x(st.y)-4},${padT+4}"
+           stroke="${c}" stroke-width="1.8" stroke-linecap="round"/>`;
+    } else {
+      o+=`<circle cx="${x(st.y)}" cy="${padT}" r="3.6" fill="#ffffff" stroke="${c}" stroke-width="2"/>`;
+    }
+    const flip = i%2===0;
+    o+=`<text x="${x(st.y)}" y="${flip?padT-8:padT+14}" class="dl">${st.y}</text>`;
+    o+=`<text x="${x(st.y)}" y="${flip?padT-16:padT+23}" class="dll">${st.l}</text>`;
+  });
+  return `<div class="digwrap">${head}
+    <svg class="dig" viewBox="0 0 ${W} ${H}" role="img" aria-label="Digital provenance chain">${o}</svg>
+    <ul class="dnote fl">${d.note.split(/(?<=\.)\s+/).filter(Boolean).map(f=>`<li>${f}</li>`).join('')}</ul></div>`;
+}
+
+const grid=document.getElementById('grid');
+const foot=document.getElementById('foot');
+const countEl=document.getElementById('count');
+const tiles=[];
+let activeSort=null;
+const solved=new Set();
+
+SIGNS.forEach((s,i)=>{
+  const b=document.createElement('div');
+  b.setAttribute('role','button'); b.tabIndex=0;
+  b.className='tile'; b.dataset.lit='0'; b.dataset.open='0'; b.dataset.i=i;
+  b.dataset.sky = s.sky?'1':'0';
+  b.setAttribute('aria-expanded','false');
+  b.setAttribute('aria-label','Panel, unlit');
+  b.innerHTML=`
+    <div class="face">
+      <span class="rank">${String(i+1).padStart(2,'0')}</span>
+      <span class="chip"></span>
+      <svg class="glyph" viewBox="0 0 100 100" aria-hidden="true">${s.svg}</svg>
+      <span class="label">${s.name}</span>
+      <div class="detail">
+        <button class="closebtn" aria-label="Close">Close</button>
+        <div class="nm">${s.name}</div>
+        <ul class="nt fl">${s.facts.map(f=>`<li>${f}</li>`).join('')}</ul>
+        <div class="routewrap">${routeSVG(s)}</div>
+        ${digSVG(s)}
+        <div class="meta"><span>${s.where}</span><span>${(s.first/1000).toFixed(0)}k–${(s.last/1000).toFixed(0)}k BP</span><span>${s.cont} continent${s.cont>1?'s':''}</span></div>
+      </div>
+      <span class="flash"></span>
+    </div>`;
+  if(s.id==='SPIRAL') b.querySelector('#sp').setAttribute('d',spiralPath());
+  b.addEventListener('click',ev=>{
+    // let people select and copy the text inside an open tablet
+    if(ev.target.closest('.detail') && !ev.target.closest('.closebtn')) return;
+    if((window.getSelection()||'').toString().length) return;
+    tap(i);
+  });
+  b.addEventListener('keydown',ev=>{
+    if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();tap(i);}
+  });
+  tiles.push(b); grid.appendChild(b);
+});
+
+/* ---- panel interaction ---- */
+function tap(i){
+  const b=tiles[i], s=SIGNS[i];
+  if(b.dataset.lit!=='1'){ ignite(b,s); open(i); }
+  else if(b.dataset.open==='1'){ closeAll(); }
+  else { open(i); }
+}
+function ignite(b,s){
+  b.dataset.lit='1';
+  b.classList.remove('igniting'); void b.offsetWidth; b.classList.add('igniting');
+  b.setAttribute('aria-label',s.name+', lit');
+  tally();
+}
+function open(i){ closeAll(); tiles[i].dataset.open='1'; tiles[i].setAttribute('aria-expanded','true'); }
+function closeAll(){ tiles.forEach(t=>{t.dataset.open='0';t.setAttribute('aria-expanded','false');}); }
+function tally(){
+  const n=tiles.filter(t=>t.dataset.lit==='1').length;
+  countEl.textContent=n;
+}
+
+/* ---- sort console ---- */
+const sortsEl=document.getElementById('sorts');
+Object.entries(SORTS).forEach(([k,cfg])=>{
+  const b=document.createElement('button');
+  b.className='sortbtn'; b.setAttribute('aria-pressed','false'); b.dataset.k=k; b.dataset.solved='0';
+  b.innerHTML=`<span class="solved">◆</span>${cfg.label}<span class="k">${cfg.key}</span>`;
+  b.addEventListener('click',()=>runSort(k));
+  sortsEl.appendChild(b);
+});
+
+function runSort(k){
+  const cfg=SORTS[k];
+  closeAll();
+  // FLIP: record positions
+  const before=tiles.map(t=>t.getBoundingClientRect());
+  // order
+  const order=[...SIGNS.keys()].sort((a,b)=>(cfg.val(SIGNS[b])-cfg.val(SIGNS[a]))*(cfg.dir===-1?1:-1));
+  order.forEach((si,pos)=>{ tiles[si].style.order=pos; });
+  // rank + chip
+  order.forEach((si,pos)=>{
+    const t=tiles[si];
+    t.querySelector('.rank').textContent=String(pos+1).padStart(2,'0');
+    const chip=t.querySelector('.chip');
+    chip.textContent=cfg.fmt(SIGNS[si]);
+    chip.classList.add('on');
+  });
+  // FLIP: invert + play
+  requestAnimationFrame(()=>{
+    tiles.forEach((t,i)=>{
+      const a=t.getBoundingClientRect(), bR=before[i];
+      const dx=bR.left-a.left, dy=bR.top-a.top;
+      if(dx||dy){
+        t.classList.remove('flip');
+        t.style.transform=`translate(${dx}px,${dy}px)`;
+        requestAnimationFrame(()=>{ t.classList.add('flip'); t.style.transform=''; });
+      }
+    });
+  });
+  // console state
+  activeSort=k;
+  document.querySelectorAll('.sortbtn').forEach(b=>b.setAttribute('aria-pressed', b.dataset.k===k));
+  // finding lands after the board settles, so the reveal follows the action
+  const f=document.getElementById('finding');
+  f.classList.remove('show');
+  setTimeout(()=>{
+    document.getElementById('fh').textContent=cfg.head;
+    document.getElementById('fb').innerHTML='<ul>'+cfg.facts.map(f=>'<li>'+f+'</li>').join('')+'</ul>';
+    f.classList.add('show');
+    if(!solved.has(k)){
+      solved.add(k);
+      document.querySelector(`.sortbtn[data-k="${k}"]`).dataset.solved='1';
+      score();
+    }
+  }, 700);
+  foot.textContent='Sorted '+cfg.key.toLowerCase()+'. Open the panels to check the record behind each position.';
+}
+
+/* ---- portal 60 ---- */
+function score(){
+  const pts=solved.size*12;
+  document.getElementById('score').textContent=pts;
+  document.getElementById('pbar').style.width=(pts/60*100)+'%';
+  const p=document.getElementById('portal');
+  const t=document.getElementById('ptxt');
+  if(pts>=60){
+    p.classList.add('open');
+    t.textContent='Open. Five orderings run: first appearance, regional spread, span of use, resemblance, continental distribution. The records are on the board. What they add up to is yours to argue.';
+  } else {
+    t.textContent='Locked. '+(5-solved.size)+' ordering'+(5-solved.size===1?'':'s')+' left to run. Each is worth 12.';
+  }
+}
+score();
+</script>
+</body>
+</html>
