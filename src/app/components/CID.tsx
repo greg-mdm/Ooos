@@ -1210,7 +1210,14 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     services that used to open this section now sit in the
                     side column, beside the body. */}
                 <details className="cid-viv-mandate">
-                  <summary className="cid-viv-lead"><span>As a division of <span className="cid-ooo">Ooo!</span> Digital Media Studio, CID is designed to:</span></summary>
+                  <summary className="cid-viv-lead">
+                    <span>
+                      As a division of <span className="cid-ooo">Ooo!</span> Digital Media Studio, CID serves in{" "}
+                      <span className="cid-viv-sector">
+                        <span className="cid-viv-sector-code" title="North American Industry Classification System (NAICS) sector 51, Statistics Canada">Sector 51</span>: Information and cultural industries
+                      </span>
+                    </span>
+                  </summary>
                   <ul className="cid-viv-lead-list">
                     <li>Expand public access to collective intelligence</li>
                     <li>Pursue research imperatives set by <span className="cid-ooo">Ooo!</span> Digital Media Studio</li>
