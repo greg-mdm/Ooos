@@ -161,7 +161,7 @@
 }
 .ot-bubble { --ot-bubble-bg: var(--ot-electric); --ot-bubble-ink: #FFFFFF;
   position: relative; width: max-content;
-  max-width: clamp(13rem, 22vw, 16.5rem); margin: 0; padding: 7px 13px; border-radius: 18px;
+  max-width: clamp(13rem, 24vw, 18rem); margin: 0; padding: 7px 13px; border-radius: 18px;
   background: var(--ot-bubble-bg); color: var(--ot-bubble-ink); text-align: left; pointer-events: auto;
   font-family: var(--ot-font-body); font-weight: 500; font-size: 1.0625rem; line-height: 1.3;
   letter-spacing: -0.01em; text-wrap: pretty;
