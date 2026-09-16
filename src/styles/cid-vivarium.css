@@ -332,13 +332,13 @@
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
   list-style: none; cursor: pointer; max-width: none; text-wrap: pretty;
 }
-/* The sector designation, in the squared digital face, Portal purple, with
+/* The sector designation, in the squared digital face, Dark Indigo, with
    the classification's provenance on a hover title over the code. */
 .cid-scope .cid-viv-sector {
-  font-family: 'Electrolize', 'Inter', system-ui, sans-serif; font-size: 1.04em; letter-spacing: .03em;
-  color: #4B00B6; display: inline-block;
+  font-family: 'Orbitron', 'Inter', system-ui, sans-serif; font-weight: 800; font-size: .92em; letter-spacing: .02em;
+  color: #19007D; display: inline-block;
 }
-.cid-scope .cid-viv-sector-code { border-bottom: 1px dotted rgba(75,0,182,.55); cursor: help; }
+.cid-scope .cid-viv-sector-code { border-bottom: 1px dotted rgba(25,0,125,.55); cursor: help; }
 .cid-scope .cid-viv-mandate > summary > span { flex: 1 1 auto; }
 .cid-scope .cid-viv-mandate > summary::-webkit-details-marker { display: none; }
 .cid-scope .cid-viv-mandate > summary::after {
