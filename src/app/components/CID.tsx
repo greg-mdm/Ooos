@@ -470,7 +470,7 @@ const CAST = (base: string): CidCharacter[] => [
         ],
         itemsHeading: "BARBEL Squadrons",
         items: [
-          { label: "AQUAE · Lead Integrator", desc: "The smartest squad measures temperature, oxygen, salinity, turbidity, and geothermal chemistry, integrating signals from the swarm to examine how these conditions interact." },
+          { label: "AQUAE · Lead Integrator", icon: "storm", desc: "The smartest squad measures temperature, oxygen, salinity, turbidity, and geothermal chemistry, integrating signals from the swarm to examine how these conditions interact." },
           { label: "LIVES", icon: "dna", desc: "Tracks benthic organisms, biodiversity, and biological health." },
           { label: "WORMS", icon: "worm", desc: "Measures bathymetry and maps depth, seabed structure, sediment, and mineral deposits." },
           { label: "FLOWS", icon: "wave", desc: "Follows currents and ice movement while tracking vessels, subsea infrastructure, and environmental change." },
@@ -567,18 +567,33 @@ function ReadingModule({ r }: { r: CidReading }) {
   );
 }
 
-/* The squadron glyphs: a DNA strand for LIVES, a worm for WORMS, waves for
-   FLOWS. Stroke icons in the formation's blue, drawn here so nothing is
-   fetched for them. */
-type SquadIcon = "dna" | "worm" | "wave";
+/* The squadron glyphs: a storm cloud for AQUAE, a DNA strand for LIVES, a
+   worm for WORMS, waves for FLOWS. Stroke icons in the formation's blue,
+   drawn here so nothing is fetched for them. The storm is Ionicons'
+   thunderstorm-outline (MIT), on its own 512 grid, so it carries its own
+   viewBox and a stroke to match the 24-grid glyphs beside it. */
+type SquadIcon = "storm" | "dna" | "worm" | "wave";
 const SQUAD_ICON_PATHS: Record<SquadIcon, string[]> = {
+  storm: [
+    "M120 352l-24 48M136 432l-16 32M400 352l-24 48M416 432l-16 32M208 304l-16 96h48v80l80-112h-48l16-64",
+    "M404.33 152.89H392.2C384.71 84.85 326.14 32 256 32a136.39 136.39 0 00-128.63 90.67h-4.57c-49.94 0-90.8 40.8-90.8 90.66h0C32 263.2 72.86 304 122.8 304h281.53C446 304 480 270 480 228.44h0c0-41.55-34-75.55-75.67-75.55z",
+  ],
   dna: ["M7 2c0 5 10 5 10 10S7 17 7 22", "M17 2c0 5-10 5-10 10s10 5 10 10", "M8.2 5.5h7.6", "M8.2 18.5h7.6", "M9.6 9.2h4.8", "M9.6 14.8h4.8"],
   worm: ["M3 13c1.5-4.5 3.5-4.5 5 0s3.5 4.5 5 0 3.5-4.5 5 0 2.2 3.2 3 1.5", "M20.2 10.6a1.2 1.2 0 1 0 .01 0"],
   wave: ["M2 10c2.5-3.2 5-3.2 7.5 0s5 3.2 7.5 0 3.5-3.2 5 0", "M2 16c2.5-3.2 5-3.2 7.5 0s5 3.2 7.5 0 3.5-3.2 5 0"],
 };
+const SQUAD_ICON_GRID: Partial<Record<SquadIcon, { viewBox: string; strokeWidth: number }>> = {
+  storm: { viewBox: "0 0 512 512", strokeWidth: 38 },
+};
 function SquadGlyph({ icon }: { icon: SquadIcon }) {
+  const grid = SQUAD_ICON_GRID[icon];
   return (
-    <svg className="cid-cast-squad-ico" viewBox="0 0 24 24" aria-hidden="true">
+    <svg
+      className="cid-cast-squad-ico"
+      viewBox={grid?.viewBox ?? "0 0 24 24"}
+      style={grid ? { strokeWidth: grid.strokeWidth } : undefined}
+      aria-hidden="true"
+    >
       {SQUAD_ICON_PATHS[icon].map((d) => <path key={d} d={d} />)}
     </svg>
   );
@@ -942,7 +957,7 @@ function CharacterRoll({ base }: { base: string }) {
                             )}
                             {f.items && f.items.length > 0 && (
                               <ul className="cid-cast-fns cid-cast-fns--formation">
-                                {f.items.map((it) => it.icon ? (
+                                {f.items.map((it, i) => i > 0 && it.icon ? (
                                   <li className="cid-cast-fn cid-cast-squad cid-cast-squad--disclose" key={it.label}>
                                     <button
                                       type="button"
@@ -958,7 +973,10 @@ function CharacterRoll({ base }: { base: string }) {
                                   </li>
                                 ) : (
                                   <li className="cid-cast-fn cid-cast-squad" key={it.label}>
-                                    <span className="cid-cast-fn-k">{it.label}</span>
+                                    <span className="cid-cast-fn-k cid-cast-squad-lead-k">
+                                      {it.icon && <SquadGlyph icon={it.icon} />}
+                                      {it.label}
+                                    </span>
                                     <span className="cid-cast-fn-d">{it.desc}</span>
                                   </li>
                                 ))}

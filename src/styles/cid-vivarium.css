@@ -2228,6 +2228,8 @@
   color: inherit; font: inherit; text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent;
 }
 .cid-scope .cid-cast-squad-btn:focus-visible { outline: 2px solid #4DAEFF; outline-offset: 3px; border-radius: 4px; }
+/* The lead's label carries its glyph the way the buttons below carry theirs. */
+.cid-scope .cid-cast-squad-lead-k { display: inline-flex; align-items: center; gap: 8px; }
 .cid-scope .cid-cast-squad-ico {
   flex: 0 0 auto; width: 20px; height: 20px; fill: none; stroke: #4DAEFF; stroke-width: 1.8;
   stroke-linecap: round; stroke-linejoin: round; transition: transform .25s ease, stroke .2s ease, filter .2s ease;
