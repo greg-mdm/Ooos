@@ -1600,36 +1600,41 @@
    have is already cropped from a wider original; at this column width it
    holds up, so there is no need to re-cut the wide version. ------------- */
 /* Only the safeguard notes live here now. The three lead lines that used
-   to fill the other column moved up over the character roll as their own
-   pair of cards (.cid-viv-thesis below), so this is one column and the
-   notes keep their own 62ch measure inside it. */
+   to fill the other column moved up over the character roll, first as a
+   pair of cards and now as the heading and subtext of the coin skate film
+   (.cid-viv-film below), so this is one column and the notes keep their
+   own 62ch measure inside it. */
 
 
-/* ---- Thesis pair: two cards over the character roll --------------------
-   Greg's three lead lines, split two and one into side-by-side cards under
-   the strategy keys. Same white card as the etymology and RACI panels, so
-   the column holds one material. The type is the lede's: a 62ch measure
-   and text-wrap: balance, per the house rule for prose blocks. Below 700px
-   the pair stacks. */
-.cid-scope .cid-viv-thesis {
+/* ---- The coin skate film: heading, two lines, then the film ------------
+   Replaced the thesis pair (two white cards, the same three lines split
+   two and one) on 2026-09-17. The heading is set like the strategy heading
+   above it, so the two read as one voice; the two lines under it are the
+   lede's type, 62ch and balanced, per the house rule for prose. The film
+   is the lab tour's panel: full column width, 16:9, the 14px radius and the
+   same shadow. Full width is the point: the roll below it now starts under
+   the foot of the side column instead of running under the lexicon. */
+.cid-scope .cid-viv-film {
   margin: clamp(22px,3vw,34px) 0 0;
-  display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr);
-  gap: clamp(16px,2vw,24px); align-items: stretch;
+  display: flex; flex-direction: column; gap: clamp(14px,1.6vw,20px);
 }
-.cid-scope .cid-viv-thesis-card {
-  border-radius: 16px; background: #fff; border: 1px solid rgba(75,0,182,.16);
-  box-shadow: 0 22px 50px -32px rgba(6,2,28,.4);
-  padding: clamp(16px,1.8vw,22px) clamp(16px,2vw,24px);
-  display: flex; flex-direction: column; justify-content: center; gap: 8px;
+.cid-scope .cid-viv-film-copy { display: flex; flex-direction: column; gap: 8px; }
+.cid-scope .cid-viv-film-h {
+  margin: 0 0 4px;
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: clamp(20px,2.4vw,28px); line-height: 1.18; letter-spacing: -.01em;
+  color: #1a1646; max-width: 30ch; text-wrap: balance;
 }
-.cid-scope .cid-viv-thesis-card p {
+.cid-scope .cid-viv-film-p {
   margin: 0; max-width: 62ch; text-wrap: balance;
   font-size: clamp(15px,1.5vw,17px); line-height: 1.55; color: #33384a;
 }
-@media (max-width: 700px) {
-  .cid-scope .cid-viv-thesis { grid-template-columns: minmax(0,1fr); }
+.cid-scope .cid-viv-film-video {
+  display: block; width: 100%; height: auto; aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  background-color: #04030e;
+  box-shadow: 0 18px 40px -24px rgba(6,2,28,.7);
 }
-
 /* Inside the panel: the chart and, beside it, the key that defines its
    letters. Together, because reading a grid of A R C I means nothing
    without the four words, and those were on the far side of the page. */

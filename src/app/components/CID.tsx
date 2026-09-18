@@ -599,6 +599,66 @@ function SquadGlyph({ icon }: { icon: SquadIcon }) {
   );
 }
 
+/* The coin skate film: a 31-second cut Greg assembled from the Sprint 6
+   finals (the carve, the aerial circle, the Ooo! reveal, the hockey stop),
+   re-encoded for the web at 1280x720, 1.9 Mbps, faststart, with its music.
+   The poster is the last frame, the coin at rest on the snow, which is also
+   where the film holds when it ends. It starts itself, muted, the first time
+   half of it is on screen, and does not loop: the stop is the full stop.
+   Scrolling away pauses it and scrolling back resumes it, but only if the
+   pause was ours; a reader who pressed pause on the controls keeps their
+   pause. The controls stay so the music is one tap away. */
+function SkateFilm({ base }: { base: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    let started = false;
+    let pausedByUs = false;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (!started || pausedByUs) {
+            started = true;
+            pausedByUs = false;
+            el.play().catch(() => {});
+          }
+        } else if (!el.paused && !el.ended) {
+          pausedByUs = true;
+          el.pause();
+        }
+      },
+      { threshold: 0.5 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return (
+    <section className="cid-viv-film" aria-labelledby="cid-film-title">
+      <div className="cid-viv-film-copy">
+        <h3 id="cid-film-title" className="cid-viv-film-h">
+          Investing in your future is complex and continuously changing.
+        </h3>
+        <p className="cid-viv-film-p">Markets demand new digital diversification strategies.</p>
+        <p className="cid-viv-film-p">
+          Rules are evolving. Allies are forming. CID is a sovereign network for strategic governance.
+        </p>
+      </div>
+      <video
+        ref={ref}
+        className="cid-viv-film-video"
+        src={`${base}assets/video/cid-coin-skate.mp4`}
+        poster={`${base}assets/video/cid-coin-skate-poster.webp`}
+        controls
+        muted
+        playsInline
+        preload="metadata"
+        aria-label="The coin skate: a gold coin carves a circle into black ice under concert lights, an aerial view reveals the Ooo! wordmark inside the circle, and the coin finishes with a hockey stop in a spray of snow."
+      />
+    </section>
+  );
+}
+
 function CharacterRoll({ base }: { base: string }) {
   const cast = CAST(base);
   // Falls back to the first frame if the named character ever leaves the cast,
@@ -1355,20 +1415,14 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <StrategyKeys />
               </section>
 
-              {/* Two cards, side by side, over the roll. Greg's copy, verbatim:
-                  the two short claims on the left, the one sentence on the
-                  right. These three lines used to share the lede row above
-                  the RACI panel; Greg moved them here and rewrote the third,
-                  which had read "Our governance remains sovereign." */}
-              <div className="cid-viv-thesis">
-                <div className="cid-viv-thesis-card">
-                  <p>Investing in your future is complex and continuously changing.</p>
-                  <p>Markets demand new digital diversification strategies.</p>
-                </div>
-                <div className="cid-viv-thesis-card">
-                  <p>Rules are evolving. Allies are forming. CID is a sovereign network for strategic governance.</p>
-                </div>
-              </div>
+              {/* The coin skate film, with Greg's three lead lines as its
+                  heading and subtext. The lines used to sit in two white
+                  cards here (and before that in the lede row above the RACI
+                  panel); the film took the cards' place on 2026-09-17. It
+                  runs the column's full width, which also carries the roll
+                  below the foot of the side column: the roll had been
+                  running under the lexicon panel. */}
+              <SkateFilm base={base} />
 
               {/* The cast, directly under the keys. Page-width from inside a
                   narrow column, which is what --viv-gutter is for: see the
