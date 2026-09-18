@@ -629,18 +629,23 @@ function useInViewPlay(ref: RefObject<HTMLVideoElement | null>) {
   }, [ref]);
 }
 
-/* The coin skate: three boxes, each on a different shot.
+/* The coin skate: three boxes.
 
-   Top left, the headline clip Greg cut: the coin at rest on the snow with
-   the headline on a dark gradient card, a slow drift in the picture. It
-   loops. Top right, the two lines on the aerial circle: the shot from
-   above the ice run forward and then back, so the loop has no seam, with
+   The top two are built from one plate, Greg's stand-alone clip of the
+   coin at rest on the snow (SPRINT 6/CARD 1 - Stand alone.mp4), with the
+   card he designed for the headline measured from his own cut and laid
+   over both, so the type and its place match to the pixel. Left: the
+   plate as shot, the headline fading in and then holding; it plays once
+   and stays on its last frame, text sharp. Right: the plate mirrored, run
+   forward and back so the loop has no seam, the card on the near side,
    "Markets demand..." fading in and out and then "Rules are evolving.
-   Allies are forming." the same gentle way, in the same Montserrat card as
-   the headline. It loops too. Neither has controls or sound: they are the
-   heading and the subtext, not films, and the same words sit in the
-   markup for screen readers and search, hidden from sight so nobody reads
-   them twice.
+   Allies are forming." the same gentle way. It loops. Both open on Greg's
+   high-resolution still of the coin (SPRINT 6/Thumbnail - Before Video
+   plays.png), cropped to the box and mirrored on the right, so the pair
+   reads as one balanced picture before either plays. Neither has controls
+   or sound: they are the heading and the subtext, not films, and the same
+   words sit in the markup for screen readers and search, hidden from
+   sight so nobody reads them twice.
 
    Below, the performance: 25 seconds from the lights-up, cut from Greg's
    31-second piece (the carve, the aerial circle, the Ooo! reveal, the
@@ -671,7 +676,6 @@ function SkateFilm({ base }: { base: string }) {
           src={`${base}assets/video/cid-coin-skate-headline.mp4`}
           poster={`${base}assets/video/cid-coin-skate-headline-poster.webp`}
           muted
-          loop
           playsInline
           preload="metadata"
           aria-hidden="true"
