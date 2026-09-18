@@ -629,52 +629,64 @@ function useInViewPlay(ref: RefObject<HTMLVideoElement | null>) {
   }, [ref]);
 }
 
-/* The coin skate, in two films Greg cut from the Sprint 6 finals.
+/* The coin skate: three boxes, each on a different shot.
 
-   The headline clip: the coin at rest on the snow, with the headline set
-   on the picture in a dark gradient card, its text fading at the end. It
-   plays its entrance once and then goes back to its first frame and rests
-   there, so the headline stays on the page; the same words sit in the
-   heading beside it for screen readers and search, hidden from sight so
-   nobody reads them twice. It has no controls: it is a heading, not a film.
+   Top left, the headline clip Greg cut: the coin at rest on the snow with
+   the headline on a dark gradient card, a slow drift in the picture. It
+   loops. Top right, the two lines on the aerial circle: the shot from
+   above the ice run forward and then back, so the loop has no seam, with
+   "Markets demand..." fading in and out and then "Rules are evolving.
+   Allies are forming." the same gentle way, in the same Montserrat card as
+   the headline. It loops too. Neither has controls or sound: they are the
+   heading and the subtext, not films, and the same words sit in the
+   markup for screen readers and search, hidden from sight so nobody reads
+   them twice.
 
-   The performance: 25 seconds from the lights-up, cut from Greg's 31-second
-   piece (the carve, the aerial circle, the Ooo! reveal, the hockey stop).
-   His edit moves the picture inside the frame, so the web encode tracks it
-   with a window that never shows the frame's black: 1224x640, faststart,
-   with the music. The poster is the last frame, the coin at rest on the
-   snow, which is also where the film holds when it ends: the stop is the
-   full stop. Controls stay so the music is one tap away. */
+   Below, the performance: 25 seconds from the lights-up, cut from Greg's
+   31-second piece (the carve, the aerial circle, the Ooo! reveal, the
+   hockey stop). His edit moves the picture inside the frame, so the web
+   encode tracks it with a window that never shows the frame's black:
+   1224x640, faststart, with the music. Its poster is the Ooo! reveal, so
+   the three boxes open on three different pictures and the coin's face
+   shows once, in the headline. It plays once and holds on the snow: the
+   stop is the full stop. Controls stay so the music is one tap away. */
 function SkateFilm({ base }: { base: string }) {
   const head = useRef<HTMLVideoElement>(null);
+  const lines = useRef<HTMLVideoElement>(null);
   const film = useRef<HTMLVideoElement>(null);
   useInViewPlay(head);
+  useInViewPlay(lines);
   useInViewPlay(film);
   return (
     <section className="cid-viv-film" aria-labelledby="cid-film-title">
+      <div className="cid-viv-sr">
+        <h3 id="cid-film-title">Investing in your future is complex and continuously changing.</h3>
+        <p>Markets demand new digital diversification strategies.</p>
+        <p>Rules are evolving. Allies are forming.</p>
+      </div>
       <div className="cid-viv-film-lead">
         <video
           ref={head}
-          className="cid-viv-film-headline"
+          className="cid-viv-film-box"
           src={`${base}assets/video/cid-coin-skate-headline.mp4`}
           poster={`${base}assets/video/cid-coin-skate-headline-poster.webp`}
           muted
+          loop
           playsInline
           preload="metadata"
           aria-hidden="true"
-          onEnded={(e) => {
-            e.currentTarget.currentTime = 0;
-          }}
         />
-        <div className="cid-viv-film-copy">
-          <h3 id="cid-film-title" className="cid-viv-sr">
-            Investing in your future is complex and continuously changing.
-          </h3>
-          <p className="cid-viv-film-p">Markets demand new digital diversification strategies.</p>
-          <p className="cid-viv-film-p">
-            Rules are evolving. Allies are forming. CID is a sovereign network for strategic governance.
-          </p>
-        </div>
+        <video
+          ref={lines}
+          className="cid-viv-film-box"
+          src={`${base}assets/video/cid-coin-skate-lines.mp4`}
+          poster={`${base}assets/video/cid-coin-skate-lines-poster.webp`}
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+        />
       </div>
       <video
         ref={film}
@@ -1456,15 +1468,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   running under the lexicon panel. */}
               <SkateFilm base={base} />
 
-              {/* The cast, directly under the keys. Page-width from inside a
-                  narrow column, which is what --viv-gutter is for: see the
-                  break-out note in cid-vivarium.css. It sat outside the
-                  container for one commit to get that width the easy way, but
-                  the section runs on for hundreds of lines past the stack, so
-                  it landed far below the keys instead of under them. Position
-                  is the requirement; the break-out is the cost of meeting it. */}
-              <CharacterRoll base={base} />
-
             </div>
             {/* Right column, one panel: the Radical Strategic Intelligence
                 rail, the etymology card beneath it, then the Greek lexicon,
@@ -1574,6 +1577,18 @@ export function CID({ onSupport }: { onSupport: () => void }) {
 
             </div>
           </div>
+
+          {/* The cast, directly under the two columns. It lived inside the
+              body column until 2026-09-18, when the film box above it was
+              tied to the foot of the side column: the two columns now
+              stretch to one height, and a 600px roll inside one of them
+              would have dragged the side column's last card down with it.
+              As the next child of the stack it sits exactly where it did,
+              under the film, and still breaks out to the page width the
+              same way: --viv-gutter is the container's own offset, so the
+              break-out note in cid-vivarium.css holds here as it did in the
+              column. */}
+          <CharacterRoll base={base} />
 
           {/* Two lab shots paired as one figure row above the strategy band.
               Real <img> here rather than a background: unlike the case art
