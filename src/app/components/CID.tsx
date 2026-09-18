@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useRef, useState, type ReactNode, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type ReactNode, type CSSProperties, type RefObject } from "react";
 import { RedShaderOrb } from "./cid/RedShaderOrb";
 import "../../styles/cid-continuum.css";
 import "../../styles/cid-forest.css";
@@ -599,17 +599,11 @@ function SquadGlyph({ icon }: { icon: SquadIcon }) {
   );
 }
 
-/* The coin skate film: a 31-second cut Greg assembled from the Sprint 6
-   finals (the carve, the aerial circle, the Ooo! reveal, the hockey stop),
-   re-encoded for the web at 1280x720, 1.9 Mbps, faststart, with its music.
-   The poster is the last frame, the coin at rest on the snow, which is also
-   where the film holds when it ends. It starts itself, muted, the first time
-   half of it is on screen, and does not loop: the stop is the full stop.
-   Scrolling away pauses it and scrolling back resumes it, but only if the
-   pause was ours; a reader who pressed pause on the controls keeps their
-   pause. The controls stay so the music is one tap away. */
-function SkateFilm({ base }: { base: string }) {
-  const ref = useRef<HTMLVideoElement>(null);
+/* A video that starts itself, muted, the first time half of it is on
+   screen. Scrolling away pauses it and scrolling back resumes it, but only
+   if the pause was ours; a reader who pressed pause on the controls keeps
+   their pause. Once it has ended it stays ended: nothing here loops. */
+function useInViewPlay(ref: RefObject<HTMLVideoElement | null>) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -632,20 +626,58 @@ function SkateFilm({ base }: { base: string }) {
     );
     io.observe(el);
     return () => io.disconnect();
-  }, []);
+  }, [ref]);
+}
+
+/* The coin skate, in two films Greg cut from the Sprint 6 finals.
+
+   The headline clip: the coin at rest on the snow, with the headline set
+   on the picture in a dark gradient card, its text fading at the end. It
+   plays its entrance once and then goes back to its first frame and rests
+   there, so the headline stays on the page; the same words sit in the
+   heading beside it for screen readers and search, hidden from sight so
+   nobody reads them twice. It has no controls: it is a heading, not a film.
+
+   The performance: 25 seconds from the lights-up, cut from Greg's 31-second
+   piece (the carve, the aerial circle, the Ooo! reveal, the hockey stop).
+   His edit moves the picture inside the frame, so the web encode tracks it
+   with a window that never shows the frame's black: 1224x640, faststart,
+   with the music. The poster is the last frame, the coin at rest on the
+   snow, which is also where the film holds when it ends: the stop is the
+   full stop. Controls stay so the music is one tap away. */
+function SkateFilm({ base }: { base: string }) {
+  const head = useRef<HTMLVideoElement>(null);
+  const film = useRef<HTMLVideoElement>(null);
+  useInViewPlay(head);
+  useInViewPlay(film);
   return (
     <section className="cid-viv-film" aria-labelledby="cid-film-title">
-      <div className="cid-viv-film-copy">
-        <h3 id="cid-film-title" className="cid-viv-film-h">
-          Investing in your future is complex and continuously changing.
-        </h3>
-        <p className="cid-viv-film-p">Markets demand new digital diversification strategies.</p>
-        <p className="cid-viv-film-p">
-          Rules are evolving. Allies are forming. CID is a sovereign network for strategic governance.
-        </p>
+      <div className="cid-viv-film-lead">
+        <video
+          ref={head}
+          className="cid-viv-film-headline"
+          src={`${base}assets/video/cid-coin-skate-headline.mp4`}
+          poster={`${base}assets/video/cid-coin-skate-headline-poster.webp`}
+          muted
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+          onEnded={(e) => {
+            e.currentTarget.currentTime = 0;
+          }}
+        />
+        <div className="cid-viv-film-copy">
+          <h3 id="cid-film-title" className="cid-viv-sr">
+            Investing in your future is complex and continuously changing.
+          </h3>
+          <p className="cid-viv-film-p">Markets demand new digital diversification strategies.</p>
+          <p className="cid-viv-film-p">
+            Rules are evolving. Allies are forming. CID is a sovereign network for strategic governance.
+          </p>
+        </div>
       </div>
       <video
-        ref={ref}
+        ref={film}
         className="cid-viv-film-video"
         src={`${base}assets/video/cid-coin-skate.mp4`}
         poster={`${base}assets/video/cid-coin-skate-poster.webp`}
