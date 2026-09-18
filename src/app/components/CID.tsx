@@ -631,21 +631,22 @@ function useInViewPlay(ref: RefObject<HTMLVideoElement | null>) {
 
 /* The coin skate: three boxes.
 
-   The top two are built from one plate, Greg's stand-alone clip of the
-   coin at rest on the snow (SPRINT 6/CARD 1 - Stand alone.mp4), with the
-   card he designed for the headline measured from his own cut and laid
-   over both, so the type and its place match to the pixel. Left: the
-   plate as shot, the headline fading in and then holding; it plays once
-   and stays on its last frame, text sharp. Right: the plate mirrored, run
-   forward and back so the loop has no seam, the card on the near side,
-   "Markets demand..." fading in and out and then "Rules are evolving.
-   Allies are forming." the same gentle way. It loops. Both open on Greg's
-   high-resolution still of the coin (SPRINT 6/Thumbnail - Before Video
-   plays.png), cropped to the box and mirrored on the right, so the pair
-   reads as one balanced picture before either plays. Neither has controls
-   or sound: they are the heading and the subtext, not films, and the same
-   words sit in the markup for screen readers and search, hidden from
-   sight so nobody reads them twice.
+   The top two share one card, the one Greg designed for the headline,
+   measured from his own cut and laid over both at the same size, so the
+   type matches to the pixel; the right box carries it in the mirrored
+   position. The pictures differ. Left: Greg's stand-alone clip of the
+   coin at rest on the snow (SPRINT 6/CARD 1 - Stand alone.mp4), the
+   headline fading in and then holding; it plays once and stays on its
+   last frame, text sharp. Right: the aerial circle from the film, deep
+   blue, run forward and back so the loop has no seam, with "Markets
+   demand..." fading in and holding. It loops. The next line, "Rules are
+   evolving. Allies are forming.", is waiting on its own clip (the Defence
+   take with a Euro coin, to be made in Artlist) and is not on the page
+   yet. Both boxes open on Greg's high-resolution still of the coin
+   (SPRINT 6/Thumbnail - Before Video plays.png), cropped to the box.
+   Neither has controls or sound: they are the heading and the subtext,
+   not films, and the same words sit in the markup for screen readers and
+   search, hidden from sight so nobody reads them twice.
 
    Below, the performance: 25 seconds from the lights-up, cut from Greg's
    31-second piece (the carve, the aerial circle, the Ooo! reveal, the
@@ -667,7 +668,6 @@ function SkateFilm({ base }: { base: string }) {
       <div className="cid-viv-sr">
         <h3 id="cid-film-title">Investing in your future is complex and continuously changing.</h3>
         <p>Markets demand new digital diversification strategies.</p>
-        <p>Rules are evolving. Allies are forming.</p>
       </div>
       <div className="cid-viv-film-lead">
         <video
