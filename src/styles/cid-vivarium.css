@@ -298,7 +298,33 @@
 }
 .cid-scope .cid-viv-eco-row .cid-viv-flicker { margin: 0; flex: 0 0 auto; }
 .cid-scope .cid-viv-glossary { flex: 1 1 300px; min-width: 260px; }
-.cid-scope .cid-viv-glossary .cid-etym-row:first-child { margin-top: 0; }
+.cid-scope .cid-viv-glossary .cid-viv-offer { margin-top: 0; }
+/* The research signals fold under the offers: a hairline, then the label as
+   the summary with the same chevron as the priority folds, the two glossary
+   rows beneath when open. Closed at rest, since the offers are what the
+   card is for now and the signals are reference. */
+.cid-scope .cid-viv-signals {
+  margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(75,0,182,.14);
+}
+.cid-scope .cid-viv-signals-sum {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  list-style: none; cursor: pointer; margin: 0;
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 10px;
+  letter-spacing: .16em; text-transform: uppercase; color: #822F00;
+}
+.cid-scope .cid-viv-signals-sum::-webkit-details-marker { display: none; }
+.cid-scope .cid-viv-signals-sum::after {
+  content: ""; flex: 0 0 auto; width: 7px; height: 7px; margin-right: 3px;
+  border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform .2s ease;
+}
+.cid-scope .cid-viv-signals[open] .cid-viv-signals-sum::after { transform: rotate(-135deg) translateY(-1px); }
+.cid-scope .cid-viv-signals-sum:focus-visible { outline: 2px solid #4B00B6; outline-offset: 4px; border-radius: 4px; }
+.cid-scope .cid-viv-signals .cid-etym-row:first-of-type { margin-top: 12px; }
+@media (prefers-reduced-motion: reduce) {
+  .cid-scope .cid-viv-signals-sum::after { transition: none; }
+}
 
 /* Leadership: mandate copy, same measure and heading idiom as the ecosystem. */
 .cid-scope .cid-viv-leadership { display: flex; flex-direction: column; gap: 10px; max-width: 820px; }
@@ -329,8 +355,6 @@
   background: rgba(75,0,182,.07); border: 1px solid rgba(75,0,182,.16);
 }
 .cid-scope .cid-viv-offer-note { margin: 7px 0 0; font-size: 12px; color: #5b5f86; }
-/* As a side card the two offer groups stack, products over services. */
-.cid-scope .cid-viv-offer-card .cid-viv-offer { grid-template-columns: minmax(0,1fr); gap: 16px; margin-top: 0; }
 
 /* The mandate under Research Reimagined folds: the sentence is the summary,
    wearing the same chevron as the priority folds, and the two points open

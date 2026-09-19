@@ -1,5 +1,18 @@
 # Coin references for the Defence clip
 
+**Revised 2026-09-18, evening.** The direction changed: the coins stay
+gold and each carries one etched currency symbol, € and £, instead of a
+real coin face. The two symbol images below are the references for that
+run; the coin photographs further down are from the first direction and
+are kept for the record.
+
+## Symbols
+
+| File | Size | What |
+| --- | --- | --- |
+| `symbol-euro-2000px.png` | 2000x2000 | The euro sign, Georgia Bold, black on white. Rendered here. |
+| `symbol-pound-2000px.png` | 2000x2000 | The pound sign, Georgia Bold, black on white. Rendered here. |
+
 Reference stills for the Artlist run that turns the two coins in
 `Defence - Defence - Allies are forming.mp4` into a 1 euro and a UK 1 pound.
 Gathered 2026-09-18. These are inputs to the generator, not assets for the

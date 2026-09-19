@@ -1502,23 +1502,11 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 </div>
               </aside>
 
-              {/* Digital products and studio services, moved out of the intro
-                  column to sit beside the body copy: the two groups stacked
-                  in the side column's width, on the same white card as the
-                  etymology beneath. */}
-              <aside className="cid-etym cid-viv-offer-card" aria-label="Digital products and studio services">
-                <div className="cid-viv-offer cid-viv-offer--stack">
-                  <DigitalProducts />
-                  <div className="cid-viv-offer-row">
-                    <p className="cid-viv-offer-label">Studio Services</p>
-                    <div className="cid-viv-offer-pills">
-                      <span className="cid-viv-pill">Market Research</span>
-                      <span className="cid-viv-pill">Sector Support</span>
-                      <span className="cid-viv-pill">Internationalization</span>
-                    </div>
-                  </div>
-                </div>
-              </aside>
+              {/* Digital products and studio services lived here, on a white
+                  card under the rail, until 2026-09-19. The side column had
+                  become a stack of pill rows over pill rows; Greg moved the
+                  offers down to the card beside CID Flicker, where the
+                  research signals now fold away to make room. */}
 
               <aside className="cid-etym" aria-label="Etymology of vivarium">
                 <p className="cid-etym-label">Etymology</p>
@@ -1932,10 +1920,14 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               </div>
             </div>
 
-            {/* The Flicker card and the inputs/tags glossary sit side by
-                side, filling the band beside the reference card. The Flicker
-                image drops into cid-viv-flicker-img; its copy stays to the
-                label plus the one-line function, no physical description. */}
+            {/* The Flicker card and, beside it, the offers card: Digital
+                Products and Studio Services as pill rows, two columns wide,
+                with the research signals (the inputs and tags glossary that
+                used to fill this card) folded under them. Greg, 2026-09-19:
+                the side column had become pill rows over pill rows, so the
+                offers came down here and the signals gave up their space to
+                a disclosure. The Flicker image drops into cid-viv-flicker-img;
+                its copy stays to the label plus the one-line function. */}
             <div className="cid-viv-eco-row">
               <figure className="cid-viv-flicker">
                 <div className="cid-viv-flicker-img" role="img" aria-label="The Flicker" />
@@ -1945,7 +1937,24 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 </figcaption>
               </figure>
 
-              <aside className="cid-etym cid-viv-glossary" aria-label="Vivarium inputs and tags">
+              <aside className="cid-etym cid-viv-glossary" aria-label="Digital products, studio services, and research signals">
+                <div className="cid-viv-offer">
+                  <DigitalProducts />
+                  <div className="cid-viv-offer-row">
+                    <p className="cid-viv-offer-label">Studio Services</p>
+                    <div className="cid-viv-offer-pills">
+                      <span className="cid-viv-pill">Market Research</span>
+                      <span className="cid-viv-pill">Sector Support</span>
+                      <span className="cid-viv-pill">Internationalization</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* The signals fold. Closed at rest: the label is the summary,
+                    the two glossary rows open under it. Native details, so it
+                    works without script and the state is the browser's. */}
+                <details className="cid-viv-signals">
+                  <summary className="cid-viv-signals-sum">Research signals</summary>
                 <div className="cid-etym-row">
                   <p className="cid-etym-key">User inputs</p>
                   <ul className="cid-etym-list">
@@ -1960,6 +1969,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     <li><span className="cid-etym-abbr">RWS</span> · Real-World Signals</li>
                   </ul>
                 </div>
+                </details>
               </aside>
             </div>
           </div>
