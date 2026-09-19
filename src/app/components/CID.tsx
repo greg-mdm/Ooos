@@ -648,7 +648,14 @@ function useInViewPlay(ref: RefObject<HTMLVideoElement | null>) {
    not films, and the same words sit in the markup for screen readers and
    search, hidden from sight so nobody reads them twice.
 
-   Below, the performance: 25 seconds from the lights-up, cut from Greg's
+   Since 2026-09-19 the pair is a column, not a row, and it stands in the
+   right half of the Strategies band beside the three keys (SkateLead,
+   below, rendered into .cid-strategy-band). Side by side under the keys
+   they were 398px each; stacked beside them they keep ~366px, and the
+   keys take the width they always needed to hold a clause on one line.
+   Two shallow rows became one, and neither block lost anything.
+
+   Below the band, the performance: 25 seconds from the lights-up, cut from Greg's
    31-second piece (the carve, the aerial circle, the Ooo! reveal, the
    hockey stop). His edit moves the picture inside the frame, so the web
    encode tracks it with a window that never shows the frame's black:
@@ -656,20 +663,17 @@ function useInViewPlay(ref: RefObject<HTMLVideoElement | null>) {
    the three boxes open on three different pictures and the coin's face
    shows once, in the headline. It plays once and holds on the snow: the
    stop is the full stop. Controls stay so the music is one tap away. */
-function SkateFilm({ base }: { base: string }) {
+function SkateLead({ base }: { base: string }) {
   const head = useRef<HTMLVideoElement>(null);
   const lines = useRef<HTMLVideoElement>(null);
-  const film = useRef<HTMLVideoElement>(null);
   useInViewPlay(head);
   useInViewPlay(lines);
-  useInViewPlay(film);
   return (
-    <section className="cid-viv-film" aria-labelledby="cid-film-title">
+    <div className="cid-viv-film-lead">
       <div className="cid-viv-sr">
         <h3 id="cid-film-title">Investing in your future is complex and continuously changing.</h3>
         <p>Markets demand new digital diversification strategies.</p>
       </div>
-      <div className="cid-viv-film-lead">
         <video
           ref={head}
           className="cid-viv-film-box"
@@ -691,7 +695,18 @@ function SkateFilm({ base }: { base: string }) {
           preload="metadata"
           aria-hidden="true"
         />
-      </div>
+    </div>
+  );
+}
+
+function SkateFilm({ base }: { base: string }) {
+  const film = useRef<HTMLVideoElement>(null);
+  useInViewPlay(film);
+  return (
+    /* The lead clips carry the words, so the heading this section used to
+       borrow from them went up into the band with them; the film is labelled
+       for what it is, and the long description stays on the video itself. */
+    <section className="cid-viv-film" aria-label="The coin skate">
       <video
         ref={film}
         className="cid-viv-film-video"
@@ -1453,10 +1468,13 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   a direct child of .cid-viv-stack while that space was taken,
                   running the full container width under the side panel; back
                   in the column it takes the column's own measure and stops
-                  where the priorities above it stop. The cost is the bullets:
-                  at ~260px a key cannot hold "Integrate verified data
-                  sources." on one line, so they wrap to two (see the keys
-                  rule in cid-vivarium.css). */}
+                  where the priorities above it stop. Three across cost the
+                  bullets their line: at ~260px a key cannot hold "Integrate
+                  verified data sources." on one line, so every bullet wrapped
+                  to two. Stacking the keys in the left half of the band
+                  (2026-09-19) gives each one ~430px, clear of the 311px the
+                  clause wants, so the statements read one to a line again
+                  (see the keys rule in cid-vivarium.css). */}
               <section className="cid-strategy" aria-labelledby="cid-strategy-title">
                 {/* The opening A is a real Latin A set in the display serif, not a Greek
                     alpha lookalike: the letterform carries the flourish while "Agile"
@@ -1464,13 +1482,22 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <h3 id="cid-strategy-title" className="cid-strategy-h">
                   <span className="cid-strategy-a">A</span>gile Micro-Studio. Massive Creative Capacity.
                 </h3>
-                <StrategyKeys />
+                {/* The band: the three keys as a column, the two lead clips
+                    stacked beside them (Greg, 2026-09-19). Two shallow
+                    full-width rows became one row of two columns, which buys
+                    the keys the measure their longest clause needs and closes
+                    the half-empty strip that ran between them. */}
+                <div className="cid-strategy-band">
+                  <StrategyKeys />
+                  <SkateLead base={base} />
+                </div>
               </section>
 
-              {/* The coin skate film, with Greg's three lead lines as its
-                  heading and subtext. The lines used to sit in two white
-                  cards here (and before that in the lede row above the RACI
-                  panel); the film took the cards' place on 2026-09-17. It
+              {/* The coin skate film. Greg's lead lines sit on the two clips
+                  in the band above, which is where the words live now; they
+                  used to sit in two white cards here (and before that in the
+                  lede row above the RACI panel), and the film took the cards'
+                  place on 2026-09-17. It
                   runs the column's full width, which also carries the roll
                   below the foot of the side column: the roll had been
                   running under the lexicon panel. */}

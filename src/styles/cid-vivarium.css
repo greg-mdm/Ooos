@@ -1495,22 +1495,32 @@
      only steps in on narrow screens where one line genuinely will not fit. */
   color: #1a1646; max-width: none; text-wrap: balance;
 }
-/* Three across, since these read as pillars rather than a stacked list.
-   Stretch so the keys share one height however the bullets wrap. */
-/* The band sits back inside the intro column, filling the space the lexicon
-   left, so it takes the column's ~820px rather than the full container. Three
-   keys share that at ~260px each, and the longest clause ("Integrate verified
-   data sources.") wants 311px, so bullets wrap to two lines here. That is the
-   trade for keeping the band on the column's measure: there is no width at
-   which one clause per line and a column-width band are both true. Hence no
-   `text-wrap: nowrap` on the bullet -- it would not shrink the clause, it
-   would push it out past the key's rounded edge. */
+/* The band under the heading: the keys as a column on the left, the two coin
+   clips stacked on the right. Three keys across was the old arrangement and it
+   cost the bullets their line -- the intro column is ~820px, three keys shared
+   it at ~260px each, and the longest clause ("Integrate verified data
+   sources.") wants 311px, so every bullet wrapped to two. A column of keys in
+   1.18 of the band's 2.18 parts is ~430px, which clears 311px with room left,
+   and the clips keep ~366px of the 398px they had when they sat side by side
+   in a row of their own. The band is ~50px taller than the two shallow rows
+   it replaces, which is the whole trade: that height buys every statement its
+   own line and squares the two blocks off against each other. The ratio is
+   Greg's: the keys hold the longer measure because they hold the words. */
+.cid-scope .cid-strategy-band {
+  display: grid; grid-template-columns: minmax(0, 1.18fr) minmax(0, 1fr);
+  gap: clamp(16px,2vw,24px); align-items: stretch;
+}
+/* One column, and the three keys divide whatever height the clips beside them
+   set, so the two halves of the band start and finish on the same lines. The
+   bullets centre in the key rather than sitting at its top: at one line each
+   they no longer fill the key, and centred the leftover room reads as air
+   around the statement instead of a gap beneath it. */
 .cid-scope .cid-strategy-keys {
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(12px,1.6vw,18px); align-items: stretch;
+  display: grid; grid-template-columns: minmax(0, 1fr); grid-auto-rows: 1fr;
+  gap: clamp(12px,1.6vw,18px); align-items: stretch; height: 100%;
 }
 .cid-scope .cid-strategy-keys .ood-key-wrap { height: 100%; }
-.cid-scope .cid-strategy-keys .ood-key { height: 100%; align-items: flex-start; }
+.cid-scope .cid-strategy-keys .ood-key { height: 100%; align-items: center; }
 /* Two statements, two bullets. The marker is drawn rather than a list-style
    so it keeps the Bright Silver legend's colour and sits on the cap height. */
 .cid-scope .cid-strategy-bullets { display: flex; flex-direction: column; gap: 7px; }
@@ -1522,13 +1532,13 @@
   width: 7px; height: 7px; border-radius: 2px;
   background: #E8ECF4; opacity: .85;
 }
-/* Stack below the width where three across can still hold a bullet on one
-   line. Between 860px and 1240px the three-column grid put each key at
-   ~314px, which is 50px short of the longest clause, so the keys stacked
-   later than the copy needed them to. */
-@media (max-width: 1239px) {
-  .cid-scope .cid-strategy-keys { grid-template-columns: minmax(0, 1fr); }
-  .cid-scope .cid-strategy-keys .ood-key { align-items: center; }
+/* Below the width where the intro row still has two columns, the band gives
+   up its own: the keys take the full measure and the clips follow under them.
+   The keys stop dividing a fixed height there, since there is no longer a
+   column beside them to set one. */
+@media (max-width: 900px) {
+  .cid-scope .cid-strategy-band { grid-template-columns: minmax(0, 1fr); }
+  .cid-scope .cid-strategy-keys { grid-auto-rows: auto; height: auto; }
 }
 
 /* The keys are copied, the homepage's dark ground is not. On the aurora
@@ -1655,8 +1665,9 @@
 /* ---- The coin skate: two looping boxes, then the film -----------------
    Replaced the thesis pair (two white cards, the same three lines split
    two and one) on 2026-09-17; the words moved onto clips on the 18th. The
-   lead row is two boxes of equal size, both 16:9: the headline clip on the
-   left, the two lines on the aerial circle on the right. The words stay in
+   lead pair is two boxes of equal size, both 16:9: the headline clip above,
+   the two lines on the aerial circle below it. They stacked and moved up
+   beside the keys on 2026-09-19 (.cid-strategy-band); the film stayed here. The words stay in
    the markup for screen readers and search but are clipped from sight
    (.cid-viv-sr). The film below runs the column's full width; at desktop
    widths its box is a 2.3:1 window on the 1224:640 picture (object-fit
@@ -1670,8 +1681,8 @@
   display: flex; flex-direction: column; gap: clamp(14px,1.6vw,20px);
 }
 .cid-scope .cid-viv-film-lead {
-  display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr);
-  gap: clamp(16px,2vw,24px); align-items: start;
+  display: grid; grid-template-columns: minmax(0,1fr);
+  gap: clamp(16px,2vw,24px); align-items: start; align-content: start;
 }
 .cid-scope .cid-viv-film-box {
   display: block; width: 100%; height: auto; aspect-ratio: 16 / 9;
@@ -1700,9 +1711,6 @@
     flex: 1 1 auto; min-height: 0; height: auto;
     aspect-ratio: 2.3 / 1;
   }
-}
-@media (max-width: 700px) {
-  .cid-scope .cid-viv-film-lead { grid-template-columns: minmax(0,1fr); }
 }
 /* One column below 900px, and the roll keeps its old place in it. Moving
    the roll out of the body column (see the note beside it in CID.tsx) put
