@@ -112,15 +112,17 @@
 .cid-scope .cid-viv-intro-row {
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, 340px);
   gap: clamp(20px,2.6vw,32px);
-  /* stretch, not start, since 2026-09-18: the two columns share one height
-     so the film at the foot of the body column and the biomimicry card at
-     the foot of the side column end on the same line. The side column's
-     last card takes the slack (margin-top: auto, below). */
+  /* stretch, not start, since 2026-09-18, when the two columns shared one
+     height so the film and the biomimicry card ended on the same line. The
+     card went down to the breather on 2026-09-19, so nothing is pinned to
+     the foot of the side column now and the column simply ends after the
+     rail. Stretch stays because the columns are still one row. */
   align-items: stretch;
 }
-/* The biomimicry card sits at the foot of the side column whatever the
-   column's height, so its bottom edge meets the film's. */
-.cid-scope .cid-viv-side > .cid-viv-gloss { margin-top: auto; }
+/* The biomimicry card used to sit at the foot of the side column, pinned
+   there so its bottom edge met the film's. It left the column for the
+   breather band on 2026-09-19, so there is nothing to pin: the column is the
+   etymology card and the rail, and it ends where they end. */
 /* The intro paragraph and the "CID Vivarium" heading live in this one cell
    together, so the heading follows the paragraph directly regardless of how
    tall the tags column beside it gets. Splitting them into separate rows of
@@ -130,6 +132,33 @@
 .cid-scope .cid-viv-intro-col { display: flex; flex-direction: column; gap: clamp(22px,3.4vh,34px); }
 @media (max-width: 760px) {
   .cid-scope .cid-viv-intro-row { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---- The breather: the Greek lexicon and the biomimicry quote side by
+   side, across the full measure, between the intro row and the character
+   roll. Both were cards in the side column until 2026-09-19. The lexicon
+   keeps its 480px cap, since it is a fixed stage cropped to its left
+   three-fifths and past that width it only grows taller, so the quote takes
+   whatever is left. Stretch, so the white card stands to the dark panel's
+   height instead of ending short of it, and the quote centres in the height
+   it gains. ---- */
+.cid-scope .cid-viv-breather {
+  margin: clamp(26px,3.4vw,40px) 0 0;
+  display: grid; grid-template-columns: minmax(0, 480px) minmax(0, 1fr);
+  gap: clamp(18px,2.4vw,32px); align-items: stretch;
+}
+.cid-scope .cid-viv-breather .cid-viv-gloss {
+  display: flex; flex-direction: column; justify-content: center;
+}
+/* The card runs ~700px here, which is well past a reading measure, so the
+   quotation and its source note keep one of their own. The quote also comes
+   up from 14.5px: it is a passage to stop on now, not a note in a margin. */
+.cid-scope .cid-viv-breather .cid-viv-gloss-quote { max-width: 62ch; }
+.cid-scope .cid-viv-breather .cid-viv-gloss-src { max-width: 78ch; }
+.cid-scope .cid-viv-breather .cid-viv-gloss-quote blockquote { font-size: 16.5px; }
+/* One column before the panel and the card would each be too narrow to read. */
+@media (max-width: 860px) {
+  .cid-scope .cid-viv-breather { grid-template-columns: minmax(0,1fr); }
 }
 
 /* ---- Etymology card: a dictionary entry for the word the lede ends on,
@@ -1499,13 +1528,14 @@
    clips stacked on the right. Three keys across was the old arrangement and it
    cost the bullets their line -- the intro column is ~820px, three keys shared
    it at ~260px each, and the longest clause ("Integrate verified data
-   sources.") wants 311px, so every bullet wrapped to two. A column of keys in
-   1.18 of the band's 2.18 parts is ~430px, which clears 311px with room left,
-   and the clips keep ~366px of the 398px they had when they sat side by side
-   in a row of their own. The band is ~50px taller than the two shallow rows
-   it replaces, which is the whole trade: that height buys every statement its
-   own line and squares the two blocks off against each other. The ratio is
-   Greg's: the keys hold the longer measure because they hold the words. */
+   sources.") wants ~15.15px of width per px of font size, so every bullet
+   wrapped to two. A column of keys in 1.18 of the band's 2.18 parts is ~431px
+   at the widest the page container goes, and the clips keep ~366px of the
+   398px they had when they sat side by side in a row of their own. The band
+   is ~50px taller than the two shallow rows it replaces, which is the whole
+   trade: that height buys every statement its own line and squares the two
+   blocks off against each other. The ratio is Greg's: the keys hold the
+   longer measure because they hold the words. */
 .cid-scope .cid-strategy-band {
   display: grid; grid-template-columns: minmax(0, 1.18fr) minmax(0, 1fr);
   gap: clamp(16px,2vw,24px); align-items: stretch;
@@ -1521,22 +1551,43 @@
 }
 .cid-scope .cid-strategy-keys .ood-key-wrap { height: 100%; }
 .cid-scope .cid-strategy-keys .ood-key { height: 100%; align-items: center; }
+/* The label fills the key. On the homepage .ood-label is a flex item at
+   `flex: 0 1 auto`, so it shrink-wraps to the width of its own longest line
+   and stops there: in a 431px key it was taking 259px and leaving 138px of
+   dead width beside it, which is why "Integrate verified data sources."
+   still broke to two lines in a key easily wide enough to hold it. Filling
+   the key gives the text the whole 397px content box, and that is the room
+   the type size below is spending. */
+.cid-scope .cid-strategy-keys .ood-label { flex: 1 1 auto; min-width: 0; }
 /* Two statements, two bullets. The marker is drawn rather than a list-style
    so it keeps the Bright Silver legend's colour and sits on the cap height. */
-.cid-scope .cid-strategy-bullets { display: flex; flex-direction: column; gap: 7px; }
+.cid-scope .cid-strategy-bullets { display: flex; flex-direction: column; gap: .45em; }
+/* Greg, 2026-09-19: there was room left in the key, so the statements take
+   it. 16.32px to 21px at the top, fluid between. The ceiling is set by the
+   measure, not by taste: the key's content box caps at ~397px however wide
+   the window gets, the longest clause runs ~15.15px per px of type, and the
+   indent another 1.1em, so ~24px is where it would break to two lines again.
+   21px keeps ~56px in hand, which is the margin for a fallback face loading
+   wider than Inter. The floor holds the phone, where the key is ~293px. */
 .cid-scope .cid-strategy-bullet {
-  position: relative; padding-left: 18px; display: block;
+  position: relative; padding-left: 1.1em; display: block;
+  font-size: clamp(16px, 1.5vw, 21px); line-height: 1.3;
 }
+/* In em, so the marker and its gap keep their proportion to the type it
+   marks rather than shrinking against it as the statement grows. */
 .cid-scope .cid-strategy-bullet::before {
   content: ""; position: absolute; left: 0; top: .55em;
-  width: 7px; height: 7px; border-radius: 2px;
+  width: .42em; height: .42em; border-radius: 2px;
   background: #E8ECF4; opacity: .85;
 }
-/* Below the width where the intro row still has two columns, the band gives
-   up its own: the keys take the full measure and the clips follow under them.
-   The keys stop dividing a fixed height there, since there is no longer a
-   column beside them to set one. */
-@media (max-width: 900px) {
+/* 1100px, not 900px. The band splitting in two is only worth it while the
+   left column can still hold a clause on one line, and it cannot for long:
+   at a 910px window the column is 252px, which is narrower than the three
+   keys ever were. So below 1100px the band gives up its columns, the keys
+   take the full measure, and the clips go back to two across, which is where
+   they sat before the band existed. The keys stop dividing a fixed height
+   there too, since there is no longer a column beside them setting one. */
+@media (max-width: 1099px) {
   .cid-scope .cid-strategy-band { grid-template-columns: minmax(0, 1fr); }
   .cid-scope .cid-strategy-keys { grid-auto-rows: auto; height: auto; }
 }
@@ -1684,6 +1735,18 @@
   display: grid; grid-template-columns: minmax(0,1fr);
   gap: clamp(16px,2vw,24px); align-items: start; align-content: start;
 }
+/* The stacked pair is the two-column band's arrangement. Once the band gives
+   up its columns the clips have no narrow column to stand in, so they go back
+   to two across on the full measure, and to one across on a phone. Both rules
+   sit here rather than beside the band rules above because the base rule they
+   override is this one: from up there they lost on source order and the clips
+   stayed stacked at every width. */
+@media (max-width: 1099px) {
+  .cid-scope .cid-viv-film-lead { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
+}
+@media (max-width: 700px) {
+  .cid-scope .cid-viv-film-lead { grid-template-columns: minmax(0,1fr); }
+}
 .cid-scope .cid-viv-film-box {
   display: block; width: 100%; height: auto; aspect-ratio: 16 / 9;
   object-fit: cover;
@@ -1724,6 +1787,9 @@
   .cid-scope .cid-viv-intro-row { display: contents; }
   .cid-scope .cid-viv-intro-col { order: -3; }
   .cid-scope .cid-viv-stack > .cid-cast { order: -2; }
+  /* Same order as the roll, and earlier in the source, so it stays above it
+     the way it does on a wide screen. */
+  .cid-scope .cid-viv-breather { order: -2; }
   .cid-scope .cid-viv-side { order: -1; }
 }
 /* Inside the panel: the chart and, beside it, the key that defines its

@@ -1472,9 +1472,11 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   bullets their line: at ~260px a key cannot hold "Integrate
                   verified data sources." on one line, so every bullet wrapped
                   to two. Stacking the keys in the left half of the band
-                  (2026-09-19) gives each one ~430px, clear of the 311px the
-                  clause wants, so the statements read one to a line again
-                  (see the keys rule in cid-vivarium.css). */}
+                  (2026-09-19) gives each one ~431px, and letting the label
+                  fill the key rather than shrink-wrap gives the text the
+                  whole of it, so the statements read one to a line again and
+                  carry a larger size while they do (see the keys rule in
+                  cid-vivarium.css). */}
               <section className="cid-strategy" aria-labelledby="cid-strategy-title">
                 {/* The opening A is a real Latin A set in the display serif, not a Greek
                     alpha lookalike: the letterform carries the flourish while "Agile"
@@ -1507,11 +1509,11 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             {/* Right column: the etymology card first, beside the welcome
                 text it defines (Greg, 2026-09-19); then the Radical Strategic
                 Intelligence rail, level with Research Reimagined and the
-                priorities; then the Greek lexicon, then the biomimicry quote
-                closing the column. The lexicon is the one dark object between
-                the white cards, so it separates the blocks of type. The
-                Reference card that used to close this column now sits beside
-                the waiver at the foot of the section. */}
+                priorities. That is the whole column now. The Greek lexicon
+                and the biomimicry quote closed it until later the same day,
+                when they went down to the breather below the row; the
+                Reference card that closed it before them sits beside the
+                waiver at the foot of the section. */}
             <div className="cid-viv-side">
               {/* Digital products and studio services lived here, on a white
                   card under the rail, until 2026-09-19. The side column had
@@ -1562,49 +1564,62 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   <div><p className="verb">Navigate</p><p className="desc">Risks and rewards</p></div>
                 </div>
               </aside>
-
-              {/* The Greek lexicon: the designed panel that replaced the
-                  word-pair rows on the quote card, sitting directly above it.
-                  It is the one dark object in a column of white cards, so it
-                  goes between them rather than at the foot: the column reads
-                  light, dark, light, and the panel's picture breaks up the two
-                  runs of type instead of trailing off under them. The bundle
-                  renders a fixed 1920x1080 stage whose right side is empty
-                  ground, so the frame is set wider than its box and the
-                  overflow clipped: what shows is the type and the ribbon, not
-                  the dead black beside them. */}
-              <figure className="cid-viv-lex">
-                <iframe
-                  className="cid-viv-lex-frame"
-                  src={`${base}Greek%20Lexicon.dc.html?v=6`}
-                  title="Greek lexicon. Life, from the Greek bios. Imitation, from the Greek mimesis. Ancient Greek."
-                  loading="lazy"
-                />
-              </figure>
-
-              {/* The word-pair rows moved into the Greek Lexicon panel above;
-                  this card carries only the quotation now. Quoted material,
-                  marked up as a quotation rather than styled to look like one;
-                  the Chicago note at the foot covers both the quote (page 7)
-                  and the lexicon gloss (page 3). */}
-              <aside className="cid-etym cid-viv-gloss" aria-label="Why practice biomimicry">
-                <figure className="cid-viv-gloss-quote">
-                  <p className="cid-viv-gloss-q-lead">Why practice biomimicry?</p>
-                  <blockquote>
-                    Organisms and ecosystems face the same challenges that we humans do,
-                    but, they meet those challenges sustainably.
-                  </blockquote>
-                </figure>
-                <p className="cid-viv-gloss-src">
-                  Learn Biomimicry, <cite>A Field Guide to Biomimicry: A Brief Overview
-                  of the Core Elements and Practice of Biomimicry</cite>, version 01
-                  (Learn Biomimicry, 2021), 3, 7,{" "}
-                  <a href="https://www.learnbiomimicry.com" target="_blank" rel="noreferrer noopener">learnbiomimicry.com</a>.
-                </p>
-              </aside>
-
             </div>
           </div>
+
+          {/* The breather: the Greek lexicon and the biomimicry quote, which
+              both stood in the side column until 2026-09-19, when Greg put
+              them together here across the full measure. Two reasons. One is
+              adjacency: the quote asks why we practise biomimicry and the
+              roll below it opens on the Sturgeon General, who is a fish, so
+              the question now sits directly above its answer. It used to sit
+              beside a coin skating on ice, which argues nothing about
+              biomimicry. The other is pacing: a band that runs the whole
+              width breaks the side panel off and gives the reader somewhere
+              to stop and take in what they have just read and watched,
+              before the cast starts. */}
+          <section className="cid-viv-breather" aria-label="Greek lexicon and biomimicry">
+            {/* The Greek lexicon: the designed panel that replaced the
+                word-pair rows on the quote card, which now stands beside it
+                rather than under it. It is the dark half of the breather, and
+                the quote is the light half: one object of picture and one of
+                type, which is what makes the band read as a stop rather than
+                as more of the column it came out of. The bundle
+                renders a fixed 1920x1080 stage whose right side is empty
+                ground, so the frame is set wider than its box and the
+                overflow clipped: what shows is the type and the ribbon, not
+                the dead black beside them. */}
+            <figure className="cid-viv-lex">
+              <iframe
+                className="cid-viv-lex-frame"
+                src={`${base}Greek%20Lexicon.dc.html?v=6`}
+                title="Greek lexicon. Life, from the Greek bios. Imitation, from the Greek mimesis. Ancient Greek."
+                loading="lazy"
+              />
+            </figure>
+
+            {/* The word-pair rows moved into the Greek Lexicon panel, which
+                is beside this card since 2026-09-19 and was above it before
+                that; this card carries only the quotation now. Quoted material,
+                marked up as a quotation rather than styled to look like one;
+                the Chicago note at the foot covers both the quote (page 7)
+                and the lexicon gloss (page 3). */}
+            <aside className="cid-etym cid-viv-gloss" aria-label="Why practice biomimicry">
+              <figure className="cid-viv-gloss-quote">
+                <p className="cid-viv-gloss-q-lead">Why practice biomimicry?</p>
+                <blockquote>
+                  Organisms and ecosystems face the same challenges that we humans do,
+                  but, they meet those challenges sustainably.
+                </blockquote>
+              </figure>
+              <p className="cid-viv-gloss-src">
+                Learn Biomimicry, <cite>A Field Guide to Biomimicry: A Brief Overview
+                of the Core Elements and Practice of Biomimicry</cite>, version 01
+                (Learn Biomimicry, 2021), 3, 7,{" "}
+                <a href="https://www.learnbiomimicry.com" target="_blank" rel="noreferrer noopener">learnbiomimicry.com</a>.
+              </p>
+            </aside>
+          </section>
 
           {/* The cast, directly under the two columns. It lived inside the
               body column until 2026-09-18, when the film box above it was
