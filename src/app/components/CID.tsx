@@ -1477,35 +1477,15 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               <SkateFilm base={base} />
 
             </div>
-            {/* Right column, one panel: the Radical Strategic Intelligence
-                rail, the etymology card beneath it, then the Greek lexicon,
-                then the biomimicry quote closing the column. The lexicon sits
-                between the two white cards rather than under them, so the dark
-                panel separates the two blocks of type. The Reference card that
-                used to close this column now sits beside the waiver at the
-                foot of the section. */}
+            {/* Right column: the etymology card first, beside the welcome
+                text it defines (Greg, 2026-09-19); then the Radical Strategic
+                Intelligence rail, level with Research Reimagined and the
+                priorities; then the Greek lexicon, then the biomimicry quote
+                closing the column. The lexicon is the one dark object between
+                the white cards, so it separates the blocks of type. The
+                Reference card that used to close this column now sits beside
+                the waiver at the foot of the section. */}
             <div className="cid-viv-side">
-              <aside className="cid-viv-rail" aria-label="Radical Strategic Intelligence">
-                <div className="cid-viv-brand">
-                  <h2 className="cid-viv-title">
-                    <span>Radical</span><span>Strategic</span><span className="grad">Intelligence</span>
-                  </h2>
-                  <div className="cid-viv-bar" aria-hidden="true" />
-                </div>
-                <div className="cid-viv-pillar">
-                  <span className="n">1</span>
-                  <div><p className="verb">Observe</p><p className="desc">Market dynamics</p></div>
-                </div>
-                <div className="cid-viv-pillar">
-                  <span className="n">2</span>
-                  <div><p className="verb">Compare</p><p className="desc">Information from public sources</p></div>
-                </div>
-                <div className="cid-viv-pillar">
-                  <span className="n">3</span>
-                  <div><p className="verb">Navigate</p><p className="desc">Risks and rewards</p></div>
-                </div>
-              </aside>
-
               {/* Digital products and studio services lived here, on a white
                   card under the rail, until 2026-09-19. The side column had
                   become a stack of pill rows over pill rows; Greg moved the
@@ -1528,6 +1508,31 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     <em>vivus</em>, “alive”<br />
                     <em>vivere</em>, “to live”
                   </p>
+                </div>
+              </aside>
+
+              {/* The rail sits under the etymology card since 2026-09-19, so
+                  it lines up with Research Reimagined and the priorities
+                  beside it rather than with the welcome text, which is the
+                  etymology's company. */}
+              <aside className="cid-viv-rail" aria-label="Radical Strategic Intelligence">
+                <div className="cid-viv-brand">
+                  <h2 className="cid-viv-title">
+                    <span>Radical</span><span>Strategic</span><span className="grad">Intelligence</span>
+                  </h2>
+                  <div className="cid-viv-bar" aria-hidden="true" />
+                </div>
+                <div className="cid-viv-pillar">
+                  <span className="n">1</span>
+                  <div><p className="verb">Observe</p><p className="desc">Market dynamics</p></div>
+                </div>
+                <div className="cid-viv-pillar">
+                  <span className="n">2</span>
+                  <div><p className="verb">Compare</p><p className="desc">Information from public sources</p></div>
+                </div>
+                <div className="cid-viv-pillar">
+                  <span className="n">3</span>
+                  <div><p className="verb">Navigate</p><p className="desc">Risks and rewards</p></div>
                 </div>
               </aside>
 
