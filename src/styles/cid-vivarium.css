@@ -415,9 +415,23 @@
    the moment the list was split in two. Three cards: the third spans. Two:
    neither does. */
 .cid-scope .cid-viv-priority:last-child:nth-child(odd) { grid-column: 1 / -1; }
-/* The second heading needs air above it that the flex gap alone does not give;
-   it opens a section rather than continuing one. */
-.cid-scope .cid-viv-methods-h { margin-top: clamp(14px,1.6vw,20px); }
+/* Priorities and Methods side by side (Greg, 2026-09-19): two columns, each
+   a heading over its stacked cards, the headings level; then Global
+   Interoperability across both, since it is the third priority and a
+   method at once and holds the twin circles. The single-column lists inside
+   the columns drop the two-across grid. Below 1100px the columns stack,
+   priorities then methods then the wide card. */
+.cid-scope .cid-viv-pm {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px,1.4vw,16px) clamp(16px,2vw,24px); align-items: start;
+}
+.cid-scope .cid-viv-pm-col { display: flex; flex-direction: column; gap: 11px; min-width: 0; }
+.cid-scope .cid-viv-priority-list--col { grid-template-columns: minmax(0, 1fr); }
+.cid-scope .cid-viv-pm-wide { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr); }
+@media (max-width: 1100px) {
+  .cid-scope .cid-viv-pm { grid-template-columns: minmax(0, 1fr); }
+  .cid-scope .cid-viv-pm-wide { grid-column: auto; }
+}
 .cid-scope .cid-viv-priority {
   background: #fff; border-radius: 14px; padding: 15px 17px;
   border: 1px solid rgba(75,0,182,.14); border-left: 4px solid #4B00B6;

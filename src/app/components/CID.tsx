@@ -1358,14 +1358,18 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     a definition list, per the house rule that no acronym
                     appears without its meaning beside it. */}
                 <div className="cid-viv-priorities">
+                  {/* Two columns, per Greg (2026-09-19): Strategic Priorities on
+                      the left with its first two cards stacked, Methods on the
+                      right with its two, the two headings level; then Global
+                      Interoperability across both columns. It is the third
+                      priority and a method at once, and it holds the twin
+                      circles, so it takes the full width. The folds are as
+                      before: each card is its heading in caps at rest, opens
+                      on demand, and the border colour carries the state. */}
+                  <div className="cid-viv-pm">
+                  <div className="cid-viv-pm-col">
                   <h3 className="cid-viv-ecosystem-h">Strategic Priorities</h3>
-                  {/* Folded like the Methods below: each priority is its heading in
-                      caps at rest and opens on demand. The third ships open, and
-                      the fold's border colour carries the state: full indigo on an
-                      open card, muted on a closed one. So the reader lands on
-                      one open card with a strong edge beside two quiet ones, which
-                      is the cue that the quiet ones open too. Greg's call. */}
-                  <div className="cid-viv-priority-list cid-viv-priority-list--fold cid-viv-priority-list--ruby">
+                  <div className="cid-viv-priority-list cid-viv-priority-list--fold cid-viv-priority-list--ruby cid-viv-priority-list--col">
                     <details className="cid-viv-priority cid-viv-priority--fold">
                       <summary>Merit and Research Integrity</summary>
                       <p>Verify credentials and evaluate evidence. Machine-learning detection and automated controls help identify and exclude Material Non-Public Information (MNPI) from AI agent and trading workflows.</p>
@@ -1374,15 +1378,55 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                       <summary>Trust and Transparency</summary>
                       <p>Protect privacy and confidentiality while documenting sources, responsibilities, and decisions. Consistent human oversight ensures CID authorizes all automated processes, approves methods, and monitors interactions with tools.</p>
                     </details>
-                    {/* Third of three, so it spans the row (see the :last-child rule
-                        in cid-vivarium.css). Open by default: the one the reader
-                        sees expanded. In this section the unfolded card wears the
-                        ruby edge rather than the indigo, per Greg, so the open
-                        content is highlighted at rest. Heading and both paragraphs
-                        are his copy, verbatim; the two organisation names are
-                        italic as his draft marked them. The heading is set in
-                        title case here and uppercased by the summary rule, as
-                        the others are, so assistive tech reads words. */}
+                  </div>
+                  </div>
+
+                  {/* Methods, not priorities. The three priorities are commitments,
+                      what CID holds itself to; these two are how the work is
+                      actually carried out, which is why they arrived as bullets
+                      where the others arrived as prose. Splitting them under
+                      their own heading stops the reader taking a method for a
+                      principle.
+
+                      Not "Tactics": that word is already spoken for as the
+                      Reclaiming Agency division's card heading, where CID's is
+                      Strategies (WORKING-GUIDE.md, divisions table). Borrowing
+                      it here would blur the division taxonomy.
+
+                      Kept as lists rather than flattened into sentences: each
+                      is two separate commitments, and running them together
+                      would read as one hedged claim. Progressive disclosure,
+                      per Greg: native details/summary, the caps a transform, so
+                      the source keeps the heading as written. */}
+                  <div className="cid-viv-pm-col">
+                  <h3 className="cid-viv-ecosystem-h">Methods</h3>
+                  <div className="cid-viv-priority-list cid-viv-priority-list--fold cid-viv-priority-list--col">
+                    <details className="cid-viv-priority cid-viv-priority--fold">
+                      <summary>Inclusive Innovation</summary>
+                      <ul className="cid-viv-priority-points">
+                        <li>Create opportunities for diverse people to engage in global citizen science projects.</li>
+                        <li>Publish aggregated findings with no personally identifiable information (PII)</li>
+                      </ul>
+                    </details>
+                    <details className="cid-viv-priority cid-viv-priority--fold">
+                      <summary>Collective Problem Solving</summary>
+                      <ul className="cid-viv-priority-points">
+                        <li>Synthesize evidence to track systemic issues and report emerging national trends.</li>
+                        <li>Connect potential allies through cross-sector cooperation in the circular economy.</li>
+                      </ul>
+                    </details>
+                  </div>
+                  </div>
+
+                  {/* Global Interoperability, across both columns. The third
+                      priority and a method too, and the home of the twin
+                      circles, which need the width. In this section the
+                      unfolded card wears the ruby edge rather than the indigo,
+                      per Greg. Heading and both paragraphs are his copy,
+                      verbatim. The heading is set in title case here and
+                      uppercased by the summary rule, as the others are, so
+                      assistive tech reads words. */}
+                  <div className="cid-viv-priority-list cid-viv-priority-list--fold cid-viv-priority-list--ruby cid-viv-pm-wide">
                     <details className="cid-viv-priority cid-viv-priority--fold">
                       <summary>Global Interoperability</summary>
                       {/* The two sister organisations as a pair of round cards, side
@@ -1400,46 +1444,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                       </div>
                     </details>
                   </div>
-                  {/* Methods, not priorities. The three above are commitments,
-                      what CID holds itself to; these two are how the work is
-                      actually carried out, which is why they arrived as bullets
-                      where the others arrived as prose. Splitting them under
-                      their own heading stops the reader taking a method for a
-                      principle.
-
-                      Not "Tactics": that word is already spoken for as the
-                      Reclaiming Agency division's card heading, where CID's is
-                      Strategies (WORKING-GUIDE.md, divisions table). Borrowing
-                      it here would blur the division taxonomy.
-
-                      Kept as lists rather than flattened into sentences: each
-                      is two separate commitments, and running them together
-                      would read as one hedged claim. */}
-                  <h3 className="cid-viv-ecosystem-h cid-viv-methods-h">Methods</h3>
-                  {/* Progressive disclosure, per Greg: at rest each method is its
-                      heading alone, set in caps, and the two commitments open on
-                      demand. Native details/summary, so the fold is keyboard and
-                      screen-reader native with no script. A div wrapper rather
-                      than the dl the other list uses, because dl admits only
-                      dt, dd and div as children and details is none of them.
-                      The caps are a text-transform, so the source keeps the
-                      heading as Greg wrote it and assistive tech reads a word
-                      rather than a string of initials. */}
-                  <div className="cid-viv-priority-list cid-viv-priority-list--fold">
-                    <details className="cid-viv-priority cid-viv-priority--fold">
-                      <summary>Inclusive Innovation</summary>
-                      <ul className="cid-viv-priority-points">
-                        <li>Create opportunities for diverse people to engage in global citizen science projects.</li>
-                        <li>Publish aggregated findings with no personally identifiable information (PII)</li>
-                      </ul>
-                    </details>
-                    <details className="cid-viv-priority cid-viv-priority--fold">
-                      <summary>Collective Problem Solving</summary>
-                      <ul className="cid-viv-priority-points">
-                        <li>Synthesize evidence to track systemic issues and report emerging national trends.</li>
-                        <li>Connect potential allies through cross-sector cooperation in the circular economy.</li>
-                      </ul>
-                    </details>
                   </div>
                 </div>
               </div>
