@@ -732,9 +732,10 @@ function useInViewPlay(ref: RefObject<HTMLVideoElement | null>) {
    shots, so it is one window. */
 const LEAD_CLIPS = (base: string) => [
   `${base}assets/video/cid-coin-skate-lines.mp4`,
-  // ?v=2 since the words were burnt into the picture on 2026-09-20: the file
-  // keeps its name, so without this a returning visitor keeps the silent cut.
-  `${base}assets/video/cid-defence-combo.mp4?v=2`,
+  // Bumped whenever the cut is recut, since the file keeps its name and a
+  // returning visitor would otherwise keep the old one. v2 burnt the words in,
+  // v3 split them onto a panel at the top and one at the bottom.
+  `${base}assets/video/cid-defence-combo.mp4?v=3`,
 ];
 
 /* One box, the clips above played end to end. The first used to loop here;
