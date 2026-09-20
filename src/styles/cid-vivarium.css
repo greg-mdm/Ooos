@@ -1549,19 +1549,20 @@
   display: grid; grid-template-columns: minmax(0, 1fr); grid-auto-rows: 1fr;
   gap: clamp(16px,2vw,24px); align-items: stretch; height: 100%;
 }
-/* The key stops short of its row rather than filling it, and centres in what
-   is left. It filled the row until the Defence clip made a third: two clips
-   put the row at ~313px and a key at ~197px of that was already generous,
-   three put it at ~301px each with the column at ~952px, and a key stretched
-   to all of it would have been 305px around 75px of type, three quarters
-   empty. So the pill holds near the height it was approved at and the extra
-   room goes between the pills, where it reads as the pairing with the clips
-   rather than as a hollow inside each one. */
+/* The pill is as tall as what it says, and no taller. It used to fill its
+   row, and on the full measure that row is ~300px against ~75px of type, so
+   the statements floated in the middle of a mostly empty plate and were
+   harder to read for it (Greg, 2026-09-20). Now the row keeps the height --
+   the three rows still divide the clips' column, so the two halves of the
+   band still start and finish together -- and the pill sits at its own
+   height, centred in the row. The air goes between the pills, where it
+   separates the three statements, instead of inside them, where it only
+   pushed the words apart from their own edges. */
 .cid-scope .cid-strategy-keys .ood-key-wrap {
   height: 100%; display: flex; align-items: center;
 }
 .cid-scope .cid-strategy-keys .ood-key {
-  height: auto; min-height: clamp(110px, 14vw, 200px); align-items: center;
+  height: auto; min-height: 0; align-items: center;
 }
 /* The label fills the key. On the homepage .ood-label is a flex item at
    `flex: 0 1 auto`, so it shrink-wraps to the width of its own longest line
@@ -1604,9 +1605,6 @@
 @media (max-width: 860px) {
   .cid-scope .cid-strategy-band { grid-template-columns: minmax(0, 1fr); }
   .cid-scope .cid-strategy-keys { grid-auto-rows: auto; height: auto; }
-  /* No clip beside them to pair with, so the pills go back to their own
-     height and the stack stays tight. */
-  .cid-scope .cid-strategy-keys .ood-key { min-height: 0; }
 }
 
 /* The keys are copied, the homepage's dark ground is not. On the aurora

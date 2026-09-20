@@ -663,72 +663,86 @@ function useInViewPlay(ref: RefObject<HTMLVideoElement | null>) {
    the three boxes open on three different pictures and the coin's face
    shows once, in the headline. It plays once and holds on the snow: the
    stop is the full stop. Controls stay so the music is one tap away. */
+/* The clips the lower lead box runs, in order. Two of them since
+   2026-09-20: the box has always carried the aerial circle with "Markets
+   demand..." on it, and the Defence combo now follows in the same box
+   rather than in a box of its own. The pair is one statement told in two
+   shots, so it is one window. */
+const LEAD_CLIPS = (base: string) => [
+  `${base}assets/video/cid-coin-skate-lines.mp4`,
+  `${base}assets/video/cid-defence-combo.mp4`,
+];
+
+/* One box, the clips above played end to end. The first used to loop here;
+   now it hands over to the Defence cut when it ends, and that one holds on
+   its last frame, the three coins standing together, the way the headline
+   box holds on its own. Changing the src is what advances it: the element
+   stays put, so the ref, the box and the observer that starts and stops it
+   on scroll are all unaffected, and only the picture inside changes. */
+function SkateSequence({ base }: { base: string }) {
+  const el = useRef<HTMLVideoElement>(null);
+  const [at, setAt] = useState(0);
+  const clips = LEAD_CLIPS(base);
+  useInViewPlay(el);
+  // The first clip is started by useInViewPlay when the box scrolls into
+  // view. Every clip after it follows one that just finished on screen, so
+  // it plays as soon as it has loaded.
+  useEffect(() => {
+    if (at === 0) return;
+    const v = el.current;
+    if (!v) return;
+    v.load();
+    v.play().catch(() => {});
+  }, [at]);
+  return (
+    <video
+      ref={el}
+      className="cid-viv-film-box"
+      src={clips[at]}
+      poster={`${base}assets/video/cid-coin-skate-lines-poster.webp`}
+      muted
+      playsInline
+      preload="metadata"
+      onEnded={() => setAt((i) => Math.min(i + 1, clips.length - 1))}
+      aria-hidden="true"
+    />
+  );
+}
+
 function SkateLead({ base }: { base: string }) {
   const head = useRef<HTMLVideoElement>(null);
-  const lines = useRef<HTMLVideoElement>(null);
-  const allies = useRef<HTMLVideoElement>(null);
   useInViewPlay(head);
-  useInViewPlay(lines);
-  useInViewPlay(allies);
   return (
     <div className="cid-viv-film-lead">
       <div className="cid-viv-sr">
         <h3 id="cid-film-title">Investing in your future is complex and continuously changing.</h3>
         <p>Markets demand new digital diversification strategies.</p>
       </div>
-        <video
-          ref={head}
-          className="cid-viv-film-box"
-          src={`${base}assets/video/cid-coin-skate-headline.mp4`}
-          poster={`${base}assets/video/cid-coin-skate-headline-poster.webp`}
-          muted
-          playsInline
-          preload="metadata"
-          aria-hidden="true"
-        />
-        <video
-          ref={lines}
-          className="cid-viv-film-box"
-          src={`${base}assets/video/cid-coin-skate-lines.mp4`}
-          poster={`${base}assets/video/cid-coin-skate-lines-poster.webp`}
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          aria-hidden="true"
-        />
-        {/* The Defence clip, third since 2026-09-19 and the one the section
-            had been holding a place for. It is the combo cut: it opens on a
-            euro coin and a pound coin skating the black ice side by side
-            under the teal dome, and closes on three Canadian coins standing
-            together in the spray. That switch is the whole argument, and it
-            is the one the Artlist prompt in SPRINT 6 was written to get: the
-            allies are the faces, and the forming is them ending up on our
-            ice. Greg's master was DEFENCE VIDEO - COMBO SWITCH.mp4, uploaded
-            to public/assets/video and removed from there once this cut was
-            made: 16MB of unprocessed footage that Pages would otherwise have
-            served to every visitor. It is kept in history at 94bec61, so
-            `git show 94bec61:"public/assets/video/DEFENCE VIDEO - COMBO
-            SWITCH.mp4" > master.mp4` brings it back to re-cut from.
-
-            Unlike the two clips above it this one carries no words in the
-            picture, so it is described rather than hidden: there is no
-            burnt-in text for the .cid-viv-sr block to repeat, and a box that
-            is pure picture needs a label of its own. It plays once and holds
-            on the three coins, the way the headline clip holds: the forming
-            is the point, so the formed frame is the rest. Source is
-            2560x1080; the web cut takes the centre 16:9 window, which keeps
-            every coin well inside the frame at both ends. */}
-        <video
-          ref={allies}
-          className="cid-viv-film-box"
-          src={`${base}assets/video/cid-defence-combo.mp4`}
-          poster={`${base}assets/video/cid-defence-combo-poster.webp`}
-          muted
-          playsInline
-          preload="metadata"
-          aria-label="Defence: a gold euro coin and a gold pound coin skate side by side across black ice under a teal arena dome, and the shot closes on three gold Canadian coins standing together in the spray."
-        />
+      <video
+        ref={head}
+        className="cid-viv-film-box"
+        src={`${base}assets/video/cid-coin-skate-headline.mp4`}
+        poster={`${base}assets/video/cid-coin-skate-headline-poster.webp`}
+        muted
+        playsInline
+        preload="metadata"
+        aria-hidden="true"
+      />
+      {/* The Defence combo rides in here, second in this box, not in a third
+          box of its own (Greg, 2026-09-20: the lead is two windows, and the
+          Defence cut is the next thing this one says). It opens on a euro
+          coin and a pound coin skating the black ice side by side under the
+          teal dome and closes on three Canadian coins standing together in
+          the spray, which is the switch the Artlist prompt in SPRINT 6 was
+          written to get. Greg's master was DEFENCE VIDEO - COMBO SWITCH.mp4,
+          uploaded to public/assets/video and removed from there once this cut
+          was made: 16MB of unprocessed footage that Pages would otherwise
+          have served to every visitor. It is kept in history at 94bec61, so
+          `git show 94bec61:"public/assets/video/DEFENCE VIDEO - COMBO
+          SWITCH.mp4" > master.mp4` brings it back to re-cut from. The web cut
+          takes the centre 16:9 window of a 2560x1080 source, which keeps
+          every coin well inside the frame at both ends. */}
+      <SkateSequence base={base} />
     </div>
   );
 }
