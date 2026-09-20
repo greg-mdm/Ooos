@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useRef, useState, type ReactNode, type CSSProperties, type RefObject } from "react";
+import { Fragment, useEffect, useRef, useState, type ReactNode, type CSSProperties, type RefObject } from "react";
 import { RedShaderOrb } from "./cid/RedShaderOrb";
 import "../../styles/cid-continuum.css";
 import "../../styles/cid-forest.css";
@@ -80,17 +80,35 @@ const STRATEGY_KEYS: { tone: "black" | "white"; bg: string; shadow: string; line
   },
 ];
 
+/* A puck closes each pair of keys but the last: teal after the first, the
+   weathered one after the second (Greg, 2026-09-20). They are separators, not
+   features. The pair above and below stays tight on its 6px gap, and all the
+   air between one pair and the next comes from the puck's own slot, which is
+   72px, exactly one key's height. That is what makes the column read as eight
+   slots rather than six keys and two gaps, and it brings the keyboard to
+   618px against the clips' 627px beside it: level, without touching the
+   clips. The art is Greg's; it is cropped to its ink, matched to the other on
+   height rather than width (one is drawn obliquely at 280x206, the other
+   nearly head on at 179x186, so matching widths would have made one of them
+   look twice the puck the other is), and carried at twice its drawn size for
+   a sharp screen. Decorative, so they are hidden from the accessibility tree
+   and carry an empty alt: they say nothing the keys do not. */
+const PUCKS = ["teal", "sunny"];
+
 /** The six pillars as pressable keys, matching the homepage exactly in
  *  behaviour as well as look: each key toggles lit on click and reports its
  *  state with aria-pressed. */
-function StrategyKeys() {
+function StrategyKeys({ base }: { base: string }) {
   const [lit, setLit] = useState<Record<number, boolean>>({});
   return (
     <ul className="ood-keys cid-strategy-keys">
       {STRATEGY_KEYS.map((k, i) => {
         const on = !!lit[i];
+        // after the second key and the fourth, never after the sixth
+        const puck = i % 2 === 1 && i < STRATEGY_KEYS.length - 1 ? PUCKS[(i - 1) / 2] : null;
         return (
-          <li className="ood-key-wrap" key={i} style={{ filter: `drop-shadow(${k.shadow})` }}>
+          <Fragment key={i}>
+          <li className="ood-key-wrap" style={{ filter: `drop-shadow(${k.shadow})` }}>
             <button
               type="button"
               className={`ood-key${on ? " is-on" : ""}${k.tone === "white" ? " cid-key-white" : ""}`}
@@ -105,6 +123,12 @@ function StrategyKeys() {
               </span>
             </button>
           </li>
+          {puck && (
+            <li className="cid-key-puck" aria-hidden="true">
+              <img src={`${base}assets/images/cid-puck-${puck}.webp`} alt="" loading="lazy" decoding="async" />
+            </li>
+          )}
+          </Fragment>
         );
       })}
     </ul>
@@ -1658,7 +1682,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 the keys the measure their longest clause needs and closes
                 the half-empty strip that ran between them. */}
             <div className="cid-strategy-band">
-              <StrategyKeys />
+              <StrategyKeys base={base} />
               <SkateLead base={base} />
             </div>
           </section>

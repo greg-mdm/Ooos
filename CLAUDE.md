@@ -13,7 +13,9 @@ The three things that most often go wrong, in case nothing else gets read:
 1. **Publish with `git push origin HEAD:main`.** Nothing else. `gh` is not
    installed here, so any `gh auth` recipe is a no-op. Never push unapproved
    work; Greg approves in chat first. Pushing to `main` auto-deploys to ooos.ca.
-2. **No em dashes, ever.** Spell out an acronym on first use, term first with
+2. **No em dashes, ever, in WRITING FOR PUBLICATION** (what ships on the site,
+   and what is written up for Greg to approve; not chat, commits or code
+   comments). Spell out an acronym on first use, term first with
    the acronym in brackets, expansion lowercase: `augmented reality (AR)`.
    Greg's supplied copy is used verbatim; flag any new wording for approval.
 3. **Prose blocks get a 55–65ch measure and `text-wrap: balance`**, so a

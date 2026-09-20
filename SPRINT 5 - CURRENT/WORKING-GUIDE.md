@@ -108,7 +108,11 @@ Confirm your commit is the tip. Then tell Greg it's deploying — not "done."
 
 ---
 
-## 3. Writing rules
+## 3. Writing rules: WRITING FOR PUBLICATION
+
+**Scope.** These are rules for writing for publication: anything that ships on
+the site, and anything written up for Greg to approve. They do not govern
+working talk in chat, commit messages, or code comments (Greg, 2026-09-20).
 
 **Copy and typography are one system: the words and how they wrap affect each
 other.** Change one, check the other. These are standing rules from Greg and
@@ -116,7 +120,8 @@ apply to all user-facing text.
 
 ### Copy
 
-- **No em dashes. Ever.** Use a comma, a colon, or a new sentence.
+- **No em dashes. Ever, in writing for publication.** Use a comma, a colon, or
+  a new sentence.
 - **Never an acronym without its meaning spelled out on first use.**
   House form is **term first, acronym in brackets**: `augmented reality (AR)`,
   not `AR (augmented reality)`.

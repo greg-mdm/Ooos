@@ -1562,6 +1562,18 @@
    pushed the words apart from their own edges. */
 .cid-scope .cid-strategy-keys .ood-key-wrap { height: auto; }
 .cid-scope .cid-strategy-keys .ood-key { height: auto; align-items: center; }
+/* The puck's slot is one key tall, so the keys keep their own tight 6px gap
+   and the separation between pairs is the slot, not a wider gap. The art sits
+   centred in it at about three quarters of the slot, which leaves it reading
+   as a mark between two pairs rather than as a third thing in the column. */
+.cid-scope .cid-strategy-keys .cid-key-puck {
+  display: flex; align-items: center; justify-content: center;
+  height: clamp(52px, 5vw, 72px); margin: 0; padding: 0;
+}
+.cid-scope .cid-strategy-keys .cid-key-puck img {
+  display: block; width: auto; height: clamp(40px, 3.9vw, 56px);
+  opacity: .92;
+}
 /* The label fills the key. On the homepage .ood-label is a flex item at
    `flex: 0 1 auto`, so it shrink-wraps to the width of its own longest line
    and stops there: in a 431px key it was taking 259px and leaving 138px of
