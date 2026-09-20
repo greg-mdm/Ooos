@@ -80,20 +80,22 @@ const STRATEGY_KEYS: { tone: "black" | "white"; bg: string; shadow: string; line
   },
 ];
 
-/* A puck closes each pair of keys but the last: teal after the first, the
+/* A puck closes each pair of keys but the last: purple after the first, the
    weathered one after the second (Greg, 2026-09-20). They are separators, not
    features. The pair above and below stays tight on its 6px gap, and all the
    air between one pair and the next comes from the puck's own slot, which is
-   72px, exactly one key's height. That is what makes the column read as eight
-   slots rather than six keys and two gaps, and it brings the keyboard to
-   618px against the clips' 627px beside it: level, without touching the
-   clips. The art is Greg's; it is cropped to its ink, matched to the other on
-   height rather than width (one is drawn obliquely at 280x206, the other
-   nearly head on at 179x186, so matching widths would have made one of them
-   look twice the puck the other is), and carried at twice its drawn size for
-   a sharp screen. Decorative, so they are hidden from the accessibility tree
+   what keeps the keyboard level with the clips beside it without touching
+   them. The art is Greg's, cropped to its ink and carried at twice its drawn
+   size for a sharp screen.
+
+   A teal puck stood in the first slot first. It was a different drawing, an
+   oblique three quarter view, 1.36 wide to tall against these two at 0.95, so
+   at a shared height it ran wider and read as the larger object. The purple
+   replaces it because Greg made the weathered one from it with a filter: same
+   drawing, same angle, same ratio, one lit and one not, which is the balance
+   the pair wanted. Decorative, so they are hidden from the accessibility tree
    and carry an empty alt: they say nothing the keys do not. */
-const PUCKS = ["teal", "sunny"];
+const PUCKS = ["purple", "sunny"];
 
 /** The six pillars as pressable keys, matching the homepage exactly in
  *  behaviour as well as look: each key toggles lit on click and reports its
@@ -124,7 +126,7 @@ function StrategyKeys({ base }: { base: string }) {
             </button>
           </li>
           {puck && (
-            <li className="cid-key-puck" aria-hidden="true">
+            <li className={`cid-key-puck cid-key-puck--${puck}`} aria-hidden="true">
               <img src={`${base}assets/images/cid-puck-${puck}.webp`} alt="" loading="lazy" decoding="async" />
             </li>
           )}

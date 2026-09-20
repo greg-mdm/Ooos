@@ -1561,18 +1561,33 @@
    separates the three statements, instead of inside them, where it only
    pushed the words apart from their own edges. */
 .cid-scope .cid-strategy-keys .ood-key-wrap { height: auto; }
-.cid-scope .cid-strategy-keys .ood-key { height: auto; align-items: center; }
-/* The puck's slot is one key tall, so the keys keep their own tight 6px gap
-   and the separation between pairs is the slot, not a wider gap. The art sits
-   centred in it at about three quarters of the slot, which leaves it reading
-   as a mark between two pairs rather than as a third thing in the column. */
+/* Shallower than the homepage key, whose 72px floor and .95rem of padding were
+   cut for two lines of body copy. One line of display capitals does not need
+   either, so the floor comes off and the padding closes to .85rem: the key
+   follows its own line and lands near 69px instead of 76px. */
+.cid-scope .cid-strategy-keys .ood-key {
+  height: auto; min-height: 0; align-items: center;
+  padding-block: .85rem;
+}
+/* The keys keep their own tight 6px gap; all the separation between one pair
+   and the next is the puck's slot. The slot is also what keeps the two halves
+   of the band level: the keys lost 7px each when they went shallower, so the
+   slot takes that back, 85px against the 72px it held before. The art does
+   not grow with it. */
 .cid-scope .cid-strategy-keys .cid-key-puck {
   display: flex; align-items: center; justify-content: center;
-  height: clamp(52px, 5vw, 72px); margin: 0; padding: 0;
+  height: clamp(58px, 5.9vw, 85px); margin: 0; padding: 0;
 }
+/* One height serves both. The teal that stood in the first slot needed its
+   own, because it was a different drawing seen from a different angle, 1.36
+   wide to tall, and at a shared height it ran wider than the other and read
+   as the larger object; it had to be matched on area instead. The purple that
+   replaced it is the drawing the weathered one was made from, so the two are
+   the same object at the same angle, 178x187 of ink against 179x186. They can
+   simply be the same size, which is what makes the pair read as one puck lit
+   two ways. */
 .cid-scope .cid-strategy-keys .cid-key-puck img {
-  display: block; width: auto; height: clamp(40px, 3.9vw, 56px);
-  opacity: .92;
+  display: block; width: auto; height: clamp(40px, 3.9vw, 56px); opacity: .92;
 }
 /* The label fills the key. On the homepage .ood-label is a flex item at
    `flex: 0 1 auto`, so it shrink-wraps to the width of its own longest line
@@ -1597,15 +1612,16 @@
    ceiling is arithmetic: a key's content box caps at ~599px, the longest
    statement runs 14.58px per px of type in Oswald against Montserrat's 18.24,
    and the indent takes another 1.1em, so 38px is where it would break to two
-   lines. 35px leaves that margin and puts the cap at 31px, half again what
-   the old 30px Montserrat gave. The floor holds a 375px phone, where the key
-   is ~293px wide and 18.7px is the limit. Tracking is barely positive, which
-   is what capitals want; any more and the line stops fitting. */
+   lines. 32px, stepped back from 35px on Greg's eye, leaves ~97px of that
+   margin and still puts the cap at 28px against the 22px the old 30px
+   Montserrat gave. The floor holds a 375px phone, where the key is ~293px
+   wide and 18.7px is the limit. Tracking is barely positive, which is what
+   capitals want; any more and the line stops fitting. */
 .cid-scope .cid-strategy-bullet {
   position: relative; padding-left: 1.1em; display: block;
   font-family: 'Oswald', 'Montserrat', system-ui, sans-serif;
   font-weight: 600; text-transform: uppercase; letter-spacing: .01em;
-  font-size: clamp(17px, 2.6vw, 35px); line-height: 1.3;
+  font-size: clamp(16px, 2.4vw, 32px); line-height: 1.3;
 }
 /* The white keys. The label face on a black key is pale with a dark shadow
    under it; on ivory both would be wrong, so the ink is the site's dark
