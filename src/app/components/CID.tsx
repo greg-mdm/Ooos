@@ -666,8 +666,10 @@ function useInViewPlay(ref: RefObject<HTMLVideoElement | null>) {
 function SkateLead({ base }: { base: string }) {
   const head = useRef<HTMLVideoElement>(null);
   const lines = useRef<HTMLVideoElement>(null);
+  const allies = useRef<HTMLVideoElement>(null);
   useInViewPlay(head);
   useInViewPlay(lines);
+  useInViewPlay(allies);
   return (
     <div className="cid-viv-film-lead">
       <div className="cid-viv-sr">
@@ -694,6 +696,34 @@ function SkateLead({ base }: { base: string }) {
           playsInline
           preload="metadata"
           aria-hidden="true"
+        />
+        {/* The Defence clip, third since 2026-09-19 and the one the section
+            had been holding a place for. It is the combo cut: it opens on a
+            euro coin and a pound coin skating the black ice side by side
+            under the teal dome, and closes on three Canadian coins standing
+            together in the spray. That switch is the whole argument, and it
+            is the one the Artlist prompt in SPRINT 6 was written to get: the
+            allies are the faces, and the forming is them ending up on our
+            ice. Greg's master is public/assets/video/DEFENCE VIDEO - COMBO
+            SWITCH.mp4.
+
+            Unlike the two clips above it this one carries no words in the
+            picture, so it is described rather than hidden: there is no
+            burnt-in text for the .cid-viv-sr block to repeat, and a box that
+            is pure picture needs a label of its own. It plays once and holds
+            on the three coins, the way the headline clip holds: the forming
+            is the point, so the formed frame is the rest. Source is
+            2560x1080; the web cut takes the centre 16:9 window, which keeps
+            every coin well inside the frame at both ends. */}
+        <video
+          ref={allies}
+          className="cid-viv-film-box"
+          src={`${base}assets/video/cid-defence-combo.mp4`}
+          poster={`${base}assets/video/cid-defence-combo-poster.webp`}
+          muted
+          playsInline
+          preload="metadata"
+          aria-label="Defence: a gold euro coin and a gold pound coin skate side by side across black ice under a teal arena dome, and the shot closes on three gold Canadian coins standing together in the spray."
         />
     </div>
   );
@@ -1463,48 +1493,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 </div>
               </div>
 
-              {/* The Strategies band, closing the body column in the space the
-                  lexicon vacated when it moved into the side panel. It sat as
-                  a direct child of .cid-viv-stack while that space was taken,
-                  running the full container width under the side panel; back
-                  in the column it takes the column's own measure and stops
-                  where the priorities above it stop. Three across cost the
-                  bullets their line: at ~260px a key cannot hold "Integrate
-                  verified data sources." on one line, so every bullet wrapped
-                  to two. Stacking the keys in the left half of the band
-                  (2026-09-19) gives each one ~431px, and letting the label
-                  fill the key rather than shrink-wrap gives the text the
-                  whole of it, so the statements read one to a line again and
-                  carry a larger size while they do (see the keys rule in
-                  cid-vivarium.css). */}
-              <section className="cid-strategy" aria-labelledby="cid-strategy-title">
-                {/* The opening A is a real Latin A set in the display serif, not a Greek
-                    alpha lookalike: the letterform carries the flourish while "Agile"
-                    stays a word that screen readers speak and search engines index. */}
-                <h3 id="cid-strategy-title" className="cid-strategy-h">
-                  <span className="cid-strategy-a">A</span>gile Micro-Studio. Massive Creative Capacity.
-                </h3>
-                {/* The band: the three keys as a column, the two lead clips
-                    stacked beside them (Greg, 2026-09-19). Two shallow
-                    full-width rows became one row of two columns, which buys
-                    the keys the measure their longest clause needs and closes
-                    the half-empty strip that ran between them. */}
-                <div className="cid-strategy-band">
-                  <StrategyKeys />
-                  <SkateLead base={base} />
-                </div>
-              </section>
-
-              {/* The coin skate film. Greg's lead lines sit on the two clips
-                  in the band above, which is where the words live now; they
-                  used to sit in two white cards here (and before that in the
-                  lede row above the RACI panel), and the film took the cards'
-                  place on 2026-09-17. It
-                  runs the column's full width, which also carries the roll
-                  below the foot of the side column: the roll had been
-                  running under the lexicon panel. */}
-              <SkateFilm base={base} />
-
             </div>
             {/* Right column: the etymology card first, beside the welcome
                 text it defines (Greg, 2026-09-19); then the Radical Strategic
@@ -1566,6 +1554,49 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               </aside>
             </div>
           </div>
+
+          {/* The Strategies band. It has moved twice: a direct child of
+              .cid-viv-stack at full width, then into the body column when
+              the lexicon vacated that space, and back out to full width on
+              2026-09-19 once the lexicon and the quote went down to the
+              breather and left the side panel ending after the rail. It
+              runs the container's whole measure now and finishes on the
+              same right edge as the side panel above it. Three across cost the
+              bullets their line: at ~260px a key cannot hold "Integrate
+              verified data sources." on one line, so every bullet wrapped
+              to two. Stacking the keys in the left half of the band
+              (2026-09-19) gave each one ~431px, and the full measure now gives
+              them ~632px; letting the label fill the key rather than
+              shrink-wrap hands the text the whole of that, so the statements
+              read one to a line and carry 26px while they do (see the keys
+              rule in cid-vivarium.css). */}
+          <section className="cid-strategy" aria-labelledby="cid-strategy-title">
+            {/* The opening A is a real Latin A set in the display serif, not a Greek
+                alpha lookalike: the letterform carries the flourish while "Agile"
+                stays a word that screen readers speak and search engines index. */}
+            <h3 id="cid-strategy-title" className="cid-strategy-h">
+              <span className="cid-strategy-a">A</span>gile Micro-Studio. Massive Creative Capacity.
+            </h3>
+            {/* The band: the three keys as a column, the two lead clips
+                stacked beside them (Greg, 2026-09-19). Two shallow
+                full-width rows became one row of two columns, which buys
+                the keys the measure their longest clause needs and closes
+                the half-empty strip that ran between them. */}
+            <div className="cid-strategy-band">
+              <StrategyKeys />
+              <SkateLead base={base} />
+            </div>
+          </section>
+
+          {/* The coin skate film. Greg's lead lines sit on the two clips
+              in the band above, which is where the words live now; they
+              used to sit in two white cards here (and before that in the
+              lede row above the RACI panel), and the film took the cards'
+              place on 2026-09-17. It
+              runs the column's full width, which also carries the roll
+              below the foot of the side column: the roll had been
+              running under the lexicon panel. */}
+          <SkateFilm base={base} />
 
           {/* The breather: the Greek lexicon and the biomimicry quote, which
               both stood in the side column until 2026-09-19, when Greg put

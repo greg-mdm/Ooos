@@ -1526,31 +1526,43 @@
 }
 /* The band under the heading: the keys as a column on the left, the two coin
    clips stacked on the right. Three keys across was the old arrangement and it
-   cost the bullets their line -- the intro column is ~820px, three keys shared
-   it at ~260px each, and the longest clause ("Integrate verified data
-   sources.") wants ~15.15px of width per px of font size, so every bullet
-   wrapped to two. A column of keys in 1.18 of the band's 2.18 parts is ~431px
-   at the widest the page container goes, and the clips keep ~366px of the
-   398px they had when they sat side by side in a row of their own. The band
-   is ~50px taller than the two shallow rows it replaces, which is the whole
-   trade: that height buys every statement its own line and squares the two
-   blocks off against each other. The ratio is Greg's: the keys hold the
-   longer measure because they hold the words. */
+   cost the bullets their line -- the band was on the body column's ~820px,
+   three keys shared it at ~260px each, and the longest clause ("Integrate
+   verified data sources.") wants ~15.15px of width per px of font size, so
+   every bullet wrapped to two. The band runs the container's full ~1192px
+   since 2026-09-19, which puts the keys at ~632px and the clips at ~536px:
+   the keys have more room than the words need, and the type size below is
+   what spends it. The ratio is Greg's: the keys hold the longer measure
+   because they hold the words. */
 .cid-scope .cid-strategy-band {
   display: grid; grid-template-columns: minmax(0, 1.18fr) minmax(0, 1fr);
   gap: clamp(16px,2vw,24px); align-items: stretch;
 }
 /* One column, and the three keys divide whatever height the clips beside them
    set, so the two halves of the band start and finish on the same lines. The
-   bullets centre in the key rather than sitting at its top: at one line each
-   they no longer fill the key, and centred the leftover room reads as air
-   around the statement instead of a gap beneath it. */
+   gap matches the clips' own, which makes each key's row exactly as tall as
+   the clip beside it: three keys against three clips, paired off row by row.
+   The bullets centre in the key rather than sitting at its top: at one line
+   each they no longer fill the key, and centred the leftover room reads as
+   air around the statement instead of a gap beneath it. */
 .cid-scope .cid-strategy-keys {
   display: grid; grid-template-columns: minmax(0, 1fr); grid-auto-rows: 1fr;
-  gap: clamp(12px,1.6vw,18px); align-items: stretch; height: 100%;
+  gap: clamp(16px,2vw,24px); align-items: stretch; height: 100%;
 }
-.cid-scope .cid-strategy-keys .ood-key-wrap { height: 100%; }
-.cid-scope .cid-strategy-keys .ood-key { height: 100%; align-items: center; }
+/* The key stops short of its row rather than filling it, and centres in what
+   is left. It filled the row until the Defence clip made a third: two clips
+   put the row at ~313px and a key at ~197px of that was already generous,
+   three put it at ~301px each with the column at ~952px, and a key stretched
+   to all of it would have been 305px around 75px of type, three quarters
+   empty. So the pill holds near the height it was approved at and the extra
+   room goes between the pills, where it reads as the pairing with the clips
+   rather than as a hollow inside each one. */
+.cid-scope .cid-strategy-keys .ood-key-wrap {
+  height: 100%; display: flex; align-items: center;
+}
+.cid-scope .cid-strategy-keys .ood-key {
+  height: auto; min-height: clamp(110px, 14vw, 200px); align-items: center;
+}
 /* The label fills the key. On the homepage .ood-label is a flex item at
    `flex: 0 1 auto`, so it shrink-wraps to the width of its own longest line
    and stops there: in a 431px key it was taking 259px and leaving 138px of
@@ -1563,15 +1575,16 @@
    so it keeps the Bright Silver legend's colour and sits on the cap height. */
 .cid-scope .cid-strategy-bullets { display: flex; flex-direction: column; gap: .45em; }
 /* Greg, 2026-09-19: there was room left in the key, so the statements take
-   it. 16.32px to 21px at the top, fluid between. The ceiling is set by the
-   measure, not by taste: the key's content box caps at ~397px however wide
-   the window gets, the longest clause runs ~15.15px per px of type, and the
-   indent another 1.1em, so ~24px is where it would break to two lines again.
-   21px keeps ~56px in hand, which is the margin for a fallback face loading
-   wider than Inter. The floor holds the phone, where the key is ~293px. */
+   it. Twice, in fact: 16.32px to 21px when the label was freed to fill the
+   key, then to 26px when the band went full width and the key went from
+   ~431px to ~632px. The ceiling is set by the measure, not by taste: the
+   key's content box caps at ~598px, the longest clause runs ~15.15px per px
+   of type and the indent another 1.1em, so ~36px is where it would break to
+   two lines again. 26px leaves the pills room to breathe rather than filling
+   them to the edge. The floor holds the phone, where the key is ~293px. */
 .cid-scope .cid-strategy-bullet {
   position: relative; padding-left: 1.1em; display: block;
-  font-size: clamp(16px, 1.5vw, 21px); line-height: 1.3;
+  font-size: clamp(16px, 1.9vw, 26px); line-height: 1.3;
 }
 /* In em, so the marker and its gap keep their proportion to the type it
    marks rather than shrinking against it as the statement grows. */
@@ -1580,16 +1593,20 @@
   width: .42em; height: .42em; border-radius: 2px;
   background: #E8ECF4; opacity: .85;
 }
-/* 1100px, not 900px. The band splitting in two is only worth it while the
-   left column can still hold a clause on one line, and it cannot for long:
-   at a 910px window the column is 252px, which is narrower than the three
-   keys ever were. So below 1100px the band gives up its columns, the keys
-   take the full measure, and the clips go back to two across, which is where
-   they sat before the band existed. The keys stop dividing a fixed height
-   there too, since there is no longer a column beside them setting one. */
-@media (max-width: 1099px) {
+/* 860px now, where it had to be 1100px while the band sat on the body
+   column: there, a 910px window left the left column at 252px and the clause
+   wrapped again. On the container's full measure the same window gives the
+   keys ~418px, so the two columns hold much further down and the band only
+   gives them up where the clips would get too narrow to read. Below that the
+   keys take the full measure, the clips go back to two across, and the keys
+   stop dividing a fixed height since there is no column beside them setting
+   one. Matches the breather's own breakpoint. */
+@media (max-width: 860px) {
   .cid-scope .cid-strategy-band { grid-template-columns: minmax(0, 1fr); }
   .cid-scope .cid-strategy-keys { grid-auto-rows: auto; height: auto; }
+  /* No clip beside them to pair with, so the pills go back to their own
+     height and the stack stays tight. */
+  .cid-scope .cid-strategy-keys .ood-key { min-height: 0; }
 }
 
 /* The keys are copied, the homepage's dark ground is not. On the aurora
@@ -1727,8 +1744,10 @@
    film section grows to take whatever height the body column has left, so
    the two columns end on one line. Below 900px there is no side column
    and the film shows its whole picture. Below 700px the lead row stacks. */
+/* No top margin: the film is a child of .cid-viv-stack since 2026-09-19 and
+   the stack's own gap spaces it, so a margin here would double that. */
 .cid-scope .cid-viv-film {
-  margin: clamp(22px,3vw,34px) 0 0;
+  margin: 0;
   display: flex; flex-direction: column; gap: clamp(14px,1.6vw,20px);
 }
 .cid-scope .cid-viv-film-lead {
@@ -1741,7 +1760,7 @@
    sit here rather than beside the band rules above because the base rule they
    override is this one: from up there they lost on source order and the clips
    stayed stacked at every width. */
-@media (max-width: 1099px) {
+@media (max-width: 860px) {
   .cid-scope .cid-viv-film-lead { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
 }
 @media (max-width: 700px) {
@@ -1768,13 +1787,13 @@
   background-color: #04030e;
   box-shadow: 0 18px 40px -24px rgba(6,2,28,.7);
 }
-@media (min-width: 901px) {
-  .cid-scope .cid-viv-film { flex: 1 1 auto; min-height: 0; }
-  .cid-scope .cid-viv-film-video {
-    flex: 1 1 auto; min-height: 0; height: auto;
-    aspect-ratio: 2.3 / 1;
-  }
-}
+/* The 2.3:1 window that used to sit here cropped the picture top and bottom
+   so the film's foot would meet the biomimicry card at the foot of the side
+   column. Nothing stands beside the film since it went full width on
+   2026-09-19, so there is nothing to meet, and at ~1192px the crop would have
+   taken ~105px off a 1224x640 frame, which is enough to cut the coin. The
+   film keeps its native ratio at every width now and shows its whole
+   picture. */
 /* One column below 900px, and the roll keeps its old place in it. Moving
    the roll out of the body column (see the note beside it in CID.tsx) put
    it after the side panels on a phone, since the row stacks body then
