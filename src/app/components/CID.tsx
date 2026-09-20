@@ -724,7 +724,18 @@ function useInViewPlay(ref: RefObject<HTMLVideoElement | null>) {
    1224x640, faststart, with the music. Its poster is the Ooo! reveal, so
    the three boxes open on three different pictures and the coin's face
    shows once, in the headline. It plays once and holds on the snow: the
-   stop is the full stop. Controls stay so the music is one tap away. */
+   stop is the full stop. Controls stay so the music is one tap away.
+
+   Since 2026-09-20 it carries the closing line, "CID is a sovereign network
+   for strategic governance.", set across the middle from 9.2s to 13.8s. That
+   is the scene break Greg pointed at: a cut lands at 8.83s, where the aerial
+   shot of the carved circle gives way to the coin rolling under the arena
+   lights, and the line comes up a beat into the new scene rather than on the
+   cut itself. It sits on a dark band with soft edges, the same idea as the
+   card on the headline clip but spanning the measure, and both the band and
+   the words fade together. The film is the only one of the four with sound,
+   so the audio stream is copied rather than re-encoded and the music is the
+   file Greg cut, untouched. */
 /* The clips the lower lead box runs, in order. Two of them since
    2026-09-20: the box has always carried the aerial circle with "Markets
    demand..." on it, and the Defence combo now follows in the same box
@@ -734,8 +745,9 @@ const LEAD_CLIPS = (base: string) => [
   `${base}assets/video/cid-coin-skate-lines.mp4`,
   // Bumped whenever the cut is recut, since the file keeps its name and a
   // returning visitor would otherwise keep the old one. v2 burnt the words in,
-  // v3 split them onto a panel at the top and one at the bottom.
-  `${base}assets/video/cid-defence-combo.mp4?v=3`,
+  // v3 split them onto a panel at the top and one at the bottom, v4 cropped a
+  // black strip off the right that the last four seconds of the cut carried.
+  `${base}assets/video/cid-defence-combo.mp4?v=4`,
 ];
 
 /* One box, the clips above played end to end. The first used to loop here;
@@ -825,7 +837,18 @@ function SkateLead({ base }: { base: string }) {
           the coins in the darkest band of the frame, fades in over 3.00s to
           3.35s, holds, and is gone by 5.60s: the flash zoom ramps from 5.70s
           and peaks at 6.10s, so the line leaves on the flash rather than
-          being washed out by it. */}
+          being washed out by it.
+
+          Each line sits on a dark band, one at the top of the frame and one at
+          the bottom, rather than both stacked in a corner. The bands hold full
+          strength across the part of themselves the words sit on and fade out
+          from there, which is not the same as a linear ramp from the edge: the
+          bottom line lies over the coins' reflections, and on a straight ramp
+          the ground under it read at 55 against the top line's 0.5. Holding the
+          band solid where the words are takes it to 1.2. The right edge is
+          cropped too, from the master's x 303 to 2161 rather than 320 to 2239,
+          because the last four seconds of the cut carry a 52px black strip that
+          the old window included. */}
       <SkateSequence base={base} />
     </div>
   );
@@ -842,7 +865,9 @@ function SkateFilm({ base }: { base: string }) {
       <video
         ref={film}
         className="cid-viv-film-video"
-        src={`${base}assets/video/cid-coin-skate.mp4`}
+        // ?v=2 since the third line was burnt into the film on 2026-09-20 and
+        // the file keeps its name.
+        src={`${base}assets/video/cid-coin-skate.mp4?v=2`}
         poster={`${base}assets/video/cid-coin-skate-poster.webp`}
         controls
         muted
