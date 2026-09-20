@@ -704,8 +704,12 @@ function SkateLead({ base }: { base: string }) {
             together in the spray. That switch is the whole argument, and it
             is the one the Artlist prompt in SPRINT 6 was written to get: the
             allies are the faces, and the forming is them ending up on our
-            ice. Greg's master is public/assets/video/DEFENCE VIDEO - COMBO
-            SWITCH.mp4.
+            ice. Greg's master was DEFENCE VIDEO - COMBO SWITCH.mp4, uploaded
+            to public/assets/video and removed from there once this cut was
+            made: 16MB of unprocessed footage that Pages would otherwise have
+            served to every visitor. It is kept in history at 94bec61, so
+            `git show 94bec61:"public/assets/video/DEFENCE VIDEO - COMBO
+            SWITCH.mp4" > master.mp4` brings it back to re-cut from.
 
             Unlike the two clips above it this one carries no words in the
             picture, so it is described rather than hidden: there is no
