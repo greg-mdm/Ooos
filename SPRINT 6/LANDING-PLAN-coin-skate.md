@@ -52,6 +52,38 @@ the stop is the full stop, and the page needs it as its final frame.
 Cuts 1 to 2 and 2 to 3 are straight cuts with a two-frame white flash, the
 strobe language from the performance beat. Nothing else dissolves.
 
+## The 20-second cut, as built in Artlist Studio (2026-09-17)
+
+Greg's brief after the 34-second plan: down to 20 seconds, the best of the
+showcase, no repetition. Built in the Studio project "CID Coin Skate",
+sequence editor, straight cuts only, from the shots Greg uploaded there:
+Shot 1 Part 1, Shot 2 Part 2, Shot 3 Hockey Stop, Shot 4 "Teal Intro,
+Before Lights" (3.7 s), Shot 6 "Closer" (4.9 s, not used).
+
+| # | Time | Shot | Source in to out | Beat |
+| --- | --- | --- | --- | --- |
+| 1 | 0.00 to 1.99 | Shot 4, Teal Intro | 0.00 to 1.99 | The arena before the lights. |
+| 2 | 1.99 to 5.00 | Shot 1, Part 1 | 0.00 to 3.01 | The coin at centre, the lights up, it moves off. |
+| 3 | 5.00 to 8.54 | Shot 1, Part 1 | 6.50 to 10.04 | From above: the circle carved and closed. |
+| 4 | 8.54 to 11.56 | Shot 2, Part 2 | 4.99 to 8.01 | The carve under the beams. |
+| 5 | 11.56 to 14.22 | Shot 2, Part 2 | 12.38 to 15.04 | The rise and the Ooo! reveal. |
+| 6 | 14.22 to 15.70 | Shot 3, Hockey Stop | 3.41 to 4.89 | Lights down; the coin returns to centre on its edge. Out before the black. |
+| 7 | 15.70 to 19.86 | Shot 3, Hockey Stop | 5.90 to 10.07 | The stop, the spray, the rest on the skyline face. Hold. |
+
+19.86 seconds. The black in the Hockey Stop (4.95 to 5.85) is cut out;
+the join at 15.70 is a straight cut across the coin's quarter turn, the
+"flash across it" fix without the flash, since the Studio editor has no
+flash frames. If it reads as a snap, the bridge in the section above goes
+in as an eighth shot between 6 and 7.
+
+Repetition avoided: Part 2's opening pose (the same centre-ice coin Part
+1 opens on) is skipped entirely, and each of the three finals appears
+twice only where the two stretches show different things.
+
+Export from Studio is fixed-format, no options; the file lands in the
+Studio downloads and is copied to this folder as
+`cid-coin-skate-20s-studio.mp4`.
+
 ## Closing the gap in the Hockey Stop
 
 The black runs 4.95 to 5.85 s, 0.9 s. On either side of it the coin is at
