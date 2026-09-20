@@ -1501,7 +1501,9 @@
    imported unchanged from ooodivisions2.css so the two places stay one
    system; everything here is the surround plus the two-bullet split inside
    each key, which the homepage keys do not have. ---- */
-.cid-scope .cid-strategy { display: flex; flex-direction: column; gap: 10px; }
+/* The gap here is the air under the heading, opened up on 2026-09-20 so the
+   keyboard is not sitting on the words above it. */
+.cid-scope .cid-strategy { display: flex; flex-direction: column; gap: clamp(14px,1.6vw,22px); }
 /* The opening A of "Agile", set in the display serif. A real Latin A, so the
    word stays readable to screen readers and search; only the letterform
    changes. Slightly larger and optically nudged so the serif sits on the same
@@ -1579,9 +1581,19 @@
    of type and the indent another 1.1em, so ~36px is where it would break to
    two lines again. 26px leaves the pills room to breathe rather than filling
    them to the edge. The floor holds the phone, where the key is ~293px. */
+/* Capitals, in the condensed face, as tall as the key's measure allows. The
+   ceiling is arithmetic: a key's content box caps at ~599px, the longest
+   statement runs 14.58px per px of type in Oswald against Montserrat's 18.24,
+   and the indent takes another 1.1em, so 38px is where it would break to two
+   lines. 35px leaves that margin and puts the cap at 31px, half again what
+   the old 30px Montserrat gave. The floor holds a 375px phone, where the key
+   is ~293px wide and 18.7px is the limit. Tracking is barely positive, which
+   is what capitals want; any more and the line stops fitting. */
 .cid-scope .cid-strategy-bullet {
   position: relative; padding-left: 1.1em; display: block;
-  font-size: clamp(17px, 2.2vw, 30px); line-height: 1.3;
+  font-family: 'Oswald', 'Montserrat', system-ui, sans-serif;
+  font-weight: 600; text-transform: uppercase; letter-spacing: .01em;
+  font-size: clamp(17px, 2.6vw, 35px); line-height: 1.3;
 }
 /* The white keys. The label face on a black key is pale with a dark shadow
    under it; on ivory both would be wrong, so the ink is the site's dark

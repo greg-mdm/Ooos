@@ -33,43 +33,50 @@ const KEY_GRAD = (a: string, b: string, c: string) =>
    range so the key reads as ivory rather than as a hole in the column, and
    each pair a shade cooler than the one above it, which is the same descent
    the blacks make. Ink on the whites is the site's dark indigo, never gold,
-   and the marker turns portal purple to stay visible on a light ground. */
+   and the marker turns portal purple to stay visible on a light ground.
+
+   The statements are set in capitals and carry no full stop (Greg,
+   2026-09-20): they are labels on keys, not sentences. The capitals are done
+   with text-transform in the stylesheet rather than typed here, so what a
+   screen reader announces and what a search engine indexes is still ordinary
+   sentence case, and only the drawing changes. The full stops are gone from
+   the strings themselves, since that is the copy and not its styling. */
 const STRATEGY_KEYS: { tone: "black" | "white"; bg: string; shadow: string; line: string }[] = [
   {
     tone: "black",
     bg: KEY_GRAD("rgb(174,153,201)", "rgb(70,46,134)", "rgb(24,16,46)"),
     shadow: "0 18px 34px -18px rgba(26,22,70,0.46)",
-    line: "Energize economic expansion.",
+    line: "Energize economic expansion",
   },
   {
     tone: "white",
     bg: KEY_GRAD("rgb(255,255,255)", "rgb(250,249,253)", "rgb(231,227,241)"),
     shadow: "0 14px 28px -18px rgba(26,22,70,0.30)",
-    line: "Empower inclusive growth.",
+    line: "Empower inclusive growth",
   },
   {
     tone: "black",
     bg: KEY_GRAD("rgb(152,133,179)", "rgb(54,35,104)", "rgb(18,12,35)"),
     shadow: "0 15px 30px -16px rgba(26,22,70,0.40)",
-    line: "Gather collective intelligence.",
+    line: "Gather collective intelligence",
   },
   {
     tone: "white",
     bg: KEY_GRAD("rgb(255,255,255)", "rgb(248,247,252)", "rgb(226,222,238)"),
     shadow: "0 13px 26px -17px rgba(26,22,70,0.28)",
-    line: "Integrate verified data sources.",
+    line: "Integrate verified data sources",
   },
   {
     tone: "black",
     bg: KEY_GRAD("rgb(126,110,151)", "rgb(37,23,74)", "rgb(13,8,25)"),
     shadow: "0 12px 26px -14px rgba(26,22,70,0.34)",
-    line: "Boost business confidence.",
+    line: "Boost business confidence",
   },
   {
     tone: "white",
     bg: KEY_GRAD("rgb(255,255,255)", "rgb(246,245,251)", "rgb(221,217,235)"),
     shadow: "0 12px 24px -16px rgba(26,22,70,0.26)",
-    line: "Build global partnerships.",
+    line: "Build global partnerships",
   },
 ];
 

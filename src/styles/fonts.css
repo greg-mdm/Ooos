@@ -6,6 +6,16 @@
    Vivarium title animation. */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800&display=swap');
 
+/* Oswald, for the statements on the strategy keys and nothing else so far.
+   Those are set in capitals, and capitals in Montserrat are wide: the longest
+   of them, "INTEGRATE VERIFIED DATA SOURCES", fills the whole 599px a key has
+   at 31px, so there was no size left to give them. Oswald is condensed, so
+   the same line fits at 35px and stands 31px tall at the cap against
+   Montserrat's 22px: taller letters in less width, which is what a keyboard
+   of short athletic statements wants. 500 and 600 are pulled; 600 is what the
+   keys use. */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&display=swap');
+
 /* Lovelo Black — self-hosted under the FF EULA v2.2 (royalty free for
    commercial use). License file: /assets/fonts/Lovelo-FF-EULA-License-v2.2.pdf */
 @font-face {
