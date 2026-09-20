@@ -670,7 +670,9 @@ function useInViewPlay(ref: RefObject<HTMLVideoElement | null>) {
    shots, so it is one window. */
 const LEAD_CLIPS = (base: string) => [
   `${base}assets/video/cid-coin-skate-lines.mp4`,
-  `${base}assets/video/cid-defence-combo.mp4`,
+  // ?v=2 since the words were burnt into the picture on 2026-09-20: the file
+  // keeps its name, so without this a returning visitor keeps the silent cut.
+  `${base}assets/video/cid-defence-combo.mp4?v=2`,
 ];
 
 /* One box, the clips above played end to end. The first used to loop here;
@@ -717,6 +719,11 @@ function SkateLead({ base }: { base: string }) {
       <div className="cid-viv-sr">
         <h3 id="cid-film-title">Investing in your future is complex and continuously changing.</h3>
         <p>Markets demand new digital diversification strategies.</p>
+        {/* Third since 2026-09-20, when this line was burnt into the Defence
+            cut. It sits here for the same reason the other two do: the words
+            are in the picture, so they are in the markup as well, and clipped
+            from sight so nobody reads them twice. */}
+        <p>Rules are evolving. Allies are forming.</p>
       </div>
       <video
         ref={head}
@@ -741,7 +748,21 @@ function SkateLead({ base }: { base: string }) {
           `git show 94bec61:"public/assets/video/DEFENCE VIDEO - COMBO
           SWITCH.mp4" > master.mp4` brings it back to re-cut from. The web cut
           takes the centre 16:9 window of a 2560x1080 source, which keeps
-          every coin well inside the frame at both ends. */}
+          every coin well inside the frame at both ends.
+
+          The third line is burnt into it since 2026-09-20. There was no room
+          for the black card the other two wear: it measures 740x280 and the
+          coins hold the middle of this frame for its whole length, leaving at
+          most ~640px clear either side of them, so the card would have sat on
+          the euro or the pound wherever it went. Greg picked the window
+          instead, 3s to 6s, across the dissolve he built in PowerDirector.
+          The type is the cards' own, Montserrat Bold, measured off them at
+          48px and set here at 56px, in capitals, centred, which is what
+          separates this line from the two that came before it. It sits above
+          the coins in the darkest band of the frame, fades in over 3.00s to
+          3.35s, holds, and is gone by 5.60s: the flash zoom ramps from 5.70s
+          and peaks at 6.10s, so the line leaves on the flash rather than
+          being washed out by it. */}
       <SkateSequence base={base} />
     </div>
   );
