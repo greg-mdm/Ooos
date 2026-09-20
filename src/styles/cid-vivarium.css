@@ -1518,7 +1518,7 @@
 .cid-scope .cid-strategy-h {
   margin: 0;
   font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
-  font-size: clamp(20px,2.4vw,28px); line-height: 1.18; letter-spacing: -.01em;
+  font-size: clamp(22px,2.9vw,34px); line-height: 1.16; letter-spacing: -.01em;
   /* Reads as one line: the phrase is 40 characters, so the old 24ch measure
      forced a break regardless of the room the column had. No cap, and balance
      only steps in on narrow screens where one line genuinely will not fit. */
@@ -1538,16 +1538,16 @@
   display: grid; grid-template-columns: minmax(0, 1.18fr) minmax(0, 1fr);
   gap: clamp(16px,2vw,24px); align-items: stretch;
 }
-/* One column, and the three keys divide whatever height the clips beside them
-   set, so the two halves of the band start and finish on the same lines. The
-   gap matches the clips' own, which makes each key's row exactly as tall as
-   the clip beside it: three keys against three clips, paired off row by row.
-   The bullets centre in the key rather than sitting at its top: at one line
-   each they no longer fill the key, and centred the leftover room reads as
-   air around the statement instead of a gap beneath it. */
+/* A keyboard: six keys stacked tight, each its own height, with the small gap
+   between them that keys on an instrument have. This used to divide the
+   clips' column into equal rows and centre a key in each, which is what put
+   the air inside and around the keys that Greg kept striking out. So: auto
+   rows, a 6px gap, and align-self start, so the stack takes the height its
+   own keys need and stops there rather than being stretched to meet the
+   clips beside it. */
 .cid-scope .cid-strategy-keys {
-  display: grid; grid-template-columns: minmax(0, 1fr); grid-auto-rows: 1fr;
-  gap: clamp(16px,2vw,24px); align-items: stretch; height: 100%;
+  display: grid; grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto;
+  gap: 6px; align-items: start; align-self: start; height: auto;
 }
 /* The pill is as tall as what it says, and no taller. It used to fill its
    row, and on the full measure that row is ~300px against ~75px of type, so
@@ -1558,12 +1558,8 @@
    height, centred in the row. The air goes between the pills, where it
    separates the three statements, instead of inside them, where it only
    pushed the words apart from their own edges. */
-.cid-scope .cid-strategy-keys .ood-key-wrap {
-  height: 100%; display: flex; align-items: center;
-}
-.cid-scope .cid-strategy-keys .ood-key {
-  height: auto; min-height: 0; align-items: center;
-}
+.cid-scope .cid-strategy-keys .ood-key-wrap { height: auto; }
+.cid-scope .cid-strategy-keys .ood-key { height: auto; align-items: center; }
 /* The label fills the key. On the homepage .ood-label is a flex item at
    `flex: 0 1 auto`, so it shrink-wraps to the width of its own longest line
    and stops there: in a 431px key it was taking 259px and leaving 138px of
@@ -1585,8 +1581,26 @@
    them to the edge. The floor holds the phone, where the key is ~293px. */
 .cid-scope .cid-strategy-bullet {
   position: relative; padding-left: 1.1em; display: block;
-  font-size: clamp(16px, 1.9vw, 26px); line-height: 1.3;
+  font-size: clamp(17px, 2.2vw, 30px); line-height: 1.3;
 }
+/* The white keys. The label face on a black key is pale with a dark shadow
+   under it; on ivory both would be wrong, so the ink is the site's dark
+   indigo and the shadow comes off. Pressed, a black key's label goes to
+   white; a white key's has nowhere lighter to go, so it holds its ink and
+   the press reads in the ring and the travel instead. */
+.cid-scope .cid-strategy-keys .cid-key-white .ood-label,
+.cid-scope .cid-strategy-keys .cid-key-white.is-on .ood-label {
+  color: #1A0033; text-shadow: none;
+}
+/* A hairline, so an ivory key still has an edge against the pale ground the
+   band sits on. */
+.cid-scope .cid-strategy-keys .cid-key-white {
+  box-shadow: inset 0 0 0 1px rgba(75,0,182,.14);
+}
+.cid-scope .cid-strategy-keys .cid-key-white .cid-strategy-bullet::before {
+  background: #4B00B6; opacity: .85;
+}
+
 /* In em, so the marker and its gap keep their proportion to the type it
    marks rather than shrinking against it as the statement grows. */
 .cid-scope .cid-strategy-bullet::before {
