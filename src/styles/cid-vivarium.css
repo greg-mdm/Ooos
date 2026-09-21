@@ -1548,7 +1548,7 @@
    what spends it. The ratio is Greg's: the keys hold the longer measure
    because they hold the words. */
 .cid-scope .cid-strategy-band {
-  display: grid; grid-template-columns: minmax(0, 1.18fr) minmax(0, 1fr);
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: clamp(16px,2vw,24px); align-items: stretch;
 }
 /* A keyboard: six keys stacked tight, each its own height, with the small gap
@@ -1558,9 +1558,24 @@
    rows, a 6px gap, and align-self start, so the stack takes the height its
    own keys need and stops there rather than being stretched to meet the
    clips beside it. */
+/* Eight rows: key, key, puck, key, key, puck, key, key. The key rows take
+   their own height and the two puck rows take everything left over, so the
+   column always finishes exactly where the clips beside it do, at any width.
+   This used to be hand-tuned instead: the keys sized themselves from one vw
+   clamp and the puck slots from another, and the two happened to agree at
+   1440px and nowhere else. It read -2px there, -31px at 1280 and -42px at
+   1240, and on Greg's screen the last key hung below the video altogether.
+   Stretching the column and letting the pucks absorb the slack removes the
+   arithmetic entirely: the pairs keep their tight 6px gap and the air lands
+   between them, which is where it was always meant to go. */
 .cid-scope .cid-strategy-keys {
-  display: grid; grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto;
-  gap: 6px; align-items: start; align-self: start; height: auto;
+  display: grid; grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto 1fr auto auto 1fr auto auto;
+  /* A whisker under the clips rather than flush with them. Greg: a pill
+     sitting a little short of the video line reads fine, a pill crossing it
+     does not, so the column errs under. 10px is enough to guarantee the sign
+     of the difference against any rounding. */
+  gap: 6px; align-items: start; align-self: stretch; height: calc(100% - 10px);
 }
 /* The pill is as tall as what it says, and no taller. It used to fill its
    row, and on the full measure that row is ~300px against ~75px of type, so
@@ -1585,9 +1600,12 @@
    of the band level: the keys lost 7px each when they went shallower, so the
    slot takes that back, 85px against the 72px it held before. The art does
    not grow with it. */
+/* Stretch, so the puck takes the whole of the flexible row it was given and
+   centres the art in it. Left at its own height it sat at the top of that row
+   with all the slack beneath it: 6px above the puck and 74px below. */
 .cid-scope .cid-strategy-keys .cid-key-puck {
   display: flex; align-items: center; justify-content: center;
-  height: clamp(58px, 5.9vw, 85px); margin: 0; padding: 0;
+  align-self: stretch; height: auto; min-height: 58px; margin: 0; padding: 0;
 }
 /* One height serves both. The teal that stood in the first slot needed its
    own, because it was a different drawing seen from a different angle, 1.36
@@ -1632,7 +1650,7 @@
   position: relative; padding-left: 1.1em; display: block;
   font-family: 'Oswald', 'Montserrat', system-ui, sans-serif;
   font-weight: 600; text-transform: uppercase; letter-spacing: .01em;
-  font-size: clamp(16px, 2.4vw, 32px); line-height: 1.3;
+  font-size: clamp(16px, 2.25vw, 30px); line-height: 1.3;
 }
 /* The white keys. The label face on a black key is pale with a dark shadow
    under it; on ivory both would be wrong, so the ink is the site's dark
@@ -1669,7 +1687,9 @@
    one. Matches the breather's own breakpoint. */
 @media (max-width: 860px) {
   .cid-scope .cid-strategy-band { grid-template-columns: minmax(0, 1fr); }
-  .cid-scope .cid-strategy-keys { grid-auto-rows: auto; height: auto; }
+  .cid-scope .cid-strategy-keys {
+    grid-template-rows: none; height: auto; align-self: start;
+  }
 }
 
 /* The keys are copied, the homepage's dark ground is not. On the aurora
@@ -1843,6 +1863,42 @@
   overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%);
   white-space: nowrap; border: 0;
 }
+/* The stage holds the film and the card over it. Container units below are
+   measured against this box, so the card tracks the film's width rather than
+   the window's and keeps its proportions at every size. */
+.cid-scope .cid-viv-film-stage {
+  position: relative; container-type: inline-size; line-height: 0;
+}
+/* The card. Rebuilt from the black one burnt into the clips above: that is
+   740x280 on a 1280x720 frame, 57.8% of the width, with 48px type at 6.7% of
+   the frame height. This keeps the relationship and goes larger, as asked.
+   Robin's Egg is the page's own background, so the card reads as a window onto
+   the page rather than a plate laid over the film, and Ruby is the site's
+   heading ink. No shadow: dark ink on a light ground has no use for one. */
+.cid-scope .cid-film-card {
+  position: absolute; left: 50%; top: 50%; translate: -50% -50%;
+  margin: 0; width: 76cqw; box-sizing: border-box;
+  padding: 1.1em 1.4em;
+  /* Solid where the words sit, easing off toward the foot, and then cut dead
+     at the card edge: the fade and the clean line together, which is the
+     treatment the black card wears and the one Greg asked to carry over. Being
+     a gradient rather than pixels, where it starts easing and how far it goes
+     are both one value each. */
+  background: linear-gradient(180deg,
+    #F0F4F5 0%, #F0F4F5 58%, rgba(240,244,245,.42) 100%);
+  color: #822F00;
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 700;
+  font-size: 4.2cqw; line-height: 1.3; letter-spacing: -.005em;
+  text-align: center; text-wrap: balance;
+  display: flex; flex-direction: column;
+  opacity: 0; transition: opacity .35s ease;
+  pointer-events: none;
+}
+.cid-scope .cid-film-card.is-on { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .cid-scope .cid-film-card { transition: none; }
+}
+
 .cid-scope .cid-viv-film-video {
   display: block; width: 100%; height: auto; aspect-ratio: 1224 / 640;
   object-fit: cover;

@@ -710,6 +710,17 @@ function useInViewPlay(ref: RefObject<HTMLVideoElement | null>) {
    not films, and the same words sit in the markup for screen readers and
    search, hidden from sight so nobody reads them twice.
 
+   The card on the headline clip lost its soft bottom on 2026-09-20. It was
+   solid to about y=338 and then faded out over some 57px, so the ice came
+   through the foot of it while the top, sides and the cards below were all
+   crisp. The words are burnt into the clip and there is no card-free master,
+   so the fix samples a 4px strip of the card's own solid ground from between
+   its second and third lines, where no type sits, and stretches that down over
+   the fade to a hard edge at y=396. Taking the patch from the card itself is
+   what matters: the card fades up over the first second of the clip, from
+   rgb(43,47,54) at 0.2s to rgb(5,4,7) by 1.0s, and a flat fill would have sat
+   wrong against it through all of that. Sampled, it carries the same fade.
+
    Since 2026-09-19 the pair is a column, not a row, and it stands in the
    right half of the Strategies band beside the three keys (SkateLead,
    below, rendered into .cid-strategy-band). Side by side under the keys
@@ -732,6 +743,26 @@ function useInViewPlay(ref: RefObject<HTMLVideoElement | null>) {
    measure, with the band and the words fading together. It runs 4.2s to 6.8s,
    over the carve rather than after it.
 
+   The band is Robin's Egg and the words are Ruby since 2026-09-20, where both
+   were black and white before: the band is the page's own background colour,
+   so the film opens a window onto the page it sits in rather than laying a
+   dark card over itself, and the site's heading ink reads on it. The core of
+   the band is fully opaque, which is what makes the colour match rather than
+   approach: sampled off the encode it is #EFF3F5 against a target of #F0F4F5,
+   and the ink #812D00 against #822F00, both a value or two out on chroma
+   subsampling alone. The 60px edges still ramp to nothing, so it reads as a
+   band of the page rather than a bar. Contrast measures 8.15:1, past AAA. No
+   drop shadow: a dark ink on a light ground has no use for one.
+
+   The band has hard edges since 2026-09-20, not the soft ramp it wore first,
+   and the type came down from 68px to 46px: the cards on the clips above it
+   are crisp rectangles, and this is the same object at the width of the frame.
+   It plays twice. Once over the carve at 4.2s to 6.8s, in the middle of the
+   frame; then again over the Ooo! reveal at 13.2s to 16.75s, this time sitting
+   at the very top, 160px deep, which stops it short of the exclamation mark
+   below. The second pass is Greg's: the line bears repeating, and the reveal
+   is where the film says its own name.
+
    Two cuts were made to the picture that day. The aerial move was in twice:
    a short pass at 3.77s to 5.73s that barely starts the circle, then the same
    move again from 5.73s carried through to the near-complete circle. Played
@@ -743,64 +774,15 @@ function useInViewPlay(ref: RefObject<HTMLVideoElement | null>) {
    same from the music, which leaves a splice in it, and Greg chose to drop the
    track instead. So this is now the only silent one of the four as well, and
    the controls that stay on it are for the scrub, not the sound. */
-/* The clips the lower lead box runs, in order. Two of them since
-   2026-09-20: the box has always carried the aerial circle with "Markets
-   demand..." on it, and the Defence combo now follows in the same box
-   rather than in a box of its own. The pair is one statement told in two
-   shots, so it is one window. */
-const LEAD_CLIPS = (base: string) => [
-  `${base}assets/video/cid-coin-skate-lines.mp4`,
-  // Bumped whenever the cut is recut, since the file keeps its name and a
-  // returning visitor would otherwise keep the old one. v2 burnt the words in,
-  // v3 split them onto a panel at the top and one at the bottom, v4 cropped a
-  // black strip off the right that the last four seconds of the cut carried.
-  `${base}assets/video/cid-defence-combo.mp4?v=4`,
-];
-
-/* One box, the clips above played end to end. The first used to loop here;
-   now it hands over to the Defence cut when it ends, and that one holds on
-   its last frame, the three coins standing together, the way the headline
-   box holds on its own. Changing the src is what advances it: the element
-   stays put, so the ref, the box and the observer that starts and stops it
-   on scroll are all unaffected, and only the picture inside changes. */
-function SkateSequence({ base }: { base: string }) {
-  const el = useRef<HTMLVideoElement>(null);
-  const [at, setAt] = useState(0);
-  const clips = LEAD_CLIPS(base);
-  useInViewPlay(el);
-  // The first clip is started by useInViewPlay when the box scrolls into
-  // view. Every clip after it follows one that just finished on screen, so
-  // it plays as soon as it has loaded.
-  useEffect(() => {
-    if (at === 0) return;
-    const v = el.current;
-    if (!v) return;
-    v.load();
-    v.play().catch(() => {});
-  }, [at]);
-  return (
-    <video
-      ref={el}
-      className="cid-viv-film-box"
-      src={clips[at]}
-      poster={`${base}assets/video/cid-coin-skate-lines-poster.webp`}
-      muted
-      playsInline
-      preload="metadata"
-      onEnded={() => setAt((i) => Math.min(i + 1, clips.length - 1))}
-      aria-hidden="true"
-    />
-  );
-}
-
 function SkateLead({ base }: { base: string }) {
   const head = useRef<HTMLVideoElement>(null);
+  const allies = useRef<HTMLVideoElement>(null);
   useInViewPlay(head);
+  useInViewPlay(allies);
   return (
     <div className="cid-viv-film-lead">
       <div className="cid-viv-sr">
         <h3 id="cid-film-title">Investing in your future is complex and continuously changing.</h3>
-        <p>Markets demand new digital diversification strategies.</p>
         {/* Third since 2026-09-20, when this line was burnt into the Defence
             cut. It sits here for the same reason the other two do: the words
             are in the picture, so they are in the markup as well, and clipped
@@ -810,16 +792,24 @@ function SkateLead({ base }: { base: string }) {
       <video
         ref={head}
         className="cid-viv-film-box"
-        src={`${base}assets/video/cid-coin-skate-headline.mp4`}
+        // ?v=2 since the card's bottom edge was squared off on 2026-09-20.
+        src={`${base}assets/video/cid-coin-skate-headline.mp4?v=2`}
         poster={`${base}assets/video/cid-coin-skate-headline-poster.webp`}
         muted
         playsInline
         preload="metadata"
         aria-hidden="true"
       />
-      {/* The Defence combo rides in here, second in this box, not in a third
-          box of its own (Greg, 2026-09-20: the lead is two windows, and the
-          Defence cut is the next thing this one says). It opens on a euro
+      {/* The Defence combo, alone in this box since 2026-09-20. It arrived as
+          the second of two clips here, after the aerial circle carrying
+          "Markets demand new digital diversification strategies.", but the
+          handover read as the page skipping: Greg recorded the journey and the
+          jump is plain at about ten seconds in. So the aerial clip is out and
+          this one plays on its own, which also means the box needs no playlist
+          and the sequence that ran it is gone. The words burnt into the clip
+          that left went with it, out of the .cid-viv-sr block too, since that
+          block exists to carry what is in the pictures and those words are no
+          longer in any of them. It opens on a euro
           coin and a pound coin skating the black ice side by side under the
           teal dome and closes on three Canadian coins standing together in
           the spray, which is the switch the Artlist prompt in SPRINT 6 was
@@ -842,9 +832,21 @@ function SkateLead({ base }: { base: string }) {
           48px and set here at 56px, in capitals, centred, which is what
           separates this line from the two that came before it. It sits above
           the coins in the darkest band of the frame, fades in over 3.00s to
-          3.35s, holds, and is gone by 5.60s: the flash zoom ramps from 5.70s
-          and peaks at 6.10s, so the line leaves on the flash rather than
-          being washed out by it.
+          3.35s and holds through the flash, releasing at 6.90s and gone by
+          7.30s. It used to clear at 5.60s, just before the flash zoom ramps at
+          5.70s, so the words left exactly as the picture did its loudest
+          thing; Greg wanted them to ride it out instead. They can, because the
+          bands are near opaque where the words sit: at the 6.10s peak the
+          frame behind runs to 190 and the ground under the lines still reads
+          11.4 at the top and 1.5 at the bottom, so the type never washes out.
+
+          The type is Bright Silver, #E8ECF4, not white: the same ink the keys
+          use, and the site does not put pure white on a picture. Sampled back
+          off the encode the glyph cores land on #E9EAEF and #E8E9EE, a few
+          values off the target, which is 4:2:0 chroma subsampling and is as
+          close as video gets. No pixel in either line is 255,255,255. The full
+          stops are gone too: the lines were one sentence split across a corner
+          when they needed them, and they are two statements on two bands now.
 
           Each line sits on a dark band, one at the top of the frame and one at
           the bottom, rather than both stacked in a corner. The bands hold full
@@ -856,35 +858,100 @@ function SkateLead({ base }: { base: string }) {
           cropped too, from the master's x 303 to 2161 rather than 320 to 2239,
           because the last four seconds of the cut carry a 52px black strip that
           the old window included. */}
-      <SkateSequence base={base} />
+      <video
+        ref={allies}
+        className="cid-viv-film-box"
+        src={`${base}assets/video/cid-defence-combo.mp4?v=6`}
+        poster={`${base}assets/video/cid-defence-combo-poster.webp`}
+        muted
+        playsInline
+        preload="metadata"
+        aria-hidden="true"
+      />
     </div>
   );
 }
 
+/* When the card is up. Two passes: over the carve, then over the Ooo! reveal,
+   which is where the film says its own name and the line bears repeating. The
+   windows are the ones the burnt-in bands used, so nothing about the timing
+   changes, only what draws it. */
+const FILM_CARD_WINDOWS: [number, number][] = [
+  [4.2, 6.8],
+  [13.2, 16.75],
+];
+
+/* The film, and the card over it.
+
+   The card is markup, not pixels. The two cards on the clips above it are
+   burnt into their files, which is why squaring one bottom edge meant sampling
+   the card's own ground and stretching it: there is no rule to edit and no
+   card-free master to go back to. Greg asked for the same card here in Robin's
+   Egg, so it is rebuilt from measurements taken off the black one rather than
+   copied from code that never existed. That black card is 740x280 on a
+   1280x720 frame, 57.8% of the width, its type 48px, which is 6.7% of the
+   frame's height. This one keeps those relationships and goes up from there,
+   since Greg wanted it bigger: 76% of the width and type at 4.2% of it.
+
+   Everything is in container units, so the card scales with the film rather
+   than with the window, and the proportions hold at every width. It carries
+   the page's own background colour and the site's heading ink.
+
+   Being markup buys three things the burnt version could not. Colour and
+   wording are edits, not encodes, so the film stops taking a fresh generation
+   of compression every time a word or a value changes. The words are real
+   text, so they are selectable, translatable and indexed, and the clipped
+   .cid-viv-sr block is not needed to carry them. And the card stays in the
+   document at all times, only its opacity moving, so a screen reader meets it
+   whether or not the film has reached its cue. */
 function SkateFilm({ base }: { base: string }) {
   const film = useRef<HTMLVideoElement>(null);
+  const [cardUp, setCardUp] = useState(false);
   useInViewPlay(film);
+  useEffect(() => {
+    const v = film.current;
+    if (!v) return;
+    // timeupdate fires about four times a second, which is coarser than the
+    // fade; the CSS transition covers the difference, and seeking is caught
+    // separately so scrubbing lands the card where it belongs.
+    const tick = () => {
+      const now = v.currentTime;
+      setCardUp(FILM_CARD_WINDOWS.some(([from, to]) => now >= from && now < to));
+    };
+    v.addEventListener("timeupdate", tick);
+    v.addEventListener("seeked", tick);
+    v.addEventListener("ended", tick);
+    return () => {
+      v.removeEventListener("timeupdate", tick);
+      v.removeEventListener("seeked", tick);
+      v.removeEventListener("ended", tick);
+    };
+  }, []);
   return (
-    /* The lead clips carry the words, so the heading this section used to
-       borrow from them went up into the band with them; the film is labelled
-       for what it is, and the long description stays on the video itself. */
     <section className="cid-viv-film" aria-label="The coin skate">
-      <video
-        ref={film}
-        className="cid-viv-film-video"
-        // v2 burnt the third line in, v3 cut the repeated carve, dropped the
-        // music and moved the line onto the carve. The file keeps its name.
-        src={`${base}assets/video/cid-coin-skate.mp4?v=3`}
-        poster={`${base}assets/video/cid-coin-skate-poster.webp`}
-        controls
-        muted
-        playsInline
-        preload="metadata"
-        aria-label="The coin skate: a gold coin carves a circle into black ice under concert lights, an aerial view reveals the Ooo! wordmark inside the circle, and the coin finishes with a hockey stop in a spray of snow."
-      />
+      <div className="cid-viv-film-stage">
+        <video
+          ref={film}
+          className="cid-viv-film-video"
+          // v6 is the clean cut: the bands and the words came off the picture
+          // and became the card below it.
+          src={`${base}assets/video/cid-coin-skate.mp4?v=6`}
+          poster={`${base}assets/video/cid-coin-skate-poster.webp`}
+          controls
+          muted
+          playsInline
+          preload="metadata"
+          aria-label="The coin skate: a gold coin carves a circle into black ice under concert lights, an aerial view reveals the Ooo! wordmark inside the circle, and the coin finishes with a hockey stop in a spray of snow."
+        />
+        <p className={`cid-film-card${cardUp ? " is-on" : ""}`}>
+          <span>CID is a sovereign network</span>
+          <span>for strategic governance</span>
+        </p>
+      </div>
     </section>
   );
 }
+
 
 function CharacterRoll({ base }: { base: string }) {
   const cast = CAST(base);
