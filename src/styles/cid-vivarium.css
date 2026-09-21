@@ -144,8 +144,7 @@
    it gains. ---- */
 .cid-scope .cid-viv-breather {
   margin: clamp(26px,3.4vw,40px) 0 0;
-  display: grid; grid-template-columns: repeat(2, minmax(0, 480px));
-  justify-content: center;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(18px,2.4vw,32px); align-items: stretch;
 }
 /* The quote panel. Picture-led now, like the lexicon beside it, so it takes
@@ -1415,7 +1414,7 @@
    whose gap already spaces the cards, and a margin here would double it. */
 .cid-scope .cid-viv-lex {
   --lex-keep: .6;
-  width: min(480px, 100%);
+  width: 100%;
   margin: 0; position: relative;
   aspect-ratio: calc(1920 * var(--lex-keep)) / 1080;
   border-radius: 14px; overflow: hidden;
