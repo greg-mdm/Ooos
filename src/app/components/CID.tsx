@@ -1874,7 +1874,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             <figure className="cid-viv-bio">
               <iframe
                 className="cid-viv-bio-frame"
-                src={`${base}cid/biomimicry-panel.html?v=1`}
+                src={`${base}cid/biomimicry-panel.html?v=8`}
                 title="Why practice biomimicry? Organisms and ecosystems face the same challenges that we humans do, but, they meet those challenges sustainably. Learn Biomimicry, A Field Guide to Biomimicry, version 01, 2021, pages 3 and 7."
                 loading="lazy"
               />
