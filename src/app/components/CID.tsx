@@ -906,7 +906,9 @@ const FILM_CARD_WINDOWS: [number, number][] = [
    whether or not the film has reached its cue. */
 function SkateFilm({ base }: { base: string }) {
   const film = useRef<HTMLVideoElement>(null);
-  const [cardUp, setCardUp] = useState(false);
+  // which pass is up, not just whether one is: the two are laid out
+  // differently, so they are two elements rather than one that moves.
+  const [pass, setPass] = useState<number | null>(null);
   useInViewPlay(film);
   useEffect(() => {
     const v = film.current;
@@ -916,7 +918,8 @@ function SkateFilm({ base }: { base: string }) {
     // separately so scrubbing lands the card where it belongs.
     const tick = () => {
       const now = v.currentTime;
-      setCardUp(FILM_CARD_WINDOWS.some(([from, to]) => now >= from && now < to));
+      const at = FILM_CARD_WINDOWS.findIndex(([from, to]) => now >= from && now < to);
+      setPass(at === -1 ? null : at);
     };
     v.addEventListener("timeupdate", tick);
     v.addEventListener("seeked", tick);
@@ -943,9 +946,18 @@ function SkateFilm({ base }: { base: string }) {
           preload="metadata"
           aria-label="The coin skate: a gold coin carves a circle into black ice under concert lights, an aerial view reveals the Ooo! wordmark inside the circle, and the coin finishes with a hockey stop in a spray of snow."
         />
-        <p className={`cid-film-card${cardUp ? " is-on" : ""}`}>
+        {/* Over the carve: a card in the middle, the line broken in two. */}
+        <p className={`cid-film-card cid-film-card--mid${pass === 0 ? " is-on" : ""}`}>
           <span>CID is a sovereign network</span>
           <span>for strategic governance</span>
+        </p>
+        {/* Over the Ooo! reveal: the same words on one line, in a band that
+            runs the whole width and sits at the top of the frame, clear of the
+            exclamation mark below (Greg). Hidden from assistive tech because
+            the card above already carries the words; this is the same sentence
+            laid out a second way, not a second sentence. */}
+        <p className={`cid-film-card cid-film-card--top${pass === 1 ? " is-on" : ""}`} aria-hidden="true">
+          CID is a sovereign network for strategic governance
         </p>
       </div>
     </section>

@@ -1876,9 +1876,8 @@
    the page rather than a plate laid over the film, and Ruby is the site's
    heading ink. No shadow: dark ink on a light ground has no use for one. */
 .cid-scope .cid-film-card {
-  position: absolute; left: 50%; top: 50%; translate: -50% -50%;
-  margin: 0; width: 76cqw; box-sizing: border-box;
-  padding: 1.1em 1.4em;
+  position: absolute;
+  margin: 0; box-sizing: border-box;
   /* Solid where the words sit, easing off toward the foot, and then cut dead
      at the card edge: the fade and the clean line together, which is the
      treatment the black card wears and the one Greg asked to carry over. Being
@@ -1888,13 +1887,34 @@
     #F0F4F5 0%, #F0F4F5 58%, rgba(240,244,245,.42) 100%);
   color: #822F00;
   font-family: 'Montserrat', system-ui, sans-serif; font-weight: 700;
-  font-size: 4.2cqw; line-height: 1.3; letter-spacing: -.005em;
+  /* size lives on the two placements below, since one is a card and the
+     other a band and they are set differently */
+  line-height: 1.3; letter-spacing: -.005em;
   text-align: center; text-wrap: balance;
   display: flex; flex-direction: column;
   opacity: 0; transition: opacity .35s ease;
   pointer-events: none;
 }
 .cid-scope .cid-film-card.is-on { opacity: 1; }
+
+/* Over the carve: a card, centred, the line broken across two rows. */
+.cid-scope .cid-film-card--mid {
+  left: 50%; top: 50%; translate: -50% -50%;
+  width: 76cqw; padding: 1.1em 1.4em;
+  font-size: 4.2cqw;
+}
+/* Over the Ooo! reveal: not a card but a band. It runs the full width of the
+   frame and sits at its top, and the whole sentence goes on one row, which is
+   what sets the type: at 1192px of film the line measures 1028px at 38px, so
+   3.2cqw carries it with room either side. The depth is the point of the rest.
+   Greg marked where it has to stop, above the exclamation mark in the carved
+   wordmark below, which scales to about 26% of the frame; the padding lands it
+   there. The foot still fades to a clean line, as the card does. */
+.cid-scope .cid-film-card--top {
+  left: 0; right: 0; top: 0;
+  width: 100%; padding: 4.7cqw 3.4cqw;
+  font-size: 3.2cqw; white-space: nowrap;
+}
 @media (prefers-reduced-motion: reduce) {
   .cid-scope .cid-film-card { transition: none; }
 }
