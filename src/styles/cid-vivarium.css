@@ -1793,12 +1793,6 @@
    film section grows to take whatever height the body column has left, so
    the two columns end on one line. Below 900px there is no side column
    and the film shows its whole picture. Below 700px the lead row stacks. */
-/* No top margin: the film is a child of .cid-viv-stack since 2026-09-19 and
-   the stack's own gap spaces it, so a margin here would double that. */
-.cid-scope .cid-viv-film {
-  margin: 0;
-  display: flex; flex-direction: column; gap: clamp(14px,1.6vw,20px);
-}
 .cid-scope .cid-viv-film-lead {
   display: grid; grid-template-columns: minmax(0,1fr);
   gap: clamp(16px,2vw,24px); align-items: start; align-content: start;
@@ -1863,12 +1857,6 @@
 }
 .cid-scope .cid-film-card.is-on { opacity: 1; }
 
-/* Over the carve: a card, centred, the line broken across two rows. */
-.cid-scope .cid-film-card--mid {
-  left: 50%; top: 50%; translate: -50% -50%;
-  width: 76cqw; padding: 1.1em 1.4em;
-  font-size: 4.2cqw;
-}
 /* Over the Ooo! reveal: not a card but a band. It runs the full width of the
    frame and sits at its top, and the whole sentence goes on one row, which is
    what sets the type: at 1192px of film the line measures 1028px at 38px, so
@@ -1885,13 +1873,6 @@
   .cid-scope .cid-film-card { transition: none; }
 }
 
-.cid-scope .cid-viv-film-video {
-  display: block; width: 100%; height: auto; aspect-ratio: 1224 / 640;
-  object-fit: cover;
-  border-radius: 14px;
-  background-color: #04030e;
-  box-shadow: 0 18px 40px -24px rgba(6,2,28,.7);
-}
 /* The 2.3:1 window that used to sit here cropped the picture top and bottom
    so the film's foot would meet the biomimicry card at the foot of the side
    column. Nothing stands beside the film since it went full width on

@@ -774,11 +774,35 @@ function useInViewPlay(ref: RefObject<HTMLVideoElement | null>) {
    same from the music, which leaves a splice in it, and Greg chose to drop the
    track instead. So this is now the only silent one of the four as well, and
    the controls that stay on it are for the scrub, not the sound. */
+/* Where the closing line comes up on the combined clip. The Defence cut runs
+   first and the wordmark dissolves in over it at 5.1s; the line belongs to the
+   wordmark, so it waits until that dissolve has finished and then stays to the
+   end, which is the frame the clip rests on. In the film this came from it sat
+   at 13.2s, 1.7s after the point the cut now starts from. */
+const ALLIES_LINE_AT = 6.8;
+
 function SkateLead({ base }: { base: string }) {
   const head = useRef<HTMLVideoElement>(null);
   const allies = useRef<HTMLVideoElement>(null);
+  const [lineUp, setLineUp] = useState(false);
   useInViewPlay(head);
   useInViewPlay(allies);
+  useEffect(() => {
+    const v = allies.current;
+    if (!v) return;
+    // timeupdate is about four a second, coarser than the fade; the CSS
+    // transition covers the difference, and seeking is caught separately so
+    // scrubbing puts the line where it belongs.
+    const tick = () => setLineUp(v.currentTime >= ALLIES_LINE_AT);
+    v.addEventListener("timeupdate", tick);
+    v.addEventListener("seeked", tick);
+    v.addEventListener("ended", tick);
+    return () => {
+      v.removeEventListener("timeupdate", tick);
+      v.removeEventListener("seeked", tick);
+      v.removeEventListener("ended", tick);
+    };
+  }, []);
   return (
     <div className="cid-viv-film-lead">
       <div className="cid-viv-sr">
@@ -788,6 +812,9 @@ function SkateLead({ base }: { base: string }) {
             are in the picture, so they are in the markup as well, and clipped
             from sight so nobody reads them twice. */}
         <p>Rules are evolving. Allies are forming.</p>
+        {/* Carried by the second clip since 2026-09-21, when the film below
+            was cut into it and the third box was dropped. */}
+        <p>CID is a sovereign network for strategic governance.</p>
       </div>
       <video
         ref={head}
@@ -858,123 +885,28 @@ function SkateLead({ base }: { base: string }) {
           cropped too, from the master's x 303 to 2161 rather than 320 to 2239,
           because the last four seconds of the cut carry a 52px black strip that
           the old window included. */}
-      <video
-        ref={allies}
-        className="cid-viv-film-box"
-        src={`${base}assets/video/cid-defence-combo.mp4?v=6`}
-        poster={`${base}assets/video/cid-defence-combo-poster.webp`}
-        muted
-        playsInline
-        preload="metadata"
-        aria-hidden="true"
-      />
-    </div>
-  );
-}
-
-/* When the card is up. Two passes: over the carve, then over the Ooo! reveal,
-   which is where the film says its own name and the line bears repeating. The
-   windows are the ones the burnt-in bands used, so nothing about the timing
-   changes, only what draws it. */
-const FILM_CARD_WINDOWS: [number, number][] = [
-  [4.2, 6.8],
-  [13.2, 16.75],
-];
-
-/* Where the film stops when it finishes: inside the second window above, so
-   the card is up on the frame it rests on. The poster is cut from this same
-   second of the file. */
-const FILM_RESTS_AT = 14.6;
-
-/* The film, and the card over it.
-
-   The card is markup, not pixels. The two cards on the clips above it are
-   burnt into their files, which is why squaring one bottom edge meant sampling
-   the card's own ground and stretching it: there is no rule to edit and no
-   card-free master to go back to. Greg asked for the same card here in Robin's
-   Egg, so it is rebuilt from measurements taken off the black one rather than
-   copied from code that never existed. That black card is 740x280 on a
-   1280x720 frame, 57.8% of the width, its type 48px, which is 6.7% of the
-   frame's height. This one keeps those relationships and goes up from there,
-   since Greg wanted it bigger: 76% of the width and type at 4.2% of it.
-
-   Everything is in container units, so the card scales with the film rather
-   than with the window, and the proportions hold at every width. It carries
-   the page's own background colour and the site's heading ink.
-
-   Being markup buys three things the burnt version could not. Colour and
-   wording are edits, not encodes, so the film stops taking a fresh generation
-   of compression every time a word or a value changes. The words are real
-   text, so they are selectable, translatable and indexed, and the clipped
-   .cid-viv-sr block is not needed to carry them. And the card stays in the
-   document at all times, only its opacity moving, so a screen reader meets it
-   whether or not the film has reached its cue. */
-function SkateFilm({ base }: { base: string }) {
-  const film = useRef<HTMLVideoElement>(null);
-  // which pass is up, not just whether one is: the two are laid out
-  // differently, so they are two elements rather than one that moves.
-  const [pass, setPass] = useState<number | null>(null);
-  useInViewPlay(film);
-  useEffect(() => {
-    const v = film.current;
-    if (!v) return;
-    // timeupdate fires about four times a second, which is coarser than the
-    // fade; the CSS transition covers the difference, and seeking is caught
-    // separately so scrubbing lands the card where it belongs.
-    const tick = () => {
-      const now = v.currentTime;
-      const at = FILM_CARD_WINDOWS.findIndex(([from, to]) => now >= from && now < to);
-      setPass(at === -1 ? null : at);
-    };
-    v.addEventListener("timeupdate", tick);
-    // Not tick: seeking fires tick itself, and the card follows the clock.
-    const rest = () => {
-      v.currentTime = FILM_RESTS_AT;
-      v.pause();
-    };
-    v.addEventListener("seeked", tick);
-    v.addEventListener("ended", rest);
-    return () => {
-      v.removeEventListener("timeupdate", tick);
-      v.removeEventListener("seeked", tick);
-      v.removeEventListener("ended", rest);
-    };
-  }, []);
-  return (
-    <section className="cid-viv-film" aria-label="The coin skate">
       <div className="cid-viv-film-stage">
         <video
-          ref={film}
-          className="cid-viv-film-video"
-          // v6 is the clean cut: the bands and the words came off the picture
-          // and became the card below it.
-          src={`${base}assets/video/cid-coin-skate.mp4?v=6`}
-          // ?v=2 since the poster became the reveal frame the film ends on.
-          poster={`${base}assets/video/cid-coin-skate-poster.webp?v=2`}
-          controls
+          ref={allies}
+          className="cid-viv-film-box"
+          src={`${base}assets/video/cid-allies-combo.mp4?v=1`}
+          poster={`${base}assets/video/cid-allies-combo-poster.webp`}
           muted
           playsInline
           preload="metadata"
-          aria-label="The coin skate: a gold coin carves a circle into black ice under concert lights, an aerial view reveals the Ooo! wordmark inside the circle, and the coin finishes with a hockey stop in a spray of snow."
+          aria-hidden="true"
         />
-        {/* Over the carve: a card in the middle, the line broken in two. */}
-        <p className={`cid-film-card cid-film-card--mid${pass === 0 ? " is-on" : ""}`}>
-          <span>CID is a sovereign network</span>
-          <span>for strategic governance</span>
-        </p>
-        {/* Over the Ooo! reveal: the same words on one line, in a band that
-            runs the whole width and sits at the top of the frame, clear of the
-            exclamation mark below (Greg). Hidden from assistive tech because
-            the card above already carries the words; this is the same sentence
-            laid out a second way, not a second sentence. */}
-        <p className={`cid-film-card cid-film-card--top${pass === 1 ? " is-on" : ""}`} aria-hidden="true">
+        {/* The closing line, over the wordmark the clip ends on. Markup, not
+            burnt in, so it can be read, translated and recoloured; hidden from
+            assistive tech because the .cid-viv-sr block above already carries
+            the sentence once. */}
+        <p className={`cid-film-card cid-film-card--top${lineUp ? " is-on" : ""}`} aria-hidden="true">
           CID is a sovereign network for strategic governance
         </p>
       </div>
-    </section>
+    </div>
   );
 }
-
 
 function CharacterRoll({ base }: { base: string }) {
   const cast = CAST(base);
@@ -1817,16 +1749,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               <SkateLead base={base} />
             </div>
           </section>
-
-          {/* The coin skate film. Greg's lead lines sit on the two clips
-              in the band above, which is where the words live now; they
-              used to sit in two white cards here (and before that in the
-              lede row above the RACI panel), and the film took the cards'
-              place on 2026-09-17. It
-              runs the column's full width, which also carries the roll
-              below the foot of the side column: the roll had been
-              running under the lexicon panel. */}
-          <SkateFilm base={base} />
 
           {/* The breather: the Greek lexicon and the biomimicry quote, which
               both stood in the side column until 2026-09-19, when Greg put
