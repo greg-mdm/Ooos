@@ -1849,27 +1849,36 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               />
             </figure>
 
-            {/* The word-pair rows moved into the Greek Lexicon panel, which
-                is beside this card since 2026-09-19 and was above it before
-                that; this card carries only the quotation now. Quoted material,
-                marked up as a quotation rather than styled to look like one;
-                the Chicago note at the foot covers both the quote (page 7)
-                and the lexicon gloss (page 3). */}
-            <aside className="cid-etym cid-viv-gloss" aria-label="Why practice biomimicry">
-              <figure className="cid-viv-gloss-quote">
-                <p className="cid-viv-gloss-q-lead">Why practice biomimicry?</p>
-                <blockquote>
-                  Organisms and ecosystems face the same challenges that we humans do,
-                  but, they meet those challenges sustainably.
-                </blockquote>
-              </figure>
-              <p className="cid-viv-gloss-src">
-                Learn Biomimicry, <cite>A Field Guide to Biomimicry: A Brief Overview
-                of the Core Elements and Practice of Biomimicry</cite>, version 01
-                (Learn Biomimicry, 2021), 3, 7,{" "}
-                <a href="https://www.learnbiomimicry.com" target="_blank" rel="noreferrer noopener">learnbiomimicry.com</a>.
-              </p>
-            </aside>
+            {/* The biomimicry quote, a designed panel since 2026-09-21 rather
+                than a white card of markup. The words have not changed: the
+                quotation, its lead and the Chicago note are set inside the
+                panel, over a clip of a circuit-winged butterfly, with the type
+                scaled to the sizes the strategy band above uses so the quote
+                reads at the weight of the page instead of as a footnote to it.
+                The note still covers both the quote (page 7) and the lexicon
+                gloss (page 3).
+
+                The panel is a Claude Design export, like the lexicon beside it,
+                and is served from public/ verbatim. Its clip does not travel
+                inside it: the export inlines every asset as base64, which put
+                2.6MB of one 5 second loop into a 4.0MB file, so the clip is a
+                real file under assets/video and the panel points at its path.
+                460KB of panel and 912KB of video that the browser caches on its
+                own, in place of 3.9MB that it cannot. scratchpad/lighten.mjs
+                does that lift, so a fresh export can be run back through it
+                rather than merged by hand.
+
+                The frame is titled rather than labelled by the words inside it,
+                since the words are in another document and no screen reader
+                will reach them from this one. */}
+            <figure className="cid-viv-bio">
+              <iframe
+                className="cid-viv-bio-frame"
+                src={`${base}cid/biomimicry-panel.html?v=1`}
+                title="Why practice biomimicry? Organisms and ecosystems face the same challenges that we humans do, but, they meet those challenges sustainably. Learn Biomimicry, A Field Guide to Biomimicry, version 01, 2021, pages 3 and 7."
+                loading="lazy"
+              />
+            </figure>
           </section>
 
           {/* The cast, directly under the two columns. It lived inside the

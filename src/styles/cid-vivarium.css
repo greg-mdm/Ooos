@@ -147,18 +147,28 @@
   display: grid; grid-template-columns: minmax(0, 480px) minmax(0, 1fr);
   gap: clamp(18px,2.4vw,32px); align-items: stretch;
 }
-.cid-scope .cid-viv-breather .cid-viv-gloss {
-  display: flex; flex-direction: column; justify-content: center;
+/* The quote panel. Picture-led now, like the lexicon beside it, so it takes
+   the lexicon's radius and shadow and the two read as a pair of panels rather
+   than as a panel and a card. It carries no height of its own in the two
+   column case: the lexicon's aspect ratio sets the row and this stretches to
+   it, which is how the white card behaved before it. The ratio below is only
+   for the one column case under 860px, where there is no lexicon beside it to
+   take a height from. */
+.cid-scope .cid-viv-bio {
+  margin: 0; position: relative;
+  border-radius: 14px; overflow: hidden;
+  box-shadow: 0 22px 50px -34px rgba(6,2,28,.55);
+  background: #fff;
 }
-/* The card runs ~700px here, which is well past a reading measure, so the
-   quotation and its source note keep one of their own. The quote also comes
-   up from 14.5px: it is a passage to stop on now, not a note in a margin. */
-.cid-scope .cid-viv-breather .cid-viv-gloss-quote { max-width: 62ch; }
-.cid-scope .cid-viv-breather .cid-viv-gloss-src { max-width: 78ch; }
-.cid-scope .cid-viv-breather .cid-viv-gloss-quote blockquote { font-size: 16.5px; }
+.cid-scope .cid-viv-bio-frame {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  border: 0; display: block;
+}
 /* One column before the panel and the card would each be too narrow to read. */
 @media (max-width: 860px) {
   .cid-scope .cid-viv-breather { grid-template-columns: minmax(0,1fr); }
+  .cid-scope .cid-viv-bio { aspect-ratio: 1 / 1; }
 }
 
 /* ---- Etymology card: a dictionary entry for the word the lede ends on,
@@ -1414,52 +1424,6 @@
   width: calc(100% / var(--lex-keep)); height: 100%;
   border: 0; display: block;
 }
-
-/* Word pairs, stacked: term, equals, meaning. Narrow on purpose -- it is a
-   gloss, not a paragraph, and the stacked equals reads as a definition rather
-   than a sentence someone has to parse. */
-.cid-scope .cid-viv-gloss-pair { margin-top: 13px; }
-.cid-scope .cid-viv-gloss-pair:first-of-type { margin-top: 12px; }
-.cid-scope .cid-viv-gloss-term {
-  margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
-  font-size: clamp(19px,2vw,23px); letter-spacing: -.2px; color: #1a1646;
-}
-.cid-scope .cid-viv-gloss-el {
-  font-weight: 600; font-size: .78em; color: #5b5f86; margin-left: 6px;
-  letter-spacing: 0;
-}
-.cid-scope .cid-viv-gloss-eq {
-  margin: 1px 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
-  font-size: 15px; color: #4B00B6;
-}
-.cid-scope .cid-viv-gloss-mean {
-  margin: 0; font-size: clamp(15px,1.5vw,17px); line-height: 1.5; color: #33384a;
-}
-
-/* Set as a quotation, not as body copy that happens to have quote marks: the
-   rule and the indent do the work so the words read as borrowed. */
-.cid-scope .cid-viv-gloss-quote {
-  margin: 16px 0 0; padding-top: 13px;
-  border-top: 1px solid rgba(75,0,182,.16);
-}
-.cid-scope .cid-viv-gloss-q-lead {
-  margin: 0 0 8px; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
-  font-size: 13px; letter-spacing: .01em; color: #4B00B6;
-}
-.cid-scope .cid-viv-gloss-quote blockquote {
-  margin: 0; padding-left: 12px; border-left: 3px solid rgba(75,0,182,.28);
-  font-size: 14.5px; line-height: 1.55; color: #33384a; font-style: italic;
-}
-
-/* Source note. Small and quiet, but present: the panel quotes a published work
-   and the words are not the site's own. */
-.cid-scope .cid-viv-gloss-src {
-  margin: 12px 0 0; padding-top: 10px;
-  border-top: 1px solid rgba(75,0,182,.12);
-  font-size: 11.5px; line-height: 1.5; color: #5b5f86;
-}
-.cid-scope .cid-viv-gloss-src cite { font-style: italic; }
-.cid-scope .cid-viv-gloss-src a { color: #4B00B6; text-underline-offset: 2px; }
 
 .cid-scope .cid-viv-disc {
   margin: 0; padding-top: 16px; border-top: 1px solid rgba(75,0,182,.22);
