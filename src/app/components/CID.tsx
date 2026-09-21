@@ -727,15 +727,22 @@ function useInViewPlay(ref: RefObject<HTMLVideoElement | null>) {
    stop is the full stop. Controls stay so the music is one tap away.
 
    Since 2026-09-20 it carries the closing line, "CID is a sovereign network
-   for strategic governance.", set across the middle from 9.2s to 13.8s. That
-   is the scene break Greg pointed at: a cut lands at 8.83s, where the aerial
-   shot of the carved circle gives way to the coin rolling under the arena
-   lights, and the line comes up a beat into the new scene rather than on the
-   cut itself. It sits on a dark band with soft edges, the same idea as the
-   card on the headline clip but spanning the measure, and both the band and
-   the words fade together. The film is the only one of the four with sound,
-   so the audio stream is copied rather than re-encoded and the music is the
-   file Greg cut, untouched. */
+   for strategic governance.", on a dark band with soft edges across the
+   middle: the same idea as the card on the headline clip but spanning the
+   measure, with the band and the words fading together. It runs 4.2s to 6.8s,
+   over the carve rather than after it.
+
+   Two cuts were made to the picture that day. The aerial move was in twice:
+   a short pass at 3.77s to 5.73s that barely starts the circle, then the same
+   move again from 5.73s carried through to the near-complete circle. Played
+   back to back it read as the video skipping, so the first pass is gone. The
+   carve is now one shot from 3.77s to 6.87s and the film is 23.00s rather than
+   25.02s.
+
+   The music went with it. Cutting two seconds of picture meant cutting the
+   same from the music, which leaves a splice in it, and Greg chose to drop the
+   track instead. So this is now the only silent one of the four as well, and
+   the controls that stay on it are for the scrub, not the sound. */
 /* The clips the lower lead box runs, in order. Two of them since
    2026-09-20: the box has always carried the aerial circle with "Markets
    demand..." on it, and the Defence combo now follows in the same box
@@ -865,9 +872,9 @@ function SkateFilm({ base }: { base: string }) {
       <video
         ref={film}
         className="cid-viv-film-video"
-        // ?v=2 since the third line was burnt into the film on 2026-09-20 and
-        // the file keeps its name.
-        src={`${base}assets/video/cid-coin-skate.mp4?v=2`}
+        // v2 burnt the third line in, v3 cut the repeated carve, dropped the
+        // music and moved the line onto the carve. The file keeps its name.
+        src={`${base}assets/video/cid-coin-skate.mp4?v=3`}
         poster={`${base}assets/video/cid-coin-skate-poster.webp`}
         controls
         muted
@@ -1701,8 +1708,15 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             {/* The opening A is a real Latin A set in the display serif, not a Greek
                 alpha lookalike: the letterform carries the flourish while "Agile"
                 stays a word that screen readers speak and search engines index. */}
+            {/* Two registers, so the heading carries the keys under it (Greg,
+                2026-09-20). The studio name stays in title case; the claim
+                after it goes to capitals, which is what the six keys below are
+                set in, so the line reads as their header rather than as another
+                sentence above them. The capitals are text-transform, so the
+                words themselves are unchanged for a screen reader and search. */}
             <h3 id="cid-strategy-title" className="cid-strategy-h">
-              <span className="cid-strategy-a">A</span>gile Micro-Studio. Massive Creative Capacity.
+              <span className="cid-strategy-a">A</span>gile Micro-Studio.{" "}
+              <span className="cid-strategy-claim">Massive</span> Creative Capacity.
             </h3>
             {/* The band: the three keys as a column, the two lead clips
                 stacked beside them (Greg, 2026-09-19). Two shallow

@@ -1517,9 +1517,20 @@
   font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
   font-weight: 900; font-size: 1.12em; line-height: 0; letter-spacing: 0;
 }
+/* The claim half of the heading, in capitals, so the line reads as a header
+   for the six keys under it rather than as another sentence above them. A hair
+   of tracking, because capitals at this size set tighter than they read. */
+.cid-scope .cid-strategy-claim {
+  text-transform: uppercase; letter-spacing: .005em;
+}
+
 .cid-scope .cid-strategy-h {
   margin: 0;
-  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  /* 700, not 800. The import pulls 500, 600, 700 and 700 italic, so a request
+     for 800 has always fallen back to 700 and drawn identically: at 200px,
+     700, 800 and 900 all measure 2762px. Declaring 700 changes nothing on the
+     page and stops the rule promising a weight the site does not load. */
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 700;
   font-size: clamp(22px,2.9vw,34px); line-height: 1.16; letter-spacing: -.01em;
   /* Reads as one line: the phrase is 40 characters, so the old 24ch measure
      forced a break regardless of the room the column had. No cap, and balance
