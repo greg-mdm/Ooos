@@ -881,6 +881,11 @@ const FILM_CARD_WINDOWS: [number, number][] = [
   [13.2, 16.75],
 ];
 
+/* Where the film stops when it finishes: inside the second window above, so
+   the card is up on the frame it rests on. The poster is cut from this same
+   second of the file. */
+const FILM_RESTS_AT = 14.6;
+
 /* The film, and the card over it.
 
    The card is markup, not pixels. The two cards on the clips above it are
@@ -922,12 +927,17 @@ function SkateFilm({ base }: { base: string }) {
       setPass(at === -1 ? null : at);
     };
     v.addEventListener("timeupdate", tick);
+    // Not tick: seeking fires tick itself, and the card follows the clock.
+    const rest = () => {
+      v.currentTime = FILM_RESTS_AT;
+      v.pause();
+    };
     v.addEventListener("seeked", tick);
-    v.addEventListener("ended", tick);
+    v.addEventListener("ended", rest);
     return () => {
       v.removeEventListener("timeupdate", tick);
       v.removeEventListener("seeked", tick);
-      v.removeEventListener("ended", tick);
+      v.removeEventListener("ended", rest);
     };
   }, []);
   return (
@@ -939,7 +949,8 @@ function SkateFilm({ base }: { base: string }) {
           // v6 is the clean cut: the bands and the words came off the picture
           // and became the card below it.
           src={`${base}assets/video/cid-coin-skate.mp4?v=6`}
-          poster={`${base}assets/video/cid-coin-skate-poster.webp`}
+          // ?v=2 since the poster became the reveal frame the film ends on.
+          poster={`${base}assets/video/cid-coin-skate-poster.webp?v=2`}
           controls
           muted
           playsInline
@@ -1134,7 +1145,6 @@ function CharacterRoll({ base }: { base: string }) {
                       poster={p.media.poster}
                       autoPlay
                       muted
-                      loop
                       playsInline
                     />
                   ) : (
@@ -1874,8 +1884,8 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             <figure className="cid-viv-bio">
               <iframe
                 className="cid-viv-bio-frame"
-                src={`${base}cid/biomimicry-panel.html?v=8`}
-                title="Why practice biomimicry? Organisms and ecosystems face the same challenges that we humans do, but, they meet those challenges sustainably. Learn Biomimicry, A Field Guide to Biomimicry, version 01, 2021, pages 3 and 7."
+                src={`${base}cid/biomimicry-panel.html?v=15`}
+                title="Why practice biomimicry? Organisms and ecosystems face the same challenges that we humans do, but, they meet those challenges sustainably. Learn Biomimicry, Field Guide to Biomimicry, 2021, pages 3 and 7."
                 loading="lazy"
               />
             </figure>
@@ -2043,7 +2053,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                         {/* Phosphor ShieldCheck */}
                         <svg viewBox="0 0 256 256" focusable="false"><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z" /></svg>
                       </span>
-                      <span className="cid-raci-safe-h">Automated Safeguards (Conflict Checks, MNPI Exclusions).</span>
+                      <span className="cid-raci-safe-h">Automated Safeguards (Conflict Checks, MNPI Exclusions)</span>
                     </summary>
                     <p className="cid-raci-safe-sub">Automating Safety First: Hard-coded Conflict Checks and MNPI Exclusions filter and destroy risky or compromised data before human or AI agent review.</p>
                   </details>
@@ -2067,7 +2077,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                           <path d="m20 3-2 2v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z" />
                         </svg>
                       </span>
-                      <span className="cid-raci-safe-h">Proactive Risk Management.</span>
+                      <span className="cid-raci-safe-h">Proactive Risk Management</span>
                     </summary>
                     <p className="cid-raci-safe-sub">Optimizing Agent Solutions: High-performance teams leverage programmatic auditing to detect and pluck personally identifiable information and protect data silos.</p>
                   </details>
@@ -2123,7 +2133,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     <tr key={op}>
                       <th scope="row">{op}</th>
                       {[g, e, i].map((v, n) => (
-                        <td key={n} data-w={v === "A" || v === "R" ? "1" : "0"}>
+                        <td key={n} data-raci={v}>
                           <abbr title={{ A: "Accountable", R: "Responsible", C: "Consulted", I: "Informed" }[v]}>{v}</abbr>
                         </td>
                       ))}
@@ -2137,13 +2147,13 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 R A C I and not the A R C I the table itself uses. Tiles take the
                 carved-slab treatment from the twelve-signs board. */}
             <dl className="cid-viv-raci-key">
-              <div><dt><span className="cid-raci-tile" aria-hidden="true">R</span>Responsible</dt>
+              <div data-raci="R"><dt><span className="cid-raci-tile" aria-hidden="true">R</span>Responsible</dt>
                 <dd>Completes the assigned task or deliverable.</dd></div>
-              <div><dt><span className="cid-raci-tile" aria-hidden="true">A</span>Accountable</dt>
+              <div data-raci="A"><dt><span className="cid-raci-tile" aria-hidden="true">A</span>Accountable</dt>
                 <dd>Final ownership and decision authority. Held exclusively by the Principal Investigator.</dd></div>
-              <div><dt><span className="cid-raci-tile" aria-hidden="true">C</span>Consulted</dt>
+              <div data-raci="C"><dt><span className="cid-raci-tile" aria-hidden="true">C</span>Consulted</dt>
                 <dd>Contributes before the work proceeds.</dd></div>
-              <div><dt><span className="cid-raci-tile" aria-hidden="true">I</span>Informed</dt>
+              <div data-raci="I"><dt><span className="cid-raci-tile" aria-hidden="true">I</span>Informed</dt>
                 <dd>Role-separated architecture gives agents access to information needed for designated roles.</dd></div>
             </dl>
           </div>

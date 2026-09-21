@@ -144,7 +144,8 @@
    it gains. ---- */
 .cid-scope .cid-viv-breather {
   margin: clamp(26px,3.4vw,40px) 0 0;
-  display: grid; grid-template-columns: minmax(0, 480px) minmax(0, 1fr);
+  display: grid; grid-template-columns: repeat(2, minmax(0, 480px));
+  justify-content: center;
   gap: clamp(18px,2.4vw,32px); align-items: stretch;
 }
 /* The quote panel. Picture-led now, like the lexicon beside it, so it takes
@@ -168,7 +169,9 @@
 /* One column before the panel and the card would each be too narrow to read. */
 @media (max-width: 860px) {
   .cid-scope .cid-viv-breather { grid-template-columns: minmax(0,1fr); }
-  .cid-scope .cid-viv-bio { aspect-ratio: 1 / 1; }
+  /* The lexicon's own ratio, so the two stay the same size stacked as
+     well as side by side. */
+  .cid-scope .cid-viv-bio { aspect-ratio: 1152 / 1080; }
 }
 
 /* ---- Etymology card: a dictionary entry for the word the lede ends on,
@@ -1961,7 +1964,7 @@
 }
 .cid-scope .cid-viv-raci-table thead th {
   text-align: center; vertical-align: bottom; padding: 0 6px 9px;
-  font-weight: 700; color: #4B00B6; line-height: 1.25;
+  font-weight: 700; color: #0F031C; line-height: 1.25;
   border-bottom: 1.5px solid rgba(75,0,182,.22);
 }
 .cid-scope .cid-viv-raci-table thead th:first-child { text-align: left; padding-left: 0; }
@@ -1976,14 +1979,33 @@
 }
 .cid-scope .cid-viv-raci-table tbody td {
   text-align: center; padding: 9px 6px; color: #6f7488;
+  font-weight: 800;
   border-bottom: 1px solid rgba(6,2,28,.08);
 }
 .cid-scope .cid-viv-raci-table tbody tr:last-child th,
 .cid-scope .cid-viv-raci-table tbody tr:last-child td { border-bottom: none; }
-/* A and R carry the weight, so they are the only cells that get it. C and I
-   stay quiet: the point of the chart is who owns and who does. */
-.cid-scope .cid-viv-raci-table tbody td[data-w="1"] { color: #4B00B6; font-weight: 800; }
 .cid-scope .cid-viv-raci-table abbr { text-decoration: none; border: none; cursor: help; }
+
+/* ---- The four letters, each its own colour -----------------------------
+   Until now every letter was the same purple, so the chart could only be read
+   by looking words up; colour lets a column be read down. All four are palette
+   colours: Teal, Ruby, Dark Indigo and Midnight Violet 500, which is the exact
+   #7C18E7 Greg asked for.
+
+   Measured against the two grounds they sit on, white in the chart and the
+   key's faint violet wash: Teal 4.77 and 4.53, Ruby 8.91 and 8.45, Dark Indigo
+   15.70 and 14.89, Midnight Violet 6.68 and 6.34. All four clear AA body text,
+   Teal by the least.
+
+   Dark Indigo and Midnight Violet are the pair to watch, since the palette
+   holds no true blue and these sit 17 degrees apart in hue. What separates
+   them is lightness, not hue: 0.017 against 0.107, a factor of six. On the
+   tiles, where each is a block of colour rather than a letter's worth, that
+   reads clearly. */
+.cid-scope .cid-viv-raci-table tbody td[data-raci="R"] { color: #008080; }
+.cid-scope .cid-viv-raci-table tbody td[data-raci="A"] { color: #822F00; }
+.cid-scope .cid-viv-raci-table tbody td[data-raci="C"] { color: #19007D; }
+.cid-scope .cid-viv-raci-table tbody td[data-raci="I"] { color: #7C18E7; }
 
 
 
@@ -2026,36 +2048,39 @@
   font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
   font-size: 12.5px; letter-spacing: .3px; color: #4B00B6;
 }
-/* The tile is a wooden one, like the game piece it borrows from, cut from the
-   dark red stock of the meeting-room table rather than from the site palette.
-   These reds are a material, not brand colours: nothing here is a token and
-   nothing else on the site should pull from them.
+/* The tile was a wooden one, cut from the dark red stock of a meeting-room
+   table: a material rather than a brand colour, which worked while all four
+   were the same tile and stops working the moment each one has to name a
+   colour of its own. The slab stays, the timber goes. It keeps its size, its
+   radius and its bevel, and the bevel's highlight and shade are neutral now
+   rather than the warm pair the red grain wanted, so they sit on any of the
+   four.
 
-   Three layers do the work. A repeating gradient lays the grain at a slight
-   angle so it does not read as stripes; a broad linear gradient lights the
-   board from the top left; and the inset pair cuts the bevel. Bright Silver
-   for the letter, which is a brand colour, and it holds at every point of the
-   grain: 4.96:1 on the lightest highlight, 13.26:1 in the darkest line. */
+   White for the letter, because that is the ink all four of these colours name
+   for themselves in the palette. It clears AA body text on every one of them:
+   4.77 on Teal, which is the closest, then 6.68, 8.91 and 15.70. Bright Silver,
+   which the wooden tile used, would have failed on Teal at 4.03. */
 .cid-scope .cid-raci-tile {
   width: 32px; aspect-ratio: 1 / 1; border-radius: 5px;
   display: inline-flex; align-items: center; justify-content: center;
-  background:
-    repeating-linear-gradient(97deg,
-      rgba(65,21,12,.55) 0 1px,
-      rgba(65,21,12,0) 1px 4px,
-      rgba(163,74,46,.30) 4px 5px,
-      rgba(163,74,46,0) 5px 9px),
-    linear-gradient(145deg, #A34A2E 0%, #8C3A22 34%, #752C1A 66%, #5E2114 100%);
   box-shadow:
-    inset 1px 1px 2px rgba(214,140,110,.55),
-    inset -1px -1px 3px rgba(48,15,8,.75),
+    inset 1px 1px 2px rgba(255,255,255,.26),
+    inset -1px -1px 3px rgba(6,2,28,.42),
     0 2px 5px -2px rgba(6,2,28,.5);
   font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
   font-size: 16px; line-height: 1;
-  /* Bright Silver, with a dark seat so the letter never has to rely on the
-     lightest part of the grain for its edge. */
-  color: #E8ECF4; text-shadow: 0 1px 2px rgba(30,9,4,.85);
+  color: #FFFFFF; text-shadow: 0 1px 2px rgba(6,2,28,.45);
 }
+/* One attribute on the row colours both the tile and the word beside it, so
+   the key states the code twice and the chart can be read from either. */
+.cid-scope .cid-viv-raci-key > div[data-raci="R"] .cid-raci-tile { background: #008080; }
+.cid-scope .cid-viv-raci-key > div[data-raci="A"] .cid-raci-tile { background: #822F00; }
+.cid-scope .cid-viv-raci-key > div[data-raci="C"] .cid-raci-tile { background: #19007D; }
+.cid-scope .cid-viv-raci-key > div[data-raci="I"] .cid-raci-tile { background: #7C18E7; }
+.cid-scope .cid-viv-raci-key > div[data-raci="R"] dt { color: #008080; }
+.cid-scope .cid-viv-raci-key > div[data-raci="A"] dt { color: #822F00; }
+.cid-scope .cid-viv-raci-key > div[data-raci="C"] dt { color: #19007D; }
+.cid-scope .cid-viv-raci-key > div[data-raci="I"] dt { color: #7C18E7; }
 .cid-scope .cid-viv-raci-key dd {
   grid-column: 2; margin: 3px 0 0;
   font-size: 12px; line-height: 1.45; color: #5c6076;
