@@ -328,16 +328,25 @@
   .ot-bubble { animation: none; }
 }
 
-/* blurb: centred under the orb on the page's midline (the maple leaf that
-   used to sit beside it is retired). Borderless, so it sits directly on the
-   hero ground. Sizes kept in scale with the page. */
-.ot-bigbox { width: fit-content; max-width: 100%; box-sizing: border-box;
-  background: transparent; border: 0; border-radius: 0; box-shadow: none;
-  padding: clamp(1.1rem, 2.2vw, 1.6rem); margin: 0 auto 18px; }
-.ot-bigbox h1 { max-width: 56rem; font-family: 'Playfair Display', Georgia, serif; font-weight: 600;
-  font-size: clamp(1.2rem, 1.95vw, 1.65rem); line-height: 1.25; letter-spacing: -0.012em;
-  color: var(--ot-ink); margin: 0 auto; text-align: center; text-wrap: balance; }
-.ot-bigbox h1 strong { font-weight: 700; color: #06021c; }
+/* ===== Division emblems ======================================================
+   Three cards centred under the orb where the studio blurb used to be: the
+   emblem on a Darkest Indigo ground (the art is painted on near-black, so
+   the ground swallows its edges), the division's name beneath. The held
+   MIC card is the same tile with a dashed ring and the letters, until the
+   icon arrives. */
+.ot-divs { list-style: none; margin: 8px auto 14px; padding: 0; max-width: 940px;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 2vw, 28px); }
+.ot-div { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.ot-div__art { display: block; width: 100%; aspect-ratio: 1; border-radius: 18px; background: var(--ot-darkest-indigo);
+  object-fit: cover; box-shadow: 0 0 0 1px rgba(91,4,222,0.28), 0 18px 40px -22px rgba(6,2,28,0.65); }
+.ot-div__art--held { display: flex; align-items: center; justify-content: center;
+  border: 2px dashed rgba(232,236,244,0.35); color: #E8ECF4; font-family: 'Montserrat', system-ui, sans-serif;
+  font-weight: 800; font-size: clamp(1.6rem, 3vw, 2.4rem); letter-spacing: 0.14em; }
+.ot-div__name { margin: 0; max-width: 20ch; text-align: center; text-wrap: balance;
+  font-family: var(--ot-font-body); font-weight: 600; font-size: 0.9rem; line-height: 1.3; color: var(--ot-ink); }
+@media (max-width: 720px) {
+  .ot-divs { grid-template-columns: minmax(0, 1fr); max-width: 300px; }
+}
 
 /* below ~1000px there is no room beside the orb for a popped bubble, so the
    bubbles stack under the orb instead (still popping, tails hidden) */
