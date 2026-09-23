@@ -368,13 +368,19 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           </div>
           {/* Division emblems: one card per division under the orb, in place
               of the studio blurb that used to sit here. The CID seal and the
-              RA sigil are the uploaded brand art (web-sized copies of the
-              PNGs in public/assets/brand); MIC's icon is not uploaded yet, so
-              its card holds the slot with its letters until it lands. Names
+              RA sigil are the uploaded brand art and the MIC emcee is the studio's
+              own, all as web-sized copies of the PNGs in public/assets/brand. Names
               are the divisions' names as OooDivisions sets them. */}
           <ul className="ot-divs" aria-label="Divisions">
             <li className="ot-div">
-              <div className="ot-div__art ot-div__art--held" aria-hidden="true"><span>MIC</span></div>
+              <img
+                className="ot-div__art"
+                src={`${import.meta.env.BASE_URL}assets/brand/mic-emcee-640.webp`}
+                alt=""
+                width="640"
+                height="640"
+                loading="lazy"
+              />
               <p className="ot-div__name">Media, Information and Culture (MIC)</p>
             </li>
             <li className="ot-div">
