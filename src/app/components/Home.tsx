@@ -403,7 +403,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 height="640"
                 loading="lazy"
               />
-              <p className="ot-div__name">The Reclaiming Agency</p>
+              <p className="ot-div__name">The RA: Reclaiming Agency</p>
             </li>
           </ul>
         </div>
