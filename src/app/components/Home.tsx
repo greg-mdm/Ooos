@@ -375,7 +375,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             <li className="ot-div">
               <img
                 className="ot-div__art"
-                src={`${import.meta.env.BASE_URL}assets/brand/mic-emcee-640.webp`}
+                src={`${import.meta.env.BASE_URL}assets/brand/mic-micro-de-luxe-640.webp`}
                 alt=""
                 width="640"
                 height="640"
