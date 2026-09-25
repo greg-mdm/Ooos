@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { type CSSProperties, type PointerEvent as ReactPointerEvent, type ReactNode, useEffect, useRef, useState } from "react";
 import { PathwayModal } from "./PathwayModal";
 import { OooDivisions } from "./OooDivisions";
+import { MicroDeLuxeCard } from "./MicroDeLuxeCard";
 import { WaterTanks } from "./WaterTanks";
 import { ONTARIO_REGION_PATHS, ONTARIO_ZONES } from "./ontarioRegions";
 import { CANADA_US_BORDER, CONTEXT_PATHS, GTA_CITIES, GTA_LABELS, GTA_VIEWBOX, ONTARIO_CONTEXT_VIEWBOX, ONTARIO_LABELS, SIMCOE_CENTRE, SIMCOE_PATH, USA_PATH } from "./ontarioContext";
@@ -368,19 +369,13 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           </div>
           {/* Division emblems: one card per division under the orb, in place
               of the studio blurb that used to sit here. The CID seal and the
-              RA sigil are the uploaded brand art and the MIC emcee is the studio's
-              own, all as web-sized copies of the PNGs in public/assets/brand. Names
+              RA sigil are the uploaded brand art as web-sized copies of the PNGs in
+              public/assets/brand; the MIC card is Micro De Luxe, still plus clip
+              (see MicroDeLuxeCard). Names
               are the divisions' names as OooDivisions sets them. */}
           <ul className="ot-divs" aria-label="Divisions">
             <li className="ot-div">
-              <img
-                className="ot-div__art"
-                src={`${import.meta.env.BASE_URL}assets/brand/mic-micro-de-luxe-640.webp`}
-                alt=""
-                width="640"
-                height="640"
-                loading="lazy"
-              />
+              <MicroDeLuxeCard />
               <p className="ot-div__name">Media, Information and Culture (MIC)</p>
             </li>
             <li className="ot-div">
