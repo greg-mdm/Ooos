@@ -3,7 +3,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 /* The MIC division card: Micro De Luxe on his stage. The 1:1 tile stays as
    the still, and when the card scrolls into view the 10-second clip plays
    (he rises off the plinth). The clip runs once; the still returns when it
-   ends. Two controls sit in the corner: sound on/off and replay.
+   ends. Sound on/off and replay sit stacked in the bottom-left corner. A
+   beta (β) button in the bottom-right plays a second clip, Micro at a
+   younger stage of his life cycle; it only renders once that clip is set.
 
    Sound: the clip tries to play with sound. Browsers only allow that once
    the visitor has interacted with the page, so if it is refused the clip
@@ -14,6 +16,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 const BASE = import.meta.env.BASE_URL;
 const POSTER = `${BASE}assets/brand/mic-micro-de-luxe-640.webp`;
 const CLIP = `${BASE}assets/brand/micro-de-luxe-rise.mp4`;
+// the younger-stage clip; empty until it lands, and the β button waits for it
+const BETA_CLIP = "";
+
+type Clip = "rise" | "beta";
 
 function VolumeIcon() {
   return (
@@ -45,6 +51,8 @@ export function MicroDeLuxeCard() {
   const [muted, setMuted] = useState(false);
   const [showStill, setShowStill] = useState(true);
   const [playedOnce, setPlayedOnce] = useState(false);
+  const [clip, setClip] = useState<Clip>("rise");
+  const playAfterSwap = useRef(false);
 
   // Start the clip: with sound first, muted if the browser refuses.
   const start = useCallback(async () => {
@@ -111,19 +119,38 @@ export function MicroDeLuxeCard() {
     void start();
   };
 
+  // β: swap to the younger-stage clip and play it from the top. Replay then
+  // replays whichever clip played last.
+  const playBeta = () => {
+    if (clip === "beta") {
+      replay();
+      return;
+    }
+    playAfterSwap.current = true;
+    setClip("beta");
+  };
+  useEffect(() => {
+    if (!playAfterSwap.current) return;
+    playAfterSwap.current = false;
+    const v = videoRef.current;
+    if (!v) return;
+    v.load();
+    void start();
+  }, [clip, start]);
+
   return (
     <div className={`ot-div__art ot-micro${showStill ? " ot-micro--still" : ""}`}>
       <video
         ref={videoRef}
         className="ot-micro__clip"
-        src={CLIP}
+        src={clip === "beta" ? BETA_CLIP : CLIP}
         poster={POSTER}
         playsInline
         preload="auto"
         width="720"
         height="720"
         onEnded={() => setShowStill(true)}
-        aria-label="Micro De Luxe, the MIC mascot, rises from his stage"
+        aria-label={clip === "beta" ? "Micro De Luxe at a younger stage" : "Micro De Luxe, the MIC mascot, rises from his stage"}
       />
       <img className="ot-micro__still" src={POSTER} alt="" width="640" height="640" loading="lazy" />
       <div className="ot-micro__ctl">
@@ -147,6 +174,20 @@ export function MicroDeLuxeCard() {
           <ReplayIcon />
         </button>
       </div>
+      {BETA_CLIP && (
+        <div className="ot-micro__ctl ot-micro__ctl--beta">
+          <button
+            type="button"
+            className="ot-micro__btn ot-micro__btn--beta"
+            onClick={playBeta}
+            aria-pressed={clip === "beta"}
+            aria-label="Play Micro De Luxe at a younger stage (beta)"
+            title="Beta: younger Micro"
+          >
+            <span aria-hidden="true">β</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
