@@ -155,6 +155,17 @@ a:hover { color: var(--electric); }
 }
 .nav-links a:hover,
 .nav-links a:focus-visible { color: #fff; }
+@media (max-width: 720px) {
+  /* Phones: the brand takes the whole first row, sized to the viewport and
+     set heavier, so STUDIO clears the right edge of the hero orb below it
+     (the orb's sphere is 192px wide, centred). The links drop to a second
+     row on the right instead of squeezing the brand into three lines. */
+  .nav-inner { flex-wrap: wrap; row-gap: 6px; padding: 12px 20px 10px; }
+  .nav-brand { flex: 1 0 100%; gap: 10px; }
+  .nav-brand-mark { font-size: clamp(30px, 8vw, 44px); font-weight: 900; }
+  .nav-brand-text { font-size: clamp(14px, 4vw, 22px); font-weight: 800; letter-spacing: 0.16em; white-space: nowrap; }
+  .nav-links { flex: 1 0 100%; justify-content: flex-end; gap: 22px; }
+}
 .nav-cta {
   background: #fff;
   color: var(--dark-indigo) !important;

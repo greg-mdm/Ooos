@@ -122,16 +122,15 @@ export function Home({ onSupport }: { onSupport: () => void }) {
   const [pathwayOpen, setPathwayOpen] = useState(false);
   const [rings, setRings] = useState(0);
   const [ringing, setRinging] = useState(false);
-  /* ring two: the globe dips for a beat and the wordmark pops out */
+  /* ring two: the globe dips for a beat and the wordmark pops out of the logo */
   const [pressing, setPressing] = useState(false);
   const [popping, setPopping] = useState(false);
   /* ring three: the maple leaf pops out as the pin is pressed */
   const [leafing, setLeafing] = useState(false);
-  /* where the wordmark flies: from the bell's centre, through the Ooo!
-     wordmark in the top bar, and off the top of the screen. Measured when
-     ring two fires so it holds at any viewport size. */
-  const [popVec, setPopVec] = useState<{ dx: number; dy: number }>({ dx: 0, dy: -600 });
-  const bellRef = useRef<HTMLButtonElement>(null);
+  /* how far the wordmark flies: straight up from the sphere's centre to
+     well above the top of the screen. Measured when ring two fires so it
+     holds at any viewport size and scroll position. */
+  const [popDy, setPopDy] = useState(-600);
   const [mapOpen, setMapOpen] = useState(false);
   const [hotZone, setHotZone] = useState<string | null>(null);
   /* the map at two scales: the whole province on its water, or the western
@@ -204,19 +203,14 @@ export function Home({ onSupport }: { onSupport: () => void }) {
       }, BELL_SWING_MS);
     } else if (rings === 1) {
       /* second ring: the globe presses in with a higher ping, the wordmark
-         pops out of the circle and fades while the welcome line appears
-         beside the orb, and the face finishes as the location pin */
+         pops out of the logo and sails off the top of the screen while the
+         welcome line appears, and the face finishes as the location pin */
       ding(1.5);
-      const bell = bellRef.current?.getBoundingClientRect();
-      const mark = document.querySelector(".nav-brand-mark")?.getBoundingClientRect();
-      if (bell) {
-        const cx = bell.left + bell.width / 2, cy = bell.top + bell.height / 2;
-        const tx = mark ? mark.left + mark.width / 2 : cx;
-        const ty = mark ? mark.top + mark.height / 2 : 0;
-        /* aim through the wordmark and keep going until well above the top edge */
-        const endY = -160;
-        const k = ty < cy ? (endY - cy) / (ty - cy) : 1;
-        setPopVec({ dx: (tx - cx) * k, dy: endY - cy });
+      const logo = document.querySelector(".ot-logo")?.getBoundingClientRect();
+      if (logo) {
+        /* the sphere's centre sits 135px down the 300px plate; keep going
+           until well above the top edge of the viewport */
+        setPopDy(-160 - (logo.top + 135));
       }
       setPressing(true);
       setPopping(true);
@@ -250,13 +244,12 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 border + glow. Ring 1 wiggles the bell, then pops the gateway
                 bubble out of the orb's left side and flips the face to the
                 globe. Ring 2 presses the globe in: the Ooo! wordmark pops out
-                of the circle and fades, the welcome bubble pops out of the
-                orb's right side, and the face finishes as the location pin.
+                of the logo and sails off the top, the welcome bubble pops out
+                of the orb's right side, and the face finishes as the location pin.
                 Ring 3 presses the pin in and stays in, lighting the location
                 details under the Toronto sign. Ring 4 clears all. */}
             <div className="ot-trio__side ot-trio__left">
               <button
-                ref={bellRef}
                 type="button"
                 className={`ot-bell${rings > 0 ? " active" : ""}${rings === 3 || pressing ? " pressed" : ""}${ringing ? " ringing" : ""}`}
                 aria-label={BELL_LABELS[rings]}
@@ -288,16 +281,6 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                     <circle cx="12" cy="10" r="3" />
                   </svg>
                 )}
-                {/* the wordmark, popping out of the circle on ring two */}
-                {popping && (
-                  <img
-                    className="ot-bell__pop"
-                    src="/assets/brand/ooo-wordmark-portal-transparent.png"
-                    alt=""
-                    aria-hidden="true"
-                    style={{ "--pop-dx": `${popVec.dx}px`, "--pop-dy": `${popVec.dy}px` } as CSSProperties}
-                  />
-                )}
                 {/* the maple leaf, popping out of the circle on ring three.
                     Font Awesome Free 6 brands "canadian-maple-leaf", inlined
                     (icons CC BY 4.0, fontawesome.com) so the site does not
@@ -317,6 +300,16 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 width="300"
                 height="300"
               />
+              {/* the wordmark, popping out of the logo on ring two */}
+              {popping && (
+                <img
+                  className="ot-orb__pop"
+                  src="/assets/brand/ooo-wordmark-portal-transparent.png"
+                  alt=""
+                  aria-hidden="true"
+                  style={{ "--pop-dy": `${popDy}px` } as CSSProperties}
+                />
+              )}
               <div id="ot-bubbles" className="ot-bubbles" aria-live="polite">
                 {rings >= 1 && (
                   <div className="ot-bubble-group ot-bubble-group--left">

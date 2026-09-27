@@ -107,25 +107,27 @@
 .ot-bell.pressed::before {
   box-shadow: 12px 16px 24px 6px rgba(26,0,51,0.24) inset, rgba(255,255,255,1) -14px -22px 18px -8px inset; }
 .ot-bell.pressed .ot-bell__icon--globe { width: 34px; height: 34px; }
-/* ring two: the Ooo! wordmark pops up out of the circle, hangs for a beat,
-   then drifts up and fades. It rides on the button (position relative) and
-   never takes the pointer. */
-/* The flight: the wordmark bursts out of the circle, hangs just above it for
-   a beat, then sails up across the hero along --pop-dx/--pop-dy (set per
-   ring, aimed through the top bar's Ooo! and off the top edge), shrinking
-   as it goes, and is gone before it could settle anywhere. */
+/* ring two: the Ooo! wordmark pops out of the logo. It rides on
+   .ot-trio__orb (position relative), anchored at the sphere's centre (the
+   sphere sits at 44.9% of the 300px plate, so 135px down), and never takes
+   the pointer. The flight: it bursts up out of the sphere, hangs just clear
+   of its top edge for a beat, then sails straight up along --pop-dy (set per
+   ring: off the top of the viewport), shrinking and fading as it goes, so it
+   crosses nothing on the way out and slips behind the top bar. */
 @keyframes otWordmarkPop {
   0%   { opacity: 0; transform: translate(-50%, -50%) translate(0, 0) scale(0.2); }
-  14%  { opacity: 1; transform: translate(-50%, -50%) translate(0, -70px) scale(1.1); }
-  26%  { opacity: 1; transform: translate(-50%, -50%) translate(0, -80px) scale(1); }
-  88%  { opacity: 1; }
-  100% { opacity: 0; transform: translate(-50%, -50%) translate(var(--pop-dx, 0px), var(--pop-dy, -600px)) scale(0.5); }
+  14%  { opacity: 1; transform: translate(-50%, -50%) translate(0, -130px) scale(1.1); }
+  26%  { opacity: 1; transform: translate(-50%, -50%) translate(0, -140px) scale(1); }
+  70%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -50%) translate(0, var(--pop-dy, -600px)) scale(0.5); }
 }
-.ot-bell__pop { position: absolute; left: 50%; top: 50%; z-index: 5; width: 160px; height: auto;
+.ot-orb__pop { position: absolute; left: 50%; top: 135px; z-index: 5; width: 160px; height: auto;
   pointer-events: none; filter: drop-shadow(0 6px 14px rgba(75,0,182,0.35));
   animation: otWordmarkPop 1.7s cubic-bezier(.4,0,.6,1) both; }
-/* ring three: the maple leaf bursts the same way, then drifts up into the
-   hero with a little sway and fades out well clear of the button */
+/* ring three: the maple leaf pops out of the bell the same way, then drifts
+   up into the hero with a little sway and fades out well clear of the button;
+   it rides on the button (position relative) and never takes the pointer */
+.ot-bell__pop { position: absolute; left: 50%; top: 50%; z-index: 5; pointer-events: none; }
 @keyframes otLeafPop {
   0%   { opacity: 0; transform: translate(-50%, -50%) translate(0, 0) scale(0.2) rotate(0deg); }
   16%  { opacity: 1; transform: translate(-50%, -50%) translate(0, -72px) scale(1.1) rotate(-8deg); }
@@ -323,7 +325,7 @@
   .ot-viewbook { animation: none; }
   .ot-bell, .ot-bell::before, .ot-bell::after, .ot-bell__icon { transition: none; }
   .ot-bell__icon, .ot-bell.ringing .ot-bell__icon { animation: none; }
-  .ot-bell__pop { animation: none; opacity: 0; }
+  .ot-bell__pop, .ot-orb__pop { animation: none; opacity: 0; }
   .ot-place { animation: none; }
   .ot-bubble { animation: none; }
 }
@@ -365,7 +367,10 @@
 /* below ~1000px there is no room beside the orb for a popped bubble, so the
    bubbles stack under the orb instead (still popping, tails hidden) */
 @media (max-width: 1000px) {
-  .ot-bubbles { position: static; }
+  /* the logo plate carries 72px of empty ground under the sphere; pull the
+     stack up into it so the bubbles (and, on phones, the bell) sit close
+     under the sphere instead of under the plate */
+  .ot-bubbles { position: static; margin-top: -60px; }
   .ot-bubble-group { position: static; align-items: center; margin-top: 12px; }
   .ot-bubble { width: auto; max-width: min(100%, 22rem); transform-origin: 50% 100%; }
   .ot-bubble-group .ot-bubble { transform-origin: 50% 100%; }
