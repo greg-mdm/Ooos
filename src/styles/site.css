@@ -155,17 +155,6 @@ a:hover { color: var(--electric); }
 }
 .nav-links a:hover,
 .nav-links a:focus-visible { color: #fff; }
-@media (max-width: 720px) {
-  /* Phones: the brand takes the whole first row, sized to the viewport and
-     set heavier, so STUDIO clears the right edge of the hero orb below it
-     (the orb's sphere is 192px wide, centred). The links drop to a second
-     row on the right instead of squeezing the brand into three lines. */
-  .nav-inner { flex-wrap: wrap; row-gap: 6px; padding: 12px 20px 10px; }
-  .nav-brand { flex: 1 0 100%; gap: 10px; }
-  .nav-brand-mark { font-size: clamp(30px, 8vw, 44px); font-weight: 900; }
-  .nav-brand-text { font-size: clamp(14px, 4vw, 22px); font-weight: 800; letter-spacing: 0.16em; white-space: nowrap; }
-  .nav-links { flex: 1 0 100%; justify-content: flex-end; gap: 22px; }
-}
 .nav-cta {
   background: #fff;
   color: var(--dark-indigo) !important;
@@ -5299,32 +5288,39 @@ textarea:focus-visible,
    page panned sideways over blank canvas beside the purple nav band.
    1. Nothing may widen the document: overflow-x clip on html/body (clip, not
       hidden, so the sticky desktop nav keeps working).
-   2. The phone nav drops its links and sets "Ooo! DIGITAL MEDIA STUDIO" on
-      one line, sized off the viewport so it never wraps or spills.
+   2. The phone nav sets "Ooo! DIGITAL MEDIA STUDIO" on one full-width line,
+      sized off the viewport and set heavier (Montserrat 800, Playfair 900)
+      so STUDIO clears the right edge of the hero orb's sphere (192px,
+      centred) without ever wrapping or spilling; the links sit on a second
+      row, right-aligned, instead of squeezing the brand (Greg, 2026-09-27).
    3. The featured pills, feature cards and studio panes wrap and stay inside
       the viewport, so their centre is the true page centre again. */
 html, body { overflow-x: clip; }
 @media (max-width: 720px) {
-  .nav-links { display: none !important; }
   .nav-inner {
-    padding: 12px 16px;
+    flex-wrap: wrap;
+    row-gap: 6px;
+    padding: 12px 16px 10px;
     justify-content: flex-start;
     gap: 0;
     overflow: hidden;
   }
   .nav-brand {
+    flex: 1 0 100%;
     flex-wrap: nowrap;
     min-width: 0;
     max-width: 100%;
     gap: 10px;
   }
-  .nav-brand-mark { flex: 0 0 auto; font-size: clamp(22px, 7vw, 30px); }
+  .nav-brand-mark { flex: 0 0 auto; font-size: clamp(26px, 8vw, 44px); font-weight: 900; }
   .nav-brand-text {
     white-space: nowrap;
     min-width: 0;
-    font-size: clamp(10px, 3vw, 13px);
-    letter-spacing: 0.1em;
+    font-size: clamp(12px, 4vw, 22px);
+    font-weight: 800;
+    letter-spacing: 0.16em;
   }
+  .nav-links { flex: 1 0 100%; justify-content: flex-end; gap: 22px; }
   .btn-ostara,
   .btn-exhibition {
     white-space: normal;
