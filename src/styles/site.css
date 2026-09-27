@@ -5281,3 +5281,51 @@ textarea:focus-visible,
    and credit read in silver and gold rather than ink and teal. */
 .midway-card__text .exhibit-haiku__line { color: #E8ECF4; }
 .midway-card__text .exhibit-haiku__author { color: #F0C040; margin-top: 12px; }
+
+/* ===== MOBILE LAYOUT GUARD (2026-09-27) =====
+   Phones (Samsung Internet with Android font scaling) pushed the nav links,
+   the Ostara pill and the studio pane wordmarks past the right edge, so the
+   page panned sideways over blank canvas beside the purple nav band.
+   1. Nothing may widen the document: overflow-x clip on html/body (clip, not
+      hidden, so the sticky desktop nav keeps working).
+   2. The phone nav drops its links and sets "Ooo! DIGITAL MEDIA STUDIO" on
+      one line, sized off the viewport so it never wraps or spills.
+   3. The featured pills, feature cards and studio panes wrap and stay inside
+      the viewport, so their centre is the true page centre again. */
+html, body { overflow-x: clip; }
+@media (max-width: 720px) {
+  .nav-links { display: none !important; }
+  .nav-inner {
+    padding: 12px 16px;
+    justify-content: flex-start;
+    gap: 0;
+    overflow: hidden;
+  }
+  .nav-brand {
+    flex-wrap: nowrap;
+    min-width: 0;
+    max-width: 100%;
+    gap: 10px;
+  }
+  .nav-brand-mark { flex: 0 0 auto; font-size: clamp(22px, 7vw, 30px); }
+  .nav-brand-text {
+    white-space: nowrap;
+    min-width: 0;
+    font-size: clamp(10px, 3vw, 13px);
+    letter-spacing: 0.1em;
+  }
+  .btn-ostara,
+  .btn-exhibition {
+    white-space: normal;
+    text-align: center;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .featured { grid-template-columns: 1fr; }
+  .featured > * { min-width: 0; max-width: 100%; }
+  .dual > .pane { min-width: 0; max-width: 100%; box-sizing: border-box; }
+  .pane-wordmark { flex-wrap: wrap; row-gap: 6px; }
+  .service-chips { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .service-chips--stack { grid-template-columns: minmax(0, 1fr); }
+  .service-chip { min-width: 0; overflow-wrap: anywhere; }
+}
