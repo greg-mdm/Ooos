@@ -345,13 +345,14 @@
 
 /* MIC card with the Micro De Luxe clip: the still (the 1:1 tile) sits over
    the video and fades out while the clip plays, back in when it ends. Sound
-   and replay stack in the bottom-left corner, clear of the nameplate; the
-   beta (β) button sits alone in the bottom-right. */
+   and replay stack on the left, the beta (β) button on the right, all
+   raised off the bottom edge so they clear the nameplate in the still and
+   in both clips. */
 .ot-micro { position: relative; overflow: hidden; }
 .ot-micro__clip, .ot-micro__still { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .ot-micro__still { opacity: 0; transition: opacity 0.45s ease; pointer-events: none; }
 .ot-micro--still .ot-micro__still { opacity: 1; }
-.ot-micro__ctl { position: absolute; left: 10px; bottom: 10px; z-index: 2; display: flex; flex-direction: column; gap: 6px; }
+.ot-micro__ctl { position: absolute; left: 10px; bottom: 16%; z-index: 2; display: flex; flex-direction: column; gap: 6px; }
 .ot-micro__ctl--beta { left: auto; right: 10px; }
 .ot-micro__btn { width: 34px; height: 34px; padding: 0; border-radius: 50%; cursor: pointer;
   border: 1px solid rgba(255,255,255,0.35); background: rgba(6,2,28,0.62); color: #fff;

@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
    (he rises off the plinth). The clip runs once; the still returns when it
    ends. Sound on/off and replay sit stacked in the bottom-left corner. A
    beta (β) button in the bottom-right plays a second clip, Micro at a
-   younger stage of his life cycle; it only renders once that clip is set.
+   younger stage of his life cycle, played to the end.
 
    Sound: the clip tries to play with sound. Browsers only allow that once
    the visitor has interacted with the page, so if it is refused the clip
@@ -16,8 +16,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 const BASE = import.meta.env.BASE_URL;
 const POSTER = `${BASE}assets/brand/mic-micro-de-luxe-640.webp`;
 const CLIP = `${BASE}assets/brand/micro-de-luxe-rise.mp4`;
-// the younger-stage clip; empty until it lands, and the β button waits for it
-const BETA_CLIP = "";
+// the younger-stage clip, played by the β button
+const BETA_CLIP = `${BASE}assets/brand/micro-de-luxe-beta.mp4`;
 
 type Clip = "rise" | "beta";
 
