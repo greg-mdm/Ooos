@@ -1800,13 +1800,20 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 does that lift, so a fresh export can be run back through it
                 rather than merged by hand.
 
+                Since 2026-09-27 the bubble no longer drags. Its clamp allowed
+                about thirty pixels of travel, which read as a control that did
+                nothing, so the panel is a fixed composition: the bubble rests
+                whole on a bottom scrim that mirrors the header, Midnight Black
+                lifting through Teal 950 cyan as it dissipates, and the quote
+                fills the bubble at the lexicon's weight.
+
                 The frame is titled rather than labelled by the words inside it,
                 since the words are in another document and no screen reader
                 will reach them from this one. */}
             <figure className="cid-viv-bio">
               <iframe
                 className="cid-viv-bio-frame"
-                src={`${base}cid/biomimicry-panel.html?v=19`}
+                src={`${base}cid/biomimicry-panel.html?v=20`}
                 title="Why practice biomimicry? Organisms and ecosystems face the same challenges that we humans do, but, they meet those challenges sustainably. Learn Biomimicry, Field Guide to Biomimicry, 2021, pages 3 and 7."
                 loading="lazy"
               />
