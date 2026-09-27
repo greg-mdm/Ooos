@@ -3,6 +3,7 @@ import { type CSSProperties, type PointerEvent as ReactPointerEvent, type ReactN
 import { PathwayModal } from "./PathwayModal";
 import { OooDivisions } from "./OooDivisions";
 import { MicroDeLuxeCard } from "./MicroDeLuxeCard";
+import { CidSealCard } from "./CidSealCard";
 import { WaterTanks } from "./WaterTanks";
 import { ONTARIO_REGION_PATHS, ONTARIO_ZONES } from "./ontarioRegions";
 import { CANADA_US_BORDER, CONTEXT_PATHS, GTA_CITIES, GTA_LABELS, GTA_VIEWBOX, ONTARIO_CONTEXT_VIEWBOX, ONTARIO_LABELS, SIMCOE_CENTRE, SIMCOE_PATH, USA_PATH } from "./ontarioContext";
@@ -372,14 +373,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               <p className="ot-div__name">Media, Information and Culture (MIC)</p>
             </li>
             <li className="ot-div">
-              <img
-                className="ot-div__art"
-                src={`${import.meta.env.BASE_URL}assets/brand/cid-seal-640.webp`}
-                alt=""
-                width="640"
-                height="640"
-                loading="lazy"
-              />
+              <CidSealCard />
               <p className="ot-div__name">Canadian Innovation Dimension (CID)</p>
             </li>
             <li className="ot-div">
