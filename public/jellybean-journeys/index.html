@@ -24,6 +24,16 @@
   [data-portal]:fullscreen.idle [data-fsbar] { opacity: 0 !important; transform: translate(-50%, 12px) !important; pointer-events: none !important; }
   [data-portal]:fullscreen [data-fshint] { opacity: 1 !important; }
   [data-portal]:fullscreen.idle [data-fshint] { opacity: 0 !important; }
+  /* The bar sits at the bottom and wraps, so Join, Disperse, Reset and Back
+     all fit across a phone; it clears the home indicator on notched phones. */
+  [data-portal]:fullscreen [data-fsbar] { flex-wrap: wrap; justify-content: center; max-width: calc(100vw - 20px); bottom: calc(14px + env(safe-area-inset-bottom, 0px)) !important; }
+  /* Touch: there is no pointer to move and no Esc key, and taps inside the
+     scene never reach this document, so the bar must never idle away. */
+  @media (hover: none), (pointer: coarse) {
+    [data-portal]:fullscreen.idle { cursor: default; }
+    [data-portal]:fullscreen.idle [data-fsbar] { opacity: 1 !important; transform: translate(-50%, 0) !important; pointer-events: auto !important; }
+    [data-portal]:fullscreen [data-fshint] { display: none; }
+  }
 
   :focus-visible { outline: 3px solid #F0C040; outline-offset: 3px; border-radius: 6px; }
   [data-act]:focus-visible, [data-dot]:focus-visible, [data-iso]:focus-visible { outline: 3px solid #F0C040; outline-offset: 3px; }
@@ -281,7 +291,7 @@
         <button data-act="disperse" style="display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 18px; font:inherit; font-size:14px; font-weight:700; color:#fff; background:linear-gradient(180deg,#9a5cf0 0%,#6f28cf 44%,#42106f 100%); border:0; border-radius:11px; cursor:pointer; box-shadow:inset 0 1px 0 rgba(255,255,255,0.34);">Disperse</button>
         <button data-act="reset" aria-label="Reset view" style="width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:11px; border:1px solid transparent; background:rgba(255,255,255,0.05); color:#eef0f6; cursor:pointer;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9 9 0 0 0-6.7 3M3 3v4.5H7.5"/></svg></button>
         <span style="width:1px; align-self:stretch; margin:5px 3px; background:rgba(255,255,255,0.14);" aria-hidden="true"></span>
-        <button data-act="fullscreen" aria-label="Exit the environment" style="display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 16px; font:inherit; font-size:13px; font-weight:600; color:#eef0f6; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.16); border-radius:11px; cursor:pointer;"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4M15 3h4a2 2 0 0 1 2 2v4M9 21H5a2 2 0 0 1-2-2v-4M15 21h4a2 2 0 0 0 2-2v-4"/></svg>Exit</button>
+        <button data-act="fullscreen" aria-label="Back — return from the environment" style="display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 16px; font:inherit; font-size:13px; font-weight:600; color:#eef0f6; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.16); border-radius:11px; cursor:pointer;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Back</button>
       </div>
       <div data-fshint aria-hidden="true" style="position:absolute; top:18px; left:50%; transform:translateX(-50%); z-index:8; font-size:11.5px; letter-spacing:1px; color:rgba(255,255,255,0.55); background:rgba(10,8,32,0.5); padding:5px 13px; border-radius:999px; opacity:0; transition:opacity .45s; pointer-events:none;">Drag to orbit · scroll to zoom · J join · K disperse · Esc to exit</div>
     </div>
@@ -565,6 +575,9 @@ class Component extends DCLogic {
     if (!this.root) return;
     this.root.style.setProperty('--gold', this.props.accentColor || '#F0C040');
     this.reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Touch has no pointer to move and no Esc key, and taps inside the scene
+    // iframe never reach this document, so the bar stays up for the visit.
+    this.touch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
     this.portal = this.root.querySelector('[data-portal]');
     this.iframe = this.root.querySelector('[data-scene]');
 
@@ -674,6 +687,7 @@ class Component extends DCLogic {
   }
   scheduleIdle() {
     clearTimeout(this._idleT);
+    if (this.touch) return;
     this._idleT = setTimeout(() => {
       if (document.fullscreenElement === this.portal) this.setState({ idle: true });
     }, 2800);
