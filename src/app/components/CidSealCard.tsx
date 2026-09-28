@@ -2,8 +2,8 @@ import { useState } from "react";
 
 /* The CID division card: the seal at rest, and two corner buttons that
    swap in the other medallions under review. Bottom-left, a maple leaf
-   brings in the Canada Quadrant seal; bottom-right, the octopus brings in
-   the Marine Squad seal. Tapping the active button returns to the seal at
+   brings in the Canadian Quadrant seal; bottom-right, the octopus brings
+   in the Marine Squadron seal. Tapping the active button returns to the seal at
    rest. Icons are Font Awesome Free brand marks (canadian-maple-leaf and
    octopus-deploy, 6.x, CC BY 4.0, https://fontawesome.com/license/free),
    inlined so no font loads for them. All three tiles were cut with the
@@ -54,8 +54,8 @@ export function CidSealCard() {
           className="ot-seal__btn"
           onClick={() => toggle("canada")}
           aria-pressed={face === "canada"}
-          aria-label={face === "canada" ? "Show the CID seal" : "Show the Canada Quadrant seal"}
-          title={face === "canada" ? "CID seal" : "Canada Quadrant"}
+          aria-label={face === "canada" ? "Show the CID seal" : "Show the Canadian Quadrant seal"}
+          title={face === "canada" ? "CID seal" : "Canadian Quadrant"}
         >
           <LeafIcon />
         </button>
@@ -66,8 +66,8 @@ export function CidSealCard() {
           className="ot-seal__btn"
           onClick={() => toggle("marine")}
           aria-pressed={face === "marine"}
-          aria-label={face === "marine" ? "Show the CID seal" : "Show the Marine Squad seal"}
-          title={face === "marine" ? "CID seal" : "Marine Squad"}
+          aria-label={face === "marine" ? "Show the CID seal" : "Show the Marine Squadron seal"}
+          title={face === "marine" ? "CID seal" : "Marine Squadron"}
         >
           <OctopusIcon />
         </button>
