@@ -5288,11 +5288,11 @@ textarea:focus-visible,
    page panned sideways over blank canvas beside the purple nav band.
    1. Nothing may widen the document: overflow-x clip on html/body (clip, not
       hidden, so the sticky desktop nav keeps working).
-   2. The phone nav sets "Ooo! DIGITAL MEDIA STUDIO" on one full-width line,
-      sized off the viewport and set heavier (Montserrat 800, Playfair 900)
-      so STUDIO clears the right edge of the hero orb's sphere (192px,
-      centred) without ever wrapping or spilling; the links sit on a second
-      row, right-aligned, instead of squeezing the brand (Greg, 2026-09-27).
+   2. The phone nav is the brand alone: "Ooo! DIGITAL MEDIA STUDIO" on one
+      full-width line, sized off the viewport so it never wraps or spills,
+      in the wordmark's standard weights (Playfair 700, Montserrat 700; the
+      heavier cut read as chubby). The links stay hidden on phones (Greg,
+      2026-09-27: Innovation and Design had crept back by mistake).
    3. The featured pills, feature cards and studio panes wrap and stay inside
       the viewport, so their centre is the true page centre again. */
 html, body { overflow-x: clip; }
@@ -5312,15 +5312,15 @@ html, body { overflow-x: clip; }
     max-width: 100%;
     gap: 10px;
   }
-  .nav-brand-mark { flex: 0 0 auto; font-size: clamp(26px, 8vw, 44px); font-weight: 900; }
+  .nav-brand-mark { flex: 0 0 auto; font-size: clamp(26px, 8vw, 44px); font-weight: 700; }
   .nav-brand-text {
     white-space: nowrap;
     min-width: 0;
     font-size: clamp(12px, 4vw, 22px);
-    font-weight: 800;
+    font-weight: 700;
     letter-spacing: 0.16em;
   }
-  .nav-links { flex: 1 0 100%; justify-content: flex-end; gap: 22px; }
+  .nav-links { display: none !important; }
   .btn-ostara,
   .btn-exhibition {
     white-space: normal;
