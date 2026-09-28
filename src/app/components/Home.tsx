@@ -20,11 +20,8 @@ const WELCOME_LINE = "Welcome to our vibrant innovation ecosystem!";
 const PLACE_LINE = ["Ontario", "Provincial Map", "Economic Regions"];
 const BELL_LABELS = ["Ring the bell", "Ring the bell again", "Ring the bell again", "Ring the bell to clear the messages"];
 const BELL_SWING_MS = 620;
-/* the momentary press on the globe, and how long the wordmark takes to pop
-   out of the circle and fade */
+/* the momentary press on the globe */
 const PRESS_MS = 420;
-const POP_MS = 1700;
-const LEAF_MS = 1400;
 
 /* Soft two-partial "ding" synthesised in WebAudio (no external audio assets).
    `pitch` scales both partials: 1 is the bell's ding, 1.5 (a fifth up) is the
@@ -124,15 +121,8 @@ export function Home({ onSupport }: { onSupport: () => void }) {
   const [pathwayOpen, setPathwayOpen] = useState(false);
   const [rings, setRings] = useState(0);
   const [ringing, setRinging] = useState(false);
-  /* ring two: the globe dips for a beat and the wordmark pops out of the logo */
+  /* ring two: the globe dips for a beat */
   const [pressing, setPressing] = useState(false);
-  const [popping, setPopping] = useState(false);
-  /* ring three: the maple leaf pops out as the pin is pressed */
-  const [leafing, setLeafing] = useState(false);
-  /* how far the wordmark flies: straight up from the sphere's centre to
-     well above the top of the screen. Measured when ring two fires so it
-     holds at any viewport size and scroll position. */
-  const [popDy, setPopDy] = useState(-600);
   const [mapOpen, setMapOpen] = useState(false);
   const [hotZone, setHotZone] = useState<string | null>(null);
   /* the map at two scales: the whole province on its water, or the western
@@ -147,13 +137,9 @@ export function Home({ onSupport }: { onSupport: () => void }) {
   const grip = useRef<{ dx: number; dy: number } | null>(null);
   const swingTimer = useRef<number | undefined>(undefined);
   const pressTimer = useRef<number | undefined>(undefined);
-  const popTimer = useRef<number | undefined>(undefined);
-  const leafTimer = useRef<number | undefined>(undefined);
   useEffect(() => () => {
     window.clearTimeout(swingTimer.current);
     window.clearTimeout(pressTimer.current);
-    window.clearTimeout(popTimer.current);
-    window.clearTimeout(leafTimer.current);
   }, []);
   /* Escape closes the viewbook; focus lands on it when it opens and returns
      to the location stack when it closes */
@@ -193,7 +179,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
   const hot = ONTARIO_ZONES.find((z) => z.id === hotZone) ?? null;
   const zoneClass = (id: string) => (hotZone === id ? " is-hot" : hotZone ? " is-dim" : "");
   const ring = () => {
-    if (ringing || popping || leafing) return;
+    if (ringing) return;
     if (rings === 0) {
       /* first ring: the bell dingles for a beat, then the face flips to the
          globe and the gateway line pops */
@@ -204,29 +190,20 @@ export function Home({ onSupport }: { onSupport: () => void }) {
         setRings(1);
       }, BELL_SWING_MS);
     } else if (rings === 1) {
-      /* second ring: the globe presses in with a higher ping, the wordmark
-         pops out of the logo and sails off the top of the screen while the
-         welcome line appears, and the face finishes as the location pin */
+      /* second ring: the globe presses in with a higher ping while the
+         welcome line appears, and the face becomes the location pin. (The
+         wordmark that used to pop out of the logo here is retired: it
+         overlapped the page and added friction.) */
       ding(1.5);
-      const logo = document.querySelector(".ot-logo")?.getBoundingClientRect();
-      if (logo) {
-        /* the sphere's centre sits 135px down the 300px plate; keep going
-           until well above the top edge of the viewport */
-        setPopDy(-160 - (logo.top + 135));
-      }
       setPressing(true);
-      setPopping(true);
       setRings(2);
       pressTimer.current = window.setTimeout(() => setPressing(false), PRESS_MS);
-      popTimer.current = window.setTimeout(() => setPopping(false), POP_MS);
     } else if (rings === 2) {
-      /* third ring: the pin presses in and stays in, a red maple leaf pops
-         out of the circle and fades, and the location details light up
-         under the sign */
+      /* third ring: the pin presses in and stays in, and the location
+         details light up under the sign. (The maple leaf that used to pop
+         out here is retired for the same reason as the wordmark.) */
       ding(1.8);
-      setLeafing(true);
       setRings(3);
-      leafTimer.current = window.setTimeout(() => setLeafing(false), LEAF_MS);
     } else {
       ding();
       setRings(0);
@@ -234,9 +211,8 @@ export function Home({ onSupport }: { onSupport: () => void }) {
       setHotZone(null);
     }
   };
-  /* the face: bell at rest, the globe after ring one, the pin from the end
-     of ring two on (the globe stays while the wordmark is still popping) */
-  const face = rings === 0 ? "bell" : rings === 1 || popping ? "globe" : "pin";
+  /* the face: bell at rest, the globe after ring one, the pin from ring two on */
+  const face = rings === 0 ? "bell" : rings === 1 ? "globe" : "pin";
   return (
     <>
       <section className="ooos-top" aria-label="Welcome">
@@ -245,9 +221,8 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             {/* Ding bell: neumorphic control wearing the welcome pill's purple
                 border + glow. Ring 1 wiggles the bell, then pops the gateway
                 bubble out of the orb's left side and flips the face to the
-                globe. Ring 2 presses the globe in: the Ooo! wordmark pops out
-                of the logo and sails off the top, the welcome bubble pops out
-                of the orb's right side, and the face finishes as the location pin.
+                globe. Ring 2 presses the globe in: the welcome bubble pops out
+                of the orb's right side and the face becomes the location pin.
                 Ring 3 presses the pin in and stays in, lighting the location
                 details under the Toronto sign. Ring 4 clears all. */}
             <div className="ot-trio__side ot-trio__left">
@@ -283,15 +258,6 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                     <circle cx="12" cy="10" r="3" />
                   </svg>
                 )}
-                {/* the maple leaf, popping out of the circle on ring three.
-                    Font Awesome Free 6 brands "canadian-maple-leaf", inlined
-                    (icons CC BY 4.0, fontawesome.com) so the site does not
-                    load the whole icon library for one glyph. */}
-                {leafing && (
-                  <svg className="ot-bell__pop ot-bell__pop--leaf" viewBox="0 0 512 512" aria-hidden="true">
-                    <path d="M383.8 351.7c2.5-2.5 105.2-92.4 105.2-92.4l-17.5-7.5c-10-4.9-7.4-11.5-5-17.4 2.4-7.6 20.1-67.3 20.1-67.3s-47.7 10-57.7 12.5c-7.5 2.4-10-2.5-12.5-7.5s-15-32.4-15-32.4-52.6 59.9-55.1 62.3c-10 7.5-20.1 0-17.6-10 0-10 27.6-129.6 27.6-129.6s-30.1 17.4-40.1 22.4c-7.5 5-12.6 5-17.6-5C293.5 72.3 255.9 0 255.9 0s-37.5 72.3-42.5 79.8c-5 10-10 10-17.6 5-10-5-40.1-22.4-40.1-22.4S183.3 182 183.3 192c2.5 10-7.5 17.5-17.6 10-2.5-2.5-55.1-62.3-55.1-62.3S98.1 167 95.6 172s-5 9.9-12.5 7.5C73 177 25.4 167 25.4 167s17.6 59.7 20.1 67.3c2.4 6 5 12.5-5 17.4L23 259.3s102.6 89.9 105.2 92.4c5.1 5 10 7.5 5.1 22.5-5.1 15-10.1 35.1-10.1 35.1s95.2-20.1 105.3-22.6c8.7-.9 18.3 2.5 18.3 12.5S241 512 241 512h30s-5.8-102.7-5.8-112.8 9.5-13.4 18.4-12.5c10 2.5 105.2 22.6 105.2 22.6s-5-20.1-10-35.1 0-17.5 5-22.5z" />
-                  </svg>
-                )}
               </button>
             </div>
             <div className="ot-trio__orb">
@@ -302,16 +268,6 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 width="300"
                 height="300"
               />
-              {/* the wordmark, popping out of the logo on ring two */}
-              {popping && (
-                <img
-                  className="ot-orb__pop"
-                  src="/assets/brand/ooo-wordmark-portal-transparent.png"
-                  alt=""
-                  aria-hidden="true"
-                  style={{ "--pop-dy": `${popDy}px` } as CSSProperties}
-                />
-              )}
               <div id="ot-bubbles" className="ot-bubbles" aria-live="polite">
                 {rings >= 1 && (
                   <div className="ot-bubble-group ot-bubble-group--left">
