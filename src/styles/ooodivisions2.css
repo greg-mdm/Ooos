@@ -86,47 +86,21 @@
 .ood-key.is-on{box-shadow:inset 0 2px 0 rgba(255,255,255,.30),0 0 0 1px rgba(91,4,222,.72),0 0 16px rgba(91,4,222,.55),0 6px 16px rgba(75,0,182,.42);transform:translateY(2px);}
 .ood-key.is-on .ood-label{color:#fff;text-shadow:0 1px 2px rgba(20,0,60,.7);}
 .ood-key-wrap:has(.ood-key.is-on){filter:drop-shadow(0 6px 16px rgba(75,0,182,.32))!important;}
-/* Two carved silver "dice" replace the old white products/services key.
-   Each die = a metallic rim + a recessed face that holds its own pills, so
-   products (Sunshine) and services (Indigo) can never cross over.
-
-   ART: both dice reuse ONE transparent Canva PNG. Drop the file in, set
-   --die-img to its url, and add the `has-img` class to each .ood-die — the
-   CSS metallic fallback below then steps aside. The PNG already carries its
-   own transparent padding + chrome rim, so `has-img` insets the face padding
-   to land the pills inside the rim (not over the bevel). */
-.ood-dice{display:flex;gap:10px;align-items:flex-start;--die-img:url("/assets/1die.png");}
-/* each cell stacks a two-line heading ABOVE its die */
-.ood-diecell{flex:1 1 0;min-width:0;display:flex;flex-direction:column;}
-/* heading now sits outside the die, on the silver body (one word per line) */
-.ood-die-h{margin:0 0 5px;font-family:Poppins,sans-serif;font-weight:700;font-size:.92rem;line-height:1.12;letter-spacing:.01em;color:#E8ECF4;text-shadow:0 1px 2px rgba(6,2,28,.5);text-align:center;}
-.ood-die{width:100%;position:relative;border-radius:18px;padding:5px;
-  background:var(--die-img,none) center/100% 100% no-repeat,
-    linear-gradient(145deg,#F7F9FA 0%,#A6A7A7 47%,#CCCDCF 53%,#F0F4F5 100%);
-  box-shadow:0 1px 0 rgba(255,255,255,.85) inset,0 0 0 1px rgba(153,155,155,.55),0 10px 20px -10px rgba(6,2,28,.5);}
-.ood-die.has-img{aspect-ratio:1/1;box-shadow:none;border-radius:0;background:var(--die-img) center/contain no-repeat;}
-.ood-die-face{position:relative;height:100%;border-radius:14px;padding:13px 12px 15px;text-align:center;
-  background:linear-gradient(135deg,#F7F9FA 0%,#E8ECF4 38%,#DCE3E8 68%,#F0F4F5 100%);
-  box-shadow:0 1px 2px rgba(6,2,28,.20) inset,0 1px 0 rgba(255,255,255,.9) inset;}
-/* with the real art, the die holds ONLY pills now (heading moved out), so they
-   are distributed to fill the freed face height */
-.ood-die.has-img .ood-die-face{background:none;box-shadow:none;border-radius:0;padding:11%;display:flex;}
-.ood-die.has-img .ood-pills{flex:1;justify-content:space-evenly;gap:4px;}
-.ood-die.has-img .ood-pill{white-space:normal;padding:5px 9px;}
-.ood-pills{display:flex;flex-direction:column;align-items:center;gap:6px;}
-.ood-pillrow{display:flex;gap:5px;}
-.ood-pill{font-size:.55rem;font-weight:600;line-height:1.3;padding:3px 8px;border-radius:999px;white-space:nowrap;max-width:100%;}
-/* Faintly tinted pills with neutral midnight-black text. A slight cool wash
-   (robin's-egg #F0F4F5 -> light teal #D3E3E4) blends them into the silver dice;
-   pure white read as fake/disconnected, and the soft top-to-bottom gradient
-   echoes the dice's own metallic sheen. Products + services share the look; the
-   two dice + headings already do the separating. Neutral ink (not the indigo
-   #0F031C) so the text doesn't read blue. */
-.ood-pill--sun,.ood-pill--indigo{background:linear-gradient(180deg,#F0F4F5 0%,#D3E3E4 100%);color:#141414;box-shadow:0 0 0 1px rgba(150,155,162,.55),0 1px 2px rgba(6,2,28,.28);}
-.ood-pill--ruby{background:#FBE0D8;color:#0F031C;}
-.ood-pill--teal{background:#CDEFEA;color:#0F031C;}
+/* The silver dice are retired (2026-09-28): the pills overlapped them on
+   phones and the whole read rough; the pills that briefly followed spread
+   out without filling the space, and neumorphic shading is lost on a dark
+   ground anyway. The shelf is now two headed columns of plain bullets in
+   the same list style as the Creative Offerings section (.service-chip__list
+   in site.css): small circle bullets in the mauve tint, Chrome Silver text,
+   left-aligned, one line per item. */
+.ood-menu{display:flex;gap:18px;align-items:flex-start;}
+.ood-menu__col{flex:1 1 0;min-width:0;display:flex;flex-direction:column;}
+.ood-menu__h{margin:0 0 6px;font-family:Poppins,sans-serif;font-weight:700;font-size:14px;line-height:1.3;color:var(--bright-silver,#E8ECF4);text-shadow:0 1px 2px rgba(6,2,28,.5);}
+.ood-menu__list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px;}
+.ood-menu__list li{font-family:Inter,system-ui,sans-serif;font-size:12.5px;line-height:1.4;color:var(--chrome-silver,#D8DBDE);padding-left:12px;position:relative;}
+.ood-menu__list li::before{content:"\25CB";position:absolute;left:0;top:2px;font-size:9px;color:var(--mv-200,#CBA3F5);}
 /* ===== Products/Services reveal shelf (progressive disclosure) =====
-   Dice stay tucked until the user shows interest in a division — taps the
+   The menu stays tucked until the user shows interest in a division — taps the
    heading, a key, the card, or this toggle — then the bottom shelf pops out.
    Open is one-way (any interaction opens); only the toggle collapses it. */
 .ood-col{cursor:pointer;}
@@ -141,29 +115,19 @@
 .ood-shelf-toggle:focus-visible{outline:2px solid #9d62f9;outline-offset:2px;}
 .ood-shelf-toggle__chev{font-size:.72rem;line-height:1;color:#F0C040;transition:transform .2s ease;}
 .ood-shelf-toggle[aria-expanded="true"] .ood-shelf-toggle__chev{transform:rotate(180deg);}
-/* grid-template-rows 0fr -> 1fr is the one height transition that truly animates;
-   kept fast so the open "slams" instead of crawling (slow = visible jank) */
-.ood-shelf{display:grid;grid-template-rows:0fr;transition:grid-template-rows .12s ease-out;}
+/* grid-template-rows 0fr -> 1fr is the one height transition that truly
+   animates. The slam, shake and haptic buzz that came with the dice are
+   retired with them (2026-09-28): the shelf now opens with a calm fade and
+   a short slide. */
+.ood-shelf{display:grid;grid-template-rows:0fr;transition:grid-template-rows .22s ease-out;}
 .ood-shelf[data-open="true"]{grid-template-rows:1fr;}
 .ood-shelf__inner{overflow:hidden;min-height:0;}
 /* closed state */
-.ood-shelf .ood-dice{margin-top:8px;opacity:0;transform:translateY(-12px);
-  transition:opacity .1s ease,transform .1s ease;}
-/* open: the dice SLAM down fast, then a quick impact shake ("vibration") */
-.ood-shelf[data-open="true"] .ood-dice{opacity:1;transform:none;
-  animation:ood-dice-slam .3s cubic-bezier(.22,.9,.2,1) both;}
-@keyframes ood-dice-slam{
-  0%{opacity:0;transform:translateY(-15px) scale(.985);}
-  42%{opacity:1;transform:translateY(0) scale(1);}   /* impact */
-  56%{transform:translate(2px,1px);}                  /* shake / vibration */
-  68%{transform:translate(-2px,-1px);}
-  80%{transform:translate(2px,1px);}
-  90%{transform:translate(-1px,0);}
-  100%{transform:translate(0,0);}
-}
+.ood-shelf .ood-menu{margin-top:8px;opacity:0;transform:translateY(-8px);
+  transition:opacity .22s ease,transform .22s ease;}
+.ood-shelf[data-open="true"] .ood-menu{opacity:1;transform:none;}
 @media (prefers-reduced-motion:reduce){
-  .ood-shelf,.ood-shelf .ood-dice,.ood-shelf-toggle__chev{transition:none;}
-  .ood-shelf[data-open="true"] .ood-dice{animation:none;}
-  .ood-shelf .ood-dice{opacity:1;transform:none;}}
+  .ood-shelf,.ood-shelf .ood-menu,.ood-shelf-toggle__chev{transition:none;}
+  .ood-shelf .ood-menu{opacity:1;transform:none;}}
 @media (max-width:760px){.ood-grid{grid-template-columns:1fr;}.ood{padding:40px 18px 64px;}.ood-col--cid{transform:none;}}
 @media (prefers-reduced-motion:reduce){.ood-key{transition:none;}}

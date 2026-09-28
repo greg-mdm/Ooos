@@ -90,66 +90,43 @@ const DIVISIONS: Division[] = [
 ];
 
 // ----- pieces ---------------------------------------------------------------
-function PillTag({ pill }: { pill: Pill }) {
-  return <span className={`ood-pill ood-pill--${pill.tone}`}>{pill.label}</span>;
-}
-
-function PillList({ items }: { items: (Pill | Pill[])[] }) {
+function BulletList({ items }: { items: (Pill | Pill[])[] }) {
+  // the data still groups a few short labels into rows; the list is flat
   return (
-    <div className="ood-pills">
-      {items.map((item, i) =>
-        Array.isArray(item) ? (
-          <div className="ood-pillrow" key={i}>
-            {item.map((p, j) => (
-              <PillTag key={j} pill={p} />
-            ))}
-          </div>
-        ) : (
-          <PillTag key={i} pill={item} />
-        )
-      )}
-    </div>
+    <ul className="ood-menu__list">
+      {items.flat().map((p, i) => (
+        <li key={i}>{p.label}</li>
+      ))}
+    </ul>
   );
 }
 
-function Dice({ d }: { d: Division }) {
+function Menu({ d }: { d: Division }) {
   return (
-    // two carved silver "dice" — each owns its own pills (products = Sunshine,
-    // services = Indigo), so the two sets never mix
-    <div className="ood-dice">
-      <div className="ood-diecell">
-        <p className="ood-die-h">Digital<br />Products</p>
-        <div className="ood-die has-img">
-          <div className="ood-die-face">
-            <PillList items={d.products} />
-          </div>
-        </div>
+    // two headed columns of plain bullets on the dark indigo, in the same
+    // list style as the Creative Offerings section (the silver dice and the
+    // pills that followed them are retired: the pills overlapped the dice on
+    // phones, and pills spread out without filling the space); products and
+    // services each keep their own column, so the two sets never mix
+    <div className="ood-menu">
+      <div className="ood-menu__col">
+        <p className="ood-menu__h">Digital Products</p>
+        <BulletList items={d.products} />
       </div>
-      <div className="ood-diecell">
-        <p className="ood-die-h">Studio<br />Services</p>
-        <div className="ood-die has-img">
-          <div className="ood-die-face">
-            <PillList items={d.services} />
-          </div>
-        </div>
+      <div className="ood-menu__col">
+        <p className="ood-menu__h">Studio Services</p>
+        <BulletList items={d.services} />
       </div>
     </div>
   );
 }
 
 // ----- section --------------------------------------------------------------
-// short haptic buzz when a shelf pops open — no-op on devices without the
-// Vibration API (desktop / iOS), and skipped when the user prefers reduced motion
-function buzz() {
-  if (typeof window === "undefined") return;
-  if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
-  navigator.vibrate?.(20);
-}
 
 export function OooDivisions() {
   const [lit, setLit] = useState<Record<string, boolean>>({});
   const toggleKey = (id: string) => setLit((s) => ({ ...s, [id]: !s[id] }));
-  // products/services dice stay tucked until the user shows interest in a
+  // the products/services menu stays tucked until the user shows interest in a
   // division (taps its heading, a key, the card, or the reveal toggle). Opening
   // is one-way; only the toggle button collapses the shelf again.
   const [open, setOpen] = useState<Record<string, boolean>>({});
@@ -176,8 +153,7 @@ export function OooDivisions() {
                 key={d.mod}
                 className={`ood-col ood-col--${d.mod}`}
                 onClick={() => {
-                  if (!shelfOpen) buzz();
-                  openShelf(d.mod);
+                                    openShelf(d.mod);
                 }}
               >
                 <div className="ood-head">
@@ -203,7 +179,7 @@ export function OooDivisions() {
                     );
                   })}
                   <li className="ood-key-wrap ood-shelf-wrap">
-                    {/* affordance + accessible control: opens/closes the dice shelf.
+                    {/* affordance + accessible control: opens/closes the products/services shelf.
                         stopPropagation so closing isn't re-opened by the card's
                         open-on-interest click handler. */}
                     <button
@@ -213,8 +189,7 @@ export function OooDivisions() {
                       aria-controls={shelfId}
                       onClick={(e) => {
                         e.stopPropagation();
-                        if (!shelfOpen) buzz();
-                        toggleShelf(d.mod);
+                                                toggleShelf(d.mod);
                       }}
                     >
                       <span className="ood-shelf-toggle__label">Products &amp; Services</span>
@@ -227,7 +202,7 @@ export function OooDivisions() {
                       aria-hidden={!shelfOpen}
                     >
                       <div className="ood-shelf__inner">
-                        <Dice d={d} />
+                        <Menu d={d} />
                       </div>
                     </div>
                   </li>
