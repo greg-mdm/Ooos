@@ -5289,7 +5289,8 @@ textarea:focus-visible,
    1. Nothing may widen the document: overflow-x clip on html/body (clip, not
       hidden, so the sticky desktop nav keeps working).
    2. The phone nav is the brand alone: "Ooo! DIGITAL MEDIA STUDIO" on one
-      full-width line, sized off the viewport so it never wraps or spills,
+      full-width line, centred over the orb (nothing else shares the bar),
+      sized off the viewport so it never wraps or spills,
       in the wordmark's standard weights (Playfair 700, Montserrat 700; the
       heavier cut read as chubby). The links stay hidden on phones (Greg,
       2026-09-27: Innovation and Design had crept back by mistake).
@@ -5301,13 +5302,14 @@ html, body { overflow-x: clip; }
     flex-wrap: wrap;
     row-gap: 6px;
     padding: 12px 16px 10px;
-    justify-content: flex-start;
+    justify-content: center;
     gap: 0;
     overflow: hidden;
   }
   .nav-brand {
     flex: 1 0 100%;
     flex-wrap: nowrap;
+    justify-content: center;
     min-width: 0;
     max-width: 100%;
     gap: 10px;
