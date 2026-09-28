@@ -381,16 +381,16 @@
    Neumorphic, after the three small round icons in Maria Marin's
    "Neumorphic Elements" (codepen.io/myacode/pen/PoqQQNM): a circle of the
    page ground, extruded by a soft dark shadow to the bottom-right and a
-   white highlight to the top-left, the mark in a soft grey that turns
-   Electric on hover, and the circle pressing in (inset shadow) while held.
-   Shadow is Chrome Silver and the highlight White from the canon palette;
-   the resting grey of the mark (#9BAACF) is the pen's own greyDark. A tap
-   also shakes the mark and the card above gives a quick cheer pulse. */
+   white highlight to the top-left, the mark in the same ink as the
+   division name (the pen's soft grey read as faded) turning Electric on
+   hover, and the circle pressing in (inset shadow) while held. Shadow is
+   Chrome Silver and the highlight White from the canon palette. A tap also
+   shakes the mark and the card above gives a quick cheer pulse. */
 .ot-div__cap { display: flex; align-items: center; justify-content: center; gap: 12px; max-width: 100%; }
 .ot-spirit { flex: 0 0 auto; }
 .ot-spirit__btn { --neu-ground: var(--ot-bg); --neu-shade: #D8DBDE; --neu-light: #FFFFFF;
   width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; cursor: pointer;
-  background: var(--neu-ground); color: #9BAACF;
+  background: var(--neu-ground); color: var(--ot-ink);
   box-shadow: 0.3rem 0.3rem 0.6rem var(--neu-shade), -0.2rem -0.2rem 0.5rem var(--neu-light);
   display: grid; place-items: center; transition: color 0.5s ease, box-shadow 0.5s ease; }
 .ot-spirit__btn:hover { color: var(--ot-electric); }
