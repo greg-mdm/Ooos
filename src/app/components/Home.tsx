@@ -4,6 +4,7 @@ import { PathwayModal } from "./PathwayModal";
 import { OooDivisions } from "./OooDivisions";
 import { MicroDeLuxeCard } from "./MicroDeLuxeCard";
 import { CidSealCard } from "./CidSealCard";
+import { SpiritButton } from "./SpiritButton";
 import { WaterTanks } from "./WaterTanks";
 import { ONTARIO_REGION_PATHS, ONTARIO_ZONES } from "./ontarioRegions";
 import { CANADA_US_BORDER, CONTEXT_PATHS, GTA_CITIES, GTA_LABELS, GTA_VIEWBOX, ONTARIO_CONTEXT_VIEWBOX, ONTARIO_LABELS, SIMCOE_CENTRE, SIMCOE_PATH, USA_PATH } from "./ontarioContext";
@@ -370,22 +371,33 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           <ul className="ot-divs" aria-label="Divisions">
             <li className="ot-div">
               <MicroDeLuxeCard />
-              <p className="ot-div__name">Media, Information and Culture (MIC)</p>
+              <div className="ot-div__cap">
+                <SpiritButton division="MIC" />
+                <p className="ot-div__name">Media, Information and Culture (MIC)</p>
+              </div>
             </li>
             <li className="ot-div">
               <CidSealCard />
-              <p className="ot-div__name">Canadian Innovation Dimension (CID)</p>
+              <div className="ot-div__cap">
+                <SpiritButton division="CID" icon="fund" />
+                <p className="ot-div__name">Canadian Innovation Dimension (CID)</p>
+              </div>
             </li>
             <li className="ot-div">
-              <img
-                className="ot-div__art"
-                src={`${import.meta.env.BASE_URL}assets/brand/ra-sigil-640.webp`}
-                alt=""
-                width="640"
-                height="640"
-                loading="lazy"
-              />
-              <p className="ot-div__name">The RA: Reclaiming Agency</p>
+              <div className="ot-div__art ot-ra">
+                <img
+                  className="ot-ra__img"
+                  src={`${import.meta.env.BASE_URL}assets/brand/ra-sigil-640.webp`}
+                  alt=""
+                  width="640"
+                  height="640"
+                  loading="lazy"
+                />
+              </div>
+              <div className="ot-div__cap">
+                <SpiritButton division="The RA" icon="house" />
+                <p className="ot-div__name">The RA: Reclaiming Agency</p>
+              </div>
             </li>
           </ul>
         </div>
