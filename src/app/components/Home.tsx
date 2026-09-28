@@ -327,17 +327,11 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           <ul className="ot-divs" aria-label="Divisions">
             <li className="ot-div">
               <MicroDeLuxeCard />
-              <div className="ot-div__cap">
-                <SpiritButton division="MIC" />
-                <p className="ot-div__name">Media, Information and Culture (MIC)</p>
-              </div>
+              <SpiritButton division="MIC" label="Media, Information and Culture (MIC)" />
             </li>
             <li className="ot-div">
               <CidSealCard />
-              <div className="ot-div__cap">
-                <SpiritButton division="CID" icon="fund" />
-                <p className="ot-div__name">Canadian Innovation Dimension (CID)</p>
-              </div>
+              <SpiritButton division="CID" icon="fund" label="Canadian Innovation Dimension (CID)" />
             </li>
             <li className="ot-div">
               <div className="ot-div__art ot-ra">
@@ -350,10 +344,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                   loading="lazy"
                 />
               </div>
-              <div className="ot-div__cap">
-                <SpiritButton division="The RA" icon="house" />
-                <p className="ot-div__name">The RA: Reclaiming Agency</p>
-              </div>
+              <SpiritButton division="The RA" icon="house" label="The RA: Reclaiming Agency" />
             </li>
           </ul>
         </div>

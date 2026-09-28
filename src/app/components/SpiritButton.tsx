@@ -1,8 +1,8 @@
-/* Spirit: a small button beside each division card's name, on its left
-   (school spirit; exchanging human culture and exploring the natural
-   world). Tapping it shakes the mark and gives the card a quick cheer
-   pulse (see .ot-spirit in hero-top.css); the button is the hook for
-   whatever Spirit grows into on each card. MIC's pom-poms are drawn here,
+/* Spirit: one rectangular button under each division card, the mark and
+   the division's name together inside it (school spirit; exchanging human
+   culture and exploring the natural world). Tapping it shakes the mark and
+   gives the card a quick cheer pulse (see .ot-spirit in hero-top.css); the
+   button is the hook for whatever Spirit grows into on each card. MIC's pom-poms are drawn here,
    two sixteen-point bursts on crossed handles; CID uses Ant Design's
    "fund-projection-screen" (outlined, MIT, ant.design), materials and
    value on the board; the RA uses a house with a person in it (Font
@@ -42,7 +42,7 @@ function HouseUserIcon() {
 type SpiritIcon = "pompoms" | "fund" | "house";
 const ICONS: Record<SpiritIcon, () => JSX.Element> = { pompoms: PomPomsIcon, fund: FundScreenIcon, house: HouseUserIcon };
 
-export function SpiritButton({ division, icon = "pompoms" }: { division: string; icon?: SpiritIcon }) {
+export function SpiritButton({ division, label, icon = "pompoms" }: { division: string; label: string; icon?: SpiritIcon }) {
   const [cheering, setCheering] = useState(false);
   const timer = useRef<number | undefined>(undefined);
   useEffect(() => () => window.clearTimeout(timer.current), []);
@@ -62,10 +62,11 @@ export function SpiritButton({ division, icon = "pompoms" }: { division: string;
         type="button"
         className={`ot-spirit__btn${cheering ? " is-cheering" : ""}`}
         onClick={cheer}
-        aria-label={`Spirit: cheer for ${division}`}
+        aria-label={`${label}: Spirit, cheer for ${division}`}
         title="Spirit"
       >
         {ICONS[icon]()}
+        <span className="ot-spirit__label">{label}</span>
       </button>
     </div>
   );

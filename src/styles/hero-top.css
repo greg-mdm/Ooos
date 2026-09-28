@@ -347,27 +347,30 @@
 .ot-ra { position: relative; overflow: hidden; }
 .ot-ra__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 
-/* Spirit: the button beside each division card's name, on its left.
-   Neumorphic, after the three small round icons in Maria Marin's
-   "Neumorphic Elements" (codepen.io/myacode/pen/PoqQQNM): a circle of the
-   page ground, extruded by a soft dark shadow to the bottom-right and a
-   white highlight to the top-left, the mark in the same ink as the
-   division name (the pen's soft grey read as faded) turning Electric on
-   hover, and the circle pressing in (inset shadow) while held. Shadow is
-   Chrome Silver and the highlight White from the canon palette. A tap also
-   shakes the mark and the card above gives a quick cheer pulse. */
-.ot-div__cap { display: flex; align-items: center; justify-content: center; gap: 12px; max-width: 100%; }
-.ot-spirit { flex: 0 0 auto; }
+/* Spirit: one rectangular button under each division card, the mark and
+   the division's name inside it. Neumorphic, after the "Button" in Maria
+   Marin's "Neumorphic Elements" (codepen.io/myacode/pen/PoqQQNM): a
+   rounded rectangle of the page ground (the pen's 15rem x 4rem, 1rem
+   radius, here the card's width), extruded by a soft dark shadow to the
+   bottom-right and a white highlight to the top-left, mark and name in
+   the hero ink turning Electric on hover, and the button pressing in
+   (inset shadow) while held. Shadow is Chrome Silver and the highlight
+   White from the canon palette. No circle around the mark: the hero was
+   already full of round controls. A tap also shakes the mark and the card
+   above gives a quick cheer pulse. */
+.ot-spirit { width: 100%; display: flex; justify-content: center; }
 .ot-spirit__btn { --neu-ground: var(--ot-bg); --neu-shade: #D8DBDE; --neu-light: #FFFFFF;
-  width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; cursor: pointer;
+  width: 100%; min-height: 48px; padding: 8px 16px; border: 0; border-radius: 12px; cursor: pointer;
   background: var(--neu-ground); color: var(--ot-ink);
+  font-family: var(--ot-font-body); font-weight: 600; font-size: 0.9rem; line-height: 1.3; text-align: left;
   box-shadow: 0.3rem 0.3rem 0.6rem var(--neu-shade), -0.2rem -0.2rem 0.5rem var(--neu-light);
-  display: grid; place-items: center; transition: color 0.5s ease, box-shadow 0.5s ease; }
+  display: flex; align-items: center; justify-content: center; gap: 10px; transition: color 0.5s ease, box-shadow 0.5s ease; }
+.ot-spirit__label { text-wrap: balance; }
 .ot-spirit__btn:hover { color: var(--ot-electric); }
 .ot-spirit__btn:active, .ot-spirit__btn.is-cheering { color: var(--ot-electric);
   box-shadow: inset 0.2rem 0.2rem 0.5rem var(--neu-shade), inset -0.2rem -0.2rem 0.5rem var(--neu-light); }
 .ot-spirit__btn:focus-visible { outline: 2px solid var(--ot-electric); outline-offset: 3px; }
-.ot-spirit__btn svg { width: 21px; height: 21px; transform-origin: 50% 88%; }
+.ot-spirit__btn svg { flex: 0 0 auto; width: 22px; height: 22px; transform-origin: 50% 88%; }
 .ot-spirit__btn.is-cheering svg { animation: otPomShake 0.72s ease-in-out; }
 .ot-div:has(.ot-spirit__btn.is-cheering) .ot-div__art { animation: otCheer 0.72s ease-out; }
 @keyframes otPomShake {
