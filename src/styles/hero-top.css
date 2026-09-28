@@ -363,12 +363,14 @@
 .ot-micro__btn:focus-visible, .ot-seal__btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 .ot-micro__btn svg, .ot-seal__btn svg { width: 18px; height: 18px; }
 
-/* CID card: two seals stacked, the one that is on shows; the octopus
-   button (bottom-right, same spot as the MIC card's β) swaps them. */
+/* CID card: three seals stacked, the one that is on shows; the maple leaf
+   (bottom-left) and the octopus (bottom-right, same spot as the MIC card's
+   β) swap them in. */
 .ot-seal { position: relative; overflow: hidden; }
 .ot-seal__face { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0; transition: opacity 0.45s ease; }
 .ot-seal__face--on { opacity: 1; }
 .ot-seal__ctl { position: absolute; right: 10px; bottom: 16%; z-index: 2; }
+.ot-seal__ctl--left { right: auto; left: 10px; }
 .ot-micro__btn--beta { font-family: Georgia, "Times New Roman", serif; font-size: 19px; font-weight: 600; line-height: 1; padding-bottom: 2px; }
 
 /* below ~1000px there is no room beside the orb for a popped bubble, so the

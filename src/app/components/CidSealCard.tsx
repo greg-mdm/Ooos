@@ -1,16 +1,29 @@
 import { useState } from "react";
 
-/* The CID division card: the seal at rest, and a corner button that swaps
-   in the Marine Squad seal. Tapping again returns to the seal at rest.
-   The button's icon is Font Awesome's octopus-deploy brand mark (Free
-   6.7.2, CC BY 4.0, https://fontawesome.com/license/free), inlined so no
-   font loads for it. Both tiles were cut with the same ring fit, so the
-   swap holds still. */
+/* The CID division card: the seal at rest, and two corner buttons that
+   swap in the other medallions under review. Bottom-left, a maple leaf
+   brings in the Canada Quadrant seal; bottom-right, the octopus brings in
+   the Marine Squad seal. Tapping the active button returns to the seal at
+   rest. Icons are Font Awesome Free brand marks (canadian-maple-leaf and
+   octopus-deploy, 6.x, CC BY 4.0, https://fontawesome.com/license/free),
+   inlined so no font loads for them. All three tiles were cut with the
+   outer ring on the same circle, so the swaps hold still. */
 
 const BASE = import.meta.env.BASE_URL;
-const SEAL = `${BASE}assets/brand/cid-seal-640.webp`;
-const MARINE = `${BASE}assets/brand/cid-seal-marine-640.webp`;
+const SEALS = {
+  rest: `${BASE}assets/brand/cid-seal-640.webp`,
+  canada: `${BASE}assets/brand/cid-seal-canada-640.webp`,
+  marine: `${BASE}assets/brand/cid-seal-marine-640.webp`,
+} as const;
+type Face = keyof typeof SEALS;
 
+function LeafIcon() {
+  return (
+    <svg viewBox="0 0 512 512" aria-hidden="true" fill="currentColor">
+      <path d="M383.8 351.7c2.5-2.5 105.2-92.4 105.2-92.4l-17.5-7.5c-10-4.9-7.4-11.5-5-17.4 2.4-7.6 20.1-67.3 20.1-67.3s-47.7 10-57.7 12.5c-7.5 2.4-10-2.5-12.5-7.5s-15-32.4-15-32.4-52.6 59.9-55.1 62.3c-10 7.5-20.1 0-17.6-10 0-10 27.6-129.6 27.6-129.6s-30.1 17.4-40.1 22.4c-7.5 5-12.6 5-17.6-5C293.5 72.3 255.9 0 255.9 0s-37.5 72.3-42.5 79.8c-5 10-10 10-17.6 5-10-5-40.1-22.4-40.1-22.4S183.3 182 183.3 192c2.5 10-7.5 17.5-17.6 10-2.5-2.5-55.1-62.3-55.1-62.3S98.1 167 95.6 172s-5 9.9-12.5 7.5C73 177 25.4 167 25.4 167s17.6 59.7 20.1 67.3c2.4 6 5 12.5-5 17.4L23 259.3s102.6 89.9 105.2 92.4c5.1 5 10 7.5 5.1 22.5-5.1 15-10.1 35.1-10.1 35.1s95.2-20.1 105.3-22.6c8.7-.9 18.3 2.5 18.3 12.5S241 512 241 512h30s-5.8-102.7-5.8-112.8 9.5-13.4 18.4-12.5c10 2.5 105.2 22.6 105.2 22.6s-5-20.1-10-35.1 0-17.5 5-22.5z" />
+    </svg>
+  );
+}
 function OctopusIcon() {
   return (
     <svg viewBox="0 0 512 512" aria-hidden="true" fill="currentColor">
@@ -20,19 +33,41 @@ function OctopusIcon() {
 }
 
 export function CidSealCard() {
-  const [marine, setMarine] = useState(false);
+  const [face, setFace] = useState<Face>("rest");
+  const toggle = (f: Face) => setFace((cur) => (cur === f ? "rest" : f));
   return (
     <div className="ot-div__art ot-seal">
-      <img className={`ot-seal__face${marine ? "" : " ot-seal__face--on"}`} src={SEAL} alt="" width="640" height="640" loading="lazy" />
-      <img className={`ot-seal__face${marine ? " ot-seal__face--on" : ""}`} src={MARINE} alt="" width="640" height="640" loading="lazy" />
+      {(Object.keys(SEALS) as Face[]).map((f) => (
+        <img
+          key={f}
+          className={`ot-seal__face${face === f ? " ot-seal__face--on" : ""}`}
+          src={SEALS[f]}
+          alt=""
+          width="640"
+          height="640"
+          loading="lazy"
+        />
+      ))}
+      <div className="ot-seal__ctl ot-seal__ctl--left">
+        <button
+          type="button"
+          className="ot-seal__btn"
+          onClick={() => toggle("canada")}
+          aria-pressed={face === "canada"}
+          aria-label={face === "canada" ? "Show the CID seal" : "Show the Canada Quadrant seal"}
+          title={face === "canada" ? "CID seal" : "Canada Quadrant"}
+        >
+          <LeafIcon />
+        </button>
+      </div>
       <div className="ot-seal__ctl">
         <button
           type="button"
           className="ot-seal__btn"
-          onClick={() => setMarine((m) => !m)}
-          aria-pressed={marine}
-          aria-label={marine ? "Show the CID seal" : "Show the Marine Squad seal"}
-          title={marine ? "CID seal" : "Marine Squad"}
+          onClick={() => toggle("marine")}
+          aria-pressed={face === "marine"}
+          aria-label={face === "marine" ? "Show the CID seal" : "Show the Marine Squad seal"}
+          title={face === "marine" ? "CID seal" : "Marine Squad"}
         >
           <OctopusIcon />
         </button>
