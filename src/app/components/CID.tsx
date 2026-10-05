@@ -1855,7 +1855,37 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               The videos keep preload="metadata": a few KB of header, not the
               file, so a reader who never presses play never pays for it. The
               posters carry the visual weight until then. */}
-          <div className="cid-viv-tower" role="list" aria-label="The Vivarium, floor by floor">
+          <div className="cid-viv-tower">
+            {/* The roof of the tower: the machine that houses it. Greg's copy
+                (2026-10-05), verbatim, laid out on the tower's own two
+                columns: the hardware on the left where the floors carry
+                their pictures, the Vivarium's claim on the right where they
+                carry their text. Lines he typed in capitals are written in
+                sentence case and set to capitals in CSS, so screen readers
+                get words; "Intel® Arc™ 140T" keeps the case he gave it. */}
+            <header className="cid-viv-tower__cap">
+              <div className="cid-viv-tower__cap-main">
+                <p className="cid-viv-tower__eyebrow">GEEKOM IT15 AI mini-PC · Matte-black chassis · Computing and cooling infrastructure.</p>
+                <div className="cid-viv-spec">
+                  <p className="cid-viv-spec__k cid-viv-spec__k--caps">16 cores</p>
+                  <p className="cid-viv-spec__v">6 Performance · 8 Efficient · 2 Low Power Efficient</p>
+                  <p className="cid-viv-spec__v">Intel® Core™ Ultra 9 285H · Arrow Lake.</p>
+                </div>
+                <div className="cid-viv-spec">
+                  <p className="cid-viv-spec__k">Intel® Arc™ 140T</p>
+                  <p className="cid-viv-spec__v">Immersive graphics visualizations</p>
+                </div>
+              </div>
+              <div className="cid-viv-tower__cap-side">
+                <p className="cid-viv-tower__claim">The Vivarium is a miniature model for making big discoveries.</p>
+                <div className="cid-viv-spec">
+                  <p className="cid-viv-spec__k cid-viv-spec__k--caps">Under 1 litre</p>
+                  <p className="cid-viv-spec__v">multi-level research facility</p>
+                </div>
+              </div>
+            </header>
+
+            <div className="cid-viv-tower__floors" role="list" aria-label="The Vivarium, floor by floor">
             <section className="cid-viv-floor" role="listitem">
               <div className="cid-viv-floor__media">
                 <video
@@ -1933,7 +1963,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               </div>
               <div className="cid-viv-floor__text">
                 <h3 className="cid-viv-floor__title">Ethel</h3>
-                <p className="cid-viv-floor__sub">Floor 1, Vivarium</p>
+                <p className="cid-viv-floor__sub">Floor 1 • Vivarium</p>
               </div>
             </section>
 
@@ -1943,9 +1973,9 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 DIRECTRIX ⧗ THE DIRECTRIX" over "FLOOR 0, VIVARIUM". Written
                 in sentence case and set to uppercase in CSS, so they render
                 as he typed them while screen readers get words, and the
-                hourglass is decoration, hidden from them. The descriptor
-                text is still under review, so the cell carries the title
-                and subtitle alone rather than unapproved copy. */}
+                hourglass is decoration, hidden from them. The IceBlast
+                copy beneath is his too (2026-10-05), verbatim, with the
+                subtitle now "FLOOR 0 • VIVARIUM" as he typed it there. */}
             <section className="cid-viv-floor" role="listitem">
               <div className="cid-viv-floor__media">
                 <video
@@ -1963,9 +1993,34 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <h3 className="cid-viv-floor__title">
                   De Directrix<span className="cid-viv-floor__glyph" aria-hidden="true">⧗</span>The Directrix
                 </h3>
-                <p className="cid-viv-floor__sub">Floor 0, Vivarium</p>
+                <p className="cid-viv-floor__sub">Floor 0 • Vivarium</p>
+                <div className="cid-viv-spec">
+                  <p className="cid-viv-spec__k cid-viv-spec__k--caps">IceBlast 2.0</p>
+                  <p className="cid-viv-spec__v">Cooling support for always-on operations</p>
+                </div>
+                <ul>
+                  <li>Dual copper heat pipes</li>
+                  <li>Heat transfer to a large heatsink</li>
+                  <li>Optimized airflow.</li>
+                </ul>
               </div>
             </section>
+            </div>
+
+            {/* The foot of the tower: Greg's wrap-up (2026-10-05), verbatim.
+                It closes the whole tower rather than floor 0, so it is its
+                own band under the last floor, on the same two columns. */}
+            <footer className="cid-viv-tower__foot">
+              <div className="cid-viv-tower__foot-main">
+                <p className="cid-viv-spec__k">Local Processing Power</p>
+              </div>
+              <div className="cid-viv-tower__foot-side">
+                <ul>
+                  <li>Top-secret CID data is privately held, not stored in the cloud.</li>
+                  <li>Accelerators for compatible AI workflows</li>
+                </ul>
+              </div>
+            </footer>
           </div>
 
           {/* The creature the facility exists around, given its own panel

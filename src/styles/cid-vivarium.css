@@ -1360,6 +1360,53 @@
   margin: 36px 0 0; overflow: hidden; border-radius: 16px; background: #fff;
   border: 1px solid rgba(75,0,182,.16); box-shadow: 0 22px 50px -32px rgba(6,2,28,.4);
 }
+/* The roof and the foot of the tower share the floors' two columns: a dark
+   cell on the left, where the floors carry their pictures, and a white cell
+   on the right, where they carry their text. Midnight ground with Bright
+   Silver and Chrome Silver type on the left; the principle cards' type on
+   the right. A "spec" is a key line over its plain lines. */
+.cid-scope .cid-viv-tower__cap,
+.cid-scope .cid-viv-tower__foot { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); }
+.cid-scope .cid-viv-tower__floors { border-top: 1px solid rgba(75,0,182,.2); }
+.cid-scope .cid-viv-tower__foot { border-top: 1px solid rgba(75,0,182,.2); }
+.cid-scope .cid-viv-tower__cap-main,
+.cid-scope .cid-viv-tower__foot-main {
+  min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 16px;
+  padding: clamp(20px,2.8vw,34px); background: #0F031C; color: #E8ECF4;
+}
+.cid-scope .cid-viv-tower__cap-side,
+.cid-scope .cid-viv-tower__foot-side {
+  min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 16px;
+  padding: clamp(18px,2.6vw,32px); border-left: 1px solid rgba(75,0,182,.12);
+}
+.cid-scope .cid-viv-tower__eyebrow {
+  margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 700; font-size: 12px;
+  letter-spacing: .12em; line-height: 1.6; text-transform: uppercase; color: #CBA3F5;
+}
+.cid-scope .cid-viv-tower__claim {
+  margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 18px;
+  letter-spacing: .3px; line-height: 1.35; color: #4B00B6; text-wrap: balance;
+}
+.cid-scope .cid-viv-spec { min-width: 0; }
+.cid-scope .cid-viv-spec__k {
+  margin: 0 0 4px; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 20px;
+  letter-spacing: .02em; line-height: 1.25; color: #4B00B6;
+}
+.cid-scope .cid-viv-spec__k--caps { text-transform: uppercase; letter-spacing: .08em; }
+.cid-scope .cid-viv-spec__v { margin: 0; font-size: 15px; line-height: 1.55; color: #33384a; }
+.cid-scope .cid-viv-tower__cap-main .cid-viv-spec__k,
+.cid-scope .cid-viv-tower__foot-main .cid-viv-spec__k { color: #E8ECF4; }
+.cid-scope .cid-viv-tower__cap-main .cid-viv-spec__v { color: #D8DBDE; }
+.cid-scope .cid-viv-tower__foot-main .cid-viv-spec__k { margin: 0; }
+.cid-scope .cid-viv-tower__foot-side ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.cid-scope .cid-viv-tower__foot-side li { position: relative; padding-left: 22px; font-size: 15px; line-height: 1.55; color: #33384a; }
+.cid-scope .cid-viv-tower__foot-side li::before {
+  content: ""; position: absolute; left: 2px; top: 8px; width: 9px; height: 9px; border-radius: 3px;
+  background: linear-gradient(135deg, #7C18E7, #5B04DE);
+}
+/* inside a floor's text cell, a spec sits between the subtitle and the list */
+.cid-scope .cid-viv-floor__text .cid-viv-spec { margin: 16px 0 12px; }
+.cid-scope .cid-viv-floor__text .cid-viv-spec__k { font-size: 17px; }
 .cid-scope .cid-viv-floor { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); }
 .cid-scope .cid-viv-floor + .cid-viv-floor { border-top: 1px solid rgba(75,0,182,.2); }
 .cid-scope .cid-viv-floor__media { position: relative; aspect-ratio: 16 / 9; background: #04030e; line-height: 0; }
@@ -1392,8 +1439,14 @@
   background: linear-gradient(135deg, #7C18E7, #5B04DE);
 }
 @media (max-width: 760px) {
-  .cid-scope .cid-viv-floor { grid-template-columns: minmax(0, 1fr); }
-  .cid-scope .cid-viv-floor__text { border-left: 0; padding: 16px 18px 18px; }
+  .cid-scope .cid-viv-floor,
+  .cid-scope .cid-viv-tower__cap,
+  .cid-scope .cid-viv-tower__foot { grid-template-columns: minmax(0, 1fr); }
+  .cid-scope .cid-viv-floor__text,
+  .cid-scope .cid-viv-tower__cap-side,
+  .cid-scope .cid-viv-tower__foot-side { border-left: 0; padding: 16px 18px 18px; }
+  .cid-scope .cid-viv-tower__cap-main,
+  .cid-scope .cid-viv-tower__foot-main { padding: 18px; }
 }
 
 /* ---- Portal drum roll: a quiet dark-galaxy band between the Vivarium and
