@@ -1843,28 +1843,23 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               Real <img> here rather than a background: unlike the case art
               above, nothing in these two is a person, so there is no one to be
               trapped inside the picture. */}
-          <figure className="cid-viv-lab">
-            <div className="cid-viv-lab-row cid-viv-lab-row--single">
-              {/* Mirrored. The source has the bench on the right of the glass
-                  and the planting on the left, which puts the stations the
-                  wrong way round for the story: Ethel sits on the right and
-                  Icarus III on the left. Flipped in CSS rather than re-exported,
-                  so the asset stays the one Greg supplied and the change is one
-                  line to undo. Nothing in the frame is lettered, so there is no
-                  reversed text to give the mirror away.
+          {/* The Vivarium as a tower. The floor tour, the two design principles
+              and floor 0 are one stack, like the strata of a layered candle:
+              each floor's picture on the left, flush against the next with
+              only a hairline between, and its text beside it on the right
+              rather than underneath, so no caption breaks the stack apart
+              (Greg, 2026-10-04). Below 760px there is no room beside, so each
+              floor's text sits directly under its own picture and the stack
+              stays unbroken.
 
-                  The card is a caption, not decoration, so it is a real
-                  <figcaption> on its own <figure> rather than text floated over
-                  a div. Written in sentence case and set to uppercase in CSS:
-                  it renders exactly as Greg typed it, while screen readers get
-                  a word instead of six letters spelled out. */}
-              <figure className="cid-viv-lab-shot">
-                {/* preload="metadata" is the whole reason this can sit in the
-                    body of the page: it fetches a few KB of header, not the
-                    8MB file, so a reader who never presses play never pays
-                    for it. The poster carries the visual weight until then. */}
+              The videos keep preload="metadata": a few KB of header, not the
+              file, so a reader who never presses play never pays for it. The
+              posters carry the visual weight until then. */}
+          <div className="cid-viv-tower" role="list" aria-label="The Vivarium, floor by floor">
+            <section className="cid-viv-floor" role="listitem">
+              <div className="cid-viv-floor__media">
                 <video
-                  className="cid-viv-lab-video"
+                  className="cid-viv-floor__video"
                   src={`${base}assets/video/vivarium-floor-tour.mp4`}
                   poster={`${base}assets/images/vivarium-floor-tour-poster.webp`}
                   controls
@@ -1873,49 +1868,72 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   preload="metadata"
                   aria-label="A walking tour of one floor of the Vivarium: Ethel's planted shelves, the shared lab, Icarus III's bust and apiary foundry, and Ethel's tank."
                 />
-                <figcaption className="cid-viv-lab-cap cid-viv-lab-cap--below">
-                  Cooperation Stations: Icarus III and Ethel
-                </figcaption>
-              </figure>
-            </div>
-          </figure>
+              </div>
+              <div className="cid-viv-floor__text">
+                <h3>Cooperation Stations</h3>
+                <p>Icarus III and Ethel</p>
+              </div>
+            </section>
 
-          {/* Architectural Design and Beneficial Biomimicry, each illustrated
-              with its own photo: the Ooo meeting room for Architectural
-              Design, the distillation chamber for Beneficial Biomimicry. */}
-          <div className="cid-viv-principles">
-            <figure className="cid-viv-pcard">
-              <div
-                className="cid-viv-pcard-photo"
-                role="img"
-                aria-label="The Ooo meeting room: a glowing Ooo! orb on a lit pedestal, framed by lantern-lit garden walls and a waterfall view"
-                style={{ backgroundImage: `url("${base}assets/images/cid-arch-meeting-room.webp")` }}
-              />
-              <figcaption className="cid-viv-pcard-body">
+            <section className="cid-viv-floor" role="listitem">
+              <div className="cid-viv-floor__media">
+                <div
+                  className="cid-viv-floor__photo"
+                  role="img"
+                  aria-label="The Ooo meeting room: a glowing Ooo! orb on a lit pedestal, framed by lantern-lit garden walls and a waterfall view"
+                  style={{ backgroundImage: `url("${base}assets/images/cid-arch-meeting-room.webp")` }}
+                />
+              </div>
+              <div className="cid-viv-floor__text">
                 <h3>Architectural Design</h3>
                 <ul>
                   <li>Distinct environments for observation, collaboration, experimentation</li>
                   <li>Agents use external tools while remaining securely enclosed in the vivarium</li>
                   <li>Interfaces bind actions with fixed rules, restrictions, and limitations</li>
                 </ul>
-              </figcaption>
-            </figure>
+              </div>
+            </section>
 
-            <figure className="cid-viv-pcard">
-              <div
-                className="cid-viv-pcard-photo"
-                role="img"
-                aria-label="The distillation chamber: a copper apparatus beside a crystal-lined river cave"
-                style={{ backgroundImage: `url("${base}assets/images/cid-biomimicry-distillation.webp")` }}
-              />
-              <figcaption className="cid-viv-pcard-body">
+            <section className="cid-viv-floor" role="listitem">
+              <div className="cid-viv-floor__media">
+                <div
+                  className="cid-viv-floor__photo"
+                  role="img"
+                  aria-label="The distillation chamber: a copper apparatus beside a crystal-lined river cave"
+                  style={{ backgroundImage: `url("${base}assets/images/cid-biomimicry-distillation.webp")` }}
+                />
+              </div>
+              <div className="cid-viv-floor__text">
                 <h3>Beneficial Biomimicry</h3>
                 <ul>
                   <li>Information flows through environments inspired by the functional principles and geometries found in nature.</li>
                   <li>Applied research on sustainable designs for human-AI interaction drives rapid evolution in the information ecosystem.</li>
                 </ul>
-              </figcaption>
-            </figure>
+              </div>
+            </section>
+
+            {/* Floor 0, the base of the tower. Greg's clip (public/assets/
+                exhibition/DE DIRECTRIX - Project_10-04(2)...mp4), re-encoded
+                for the web. "Floor 0" is his name for it; its descriptor
+                text is still to come from him, so the cell carries the name
+                alone rather than invented copy. */}
+            <section className="cid-viv-floor" role="listitem">
+              <div className="cid-viv-floor__media">
+                <video
+                  className="cid-viv-floor__video"
+                  src={`${base}assets/video/cid-de-directrix.mp4`}
+                  poster={`${base}assets/images/cid-de-directrix-poster.webp`}
+                  controls
+                  muted
+                  playsInline
+                  preload="metadata"
+                  aria-label="Floor 0 of the Vivarium: a gloved hand reaches over the crystal river channel as code streams across the water, a burst rises from the basin, and a blue portal opens."
+                />
+              </div>
+              <div className="cid-viv-floor__text">
+                <h3>Floor 0</h3>
+              </div>
+            </section>
           </div>
 
           {/* The creature the facility exists around, given its own panel

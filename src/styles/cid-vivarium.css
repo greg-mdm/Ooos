@@ -1348,6 +1348,46 @@
   background: linear-gradient(135deg, #7C18E7, #5B04DE);
 }
 
+/* ---- The Vivarium tower: the floor tour, Architectural Design, Beneficial
+   Biomimicry and floor 0 as one stack, like the strata of a layered candle.
+   One card, four floors: each floor is a row with its picture on the left
+   (16:9, flush against the floors above and below) and its text beside it
+   on the right, a hairline between floors and nothing else. The text takes
+   the principle cards' type (Montserrat heading in Portal purple, 15px body
+   with the square bullets). Below 760px there is no room beside, so each
+   floor's text sits under its own picture and the stack stays unbroken. ---- */
+.cid-scope .cid-viv-tower {
+  margin: 36px 0 0; overflow: hidden; border-radius: 16px; background: #fff;
+  border: 1px solid rgba(75,0,182,.16); box-shadow: 0 22px 50px -32px rgba(6,2,28,.4);
+}
+.cid-scope .cid-viv-floor { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); }
+.cid-scope .cid-viv-floor + .cid-viv-floor { border-top: 1px solid rgba(75,0,182,.2); }
+.cid-scope .cid-viv-floor__media { position: relative; aspect-ratio: 16 / 9; background: #04030e; line-height: 0; }
+.cid-scope .cid-viv-floor__video,
+.cid-scope .cid-viv-floor__photo { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.cid-scope .cid-viv-floor__video { object-fit: cover; background: #04030e; }
+.cid-scope .cid-viv-floor__photo { background-size: cover; background-position: center; background-repeat: no-repeat; user-select: none; }
+.cid-scope .cid-viv-floor__text {
+  min-width: 0; display: flex; flex-direction: column; justify-content: center;
+  padding: clamp(18px,2.6vw,32px); border-left: 1px solid rgba(75,0,182,.12);
+}
+.cid-scope .cid-viv-floor__text h3 {
+  margin: 0 0 10px; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: 18px; letter-spacing: .3px; color: #4B00B6;
+}
+.cid-scope .cid-viv-floor__text h3:last-child { margin-bottom: 0; }
+.cid-scope .cid-viv-floor__text p { margin: 0; font-size: 15px; line-height: 1.55; color: #33384a; }
+.cid-scope .cid-viv-floor__text ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.cid-scope .cid-viv-floor__text li { position: relative; padding-left: 22px; font-size: 15px; line-height: 1.55; color: #33384a; }
+.cid-scope .cid-viv-floor__text li::before {
+  content: ""; position: absolute; left: 2px; top: 8px; width: 9px; height: 9px; border-radius: 3px;
+  background: linear-gradient(135deg, #7C18E7, #5B04DE);
+}
+@media (max-width: 760px) {
+  .cid-scope .cid-viv-floor { grid-template-columns: minmax(0, 1fr); }
+  .cid-scope .cid-viv-floor__text { border-left: 0; padding: 16px 18px 18px; }
+}
+
 /* ---- Portal drum roll: a quiet dark-galaxy band between the Vivarium and
    the Innovation Watchlist. Muted lavender line, faint stars, no splash. ---- */
 .cid-scope .cid-portal-band {
