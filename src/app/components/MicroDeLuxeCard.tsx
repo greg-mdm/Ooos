@@ -3,15 +3,18 @@ import { useCallback, useEffect, useRef, useState } from "react";
 /* The MIC division card: Micro De Luxe on his stage. The 1:1 tile stays as
    the still, and when the card scrolls into view the 10-second clip plays
    (he rises off the plinth). The clip runs once; the still returns when it
-   ends. Sound on/off and replay sit stacked in the bottom-left corner. A
-   beta (β) button in the bottom-right plays a second clip, Micro at a
-   younger stage of his life cycle, played to the end.
+   ends. Replay sits in the bottom-left corner (joined by sound on/off
+   while the beta clip is current). A beta (β) button in the bottom-right
+   plays a second clip, Micro at a younger stage of his life cycle, played
+   to the end.
 
-   Sound: the clip tries to play with sound. Browsers only allow that once
-   the visitor has interacted with the page, so if it is refused the clip
-   plays muted and the speaker icon shows it, and a tap on the icon turns
-   the sound on. Icons are Ionicons (MIT), inlined so no font or script
-   loads for them. */
+   Sound: silent by default. The rise clip that plays on scroll is always
+   muted and shows no sound control, so nothing on the page makes a sound
+   the visitor did not ask for. The beta clip plays with sound, since the
+   tap on the beta button is the visitor's own choice, and while it is the
+   current clip the speaker control appears so the sound can be turned off
+   (the choice sticks for later beta plays). Icons are Ionicons (MIT),
+   inlined so no font or script loads for them. */
 
 const BASE = import.meta.env.BASE_URL;
 const POSTER = `${BASE}assets/brand/mic-micro-de-luxe-640.webp`;
@@ -48,23 +51,31 @@ function ReplayIcon() {
 
 export function MicroDeLuxeCard() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [muted, setMuted] = useState(false);
   const [showStill, setShowStill] = useState(true);
   const [playedOnce, setPlayedOnce] = useState(false);
   const [clip, setClip] = useState<Clip>("rise");
+  // the visitor's choice for the beta clip's sound; the rise clip is always muted
+  const [betaSoundOff, setBetaSoundOff] = useState(false);
+  const clipRef = useRef<Clip>("rise");
+  const betaSoundOffRef = useRef(false);
   const playAfterSwap = useRef(false);
+  clipRef.current = clip;
+  betaSoundOffRef.current = betaSoundOff;
 
-  // Start the clip: with sound first, muted if the browser refuses.
+  // Start the current clip under the sound rule: rise is always muted; beta
+  // plays with sound unless the visitor turned it off (and falls back to
+  // muted if the browser refuses sound).
   const start = useCallback(async () => {
     const v = videoRef.current;
     if (!v) return;
-    v.muted = false;
+    const wantSound = clipRef.current === "beta" && !betaSoundOffRef.current;
+    v.muted = !wantSound;
     try {
       await v.play();
-      setMuted(false);
     } catch {
+      if (!wantSound) return;
       v.muted = true;
-      setMuted(true);
+      setBetaSoundOff(true);
       try {
         await v.play();
       } catch {
@@ -104,12 +115,12 @@ export function MicroDeLuxeCard() {
     };
   }, [start]);
 
-  const toggleSound = () => {
+  // the speaker control, shown only while the beta clip is current
+  const toggleBetaSound = () => {
     const v = videoRef.current;
-    if (!v) return;
-    const next = !muted;
-    v.muted = next;
-    setMuted(next);
+    const next = !betaSoundOff;
+    setBetaSoundOff(next);
+    if (v && clip === "beta") v.muted = next;
   };
 
   const replay = () => {
@@ -119,8 +130,8 @@ export function MicroDeLuxeCard() {
     void start();
   };
 
-  // β: swap to the younger-stage clip and play it from the top. Replay then
-  // replays whichever clip played last.
+  // β: swap to the younger-stage clip and play it from the top, with sound.
+  // Replay then replays whichever clip played last.
   const playBeta = () => {
     if (clip === "beta") {
       replay();
@@ -138,6 +149,7 @@ export function MicroDeLuxeCard() {
     void start();
   }, [clip, start]);
 
+  const soundOn = clip === "beta" && !betaSoundOff;
   return (
     <div className={`ot-div__art ot-micro${showStill ? " ot-micro--still" : ""}`}>
       <video
@@ -145,6 +157,7 @@ export function MicroDeLuxeCard() {
         className="ot-micro__clip"
         src={clip === "beta" ? BETA_CLIP : CLIP}
         poster={POSTER}
+        muted={!soundOn}
         playsInline
         preload="auto"
         width="720"
@@ -154,16 +167,18 @@ export function MicroDeLuxeCard() {
       />
       <img className="ot-micro__still" src={POSTER} alt="" width="640" height="640" loading="lazy" />
       <div className="ot-micro__ctl">
-        <button
-          type="button"
-          className="ot-micro__btn"
-          onClick={toggleSound}
-          aria-pressed={!muted}
-          aria-label={muted ? "Turn sound on" : "Turn sound off"}
-          title={muted ? "Sound on" : "Sound off"}
-        >
-          {muted ? <MuteIcon /> : <VolumeIcon />}
-        </button>
+        {clip === "beta" && (
+          <button
+            type="button"
+            className="ot-micro__btn"
+            onClick={toggleBetaSound}
+            aria-pressed={soundOn}
+            aria-label={soundOn ? "Turn sound off" : "Turn sound on"}
+            title={soundOn ? "Sound off" : "Sound on"}
+          >
+            {soundOn ? <VolumeIcon /> : <MuteIcon />}
+          </button>
+        )}
         <button
           type="button"
           className="ot-micro__btn"
@@ -181,7 +196,7 @@ export function MicroDeLuxeCard() {
             className="ot-micro__btn ot-micro__btn--beta"
             onClick={playBeta}
             aria-pressed={clip === "beta"}
-            aria-label="Play Micro De Luxe at a younger stage (beta)"
+            aria-label="Play Micro De Luxe at a younger stage (beta), with sound"
             title="Beta: younger Micro"
           >
             <span aria-hidden="true">β</span>
