@@ -1914,9 +1914,13 @@ export function CID({ onSupport }: { onSupport: () => void }) {
 
             {/* Floor 0, the base of the tower. Greg's clip (public/assets/
                 exhibition/DE DIRECTRIX - Project_10-04(2)...mp4), re-encoded
-                for the web. "Floor 0" is his name for it; its descriptor
-                text is still to come from him, so the cell carries the name
-                alone rather than invented copy. */}
+                for the web. Title and subtitle are his (2026-10-04): "DE
+                DIRECTRIX ⧗ THE DIRECTRIX" over "FLOOR 0, VIVARIUM". Written
+                in sentence case and set to uppercase in CSS, so they render
+                as he typed them while screen readers get words, and the
+                hourglass is decoration, hidden from them. The descriptor
+                text is still under review, so the cell carries the title
+                and subtitle alone rather than unapproved copy. */}
             <section className="cid-viv-floor" role="listitem">
               <div className="cid-viv-floor__media">
                 <video
@@ -1931,7 +1935,10 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 />
               </div>
               <div className="cid-viv-floor__text">
-                <h3>Floor 0</h3>
+                <h3 className="cid-viv-floor__title">
+                  De Directrix<span className="cid-viv-floor__glyph" aria-hidden="true">⧗</span>The Directrix
+                </h3>
+                <p className="cid-viv-floor__sub">Floor 0, Vivarium</p>
               </div>
             </section>
           </div>
