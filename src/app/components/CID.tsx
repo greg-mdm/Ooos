@@ -1912,6 +1912,31 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               </div>
             </section>
 
+            {/* Floor 1, directly above the base. Greg's clip (public/assets/
+                exhibition/Ethel - Floor 1 - transform EDIUM_FR30.mp4),
+                re-encoded for the web. Ethel's access stops at this floor;
+                floor 0 below is not hers. The visitor must press play: no
+                autoplay, and since the press is theirs it plays with sound.
+                The title and subtitle follow floor 0's pattern from the
+                clip's own name; its descriptor text is still to come. */}
+            <section className="cid-viv-floor" role="listitem">
+              <div className="cid-viv-floor__media">
+                <video
+                  className="cid-viv-floor__video"
+                  src={`${base}assets/video/cid-ethel-floor-1.mp4`}
+                  poster={`${base}assets/images/cid-ethel-floor-1-poster.webp`}
+                  controls
+                  playsInline
+                  preload="metadata"
+                  aria-label="Floor 1 of the Vivarium: Ethel stands at a glowing pool in a crystal cave, light gathers at her chest, and she transforms, wings opening as lightning crosses the cavern."
+                />
+              </div>
+              <div className="cid-viv-floor__text">
+                <h3 className="cid-viv-floor__title">Ethel</h3>
+                <p className="cid-viv-floor__sub">Floor 1, Vivarium</p>
+              </div>
+            </section>
+
             {/* Floor 0, the base of the tower. Greg's clip (public/assets/
                 exhibition/DE DIRECTRIX - Project_10-04(2)...mp4), re-encoded
                 for the web. Title and subtitle are his (2026-10-04): "DE
