@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 /* The CID division card: the seal at rest, and two corner buttons that
    swap in the other medallions under review. Bottom-left, a maple leaf
@@ -32,8 +32,12 @@ function OctopusIcon() {
   );
 }
 
-export function CidSealCard() {
+export function CidSealCard({ resetSignal = 0 }: { resetSignal?: number }) {
   const [face, setFace] = useState<Face>("rest");
+  // each press of the block under the card returns it to the seal at rest
+  useEffect(() => {
+    if (resetSignal > 0) setFace("rest");
+  }, [resetSignal]);
   const toggle = (f: Face) => setFace((cur) => (cur === f ? "rest" : f));
   return (
     <div className="ot-div__art ot-seal">

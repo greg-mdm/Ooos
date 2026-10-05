@@ -120,6 +120,9 @@ function OstaraParticleCanvas() {
 export function Home({ onSupport }: { onSupport: () => void }) {
   const [pathwayOpen, setPathwayOpen] = useState(false);
   const [rings, setRings] = useState(0);
+  /* the block under each division card resets that card to its first state */
+  const [micReset, setMicReset] = useState(0);
+  const [cidReset, setCidReset] = useState(0);
   const [ringing, setRinging] = useState(false);
   /* ring two: the globe dips for a beat */
   const [pressing, setPressing] = useState(false);
@@ -326,12 +329,12 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               are the divisions' names as OooDivisions sets them. */}
           <ul className="ot-divs" aria-label="Divisions">
             <li className="ot-div">
-              <MicroDeLuxeCard />
-              <SpiritButton division="MIC" label="Media, Information and Culture (MIC)" />
+              <MicroDeLuxeCard resetSignal={micReset} />
+              <SpiritButton division="MIC" label="Media, Information and Culture (MIC)" onPress={() => setMicReset((n) => n + 1)} />
             </li>
             <li className="ot-div">
-              <CidSealCard />
-              <SpiritButton division="CID" icon="fund" label="Canadian Innovation Dimension (CID)" />
+              <CidSealCard resetSignal={cidReset} />
+              <SpiritButton division="CID" icon="fund" label="Canadian Innovation Dimension (CID)" onPress={() => setCidReset((n) => n + 1)} />
             </li>
             <li className="ot-div">
               <div className="ot-div__art ot-ra">

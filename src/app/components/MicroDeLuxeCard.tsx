@@ -49,7 +49,7 @@ function ReplayIcon() {
   );
 }
 
-export function MicroDeLuxeCard() {
+export function MicroDeLuxeCard({ resetSignal = 0 }: { resetSignal?: number }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [showStill, setShowStill] = useState(true);
   const [playedOnce, setPlayedOnce] = useState(false);
@@ -148,6 +148,23 @@ export function MicroDeLuxeCard() {
     v.load();
     void start();
   }, [clip, start]);
+
+  // Reset: each press of the block under the card (resetSignal ticks up)
+  // returns the card to its first state, the rise clip, and plays it from
+  // the top, muted, so both clips can be seen as often as the visitor likes.
+  useEffect(() => {
+    if (resetSignal === 0) return;
+    const v = videoRef.current;
+    if (!v) return;
+    if (clipRef.current === "beta") {
+      v.pause();
+      playAfterSwap.current = true;
+      setClip("rise");
+    } else {
+      v.currentTime = 0;
+      void start();
+    }
+  }, [resetSignal, start]);
 
   const soundOn = clip === "beta" && !betaSoundOff;
   return (

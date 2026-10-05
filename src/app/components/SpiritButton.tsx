@@ -42,11 +42,23 @@ function HouseUserIcon() {
 type SpiritIcon = "pompoms" | "fund" | "house";
 const ICONS: Record<SpiritIcon, () => JSX.Element> = { pompoms: PomPomsIcon, fund: FundScreenIcon, house: HouseUserIcon };
 
-export function SpiritButton({ division, label, icon = "pompoms" }: { division: string; label: string; icon?: SpiritIcon }) {
+export function SpiritButton({
+  division,
+  label,
+  icon = "pompoms",
+  onPress,
+}: {
+  division: string;
+  label: string;
+  icon?: SpiritIcon;
+  /* the card above resets to its first state on each press */
+  onPress?: () => void;
+}) {
   const [cheering, setCheering] = useState(false);
   const timer = useRef<number | undefined>(undefined);
   useEffect(() => () => window.clearTimeout(timer.current), []);
   const cheer = () => {
+    onPress?.();
     window.clearTimeout(timer.current);
     setCheering(false);
     // restart the animation even on a quick second tap (a zero-delay
