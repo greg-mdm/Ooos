@@ -1383,10 +1383,22 @@
   margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 700; font-size: 12px;
   letter-spacing: .12em; line-height: 1.6; text-transform: uppercase; color: #CBA3F5;
 }
+/* the right cell: three even lines on the left, the claim on the right */
+.cid-scope .cid-viv-tower__cap-side { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 18px 26px; align-items: center; }
+.cid-scope .cid-viv-tower__lines { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.cid-scope .cid-viv-tower__lines li {
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 11px;
+  letter-spacing: .07em; line-height: 1.4; text-transform: uppercase; color: #4B00B6; white-space: nowrap;
+}
+.cid-scope .cid-viv-tower__claimbox { display: flex; flex-direction: column; gap: 10px; }
 .cid-scope .cid-viv-tower__claim {
-  margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 18px;
+  margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 16px;
   letter-spacing: .3px; line-height: 1.35; color: #4B00B6; text-wrap: balance;
 }
+.cid-scope .cid-viv-tower__triad { margin: 0; font-size: 13.5px; line-height: 1.55; color: #33384a; text-wrap: balance; }
+/* below 1100px the right cell is too narrow for the lines beside the claim,
+   so the claim drops under them */
+@media (max-width: 1100px) { .cid-scope .cid-viv-tower__cap-side { grid-template-columns: minmax(0, 1fr); } }
 .cid-scope .cid-viv-spec { min-width: 0; }
 .cid-scope .cid-viv-spec__k {
   margin: 0 0 4px; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 20px;
@@ -1408,7 +1420,11 @@
   transition: background .2s ease, transform .2s ease;
 }
 .cid-scope .cid-viv-spec__chip svg { width: 15px; height: 15px; fill: currentColor; }
-.cid-scope .cid-viv-spec__chip:hover { background: #7CC4FF; transform: translateY(-1px); }
+/* chip tones (Greg, 2026-10-06): Blue Light for the arrows, Electric for the
+   prism (white glyph), Gold for the pulse (canon ink on gold) */
+.cid-scope .cid-viv-spec__chip--electric { background: #5B04DE; color: #FFFFFF; }
+.cid-scope .cid-viv-spec__chip--gold { background: #F0C040; color: #0A0614; }
+.cid-scope .cid-viv-spec__chip:hover { transform: translateY(-1px); filter: brightness(1.12); }
 .cid-scope .cid-viv-spec__chip:focus-visible { outline: 2px solid #E8ECF4; outline-offset: 2px; }
 .cid-scope .cid-viv-spec--reveal.is-open .cid-viv-spec__chip { background: #E8ECF4; }
 .cid-scope .cid-viv-spec__v--reveal { display: none; margin-top: 4px; }
@@ -1472,6 +1488,7 @@
   .cid-scope .cid-viv-floor__text,
   .cid-scope .cid-viv-tower__cap-side,
   .cid-scope .cid-viv-tower__foot-side { border-left: 0; padding: 16px 18px 18px; }
+  .cid-scope .cid-viv-tower__cap-side { grid-template-columns: minmax(0, 1fr); }
   .cid-scope .cid-viv-tower__cap-main,
   .cid-scope .cid-viv-tower__foot-main { padding: 18px; }
 }

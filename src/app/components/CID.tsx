@@ -1335,7 +1335,7 @@ const CASE_BAYS: CaseBay[] = [
    stays hidden until the icon is pressed; on a mouse it also shows while
    the spec is hovered. The icon sits on a Blue Light chip, Greg's choice
    for the arrows, carried to all three so they read as one control. */
-function SpecReveal({ heading, caps, icon, iconName, detail }: { heading: string; caps?: boolean; icon: ReactNode; iconName: string; detail: ReactNode }) {
+function SpecReveal({ heading, caps, icon, iconName, detail, tone = "blue" }: { heading: string; caps?: boolean; icon: ReactNode; iconName: string; detail: ReactNode; tone?: "blue" | "gold" | "electric" }) {
   const [open, setOpen] = useState(false);
   const id = useId();
   return (
@@ -1344,7 +1344,7 @@ function SpecReveal({ heading, caps, icon, iconName, detail }: { heading: string
         {heading}
         <button
           type="button"
-          className="cid-viv-spec__chip"
+          className={`cid-viv-spec__chip cid-viv-spec__chip--${tone}`}
           aria-expanded={open}
           aria-controls={id}
           aria-label={`${open ? "Hide" : "Show"} what powers this (${iconName})`}
@@ -1933,6 +1933,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <SpecReveal
                   heading="Immersive graphics visualizations"
                   iconName="prism"
+                  tone="electric"
                   icon={
                     <svg viewBox="0 0 512 512" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="32" strokeLinecap="round" strokeLinejoin="round">
                       <path fill="none" d="M229.73 45.88L37.53 327.79a31.79 31.79 0 0011.31 46L241 476.26a31.77 31.77 0 0029.92 0l192.2-102.51a31.79 31.79 0 0011.31-46L282.27 45.88a31.8 31.8 0 00-52.54 0zM256 32v448" />
@@ -1943,6 +1944,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <SpecReveal
                   heading="Neural accelerator block boosts audio and speech-centric AI workloads."
                   iconName="pulse"
+                  tone="gold"
                   icon={
                     <svg viewBox="0 0 512 512" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="32" strokeLinecap="round" strokeLinejoin="round">
                       <path fill="none" d="M48 320h64l64-256 64 384 64-224 32 96h64" />
@@ -1952,11 +1954,21 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   detail={<>Intel® Gaussian &amp; Neural Accelerator</>}
                 />
               </div>
+              {/* Final panel copy (Greg, 2026-10-06): three even lines stacked on
+                  the left, written in sentence case and set to capitals in CSS;
+                  the claim on the right, with BIG in capitals as he typed it.
+                  "Teer 0" is kept as he typed it. The leadership triad was
+                  placed "somewhere" at my discretion: under the claim, as the
+                  line that says who leads the facility the lines describe. */}
               <div className="cid-viv-tower__cap-side">
-                <p className="cid-viv-tower__claim">The Vivarium is a miniature model for making big discoveries.</p>
-                <div className="cid-viv-spec">
-                  <p className="cid-viv-spec__k cid-viv-spec__k--caps">Under 1 litre</p>
-                  <p className="cid-viv-spec__v">multi-level research facility</p>
+                <ul className="cid-viv-tower__lines">
+                  <li>Lighter than a bag of milk</li>
+                  <li>Multi-level research facility</li>
+                  <li>Teer 0 • Strategic leadership</li>
+                </ul>
+                <div className="cid-viv-tower__claimbox">
+                  <p className="cid-viv-tower__claim">The Vivarium is a miniature model for making BIG discoveries.</p>
+                  <p className="cid-viv-tower__triad">Human direction. Delegated authority. Undivided accountability.</p>
                 </div>
               </div>
             </header>
