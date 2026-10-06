@@ -1393,6 +1393,33 @@
   letter-spacing: .02em; line-height: 1.25; color: #4B00B6;
 }
 .cid-scope .cid-viv-spec__k--caps { text-transform: uppercase; letter-spacing: .08em; }
+/* a small label after a key, as Greg bracketed it: [Engineering Code Name] */
+.cid-scope .cid-viv-spec__tag {
+  display: inline-block; margin-left: 10px; vertical-align: 3px;
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 700; font-size: 11px;
+  letter-spacing: .12em; text-transform: uppercase; color: #CBA3F5;
+}
+/* Progressive reveal: the icon beside a heading is a button on a Blue Light
+   chip; the technical line under it stays hidden until the chip is pressed
+   (aria-expanded), and on a mouse it also shows while the spec is hovered. */
+.cid-scope .cid-viv-spec__chip {
+  display: inline-grid; place-items: center; width: 26px; height: 26px; margin-left: 10px; padding: 0;
+  vertical-align: -5px; border: 0; border-radius: 7px; background: #4DAEFF; color: #0F031C; cursor: pointer;
+  transition: background .2s ease, transform .2s ease;
+}
+.cid-scope .cid-viv-spec__chip svg { width: 15px; height: 15px; fill: currentColor; }
+.cid-scope .cid-viv-spec__chip:hover { background: #7CC4FF; transform: translateY(-1px); }
+.cid-scope .cid-viv-spec__chip:focus-visible { outline: 2px solid #E8ECF4; outline-offset: 2px; }
+.cid-scope .cid-viv-spec--reveal.is-open .cid-viv-spec__chip { background: #E8ECF4; }
+.cid-scope .cid-viv-spec__v--reveal { display: none; margin-top: 4px; }
+.cid-scope .cid-viv-spec--reveal.is-open .cid-viv-spec__v--reveal { display: block; animation: cidSpecReveal .25s ease-out both; }
+@media (hover: hover) {
+  .cid-scope .cid-viv-spec--reveal:hover .cid-viv-spec__v--reveal { display: block; animation: cidSpecReveal .25s ease-out both; }
+}
+@keyframes cidSpecReveal { from { opacity: 0; transform: translateY(-3px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .cid-scope .cid-viv-spec__v--reveal, .cid-scope .cid-viv-spec__chip { animation: none; transition: none; }
+}
 .cid-scope .cid-viv-spec__v { margin: 0; font-size: 15px; line-height: 1.55; color: #33384a; }
 .cid-scope .cid-viv-tower__cap-main .cid-viv-spec__k,
 .cid-scope .cid-viv-tower__foot-main .cid-viv-spec__k { color: #E8ECF4; }

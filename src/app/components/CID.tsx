@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Fragment, useEffect, useRef, useState, type ReactNode, type CSSProperties, type RefObject } from "react";
+import { Fragment, useEffect, useId, useRef, useState, type ReactNode, type CSSProperties, type RefObject } from "react";
 import { RedShaderOrb } from "./cid/RedShaderOrb";
 import { ForestBackdrop } from "./ForestBackdrop";
 import "../../styles/cid-continuum.css";
@@ -1329,6 +1329,36 @@ const CASE_BAYS: CaseBay[] = [
 ];
 
 
+/* A spec in the tower header with progressive reveal: the plain-language
+   heading is always shown, and the icon beside it is a button that reveals
+   the technical thing powering the feature (Greg, 2026-10-06). The detail
+   stays hidden until the icon is pressed; on a mouse it also shows while
+   the spec is hovered. The icon sits on a Blue Light chip, Greg's choice
+   for the arrows, carried to all three so they read as one control. */
+function SpecReveal({ heading, caps, icon, iconName, detail }: { heading: string; caps?: boolean; icon: ReactNode; iconName: string; detail: ReactNode }) {
+  const [open, setOpen] = useState(false);
+  const id = useId();
+  return (
+    <div className={`cid-viv-spec cid-viv-spec--reveal${open ? " is-open" : ""}`}>
+      <p className={`cid-viv-spec__k${caps ? " cid-viv-spec__k--caps" : ""}`}>
+        {heading}
+        <button
+          type="button"
+          className="cid-viv-spec__chip"
+          aria-expanded={open}
+          aria-controls={id}
+          aria-label={`${open ? "Hide" : "Show"} what powers this (${iconName})`}
+          title={open ? "Hide what powers this" : "What powers this"}
+          onClick={() => setOpen((o) => !o)}
+        >
+          {icon}
+        </button>
+      </p>
+      <p id={id} className="cid-viv-spec__v cid-viv-spec__v--reveal">{detail}</p>
+    </div>
+  );
+}
+
 function TeamTags() {
   return (
     <div className="cid-viv-tags">
@@ -1872,24 +1902,55 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           />
           <div className="cid-viv-tower">
             {/* The roof of the tower: the machine that houses it. Greg's copy
-                (2026-10-05), verbatim, laid out on the tower's own two
-                columns: the hardware on the left where the floors carry
+                (shortened 2026-10-06), verbatim, laid out on the tower's own
+                two columns: the hardware on the left where the floors carry
                 their pictures, the Vivarium's claim on the right where they
-                carry their text. Lines he typed in capitals are written in
-                sentence case and set to capitals in CSS, so screen readers
-                get words; "Intel® Arc™ 140T" keeps the case he gave it. */}
+                carry their text. He took the product-specific and technical
+                terms out of the headings and kept the specs that read most
+                widely in the Vivarium's context; the lines he cut (the
+                chassis, the processor and the device by name) are saved in
+                SPRINT 6/geekom-hover-lines.md for a hover over the Geekom
+                device itself, later. Lines he typed in capitals are written
+                in sentence case and set to capitals in CSS, so screen
+                readers get words. The icons are Ionicons (MIT): the fast-
+                forward arrows on a blue chip beside the core count, and the
+                pulse beside the neural accelerator. */}
             <header className="cid-viv-tower__cap">
               <div className="cid-viv-tower__cap-main">
-                <p className="cid-viv-tower__eyebrow">GEEKOM IT15 AI mini-PC · Matte-black chassis · Computing and cooling infrastructure.</p>
+                <p className="cid-viv-tower__eyebrow">AI Mini-PC: Computing and Cooling Infrastructure</p>
                 <div className="cid-viv-spec">
-                  <p className="cid-viv-spec__k cid-viv-spec__k--caps">16 cores</p>
-                  <p className="cid-viv-spec__v">6 Performance · 8 Efficient · 2 Low Power Efficient</p>
-                  <p className="cid-viv-spec__v">Intel® Core™ Ultra 9 285H · Arrow Lake.</p>
+                  <p className="cid-viv-spec__k cid-viv-spec__k--caps">Arrow Lake <span className="cid-viv-spec__tag">Engineering Code Name</span></p>
                 </div>
-                <div className="cid-viv-spec">
-                  <p className="cid-viv-spec__k">Intel® Arc™ 140T</p>
-                  <p className="cid-viv-spec__v">Immersive graphics visualizations</p>
-                </div>
+                {/* Ionicons (MIT): play-forward-sharp for the cores, pulse-outline
+                    for the neural accelerator. The prism on the graphics line is a
+                    placeholder of mine; Greg has not picked that icon yet. */}
+                <SpecReveal
+                  heading="16 cores"
+                  iconName="fast-forward arrows"
+                  icon={<svg viewBox="0 0 512 512" aria-hidden="true"><path d="M16 400l240-144L16 112v288zM256 400l240-144-240-144v288z" /></svg>}
+                  detail="6 Performance · 8 Efficient · 2 Low Power Efficient"
+                />
+                <SpecReveal
+                  heading="Immersive graphics visualizations"
+                  iconName="prism"
+                  icon={
+                    <svg viewBox="0 0 512 512" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="32" strokeLinecap="round" strokeLinejoin="round">
+                      <path fill="none" d="M229.73 45.88L37.53 327.79a31.79 31.79 0 0011.31 46L241 476.26a31.77 31.77 0 0029.92 0l192.2-102.51a31.79 31.79 0 0011.31-46L282.27 45.88a31.8 31.8 0 00-52.54 0zM256 32v448" />
+                    </svg>
+                  }
+                  detail="Intel® Arc™ 140T"
+                />
+                <SpecReveal
+                  heading="Neural accelerator block boosts audio and speech-centric AI workloads."
+                  iconName="pulse"
+                  icon={
+                    <svg viewBox="0 0 512 512" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="32" strokeLinecap="round" strokeLinejoin="round">
+                      <path fill="none" d="M48 320h64l64-256 64 384 64-224 32 96h64" />
+                      <circle fill="none" cx="432" cy="320" r="32" />
+                    </svg>
+                  }
+                  detail={<>Intel® Gaussian &amp; Neural Accelerator</>}
+                />
               </div>
               <div className="cid-viv-tower__cap-side">
                 <p className="cid-viv-tower__claim">The Vivarium is a miniature model for making big discoveries.</p>
