@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Fragment, useEffect, useRef, useState, type ReactNode, type CSSProperties, type RefObject } from "react";
 import { RedShaderOrb } from "./cid/RedShaderOrb";
+import { ForestBackdrop } from "./ForestBackdrop";
 import "../../styles/cid-continuum.css";
 import "../../styles/cid-forest.css";
 import "../../styles/cid-vivarium.css";
@@ -1855,6 +1856,20 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               The videos keep preload="metadata": a few KB of header, not the
               file, so a reader who never presses play never pays for it. The
               posters carry the visual weight until then. */}
+          {/* The grove: the tower, the nametags and the RACI panel stand in
+              a forest (Greg, 2026-10-05). It breaks out to the page width
+              and pads back in, so the cards have not moved. Inside it the
+              canopy block carries Greg's phthalo forest loop behind the
+              tower and the nametags: the clip ends where the forest meets
+              the ground, below the tower, and the nametags sit on its
+              fallen leaves (Greg, 2026-10-06). The RACI panel follows on
+              the forest-floor ground. */}
+          <div className="cid-viv-grove">
+          <div className="cid-viv-canopy">
+          <ForestBackdrop
+            videoSrc={`${base}assets/video/cid-phthalo-forest-loop.mp4`}
+            poster={`${base}assets/images/cid-phthalo-forest-poster.webp`}
+          />
           <div className="cid-viv-tower">
             {/* The roof of the tower: the machine that houses it. Greg's copy
                 (2026-10-05), verbatim, laid out on the tower's own two
@@ -2041,6 +2056,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               size, and its four renders stay in public/assets/images as
               cid-team-case-*.webp, unreferenced. */}
           <TeamTags />
+          </div>
 
           {/* The chart and the key that defines it, in one block under one
               title. They were split across the page, chart down here and key up
@@ -2199,6 +2215,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             </dl>
           </div>
           </section>
+          </div>
 
 
           {/* Sealed case. The room and the claim it evidences are one

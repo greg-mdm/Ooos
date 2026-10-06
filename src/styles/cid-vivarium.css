@@ -1449,6 +1449,55 @@
   .cid-scope .cid-viv-tower__foot-main { padding: 18px; }
 }
 
+/* ---- The grove: the Vivarium tower, the three nametags and the RACI panel
+   stand in a forest. The grove breaks out to the page width the same way
+   .cid-cast does (--viv-gutter is the container's own offset; keep the
+   1240px in step with .cid-hero-container) and pads itself back in by that
+   gutter, so its cards sit exactly where they did; only the ground behind
+   them changes. It is a flex column with the stack's own gap, because it
+   takes three of the stack's children with it.
+
+   Inside it, the canopy block holds the tower and the nametags over Greg's
+   phthalo forest loop (ForestBackdrop.tsx). The clip is pinned to the foot
+   of that block at the page's width, so it ends where the forest meets the
+   ground, just below the tower, and its fallen leaves lie behind the
+   nametags; above its top edge it is masked away into the ground colour.
+   The RACI panel follows outside the canopy, on ground that continues from
+   the clip's leaf-litter tone down into Viv's own shadow (#051612, sampled
+   from the tour renders; see cid-forest.css). The two phthalo stops in the
+   canopy ground (#0A2A33, #0F3A43) are new, matched to the clip's canopy
+   so the fade reads as the woods going dark, not a change of colour. ---- */
+.cid-scope .cid-viv-grove {
+  --viv-gutter: max(24px, (100vw - 1240px) / 2 + 24px);
+  position: relative; overflow: hidden;
+  width: 100vw; max-width: none;
+  margin: clamp(26px,3.4vw,44px) calc(-1 * var(--viv-gutter)) 0;
+  padding: 0 var(--viv-gutter) clamp(44px,5vw,76px);
+  display: flex; flex-direction: column; gap: clamp(22px,3.4vh,34px);
+  background: linear-gradient(180deg, #121412 0%, #0B1512 45%, #051612 100%);
+}
+.cid-scope .cid-viv-canopy {
+  position: relative; isolation: isolate;
+  margin: 0 calc(-1 * var(--viv-gutter));
+  padding: clamp(12px,2vw,28px) var(--viv-gutter) clamp(30px,3.4vw,48px);
+  display: flex; flex-direction: column; gap: clamp(22px,3.4vh,34px);
+}
+.cid-scope .cid-viv-canopy > :not(.cid-viv-forest) { position: relative; z-index: 1; }
+.cid-scope .cid-viv-forest {
+  position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
+  background: linear-gradient(180deg, #051612 0%, #0A2A33 58%, #0F3A43 74%, #131411 100%);
+}
+/* the clip: the page's width (never narrower than 1000px, so on a phone it
+   is cropped to its middle rather than shrunk to a strip), its bottom edge
+   on the foot of the canopy, and its top 30% masked off into the ground */
+.cid-scope .cid-viv-forest__video {
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: max(100%, 1000px); max-width: none; height: auto; max-height: 100%; display: block;
+  object-fit: cover; object-position: center bottom;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0, #000 30%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0, #000 30%);
+}
+
 /* ---- Portal drum roll: a quiet dark-galaxy band between the Vivarium and
    the Innovation Watchlist. Muted lavender line, faint stars, no splash. ---- */
 .cid-scope .cid-portal-band {
