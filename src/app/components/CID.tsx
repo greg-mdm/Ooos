@@ -2269,7 +2269,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     </ul>
                   }
                 />
-                <h5 className="cid-raci-purpose__sub">Speed, scrutiny and sovereignty.</h5>
+                <h5 className="cid-raci-purpose__sub">Speed, scrutiny and sovereignty</h5>
                 <p className="cid-raci-purpose__p">As the Canadian Innovation Dimension expands into a gamified research universe, an evolving psychodrama makes responsible AI management practices visible.</p>
                 <p className="cid-raci-purpose__label">3 colourful characters</p>
                 <p className="cid-raci-purpose__p">A fast-paced executive. A deliberate ethical analyst. An accountable human authority.</p>
