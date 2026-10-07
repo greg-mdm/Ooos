@@ -1449,6 +1449,10 @@
    prism (white glyph), Gold for the pulse (canon ink on gold) */
 .cid-scope .cid-viv-spec__chip--electric { background: #5B04DE; color: #FFFFFF; }
 .cid-scope .cid-viv-spec__chip--gold { background: #F0C040; color: #0A0614; }
+/* the core count: an aquamarine square with lava-red arrows (Greg,
+   2026-10-07). The aquamarine is the map's Northern zone colour, the red
+   the maple leaf's; neither is a canon anchor. */
+.cid-scope .cid-viv-spec__chip--aqua { background: #1FCECB; color: #E8453C; }
 .cid-scope .cid-viv-spec__chip:hover { transform: translateY(-1px); filter: brightness(1.12); }
 .cid-scope .cid-viv-spec__chip:focus-visible { outline: 2px solid #E8ECF4; outline-offset: 2px; }
 .cid-scope .cid-viv-spec--reveal.is-open .cid-viv-spec__chip { background: #E8ECF4; }
@@ -2142,6 +2146,39 @@
 /* No card of its own: it sits inside .cid-raci-panel, which is the card.
    Nesting a second white box inside the first read as a mistake. */
 .cid-scope .cid-viv-raci { padding: clamp(18px,2vw,24px); }
+/* ---- Purpose and leadership, at the top of the RACI panel body. Body copy
+   at a 62ch measure with text-wrap balance; the unfolds hang their revealed
+   text under the line on a thin Portal rule, so each level reads as a step
+   inward. Chips: Portal for the ellipsis, Gold for the book. ---- */
+.cid-scope .cid-raci-purpose { padding: 2px 0 16px; margin-bottom: 16px; border-bottom: 1px solid rgba(75,0,182,.14); }
+.cid-scope .cid-raci-purpose__h {
+  margin: 0 0 10px; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: 16px; letter-spacing: .3px; color: #4B00B6;
+}
+.cid-scope .cid-raci-purpose__sub {
+  margin: 16px 0 6px; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: 14.5px; letter-spacing: .2px; color: #4B00B6;
+}
+.cid-scope .cid-raci-purpose__label {
+  margin: 14px 0 4px; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
+  font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; color: #4B00B6;
+}
+.cid-scope .cid-raci-purpose__p,
+.cid-scope .cid-raci-unfold__line { margin: 0 0 10px; max-width: 62ch; font-size: 14.5px; line-height: 1.55; color: #33384a; text-wrap: balance; }
+.cid-scope .cid-raci-purpose__p:last-child { margin-bottom: 0; }
+.cid-scope .cid-raci-unfold__chip {
+  display: inline-grid; place-items: center; width: 22px; height: 22px; margin-left: 8px; padding: 0;
+  vertical-align: -5px; border: 0; border-radius: 6px; color: #FFFFFF; cursor: pointer;
+  transition: transform .2s ease, filter .2s ease;
+}
+.cid-scope .cid-raci-unfold__chip svg { width: 13px; height: 13px; }
+.cid-scope .cid-raci-unfold__chip--purple { background: #4B00B6; }
+.cid-scope .cid-raci-unfold__chip--gold { background: #F0C040; color: #0A0614; }
+.cid-scope .cid-raci-unfold__chip:hover { transform: translateY(-1px); filter: brightness(1.12); }
+.cid-scope .cid-raci-unfold__chip:focus-visible { outline: 2px solid #4B00B6; outline-offset: 2px; }
+.cid-scope .cid-raci-unfold.is-open > .cid-raci-unfold__line .cid-raci-unfold__chip { background: #0F031C; color: #FFFFFF; }
+.cid-scope .cid-raci-unfold__more { display: none; margin: 0 0 12px; padding-left: 14px; border-left: 2px solid rgba(75,0,182,.18); }
+.cid-scope .cid-raci-unfold.is-open > .cid-raci-unfold__more { display: block; animation: cidSpecReveal .25s ease-out both; }
 .cid-scope .cid-viv-raci h3 {
   margin: 0 0 8px; font-family: 'Montserrat', system-ui, sans-serif;
   font-weight: 800; font-size: clamp(15px,1.5vw,18px); letter-spacing: .3px;

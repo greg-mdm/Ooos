@@ -1335,7 +1335,7 @@ const CASE_BAYS: CaseBay[] = [
    stays hidden until the icon is pressed; on a mouse it also shows while
    the spec is hovered. The icon sits on a Blue Light chip, Greg's choice
    for the arrows, carried to all three so they read as one control. */
-function SpecReveal({ heading, caps, icon, iconName, detail, tone = "blue" }: { heading: string; caps?: boolean; icon: ReactNode; iconName: string; detail: ReactNode; tone?: "blue" | "gold" | "electric" }) {
+function SpecReveal({ heading, caps, icon, iconName, detail, tone = "blue" }: { heading: string; caps?: boolean; icon: ReactNode; iconName: string; detail: ReactNode; tone?: "blue" | "gold" | "electric" | "aqua" }) {
   const [open, setOpen] = useState(false);
   const id = useId();
   return (
@@ -1365,6 +1365,34 @@ function SpecReveal({ heading, caps, icon, iconName, detail, tone = "blue" }: { 
    Classification's own term, so the spelling stands; the note is Greg's
    copy (2026-10-07), verbatim. The note is a small panel under the line,
    positioned so it never widens the column of three even lines. */
+/* A line of body copy with a chip that unfolds more beneath it: the
+   progressive reveal Greg marked with "--" and "-----" in his draft. A tap
+   toggles it (aria-expanded); unfolds nest, so a revealed line can carry
+   its own chip. The chip labels are accessibility text, not page copy. */
+function Unfold({ line, icon, tone, label, more }: { line: ReactNode; icon: ReactNode; tone: "purple" | "gold"; label: string; more: ReactNode }) {
+  const [open, setOpen] = useState(false);
+  const id = useId();
+  return (
+    <div className={`cid-raci-unfold${open ? " is-open" : ""}`}>
+      <p className="cid-raci-unfold__line">
+        {line}
+        <button
+          type="button"
+          className={`cid-raci-unfold__chip cid-raci-unfold__chip--${tone}`}
+          aria-expanded={open}
+          aria-controls={id}
+          aria-label={`${open ? "Hide" : "Show"} ${label}`}
+          title={label}
+          onClick={() => setOpen((o) => !o)}
+        >
+          {icon}
+        </button>
+      </p>
+      <div id={id} className="cid-raci-unfold__more">{more}</div>
+    </div>
+  );
+}
+
 function TeerLine() {
   const [open, setOpen] = useState(false);
   const id = useId();
@@ -1960,6 +1988,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <SpecReveal
                   heading="16 cores"
                   iconName="fast-forward arrows"
+                  tone="aqua"
                   icon={<svg viewBox="0 0 512 512" aria-hidden="true"><path d="M16 400l240-144L16 112v288zM256 400l240-144-240-144v288z" /></svg>}
                   detail="6 Performance · 8 Efficient · 2 Low Power Efficient"
                 />
@@ -2189,6 +2218,41 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 announce "Evidence verification, Ethel, Responsible" rather
                 than reading twenty-eight loose letters. */}
             <div className="cid-viv-raci">
+              {/* Purpose and leadership: Greg's copy (2026-10-07), verbatim,
+                  above the safeguards and the chart it explains. Where his
+                  draft marked "--" and "-----", the text unfolds: the
+                  demonstration line carries an ellipsis chip that reveals the
+                  personas line, which carries a book chip that reveals the
+                  Kahneman passage. The book title is set in italics; the
+                  apostrophes are set as one kind. Icons are Ionicons (MIT). */}
+              <div className="cid-raci-purpose">
+                <h4 className="cid-raci-purpose__h">Purpose and leadership</h4>
+                <p className="cid-raci-purpose__p">The Canadian Innovation Dimension (CID) facilitates local human-led research and AI experimentation in a locally contained habitat. We collect public statistics, verify signals, and identify patterns to help Canadian business leaders navigate complex global markets.</p>
+                <Unfold
+                  line="Part public research demonstration; part real-time narrative unfolding in hyperreality."
+                  tone="purple"
+                  label="more on the demonstration"
+                  icon={<svg viewBox="0 0 512 512" aria-hidden="true" fill="currentColor"><circle cx="256" cy="256" r="48" /><circle cx="416" cy="256" r="48" /><circle cx="96" cy="256" r="48" /></svg>}
+                  more={
+                    <Unfold
+                      line="A public research demonstration is unfolding through evolving personas and active processes."
+                      tone="gold"
+                      label="the psychodrama, after Kahneman"
+                      icon={<svg viewBox="0 0 512 512" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="32" strokeLinecap="round" strokeLinejoin="round"><path fill="none" d="M256 160c16-63.16 76.43-95.41 208-96a15.94 15.94 0 0116 16v288a16 16 0 01-16 16c-128 0-177.45 25.81-208 64-30.37-38-80-64-208-64-9.88 0-16-8.05-16-17.93V80a15.94 15.94 0 0116-16c131.57.59 192 32.84 208 96zM256 160v288" /></svg>}
+                      more={
+                        <>
+                          <p className="cid-raci-purpose__p">Daniel Kahneman’s <em>Thinking, Fast and Slow</em>. System 1 describes quick, automatic responses requiring little effort. System 2 describes deliberate mental work and tuned in attention. Kahneman describes the relationship as a psychodrama with two characters, each with abilities, limitations and functions.</p>
+                          <p className="cid-raci-purpose__p">The Vivarium expands the cast in CID’s original narrative adaptation, but not the scientific taxonomy. Icarus III embodies fast, unflinching action. Prudent operating protocols position Ethel’s comprehensive scrutiny as a check on urgent, action-oriented conclusions. The human Principal Investigator examines how the work is being reasoned through, guides both agents by delivering reality checks and deciding what happens next.</p>
+                        </>
+                      }
+                    />
+                  }
+                />
+                <h5 className="cid-raci-purpose__sub">Speed, scrutiny and sovereignty.</h5>
+                <p className="cid-raci-purpose__p">As the Canadian Innovation Dimension expands into a gamified research universe, an evolving psychodrama makes responsible AI management practices visible.</p>
+                <p className="cid-raci-purpose__label">3 colourful characters</p>
+                <p className="cid-raci-purpose__p">A fast-paced executive. A deliberate ethical analyst. An accountable human authority.</p>
+              </div>
               {/* Safeguards, each with the glyph Greg picked for it, and each
                   with a note under its label, folded: at rest a line is its badge
                   and label, and the note opens on tap, as the Methods and the
