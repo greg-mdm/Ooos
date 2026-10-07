@@ -30,7 +30,10 @@
    the 5000px master): its glow and drop shadow are translucent, so it sits
    on whatever ground is behind it, on every browser and colour scheme */
 /* central focal point — enlarged from 230 so the orb anchors the hero */
-.ot-logo { width: 300px; height: 300px; display: inline-block; }
+/* the box is square whatever the column allows: between 721px and about
+   900px the centre column is narrower than 300px, and a fixed height drew
+   the orb as an ellipse */
+.ot-logo { width: 300px; max-width: 100%; height: auto; aspect-ratio: 1 / 1; display: inline-block; }
 
 /* locked 3-block layout: text-left / orb-center / sign-right */
 .ot-trio { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
