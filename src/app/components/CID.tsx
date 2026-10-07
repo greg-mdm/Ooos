@@ -1959,6 +1959,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           <div className="cid-viv-canopy">
           <ForestBackdrop
             videoSrc={`${base}assets/video/cid-phthalo-forest-loop.mp4`}
+            videoSrcWide={`${base}assets/video/cid-phthalo-forest-loop-1440.mp4`}
             poster={`${base}assets/images/cid-phthalo-forest-poster.webp`}
           />
           <div className="cid-viv-tower">

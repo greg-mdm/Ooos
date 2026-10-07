@@ -18,7 +18,11 @@
    placeholder layers were retired for the clip on 2026-10-06. */
 import { useEffect, useRef } from "react";
 
-export function ForestBackdrop({ videoSrc, poster }: { videoSrc: string; poster: string }) {
+/* Two encodes of the same loop: the 1440x810 one for screens 760px and
+   wider, where the clip is scaled to the full height of the tower, and
+   the 960x540 one (4.5MB against 7.8MB) for phones. The browser picks by
+   the media query on the first source. */
+export function ForestBackdrop({ videoSrc, videoSrcWide, poster }: { videoSrc: string; videoSrcWide?: string; poster: string }) {
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -46,7 +50,6 @@ export function ForestBackdrop({ videoSrc, poster }: { videoSrc: string; poster:
       <video
         ref={ref}
         className="cid-viv-forest__video"
-        src={videoSrc}
         poster={poster}
         muted
         loop
@@ -54,7 +57,10 @@ export function ForestBackdrop({ videoSrc, poster }: { videoSrc: string; poster:
         playsInline
         preload="metadata"
         tabIndex={-1}
-      />
+      >
+        {videoSrcWide && <source src={videoSrcWide} media="(min-width: 760px)" type="video/mp4" />}
+        <source src={videoSrc} type="video/mp4" />
+      </video>
     </div>
   );
 }
