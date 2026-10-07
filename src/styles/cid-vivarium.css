@@ -1390,6 +1390,31 @@
   font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 11px;
   letter-spacing: .07em; line-height: 1.4; text-transform: uppercase; color: #4B00B6; white-space: nowrap;
 }
+/* the TEER line's chip and note: the note is a small panel hung under the
+   line (absolute, so the column of even lines never widens), shown while
+   the line is hovered or focused, or after the chip is tapped */
+.cid-scope .cid-viv-tower__teer { position: relative; }
+.cid-scope .cid-viv-tower__teer-btn {
+  display: inline-grid; place-items: center; width: 20px; height: 20px; margin-left: 8px; padding: 0;
+  vertical-align: -5px; border: 0; border-radius: 6px; background: #4B00B6; color: #FFFFFF; cursor: pointer;
+  transition: transform .2s ease, filter .2s ease;
+}
+.cid-scope .cid-viv-tower__teer-btn svg { width: 12px; height: 12px; }
+.cid-scope .cid-viv-tower__teer-btn:hover { transform: translateY(-1px); filter: brightness(1.15); }
+.cid-scope .cid-viv-tower__teer-btn:focus-visible { outline: 2px solid #4B00B6; outline-offset: 2px; }
+.cid-scope .cid-viv-tower__teer.is-open .cid-viv-tower__teer-btn { background: #0F031C; }
+.cid-scope .cid-viv-tower__teer-note {
+  display: none; position: absolute; left: 0; top: calc(100% + 8px); z-index: 7;
+  width: min(320px, calc(100vw - 56px)); padding: 10px 12px; border-radius: 10px;
+  background: #0F031C; color: #E8ECF4; box-shadow: 0 14px 30px -14px rgba(6,2,28,.7);
+  font-family: 'Inter', system-ui, sans-serif; font-weight: 500; font-size: 12.5px; line-height: 1.5;
+  letter-spacing: 0; text-transform: none; white-space: normal; text-wrap: balance;
+}
+.cid-scope .cid-viv-tower__teer.is-open .cid-viv-tower__teer-note,
+.cid-scope .cid-viv-tower__teer:focus-within .cid-viv-tower__teer-note { display: block; animation: cidSpecReveal .2s ease-out both; }
+@media (hover: hover) {
+  .cid-scope .cid-viv-tower__teer:hover .cid-viv-tower__teer-note { display: block; animation: cidSpecReveal .2s ease-out both; }
+}
 .cid-scope .cid-viv-tower__claimbox { display: flex; flex-direction: column; gap: 10px; }
 .cid-scope .cid-viv-tower__claim {
   margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 16px;

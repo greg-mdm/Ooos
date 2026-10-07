@@ -1359,6 +1359,39 @@ function SpecReveal({ heading, caps, icon, iconName, detail, tone = "blue" }: { 
   );
 }
 
+/* The TEER line in the tower header, with a briefcase chip that reveals
+   what TEER means: on hover and on keyboard focus (CSS), and on tap (the
+   button toggles it, aria-expanded). TEER is the National Occupational
+   Classification's own term, so the spelling stands; the note is Greg's
+   copy (2026-10-07), verbatim. The note is a small panel under the line,
+   positioned so it never widens the column of three even lines. */
+function TeerLine() {
+  const [open, setOpen] = useState(false);
+  const id = useId();
+  return (
+    <li className={`cid-viv-tower__teer${open ? " is-open" : ""}`}>
+      Teer 0 • Strategic leadership
+      <button
+        type="button"
+        className="cid-viv-tower__teer-btn"
+        aria-expanded={open}
+        aria-controls={id}
+        aria-label={open ? "Hide what TEER means" : "What TEER means"}
+        title="What TEER means"
+        onClick={() => setOpen((o) => !o)}
+      >
+        <svg viewBox="0 0 512 512" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="32" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="32" y="128" width="448" height="320" rx="48" ry="48" />
+          <path d="M144 128V96a32 32 0 0132-32h160a32 32 0 0132 32v32M480 240H32M320 240v24a8 8 0 01-8 8H200a8 8 0 01-8-8v-24" />
+        </svg>
+      </button>
+      <span id={id} role="note" className="cid-viv-tower__teer-note">
+        TEER: Training, Education, Experience and Responsibility. Category 0: management occupations within Canada’s National Occupational Classification.
+      </span>
+    </li>
+  );
+}
+
 function TeamTags() {
   return (
     <div className="cid-viv-tags">
@@ -1964,7 +1997,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <ul className="cid-viv-tower__lines">
                   <li>Lighter than a bag of milk</li>
                   <li>Multi-level research facility</li>
-                  <li>Teer 0 • Strategic leadership</li>
+                  <TeerLine />
                 </ul>
                 <div className="cid-viv-tower__claimbox">
                   <p className="cid-viv-tower__claim">The Vivarium is a miniature model for making BIG discoveries.</p>
