@@ -26,7 +26,9 @@
 
 .ot-content { max-width: 1240px; margin-inline: auto; }
 
-/* logo orb on its matching light-blue background plate (no blend needed) */
+/* logo orb cut out with a transparent ground (brand/ooo-orb-900.webp, from
+   the 5000px master): its glow and drop shadow are translucent, so it sits
+   on whatever ground is behind it, on every browser and colour scheme */
 /* central focal point — enlarged from 230 so the orb anchors the hero */
 .ot-logo { width: 300px; height: 300px; display: inline-block; }
 

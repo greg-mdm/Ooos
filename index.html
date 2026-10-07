@@ -4,11 +4,16 @@
     <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <!-- The site is designed light, with its own dark bands. Declaring a
-           light-only scheme tells phone browsers that darken web pages on
-           their own (Chrome Android's auto dark theme, and the like) to leave
-           it alone; without it, every page went dark on phones in dark mode. -->
-      <meta name="color-scheme" content="only light" />
+      <!-- The site paints every surface itself, in the brand palette, and
+           keeps that palette in both colour schemes. Phone browsers that
+           darken pages on their own (Samsung Internet's dark mode, Chrome
+           Android's auto dark theme) leave a page alone only when it says it
+           handles dark mode itself: "light dark" here plus a
+           prefers-color-scheme: dark block in site.css that restates the
+           brand. "only light" was tried first (2026-10-07) and Samsung
+           Internet darkened the site regardless. -->
+      <meta name="color-scheme" content="light dark" />
+      <meta name="theme-color" content="#F0F4F5" />
       <meta name="description" content="Ooo Digital Media Studio. Decision-support and participatory design. Home of Ostara, the Canadian Innovation Dimension, and the Canadian Interactive Exhibition." />
       <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.85em' font-size='75'>🟣</text></svg>" />
       <title>Ooos · Ooo Digital Media Studio</title>

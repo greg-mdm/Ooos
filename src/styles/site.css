@@ -5,9 +5,11 @@
    are scoped via .ostara-scope and .cid-scope below.
    =========================================================== */
 :root {
-  /* light-only: the opt-out from phone browsers' forced dark themes; the
-     site paints its own dark bands where it wants them */
-  color-scheme: only light;
+  /* Both schemes are declared, and the dark one (at the end of this file)
+     is the brand palette restated: that is what makes Samsung Internet and
+     Chrome Android use the site's own colours instead of inventing a dark
+     theme for it. The site paints its own dark bands where it wants them. */
+  color-scheme: light dark;
   /* Parent brand — Ooo Digital Media Studio (indigo architecture) */
   --resolution: #312583;     /* Resolution Blue */
   --dark-indigo: #19007D;    /* Dark Indigo */
@@ -65,11 +67,18 @@
   --deep-purple-950: #110320;
 }
 
+html {
+  /* explicit ground on the root as well as body: a forced-dark browser
+     repaints the default canvas first, so nothing is left to it */
+  background: var(--bg);
+}
 body {
   font-family: var(--sans);
   color: var(--ink);
   background: var(--bg);
 }
+/* form controls keep light chrome whatever the scheme */
+input, textarea, select, button { color-scheme: light; }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
@@ -5362,4 +5371,48 @@ html, body { overflow-x: clip; }
   .service-chips { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   .service-chips--stack { grid-template-columns: minmax(0, 1fr); }
   .service-chip { min-width: 0; overflow-wrap: anywhere; }
+}
+
+/* ===========================================================
+   Dark colour scheme: the brand palette, restated.
+   The site is one design in one palette. Declaring "light dark" (above, and
+   in index.html) and giving the dark scheme its own rules is what phone
+   browsers look for before they decide a page needs darkening on its own
+   (Samsung Internet dark mode; Chrome Android auto dark theme). So the dark
+   scheme here is the brand, token for token, with the page ground and ink
+   pinned on html and body. Nothing in it differs from the light scheme on
+   purpose; if a token changes above, change it here too.
+   =========================================================== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: light dark;
+    --resolution: #312583;
+    --dark-indigo: #19007D;
+    --portal: #4B00B6;
+    --electric: #5B04DE;
+    --indigo: var(--dark-indigo);
+    --teal: #008080;
+    --ruby: #822F00;
+    --gold: #F0C040;
+    --white: #FFFFFF;
+    --bg: #F0F4F5;
+    --bone: #F6F2EC;
+    --ink: #1A0033;
+    --slate: #5A5A6E;
+    --charcoal: #2A2340;
+    --mist: rgba(255, 255, 255, 0.9);
+    --border-soft: rgba(26, 0, 51, 0.12);
+    --teal-deep: #006B57;
+    --robin: #00D4AA;
+    --faint: rgba(25, 0, 125, 0.08);
+    --bright-silver: #E8ECF4;
+    --chrome-silver: #D8DBDE;
+    --suncloud-white: #FFFDF4;
+  }
+  html, body {
+    background: #F0F4F5 !important;
+    color: #1A0033 !important;
+  }
+  h1, h2, h3, h4, h5, h6 { color: var(--ink); }
+  input, textarea, select, button { color-scheme: light; }
 }

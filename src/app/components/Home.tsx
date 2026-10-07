@@ -266,7 +266,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             <div className="ot-trio__orb">
               <img
                 className="ot-logo"
-                src={`${import.meta.env.BASE_URL}assets/Final%20Logo%20-%20Ooo%20-%20Light%20Blue%20Background.png`}
+                src={`${import.meta.env.BASE_URL}assets/brand/ooo-orb-900.webp`}
                 alt="Ooo Digital Media Studio"
                 width="300"
                 height="300"
