@@ -334,6 +334,15 @@ const ATTRACTIONS: Attraction[] = [
     title: "Thought Garden",
     tag: "Plant a seed",
     tone: "teal",
+    /* Greg's photo (2026-10-07): public/assets/exhibition/Leaf Silhoutte -
+       Stage Light.heic, a monstera leaf under a single stage light. Decoded
+       from HEIC and cut to the slot's 16:9 across the full width, placed over
+       the lit heart of the leaf (3024x1701 from y=560), as a 1280x720 WebP. */
+    media: {
+      kind: "image",
+      src: `${ASSETS}thought-garden.webp`,
+      alt: "A monstera leaf beaded with water, lit by a single stage light against black",
+    },
     body: (
       <div className="exhibit-haiku">
         <p className="exhibit-haiku__line">Underground roots meet,</p>
