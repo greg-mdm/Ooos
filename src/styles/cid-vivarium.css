@@ -1574,6 +1574,13 @@
 .cid-scope .cid-viv-forest {
   position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
 }
+/* a translucent dark wash over the top of the forest, the clip's pale canopy
+   behind the roof, fading out by two fifths of the way down so the trunks
+   and the floor show through untouched (Greg, 2026-10-07) */
+.cid-scope .cid-viv-forest::after {
+  content: ""; position: absolute; inset: 0; z-index: 2;
+  background: linear-gradient(180deg, rgba(18,18,20,.62) 0%, rgba(18,18,20,.38) 18%, rgba(18,18,20,0) 40%);
+}
 /* the clip covers the whole canopy, header to nametags, so the forest is
    visible all the way up the tower (Greg, 2026-10-07), with no ground
    colour or fade over it. Cover scaling keeps the leaf litter on the
