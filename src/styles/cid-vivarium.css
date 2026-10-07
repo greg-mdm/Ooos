@@ -1449,13 +1449,12 @@
    prism (white glyph), Gold for the pulse (canon ink on gold) */
 .cid-scope .cid-viv-spec__chip--electric { background: #5B04DE; color: #FFFFFF; }
 .cid-scope .cid-viv-spec__chip--gold { background: #F0C040; color: #0A0614; }
-/* the core count: an aquamarine square with lava-red arrows (Greg,
-   2026-10-07). The aquamarine is the map's Northern zone colour, the red
-   the maple leaf's; neither is a canon anchor. */
-.cid-scope .cid-viv-spec__chip--aqua { background: #1FCECB; color: #E8453C; }
+/* the core count keeps the Blue Light chip, the blue of the Lexicon card's
+   "(Greek)" tags, with Midnight arrows for contrast (Greg, 2026-10-07: the
+   aquamarine-and-red try read seafoam and peach). Its detail line is open
+   at rest; the other two chips start closed. */
 .cid-scope .cid-viv-spec__chip:hover { transform: translateY(-1px); filter: brightness(1.12); }
 .cid-scope .cid-viv-spec__chip:focus-visible { outline: 2px solid #E8ECF4; outline-offset: 2px; }
-.cid-scope .cid-viv-spec--reveal.is-open .cid-viv-spec__chip { background: #E8ECF4; }
 .cid-scope .cid-viv-spec__v--reveal { display: none; margin-top: 4px; }
 .cid-scope .cid-viv-spec--reveal.is-open .cid-viv-spec__v--reveal { display: block; animation: cidSpecReveal .25s ease-out both; }
 @media (hover: hover) {

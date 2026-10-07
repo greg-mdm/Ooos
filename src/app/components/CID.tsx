@@ -1335,8 +1335,8 @@ const CASE_BAYS: CaseBay[] = [
    stays hidden until the icon is pressed; on a mouse it also shows while
    the spec is hovered. The icon sits on a Blue Light chip, Greg's choice
    for the arrows, carried to all three so they read as one control. */
-function SpecReveal({ heading, caps, icon, iconName, detail, tone = "blue" }: { heading: string; caps?: boolean; icon: ReactNode; iconName: string; detail: ReactNode; tone?: "blue" | "gold" | "electric" | "aqua" }) {
-  const [open, setOpen] = useState(false);
+function SpecReveal({ heading, caps, icon, iconName, detail, tone = "blue", defaultOpen = false }: { heading: string; caps?: boolean; icon: ReactNode; iconName: string; detail: ReactNode; tone?: "blue" | "gold" | "electric"; defaultOpen?: boolean }) {
+  const [open, setOpen] = useState(defaultOpen);
   const id = useId();
   return (
     <div className={`cid-viv-spec cid-viv-spec--reveal${open ? " is-open" : ""}`}>
@@ -1988,7 +1988,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <SpecReveal
                   heading="16 cores"
                   iconName="fast-forward arrows"
-                  tone="aqua"
+                  defaultOpen
                   icon={<svg viewBox="0 0 512 512" aria-hidden="true"><path d="M16 400l240-144L16 112v288zM256 400l240-144-240-144v288z" /></svg>}
                   detail="6 Performance · 8 Efficient · 2 Low Power Efficient"
                 />
