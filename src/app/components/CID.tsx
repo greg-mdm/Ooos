@@ -2193,6 +2193,11 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           <TeamTags />
           </div>
 
+          {/* The forest floor: the ground under the clip continues behind the
+              RACI panel, and only there; above the clip the tower stands on
+              the page's own ground (Greg, 2026-10-07). */}
+          <div className="cid-viv-grove__floor">
+
           {/* The chart and the key that defines it, in one block under one
               title. They were split across the page, chart down here and key up
               in the side column, which left a grid of twenty-eight loose letters
@@ -2385,6 +2390,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             </dl>
           </div>
           </section>
+          </div>
           </div>
 
 
