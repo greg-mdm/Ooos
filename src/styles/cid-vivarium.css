@@ -2186,6 +2186,12 @@
 .cid-scope .cid-raci-purpose__p,
 .cid-scope .cid-raci-unfold__line { margin: 0 0 10px; max-width: 62ch; font-size: 14.5px; line-height: 1.55; color: #33384a; text-wrap: balance; }
 .cid-scope .cid-raci-purpose__p:last-child { margin-bottom: 0; }
+/* the two revealed points, with the square bullets the floors use */
+.cid-scope .cid-raci-purpose__list { margin: 0 0 10px; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.cid-scope .cid-raci-purpose__list > li { position: relative; padding-left: 20px; max-width: 62ch; font-size: 14.5px; line-height: 1.55; color: #33384a; }
+.cid-scope .cid-raci-purpose__list > li::before { content: ""; position: absolute; left: 2px; top: 8px; width: 8px; height: 8px; border-radius: 3px; background: linear-gradient(135deg, #7C18E7, #5B04DE); }
+.cid-scope .cid-raci-purpose__list .cid-raci-unfold__line { margin-bottom: 0; }
+.cid-scope .cid-raci-purpose__list .cid-raci-unfold__more { margin-top: 10px; }
 .cid-scope .cid-raci-unfold__chip {
   display: inline-grid; place-items: center; width: 22px; height: 22px; margin-left: 8px; padding: 0;
   vertical-align: -5px; border: 0; border-radius: 6px; color: #FFFFFF; cursor: pointer;

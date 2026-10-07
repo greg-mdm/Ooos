@@ -2245,13 +2245,16 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <h4 className="cid-raci-purpose__h">Purpose and leadership</h4>
                 <p className="cid-raci-purpose__p">The Canadian Innovation Dimension (CID) facilitates local human-led research and AI experimentation in a locally contained habitat. We collect public statistics, verify signals, and identify patterns to help Canadian business leaders navigate complex global markets.</p>
                 <Unfold
-                  line="Part public research demonstration; part real-time narrative unfolding in hyperreality."
+                  line="The Vivarium is a public research demonstration and a living narrative being revealed in hyperreality."
                   tone="purple"
                   label="more on the demonstration"
                   icon={<svg viewBox="0 0 512 512" aria-hidden="true" fill="currentColor"><circle cx="256" cy="256" r="48" /><circle cx="416" cy="256" r="48" /><circle cx="96" cy="256" r="48" /></svg>}
                   more={
+                    <ul className="cid-raci-purpose__list">
+                      <li>Evolving personas build knowledge while testing new platforms and systems.</li>
+                      <li>
                     <Unfold
-                      line="A public research demonstration is unfolding through evolving personas and active processes."
+                      line="Participate through observation, exploration, or active engagement."
                       tone="gold"
                       label="the psychodrama, after Kahneman"
                       icon={<svg viewBox="0 0 512 512" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="32" strokeLinecap="round" strokeLinejoin="round"><path fill="none" d="M256 160c16-63.16 76.43-95.41 208-96a15.94 15.94 0 0116 16v288a16 16 0 01-16 16c-128 0-177.45 25.81-208 64-30.37-38-80-64-208-64-9.88 0-16-8.05-16-17.93V80a15.94 15.94 0 0116-16c131.57.59 192 32.84 208 96zM256 160v288" /></svg>}
@@ -2262,6 +2265,8 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                         </>
                       }
                     />
+                      </li>
+                    </ul>
                   }
                 />
                 <h5 className="cid-raci-purpose__sub">Speed, scrutiny and sovereignty.</h5>
