@@ -1532,23 +1532,19 @@
 }
 
 /* ---- The grove: the Vivarium tower, the three nametags and the RACI panel
-   stand in a forest. The grove breaks out to the page width the same way
-   .cid-cast does (--viv-gutter is the container's own offset; keep the
+   stand on black water. The grove breaks out to the page width the same
+   way .cid-cast does (--viv-gutter is the container's own offset; keep the
    1240px in step with .cid-hero-container) and pads itself back in by that
    gutter, so its cards sit exactly where they did; only the ground behind
    them changes. It is a flex column with the stack's own gap, because it
    takes three of the stack's children with it.
 
-   Inside it, the canopy block holds the tower and the nametags over Greg's
-   phthalo forest loop (ForestBackdrop.tsx). The clip is pinned to the foot
-   of that block at the page's width, so it ends where the forest meets the
-   ground, just below the tower, and its fallen leaves lie behind the
-   nametags; above its top edge it is masked away into the ground colour.
-   The RACI panel follows outside the canopy, on ground that continues from
-   the clip's leaf-litter tone down into Viv's own shadow (#051612, sampled
-   from the tour renders; see cid-forest.css). The two phthalo stops in the
-   canopy ground (#0A2A33, #0F3A43) are new, matched to the clip's canopy
-   so the fade reads as the woods going dark, not a change of colour. ---- */
+   Inside it, the canopy block holds the tower and the nametags over the
+   water (WaterBackdrop.tsx): a WebGL canvas, matte black, that ripples
+   only where and when the visitor moves over it. The RACI panel follows
+   on the same black, in its own band so the stack gap never shows the
+   page ground. The water's black (#0B0B0D) sits a shade off the tower's
+   structure (#121214) so the frame still reads against it. ---- */
 .cid-scope .cid-viv-grove {
   --viv-gutter: max(24px, (100vw - 1240px) / 2 + 24px);
   position: relative; overflow: hidden;
@@ -1556,13 +1552,12 @@
   margin: clamp(26px,3.4vw,44px) calc(-1 * var(--viv-gutter)) 0;
   padding: 0 var(--viv-gutter) 0;
   display: flex; flex-direction: column; gap: clamp(22px,3.4vh,34px);
+  background: #0B0B0D;
 }
-/* the forest floor under the clip: full width like the canopy, closing the
-   stack gap above it so no page ground shows between forest and floor */
 .cid-scope .cid-viv-grove__floor {
   margin: calc(-1 * clamp(22px,3.4vh,34px)) calc(-1 * var(--viv-gutter)) 0;
   padding: clamp(22px,3.4vh,34px) var(--viv-gutter) clamp(44px,5vw,76px);
-  background: linear-gradient(180deg, #131411 0%, #0B1512 45%, #051612 100%);
+  background: #0B0B0D;
 }
 .cid-scope .cid-viv-canopy {
   position: relative; isolation: isolate;
@@ -1570,26 +1565,12 @@
   padding: clamp(12px,2vw,28px) var(--viv-gutter) clamp(30px,3.4vw,48px);
   display: flex; flex-direction: column; gap: clamp(22px,3.4vh,34px);
 }
-.cid-scope .cid-viv-canopy > :not(.cid-viv-forest) { position: relative; z-index: 1; }
-.cid-scope .cid-viv-forest {
+.cid-scope .cid-viv-canopy > :not(.cid-viv-water) { position: relative; z-index: 1; }
+.cid-scope .cid-viv-water {
   position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
+  background: #0B0B0D;
 }
-/* a translucent dark wash over the top of the forest, the clip's pale canopy
-   behind the roof, fading out by two fifths of the way down so the trunks
-   and the floor show through untouched (Greg, 2026-10-07) */
-.cid-scope .cid-viv-forest::after {
-  content: ""; position: absolute; inset: 0; z-index: 2;
-  background: linear-gradient(180deg, rgba(18,18,20,.62) 0%, rgba(18,18,20,.38) 18%, rgba(18,18,20,0) 40%);
-}
-/* the clip covers the whole canopy, header to nametags, so the forest is
-   visible all the way up the tower (Greg, 2026-10-07), with no ground
-   colour or fade over it. Cover scaling keeps the leaf litter on the
-   bottom edge, behind the nametags, and crops the sides to the frame's
-   middle. */
-.cid-scope .cid-viv-forest__video {
-  position: absolute; inset: 0; width: 100%; max-width: none; height: 100%; display: block;
-  object-fit: cover; object-position: center bottom;
-}
+.cid-scope .cid-viv-water__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 
 /* ---- Portal drum roll: a quiet dark-galaxy band between the Vivarium and
    the Innovation Watchlist. Muted lavender line, faint stars, no splash. ---- */
