@@ -2005,7 +2005,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   detail="Intel® Arc™ 140T"
                 />
                 <SpecReveal
-                  heading="Neural accelerator block boosts audio and speech-centric AI workloads."
+                  heading="Neural accelerator block boosts audio and speech-centric AI workloads"
                   iconName="pulse"
                   tone="gold"
                   icon={
@@ -2030,7 +2030,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   <TeerLine />
                 </ul>
                 <div className="cid-viv-tower__claimbox">
-                  <p className="cid-viv-tower__claim">The Vivarium is a miniature model for making BIG discoveries.</p>
+                  <p className="cid-viv-tower__claim">The Vivarium is a miniature model for making BIG discoveries</p>
                   {/* The leadership triad as three bulleted lines, each with the
                       glyph Greg typed for it (2026-10-07): ⦾ U+29BE, ⦿ U+29BF and
                       Ⓐ U+24B6. He likened the last to the Avengers mark; that is
@@ -2040,7 +2040,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   <ul className="cid-viv-tower__triad">
                     <li><span className="cid-viv-tower__triad-glyph" aria-hidden="true">⦾</span>Human direction</li>
                     <li><span className="cid-viv-tower__triad-glyph" aria-hidden="true">⦿</span>Delegated authority</li>
-                    <li><span className="cid-viv-tower__triad-glyph" aria-hidden="true">Ⓐ</span>Undivided accountability.</li>
+                    <li><span className="cid-viv-tower__triad-glyph" aria-hidden="true">Ⓐ</span>Undivided accountability</li>
                   </ul>
                 </div>
               </div>
@@ -2097,8 +2097,8 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               <div className="cid-viv-floor__text">
                 <h3>Beneficial Biomimicry</h3>
                 <ul>
-                  <li>Information flows through environments inspired by the functional principles and geometries found in nature.</li>
-                  <li>Applied research on sustainable designs for human-AI interaction drives rapid evolution in the information ecosystem.</li>
+                  <li>Information flows through environments inspired by the functional principles and geometries found in nature</li>
+                  <li>Applied research on sustainable designs for human-AI interaction drives rapid evolution in the information ecosystem</li>
                 </ul>
               </div>
             </section>
@@ -2162,7 +2162,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 <ul>
                   <li>Dual copper heat pipes</li>
                   <li>Heat transfer to a large heatsink</li>
-                  <li>Optimized airflow.</li>
+                  <li>Optimized airflow</li>
                 </ul>
               </div>
             </section>
@@ -2177,7 +2177,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               </div>
               <div className="cid-viv-tower__foot-side">
                 <ul>
-                  <li>Top-secret CID data is privately held, not stored in the cloud.</li>
+                  <li>Top-secret CID data is privately held, not stored in the cloud</li>
                   <li>Accelerators for compatible AI workflows</li>
                 </ul>
               </div>
