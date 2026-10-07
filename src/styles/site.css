@@ -5,6 +5,9 @@
    are scoped via .ostara-scope and .cid-scope below.
    =========================================================== */
 :root {
+  /* light-only: the opt-out from phone browsers' forced dark themes; the
+     site paints its own dark bands where it wants them */
+  color-scheme: only light;
   /* Parent brand — Ooo Digital Media Studio (indigo architecture) */
   --resolution: #312583;     /* Resolution Blue */
   --dark-indigo: #19007D;    /* Dark Indigo */
