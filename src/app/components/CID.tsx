@@ -2031,7 +2031,17 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                 </ul>
                 <div className="cid-viv-tower__claimbox">
                   <p className="cid-viv-tower__claim">The Vivarium is a miniature model for making BIG discoveries.</p>
-                  <p className="cid-viv-tower__triad">Human direction. Delegated authority. Undivided accountability.</p>
+                  {/* The leadership triad as three bulleted lines, each with the
+                      glyph Greg typed for it (2026-10-07): ⦾ U+29BE, ⦿ U+29BF and
+                      Ⓐ U+24B6. He likened the last to the Avengers mark; that is
+                      Marvel's trademark, so the circled A stays the plain
+                      character. The glyphs are decoration, hidden from screen
+                      readers, which get the three lines as a list. */}
+                  <ul className="cid-viv-tower__triad">
+                    <li><span className="cid-viv-tower__triad-glyph" aria-hidden="true">⦾</span>Human direction</li>
+                    <li><span className="cid-viv-tower__triad-glyph" aria-hidden="true">⦿</span>Delegated authority</li>
+                    <li><span className="cid-viv-tower__triad-glyph" aria-hidden="true">Ⓐ</span>Undivided accountability.</li>
+                  </ul>
                 </div>
               </div>
             </header>
