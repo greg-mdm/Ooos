@@ -18,6 +18,12 @@
    placeholder layers were retired for the clip on 2026-10-06. */
 import { useEffect, useRef } from "react";
 
+/* Playback rate for the loop. The encode is already three times slower
+   than the clip; at 0.5 the forest moves six times slower than life
+   (Greg, 2026-10-07: at full rate it moved too fast). Change this one
+   number to retune it. */
+const FOREST_RATE = 0.5;
+
 /* Two encodes of the same loop: the 1440x810 one for screens 760px and
    wider, where the clip is scaled to the full height of the tower, and
    the 960x540 one (4.5MB against 7.8MB) for phones. The browser picks by
@@ -28,6 +34,13 @@ export function ForestBackdrop({ videoSrc, videoSrcWide, poster }: { videoSrc: s
   useEffect(() => {
     const v = ref.current;
     if (!v) return;
+    v.defaultPlaybackRate = FOREST_RATE;
+    v.playbackRate = FOREST_RATE;
+    const keepRate = () => {
+      v.playbackRate = FOREST_RATE;
+    };
+    v.addEventListener("loadedmetadata", keepRate);
+    v.addEventListener("play", keepRate);
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       v.removeAttribute("autoplay");
       v.pause();
@@ -42,7 +55,11 @@ export function ForestBackdrop({ videoSrc, videoSrcWide, poster }: { videoSrc: s
       { threshold: 0.01 },
     );
     io.observe(v);
-    return () => io.disconnect();
+    return () => {
+      io.disconnect();
+      v.removeEventListener("loadedmetadata", keepRate);
+      v.removeEventListener("play", keepRate);
+    };
   }, []);
 
   return (
