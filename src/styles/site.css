@@ -5216,6 +5216,28 @@ textarea:focus-visible,
   height: 100%;
   object-fit: cover;
 }
+/* Touch to reveal (Thought Garden): two stills stacked in the slot. At rest
+   the first shows; while hovered, focused or toggled on, it blurs away like
+   frosted glass and the second clears in its place. */
+.midway-card__touch {
+  position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; margin: 0;
+  border: 0; background: #0F031C; cursor: pointer; display: block; overflow: hidden;
+}
+.midway-card__touch:focus-visible { outline: 2px solid #F0C040; outline-offset: -2px; }
+.midway-card__touch-img { position: absolute; inset: 0; transition: opacity .65s ease, filter .65s ease; }
+.midway-card__touch-img--rest { opacity: 1; filter: blur(0); }
+.midway-card__touch-img--touched { opacity: 0; filter: blur(16px); transform: scale(1.04); }
+.midway-card__touch.is-touched .midway-card__touch-img--rest,
+.midway-card__touch:focus-visible .midway-card__touch-img--rest { opacity: 0; filter: blur(16px); }
+.midway-card__touch.is-touched .midway-card__touch-img--touched,
+.midway-card__touch:focus-visible .midway-card__touch-img--touched { opacity: 1; filter: blur(0); }
+@media (hover: hover) {
+  .midway-card__touch:hover .midway-card__touch-img--rest { opacity: 0; filter: blur(16px); }
+  .midway-card__touch:hover .midway-card__touch-img--touched { opacity: 1; filter: blur(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .midway-card__touch-img { transition: none; }
+}
 /* Booth panel for attractions whose art has not arrived: a striped tent
    awning in the card's tone, with the booth number on a ticket. */
 .midway-card__booth {

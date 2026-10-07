@@ -283,7 +283,10 @@ type Tone = "ruby" | "gold" | "teal" | "portal" | "electric";
 
 type Media =
   | { kind: "video"; mp4: string; webm: string; poster: string; alt: string }
-  | { kind: "image"; src: string; alt: string };
+  | { kind: "image"; src: string; alt: string }
+  /* a still that, when touched, blurs like frosted glass into a second
+     still: src at rest, touched on hover, focus or tap */
+  | { kind: "touch"; src: string; alt: string; touched: string; touchedAlt: string };
 
 type Attraction = {
   id: string;
@@ -339,9 +342,16 @@ const ATTRACTIONS: Attraction[] = [
        from HEIC and cut to the slot's 16:9 across the full width, placed over
        the lit heart of the leaf (3024x1701 from y=560), as a 1280x720 WebP. */
     media: {
-      kind: "image",
+      kind: "touch",
       src: `${ASSETS}thought-garden.webp`,
       alt: "A monstera leaf beaded with water, lit by a single stage light against black",
+      /* Greg's second photo (Touch Leaf - White Male.heic): his own hand
+         holding the leaf, cut the same way from y=1700. Touching the leaf
+         blurs it into this one. A later idea, after the Red Cross CPR
+         demonstration, swaps the skin tone of the hand; the touched image
+         is one field so that can grow into a set. */
+      touched: `${ASSETS}thought-garden-touch.webp`,
+      touchedAlt: "A hand reaches up and holds the lit monstera leaf",
     },
     body: (
       <div className="exhibit-haiku">
@@ -446,6 +456,28 @@ function LoopVideo({ media }: { media: Extract<Media, { kind: "video" }> }) {
   );
 }
 
+/* Touch to reveal: the resting still blurs away like frosted glass and the
+   touched still clears in its place. Hover does it on a mouse; a tap
+   toggles it and keeps it (aria-pressed); keyboard focus does it too.
+   Both images load up front (not lazily), so the second is ready the
+   moment the leaf is touched. */
+function TouchImage({ media }: { media: Extract<Media, { kind: "touch" }> }) {
+  const [touched, setTouched] = useState(false);
+  return (
+    <button
+      type="button"
+      className={`midway-card__touch${touched ? " is-touched" : ""}`}
+      onClick={() => setTouched((t) => !t)}
+      aria-pressed={touched}
+      aria-label={touched ? `${media.touchedAlt}. Release the leaf` : `${media.alt}. Touch the leaf`}
+      title={touched ? "Release" : "Touch the leaf"}
+    >
+      <img className="midway-card__img midway-card__touch-img midway-card__touch-img--rest" src={media.src} alt="" decoding="async" />
+      <img className="midway-card__img midway-card__touch-img midway-card__touch-img--touched" src={media.touched} alt="" decoding="async" />
+    </button>
+  );
+}
+
 function AttractionCard({ attraction, booth }: { attraction: Attraction; booth: number }) {
   const { title, tag, tone, media, body } = attraction;
   const titleId = `midway-${attraction.id}`;
@@ -456,6 +488,7 @@ function AttractionCard({ attraction, booth }: { attraction: Attraction; booth: 
         {media?.kind === "image" && (
           <img className="midway-card__img" src={media.src} alt={media.alt} loading="lazy" />
         )}
+        {media?.kind === "touch" && <TouchImage media={media} />}
         {!media && (
           <div className="midway-card__booth" aria-hidden="true">
             <span className="midway-card__booth-no">
