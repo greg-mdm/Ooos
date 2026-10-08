@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Fragment, useEffect, useId, useRef, useState, type ReactNode, type CSSProperties, type RefObject } from "react";
 import { RedShaderOrb } from "./cid/RedShaderOrb";
 import { WaterBackdrop } from "./WaterBackdrop";
+import { RealitySlider } from "./RealitySlider";
 import "../../styles/cid-continuum.css";
 import "../../styles/cid-forest.css";
 import "../../styles/cid-vivarium.css";
@@ -2406,6 +2407,12 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               </table>
 
             </div>
+            {/* The side column: the RACI key, and under it the Reality /
+                Hyperreality slider, which takes the room the column had to
+                spare beside the chart on wide screens (Greg, 2026-10-08:
+                try that placement first). On narrow screens the column
+                follows the chart, slider and all. */}
+            <div className="cid-viv-raci-side">
             {/* Read down, the tiles spell RACI, which is why the order here is
                 R A C I and not the A R C I the table itself uses. Tiles take the
                 carved-slab treatment from the twelve-signs board. */}
@@ -2419,6 +2426,17 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               <div data-raci="I"><dt><span className="cid-raci-tile" aria-hidden="true">I</span>Informed</dt>
                 <dd>Role-separated architecture gives agents access to information needed for designated roles.</dd></div>
             </dl>
+            <div className="cid-viv-raci-slider">
+              <RealitySlider
+                realSrc={`${base}assets/reality-slider/reality-960.webp`}
+                hyperSrc={`${base}assets/reality-slider/hyperreality-960.webp`}
+                realBlur={`${base}assets/reality-slider/reality-blur.webp`}
+                hyperBlur={`${base}assets/reality-slider/hyperreality-blur.webp`}
+                realAlt="Gregory Tyler Long at the Master of Digital Media convocation ceremony, June 2026"
+                hyperAlt="Gregory Tyler Long in the Vivarium, an interactive virtual environment of the Canadian Innovation Dimension"
+              />
+            </div>
+            </div>
           </div>
           </section>
           </div>

@@ -2284,11 +2284,21 @@
 
    The column is minmax(240px, 340px), so the type is set for the narrow end
    and the tile shrinks with it. */
+/* the side column holds the key and, under it, the Reality / Hyperreality
+   slider on its own Midnight plate, which fills whatever the column has
+   left beside the chart (the plate grows; the slider sits at its top) */
+.cid-scope .cid-viv-raci-side {
+  min-width: 0; display: flex; flex-direction: column;
+  border-left: 1px solid rgba(75,0,182,.14);
+  background: rgba(75,0,182,.026);
+}
+.cid-scope .cid-viv-raci-slider {
+  flex: 1 0 auto; padding: clamp(18px,2vw,24px);
+  background: #0F031C;
+}
 .cid-scope .cid-viv-raci-key {
   margin: 0; padding: clamp(18px,2vw,24px);
   display: flex; flex-direction: column; gap: 13px;
-  border-left: 1px solid rgba(75,0,182,.14);
-  background: rgba(75,0,182,.026);
 }
 .cid-scope .cid-viv-raci-key > div {
   display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0 11px; align-items: start;
@@ -2442,9 +2452,12 @@
    it drops under the chart and the hairline moves to the top edge. */
 @media (max-width: 900px) {
   .cid-scope .cid-viv-reveal { grid-template-columns: minmax(0,1fr); }
-  .cid-scope .cid-viv-raci-key {
+  .cid-scope .cid-viv-raci-side {
     border-left: none; border-top: 1px solid rgba(75,0,182,.14);
   }
+  /* stacked under the chart, the slider keeps a portrait's width */
+  .cid-scope .cid-viv-raci-slider { display: flex; justify-content: center; }
+  .cid-scope .cid-viv-raci-slider .reality-slider { max-width: 420px; }
 }
 
 /* ---- Character film roll ----------------------------------------------
