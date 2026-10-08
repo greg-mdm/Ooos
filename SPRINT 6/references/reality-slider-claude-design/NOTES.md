@@ -7,7 +7,7 @@ Claude Design's export of the slider, "Reality Slider - ooos.html", as Greg down
 - `src/app/components/RealitySlider.tsx`: the component, ported from the bundle's design-component class to a React function component. Mechanics, timings and inks unchanged.
 - `src/app/components/reality-water.ts`: the bundle's water engine, typed, with the image sources passed in. Its ripple pass is the one behind the Vivarium tower (`WaterBackdrop.tsx`); its draw pass refracts the photographs, as Martin Laxenaire's original pen did. Credit chain and Chicago references: `../water-ripples-laxenaire/NOTES.md`.
 - `src/styles/reality-slider.css`: the export's inline styles as classes.
-- `public/assets/reality-slider/`: the photographs, whole rather than the export's 3:4 crops (Greg, 2026-10-08: no crop, no zoom). The frame takes the hyperreality photo's proportions (2339 x 3942); the convocation photo, 2316 x 3088, is padded above and below with Darkest Indigo, the water's ink. Originals: `public/assets/exhibition/greg tyler mdm june 2026.jpg` and `greg hyperreality - cid viv.jpg`.
+- `public/assets/reality-slider/`: the two photographs exactly as packed in the export, 1200 x 1600 WebP, unpacked from its base64 and served as files (the live site cannot read them out of the HTML). Greg approved them as read and asked for no crop and no zoom (2026-10-08). He is uploading the originals behind them to the Drive; when they arrive, these are the files to replace, keeping the frame at their proportions.
 
 Two values in the export are not in the canon palette on ooos.ca/about: the rail grey #353F42 and the resting caption grey #C2CDCF. They are kept as approved and noted in `reality-slider.css`.
 

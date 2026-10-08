@@ -9,11 +9,10 @@
 
    Built by Claude Design on 2026-10-08 and ported here from its export
    ("Reality Slider - ooos.html", kept in SPRINT 6/references/reality-slider-
-   claude-design/). The mechanics, timings and inks are the export's; the
-   photographs are the originals, whole: the frame takes the hyperreality
-   photo's proportions and the convocation photo, which is 3:4, is padded
-   above and below with the water's ink (Greg, 2026-10-08: no crop, no zoom).
-   The water lives in reality-water.ts. Styles: reality-slider.css. */
+   claude-design/). The mechanics, timings, inks and photographs are the
+   export's: the two 1200 x 1600 stills packed inside it, as Greg approved
+   them (2026-10-08: no crop, no zoom). The water lives in reality-water.ts.
+   Styles: reality-slider.css. */
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createWater, type Water } from "./reality-water";
 import "../../styles/reality-slider.css";
@@ -23,7 +22,7 @@ import "../../styles/reality-slider.css";
 const SINK_MS = 650, HOLD_MS = 300, RISE_MS = 1000, BACK_MS = 250;
 
 /* the frame's proportions: those of the prepared photographs */
-const FRAME_W = 960, FRAME_H = 1618;
+const FRAME_W = 1200, FRAME_H = 1600;
 
 type Props = {
   realSrc: string; hyperSrc: string;

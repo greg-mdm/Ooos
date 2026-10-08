@@ -2428,8 +2428,8 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             </dl>
             <div className="cid-viv-raci-slider">
               <RealitySlider
-                realSrc={`${base}assets/reality-slider/reality-960.webp`}
-                hyperSrc={`${base}assets/reality-slider/hyperreality-960.webp`}
+                realSrc={`${base}assets/reality-slider/reality-1200.webp`}
+                hyperSrc={`${base}assets/reality-slider/hyperreality-1200.webp`}
                 realBlur={`${base}assets/reality-slider/reality-blur.webp`}
                 hyperBlur={`${base}assets/reality-slider/hyperreality-blur.webp`}
                 realAlt="Gregory Tyler Long at the Master of Digital Media convocation ceremony, June 2026"
