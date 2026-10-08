@@ -1690,6 +1690,10 @@ a:hover { color: var(--electric); }
   padding-bottom: 26px;
 }
 .cid-scope .case-hero > .container { position: relative; z-index: 1; }
+/* the type on the water is Bright Silver, not white, the way the watchlist
+   sets silver on its reds; the back link a step quieter */
+.cid-scope .case-hero .back { color: rgba(232, 236, 244, 0.82); }
+.cid-scope .case-hero .back:hover { color: #E8ECF4; }
 .exhibit-scope .case-hero {
   background:
     radial-gradient(ellipse 55% 130% at 50% 50%, rgba(0, 128, 128, 1) 0%, rgba(0, 128, 128, 0.85) 25%, rgba(0, 128, 128, 0) 90%),
@@ -1822,7 +1826,7 @@ a:hover { color: var(--electric); }
 .cid-hero-container { max-width: 1240px; }
 .cid-scope .case-hero h1 {
   font-family: var(--font-elevated);
-  color: #fff;
+  color: #E8ECF4;
   font-size: clamp(36px, 4.4vw, 56px);
   line-height: 1.2;
   white-space: nowrap;
@@ -1843,22 +1847,23 @@ a:hover { color: var(--electric); }
   gap: 10px;
   flex-wrap: nowrap;
 }
-/* the two chips take the Ostara descriptors' dress: purple rule on black,
-   silvery ink, monospace, white on hover */
+/* the two chips are red-accented buttons on the water: the watchlist's
+   crimson (#B31237 to #8E0C28, its rim #E23A58) under Bright Silver, as its
+   red panels are set (Greg's references, 2026-10-08) */
 .cid-hero-title-row .cid-hero-chips .chip {
-  font-family: 'Courier New', Courier, monospace;
-  background: transparent;
-  color: rgba(200, 210, 240, 0.9);
-  border: 1px solid rgba(108, 1, 244, 0.45);
-  border-radius: 6px;
+  background: linear-gradient(135deg, #B31237 0%, #8E0C28 100%);
+  color: #E8ECF4;
+  border: 1px solid rgba(226, 58, 88, 0.55);
+  border-radius: 999px;
   padding: 10px 20px;
   font-size: 13px;
-  font-weight: 400;
-  letter-spacing: 0.08em;
+  font-weight: 700;
+  letter-spacing: 0.04em;
   white-space: nowrap;
-  transition: color 200ms ease, border-color 200ms ease;
+  box-shadow: 0 6px 18px rgba(179, 18, 55, 0.28), inset 0 1px 0 rgba(232, 236, 244, 0.18);
+  transition: filter 200ms ease, transform 200ms ease;
 }
-.cid-hero-title-row .cid-hero-chips .chip:hover { color: #ffffff; border-color: #6C01F4; }
+.cid-hero-title-row .cid-hero-chips .chip:hover { filter: brightness(1.12); transform: translateY(-1px); }
 @media (max-width: 880px) {
   .cid-scope .case-hero h1 { white-space: normal; }
   .cid-hero-title-row {
