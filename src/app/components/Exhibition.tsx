@@ -457,6 +457,7 @@ const ATTRACTIONS: Attraction[] = [
    SPRINT 6, 2026-10-08): two dice tumble across a wall of cards and burst
    into a shower of hearts and dollars. Cut as a 5.5s loop with its last
    half second dissolving into its first; 960x540, muted, with a poster.
+   The clip carried black bars at its sides, cropped away (Greg, 2026-10-08).
    Shown in the intro's right-hand area above the matchmaking illustration. */
 const DICE_LOOP: Extract<Media, { kind: "video" }> = {
   kind: "video",

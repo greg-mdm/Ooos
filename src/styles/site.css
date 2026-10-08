@@ -2970,6 +2970,9 @@ textarea:focus-visible,
   border-radius: 12px; background: #0F031C;
   box-shadow: 0 18px 40px -26px rgba(15, 3, 28, 0.7);
 }
+/* the dice clip carried black bars at its sides; cropped away, its picture is
+   1608 x 1080, so its frame takes that shape, a hair wider than 3:2 */
+.exhibit-intro-media__frame--dice { aspect-ratio: 1608 / 1080; }
 .exhibit-intro-media__frame--match { aspect-ratio: 3 / 2; }
 .exhibit-intro-media__frame > video,
 .exhibit-intro-media__frame > img {
