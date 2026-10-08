@@ -1581,7 +1581,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           devices). The research pages go purple and black; Exhibition and
           Design stay light. */}
       <section className="case-hero cid-hero-water">
-        <WaterBackdrop />
+        <WaterBackdrop scale={0.5} blur={2} />
         <div className="container cid-hero-container">
           <Link to="/" className="back">← All projects</Link>
           <div className="cid-hero-title-row">

@@ -187,7 +187,13 @@ function target(gl: WebGLRenderingContext, w: number, h: number): Target | null 
   return { fb, tex };
 }
 
-export function WaterBackdrop() {
+/* scale: the simulation's resolution as a fraction of CSS pixels. Below 1
+   the ripples are drawn larger and smoothed on the way up, which softens
+   the surface. blur: a further softening of the finished picture, in CSS
+   pixels. Both default to the grove's sharp water; the CID hero runs at
+   half resolution with a 2px blur (Greg, 2026-10-08: the water looked
+   meshy; blur the focus). */
+export function WaterBackdrop({ scale = 1, blur = 0 }: { scale?: number; blur?: number } = {}) {
   const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -220,7 +226,7 @@ export function WaterBackdrop() {
 
     const size = () => {
       const r = host.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 1);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1) * scale;
       let cw = Math.max(1, Math.round(r.width * dpr)), ch = Math.max(1, Math.round(r.height * dpr));
       if (ch > MAX_SIM_HEIGHT) { cw = Math.round(cw * MAX_SIM_HEIGHT / ch); ch = MAX_SIM_HEIGHT; }
       if (cw === w && ch === h) return;
@@ -316,11 +322,11 @@ export function WaterBackdrop() {
       host.removeEventListener("pointerleave", onLeave);
       if (frame) cancelAnimationFrame(frame);
     };
-  }, []);
+  }, [scale]);
 
   return (
     <div className="cid-viv-water" aria-hidden="true">
-      <canvas ref={ref} className="cid-viv-water__canvas" />
+      <canvas ref={ref} className="cid-viv-water__canvas" style={blur > 0 ? { filter: `blur(${blur}px)` } : undefined} />
     </div>
   );
 }
