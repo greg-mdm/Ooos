@@ -1826,9 +1826,9 @@ a:hover { color: var(--electric); }
 .cid-hero-container { max-width: 1240px; }
 .cid-scope .case-hero h1 {
   font-family: var(--font-elevated);
-  /* red on the water (Greg, 2026-10-08): the watchlist's brighter crimson,
-     which clears 3:1 on the black at this size where #B31237 does not */
-  color: #C61636;
+  /* Bright Silver on the water (Greg, 2026-10-08; a red pass the same day
+     was replaced: red on black did not hold) */
+  color: #E8ECF4;
   font-size: clamp(36px, 4.4vw, 56px);
   line-height: 1.2;
   white-space: nowrap;
@@ -1849,13 +1849,12 @@ a:hover { color: var(--electric); }
   gap: 10px;
   flex-wrap: nowrap;
 }
-/* the two chips are Bright Silver boxes with red text on the water: the
-   watchlist's crimson #B31237 on #E8ECF4, its rim red on the edge (Greg,
-   2026-10-08: bright silver boxes, red text for all) */
+/* the two chips are Bright Silver pills with Dark Indigo text and a Portal
+   Indigo rim on the water (Greg, 2026-10-08) */
 .cid-hero-title-row .cid-hero-chips .chip {
   background: linear-gradient(180deg, #E8ECF4 0%, #D8DBDE 100%);
-  color: #B31237;
-  border: 1px solid rgba(226, 58, 88, 0.45);
+  color: #19007D;
+  border: 1px solid rgba(75, 0, 182, 0.65);
   border-radius: 999px;
   padding: 10px 20px;
   font-size: 13px;
