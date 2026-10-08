@@ -1501,6 +1501,25 @@
 .cid-scope .cid-viv-floor__text .cid-viv-tower__triad { gap: 5px; }
 .cid-scope .cid-viv-floor__text .cid-viv-tower__triad li { padding-left: 0; font-size: 13.5px; }
 .cid-scope .cid-viv-floor__text .cid-viv-tower__triad li::before { content: none; }
+/* the triad as three tiles across the foot of floor 1's cell: text above,
+   the glyph enlarged and centred beneath, so the three read as a graphic */
+.cid-scope .cid-viv-floor__text .cid-viv-tower__triad--tiles {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 20px;
+}
+.cid-scope .cid-viv-floor__text .cid-viv-tower__triad--tiles li {
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 12px;
+  padding: 14px 10px 16px; text-align: center;
+  border: 1px solid rgba(75, 0, 182, 0.18); border-radius: 12px; background: rgba(75, 0, 182, 0.04);
+}
+.cid-scope .cid-viv-tower__triad-text {
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 700; font-size: 11.5px;
+  letter-spacing: .04em; line-height: 1.35; color: #19007D; text-wrap: balance;
+}
+.cid-scope .cid-viv-floor__text .cid-viv-tower__triad--tiles .cid-viv-tower__triad-glyph { font-size: 40px; line-height: 1; }
+@media (max-width: 520px) {
+  .cid-scope .cid-viv-floor__text .cid-viv-tower__triad--tiles { grid-template-columns: minmax(0, 1fr); }
+  .cid-scope .cid-viv-floor__text .cid-viv-tower__triad--tiles li { flex-direction: row-reverse; justify-content: flex-end; text-align: left; gap: 14px; }
+}
 @media (max-width: 1100px) { .cid-scope .cid-viv-floor__brief { grid-template-columns: minmax(0, 1fr); } }
 .cid-scope .cid-viv-tower__foot-side ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 9px; }
 .cid-scope .cid-viv-tower__foot-side li { position: relative; padding-left: 22px; font-size: 15px; line-height: 1.55; color: #33384a; }

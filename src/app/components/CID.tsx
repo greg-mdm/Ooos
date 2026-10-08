@@ -1834,46 +1834,6 @@ export function CID({ onSupport }: { onSupport: () => void }) {
             </div>
           </div>
 
-          {/* The Strategies band. It has moved twice: a direct child of
-              .cid-viv-stack at full width, then into the body column when
-              the lexicon vacated that space, and back out to full width on
-              2026-09-19 once the lexicon and the quote went down to the
-              breather and left the side panel ending after the rail. It
-              runs the container's whole measure now and finishes on the
-              same right edge as the side panel above it. Three across cost the
-              bullets their line: at ~260px a key cannot hold "Integrate
-              verified data sources." on one line, so every bullet wrapped
-              to two. Stacking the keys in the left half of the band
-              (2026-09-19) gave each one ~431px, and the full measure now gives
-              them ~632px; letting the label fill the key rather than
-              shrink-wrap hands the text the whole of that, so the statements
-              read one to a line and carry 26px while they do (see the keys
-              rule in cid-vivarium.css). */}
-          <section className="cid-strategy" aria-labelledby="cid-strategy-title">
-            {/* The opening A is a real Latin A set in the display serif, not a Greek
-                alpha lookalike: the letterform carries the flourish while "Agile"
-                stays a word that screen readers speak and search engines index. */}
-            {/* Two registers, so the heading carries the keys under it (Greg,
-                2026-09-20). The studio name stays in title case; the claim
-                after it goes to capitals, which is what the six keys below are
-                set in, so the line reads as their header rather than as another
-                sentence above them. The capitals are text-transform, so the
-                words themselves are unchanged for a screen reader and search. */}
-            <h3 id="cid-strategy-title" className="cid-strategy-h">
-              <span className="cid-strategy-a">A</span>gile Micro-Studio.{" "}
-              <span className="cid-strategy-claim">Massive</span> Creative Capacity.
-            </h3>
-            {/* The band: the three keys as a column, the two lead clips
-                stacked beside them (Greg, 2026-09-19). Two shallow
-                full-width rows became one row of two columns, which buys
-                the keys the measure their longest clause needs and closes
-                the half-empty strip that ran between them. */}
-            <div className="cid-strategy-band">
-              <StrategyKeys base={base} />
-              <SkateLead base={base} />
-            </div>
-          </section>
-
           {/* The breather: the Greek lexicon and the biomimicry quote, which
               both stood in the side column until 2026-09-19, when Greg put
               them together here across the full measure. Two reasons. One is
@@ -2096,25 +2056,28 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               <div className="cid-viv-floor__text">
                 <div className="cid-viv-floor__brief">
                 <ul className="cid-viv-tower__lines">
-                  <li>Lighter than a bag of milk</li>
+                  <li>Lighter than milk bag</li>
                   <li>Multi-level research facility</li>
                   <TeerLine />
                 </ul>
                 <div className="cid-viv-tower__claimbox">
                   <p className="cid-viv-tower__claim">The Vivarium is a miniature model for making BIG discoveries</p>
-                  {/* The leadership triad as three bulleted lines, each with the
-                      glyph Greg typed for it (2026-10-07): ⦾ U+29BE, ⦿ U+29BF and
-                      Ⓐ U+24B6. He likened the last to the Avengers mark; that is
-                      Marvel's trademark, so the circled A stays the plain
-                      character. The glyphs are decoration, hidden from screen
-                      readers, which get the three lines as a list. */}
-                  <ul className="cid-viv-tower__triad">
-                    <li><span className="cid-viv-tower__triad-glyph" aria-hidden="true">⦾</span>Human direction</li>
-                    <li><span className="cid-viv-tower__triad-glyph" aria-hidden="true">⦿</span>Delegated authority</li>
-                    <li><span className="cid-viv-tower__triad-glyph" aria-hidden="true">Ⓐ</span>Undivided accountability</li>
-                  </ul>
                 </div>
                 </div>
+                {/* The leadership triad as three tiles across the foot of the
+                    cell, the text above and the glyph enlarged beneath (Greg,
+                    2026-10-08: the icons were very small; make it read like a
+                    graphic). The glyphs are the ones Greg typed (2026-10-07):
+                    ⦾ U+29BE, ⦿ U+29BF and Ⓐ U+24B6. He likened the last to the
+                    Avengers mark; that is Marvel's trademark, so the circled A
+                    stays the plain character. The glyphs are decoration,
+                    hidden from screen readers, which get the three lines as a
+                    list. */}
+                <ul className="cid-viv-tower__triad cid-viv-tower__triad--tiles">
+                  <li><span className="cid-viv-tower__triad-text">Human direction</span><span className="cid-viv-tower__triad-glyph" aria-hidden="true">⦾</span></li>
+                  <li><span className="cid-viv-tower__triad-text">Delegated authority</span><span className="cid-viv-tower__triad-glyph" aria-hidden="true">⦿</span></li>
+                  <li><span className="cid-viv-tower__triad-text">Undivided accountability</span><span className="cid-viv-tower__triad-glyph" aria-hidden="true">Ⓐ</span></li>
+                </ul>
               </div>
             </section>
 
@@ -2537,6 +2500,52 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               </div>
             </div>
           </div>
+
+          {/* The Strategies band moved a third time (Greg, 2026-10-08):
+              from before the breather to here, under the display room,
+              so the intro's last tab, global interoperability, runs
+              straight into the biomimicry quote, and the skating coin
+              no longer cuts between them. */}
+          {/* The Strategies band. It has moved twice: a direct child of
+              .cid-viv-stack at full width, then into the body column when
+              the lexicon vacated that space, and back out to full width on
+              2026-09-19 once the lexicon and the quote went down to the
+              breather and left the side panel ending after the rail. It
+              runs the container's whole measure now and finishes on the
+              same right edge as the side panel above it. Three across cost the
+              bullets their line: at ~260px a key cannot hold "Integrate
+              verified data sources." on one line, so every bullet wrapped
+              to two. Stacking the keys in the left half of the band
+              (2026-09-19) gave each one ~431px, and the full measure now gives
+              them ~632px; letting the label fill the key rather than
+              shrink-wrap hands the text the whole of that, so the statements
+              read one to a line and carry 26px while they do (see the keys
+              rule in cid-vivarium.css). */}
+          <section className="cid-strategy" aria-labelledby="cid-strategy-title">
+            {/* The opening A is a real Latin A set in the display serif, not a Greek
+                alpha lookalike: the letterform carries the flourish while "Agile"
+                stays a word that screen readers speak and search engines index. */}
+            {/* Two registers, so the heading carries the keys under it (Greg,
+                2026-09-20). The studio name stays in title case; the claim
+                after it goes to capitals, which is what the six keys below are
+                set in, so the line reads as their header rather than as another
+                sentence above them. The capitals are text-transform, so the
+                words themselves are unchanged for a screen reader and search. */}
+            <h3 id="cid-strategy-title" className="cid-strategy-h">
+              <span className="cid-strategy-a">A</span>gile Micro-Studio.{" "}
+              <span className="cid-strategy-claim">Massive</span> Creative Capacity.
+            </h3>
+            {/* The band: the three keys as a column, the two lead clips
+                stacked beside them (Greg, 2026-09-19). Two shallow
+                full-width rows became one row of two columns, which buys
+                the keys the measure their longest clause needs and closes
+                the half-empty strip that ran between them. */}
+            <div className="cid-strategy-band">
+              <StrategyKeys base={base} />
+              <SkateLead base={base} />
+            </div>
+          </section>
+
 
           {/* Information Ecosystem, then the Flicker card and the glossary. The
               three nametags that used to open this stretch now sit over the
