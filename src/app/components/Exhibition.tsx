@@ -405,6 +405,13 @@ const ATTRACTIONS: Attraction[] = [
     title: "Queen of the Night",
     tag: "Your radiant reign",
     tone: "portal",
+    /* Greg's "tulip indigo.jpg" (SPRINT 6, 2026-10-08), a portrait of one
+       indigo tulip, cut to the booth's 16:9 at the bloom's tip */
+    media: {
+      kind: "image",
+      src: `${ASSETS}queen-of-the-night.webp`,
+      alt: "The petals of a single indigo tulip, close and velvet-dark",
+    },
     body: (
       <p>
         Experience emotional liberation for one night only. Elusive, elegant,
@@ -417,6 +424,19 @@ const ATTRACTIONS: Attraction[] = [
     title: "Gateway Portals",
     tag: "Enter here",
     tone: "teal",
+    /* Greg's "Portals - Short Clip.mp4" (SPRINT 6, 2026-10-08), a portrait
+       clip: a blue-haired figure, the CIX sign, a silhouette walking into
+       a rainbow portal. Cut as a loop: its last third of a second
+       dissolves into its first, so it runs round without a jump. Shown
+       whole at the booth's height on a blurred copy of itself, since the
+       booth is 16:9 and the clip is 9:16. Muted, as all booth loops are. */
+    media: {
+      kind: "video",
+      mp4: `${ASSETS}gateway-portals.mp4`,
+      webm: `${ASSETS}gateway-portals.webm`,
+      poster: `${ASSETS}gateway-portals-poster.webp`,
+      alt: "A silhouette walks toward a glowing rainbow portal past the CIX sign, bubbles drifting by",
+    },
     body: <p>Enter artist-created worlds</p>,
   },
 ];
