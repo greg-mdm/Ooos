@@ -2171,12 +2171,26 @@ export function CID({ onSupport }: { onSupport: () => void }) {
 
             {/* The foot of the tower: Greg's wrap-up (2026-10-05), verbatim.
                 It closes the whole tower rather than floor 0, so it is its
-                own band under the last floor, on the same two columns. */}
+                own band under the last floor, on the same two columns. The
+                left cell is the base the tower stands on: Greg's emblem
+                display (SPRINT 6/CID Seal - Emblem Display.png, 2026-10-07),
+                the CID seal in its dark teal hall; the title moved over to
+                the right cell above its bullets to make room for it. */}
             <footer className="cid-viv-tower__foot">
-              <div className="cid-viv-tower__foot-main">
-                <p className="cid-viv-spec__k">Local Processing Power</p>
+              <div className="cid-viv-tower__foot-main cid-viv-tower__foot-base">
+                <img
+                  className="cid-viv-tower__foot-img"
+                  src={`${base}assets/images/cid-emblem-base-1400.webp`}
+                  srcSet={`${base}assets/images/cid-emblem-base-800.webp 800w, ${base}assets/images/cid-emblem-base-1400.webp 1400w`}
+                  sizes="(max-width: 1100px) 100vw, 56vw"
+                  width="1679"
+                  height="937"
+                  alt="The CID seal on display in a dark teal hall, its compass points lit"
+                  loading="lazy"
+                />
               </div>
               <div className="cid-viv-tower__foot-side">
+                <p className="cid-viv-spec__k">Local Processing Power</p>
                 <ul>
                   <li>Top-secret CID data is privately held, not stored in the cloud</li>
                   <li>Accelerators for compatible AI workflows</li>

@@ -1478,7 +1478,14 @@
 .cid-scope .cid-viv-tower__cap-main .cid-viv-spec__k,
 .cid-scope .cid-viv-tower__foot-main .cid-viv-spec__k { color: #E8ECF4; }
 .cid-scope .cid-viv-tower__cap-main .cid-viv-spec__v { color: #D8DBDE; }
-.cid-scope .cid-viv-tower__foot-main .cid-viv-spec__k { margin: 0; }
+/* the base: the emblem display fills its cell edge to edge at its own
+   16:9, so the row takes the picture's height and the right cell centres
+   its title and bullets beside it */
+.cid-scope .cid-viv-tower__foot .cid-viv-tower__foot-base { padding: 0; display: block; } /* outranks the phone padding below */
+.cid-scope .cid-viv-tower__foot-img {
+  display: block; width: 100%; height: 100%; aspect-ratio: 1679 / 937; object-fit: cover;
+}
+.cid-scope .cid-viv-tower__foot-side .cid-viv-spec__k { margin: 0 0 -4px; }
 .cid-scope .cid-viv-tower__foot-side ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 9px; }
 .cid-scope .cid-viv-tower__foot-side li { position: relative; padding-left: 22px; font-size: 15px; line-height: 1.55; color: #33384a; }
 .cid-scope .cid-viv-tower__foot-side li::before {
