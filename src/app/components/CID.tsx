@@ -2056,7 +2056,45 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   "Teer 0" is kept as he typed it. The leadership triad was
                   placed "somewhere" at my discretion: under the claim, as the
                   line that says who leads the facility the lines describe. */}
-              <div className="cid-viv-tower__cap-side">
+              {/* The cap's right cell carries the CID emblem (Greg, 2026-10-08:
+                  the cap was text heavy; the image goes on the right, the
+                  text on the left). The lines and the claim that stood here
+                  moved down to floor 1. Greg's emblem display (SPRINT 6/CID
+                  Seal - Emblem Display.png), the seal in its dark teal hall. */}
+              <div className="cid-viv-tower__cap-side cid-viv-tower__cap-base">
+                <img
+                  className="cid-viv-tower__cap-img"
+                  src={`${base}assets/images/cid-emblem-base-1400.webp`}
+                  srcSet={`${base}assets/images/cid-emblem-base-800.webp 800w, ${base}assets/images/cid-emblem-base-1400.webp 1400w`}
+                  sizes="(max-width: 760px) 100vw, 44vw"
+                  width="1679"
+                  height="937"
+                  alt="The CID seal on display in a dark teal hall, its compass points lit"
+                  loading="lazy"
+                />
+              </div>
+            </header>
+
+            <div className="cid-viv-tower__floors" role="list" aria-label="The Vivarium, floor by floor">
+            <section className="cid-viv-floor" role="listitem">
+              <div className="cid-viv-floor__media">
+                <video
+                  className="cid-viv-floor__video"
+                  src={`${base}assets/video/vivarium-floor-tour.mp4`}
+                  poster={`${base}assets/images/vivarium-floor-tour-poster.webp`}
+                  controls
+                  muted
+                  playsInline
+                  preload="metadata"
+                  aria-label="A walking tour of one floor of the Vivarium: Ethel's planted shelves, the shared lab, Icarus III's bust and apiary foundry, and Ethel's tank."
+                />
+              </div>
+              {/* Floor 1's text is the cap's former right cell, moved down
+                  (Greg, 2026-10-08): the three lines beside the claim and its
+                  triad. "Cooperation Stations / Icarus III and Ethel" was
+                  retired the same day; the floor after this one covers it. */}
+              <div className="cid-viv-floor__text">
+                <div className="cid-viv-floor__brief">
                 <ul className="cid-viv-tower__lines">
                   <li>Lighter than a bag of milk</li>
                   <li>Multi-level research facility</li>
@@ -2076,26 +2114,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     <li><span className="cid-viv-tower__triad-glyph" aria-hidden="true">Ⓐ</span>Undivided accountability</li>
                   </ul>
                 </div>
-              </div>
-            </header>
-
-            <div className="cid-viv-tower__floors" role="list" aria-label="The Vivarium, floor by floor">
-            <section className="cid-viv-floor" role="listitem">
-              <div className="cid-viv-floor__media">
-                <video
-                  className="cid-viv-floor__video"
-                  src={`${base}assets/video/vivarium-floor-tour.mp4`}
-                  poster={`${base}assets/images/vivarium-floor-tour-poster.webp`}
-                  controls
-                  muted
-                  playsInline
-                  preload="metadata"
-                  aria-label="A walking tour of one floor of the Vivarium: Ethel's planted shelves, the shared lab, Icarus III's bust and apiary foundry, and Ethel's tank."
-                />
-              </div>
-              <div className="cid-viv-floor__text">
-                <h3>Cooperation Stations</h3>
-                <p>Icarus III and Ethel</p>
+                </div>
               </div>
             </section>
 
@@ -2203,26 +2222,16 @@ export function CID({ onSupport }: { onSupport: () => void }) {
 
             {/* The foot of the tower: Greg's wrap-up (2026-10-05), verbatim.
                 It closes the whole tower rather than floor 0, so it is its
-                own band under the last floor, on the same two columns. The
-                left cell is the base the tower stands on: Greg's emblem
-                display (SPRINT 6/CID Seal - Emblem Display.png, 2026-10-07),
-                the CID seal in its dark teal hall; the title moved over to
-                the right cell above its bullets to make room for it. */}
+                own band under the last floor, on the same two columns: the
+                title on the black cell at the left, the bullets at the
+                right. The emblem stood on the left cell for a day
+                (2026-10-08) and moved up to the cap; Greg asked for this
+                arrangement back, as the chic one. */}
             <footer className="cid-viv-tower__foot">
-              <div className="cid-viv-tower__foot-main cid-viv-tower__foot-base">
-                <img
-                  className="cid-viv-tower__foot-img"
-                  src={`${base}assets/images/cid-emblem-base-1400.webp`}
-                  srcSet={`${base}assets/images/cid-emblem-base-800.webp 800w, ${base}assets/images/cid-emblem-base-1400.webp 1400w`}
-                  sizes="(max-width: 1100px) 100vw, 56vw"
-                  width="1679"
-                  height="937"
-                  alt="The CID seal on display in a dark teal hall, its compass points lit"
-                  loading="lazy"
-                />
+              <div className="cid-viv-tower__foot-main">
+                <p className="cid-viv-spec__k">Local Processing Power</p>
               </div>
               <div className="cid-viv-tower__foot-side">
-                <p className="cid-viv-spec__k">Local Processing Power</p>
                 <ul>
                   <li>Top-secret CID data is privately held, not stored in the cloud</li>
                   <li>Accelerators for compatible AI workflows</li>

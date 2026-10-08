@@ -1478,14 +1478,30 @@
 .cid-scope .cid-viv-tower__cap-main .cid-viv-spec__k,
 .cid-scope .cid-viv-tower__foot-main .cid-viv-spec__k { color: #E8ECF4; }
 .cid-scope .cid-viv-tower__cap-main .cid-viv-spec__v { color: #D8DBDE; }
-/* the base: the emblem display fills its cell edge to edge at its own
-   16:9, so the row takes the picture's height and the right cell centres
-   its title and bullets beside it */
-.cid-scope .cid-viv-tower__foot .cid-viv-tower__foot-base { padding: 0; display: block; } /* outranks the phone padding below */
-.cid-scope .cid-viv-tower__foot-img {
+.cid-scope .cid-viv-tower__foot-main .cid-viv-spec__k { margin: 0; }
+/* the cap's right cell is the emblem display, edge to edge: it takes the
+   left cell's height on wide screens and its own 16:9 when stacked */
+.cid-scope .cid-viv-tower__cap .cid-viv-tower__cap-base { padding: 0; display: block; } /* outranks the phone padding below */
+.cid-scope .cid-viv-tower__cap-img {
   display: block; width: 100%; height: 100%; aspect-ratio: 1679 / 937; object-fit: cover;
 }
-.cid-scope .cid-viv-tower__foot-side .cid-viv-spec__k { margin: 0 0 -4px; }
+/* floor 1's text is the cap's former right cell: the three lines beside the
+   claim and its triad, in their own dress rather than the floor's bullets */
+.cid-scope .cid-viv-floor__brief { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 18px 26px; align-items: center; }
+.cid-scope .cid-viv-floor__text .cid-viv-tower__lines { gap: 12px; }
+.cid-scope .cid-viv-floor__text .cid-viv-tower__lines li {
+  padding-left: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 11px;
+  letter-spacing: .07em; line-height: 1.4; text-transform: uppercase; color: #4B00B6;
+}
+.cid-scope .cid-viv-floor__text .cid-viv-tower__lines li::before { content: none; }
+.cid-scope .cid-viv-floor__text .cid-viv-tower__claim {
+  margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 16px;
+  letter-spacing: .3px; line-height: 1.35; color: #4B00B6;
+}
+.cid-scope .cid-viv-floor__text .cid-viv-tower__triad { gap: 5px; }
+.cid-scope .cid-viv-floor__text .cid-viv-tower__triad li { padding-left: 0; font-size: 13.5px; }
+.cid-scope .cid-viv-floor__text .cid-viv-tower__triad li::before { content: none; }
+@media (max-width: 1100px) { .cid-scope .cid-viv-floor__brief { grid-template-columns: minmax(0, 1fr); } }
 .cid-scope .cid-viv-tower__foot-side ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 9px; }
 .cid-scope .cid-viv-tower__foot-side li { position: relative; padding-left: 22px; font-size: 15px; line-height: 1.55; color: #33384a; }
 .cid-scope .cid-viv-tower__foot-side li::before {
