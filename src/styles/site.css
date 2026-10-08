@@ -2955,10 +2955,16 @@ textarea:focus-visible,
 .exhibit-intro-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-  gap: 36px 56px;
+  grid-template-rows: auto auto auto;
+  gap: 20px 56px;
   align-items: start;
 }
-.exhibit-intro-media { display: grid; gap: 20px; align-self: center; }
+/* the copy spans the two picture rows on the left; the loop and the
+   illustration take the right column, one row each; the boxes the third */
+.exhibit-intro-grid > .exhibit-intro-text { grid-column: 1; grid-row: 1 / span 2; }
+.exhibit-intro-media__frame--dice { grid-column: 2; grid-row: 1; }
+.exhibit-intro-media__frame--match { grid-column: 2; grid-row: 2; }
+.exhibit-intro-grid > .exhibit-intro-grid__full { grid-row: 3; margin-top: 16px; }
 .exhibit-intro-media__frame {
   position: relative; margin: 0; aspect-ratio: 16 / 9; overflow: hidden;
   border-radius: 12px; background: #0F031C;
@@ -2972,7 +2978,12 @@ textarea:focus-visible,
 }
 .exhibit-intro-grid__full { grid-column: 1 / -1; }
 @media (max-width: 900px) {
-  .exhibit-intro-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  /* one column: copy, loop, boxes, illustration */
+  .exhibit-intro-grid { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; gap: 28px; }
+  .exhibit-intro-grid > .exhibit-intro-text { grid-column: 1; grid-row: auto; order: 1; }
+  .exhibit-intro-media__frame--dice { grid-column: 1; grid-row: auto; order: 2; }
+  .exhibit-intro-grid > .exhibit-intro-grid__full { grid-column: 1; grid-row: auto; order: 3; margin-top: 0; }
+  .exhibit-intro-media__frame--match { grid-column: 1; grid-row: auto; order: 4; }
 }
 /* The copy used to be held to a readable measure by the column it sat in. At
    full width it needs the measure set explicitly, or the paragraphs run well

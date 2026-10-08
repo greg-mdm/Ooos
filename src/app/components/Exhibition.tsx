@@ -15,7 +15,8 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
           reading measure. On the right, the two pictures: the Virtual Fair
           dice roll as a muted loop, and the matchmaking illustration the
           page already had. The two advantage boxes run full width beneath.
-          On phones the areas stack: copy, loop, illustration, boxes. */}
+          On phones the areas stack: copy, loop, boxes, illustration (Greg,
+          2026-10-08: the boxes go between the stacked video and image). */}
       <section className="exhibit-intro-section">
       <div className="exhibit-intro-row exhibit-intro-grid">
         <div className="exhibit-intro-text">
@@ -47,8 +48,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             <li>Plug-ins, embed tools, and gateway nodes</li>
           </ul>
         </div>
-        <div className="exhibit-intro-media">
-          <figure className="exhibit-intro-media__frame">
+          <figure className="exhibit-intro-media__frame exhibit-intro-media__frame--dice">
             <LoopVideo media={DICE_LOOP} />
           </figure>
           <figure className="exhibit-intro-media__frame exhibit-intro-media__frame--match">
@@ -61,7 +61,6 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               loading="lazy"
             />
           </figure>
-        </div>
           <div className="exhibit-match-table exhibit-intro-grid__full">
             <div className="exhibit-match-box">
               <h4 className="exhibit-match-box__title">Advantages for YOU</h4>
