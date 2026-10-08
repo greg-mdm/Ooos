@@ -1573,7 +1573,15 @@ export function CID({ onSupport }: { onSupport: () => void }) {
   }, []);
   return (
     <div className="cid-scope">
-      <section className="case-hero">
+      {/* The hero stands on black water, the same WebGL surface as the
+          Vivarium grove (WaterBackdrop): still until the visitor moves
+          over it, then settling again. Purple on black, in step with the
+          Ostara hero's galaxy, in place of the ruby band (Greg, 2026-10-08:
+          purple and black is easier to make work and look high end across
+          devices). The research pages go purple and black; Exhibition and
+          Design stay light. */}
+      <section className="case-hero cid-hero-water">
+        <WaterBackdrop />
         <div className="container cid-hero-container">
           <Link to="/" className="back">← All projects</Link>
           <div className="cid-hero-title-row">

@@ -1674,11 +1674,22 @@ a:hover { color: var(--electric); }
   margin: 0 0 20px;
 }
 .cid-scope .case-hero {
-  background: linear-gradient(180deg, var(--ruby) 0%, #5a2000 100%);
-  /* summary copy moved to the light .cid-intro band below; the ruby band now
+  /* black water: WaterBackdrop's canvas paints over this ground, which
+     shows only while the canvas boots, for reduced motion, or without
+     WebGL. Matte black at the core, Midnight at the rim, as the Ostara
+     hero's galaxy is black at the core and Midnight at the rim. */
+  position: relative; isolation: isolate;
+  background:
+    radial-gradient(150% 140% at 50% 40%,
+      #0B0B0D 0%,
+      #0B0B0D 56%,
+      #08020F 80%,
+      #0F031C 100%);
+  /* summary copy moved to the light .cid-intro band below; the band now
      holds only the title row, so it needs less depth */
   padding-bottom: 26px;
 }
+.cid-scope .case-hero > .container { position: relative; z-index: 1; }
 .exhibit-scope .case-hero {
   background:
     radial-gradient(ellipse 55% 130% at 50% 50%, rgba(0, 128, 128, 1) 0%, rgba(0, 128, 128, 0.85) 25%, rgba(0, 128, 128, 0) 90%),
@@ -1832,22 +1843,22 @@ a:hover { color: var(--electric); }
   gap: 10px;
   flex-wrap: nowrap;
 }
+/* the two chips take the Ostara descriptors' dress: purple rule on black,
+   silvery ink, monospace, white on hover */
 .cid-hero-title-row .cid-hero-chips .chip {
-  background: rgba(255, 255, 255, 0.18);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  border-radius: 999px;
+  font-family: 'Courier New', Courier, monospace;
+  background: transparent;
+  color: rgba(200, 210, 240, 0.9);
+  border: 1px solid rgba(108, 1, 244, 0.45);
+  border-radius: 6px;
   padding: 10px 20px;
   font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  font-weight: 400;
+  letter-spacing: 0.08em;
   white-space: nowrap;
-  backdrop-filter: blur(10px) saturate(140%);
-  -webkit-backdrop-filter: blur(10px) saturate(140%);
-  box-shadow:
-    0 4px 14px rgba(0, 0, 0, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transition: color 200ms ease, border-color 200ms ease;
 }
+.cid-hero-title-row .cid-hero-chips .chip:hover { color: #ffffff; border-color: #6C01F4; }
 @media (max-width: 880px) {
   .cid-scope .case-hero h1 { white-space: normal; }
   .cid-hero-title-row {
@@ -1863,7 +1874,7 @@ a:hover { color: var(--electric); }
   }
   .cid-hero-title-row .cid-hero-chips .chip { padding: 8px 14px; font-size: 12px; }
 }
-/* CID intro band: body copy lives on a light canvas below the ruby hero.
+/* CID intro band: body copy lives on a light canvas below the black-water hero.
    Midnight black on silvery white easing into robin's egg; short paragraphs
    with real spacing (mobile target: ~2 medium + 1 small per screen). */
 .cid-intro {
