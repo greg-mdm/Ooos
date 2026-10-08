@@ -10,8 +10,14 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
         </div>
       </section>
 
+      {/* The intro in clean areas (Greg, 2026-10-08: the top was messy
+          from an earlier layout switch). The copy sits on the left in its
+          reading measure. On the right, the two pictures: the Virtual Fair
+          dice roll as a muted loop, and the matchmaking illustration the
+          page already had. The two advantage boxes run full width beneath.
+          On phones the areas stack: copy, loop, illustration, boxes. */}
       <section className="exhibit-intro-section">
-      <div className="exhibit-intro-row">
+      <div className="exhibit-intro-row exhibit-intro-grid">
         <div className="exhibit-intro-text">
           <h2 className="exhibit-intro-h2">
             A Shared Public Space for Canada&rsquo;s Nonprofits
@@ -40,15 +46,23 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             <li>Tip trays tagged to artists</li>
             <li>Plug-ins, embed tools, and gateway nodes</li>
           </ul>
-          <div className="exhibit-match-image-wrap">
+        </div>
+        <div className="exhibit-intro-media">
+          <figure className="exhibit-intro-media__frame">
+            <LoopVideo media={DICE_LOOP} />
+          </figure>
+          <figure className="exhibit-intro-media__frame exhibit-intro-media__frame--match">
             <img
-              src={`${import.meta.env.BASE_URL}assets/images/matchmaking.png`}
-              alt="Artist and nonprofit matchmaking — people connected through a central hub"
+              src={`${import.meta.env.BASE_URL}assets/images/matchmaking-1200.webp`}
+              alt="Artist and nonprofit matchmaking: people connected through a central hub"
               className="exhibit-match-image"
+              width="1200"
+              height="800"
               loading="lazy"
             />
-          </div>
-          <div className="exhibit-match-table">
+          </figure>
+        </div>
+          <div className="exhibit-match-table exhibit-intro-grid__full">
             <div className="exhibit-match-box">
               <h4 className="exhibit-match-box__title">Advantages for YOU</h4>
               <ul className="exhibit-match-bullets exhibit-match-bullets--after">
@@ -67,7 +81,6 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               </ul>
             </div>
           </div>
-        </div>
       </div>
 
       {/* Interactive Programming: the midway. One card per attraction, laid
@@ -440,6 +453,19 @@ const ATTRACTIONS: Attraction[] = [
     body: <p>Enter artist-created worlds</p>,
   },
 ];
+
+/* The Virtual Fair dice roll (Greg's "Virtual Fair - Dice Roll.mp4",
+   SPRINT 6, 2026-10-08): two dice tumble across a wall of cards and burst
+   into a shower of hearts and dollars. Cut as a 5.5s loop with its last
+   half second dissolving into its first; 960x540, muted, with a poster.
+   Shown in the intro's right-hand area above the matchmaking illustration. */
+const DICE_LOOP: Extract<Media, { kind: "video" }> = {
+  kind: "video",
+  mp4: `${ASSETS}virtual-fair-dice.mp4`,
+  webm: `${ASSETS}virtual-fair-dice.webm`,
+  poster: `${ASSETS}virtual-fair-dice-poster.webp`,
+  alt: "Two dice tumble across a wall of glowing cards and burst into hearts and dollar signs",
+};
 
 /* Muted, looping card art. Plays only while on screen, and not at all for
    visitors who asked for reduced motion (they get the poster). */
