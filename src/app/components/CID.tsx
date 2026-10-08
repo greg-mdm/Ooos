@@ -1581,7 +1581,11 @@ export function CID({ onSupport }: { onSupport: () => void }) {
           devices). The research pages go purple and black; Exhibition and
           Design stay light. */}
       <section className="case-hero cid-hero-water">
-        <WaterBackdrop scale={0.5} blur={2} />
+        {/* the hero is a short band, a fifth of the demo's height, so its
+            water takes the pen's gentler class defaults, speed 3.5 and
+            viscosity 5, rather than the 5 and 7.5 it instantiates for a
+            full window; at half resolution with a 2px blur for softness */}
+        <WaterBackdrop scale={0.5} blur={2} speed={3.5} viscosity={5} />
         <div className="container cid-hero-container">
           <Link to="/" className="back">← All projects</Link>
           <div className="cid-hero-title-row">

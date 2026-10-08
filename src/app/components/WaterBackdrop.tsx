@@ -25,8 +25,15 @@
 import { useEffect, useRef } from "react";
 
 const SETTLE_MS = 4500;      // how long the water keeps moving after the last touch
+const CALM_MS = 900;         // the last stretch of the settle, where the lights fade out
 const MAX_SIM_HEIGHT = 1536; // cap on the simulation's height in device pixels
-const VISCOSITY = 7.5, SPEED = 5, SIZE = 1.25;         // the pen's settings
+/* the pen's settings as it instantiates them: viscosity is how much a touch
+   displaces the surface, speed how far a wave travels per step in CSS
+   pixels, size the width of the pointer's wake */
+const VISCOSITY = 7.5, SPEED = 5, SIZE = 1.25;
+/* the pen steps once per animation frame on a 60Hz screen; on faster
+   screens the water would run proportionally faster, so steps are capped */
+const STEP_MS = 1000 / 60;
 const LIGHT = 5, SHADOW = 2.5;
 
 const QUAD_VS = `
@@ -192,8 +199,16 @@ function target(gl: WebGLRenderingContext, w: number, h: number): Target | null 
    the surface. blur: a further softening of the finished picture, in CSS
    pixels. Both default to the grove's sharp water; the CID hero runs at
    half resolution with a 2px blur (Greg, 2026-10-08: the water looked
-   meshy; blur the focus). */
-export function WaterBackdrop({ scale = 1, blur = 0 }: { scale?: number; blur?: number } = {}) {
+   meshy; blur the focus).
+
+   speed, viscosity, size: the pen's three settings, defaulting to the
+   values it instantiates. Speed is in CSS pixels per step whatever the
+   scale, as in the pen, where the resolution uniform is the element's CSS
+   size. The first port counted it in simulation texels, so at half scale
+   the hero's water ran twice as fast as the pen across a band a fifth of
+   the demo's height (Greg, 2026-10-08: it dances really fast, and for a
+   long time). */
+export function WaterBackdrop({ scale = 1, blur = 0, speed = SPEED, viscosity = VISCOSITY, size: wakeSize = SIZE }: { scale?: number; blur?: number; speed?: number; viscosity?: number; size?: number } = {}) {
   const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -247,14 +262,30 @@ export function WaterBackdrop({ scale = 1, blur = 0 }: { scale?: number; blur?: 
       gl.bindTexture(gl.TEXTURE_2D, read.tex);
       gl.uniform1i(draw.ripple, 0);
       gl.uniform2f(draw.res, w, h);
-      gl.uniform1f(draw.light, LIGHT);
-      gl.uniform1f(draw.shadow, SHADOW);
+      // the lights fade over the last CALM_MS of the settle, so the surface
+      // goes still rather than freezing with faint ripples on it
+      const calm = running ? Math.max(0, Math.min(1, (SETTLE_MS - (performance.now() - lastMove)) / CALM_MS)) : 0;
+      gl.uniform1f(draw.light, LIGHT * calm);
+      gl.uniform1f(draw.shadow, SHADOW * calm);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     };
 
+    // back to a perfectly flat surface once the water has settled
+    const flatten = () => {
+      if (!read || !write) return;
+      for (const t of [read, write]) { gl.deleteFramebuffer(t.fb); gl.deleteTexture(t.tex); }
+      read = target(gl, w, h); write = target(gl, w, h);
+      time = 0;
+    };
+
+    let lastStep = 0;
     const step = () => {
       frame = 0;
       if (!read || !write) return;
+      // no more than one step per STEP_MS, whatever the screen's refresh rate
+      const now = performance.now();
+      if (now - lastStep < STEP_MS - 1) { frame = requestAnimationFrame(step); return; }
+      lastStep = now;
       // simulate into the write target
       gl.bindFramebuffer(gl.FRAMEBUFFER, write.fb);
       gl.viewport(0, 0, w, h);
@@ -267,9 +298,9 @@ export function WaterBackdrop({ scale = 1, blur = 0 }: { scale?: number; blur?: 
       gl.uniform2f(sim.last, last.x, last.y);
       gl.uniform2f(sim.vel, vel.x, vel.y);
       gl.uniform1f(sim.time, time);
-      gl.uniform1f(sim.visc, VISCOSITY);
-      gl.uniform1f(sim.speed, SPEED);
-      gl.uniform1f(sim.size, SIZE);
+      gl.uniform1f(sim.visc, viscosity);
+      gl.uniform1f(sim.speed, speed * scale); // CSS pixels to simulation texels
+      gl.uniform1f(sim.size, wakeSize);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
       const t = read; read = write; write = t;
       time += 1;
@@ -278,8 +309,11 @@ export function WaterBackdrop({ scale = 1, blur = 0 }: { scale?: number; blur?: 
       vel.x *= 0.9; vel.y *= 0.9;
       last.x = mouse.x; last.y = mouse.y;
       present();
-      if (onScreen && performance.now() - lastMove < SETTLE_MS) frame = requestAnimationFrame(step);
-      else running = false;
+      if (onScreen && now - lastMove < SETTLE_MS) frame = requestAnimationFrame(step);
+      else {
+        running = false;
+        if (now - lastMove >= SETTLE_MS) { flatten(); present(); }
+      }
     };
 
     const wake = () => {
@@ -293,7 +327,8 @@ export function WaterBackdrop({ scale = 1, blur = 0 }: { scale?: number; blur?: 
       if (x < 0 || x > 1 || y < 0 || y > 1) return;
       if (havePointer) {
         last.x = mouse.x; last.y = mouse.y;
-        vel.x = (x - mouse.x) * w / 16; vel.y = (y - mouse.y) * h / 16;
+        // the pen's velocity: the pointer's travel in CSS pixels over 16
+        vel.x = (x - mouse.x) * (w / scale) / 16; vel.y = (y - mouse.y) * (h / scale) / 16;
       } else {
         last.x = x; last.y = y; vel.x = 0; vel.y = 0; havePointer = true;
       }
@@ -322,7 +357,7 @@ export function WaterBackdrop({ scale = 1, blur = 0 }: { scale?: number; blur?: 
       host.removeEventListener("pointerleave", onLeave);
       if (frame) cancelAnimationFrame(frame);
     };
-  }, [scale]);
+  }, [scale, speed, viscosity, wakeSize]);
 
   return (
     <div className="cid-viv-water" aria-hidden="true">
