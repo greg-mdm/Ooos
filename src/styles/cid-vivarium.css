@@ -2455,9 +2455,9 @@
   .cid-scope .cid-viv-raci-side {
     border-left: none; border-top: 1px solid rgba(75,0,182,.14);
   }
-  /* stacked under the chart, the slider keeps a portrait's width */
-  .cid-scope .cid-viv-raci-slider { display: flex; justify-content: center; }
-  .cid-scope .cid-viv-raci-slider .reality-slider { max-width: 420px; }
+  /* the slider is not rendered at these widths (CID.tsx); this is the
+     belt to that brace */
+  .cid-scope .cid-viv-raci-slider { display: none; }
 }
 
 /* ---- Character film roll ----------------------------------------------

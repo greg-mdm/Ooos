@@ -3,6 +3,24 @@ import { Fragment, useEffect, useId, useRef, useState, type ReactNode, type CSSP
 import { RedShaderOrb } from "./cid/RedShaderOrb";
 import { WaterBackdrop } from "./WaterBackdrop";
 import { RealitySlider } from "./RealitySlider";
+
+/* True on screens wide enough for the RACI panel's side column to stand
+   beside the chart (over 900px, the panel's own breakpoint). The Reality /
+   Hyperreality slider renders only then: on phones it is left out
+   altogether rather than hidden, so no photographs or water load there
+   (Greg, 2026-10-08: it does not fit well on mobile). */
+function useWideScreen() {
+  const query = "(min-width: 901px)";
+  const [wide, setWide] = useState(() => typeof window !== "undefined" && window.matchMedia(query).matches);
+  useEffect(() => {
+    const mq = window.matchMedia(query);
+    const update = () => setWide(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+  return wide;
+}
 import "../../styles/cid-continuum.css";
 import "../../styles/cid-forest.css";
 import "../../styles/cid-vivarium.css";
@@ -1515,6 +1533,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
   }, [navigate]);
 
   const base = import.meta.env.BASE_URL;
+  const wide = useWideScreen();
   // The population model, the living-wall slide index and the watchlist embed's
   // height listener all moved to IWatchlist with the sections that used them.
   // The Viv display room runs a continuous WebGL render loop once loaded, on
@@ -2426,16 +2445,18 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               <div data-raci="I"><dt><span className="cid-raci-tile" aria-hidden="true">I</span>Informed</dt>
                 <dd>Role-separated architecture gives agents access to information needed for designated roles.</dd></div>
             </dl>
+            {wide && (
             <div className="cid-viv-raci-slider">
               <RealitySlider
-                realSrc={`${base}assets/reality-slider/reality-1200.webp`}
-                hyperSrc={`${base}assets/reality-slider/hyperreality-1200.webp`}
+                realSrc={`${base}assets/reality-slider/reality-1080.webp`}
+                hyperSrc={`${base}assets/reality-slider/hyperreality-1080.webp`}
                 realBlur={`${base}assets/reality-slider/reality-blur.webp`}
                 hyperBlur={`${base}assets/reality-slider/hyperreality-blur.webp`}
                 realAlt="Gregory Tyler Long at the Master of Digital Media convocation ceremony, June 2026"
                 hyperAlt="Gregory Tyler Long in the Vivarium, an interactive virtual environment of the Canadian Innovation Dimension"
               />
             </div>
+            )}
             </div>
           </div>
           </section>
