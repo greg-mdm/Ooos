@@ -33,11 +33,9 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
           <h3 className="exhibit-match-heading">
             Your mission deserves to be experienced!
           </h3>
-          <p>
-            <span className="exhibit-sb">Ooo Digital Media Studio</span> connects nonprofits with interactive
-            artists who share common values and goals, guiding each team to
-            harmonize complementary creative and technical skills.
-          </p>
+          {/* the "connects nonprofits" paragraph that followed moved to the
+              matchmaking card's caption (Greg, 2026-10-08: it goes with the
+              image, which shows the matching system) */}
           <h3 className="exhibit-match-lead">
             Transform your cause into an interactive experience
           </h3>
@@ -48,19 +46,42 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             <li>Plug-ins, embed tools, and gateway nodes</li>
           </ul>
         </div>
-          <figure className="exhibit-intro-media__frame exhibit-intro-media__frame--dice">
-            <LoopVideo media={DICE_LOOP} />
+          {/* Two cards in the midway's dress, each with its caption attached,
+              both cropped from the top to one 2:1 shape so the column
+              balances the copy (Greg, 2026-10-08). The dice card's tag and
+              line are new wording, flagged for Greg; the matchmaking card's
+              caption is his paragraph, verbatim. */}
+          <div className="exhibit-intro-cards">
+          <figure className="exhibit-intro-card exhibit-intro-card--gold exhibit-intro-media__frame--dice">
+            <div className="exhibit-intro-card__media">
+              <LoopVideo media={DICE_LOOP} />
+            </div>
+            <figcaption className="exhibit-intro-card__cap">
+              <span className="exhibit-intro-card__tag">Virtual Fair</span>
+              <span className="exhibit-intro-card__title">Roll the dice on a new audience</span>
+            </figcaption>
           </figure>
-          <figure className="exhibit-intro-media__frame exhibit-intro-media__frame--match">
-            <img
-              src={`${import.meta.env.BASE_URL}assets/images/matchmaking-1200.webp`}
-              alt="Artist and nonprofit matchmaking: people connected through a central hub"
-              className="exhibit-match-image"
-              width="1200"
-              height="800"
-              loading="lazy"
-            />
+          <figure className="exhibit-intro-card exhibit-intro-card--portal exhibit-intro-media__frame--match">
+            <div className="exhibit-intro-card__media">
+              <img
+                src={`${import.meta.env.BASE_URL}assets/images/matchmaking-1200.webp`}
+                alt="Artist and nonprofit matchmaking: people connected through a central hub"
+                className="exhibit-match-image"
+                width="1200"
+                height="800"
+                loading="lazy"
+              />
+            </div>
+            <figcaption className="exhibit-intro-card__cap">
+              <span className="exhibit-intro-card__tag">Matchmaking</span>
+              <p className="exhibit-intro-card__text">
+                <span className="exhibit-sb">Ooo Digital Media Studio</span> connects nonprofits with interactive
+                artists who share common values and goals, guiding each team to
+                harmonize complementary creative and technical skills.
+              </p>
+            </figcaption>
           </figure>
+          </div>
           <div className="exhibit-match-table exhibit-intro-grid__full">
             <div className="exhibit-match-box">
               <h4 className="exhibit-match-box__title">Advantages for YOU</h4>
