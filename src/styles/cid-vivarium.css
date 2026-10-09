@@ -1506,19 +1506,23 @@
 .cid-scope .cid-viv-floor__text .cid-viv-tower__triad--tiles {
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 20px;
 }
+/* the tiles stand the same height and each glyph sits at the foot of its
+   tile (margin-top auto), so the three glyphs hold one line whether the
+   label above runs to one line or two (Greg, 2026-10-09) */
 .cid-scope .cid-viv-floor__text .cid-viv-tower__triad--tiles li {
   display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 12px;
   padding: 14px 10px 16px; text-align: center;
   border: 1px solid rgba(75, 0, 182, 0.18); border-radius: 12px; background: rgba(75, 0, 182, 0.04);
 }
 .cid-scope .cid-viv-tower__triad-text {
-  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 700; font-size: 11.5px;
-  letter-spacing: .04em; line-height: 1.35; color: #19007D; text-wrap: balance;
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 700; font-size: 11px;
+  letter-spacing: .08em; line-height: 1.4; color: #19007D; text-transform: uppercase; text-wrap: balance;
 }
-.cid-scope .cid-viv-floor__text .cid-viv-tower__triad--tiles .cid-viv-tower__triad-glyph { font-size: 40px; line-height: 1; }
+.cid-scope .cid-viv-floor__text .cid-viv-tower__triad--tiles .cid-viv-tower__triad-glyph { font-size: 40px; line-height: 1; margin-top: auto; }
 @media (max-width: 520px) {
   .cid-scope .cid-viv-floor__text .cid-viv-tower__triad--tiles { grid-template-columns: minmax(0, 1fr); }
   .cid-scope .cid-viv-floor__text .cid-viv-tower__triad--tiles li { flex-direction: row-reverse; justify-content: flex-end; text-align: left; gap: 14px; }
+  .cid-scope .cid-viv-floor__text .cid-viv-tower__triad--tiles .cid-viv-tower__triad-glyph { margin-top: 0; }
 }
 @media (max-width: 1100px) { .cid-scope .cid-viv-floor__brief { grid-template-columns: minmax(0, 1fr); } }
 .cid-scope .cid-viv-tower__foot-side ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 9px; }
