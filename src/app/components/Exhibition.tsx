@@ -30,12 +30,11 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             avant-garde artists are teaming up to turn real-world challenges
             into interactive experiences that can change minds and open hearts.
           </p>
-          <h3 className="exhibit-match-heading">
-            Your mission deserves to be experienced!
-          </h3>
-          {/* the "connects nonprofits" paragraph that followed moved to the
-              matchmaking card's caption (Greg, 2026-10-08: it goes with the
-              image, which shows the matching system) */}
+          {/* "Your mission deserves to be experienced!" and the "connects
+              nonprofits" paragraph that followed it live on the matchmaking
+              card now, the line as its title (2026-10-09) and the paragraph
+              as its caption (Greg, 2026-10-08: it goes with the image, which
+              shows the matching system). */}
           <h3 className="exhibit-match-lead">
             Transform your cause into an interactive experience
           </h3>
@@ -52,17 +51,22 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               line are new wording, flagged for Greg; the matchmaking card's
               caption is his paragraph, verbatim. */}
           <div className="exhibit-intro-cards">
-          <figure className="exhibit-intro-card exhibit-intro-card--gold exhibit-intro-media__frame--dice">
-            <div className="exhibit-intro-card__media">
-              <LoopVideo media={DICE_LOOP} />
+          {/* Left: the Gateway Portals video, a finished portrait asset shown
+              whole at its own 9:16; the frame is formed around it, no crop
+              and no spare ground (Greg, 2026-10-09). Right: the matchmaking
+              card, the same height, its illustration whole at its 3:2 and
+              its copy centred in the room beneath. */}
+          <figure className="exhibit-intro-card exhibit-intro-card--teal exhibit-intro-slot--left">
+            <div className="exhibit-intro-card__media exhibit-intro-card__media--portrait">
+              <LoopVideo media={PORTALS_INTRO} />
             </div>
             <figcaption className="exhibit-intro-card__cap">
-              <span className="exhibit-intro-card__tag">Virtual Fair</span>
-              <span className="exhibit-intro-card__title">Roll the dice on a new audience</span>
+              <span className="exhibit-intro-card__tag">Gateway Portals</span>
+              <span className="exhibit-intro-card__title">Enter artist-created worlds</span>
             </figcaption>
           </figure>
-          <figure className="exhibit-intro-card exhibit-intro-card--portal exhibit-intro-media__frame--match">
-            <div className="exhibit-intro-card__media">
+          <figure className="exhibit-intro-card exhibit-intro-card--portal exhibit-intro-slot--right">
+            <div className="exhibit-intro-card__media exhibit-intro-card__media--wide">
               <img
                 src={`${import.meta.env.BASE_URL}assets/images/matchmaking-1200.webp`}
                 alt="Artist and nonprofit matchmaking: people connected through a central hub"
@@ -72,8 +76,9 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
                 loading="lazy"
               />
             </div>
-            <figcaption className="exhibit-intro-card__cap">
+            <figcaption className="exhibit-intro-card__cap exhibit-intro-card__cap--fill">
               <span className="exhibit-intro-card__tag">Matchmaking</span>
+              <span className="exhibit-intro-card__title">Your mission deserves to be experienced!</span>
               <p className="exhibit-intro-card__text">
                 <span className="exhibit-sb">Ooo Digital Media Studio</span> connects nonprofits with interactive
                 artists who share common values and goals, guiding each team to
@@ -315,7 +320,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
 type Tone = "ruby" | "gold" | "teal" | "portal" | "electric";
 
 type Media =
-  | { kind: "video"; mp4: string; webm: string; poster: string; alt: string }
+  | { kind: "video"; mp4: string; webm: string; poster: string; alt: string; focus?: "bottom" }
   | { kind: "image"; src: string; alt: string }
   /* a still that, when touched, blurs like frosted glass into a second
      still: src at rest, touched on hover, focus or tap */
@@ -331,6 +336,20 @@ type Attraction = {
 };
 
 const ASSETS = `${import.meta.env.BASE_URL}assets/exhibition/`;
+
+/* The Virtual Fair dice roll (Greg's "Virtual Fair - Dice Roll.mp4",
+   SPRINT 6, 2026-10-08): two dice tumble across a wall of cards and burst
+   into a shower of hearts and dollars. Cut as a 5.5s loop with its last
+   half second dissolving into its first; 960x540, muted, with a poster.
+   The clip carried black bars at its sides, cropped away (Greg, 2026-10-08).
+   Shown in the intro's right-hand area above the matchmaking illustration. */
+const DICE_LOOP: Extract<Media, { kind: "video" }> = {
+  kind: "video",
+  mp4: `${ASSETS}virtual-fair-dice.mp4`,
+  webm: `${ASSETS}virtual-fair-dice.webm`,
+  poster: `${ASSETS}virtual-fair-dice-poster.webp`,
+  alt: "Two dice tumble across a wall of glowing cards and burst into hearts and dollar signs",
+};
 
 /* Each attraction's art lives in public/assets/exhibition/<id>.* . A still is
    { kind: "image", src: `${ASSETS}<id>.webp`, alt }; a loop is
@@ -457,35 +476,32 @@ const ATTRACTIONS: Attraction[] = [
     title: "Gateway Portals",
     tag: "Enter here",
     tone: "teal",
-    /* Greg's "Portals - Short Clip.mp4" (SPRINT 6, 2026-10-08), a portrait
-       clip: a blue-haired figure, the CIX sign, a silhouette walking into
-       a rainbow portal. Cut as a loop: its last third of a second
-       dissolves into its first, so it runs round without a jump. Shown
-       whole at the booth's height on a blurred copy of itself, since the
-       booth is 16:9 and the clip is 9:16. Muted, as all booth loops are. */
-    media: {
-      kind: "video",
-      mp4: `${ASSETS}gateway-portals.mp4`,
-      webm: `${ASSETS}gateway-portals.webm`,
-      poster: `${ASSETS}gateway-portals-poster.webp`,
-      alt: "A silhouette walks toward a glowing rainbow portal past the CIX sign, bubbles drifting by",
-    },
+    /* The Virtual Fair dice roll, moved down here from the intro (Greg,
+       2026-10-09): a 3:2 loop, which the booth's horizontal frame suits.
+       Its featured content, the dice, sits at the foot of the picture, so
+       the frame holds the bottom and lets the top row of floating cards
+       run off. The portrait portals clip that stood here did not fit a
+       horizontal frame; it opens the intro's Gateway Portals video now. */
+    media: { ...DICE_LOOP, focus: "bottom" },
     body: <p>Enter artist-created worlds</p>,
   },
 ];
 
-/* The Virtual Fair dice roll (Greg's "Virtual Fair - Dice Roll.mp4",
-   SPRINT 6, 2026-10-08): two dice tumble across a wall of cards and burst
-   into a shower of hearts and dollars. Cut as a 5.5s loop with its last
-   half second dissolving into its first; 960x540, muted, with a poster.
-   The clip carried black bars at its sides, cropped away (Greg, 2026-10-08).
-   Shown in the intro's right-hand area above the matchmaking illustration. */
-const DICE_LOOP: Extract<Media, { kind: "video" }> = {
+/* The Gateway Portals video for the intro (Greg, 2026-10-09): his three
+   portrait clips composed into one, in his order. "Blinking POV - CIX"
+   opens it, the cyclops figure blinking in the neon corridor; "rushing-
+   water-hallway" follows, the corridor flooding toward the viewer; and
+   "Portals - Short Clip" closes it, the CIX sign and the silhouette walking
+   into the rainbow portal. Short dissolves join them, and the last half
+   second dissolves into the first so it loops without a jump. 720 x 1280,
+   muted, 12 seconds; the poster is his "purple-eye-water-corridor" still.
+   The masters are in SPRINT 6. */
+const PORTALS_INTRO: Extract<Media, { kind: "video" }> = {
   kind: "video",
-  mp4: `${ASSETS}virtual-fair-dice.mp4`,
-  webm: `${ASSETS}virtual-fair-dice.webm`,
-  poster: `${ASSETS}virtual-fair-dice-poster.webp`,
-  alt: "Two dice tumble across a wall of glowing cards and burst into hearts and dollar signs",
+  mp4: `${ASSETS}gateway-portals-intro.mp4`,
+  webm: `${ASSETS}gateway-portals-intro.webm`,
+  poster: `${ASSETS}gateway-portals-intro-poster.webp`,
+  alt: "A figure with one violet eye blinks in a neon corridor; water floods the corridor toward you; a silhouette walks past the CIX sign into a rainbow portal",
 };
 
 /* Muted, looping card art. Plays only while on screen, and not at all for
@@ -516,6 +532,7 @@ function LoopVideo({ media }: { media: Extract<Media, { kind: "video" }> }) {
       preload="metadata"
       poster={media.poster}
       aria-label={media.alt}
+      style={media.focus ? { objectPosition: `50% ${media.focus === "bottom" ? "100%" : "50%"}` } : undefined}
     >
       <source src={media.webm} type="video/webm" />
       <source src={media.mp4} type="video/mp4" />
