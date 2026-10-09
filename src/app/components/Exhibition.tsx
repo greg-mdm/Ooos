@@ -44,31 +44,28 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             <li>Tip trays tagged to artists</li>
             <li>Plug-ins, embed tools, and gateway nodes</li>
           </ul>
-          {/* The matchmaking band under the copy (2026-10-09): the
-              illustration whole at its 3:2 on the left, "Your mission
-              deserves to be experienced!" and the "connects nonprofits"
-              paragraph beside it (Greg, 2026-10-08: the paragraph goes with
-              the image, which shows the matching system). With it the left
-              column stands level with the two portrait cards. */}
-          <figure className="exhibit-intro-match">
-            <img
-              className="exhibit-intro-match__img"
-              src={`${import.meta.env.BASE_URL}assets/images/matchmaking-1200.webp`}
-              alt="Artist and nonprofit matchmaking: people connected through a central hub"
-              width="1200"
-              height="800"
-              loading="lazy"
-            />
-            <figcaption className="exhibit-intro-match__cap">
-              <span className="exhibit-intro-card__tag">Matchmaking</span>
-              <span className="exhibit-intro-match__title">Your mission deserves to be experienced!</span>
-              <p className="exhibit-intro-match__text">
-                <span className="exhibit-sb">Ooo Digital Media Studio</span> connects nonprofits with interactive
-                artists who share common values and goals, guiding each team to
-                harmonize complementary creative and technical skills.
-              </p>
-            </figcaption>
-          </figure>
+          {/* The two advantage boxes, stacked under the copy (Greg,
+              2026-10-09), so the left column stands level with the group
+              of three on the right. */}
+          <div className="exhibit-match-table exhibit-match-table--stack">
+            <div className="exhibit-match-box">
+              <h4 className="exhibit-match-box__title">Advantages for YOU</h4>
+              <ul className="exhibit-match-bullets exhibit-match-bullets--after">
+                <li>Personalized guidance</li>
+                <li>Customized solutions</li>
+                <li>Reusable creative content</li>
+                <li>Rally support for your cause!</li>
+              </ul>
+            </div>
+            <div className="exhibit-match-box">
+              <h4 className="exhibit-match-box__title">Benefits for EVERYONE</h4>
+              <ul className="exhibit-match-bullets exhibit-match-bullets--after">
+                <li>Strategic alignment</li>
+                <li>Powerful partnerships</li>
+                <li>Lead innovation together</li>
+              </ul>
+            </div>
+          </div>
         </div>
           {/* Two portrait videos in the same format, side by side, each a
               finished asset shown whole at its own 9:16 with the frame formed
@@ -95,25 +92,33 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               <span className="exhibit-intro-card__title">Tap the wall to open the portal</span>
             </figcaption>
           </figure>
-          </div>
-          <div className="exhibit-match-table exhibit-intro-grid__full">
-            <div className="exhibit-match-box">
-              <h4 className="exhibit-match-box__title">Advantages for YOU</h4>
-              <ul className="exhibit-match-bullets exhibit-match-bullets--after">
-                <li>Personalized guidance</li>
-                <li>Customized solutions</li>
-                <li>Reusable creative content</li>
-                <li>Rally support for your cause!</li>
-              </ul>
+          {/* The matchmaking band under the two videos, the three locked as
+              one group beside the copy (Greg, 2026-10-09). The Matchmaking
+              pill sits over the picture, and "Your mission deserves to be
+              experienced!" is the heading on the text side, over the
+              "connects nonprofits" paragraph (Greg, 2026-10-08: it goes
+              with the image, which shows the matching system). */}
+          <figure className="exhibit-intro-match">
+            <div className="exhibit-intro-match__pic">
+              <img
+                className="exhibit-intro-match__img"
+                src={`${import.meta.env.BASE_URL}assets/images/matchmaking-1200.webp`}
+                alt="Artist and nonprofit matchmaking: people connected through a central hub"
+                width="1200"
+                height="800"
+                loading="lazy"
+              />
+              <span className="exhibit-intro-card__tag exhibit-intro-match__tag">Matchmaking</span>
             </div>
-            <div className="exhibit-match-box">
-              <h4 className="exhibit-match-box__title">Benefits for EVERYONE</h4>
-              <ul className="exhibit-match-bullets exhibit-match-bullets--after">
-                <li>Strategic alignment</li>
-                <li>Powerful partnerships</li>
-                <li>Lead innovation together</li>
-              </ul>
-            </div>
+            <figcaption className="exhibit-intro-match__cap">
+              <h3 className="exhibit-intro-match__title">Your mission deserves to be experienced!</h3>
+              <p className="exhibit-intro-match__text">
+                <span className="exhibit-sb">Ooo Digital Media Studio</span> connects nonprofits with interactive
+                artists who share common values and goals, guiding each team to
+                harmonize complementary creative and technical skills.
+              </p>
+            </figcaption>
+          </figure>
           </div>
       </div>
 
