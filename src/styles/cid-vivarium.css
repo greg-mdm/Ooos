@@ -3181,3 +3181,36 @@
   .cid-scope .cid-cast-arrow { width: 38px; height: 38px; font-size: 22px; }
   .cid-scope .cid-cast-full { right: 8px; bottom: 8px; }
 }
+
+/* ---- WTF: the inspiration behind GIT and TIT ----------------------------
+   A small button and hint above the two circles. Pressed, the circles blur
+   away like frosted glass and the inspiration graphic clears in their
+   place, fitted inside the same stage; pressed again, they return. The
+   stage keeps the circles' height, so the fold does not jump. ---- */
+.cid-scope .cid-viv-inspo { display: flex; flex-direction: column; gap: 10px; }
+.cid-scope .cid-viv-inspo__bar { display: flex; align-items: center; gap: 10px; justify-content: flex-end; }
+.cid-scope .cid-viv-inspo__btn {
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 11px; letter-spacing: .14em;
+  padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(130, 47, 0, .45); background: #FFFFFF; color: #822F00;
+  cursor: pointer; transition: background .2s ease, color .2s ease, transform .2s ease;
+}
+.cid-scope .cid-viv-inspo__btn:hover { transform: translateY(-1px); }
+.cid-scope .cid-viv-inspo__btn[aria-pressed="true"] { background: #822F00; color: #FFFFFF; }
+.cid-scope .cid-viv-inspo__btn:focus-visible { outline: 2px solid #822F00; outline-offset: 2px; }
+.cid-scope .cid-viv-inspo__hint { font-family: 'Inter', system-ui, sans-serif; font-size: 12.5px; color: #5c6076; }
+/* at rest the circles set the stage's height and the graphic lies hidden
+   over them; pressed, the two swap roles, so the stage takes the graphic's
+   own height (4:3 at the fold's width) and its quote and credits stay
+   readable, while the circles fade out in place behind it */
+.cid-scope .cid-viv-inspo__stage { position: relative; }
+.cid-scope .cid-viv-inspo__rest { transition: opacity .65s ease, filter .65s ease; }
+.cid-scope .cid-viv-inspo__img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block;
+  border-radius: 12px; opacity: 0; filter: blur(16px); transform: scale(1.03); pointer-events: none;
+  transition: opacity .65s ease, filter .65s ease, transform .65s ease;
+}
+.cid-scope .cid-viv-inspo.is-on .cid-viv-inspo__rest { position: absolute; inset: 0; opacity: 0; filter: blur(16px); pointer-events: none; }
+.cid-scope .cid-viv-inspo.is-on .cid-viv-inspo__img { position: static; height: auto; opacity: 1; filter: blur(0); transform: none; pointer-events: auto; }
+@media (prefers-reduced-motion: reduce) {
+  .cid-scope .cid-viv-inspo__rest, .cid-scope .cid-viv-inspo__img { transition: none; }
+}

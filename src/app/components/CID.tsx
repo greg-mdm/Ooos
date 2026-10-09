@@ -1412,6 +1412,40 @@ function Unfold({ line, icon, tone, label, more }: { line: ReactNode; icon: Reac
   );
 }
 
+/* "WTF": why this form? A small button beside the GIT and TIT circles. At
+   rest the circles show; pressed, they blur away like frosted glass (the
+   Thought Garden's reveal) and the inspiration graphic takes their place,
+   Greg's own composite of Eyes, the two granite spheres in Oslo (2025),
+   with the sculptor's line about art that makes the observer think "Why
+   on earth?" and the piece's credits. Pressed again, the circles return.
+   The button says WTF, as Greg named it (2026-10-09); its hint spells it
+   out. The graphic is decoration for sighted visitors; its alt names the
+   work, and the two circles' copy stays in the document throughout. */
+function InspoReveal({ src, alt, children }: { src: string; alt: string; children: ReactNode }) {
+  const [on, setOn] = useState(false);
+  return (
+    <div className={`cid-viv-inspo${on ? " is-on" : ""}`}>
+      <div className="cid-viv-inspo__bar">
+        <button
+          type="button"
+          className="cid-viv-inspo__btn"
+          aria-pressed={on}
+          aria-label={on ? "Back to GIT and TIT" : "WTF: why this form? See the inspo"}
+          title={on ? "Back to GIT and TIT" : "Why this form? See the inspo"}
+          onClick={() => setOn((v) => !v)}
+        >
+          WTF
+        </button>
+        <span className="cid-viv-inspo__hint" aria-hidden="true">{on ? "Back to GIT and TIT" : "Why this form? See the inspo"}</span>
+      </div>
+      <div className="cid-viv-inspo__stage">
+        <div className="cid-viv-inspo__rest" aria-hidden={on}>{children}</div>
+        <img className="cid-viv-inspo__img" src={src} alt={alt} loading="eager" decoding="async" aria-hidden={!on} />
+      </div>
+    </div>
+  );
+}
+
 function TeerLine() {
   const [open, setOpen] = useState(false);
   const id = useId();
@@ -1758,6 +1792,13 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                           big, over a live red shader; hovering, focusing or tapping
                           reveals the sentence underneath. The copy is his, verbatim;
                           the component and its shader are in cid/RedShaderOrb.tsx. */}
+                      {/* The WTF button and the reveal around the circles: see
+                          InspoReveal. The graphic is Greg's "Eyes - GIT TIT
+                          Inspo.png" (SPRINT 6, 2026-10-09). */}
+                      <InspoReveal
+                        src={`${base}assets/images/cid-eyes-inspo-1240.webp`}
+                        alt="Eyes: two granite spheres, each 160 cm across, one dark pupil on each, on a lawn by the water in Oslo, Norway, 2025. The sculpture the two circles take their form from."
+                      >
                       <div className="cid-viv-orbs">
                         <RedShaderOrb title="Global Interoperability Trust (GIT)">
                           Global Interoperability Trust (GIT) builds trusted connections that enable worldwide access to Canadian content and services across platforms and markets.
@@ -1766,6 +1807,7 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                           Toronto Interoperability Team (TIT) increases public access to information by sharing metropolitan resources nationwide. TIT promotes national standards for privacy and informed consent.
                         </RedShaderOrb>
                       </div>
+                      </InspoReveal>
                     </details>
                   </div>
                   </div>
