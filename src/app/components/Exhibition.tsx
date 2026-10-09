@@ -44,18 +44,39 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             <li>Tip trays tagged to artists</li>
             <li>Plug-ins, embed tools, and gateway nodes</li>
           </ul>
+          {/* The matchmaking band under the copy (2026-10-09): the
+              illustration whole at its 3:2 on the left, "Your mission
+              deserves to be experienced!" and the "connects nonprofits"
+              paragraph beside it (Greg, 2026-10-08: the paragraph goes with
+              the image, which shows the matching system). With it the left
+              column stands level with the two portrait cards. */}
+          <figure className="exhibit-intro-match">
+            <img
+              className="exhibit-intro-match__img"
+              src={`${import.meta.env.BASE_URL}assets/images/matchmaking-1200.webp`}
+              alt="Artist and nonprofit matchmaking: people connected through a central hub"
+              width="1200"
+              height="800"
+              loading="lazy"
+            />
+            <figcaption className="exhibit-intro-match__cap">
+              <span className="exhibit-intro-card__tag">Matchmaking</span>
+              <span className="exhibit-intro-match__title">Your mission deserves to be experienced!</span>
+              <p className="exhibit-intro-match__text">
+                <span className="exhibit-sb">Ooo Digital Media Studio</span> connects nonprofits with interactive
+                artists who share common values and goals, guiding each team to
+                harmonize complementary creative and technical skills.
+              </p>
+            </figcaption>
+          </figure>
         </div>
-          {/* Two cards in the midway's dress, each with its caption attached,
-              both cropped from the top to one 2:1 shape so the column
-              balances the copy (Greg, 2026-10-08). The dice card's tag and
-              line are new wording, flagged for Greg; the matchmaking card's
-              caption is his paragraph, verbatim. */}
+          {/* Two portrait videos in the same format, side by side, each a
+              finished asset shown whole at its own 9:16 with the frame formed
+              around it (Greg, 2026-10-09). Left, the water loop: the figure
+              blinks, the corridor floods. Right, the brick wall still; tapped,
+              it plays the portal entrance once and rests on its last frame,
+              the rainbow room, where a text overlay will go later. */}
           <div className="exhibit-intro-cards">
-          {/* Left: the Gateway Portals video, a finished portrait asset shown
-              whole at its own 9:16; the frame is formed around it, no crop
-              and no spare ground (Greg, 2026-10-09). Right: the matchmaking
-              card, the same height, its illustration whole at its 3:2 and
-              its copy centred in the room beneath. */}
           <figure className="exhibit-intro-card exhibit-intro-card--teal exhibit-intro-slot--left">
             <div className="exhibit-intro-card__media exhibit-intro-card__media--portrait">
               <LoopVideo media={PORTALS_INTRO} />
@@ -66,24 +87,12 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             </figcaption>
           </figure>
           <figure className="exhibit-intro-card exhibit-intro-card--portal exhibit-intro-slot--right">
-            <div className="exhibit-intro-card__media exhibit-intro-card__media--wide">
-              <img
-                src={`${import.meta.env.BASE_URL}assets/images/matchmaking-1200.webp`}
-                alt="Artist and nonprofit matchmaking: people connected through a central hub"
-                className="exhibit-match-image"
-                width="1200"
-                height="800"
-                loading="lazy"
-              />
+            <div className="exhibit-intro-card__media exhibit-intro-card__media--portrait">
+              <TapVideo media={PORTAL_ENTRANCE} />
             </div>
-            <figcaption className="exhibit-intro-card__cap exhibit-intro-card__cap--fill">
-              <span className="exhibit-intro-card__tag">Matchmaking</span>
-              <span className="exhibit-intro-card__title">Your mission deserves to be experienced!</span>
-              <p className="exhibit-intro-card__text">
-                <span className="exhibit-sb">Ooo Digital Media Studio</span> connects nonprofits with interactive
-                artists who share common values and goals, guiding each team to
-                harmonize complementary creative and technical skills.
-              </p>
+            <figcaption className="exhibit-intro-card__cap">
+              <span className="exhibit-intro-card__tag">Enter here</span>
+              <span className="exhibit-intro-card__title">Tap the wall to open the portal</span>
             </figcaption>
           </figure>
           </div>
@@ -487,22 +496,72 @@ const ATTRACTIONS: Attraction[] = [
   },
 ];
 
-/* The Gateway Portals video for the intro (Greg, 2026-10-09): his three
-   portrait clips composed into one, in his order. "Blinking POV - CIX"
-   opens it, the cyclops figure blinking in the neon corridor; "rushing-
-   water-hallway" follows, the corridor flooding toward the viewer; and
-   "Portals - Short Clip" closes it, the CIX sign and the silhouette walking
-   into the rainbow portal. Short dissolves join them, and the last half
-   second dissolves into the first so it loops without a jump. 720 x 1280,
-   muted, 12 seconds; the poster is his "purple-eye-water-corridor" still.
-   The masters are in SPRINT 6. */
+/* The water loop for the intro's left card (Greg, 2026-10-09): two of his
+   portrait clips composed into one. "Blinking POV - CIX" opens it, the
+   cyclops figure blinking in the neon corridor; "rushing-water-hallway"
+   follows, the corridor flooding toward the viewer. A short dissolve joins
+   them and the last half second dissolves into the first, so it loops
+   without a jump. 720 x 1280, muted, 9.5 seconds; the poster is his
+   "purple-eye-water-corridor" still. The brick wall and the rainbow room
+   that closed the first cut are the right card's video now. Masters in
+   SPRINT 6. */
 const PORTALS_INTRO: Extract<Media, { kind: "video" }> = {
   kind: "video",
   mp4: `${ASSETS}gateway-portals-intro.mp4`,
   webm: `${ASSETS}gateway-portals-intro.webm`,
   poster: `${ASSETS}gateway-portals-intro-poster.webp`,
-  alt: "A figure with one violet eye blinks in a neon corridor; water floods the corridor toward you; a silhouette walks past the CIX sign into a rainbow portal",
+  alt: "A figure with one violet eye blinks in a neon corridor, and water floods the corridor toward you",
 };
+
+/* The portal entrance for the intro's right card: Greg's "Portals - Short
+   Clip" at the same 720 x 1280, played once on a tap and left on its last
+   frame, the rainbow room, which is the ground a text overlay will sit on
+   later. At rest the card shows his brick wall still (SPRINT 6/Brick Wall -
+   media-1791583639120.png) with its three neon buttons. */
+const PORTAL_ENTRANCE: Extract<Media, { kind: "video" }> = {
+  kind: "video",
+  mp4: `${ASSETS}gateway-portal-entrance.mp4`,
+  webm: `${ASSETS}gateway-portal-entrance.webm`,
+  poster: `${ASSETS}gateway-portal-wall.webp`,
+  alt: "A brick wall with three neon buttons, Donate, Play Again and Next Booth. Tapped, the CIX sign appears on the wall and a silhouette walks into a rainbow-lit room",
+};
+
+/* Tap to play: the still shows at rest; a tap plays the clip once, and it
+   rests on its last frame. Another tap plays it again from the start.
+   Keyboard and screen readers get a button that says what it does. */
+function TapVideo({ media }: { media: Extract<Media, { kind: "video" }> }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [state, setState] = useState<"rest" | "playing" | "done">("rest");
+  const play = () => {
+    const v = ref.current;
+    if (!v) return;
+    if (v.ended || state === "done") v.currentTime = 0;
+    void v.play().catch(() => {});
+  };
+  return (
+    <button
+      type="button"
+      className={`exhibit-tap${state !== "rest" ? " is-played" : ""}`}
+      onClick={play}
+      aria-label={state === "rest" ? "Tap to open the portal" : "Play the portal again"}
+    >
+      <video
+        ref={ref}
+        className="exhibit-tap__video"
+        muted
+        playsInline
+        preload="metadata"
+        poster={media.poster}
+        aria-label={media.alt}
+        onPlay={() => setState("playing")}
+        onEnded={() => setState("done")}
+      >
+        <source src={media.webm} type="video/webm" />
+        <source src={media.mp4} type="video/mp4" />
+      </video>
+    </button>
+  );
+}
 
 /* Muted, looping card art. Plays only while on screen, and not at all for
    visitors who asked for reduced motion (they get the poster). */
