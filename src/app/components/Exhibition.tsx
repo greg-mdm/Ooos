@@ -75,22 +75,24 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               the rainbow room, where a text overlay will go later. */}
           <div className="exhibit-intro-cards">
           <figure className="exhibit-intro-card exhibit-intro-card--teal exhibit-intro-slot--left">
+            {/* the tag sits over the top of the media, the line beneath it
+                (Greg, 2026-10-10) */}
             <div className="exhibit-intro-card__media exhibit-intro-card__media--portrait">
               <LoopVideo media={PORTALS_INTRO} />
+              <span className="exhibit-intro-card__tag exhibit-intro-card__tag--over">Gateway Portals</span>
             </div>
             <figcaption className="exhibit-intro-card__cap">
-              <span className="exhibit-intro-card__tag">Gateway Portals</span>
               <span className="exhibit-intro-card__title">Enter artist-created worlds. Inspire change with eye-opening experiences</span>
             </figcaption>
           </figure>
           <figure className="exhibit-intro-card exhibit-intro-card--portal exhibit-intro-slot--right">
             <div className="exhibit-intro-card__media exhibit-intro-card__media--portrait">
               <TapVideo media={PORTAL_ENTRANCE} />
+              <span className="exhibit-intro-card__tag exhibit-intro-card__tag--over">Fun fundraising: game on</span>
             </div>
             <figcaption className="exhibit-intro-card__cap">
               {/* Greg's caption (2026-10-10), replacing "Enter here / Tap the
                   wall to open the portal" */}
-              <span className="exhibit-intro-card__tag">Fun fundraising: game on</span>
               <span className="exhibit-intro-card__title">Invite donors into your world with characters, quests, and rewards</span>
             </figcaption>
           </figure>
