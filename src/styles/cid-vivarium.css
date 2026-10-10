@@ -2198,6 +2198,30 @@
    text under the line on a thin Portal rule, so each level reads as a step
    inward. Chips: Portal for the ellipsis, Gold for the book. ---- */
 .cid-scope .cid-raci-purpose { padding: 2px 0 16px; margin-bottom: 16px; border-bottom: 1px solid rgba(75,0,182,.14); }
+/* two columns: the purpose copy on the left, narrower, and Enter the
+   Vivarium in its own container on the right; one column under 900px */
+.cid-scope .cid-raci-purpose--two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px 32px; align-items: start; }
+.cid-scope .cid-raci-purpose__left { min-width: 0; }
+.cid-scope .cid-raci-enter {
+  min-width: 0; padding: 18px 20px 20px; border-radius: 14px;
+  border: 1px solid rgba(75, 0, 182, 0.18); background: rgba(75, 0, 182, 0.04);
+}
+.cid-scope .cid-raci-enter .cid-raci-purpose__label { margin-top: 12px; }
+.cid-scope .cid-raci-enter__ways { margin: 0 0 14px; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.cid-scope .cid-raci-enter__ways li {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; align-items: start;
+  padding: 10px 12px; border-radius: 10px; background: #FFFFFF; border: 1px solid rgba(75, 0, 182, 0.14);
+}
+.cid-scope .cid-raci-enter__verb {
+  display: inline-block; margin-top: 1px; padding: 4px 10px; border-radius: 999px; background: #4B00B6; color: #FFFFFF;
+  font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+}
+.cid-scope .cid-raci-enter__text { font-size: 14px; line-height: 1.5; color: #33384a; }
+.cid-scope .cid-raci-enter__close {
+  margin: 0; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 700; font-size: 14px; line-height: 1.5;
+  color: #19007D; text-wrap: balance;
+}
+@media (max-width: 900px) { .cid-scope .cid-raci-purpose--two { grid-template-columns: minmax(0, 1fr); } }
 .cid-scope .cid-raci-purpose__h {
   margin: 0 0 10px; font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800;
   font-size: 16px; letter-spacing: .3px; color: #4B00B6;

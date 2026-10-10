@@ -2302,7 +2302,16 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                   personas line, which carries a book chip that reveals the
                   Kahneman passage. The book title is set in italics; the
                   apostrophes are set as one kind. Icons are Ionicons (MIT). */}
-              <div className="cid-raci-purpose">
+              {/* Two columns (Greg, 2026-10-10): the purpose copy on the left,
+                  narrower, and a separate container on the right, Enter the
+                  Vivarium, with the three ways in as cards and the closing
+                  line. "Speed, scrutiny and sovereignty" and its sentence
+                  were deleted the same day, and the "3 colourful characters"
+                  label and line went with them, since the left column was
+                  specified as the heading, the first paragraph and the
+                  Vivarium line. All copy is Greg's, verbatim. */}
+              <div className="cid-raci-purpose cid-raci-purpose--two">
+              <div className="cid-raci-purpose__left">
                 <h4 className="cid-raci-purpose__h">Purpose and leadership</h4>
                 <p className="cid-raci-purpose__p">The Canadian Innovation Dimension (CID) facilitates local human-led research and AI experimentation in a locally contained habitat. We collect public statistics, verify signals, and identify patterns to help Canadian business leaders navigate complex global markets.</p>
                 <Unfold
@@ -2330,10 +2339,18 @@ export function CID({ onSupport }: { onSupport: () => void }) {
                     </ul>
                   }
                 />
-                <h5 className="cid-raci-purpose__sub">Speed, scrutiny and sovereignty</h5>
-                <p className="cid-raci-purpose__p">As the Canadian Innovation Dimension expands into a gamified research universe, an evolving psychodrama makes responsible AI management practices visible.</p>
-                <p className="cid-raci-purpose__label">3 colourful characters</p>
-                <p className="cid-raci-purpose__p">A fast-paced executive. A deliberate ethical analyst. An accountable human authority.</p>
+              </div>
+              <aside className="cid-raci-enter" aria-labelledby="cid-raci-enter-h">
+                <h4 id="cid-raci-enter-h" className="cid-raci-purpose__h">Enter the Vivarium</h4>
+                <p className="cid-raci-purpose__p">An interactive digital universe where Canadian AI research and responsible innovation play out in public view.</p>
+                <p className="cid-raci-purpose__label">Three ways in</p>
+                <ol className="cid-raci-enter__ways">
+                  <li><span className="cid-raci-enter__verb">Observe</span><span className="cid-raci-enter__text">Set the stage. Meet the team and learn our research imperatives.</span></li>
+                  <li><span className="cid-raci-enter__verb">Explore</span><span className="cid-raci-enter__text">See the signals, test the evidence, and experiment with possible outcomes.</span></li>
+                  <li><span className="cid-raci-enter__verb">Decide</span><span className="cid-raci-enter__text">Use small-batch insights to reach your own conclusions and mobilize action.</span></li>
+                </ol>
+                <p className="cid-raci-enter__close">Sort signal from slop. Decide what matters. Then act with intention.</p>
+              </aside>
               </div>
               {/* Safeguards, each with the glyph Greg picked for it, and each
                   with a note under its label, folded: at rest a line is its badge
