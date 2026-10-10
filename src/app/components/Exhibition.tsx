@@ -80,7 +80,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
             </div>
             <figcaption className="exhibit-intro-card__cap">
               <span className="exhibit-intro-card__tag">Gateway Portals</span>
-              <span className="exhibit-intro-card__title">Enter artist-created worlds</span>
+              <span className="exhibit-intro-card__title">Enter artist-created worlds. Inspire change with eye-opening experiences</span>
             </figcaption>
           </figure>
           <figure className="exhibit-intro-card exhibit-intro-card--portal exhibit-intro-slot--right">
@@ -88,8 +88,10 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               <TapVideo media={PORTAL_ENTRANCE} />
             </div>
             <figcaption className="exhibit-intro-card__cap">
-              <span className="exhibit-intro-card__tag">Enter here</span>
-              <span className="exhibit-intro-card__title">Tap the wall to open the portal</span>
+              {/* Greg's caption (2026-10-10), replacing "Enter here / Tap the
+                  wall to open the portal" */}
+              <span className="exhibit-intro-card__tag">Fun fundraising: game on</span>
+              <span className="exhibit-intro-card__title">Invite donors into your world with characters, quests, and rewards</span>
             </figcaption>
           </figure>
           {/* The matchmaking band under the two videos, the three locked as
