@@ -143,26 +143,11 @@
   .jbj-door[open] .jbj-door-chev { transform: rotate(180deg); }
   .jbj-door > div { margin-top: 16px; }
 
-  /* Memento vivere on its purple fill: the inks that were tuned for the
-     old dark-indigo ground come up to read on Portal and Electric */
-  .jbj-vivere [style*="color:#9a5cf0"] { color: #E9DDFF !important; }
-  .jbj-vivere [style*="color:#b9a6f2"] { color: #E9DDFF !important; }
-  .jbj-vivere [style*="color:#c2c6de"] { color: #F1EEFF !important; }
-  .jbj-vivere [style*="color:#8f86ad"] { color: #D9CFF5 !important; }
-  .jbj-vivere [style*="color:#6a7080"] { color: #D9CFF5 !important; }
-  .jbj-vivere [style*="border-left:2px solid rgba(154,92,240,0.45)"] { border-left-color: rgba(255,255,255,0.45) !important; }
-  .jbj-vivere [style*="border-bottom:1px solid rgba(154,92,240,0.35)"] { border-bottom-color: rgba(255,255,255,0.3) !important; }
-  .jbj-vivere [style*="border-top:1px solid rgba(75,0,182,0.25)"] { border-top-color: rgba(255,255,255,0.25) !important; }
-  /* the page's script rewrites some style attributes into the browser's
-     serialized form (rgb(), spaces), so each ink is matched in both forms */
-  .jbj-vivere [style*="color: rgb(154, 92, 240)"] { color: #E9DDFF !important; }
-  .jbj-vivere [style*="color: rgb(185, 166, 242)"] { color: #E9DDFF !important; }
-  .jbj-vivere [style*="color: rgb(194, 198, 222)"] { color: #F1EEFF !important; }
-  .jbj-vivere [style*="color: rgb(143, 134, 173)"] { color: #D9CFF5 !important; }
-  .jbj-vivere [style*="color: rgb(106, 112, 128)"] { color: #D9CFF5 !important; }
-  .jbj-vivere [style*="rgba(154, 92, 240, 0.45)"] { border-left-color: rgba(255,255,255,0.45) !important; }
-  .jbj-vivere [style*="rgba(154, 92, 240, 0.35)"] { border-bottom-color: rgba(255,255,255,0.3) !important; }
-  .jbj-vivere [style*="rgba(75, 0, 182, 0.25)"] { border-top-color: rgba(255,255,255,0.25) !important; }
+  /* Memento vivere's timeline records: light boxes outlined in purple, a
+     purple bubble for each year (Greg, 2026-10-10) */
+  .jbj-rec { margin: 0 0 12px; padding: 12px 14px 13px; border-radius: 10px; background: #F0F4F5; border: 1px solid rgba(91,4,222,0.45); }
+  .jbj-rec:last-child { margin-bottom: 0; }
+  .jbj-rec-yr { display: inline-block; margin: 0 0 6px; padding: 3px 11px; border-radius: 999px; background: #5B04DE; color: #fff; font-family: 'Audiowide', system-ui, sans-serif; font-size: 13px; letter-spacing: 0.6px; }
 
   /* door 1 quote cards (light) */
   .jbj-qcard { display: flex; flex-direction: column; border-radius: 14px; border: 1px solid rgba(20,20,20,0.1); background: #fff; padding: clamp(18px,2.2vw,26px); box-shadow: 0 10px 28px -18px rgba(20,20,40,0.5); }
@@ -506,8 +491,8 @@
         </summary>
         <div>
         <div class="jbj-filmrow" style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(20px,3vw,44px); align-items:stretch;">
-        <!-- Memento mori: midnight block -->
-        <div style="min-width:0; display:flex; flex-direction:column; border-radius:14px; overflow:hidden; border:1px solid rgba(130,47,0,0.5); border-top:3px solid #822F00; background:linear-gradient(180deg,#2b0f06 0%,#170803 100%); box-shadow:0 24px 64px -26px rgba(0,0,0,0.8);">
+        <!-- Memento mori: black block (Greg, 2026-10-10: it read as red until then) -->
+        <div style="min-width:0; display:flex; flex-direction:column; border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,0.14); border-top:3px solid #3a3a42; background:linear-gradient(180deg,#1c1c22 0%,#0d0d11 100%); box-shadow:0 24px 64px -26px rgba(0,0,0,0.8);">
           <div style="padding:16px 22px 13px; border-bottom:1px solid rgba(255,255,255,0.12);">
             <p style="margin:0; font-family:'Poppins',system-ui,sans-serif; font-weight:800; font-size:clamp(19px,2.1vw,25px); color:#eef0f6;">Memento mori</p>
             <p style="margin:2px 0 0; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#cbb7ae;">Latin</p>
@@ -521,43 +506,43 @@
             <!-- The gallery IS the provenance: one big click-through fills the column -->
             <a href="https://artsandculture.google.com/usergallery/the-art-of-dying-memento-mori-through-the-ages/DALS56IGGr1jIA" target="_blank" rel="noopener" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; text-align:center; padding:clamp(24px,4vh,44px) 20px; border-radius:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.22); text-decoration:none;">
               <span style="font-family:'Poppins',system-ui,sans-serif; font-weight:800; font-size:clamp(22px,2.6vw,34px); line-height:1.25; color:#eef0f6;">The Art of Dying:<br>Memento mori through the ages</span>
-              <span class="jbj-canpill" style="display:inline-flex; align-items:center; gap:9px; padding:10px 20px; border-radius:999px; background:rgba(10,8,32,0.72); border:1px solid rgba(130,47,0,0.7); color:#eef0f6; font-size:clamp(13px,1.2vw,15px); font-weight:600; letter-spacing:0.06em;">
+              <span class="jbj-canpill jbj-canpill--electric" style="display:inline-flex; align-items:center; gap:9px; padding:10px 20px; border-radius:999px; background:rgba(10,8,32,0.72); border:1px solid rgba(255,255,255,0.18); color:#eef0f6; font-size:clamp(13px,1.2vw,15px); font-weight:600; letter-spacing:0.06em;">
                 <svg viewBox="0 0 24 24" width="13" height="13" fill="#fff" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Google Arts &amp; Culture &#8599;
               </span>
             </a>
           </div>
         </div>
-        <!-- Memento vivere: purple fill, the opposite of the black block beside
-             it (Greg, 2026-10-10). The muted inks inside are lifted by the
-             .jbj-vivere rules in the style block. -->
-        <div class="jbj-vivere" style="min-width:0; display:flex; flex-direction:column; border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,0.22); border-top:3px solid #C9A3FF; background:linear-gradient(180deg,#5B04DE 0%,#4B00B6 100%); box-shadow:0 24px 64px -26px rgba(43,5,97,0.75);">
-          <div style="padding:16px 22px 13px; border-bottom:1px solid rgba(154,92,240,0.35);">
-            <p style="margin:0; font-family:'Poppins',system-ui,sans-serif; font-weight:800; font-size:clamp(19px,2.1vw,25px); color:#eef0f6;">Memento vivere</p>
-            <p style="margin:2px 0 0; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#b9a6f2;">Latin</p>
+        <!-- Memento vivere: a light card, the opposite of the black block beside
+             it; the timeline records in light boxes outlined in purple, each
+             year a purple bubble (Greg, 2026-10-10: not a full purple fill) -->
+        <div class="jbj-vivere" style="min-width:0; display:flex; flex-direction:column; border-radius:14px; overflow:hidden; border:1px solid rgba(91,4,222,0.45); border-top:3px solid #5B04DE; background:#FFFFFF; box-shadow:0 24px 64px -26px rgba(43,5,97,0.35);">
+          <div style="padding:16px 22px 13px; border-bottom:1px solid rgba(91,4,222,0.22);">
+            <p style="margin:0; font-family:'Poppins',system-ui,sans-serif; font-weight:800; font-size:clamp(19px,2.1vw,25px); color:#2b0561;">Memento vivere</p>
+            <p style="margin:2px 0 0; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#4B00B6;">Latin</p>
           </div>
-          <div style="padding:16px 22px 20px; border-bottom:1px solid rgba(154,92,240,0.35);">
-            <p style="margin:0 0 8px; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:#b9a6f2;">English translation:</p>
-            <p style="margin:0; font-family:'Poppins',system-ui,sans-serif; font-weight:800; font-size:clamp(22px,2.6vw,34px); line-height:1.15; color:#eef0f6;">Remember<br><span style="color:#9a5cf0;">to live</span></p>
+          <div style="padding:16px 22px 20px; border-bottom:1px solid rgba(91,4,222,0.22);">
+            <p style="margin:0 0 8px; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:#4B00B6;">English translation:</p>
+            <p style="margin:0; font-family:'Poppins',system-ui,sans-serif; font-weight:800; font-size:clamp(22px,2.6vw,34px); line-height:1.15; color:#2b0561;">Remember<br><span style="color:#5B04DE;">to live</span></p>
           </div>
           <div style="padding:16px 22px 22px; flex:1;">
-            <p style="margin:0 0 12px; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:#b9a6f2;">Earliest recorded use (Provenance)</p>
-            <div style="margin-bottom:14px;">
-              <div style="font-family:'Audiowide',system-ui,sans-serif; font-size:15px; color:#9a5cf0; letter-spacing:0.6px;">1820s</div>
-              <div style="margin:3px 0 6px; font-size:13.5px; font-weight:600; color:#eef0f6;">Goethe</div>
-              <p style="margin:0; font-size:clamp(12.5px,1.1vw,13.5px); line-height:1.6; color:#c2c6de;">Goethe&rsquo;s poetry and writings repeatedly advanced the related reminder: &ldquo;do not forget to live&rdquo;, and reversed the Latin word order in the poetic formula <em>vivere memento</em>, influenced in part by Spinoza&rsquo;s preference for meditation on life rather than death.<sup style="font-size:0.72em; color:#9a5cf0;">&nbsp;1,2,3</sup></p>
+            <p style="margin:0 0 12px; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:#4B00B6;">Earliest recorded use (Provenance)</p>
+            <div class="jbj-rec">
+              <div class="jbj-rec-yr">1820s</div>
+              <div style="margin:3px 0 6px; font-size:13.5px; font-weight:600; color:#2b0561;">Goethe</div>
+              <p style="margin:0; font-size:clamp(12.5px,1.1vw,13.5px); line-height:1.6; color:#33384a;">Goethe&rsquo;s poetry and writings repeatedly advanced the related reminder: &ldquo;do not forget to live&rdquo;, and reversed the Latin word order in the poetic formula <em>vivere memento</em>, influenced in part by Spinoza&rsquo;s preference for meditation on life rather than death.<sup style="font-size:0.72em; color:#5B04DE;">&nbsp;1,2,3</sup></p>
             </div>
-            <div style="margin-bottom:14px;">
-              <div style="font-family:'Audiowide',system-ui,sans-serif; font-size:15px; color:#9a5cf0; letter-spacing:0.6px;">1849</div>
-              <div style="margin:3px 0 6px; font-size:13.5px; font-weight:600; color:#eef0f6;">John Kenyon, &ldquo;Memento Vivere&rdquo;<sup style="font-size:0.72em; color:#9a5cf0;">&nbsp;4</sup></div>
-              <p style="margin:0; font-size:clamp(12.5px,1.1vw,13.5px); line-height:1.6; color:#c2c6de;">First evidence currently recorded by the Oxford English Dictionary (OED) for the expression functioning as an English noun, meaning a reminder or inducement to live.<sup style="font-size:0.72em; color:#9a5cf0;">&nbsp;5</sup></p>
+            <div class="jbj-rec">
+              <div class="jbj-rec-yr">1849</div>
+              <div style="margin:3px 0 6px; font-size:13.5px; font-weight:600; color:#2b0561;">John Kenyon, &ldquo;Memento Vivere&rdquo;<sup style="font-size:0.72em; color:#5B04DE;">&nbsp;4</sup></div>
+              <p style="margin:0; font-size:clamp(12.5px,1.1vw,13.5px); line-height:1.6; color:#33384a;">First evidence currently recorded by the Oxford English Dictionary (OED) for the expression functioning as an English noun, meaning a reminder or inducement to live.<sup style="font-size:0.72em; color:#5B04DE;">&nbsp;5</sup></p>
             </div>
-            <div>
-              <div style="font-family:'Audiowide',system-ui,sans-serif; font-size:15px; color:#9a5cf0; letter-spacing:0.6px;">1874</div>
-              <div style="margin:3px 0 6px; font-size:13.5px; font-weight:600; color:#eef0f6;">Friedrich Nietzsche</div>
-              <p style="margin:0 0 8px; font-size:clamp(12.5px,1.1vw,13.5px); line-height:1.6; color:#c2c6de;">Nietzsche contrasted the medieval idea of <em>memento mori</em> with the timid embrace of <em>memento vivere</em> in the modern world, while criticizing the inability to break free from the past.</p>
-              <blockquote style="margin:0 0 8px; padding-left:12px; border-left:2px solid rgba(154,92,240,0.45); font-size:clamp(12px,1.05vw,13px); font-style:italic; line-height:1.55; color:#c2c6de;">&ldquo;<em>Memento vivere</em> is spoken rather timidly, without the full power of the lungs; and there is something almost dishonest about it.&rdquo;</blockquote>
-              <blockquote style="margin:0 0 8px; padding-left:12px; border-left:2px solid rgba(154,92,240,0.45); font-size:clamp(12px,1.05vw,13px); font-style:italic; line-height:1.55; color:#c2c6de;">&ldquo;A deep feeling of hopelessness has remained, and taken the historical colouring that has now darkened and depressed all higher education.&rdquo;</blockquote>
-              <p style="margin:0; font-size:11px; line-height:1.5; color:#8f86ad;">Friedrich Nietzsche, <em>Vom Nutzen und Nachteil der Historie f&uuml;r das Leben</em>.</p>
+            <div class="jbj-rec">
+              <div class="jbj-rec-yr">1874</div>
+              <div style="margin:3px 0 6px; font-size:13.5px; font-weight:600; color:#2b0561;">Friedrich Nietzsche</div>
+              <p style="margin:0 0 8px; font-size:clamp(12.5px,1.1vw,13.5px); line-height:1.6; color:#33384a;">Nietzsche contrasted the medieval idea of <em>memento mori</em> with the timid embrace of <em>memento vivere</em> in the modern world, while criticizing the inability to break free from the past.</p>
+              <blockquote style="margin:0 0 8px; padding-left:12px; border-left:2px solid rgba(91,4,222,0.45); font-size:clamp(12px,1.05vw,13px); font-style:italic; line-height:1.55; color:#33384a;">&ldquo;<em>Memento vivere</em> is spoken rather timidly, without the full power of the lungs; and there is something almost dishonest about it.&rdquo;</blockquote>
+              <blockquote style="margin:0 0 8px; padding-left:12px; border-left:2px solid rgba(91,4,222,0.45); font-size:clamp(12px,1.05vw,13px); font-style:italic; line-height:1.55; color:#33384a;">&ldquo;A deep feeling of hopelessness has remained, and taken the historical colouring that has now darkened and depressed all higher education.&rdquo;</blockquote>
+              <p style="margin:0; font-size:11px; line-height:1.5; color:#6a7080;">Friedrich Nietzsche, <em>Vom Nutzen und Nachteil der Historie f&uuml;r das Leben</em>.</p>
             </div>
           </div>
         </div>
