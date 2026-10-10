@@ -152,7 +152,10 @@
   /* Memento mori's water: the clip at the foot of the gallery panel at its
      own shape, shaded into the block's black above, with the title and the
      pill over it. Reduced motion gets the poster. */
-  .jbj-mori-link { position: relative; overflow: hidden; min-height: 300px; isolation: isolate; }
+  /* the title and the pill sit at the top of the panel, above the water,
+     not over it (Greg, 2026-10-10); the panel keeps room for both */
+  .jbj-mori-link { position: relative; overflow: hidden; min-height: 300px; isolation: isolate; padding-top: 26px !important; }
+  @media (min-width: 761px) { .jbj-mori-link { min-height: 520px; } }
   .jbj-mori-water { position: absolute; inset: 0; z-index: 0; display: block; pointer-events: none; background: #0d0d11; }
   .jbj-mori-water__video { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: auto; display: block; }
   .jbj-mori-water__shade { position: absolute; inset: 0; background: linear-gradient(180deg, #0d0d11 0%, rgba(13,13,17,0.92) 22%, rgba(13,13,17,0.45) 52%, rgba(13,13,17,0.35) 100%); }
@@ -517,7 +520,7 @@
                  (SPRINT 6/water - mori.mp4), a muted loop anchored at the foot of
                  the panel at its own shape; the ground above shades into the
                  block's black (2026-10-10). -->
-            <a class="jbj-mori-link" href="https://artsandculture.google.com/usergallery/the-art-of-dying-memento-mori-through-the-ages/DALS56IGGr1jIA" target="_blank" rel="noopener" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; text-align:center; padding:clamp(24px,4vh,44px) 20px; border-radius:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.22); text-decoration:none;">
+            <a class="jbj-mori-link" href="https://artsandculture.google.com/usergallery/the-art-of-dying-memento-mori-through-the-ages/DALS56IGGr1jIA" target="_blank" rel="noopener" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; gap:14px; text-align:center; padding:clamp(24px,4vh,44px) 20px; border-radius:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.22); text-decoration:none;">
               <span class="jbj-mori-water" aria-hidden="true">
                 <video class="jbj-mori-water__video" muted loop playsinline autoplay preload="metadata" poster="water-mori-poster.webp" tabindex="-1">
                   <source src="water-mori.webm" type="video/webm">
