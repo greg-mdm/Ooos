@@ -1,4 +1,4 @@
-import { type ReactNode, useEffect, useRef, useState } from "react";
+import { type MutableRefObject, type ReactNode, useEffect, useRef, useState } from "react";
 import "../../styles/watertanks.css";
 
 const VERT =
@@ -49,13 +49,13 @@ type Flow = keyof typeof DIRS;
 
 /** Mounts the WebGL water effect on a canvas. Boost is shared so a click
  *  anywhere on the tank (handled in the component) ramps the flow speed. */
-function useWaterCanvas(flow: Flow) {
+function useWaterCanvas(flow: Flow, enabled = true) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const boostRef = useRef(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas || !enabled) return;
     const dir = DIRS[flow] || DIRS.down;
     const gl = canvas.getContext("webgl", {
       antialias: false,
@@ -172,6 +172,49 @@ function useWaterCanvas(flow: Flow) {
 const MAXB = 3 * 0.3; // up to 3 clicks of boost
 const STEP = 0.3;
 
+/* The water in a tank: Greg's own footage or still (2026-10-11) in place
+   of the shader. A video loops muted while on screen, and a press on the
+   tank runs it at double speed for a moment, the way a press used to ramp
+   the shader's flow. Without media the shader still draws. */
+type TankMedia =
+  | { kind: "video"; mp4: string; webm: string; poster: string }
+  | { kind: "image"; src: string };
+
+function TankVideo({ media, boostRef }: { media: Extract<TankMedia, { kind: "video" }>; boostRef: MutableRefObject<number> }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) el.play().catch(() => {});
+        else el.pause();
+      },
+      { threshold: 0.2 },
+    );
+    io.observe(el);
+    // a press on the tank: a moment at double speed, then back
+    let timer = 0;
+    const tick = () => {
+      if (boostRef.current > 0 && el.playbackRate !== 2) {
+        el.playbackRate = 2;
+        clearTimeout(timer);
+        timer = window.setTimeout(() => { el.playbackRate = 1; boostRef.current = 0; }, 1500);
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    let raf = requestAnimationFrame(tick);
+    return () => { io.disconnect(); cancelAnimationFrame(raf); clearTimeout(timer); };
+  }, [boostRef]);
+  return (
+    <video ref={ref} className="tank-media" muted loop playsInline preload="metadata" poster={media.poster} aria-hidden="true" tabIndex={-1}>
+      <source src={media.webm} type="video/webm" />
+      <source src={media.mp4} type="video/mp4" />
+    </video>
+  );
+}
+
 function WaterTank({
   pill,
   variant,
@@ -180,6 +223,7 @@ function WaterTank({
   summary,
   detail,
   cta,
+  media,
 }: {
   pill: string;
   variant: "portal" | "electric" | "indigo";
@@ -188,8 +232,9 @@ function WaterTank({
   summary: ReactNode;
   detail: ReactNode;
   cta: string;
+  media?: TankMedia;
 }) {
-  const { canvasRef, boostRef } = useWaterCanvas(flow);
+  const { canvasRef, boostRef } = useWaterCanvas(flow, !media);
   const [open, setOpen] = useState(false);
   const detailId = `tank-detail-${title.replace(/\s+/g, "-").toLowerCase()}`;
 
@@ -222,12 +267,24 @@ function WaterTank({
           </button>
         </div>
         <div className="tank-water">
-          <canvas ref={canvasRef} aria-hidden="true" />
+          {media?.kind === "video" && <TankVideo media={media} boostRef={boostRef} />}
+          {media?.kind === "image" && <img className="tank-media" src={media.src} alt="" aria-hidden="true" loading="eager" decoding="async" />}
+          {!media && <canvas ref={canvasRef} aria-hidden="true" />}
         </div>
       </article>
     </div>
   );
 }
+
+/* Greg's ripple clip (SPRINT 6/WATER 1 - DONATION.mp4, 2026-10-11), turned
+   on its side, trimmed to its first half and divided at the centre of the
+   rings: the left half fills the first tank and the right half the second,
+   so the rings read across the pair. The third tank takes his donation
+   still (WATER 2 - DONATION IMAGE.png). */
+const ASSETS = `${import.meta.env.BASE_URL}assets/images/`;
+const RIPPLE_LEFT: TankMedia = { kind: "video", mp4: `${ASSETS}tank-ripple-left.mp4`, webm: `${ASSETS}tank-ripple-left.webm`, poster: `${ASSETS}tank-ripple-left-poster.webp` };
+const RIPPLE_RIGHT: TankMedia = { kind: "video", mp4: `${ASSETS}tank-ripple-right.mp4`, webm: `${ASSETS}tank-ripple-right.webm`, poster: `${ASSETS}tank-ripple-right-poster.webp` };
+const DONATION: TankMedia = { kind: "image", src: `${ASSETS}tank-donation-1200.webp` };
 
 export function WaterTanks() {
   return (
@@ -236,6 +293,7 @@ export function WaterTanks() {
         pill="Public access"
         variant="portal"
         flow="down"
+        media={RIPPLE_LEFT}
         title="Join our stream"
         summary={
           <>
@@ -255,6 +313,7 @@ export function WaterTanks() {
         pill="Community members"
         variant="electric"
         flow="right"
+        media={RIPPLE_RIGHT}
         title="Flow into the current"
         summary={
           <>
@@ -270,6 +329,7 @@ export function WaterTanks() {
         pill="Project partners"
         variant="indigo"
         flow="up"
+        media={DONATION}
         title="Donate to support a shared vision!"
         summary={
           <>

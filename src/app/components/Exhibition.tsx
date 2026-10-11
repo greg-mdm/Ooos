@@ -343,7 +343,7 @@ type Tone = "ruby" | "gold" | "teal" | "portal" | "electric";
 
 type Media =
   | { kind: "video"; mp4: string; webm: string; poster: string; alt: string; focus?: "bottom" }
-  | { kind: "image"; src: string; alt: string }
+  | { kind: "image"; src: string; alt: string; frame?: "tall" }
   /* a still that, when touched, blurs like frosted glass into a second
      still: src at rest, touched on hover, focus or tap */
   | { kind: "touch"; src: string; alt: string; touched: string; touchedAlt: string };
@@ -480,11 +480,13 @@ const ATTRACTIONS: Attraction[] = [
     tag: "Your radiant reign",
     tone: "portal",
     /* Greg's "tulip indigo.jpg" (SPRINT 6, 2026-10-08), a portrait of one
-       indigo tulip, cut to the booth's 16:9 at the bloom's tip */
+       indigo tulip, whole: this booth's frame is tall for it (Greg,
+       2026-10-11: the horizontal frame did not suit it) */
     media: {
       kind: "image",
-      src: `${ASSETS}queen-of-the-night.webp`,
-      alt: "The petals of a single indigo tulip, close and velvet-dark",
+      src: `${ASSETS}queen-of-the-night-tall.webp`,
+      alt: "A single indigo tulip, its petals closed, velvet-dark against a soft green",
+      frame: "tall",
     },
     body: (
       <p>
@@ -639,7 +641,7 @@ function AttractionCard({ attraction, booth }: { attraction: Attraction; booth: 
   const titleId = `midway-${attraction.id}`;
   return (
     <article className={`midway-card midway-card--${tone}`} aria-labelledby={titleId}>
-      <div className="midway-card__media">
+      <div className={`midway-card__media${media?.kind === "image" && media.frame === "tall" ? " midway-card__media--tall" : ""}`}>
         {media?.kind === "video" && <LoopVideo media={media} />}
         {media?.kind === "image" && (
           <img className="midway-card__img" src={media.src} alt={media.alt} loading="lazy" />

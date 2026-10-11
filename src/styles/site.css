@@ -5337,6 +5337,8 @@ textarea:focus-visible,
   background: #0F031C;
   border-bottom: 1px solid rgba(240, 192, 64, 0.2);
 }
+/* a tall frame for a portrait picture shown whole (the tulip) */
+.midway-card__media--tall { aspect-ratio: 1150 / 1592; }
 .midway-card__video,
 .midway-card__img {
   display: block;
