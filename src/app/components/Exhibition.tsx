@@ -75,20 +75,24 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               the rainbow room, where a text overlay will go later. */}
           <div className="exhibit-intro-cards">
           <figure className="exhibit-intro-card exhibit-intro-card--teal exhibit-intro-slot--left">
-            {/* the tag sits over the top of the media, the line beneath it
-                (Greg, 2026-10-10) */}
+            {/* the pill on its backing under the video, the heading in bold
+                and the description beneath it in semi-bold (Greg, 2026-10-11) */}
             <div className="exhibit-intro-card__media exhibit-intro-card__media--portrait">
               <LoopVideo media={PORTALS_INTRO} />
-              <span className="exhibit-intro-card__tag exhibit-intro-card__tag--over">Gateway Portals</span>
             </div>
             <figcaption className="exhibit-intro-card__cap">
-              <span className="exhibit-intro-card__title">Enter artist-created worlds. Inspire change with eye-opening experiences</span>
+              <span className="exhibit-intro-card__tag">Gateway Portals</span>
+              <span className="exhibit-intro-card__title">Enter artist-created worlds.</span>
+              <span className="exhibit-intro-card__sub">Inspire change with eye-opening experiences</span>
             </figcaption>
           </figure>
           <figure className="exhibit-intro-card exhibit-intro-card--portal exhibit-intro-slot--right">
+            {/* the pill stays at the top of this video, on a backing band
+                (Greg, 2026-10-11); its description stays at the foot, so the
+                visitor reads and watches one video at a time */}
             <div className="exhibit-intro-card__media exhibit-intro-card__media--portrait">
               <TapVideo media={PORTAL_ENTRANCE} />
-              <span className="exhibit-intro-card__tag exhibit-intro-card__tag--over">Fun fundraising: game on</span>
+              <span className="exhibit-intro-card__band"><span className="exhibit-intro-card__tag">Fun fundraising: game on</span></span>
             </div>
             <figcaption className="exhibit-intro-card__cap">
               {/* Greg's caption (2026-10-10), replacing "Enter here / Tap the
