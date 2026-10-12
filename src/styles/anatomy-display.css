@@ -216,7 +216,7 @@
   top: 64.0625%;
   width: max(166px, 74%);
   max-width: 82%;
-  aspect-ratio: 300 / 290;
+  aspect-ratio: 1303 / 1207;
   transform: translate(-50%, -50%);
   color: #F0F4F5;
   pointer-events: none;
@@ -230,6 +230,15 @@
   width: 100%;
   height: 100%;
   overflow: visible;
+}
+/* Greg's heart button, whole, filling the heart's box */
+.ooo-heart > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  max-width: none;
+  filter: drop-shadow(0 6px 10px rgb(2 0 8 / 45%));
 }
 .ooo-exhibit__full-view .ooo-heart {
   left: 47.9167%;
