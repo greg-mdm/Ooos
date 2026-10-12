@@ -1,5 +1,6 @@
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { RadioAd } from "./RadioAd";
+import { AnatomyDisplay } from "./AnatomyDisplay";
 
 export function Exhibition({ onSupport }: { onSupport: () => void }) {
   return (
@@ -137,14 +138,30 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
           attraction's art by filling in its `media` entry in ATTRACTIONS. */}
       <section className="exhibit-midway" aria-labelledby="exhibit-midway-heading">
         <div className="exhibit-band exhibit-midway__inner">
+          {/* The anatomy display, above "Step right up" (Greg, 2026-10-12). */}
+          <AnatomyDisplay />
           <p className="exhibit-midway__eyebrow">Step right up</p>
           <h2 id="exhibit-midway-heading" className="exhibit-midway__heading">
             Interactive Programming
           </h2>
           <div className="exhibit-midway__grid">
-            {ATTRACTIONS.map((a, i) => (
-              <AttractionCard key={a.id} attraction={a} booth={i + 1} />
-            ))}
+            {ATTRACTIONS.map((a, i) => {
+              /* Booths 06 and 07, the jester and the queen, are two approaches
+                 to one idea, so they stand together in one container: the
+                 jester's side warm, the queen's side cool, one seam between
+                 them (Greg, 2026-10-12). The pair takes two columns. */
+              if (a.id === "radical-jester") {
+                const queen = ATTRACTIONS.find((x) => x.id === "queen-of-the-night");
+                return (
+                  <div key="pair-06-07" className="midway-pair" role="group" aria-label="Two approaches: The Most Radical Jester and Queen of the Night">
+                    <AttractionCard attraction={a} booth={i + 1} />
+                    {queen && <AttractionCard attraction={queen} booth={i + 2} />}
+                  </div>
+                );
+              }
+              if (a.id === "queen-of-the-night") return null;
+              return <AttractionCard key={a.id} attraction={a} booth={i + 1} />;
+            })}
           </div>
         </div>
       </section>
@@ -467,6 +484,15 @@ const ATTRACTIONS: Attraction[] = [
     title: "The Most Radical Jester",
     tag: "Truth to power",
     tone: "ruby",
+    /* Greg's "Radical Jester.png" (SPRINT 6, 2026-10-12): an iridescent
+       jester mask beside the book "The Most Radical Gesture", on glitter;
+       sized to the tulip's shape, so the two share one tall frame */
+    media: {
+      kind: "image",
+      src: `${ASSETS}the-most-radical-jester-tall.webp`,
+      alt: "An iridescent jester mask with violet eyes beside the book The Most Radical Gesture, on a field of glitter",
+      frame: "tall",
+    },
     body: (
       <p>
         Speak truth to power, make light of a painful reality, or flip the

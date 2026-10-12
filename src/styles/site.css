@@ -5331,13 +5331,46 @@ textarea:focus-visible,
 .midway-card--portal   { --tone: #4B00B6; }
 .midway-card--electric { --tone: #5B04DE; }
 
+/* ---- Booths 06 and 07 as one container: two approaches to one idea. The
+   pair takes two columns of the midway; inside, the cards give up their
+   own edges and stand on one ground, warm on the jester's side and cool
+   on the queen's, with one seam between them that runs ruby into portal.
+   On one column the pair stacks and the seam turns horizontal. ---- */
+.midway-pair {
+  grid-column: span 2;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(240, 192, 64, 0.28);
+  box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.8);
+  background: linear-gradient(90deg, rgba(130, 47, 0, 0.16) 0%, rgba(130, 47, 0, 0.08) 50%, rgba(75, 0, 182, 0.12) 50%, rgba(75, 0, 182, 0.22) 100%);
+}
+.midway-pair::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; z-index: 1; pointer-events: none;
+  background: linear-gradient(180deg, #822F00 0%, rgba(240, 192, 64, 0.8) 50%, #4B00B6 100%);
+}
+.midway-pair .midway-card { border-radius: 0; border: 0; box-shadow: none; background: transparent; }
+.midway-pair .midway-card:hover,
+.midway-pair .midway-card:focus-within { transform: none; box-shadow: none; }
+.midway-pair .midway-card__media { border-bottom-color: transparent; }
+@media (max-width: 520px) {
+  .midway-pair { grid-column: auto; grid-template-columns: minmax(0, 1fr); background: linear-gradient(180deg, rgba(130, 47, 0, 0.16) 0%, rgba(130, 47, 0, 0.08) 50%, rgba(75, 0, 182, 0.12) 50%, rgba(75, 0, 182, 0.22) 100%); }
+  .midway-pair::after { top: 50%; bottom: auto; left: 0; right: 0; width: auto; height: 1px; background: linear-gradient(90deg, #822F00 0%, rgba(240, 192, 64, 0.8) 50%, #4B00B6 100%); }
+}
+
+/* the anatomy display sits at the top of the midway band, above "Step
+   right up", on the band's night sky (its own ground is transparent) */
+.exhibit-anatomy { margin: 0 0 clamp(18px, 3vw, 36px); }
+
 .midway-card__media {
   position: relative;
   aspect-ratio: 16 / 9;
   background: #0F031C;
   border-bottom: 1px solid rgba(240, 192, 64, 0.2);
 }
-/* a tall frame for a portrait picture shown whole (the tulip) */
+/* a tall frame for a portrait picture shown whole (the tulip, the jester) */
 .midway-card__media--tall { aspect-ratio: 1150 / 1592; }
 .midway-card__video,
 .midway-card__img {
