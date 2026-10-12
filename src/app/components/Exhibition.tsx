@@ -594,6 +594,9 @@ function TapVideo({ media }: { media: Extract<Media, { kind: "video" }> }) {
         preload="metadata"
         poster={media.poster}
         aria-label={media.alt}
+        disablePictureInPicture
+        disableRemotePlayback
+        controlsList="nodownload noplaybackrate noremoteplayback"
         onPlay={() => setState("playing")}
         onEnded={() => setState("done")}
       >
@@ -632,6 +635,9 @@ function LoopVideo({ media }: { media: Extract<Media, { kind: "video" }> }) {
       preload="metadata"
       poster={media.poster}
       aria-label={media.alt}
+      disablePictureInPicture
+      disableRemotePlayback
+      controlsList="nodownload noplaybackrate noremoteplayback"
       style={media.focus ? { objectPosition: `50% ${media.focus === "bottom" ? "100%" : "50%"}` } : undefined}
     >
       <source src={media.webm} type="video/webm" />

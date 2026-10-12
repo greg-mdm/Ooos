@@ -208,7 +208,7 @@ function TankVideo({ media, boostRef }: { media: Extract<TankMedia, { kind: "vid
     return () => { io.disconnect(); cancelAnimationFrame(raf); clearTimeout(timer); };
   }, [boostRef]);
   return (
-    <video ref={ref} className="tank-media" muted loop playsInline preload="metadata" poster={media.poster} aria-hidden="true" tabIndex={-1}>
+    <video ref={ref} className="tank-media" muted loop playsInline preload="metadata" poster={media.poster} aria-hidden="true" tabIndex={-1} disablePictureInPicture disableRemotePlayback controlsList="nodownload noplaybackrate noremoteplayback">
       <source src={media.webm} type="video/webm" />
       <source src={media.mp4} type="video/mp4" />
     </video>
