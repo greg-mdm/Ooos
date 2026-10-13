@@ -138,9 +138,14 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
           attraction's art by filling in its `media` entry in ATTRACTIONS. */}
       <section className="exhibit-midway" aria-labelledby="exhibit-midway-heading">
         <div className="exhibit-band exhibit-midway__inner">
-          {/* The anatomy display, above "Step right up" (Greg, 2026-10-12). */}
+          {/* The kayak run, widescreen, above the phones (Greg, 2026-10-13):
+              part one of the ride, a kayak entering the tunnel. Part two,
+              past the portal at the tunnel's end, follows when he sends it. */}
+          <FeatureVideo media={KAYAK_TUNNEL} />
+          {/* The anatomy display, above "Scroll right up" (Greg, 2026-10-12). */}
           <AnatomyDisplay />
-          <p className="exhibit-midway__eyebrow">Step right up</p>
+          {/* "Scroll right up", Greg's turn on the barker's line (2026-10-13). */}
+          <p className="exhibit-midway__eyebrow">Scroll right up</p>
           <h2 id="exhibit-midway-heading" className="exhibit-midway__heading">
             Interactive Programming
           </h2>
@@ -643,6 +648,56 @@ function LoopVideo({ media }: { media: Extract<Media, { kind: "video" }> }) {
       <source src={media.webm} type="video/webm" />
       <source src={media.mp4} type="video/mp4" />
     </video>
+  );
+}
+
+/* The featured ride at the top of the midway: Greg's kayak run into the
+   tunnel (2026-10-13), the one file he uploaded, shown whole at 16:9 and
+   wide. It starts muted on its own when it scrolls into view, like the
+   loops, and keeps the browser's controls so a visitor can unmute it or
+   scrub. The clip fades up from black, so a frame from inside the tunnel
+   (2.6 s, captured in the browser) is the poster. No webm yet. */
+const KAYAK_TUNNEL = {
+  mp4: `${ASSETS}kayak%20enter%20tunnel.mp4`,
+  poster: `${ASSETS}kayak-enter-tunnel-poster.jpg`,
+  alt: "From the bow of a red kayak with a maple leaf badge, gliding through a tunnel of streaking stars toward a round portal marked ENTER",
+};
+
+function FeatureVideo({ media }: { media: { mp4: string; poster: string; alt: string } }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) el.play().catch(() => {});
+        else el.pause();
+      },
+      { threshold: 0.4 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return (
+    <figure className="exhibit-feature">
+      <video
+        ref={ref}
+        className="exhibit-feature__video"
+        controls
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        poster={media.poster}
+        aria-label={media.alt}
+        disablePictureInPicture
+        disableRemotePlayback
+        controlsList="nodownload noremoteplayback"
+      >
+        <source src={media.mp4} type="video/mp4" />
+      </video>
+    </figure>
   );
 }
 

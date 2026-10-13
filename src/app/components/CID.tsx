@@ -1430,13 +1430,13 @@ function InspoReveal({ src, alt, children }: { src: string; alt: string; childre
           type="button"
           className="cid-viv-inspo__btn"
           aria-pressed={on}
-          aria-label={on ? "Back to GIT and TIT" : "WTF: why this form? See the inspo"}
-          title={on ? "Back to GIT and TIT" : "Why this form? See the inspo"}
+          aria-label={on ? "Go back to GIT-TIT" : "WTF: why this form? See the inspo"}
+          title={on ? "Go back to GIT-TIT" : "Why this form? See the inspo"}
           onClick={() => setOn((v) => !v)}
         >
           WTF
         </button>
-        <span className="cid-viv-inspo__hint" aria-hidden="true">{on ? "Back to GIT and TIT" : "Why this form? See the inspo"}</span>
+        <span className="cid-viv-inspo__hint" aria-hidden="true">{on ? "Go back to GIT-TIT" : "Why this form? See the inspo"}</span>
       </div>
       <div className="cid-viv-inspo__stage">
         <div className="cid-viv-inspo__rest" aria-hidden={on}>{children}</div>
