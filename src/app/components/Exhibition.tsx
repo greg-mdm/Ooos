@@ -138,10 +138,10 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
           attraction's art by filling in its `media` entry in ATTRACTIONS. */}
       <section className="exhibit-midway" aria-labelledby="exhibit-midway-heading">
         <div className="exhibit-band exhibit-midway__inner">
-          {/* The kayak run, widescreen, above the phones (Greg, 2026-10-13):
-              part one of the ride, a kayak entering the tunnel. Part two,
-              past the portal at the tunnel's end, follows when he sends it. */}
-          <FeatureVideo media={KAYAK_TUNNEL} />
+          {/* The kayak ride, widescreen, above the phones (Greg, 2026-10-13):
+              scene one into the tunnel, scene two past the portal, played
+              as one run. */}
+          <FeatureVideo clips={KAYAK_RIDE} />
           {/* The anatomy display, above "Scroll right up" (Greg, 2026-10-12). */}
           <AnatomyDisplay />
           {/* "Scroll right up", Greg's turn on the barker's line (2026-10-13). */}
@@ -651,52 +651,90 @@ function LoopVideo({ media }: { media: Extract<Media, { kind: "video" }> }) {
   );
 }
 
-/* The featured ride at the top of the midway: Greg's kayak run into the
-   tunnel (2026-10-13), the one file he uploaded, shown whole at 16:9 and
-   wide. It starts muted on its own when it scrolls into view, like the
-   loops, and keeps the browser's controls so a visitor can unmute it or
-   scrub. The clip fades up from black, so a frame from inside the tunnel
-   (2.6 s, captured in the browser) is the poster. No webm yet. */
-const KAYAK_TUNNEL = {
-  mp4: `${ASSETS}kayak%20enter%20tunnel.mp4`,
-  poster: `${ASSETS}kayak-enter-tunnel-poster.jpg`,
-  alt: "From the bow of a red kayak with a maple leaf badge, gliding through a tunnel of streaking stars toward a round portal marked ENTER",
-};
+/* The featured ride at the top of the midway: Greg's kayak run, two clips
+   played as one ride (2026-10-13). Scene one, the kayak entering the
+   tunnel of stars toward the ENTER portal; scene two, what is past it.
+   Both files are shown whole at 16:9 in one wide frame: the two <video>
+   elements sit stacked and only the playing one shows, so the cut from
+   one to the next is a swap, not a reload. The ride starts muted on its
+   own when it scrolls into view, like the loops, runs scene one into
+   scene two and back around, and keeps the browser's controls so a
+   visitor can unmute or scrub. Each clip fades up from black, so a frame
+   from inside each (captured in the browser) is its poster. No webm yet. */
+type Clip = { mp4: string; poster: string; alt: string };
+const KAYAK_RIDE: Clip[] = [
+  {
+    mp4: `${ASSETS}kayak%20enter%20tunnel.mp4`,
+    poster: `${ASSETS}kayak-enter-tunnel-poster.jpg`,
+    alt: "From the bow of a red kayak with a maple leaf badge, gliding through a tunnel of streaking stars toward a round portal marked ENTER",
+  },
+  {
+    mp4: `${ASSETS}scene%202%20-%20IUM_FR30_(2).mp4`,
+    poster: `${ASSETS}kayak-scene-2-poster.jpg`,
+    alt: "Scene two, past the portal: rushing down a tunnel of glowing violet glass tiles, loose tiles tumbling past in streaks of cyan and pink light",
+  },
+];
 
-function FeatureVideo({ media }: { media: { mp4: string; poster: string; alt: string } }) {
-  const ref = useRef<HTMLVideoElement>(null);
+function FeatureVideo({ clips }: { clips: Clip[] }) {
+  const refs = useRef<(HTMLVideoElement | null)[]>([]);
+  const figRef = useRef<HTMLElement>(null);
+  const [active, setActive] = useState(0);
+  const inView = useRef(false);
+
+  // play the active clip while the frame is in view; pause it when not
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    const fig = figRef.current;
+    if (!fig) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const io = new IntersectionObserver(
       ([entry]) => {
+        inView.current = entry.isIntersecting;
+        const el = refs.current[active];
+        if (!el) return;
         if (entry.isIntersecting) el.play().catch(() => {});
         else el.pause();
       },
       { threshold: 0.4 }
     );
-    io.observe(el);
+    io.observe(fig);
     return () => io.disconnect();
-  }, []);
+  }, [active]);
+
+  // when the active clip ends, hand off to the next one from its start; it
+  // was playing a moment ago, so the visitor is watching: play on
+  const next = (i: number) => {
+    const n = (i + 1) % clips.length;
+    const el = refs.current[n];
+    setActive(n);
+    if (el) {
+      el.currentTime = 0;
+      el.play().catch(() => {});
+    }
+  };
+
   return (
-    <figure className="exhibit-feature">
-      <video
-        ref={ref}
-        className="exhibit-feature__video"
-        controls
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        poster={media.poster}
-        aria-label={media.alt}
-        disablePictureInPicture
-        disableRemotePlayback
-        controlsList="nodownload noremoteplayback"
-      >
-        <source src={media.mp4} type="video/mp4" />
-      </video>
+    <figure ref={figRef} className="exhibit-feature">
+      {clips.map((c, i) => (
+        <video
+          key={c.mp4}
+          ref={(el) => { refs.current[i] = el; }}
+          className={`exhibit-feature__video${i === active ? " is-active" : ""}`}
+          controls
+          muted
+          playsInline
+          preload={i === 0 ? "metadata" : "auto"}
+          poster={c.poster}
+          aria-label={c.alt}
+          aria-hidden={i !== active}
+          tabIndex={i === active ? 0 : -1}
+          disablePictureInPicture
+          disableRemotePlayback
+          controlsList="nodownload noremoteplayback"
+          onEnded={() => next(i)}
+        >
+          <source src={c.mp4} type="video/mp4" />
+        </video>
+      ))}
     </figure>
   );
 }
