@@ -76,14 +76,16 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               the rainbow room, where a text overlay will go later. */}
           <div className="exhibit-intro-cards">
           <figure className="exhibit-intro-card exhibit-intro-card--teal exhibit-intro-slot--left">
-            {/* the pill on its backing under the video, the heading in bold
-                and the description beneath it in semi-bold (Greg, 2026-10-11) */}
-            <div className="exhibit-intro-card__media exhibit-intro-card__media--portrait">
+            {/* the heading on a panel across the top, matching the right
+                card's band (Greg, 2026-10-13); the panel sits above the video
+                rather than over it, so her head is never under it. The pill
+                and the description stay beneath the video (Greg, 2026-10-11). */}
+            <div className="exhibit-intro-card__media exhibit-intro-card__media--portrait exhibit-intro-card__media--banded">
+              <span className="exhibit-intro-card__band"><span className="exhibit-intro-card__title">Enter artist-created worlds</span></span>
               <LoopVideo media={PORTALS_INTRO} />
             </div>
             <figcaption className="exhibit-intro-card__cap">
               <span className="exhibit-intro-card__tag">Gateway Portals</span>
-              <span className="exhibit-intro-card__title">Enter artist-created worlds.</span>
               <span className="exhibit-intro-card__sub">Inspire change with eye-opening experiences</span>
             </figcaption>
           </figure>
