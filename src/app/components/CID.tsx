@@ -1412,6 +1412,54 @@ function Unfold({ line, icon, tone, label, more }: { line: ReactNode; icon: Reac
   );
 }
 
+/* The ramp roll: the CID ramp sequence Greg finished on 2026-10-14, the
+   starting position (the forest road, the ring, the ramp with the lava
+   letters) cut straight into the stunt (the roll, the jump through the
+   ring, the iris to black). One mp4, 1920 x 1080, no sound. Shown whole at
+   16:9 on a dark band the width of the page, between the cast and the
+   grove. It starts muted on its own when it scrolls into view and loops,
+   and keeps the browser's controls so a visitor can pause or scrub. The
+   poster is the start frame, so the band is never blank. */
+function RampRoll({ base }: { base: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) el.play().catch(() => {});
+        else el.pause();
+      },
+      { threshold: 0.4 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return (
+    <section className="cid-ride" aria-label="The CID ramp roll">
+      <figure className="cid-ride__frame">
+        <video
+          ref={ref}
+          className="cid-ride__video"
+          controls
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster={`${base}assets/cid/ramp-roll-poster.jpg`}
+          aria-label="The CID ramp roll: a violet Ooo! sphere waits on a wet forest road before a glowing ring and a dark chrome ramp lettered C I D, then rolls, launches off the ramp through the ring, and the picture closes to black"
+          disablePictureInPicture
+          disableRemotePlayback
+          controlsList="nodownload noremoteplayback"
+        >
+          <source src={`${base}assets/cid/ramp-roll.mp4`} type="video/mp4" />
+        </video>
+      </figure>
+    </section>
+  );
+}
+
 /* "WTF": why this form? A small button beside the GIT and TIT circles. At
    rest the circles show; pressed, they blur away like frosted glass (the
    Thought Garden's reveal) and the inspiration graphic takes their place,
@@ -1964,6 +2012,12 @@ export function CID({ onSupport }: { onSupport: () => void }) {
               break-out note in cid-vivarium.css holds here as it did in the
               column. */}
           <CharacterRoll base={base} />
+
+          {/* The ramp roll: Greg's finished sequence (2026-10-14), the
+              starting position into the stunt, one 6-second file. It sits in
+              the band between the cast and the grove, above the black water,
+              where the page ground used to show through. */}
+          <RampRoll base={base} />
 
           {/* Two lab shots paired as one figure row above the strategy band.
               Real <img> here rather than a background: unlike the case art
