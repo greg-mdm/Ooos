@@ -669,7 +669,9 @@ const KAYAK_RIDE: Clip[] = [
     alt: "From the bow of a red kayak with a maple leaf badge, gliding through a tunnel of streaking stars toward a round portal marked ENTER",
   },
   {
-    mp4: `${ASSETS}scene%202%20-%20IUM_FR30_(2).mp4`,
+    /* Greg's edited cut of scene two (2026-10-13), the dice morph trimmed
+       out; moved here from SPRINT 6 under a short name */
+    mp4: `${ASSETS}kayak-scene-2.mp4`,
     poster: `${ASSETS}kayak-scene-2-poster.jpg`,
     alt: "Scene two, past the portal: rushing down a tunnel of glowing violet glass tiles, loose tiles tumbling past in streaks of cyan and pink light",
   },
