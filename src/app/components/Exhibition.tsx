@@ -85,7 +85,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
               <LoopVideo media={PORTALS_INTRO} />
             </div>
             <figcaption className="exhibit-intro-card__cap">
-              <span className="exhibit-intro-card__tag">Gateway Portals</span>
+              <span className="exhibit-intro-card__tag"><Icon name="door" />Gateway Portals</span>
               <span className="exhibit-intro-card__sub">Inspire change with eye-opening experiences</span>
             </figcaption>
           </figure>
@@ -373,6 +373,8 @@ type Attraction = {
   tone: Tone;
   media?: Media;
   body: ReactNode;
+  tagIcon?: IconName;
+  titleIcon?: IconName;
 };
 
 const ASSETS = `${import.meta.env.BASE_URL}assets/exhibition/`;
@@ -386,6 +388,7 @@ const ATTRACTIONS: Attraction[] = [
     id: "idea-accelerator",
     title: "Idea Accelerator",
     tag: "Shoot a beam",
+    tagIcon: "beam",
     tone: "gold",
     media: {
       kind: "video",
@@ -407,6 +410,7 @@ const ATTRACTIONS: Attraction[] = [
     id: "thought-garden",
     title: "Thought Garden",
     tag: "Plant a seed",
+    tagIcon: "seed",
     tone: "teal",
     /* Greg's photo (2026-10-07): public/assets/exhibition/Leaf Silhoutte -
        Stage Light.heic, a monstera leaf under a single stage light. Decoded
@@ -437,6 +441,8 @@ const ATTRACTIONS: Attraction[] = [
     id: "serious-games",
     title: "Serious Games Showcase",
     tag: "Play with purpose",
+    tagIcon: "dice",
+    titleIcon: "alert",
     tone: "electric",
     body: (
       <p>
@@ -769,6 +775,63 @@ function TouchImage({ media }: { media: Extract<Media, { kind: "touch" }> }) {
   );
 }
 
+/* Heading glyphs (Greg, 2026-10-17): simple open-source-style line icons,
+   drawn inline so they take the heading's colour. 24-unit grid, 2px
+   stroke, round joins. */
+type IconName = "alert" | "dice" | "venn" | "door" | "beam" | "seed";
+const ICON_PATHS: Record<IconName, ReactNode> = {
+  alert: (
+    <>
+      <path d="M8.2 3h7.6l5.2 5.2v7.6L15.8 21H8.2L3 15.8V8.2L8.2 3z" />
+      <path d="M12 8v5" />
+      <circle cx="12" cy="16.5" r="0.6" fill="currentColor" />
+    </>
+  ),
+  dice: (
+    <>
+      <rect x="3.5" y="3.5" width="17" height="17" rx="3.5" />
+      <circle cx="8.5" cy="8.5" r="1.1" fill="currentColor" stroke="none" />
+      <circle cx="15.5" cy="8.5" r="1.1" fill="currentColor" stroke="none" />
+      <circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none" />
+      <circle cx="8.5" cy="15.5" r="1.1" fill="currentColor" stroke="none" />
+      <circle cx="15.5" cy="15.5" r="1.1" fill="currentColor" stroke="none" />
+    </>
+  ),
+  venn: (
+    <>
+      <circle cx="9" cy="12" r="6" />
+      <circle cx="15" cy="12" r="6" />
+      <path d="M12 6.8a6 6 0 0 1 0 10.4a6 6 0 0 1 0-10.4z" fill="currentColor" stroke="none" />
+    </>
+  ),
+  door: (
+    <>
+      <path d="M6 21V4.5A1.5 1.5 0 0 1 7.5 3h9A1.5 1.5 0 0 1 18 4.5V21" />
+      <path d="M3.5 21h17" />
+      <circle cx="14.5" cy="12.5" r="0.9" fill="currentColor" stroke="none" />
+    </>
+  ),
+  beam: (
+    <>
+      <path d="M13 2.5L5 13.5h6l-1 8 9-12h-6l1-7z" />
+    </>
+  ),
+  seed: (
+    <>
+      <path d="M12 21v-8" />
+      <path d="M12 13c0-4.5 3-7.5 8-7.5 0 4.5-3 7.5-8 7.5z" />
+      <path d="M12 13c0-3.5-2.4-6-6.5-6 0 3.5 2.4 6 6.5 6z" />
+    </>
+  ),
+};
+function Icon({ name }: { name: IconName }) {
+  return (
+    <svg className="hicon" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+      {ICON_PATHS[name]}
+    </svg>
+  );
+}
+
 function GallerySpread() {
   return (
     <section className="dicho dicho--gallery dicho--tall" aria-labelledby="midway-national-gallery">
@@ -792,7 +855,7 @@ function GallerySpread() {
             </div>
             {(piece.title || piece.credit) && (
               <figcaption className="gallery-piece__cap">
-                {piece.title && <span className="gallery-piece__title">{piece.title}</span>}
+                {piece.title && <span className="gallery-piece__title"><Icon name="venn" />{piece.title}</span>}
                 {piece.credit && <span className="gallery-piece__credit">{piece.credit}</span>}
               </figcaption>
             )}
@@ -876,9 +939,9 @@ function DichotomyPair({ pair }: { pair: Pair }) {
       style={{ "--tone-a": TONES[a.tone], "--tone-b": TONES[b.tone] } as CSSProperties}
     >
       <header className="dicho__head">
-        <span className="dicho__tag dicho__tag--a">{a.tag}</span>
+        <span className="dicho__tag dicho__tag--a">{a.tagIcon && <Icon name={a.tagIcon} />}{a.tag}</span>
         <span className="dicho__slash" aria-hidden="true" />
-        <span className="dicho__tag dicho__tag--b">{b.tag}</span>
+        <span className="dicho__tag dicho__tag--b">{b.tagIcon && <Icon name={b.tagIcon} />}{b.tag}</span>
       </header>
       <div className="dicho__sides">
         <AttractionCard attraction={a} side="a" />
@@ -923,7 +986,7 @@ function AttractionCard({ attraction, side }: { attraction: Attraction; side: "a
             aria-controls={textId}
             onClick={() => setOpen((v) => !v)}
           >
-            <span>{title}</span>
+            <span className="midway-card__label">{attraction.titleIcon && <Icon name={attraction.titleIcon} />}{title}</span>
             <span className="midway-card__mark" aria-hidden="true">{open ? "\u2212" : "+"}</span>
           </button>
         </h3>
