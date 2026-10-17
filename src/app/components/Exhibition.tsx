@@ -775,7 +775,6 @@ function GallerySpread() {
       <header className="dicho__head">
         <span className="dicho__tag dicho__tag--a">Digital Art Influencers</span>
         <h3 id="midway-national-gallery" className="dicho__title">National Gallery</h3>
-        <span className="dicho__question">SHADOW · Ooo! Meet our HALLOWEEN HOST</span>
       </header>
       <div className="dicho__sides">
         {GALLERY.map((piece, i) => (
