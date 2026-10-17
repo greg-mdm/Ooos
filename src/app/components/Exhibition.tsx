@@ -851,7 +851,8 @@ function ShadowLot() {
         </button>
         <div id="lot-about" className="lot__text" hidden={!open}>
           <p>
-            <em>Shadow</em>, painted by Dennis McCormack, an abstract artist. From the series <em>Canvases of Old Dreams</em>.
+            Artist: Dennis McCormack<br />
+            From the series <em>&lsquo;Canvases of Old Dreams,&rsquo;</em> a private collection of abstract artworks.
           </p>
           <p className="lot__quote">
             &ldquo;I started painting at 18. I had just aged out of the foster system and started making my own
