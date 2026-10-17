@@ -361,7 +361,7 @@ type Tone = "ruby" | "gold" | "teal" | "portal" | "electric";
 
 type Media =
   | { kind: "video"; mp4: string; webm: string; poster: string; alt: string; focus?: "bottom" }
-  | { kind: "image"; src: string; alt: string; frame?: "tall" }
+  | { kind: "image"; src: string; alt: string; frame?: "tall" | "portrait" }
   /* a still that, when touched, blurs like frosted glass into a second
      still: src at rest, touched on hover, focus or tap */
   | { kind: "touch"; src: string; alt: string; touched: string; touchedAlt: string };
@@ -445,11 +445,13 @@ const ATTRACTIONS: Attraction[] = [
     titleIcon: "alert",
     tone: "electric",
     /* Greg's "double sixes.png" (2026-10-17): two neon dice on a glass
-       board, cut to 16:9 */
+       board, the board cut to the Sassy photo's portrait so the two
+       sides match (Greg: crop the board, not the person) */
     media: {
       kind: "image",
       src: `${ASSETS}serious-games.webp`,
       alt: "Two glowing dice, yellow and pink, showing double sixes on a violet glass board",
+      frame: "portrait",
     },
     body: (
       <p>
@@ -465,11 +467,12 @@ const ATTRACTIONS: Attraction[] = [
     tag: "Play proud",
     tone: "portal",
     /* Greg's "SASSY GAMES.jpg" (2026-10-17): a performer mid-song under
-       violet light, the crowd's hands up; a 16:9 window on the face */
+       violet light, the crowd's hands up; shown whole (Greg: do not crop) */
     media: {
       kind: "image",
       src: `${ASSETS}sassy-games.webp`,
       alt: "A performer in a sequinned gown sings under violet light as the crowd reaches up",
+      frame: "portrait",
     },
     body: (
       <p>
@@ -983,7 +986,7 @@ function AttractionCard({ attraction, side }: { attraction: Attraction; side: "a
   const textId = `${titleId}-text`;
   return (
     <article className={`midway-card midway-card--${tone} midway-card--${side}${open ? " is-open" : ""}`} aria-labelledby={titleId}>
-      <div className={`midway-card__media${media?.kind === "image" && media.frame === "tall" ? " midway-card__media--tall" : ""}`}>
+      <div className={`midway-card__media${media?.kind === "image" && media.frame ? ` midway-card__media--${media.frame}` : ""}`}>
         {media?.kind === "video" && <LoopVideo media={media} />}
         {media?.kind === "image" && (
           <img className="midway-card__img" src={media.src} alt={media.alt} loading="lazy" />
