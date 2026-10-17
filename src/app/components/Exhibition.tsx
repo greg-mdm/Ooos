@@ -517,8 +517,7 @@ type GalleryPiece = { id: string; title: string; credit?: string; media?: Media 
 const GALLERY: GalleryPiece[] = [
   {
     id: "shadow-painting",
-    title: "Shadow Flash",
-    credit: "The painting",
+    title: "",
     media: {
       kind: "image",
       src: `${ASSETS}national-gallery-shadow-painting.webp`,
@@ -792,10 +791,12 @@ function GallerySpread() {
                 </div>
               )}
             </div>
-            <figcaption className="gallery-piece__cap">
-              <span className="gallery-piece__title">{piece.title}</span>
-              {piece.credit && <span className="gallery-piece__credit">{piece.credit}</span>}
-            </figcaption>
+            {(piece.title || piece.credit) && (
+              <figcaption className="gallery-piece__cap">
+                {piece.title && <span className="gallery-piece__title">{piece.title}</span>}
+                {piece.credit && <span className="gallery-piece__credit">{piece.credit}</span>}
+              </figcaption>
+            )}
           </figure>
         ))}
       </div>
