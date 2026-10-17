@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { CSSProperties, ReactNode, useEffect, useRef, useState } from "react";
 import { RadioAd } from "./RadioAd";
 import { AnatomyDisplay } from "./AnatomyDisplay";
 
@@ -133,11 +133,11 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
           </div>
       </div>
 
-      {/* Interactive Programming: the midway. One card per attraction, laid
-          out as a grid on a night-sky band so each attraction can carry its
-          own art. The Idea Accelerator card plays a short muted loop; the
-          others show a striped booth panel until their art arrives. Add an
-          attraction's art by filling in its `media` entry in ATTRACTIONS. */}
+      {/* Interactive Programming: a gallery spread and three contrasts on a
+          night-sky band (Greg, 2026-10-16: an immersive digital playground,
+          not a local fair). The Idea Accelerator plays a short muted loop;
+          attractions without art hold a quiet slot. Add an attraction's art
+          by filling in its `media` entry in ATTRACTIONS. */}
       <section className="exhibit-midway" aria-labelledby="exhibit-midway-heading">
         <div className="exhibit-band exhibit-midway__inner">
           {/* The kayak ride, widescreen, above the phones (Greg, 2026-10-13):
@@ -151,24 +151,18 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
           <h2 id="exhibit-midway-heading" className="exhibit-midway__heading">
             Interactive Programming
           </h2>
-          <div className="exhibit-midway__grid">
-            {ATTRACTIONS.map((a, i) => {
-              /* Booths 06 and 07, the jester and the queen, are two approaches
-                 to one idea, so they stand together in one container: the
-                 jester's side warm, the queen's side cool, one seam between
-                 them (Greg, 2026-10-12). The pair takes two columns. */
-              if (a.id === "radical-jester") {
-                const queen = ATTRACTIONS.find((x) => x.id === "queen-of-the-night");
-                return (
-                  <div key="pair-06-07" className="midway-pair" role="group" aria-label="Two approaches: The Most Radical Jester and Queen of the Night">
-                    <AttractionCard attraction={a} booth={i + 1} />
-                    {queen && <AttractionCard attraction={queen} booth={i + 2} />}
-                  </div>
-                );
-              }
-              if (a.id === "queen-of-the-night") return null;
-              return <AttractionCard key={a.id} attraction={a} booth={i + 1} />;
-            })}
+          {/* The programming reads as one spread and three contrasts (Greg,
+              2026-10-16): the National Gallery first, two featured pieces
+              side by side; then each remaining pair as a dichotomy on one
+              ground, its two tags either side of a single seam. Descriptions
+              stay folded until a visitor taps a title (progressive
+              disclosure), so the band reads as a quiet playground, not a
+              fairground of placards. */}
+          <div className="exhibit-midway__stack">
+            <GallerySpread />
+            {PAIRS.map((pair) => (
+              <DichotomyPair key={pair.id} pair={pair} />
+            ))}
           </div>
         </div>
       </section>
@@ -383,32 +377,11 @@ type Attraction = {
 
 const ASSETS = `${import.meta.env.BASE_URL}assets/exhibition/`;
 
-/* The Virtual Fair dice roll (Greg's "Virtual Fair - Dice Roll.mp4",
-   SPRINT 6, 2026-10-08): two dice tumble across a wall of cards and burst
-   into a shower of hearts and dollars. Cut as a 5.5s loop with its last
-   half second dissolving into its first; 960x540, muted, with a poster.
-   The clip carried black bars at its sides, cropped away (Greg, 2026-10-08).
-   Shown in the intro's right-hand area above the matchmaking illustration. */
-const DICE_LOOP: Extract<Media, { kind: "video" }> = {
-  kind: "video",
-  mp4: `${ASSETS}virtual-fair-dice.mp4`,
-  webm: `${ASSETS}virtual-fair-dice.webm`,
-  poster: `${ASSETS}virtual-fair-dice-poster.webp`,
-  alt: "Two dice tumble across a wall of glowing cards and burst into hearts and dollar signs",
-};
-
 /* Each attraction's art lives in public/assets/exhibition/<id>.* . A still is
    { kind: "image", src: `${ASSETS}<id>.webp`, alt }; a loop is
    { kind: "video", mp4, webm, poster, alt }. Cards without media show a
-   striped booth panel in their tone. */
+   quiet slot in their tone. */
 const ATTRACTIONS: Attraction[] = [
-  {
-    id: "national-gallery",
-    title: "National Gallery",
-    tag: "Digital Art Influencers",
-    tone: "ruby",
-    body: <p>Explore experimental digital artwork from Canadian creators.</p>,
-  },
   {
     id: "idea-accelerator",
     title: "Idea Accelerator",
@@ -528,20 +501,51 @@ const ATTRACTIONS: Attraction[] = [
       </p>
     ),
   },
+];
+
+/* The National Gallery spread: two featured pieces from Canadian creators,
+   shown side by side at the top of the programming (Greg, 2026-10-16: two
+   feature pieces to come). Fill each slot's `media` when the art lands in
+   public/assets/exhibition/; until then the slot holds a quiet panel. */
+type GalleryPiece = { id: string; title: string; credit?: string; media?: Media };
+/* Greg's "Shadow" (IMG_2568, 2026-10-17): the Shadow Flash painting, then
+   its digital rendering in a silver corridor (Greg's pick, 2026-10-17).
+   Both cut to the tall frame (1150 x 1592) from the originals in this
+   folder. The violet-corridor rendering is cut too
+   (national-gallery-shadow-violet.webp) if the pair should swap. */
+const GALLERY: GalleryPiece[] = [
   {
-    id: "gateway-portals",
-    title: "Gateway Portals",
-    tag: "Enter here",
-    tone: "teal",
-    /* The Virtual Fair dice roll, moved down here from the intro (Greg,
-       2026-10-09): a 3:2 loop, which the booth's horizontal frame suits.
-       Its featured content, the dice, sits at the foot of the picture, so
-       the frame holds the bottom and lets the top row of floating cards
-       run off. The portrait portals clip that stood here did not fit a
-       horizontal frame; it opens the intro's Gateway Portals video now. */
-    media: { ...DICE_LOOP, focus: "bottom" },
-    body: <p>Enter artist-created worlds</p>,
+    id: "shadow-painting",
+    title: "Shadow Flash",
+    credit: "The painting",
+    media: {
+      kind: "image",
+      src: `${ASSETS}national-gallery-shadow-painting.webp`,
+      alt: "A shrouded white figure outlined in black, painted in thick strokes over a pink, blue and violet field",
+      frame: "tall",
+    },
   },
+  {
+    id: "shadow-silver",
+    title: "Shadow, rendered",
+    credit: "The digital transformation",
+    media: {
+      kind: "image",
+      src: `${ASSETS}national-gallery-shadow-silver.webp`,
+      alt: "The same shrouded figure as liquid chrome, its cape flaring pink and blue in a white-silver corridor",
+      frame: "tall",
+    },
+  },
+];
+
+/* The three contrasts, each a pair of attractions that are two answers to
+   one question (Greg, 2026-10-16): the beam and the seed; purpose and
+   pride; the jester and the queen. The order here is the order on the page. */
+type Pair = { id: string; a: string; b: string; question: string };
+const PAIRS: Pair[] = [
+  { id: "beam-seed", a: "idea-accelerator", b: "thought-garden", question: "Spark it, or grow it" },
+  { id: "purpose-pride", a: "serious-games", b: "sassy-games", question: "Play with purpose, or play proud" },
+  { id: "jester-queen", a: "radical-jester", b: "queen-of-the-night", question: "Two ways to face the night" },
 ];
 
 /* The water loop for the intro's left card (Greg, 2026-10-09): two of his
@@ -765,29 +769,108 @@ function TouchImage({ media }: { media: Extract<Media, { kind: "touch" }> }) {
   );
 }
 
-function AttractionCard({ attraction, booth }: { attraction: Attraction; booth: number }) {
-  const { title, tag, tone, media, body } = attraction;
-  const titleId = `midway-${attraction.id}`;
+function GallerySpread() {
   return (
-    <article className={`midway-card midway-card--${tone}`} aria-labelledby={titleId}>
+    <section className="dicho dicho--gallery dicho--tall" aria-labelledby="midway-national-gallery">
+      <header className="dicho__head">
+        <span className="dicho__tag dicho__tag--a">Digital Art Influencers</span>
+        <h3 id="midway-national-gallery" className="dicho__title">National Gallery</h3>
+        <span className="dicho__question">Experimental digital artwork from Canadian creators</span>
+      </header>
+      <div className="dicho__sides">
+        {GALLERY.map((piece, i) => (
+          <figure key={piece.id} className="gallery-piece">
+            <div className={`midway-card__media${piece.media?.kind === "image" && piece.media.frame === "tall" ? " midway-card__media--tall" : ""}`}>
+              {piece.media?.kind === "video" && <LoopVideo media={piece.media} />}
+              {piece.media?.kind === "image" && (
+                <img className="midway-card__img" src={piece.media.src} alt={piece.media.alt} loading="lazy" />
+              )}
+              {!piece.media && (
+                <div className="midway-card__slot" aria-hidden="true">
+                  <span className="midway-card__slot-no">{String(i + 1).padStart(2, "0")}</span>
+                </div>
+              )}
+            </div>
+            <figcaption className="gallery-piece__cap">
+              <span className="gallery-piece__title">{piece.title}</span>
+              {piece.credit && <span className="gallery-piece__credit">{piece.credit}</span>}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* One contrast on one ground: the two tags either side of a seam, then the
+   two attractions side by side (stacked on a phone). The ground runs from
+   the first attraction's tone to the second's. */
+function DichotomyPair({ pair }: { pair: Pair }) {
+  const a = ATTRACTIONS.find((x) => x.id === pair.a);
+  const b = ATTRACTIONS.find((x) => x.id === pair.b);
+  if (!a || !b) return null;
+  const tall = a.media?.kind === "image" && a.media.frame === "tall";
+  return (
+    <section
+      className={`dicho${tall ? " dicho--tall" : ""}`}
+      role="group"
+      aria-label={`${a.title} and ${b.title}`}
+      style={{ "--tone-a": TONES[a.tone], "--tone-b": TONES[b.tone] } as CSSProperties}
+    >
+      <header className="dicho__head">
+        <span className="dicho__tag dicho__tag--a">{a.tag}</span>
+        <span className="dicho__slash" aria-hidden="true" />
+        <span className="dicho__tag dicho__tag--b">{b.tag}</span>
+        <span className="dicho__question">{pair.question}</span>
+      </header>
+      <div className="dicho__sides">
+        <AttractionCard attraction={a} side="a" />
+        <AttractionCard attraction={b} side="b" />
+      </div>
+    </section>
+  );
+}
+
+const TONES: Record<Tone, string> = {
+  ruby: "#822F00",
+  gold: "#F0C040",
+  teal: "#008080",
+  portal: "#4B00B6",
+  electric: "#5B04DE",
+};
+
+/* An attraction: its art, then its title as a button. The description stays
+   folded until the title is tapped (Greg, 2026-10-16: show nothing until
+   tapped), and folds again on a second tap. */
+function AttractionCard({ attraction, side }: { attraction: Attraction; side: "a" | "b" }) {
+  const { title, tone, media, body } = attraction;
+  const [open, setOpen] = useState(false);
+  const titleId = `midway-${attraction.id}`;
+  const textId = `${titleId}-text`;
+  return (
+    <article className={`midway-card midway-card--${tone} midway-card--${side}${open ? " is-open" : ""}`} aria-labelledby={titleId}>
       <div className={`midway-card__media${media?.kind === "image" && media.frame === "tall" ? " midway-card__media--tall" : ""}`}>
         {media?.kind === "video" && <LoopVideo media={media} />}
         {media?.kind === "image" && (
           <img className="midway-card__img" src={media.src} alt={media.alt} loading="lazy" />
         )}
         {media?.kind === "touch" && <TouchImage media={media} />}
-        {!media && (
-          <div className="midway-card__booth" aria-hidden="true">
-            <span className="midway-card__booth-no">
-              Booth {String(booth).padStart(2, "0")}
-            </span>
-          </div>
-        )}
+        {!media && <div className="midway-card__slot" aria-hidden="true" />}
       </div>
       <div className="midway-card__body">
-        <span className="midway-card__tag">{tag}</span>
-        <h3 id={titleId} className="midway-card__title">{title}</h3>
-        <div className="midway-card__text">{body}</div>
+        <h3 id={titleId} className="midway-card__title">
+          <button
+            type="button"
+            className="midway-card__toggle"
+            aria-expanded={open}
+            aria-controls={textId}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span>{title}</span>
+            <span className="midway-card__mark" aria-hidden="true">{open ? "\u2212" : "+"}</span>
+          </button>
+        </h3>
+        <div id={textId} className="midway-card__text" hidden={!open}>{body}</div>
       </div>
     </article>
   );
