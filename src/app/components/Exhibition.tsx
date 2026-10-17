@@ -879,7 +879,6 @@ function DichotomyPair({ pair }: { pair: Pair }) {
         <span className="dicho__tag dicho__tag--a">{a.tag}</span>
         <span className="dicho__slash" aria-hidden="true" />
         <span className="dicho__tag dicho__tag--b">{b.tag}</span>
-        <span className="dicho__question">{pair.question}</span>
       </header>
       <div className="dicho__sides">
         <AttractionCard attraction={a} side="a" />
