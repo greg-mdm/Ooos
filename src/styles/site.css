@@ -5532,6 +5532,19 @@ textarea:focus-visible,
   .lot__cta, .lot__closed { width: 100%; text-align: center; }
 }
 
+/* Heading glyphs: sit on the text baseline, take the heading's colour. */
+.hicon {
+  display: inline-block;
+  vertical-align: -0.18em;
+  margin-right: 0.45em;
+  font-size: 1.25em;
+  flex: none;
+}
+.dicho__tag .hicon { font-size: 1.5em; vertical-align: -0.3em; }
+.midway-card__label { display: inline-flex; align-items: center; }
+.gallery-piece__title { display: inline-flex; align-items: center; }
+.exhibit-intro-card__tag .hicon { font-size: 1.4em; vertical-align: -0.3em; }
+
 /* The National Gallery spread: two featured pieces, each with its title in
    a quiet caption. No fold here; a picture is its own description. */
 .gallery-piece { margin: 0; min-width: 0; display: flex; flex-direction: column; }
