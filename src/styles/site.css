@@ -5541,7 +5541,8 @@ textarea:focus-visible,
   flex: none;
 }
 .dicho__tag .hicon { font-size: 1.5em; vertical-align: -0.3em; }
-.midway-card__label { display: inline-flex; align-items: center; }
+/* titles stay on one line; the pair is wide enough (Greg, 2026-10-17) */
+.midway-card__label { display: inline-flex; align-items: center; white-space: nowrap; min-width: 0; }
 .gallery-piece__title { display: inline-flex; align-items: center; }
 .exhibit-intro-card__tag .hicon { font-size: 1.4em; vertical-align: -0.3em; }
 
@@ -5576,9 +5577,11 @@ textarea:focus-visible,
 }
 /* a tall frame for a portrait picture shown whole (the tulip, the jester) */
 .midway-card__media--tall { aspect-ratio: 1150 / 1592; }
+/* a portrait photo shown whole at its own proportions (Sassy Games) */
+.midway-card__media--portrait { aspect-ratio: 992 / 1200; }
 /* the tall contrast (the jester and the queen) holds its two portraits
    whole; a narrower spread keeps them from towering */
-.dicho--tall { max-width: 820px; margin: 0 auto; width: 100%; }
+.dicho--tall { width: 100%; }
 .midway-card__video,
 .midway-card__img {
   display: block;
@@ -5641,7 +5644,7 @@ textarea:focus-visible,
 .midway-card__title {
   margin: 0;
   font-family: var(--serif);
-  font-size: clamp(1.3rem, 1.8vw, 1.6rem);
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
   font-weight: 700;
   line-height: 1.25;
   color: #ffffff;
