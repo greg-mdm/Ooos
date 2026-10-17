@@ -5439,6 +5439,118 @@ textarea:focus-visible,
   .dicho__sides .gallery-piece + .gallery-piece { border-top: 1px solid transparent; border-image: linear-gradient(90deg, var(--tone-a) 0%, rgba(240, 192, 64, 0.8) 50%, var(--tone-b) 100%) 1; }
 }
 
+/* ---- The lot panel under the gallery spread: the facts on the left, one
+   gold-edged button on the right, the artist note folded beneath. ---- */
+.lot {
+  position: relative;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 22px 24px 20px;
+}
+.lot__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 28px;
+}
+.lot__facts { min-width: 0; flex: 1 1 360px; }
+.lot__title {
+  margin: 0 0 6px;
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #ffffff;
+}
+.lot__terms {
+  display: flex; flex-wrap: wrap; gap: 4px 10px;
+  margin: 0 0 6px;
+  font-family: var(--font-elevated, var(--sans));
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(240, 192, 64, 0.9);
+}
+.lot__fine {
+  margin: 0;
+  max-width: 60ch;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(232, 236, 244, 0.7);
+}
+.lot__cta,
+.lot__closed {
+  flex: none;
+  display: inline-block;
+  padding: 13px 28px;
+  border-radius: 999px;
+  font-family: var(--font-elevated, var(--sans));
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  line-height: 1;
+}
+.lot__cta {
+  color: #1A0033;
+  background: #F0C040;
+  border: 1px solid #F0C040;
+  box-shadow: 0 0 0 0 rgba(240, 192, 64, 0.35);
+  transition: box-shadow 180ms ease, transform 180ms ease;
+}
+.lot__cta:hover, .lot__cta:focus-visible { box-shadow: 0 0 0 6px rgba(240, 192, 64, 0.2); transform: translateY(-1px); outline: none; }
+.lot__closed { color: rgba(232, 236, 244, 0.7); border: 1px solid rgba(255, 255, 255, 0.2); }
+.lot__about { margin-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.06); }
+.lot__toggle {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  width: 100%; margin: 0; padding: 12px 0; border: 0; background: transparent;
+  color: rgba(232, 236, 244, 0.85); font-family: var(--serif); font-size: 0.95rem; font-weight: 600;
+  text-align: left; cursor: pointer;
+}
+.lot__toggle:focus-visible { outline: 2px solid #F0C040; outline-offset: 4px; border-radius: 4px; }
+.lot__text p { margin: 0 0 10px; max-width: 62ch; font-size: 14px; line-height: 1.6; color: #E8ECF4; opacity: 0.86; }
+.lot__quote { font-style: italic; }
+@media (max-width: 640px) {
+  .lot { padding: 18px 18px 16px; }
+  .lot__cta, .lot__closed { width: 100%; text-align: center; }
+}
+
+/* ---- The Halloween banner: Shadow as the season's host, one dark card
+   with a violet glow at the head of the programming. ---- */
+.hallow {
+  display: block;
+  max-width: 1000px;
+  margin: 0 auto clamp(28px, 4vw, 48px);
+  padding: 22px 26px;
+  border-radius: 18px;
+  text-decoration: none;
+  text-align: center;
+  background:
+    radial-gradient(ellipse 60% 120% at 50% 0%, rgba(75, 0, 182, 0.45), transparent 70%),
+    rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(240, 192, 64, 0.35);
+  transition: border-color 180ms ease;
+}
+.hallow:hover, .hallow:focus-visible { border-color: rgba(240, 192, 64, 0.8); outline: none; }
+.hallow__eyebrow {
+  display: block; margin-bottom: 6px;
+  font-family: var(--font-elevated, var(--sans)); font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.26em; text-transform: uppercase; color: #F0C040;
+}
+.hallow__title {
+  display: block;
+  font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700;
+  letter-spacing: 0.18em; line-height: 1.1; color: #ffffff;
+  text-shadow: 0 0 28px rgba(75, 0, 182, 0.8);
+}
+.hallow__line {
+  display: block; margin: 8px auto 0; max-width: 56ch;
+  font-family: var(--serif); font-style: italic; font-size: 0.95rem; line-height: 1.45;
+  color: rgba(232, 236, 244, 0.75);
+}
+
 /* The National Gallery spread: two featured pieces, each with its title in
    a quiet caption. No fold here; a picture is its own description. */
 .gallery-piece { margin: 0; min-width: 0; display: flex; flex-direction: column; }
