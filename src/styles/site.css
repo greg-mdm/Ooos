@@ -5689,6 +5689,19 @@ textarea:focus-visible,
   transition: box-shadow 160ms ease, transform 160ms ease, color 160ms ease;
 }
 .midway-card__mark .hicon { margin: 0; font-size: 1.35rem; vertical-align: 0; }
+/* the button and its small hint, stacked (Greg, 2026-10-17) */
+.midway-card__ctl { flex: none; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.midway-card__hint {
+  font-family: var(--font-elevated, var(--sans));
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: rgba(232, 236, 244, 0.6);
+}
+.midway-card__toggle { align-items: flex-start; }
+.midway-card__label { padding-top: 10px; }
 .midway-card__toggle:hover .midway-card__mark { color: #ffffff; transform: translateY(-1px); }
 .midway-card.is-open .midway-card__mark {
   transform: none;
