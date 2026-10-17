@@ -147,6 +147,7 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
           {/* The anatomy display, above "Scroll right up" (Greg, 2026-10-12). */}
           <AnatomyDisplay />
           {/* "Scroll right up", Greg's turn on the barker's line (2026-10-13). */}
+          <HalloweenBanner />
           <p className="exhibit-midway__eyebrow">Scroll right up</p>
           <h2 id="exhibit-midway-heading" className="exhibit-midway__heading">
             Interactive Programming
@@ -528,7 +529,7 @@ const GALLERY: GalleryPiece[] = [
   {
     id: "shadow-silver",
     title: "Shadow, rendered",
-    credit: "The digital transformation",
+    credit: "This season\u2019s host",
     media: {
       kind: "image",
       src: `${ASSETS}national-gallery-shadow-silver.webp`,
@@ -775,7 +776,7 @@ function GallerySpread() {
       <header className="dicho__head">
         <span className="dicho__tag dicho__tag--a">Digital Art Influencers</span>
         <h3 id="midway-national-gallery" className="dicho__title">National Gallery</h3>
-        <span className="dicho__question">Experimental digital artwork from Canadian creators</span>
+        <span className="dicho__question">SHADOW · Ooo! Meet our HALLOWEEN HOST</span>
       </header>
       <div className="dicho__sides">
         {GALLERY.map((piece, i) => (
@@ -798,7 +799,82 @@ function GallerySpread() {
           </figure>
         ))}
       </div>
+      <ShadowLot />
     </section>
+  );
+}
+
+/* The lot: Shadow is looking for a home. Bids go to the standalone Wix
+   form on Slow Stream (Greg's back office, 2026-10-17); this panel is the
+   front door. The auction closes November 15, 2026, 11:59 PM ET; after
+   that the button gives way to a closed line. Framing is quoted to the
+   winner. The artist note stays folded. */
+const BID_FORM_URL = "https://greg31122.wixforms.com/f/7517118600616870916";
+const AUCTION_CLOSE = new Date("2026-11-16T04:59:00Z"); // Nov 15, 11:59 PM ET
+const HALLOWEEN_END = new Date("2026-11-01T04:00:00Z"); // Nov 1, 00:00 ET
+
+function ShadowLot() {
+  const [open, setOpen] = useState(false);
+  const closed = Date.now() >= AUCTION_CLOSE.getTime();
+  return (
+    <div className="lot" aria-labelledby="lot-title">
+      <div className="lot__row">
+        <div className="lot__facts">
+          <p id="lot-title" className="lot__title">Shadow is looking for a home</p>
+          <p className="lot__terms">
+            <span>Opening bid $200 CAD</span>
+            <span aria-hidden="true">·</span>
+            <span>Highest bid at close wins</span>
+            <span aria-hidden="true">·</span>
+            <span>Closes November 15, 2026, 11:59 PM ET</span>
+          </p>
+          <p className="lot__fine">Framing is separate; options are quoted to the winner. Pickup in Toronto or shipping at cost.</p>
+        </div>
+        {closed ? (
+          <span className="lot__closed">Bidding closed</span>
+        ) : (
+          <a className="lot__cta" href={BID_FORM_URL} target="_blank" rel="noopener noreferrer">
+            Place a bid
+          </a>
+        )}
+      </div>
+      <div className="lot__about">
+        <button
+          type="button"
+          className="lot__toggle"
+          aria-expanded={open}
+          aria-controls="lot-about"
+          onClick={() => setOpen((v) => !v)}
+        >
+          <span>About the painting</span>
+          <span className="midway-card__mark" aria-hidden="true">{open ? "\u2212" : "+"}</span>
+        </button>
+        <div id="lot-about" className="lot__text" hidden={!open}>
+          <p>
+            <em>Shadow</em>, painted by Dennis McCormack, an abstract artist. From the series <em>Canvases of Old Dreams</em>.
+          </p>
+          <p className="lot__quote">
+            &ldquo;I started painting at 18. I had just aged out of the foster system and started making my own
+            canvases from pillow slips: primed with a few coats, stretched by hand. I used many techniques and
+            styles to channel my highs and lows, and expressed my creativity in vibrant colours.&rdquo;
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* The Halloween banner at the head of the programming: Shadow as this
+   season's host, up through October 31 and gone on its own from
+   November 1 (Greg, 2026-10-17). */
+function HalloweenBanner() {
+  if (Date.now() >= HALLOWEEN_END.getTime()) return null;
+  return (
+    <a className="hallow" href="#midway-national-gallery">
+      <span className="hallow__eyebrow">Ooo! Meet our Halloween host</span>
+      <span className="hallow__title">SHADOW</span>
+      <span className="hallow__line">Who&rsquo;s walking behind you? Haunting the exhibition until October 31. The painting finds a home November 15.</span>
+    </a>
   );
 }
 
