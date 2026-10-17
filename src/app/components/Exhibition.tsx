@@ -147,7 +147,6 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
           {/* The anatomy display, above "Scroll right up" (Greg, 2026-10-12). */}
           <AnatomyDisplay />
           {/* "Scroll right up", Greg's turn on the barker's line (2026-10-13). */}
-          <HalloweenBanner />
           <p className="exhibit-midway__eyebrow">Scroll right up</p>
           <h2 id="exhibit-midway-heading" className="exhibit-midway__heading">
             Interactive Programming
@@ -529,7 +528,7 @@ const GALLERY: GalleryPiece[] = [
   {
     id: "shadow-silver",
     title: "Shadow, rendered",
-    credit: "This season\u2019s host",
+    credit: "Ooo! Meet our Halloween host",
     media: {
       kind: "image",
       src: `${ASSETS}national-gallery-shadow-silver.webp`,
@@ -813,7 +812,6 @@ function GallerySpread() {
    winner. The artist note stays folded. */
 const BID_FORM_URL = "https://greg31122.wixforms.com/f/7517118600616870916";
 const AUCTION_CLOSE = new Date("2026-11-16T04:59:00Z"); // Nov 15, 11:59 PM ET
-const HALLOWEEN_END = new Date("2026-11-01T04:00:00Z"); // Nov 1, 00:00 ET
 
 function ShadowLot() {
   const [open, setOpen] = useState(false);
@@ -860,20 +858,6 @@ function ShadowLot() {
         </div>
       </div>
     </div>
-  );
-}
-
-/* The Halloween banner at the head of the programming: Shadow as this
-   season's host, up through October 31 and gone on its own from
-   November 1 (Greg, 2026-10-17). */
-function HalloweenBanner() {
-  if (Date.now() >= HALLOWEEN_END.getTime()) return null;
-  return (
-    <a className="hallow" href="#midway-national-gallery">
-      <span className="hallow__eyebrow">Ooo! Meet our Halloween host</span>
-      <span className="hallow__title">SHADOW</span>
-      <span className="hallow__line">Who&rsquo;s walking behind you? Haunting the exhibition until October 31. The painting finds a home November 15.</span>
-    </a>
   );
 }
 
