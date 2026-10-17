@@ -444,6 +444,13 @@ const ATTRACTIONS: Attraction[] = [
     tagIcon: "dice",
     titleIcon: "alert",
     tone: "electric",
+    /* Greg's "double sixes.png" (2026-10-17): two neon dice on a glass
+       board, cut to 16:9 */
+    media: {
+      kind: "image",
+      src: `${ASSETS}serious-games.webp`,
+      alt: "Two glowing dice, yellow and pink, showing double sixes on a violet glass board",
+    },
     body: (
       <p>
         Bias Busting POVs invite visitors into interactive stories that confront
@@ -457,6 +464,13 @@ const ATTRACTIONS: Attraction[] = [
     title: "Sassy Games Spotlight",
     tag: "Play proud",
     tone: "portal",
+    /* Greg's "SASSY GAMES.jpg" (2026-10-17): a performer mid-song under
+       violet light, the crowd's hands up; a 16:9 window on the face */
+    media: {
+      kind: "image",
+      src: `${ASSETS}sassy-games.webp`,
+      alt: "A performer in a sequinned gown sings under violet light as the crowd reaches up",
+    },
     body: (
       <p>
         Join us as we welcome community leaders, proud players, allies,
