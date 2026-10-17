@@ -1006,8 +1006,11 @@ function AttractionCard({ attraction, side }: { attraction: Attraction; side: "a
             <span className="midway-card__label">{title}</span>
             {/* the glyph is the button (Greg, 2026-10-17): raised at rest,
                 pressed in while the description is open */}
-            <span className={`midway-card__mark${attraction.titleIcon ? " midway-card__mark--glyph" : ""}`} aria-hidden="true">
-              {attraction.titleIcon ? <Icon name={attraction.titleIcon} /> : open ? "\u2212" : "+"}
+            <span className="midway-card__ctl">
+              <span className={`midway-card__mark${attraction.titleIcon ? " midway-card__mark--glyph" : ""}`} aria-hidden="true">
+                {attraction.titleIcon ? <Icon name={attraction.titleIcon} /> : open ? "\u2212" : "+"}
+              </span>
+              <span className="midway-card__hint">Read into it</span>
             </span>
           </button>
         </h3>
