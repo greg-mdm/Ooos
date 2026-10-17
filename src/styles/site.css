@@ -5665,26 +5665,42 @@ textarea:focus-visible,
   cursor: pointer;
 }
 .midway-card__toggle:focus-visible { outline: 2px solid #F0C040; outline-offset: 4px; border-radius: 4px; }
+/* Neumorphic toggle: a disc of the card's own ground, lit from the top
+   left and shadowed to the bottom right so it stands proud; while the
+   description is open the shadows invert and it sits pressed in. */
 .midway-card__mark {
+  --nm-bg: #1b0b33;
   flex: none;
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   display: grid;
   place-items: center;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  border: 0;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--nm-bg) 88%, #ffffff), color-mix(in srgb, var(--nm-bg) 88%, #000000));
+  box-shadow:
+    5px 5px 12px rgba(0, 0, 0, 0.55),
+    -4px -4px 10px rgba(255, 255, 255, 0.07);
   font-family: var(--font-elevated, var(--sans));
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   font-weight: 500;
   line-height: 1;
-  color: rgba(255, 255, 255, 0.85);
-  transition: border-color 160ms ease, background 160ms ease;
+  color: rgba(255, 255, 255, 0.9);
+  transition: box-shadow 160ms ease, transform 160ms ease, color 160ms ease;
 }
-.midway-card__toggle:hover .midway-card__mark,
+.midway-card__mark .hicon { margin: 0; font-size: 1.35rem; vertical-align: 0; }
+.midway-card__toggle:hover .midway-card__mark { color: #ffffff; transform: translateY(-1px); }
 .midway-card.is-open .midway-card__mark {
-  border-color: color-mix(in srgb, var(--tone) 70%, #ffffff);
-  background: color-mix(in srgb, var(--tone) 35%, transparent);
+  transform: none;
+  background: var(--nm-bg);
+  box-shadow:
+    inset 4px 4px 10px rgba(0, 0, 0, 0.6),
+    inset -3px -3px 8px rgba(255, 255, 255, 0.06);
+  color: color-mix(in srgb, var(--tone) 60%, #ffffff);
 }
+.midway-card--a .midway-card__mark { --nm-bg: color-mix(in srgb, var(--tone-a) 14%, #140826); }
+.midway-card--b .midway-card__mark { --nm-bg: color-mix(in srgb, var(--tone-b) 14%, #140826); }
+@media (prefers-reduced-motion: reduce) { .midway-card__mark { transition: none; } .midway-card__toggle:hover .midway-card__mark { transform: none; } }
 .midway-card__text { padding: 2px 0 6px; }
 .midway-card__text p {
   margin: 0;
