@@ -517,7 +517,8 @@ type GalleryPiece = { id: string; title: string; credit?: string; media?: Media 
 const GALLERY: GalleryPiece[] = [
   {
     id: "shadow-painting",
-    title: "",
+    title: "Shadow",
+    credit: "Dennis McCormack",
     media: {
       kind: "image",
       src: `${ASSETS}national-gallery-shadow-painting.webp`,
@@ -847,14 +848,10 @@ function ShadowLot() {
           aria-controls="lot-about"
           onClick={() => setOpen((v) => !v)}
         >
-          <span>About the painting</span>
+          <span>About the artist</span>
           <span className="midway-card__mark" aria-hidden="true">{open ? "\u2212" : "+"}</span>
         </button>
         <div id="lot-about" className="lot__text" hidden={!open}>
-          <p>
-            Artist: Dennis McCormack<br />
-            From the series <em>&lsquo;Canvases of Old Dreams,&rsquo;</em> a private collection of abstract artworks.
-          </p>
           <p className="lot__quote">
             &ldquo;I started painting at 18. I had just aged out of the foster system and started making my own
             canvases from pillow slips: primed with a few coats, stretched by hand. I used many techniques and
