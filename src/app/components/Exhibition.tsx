@@ -1023,8 +1023,6 @@ function LotDetails() {
         <span>Opening bid $200 CAD</span>
         <span aria-hidden="true">·</span>
         <span>Highest bid at close wins</span>
-        <span aria-hidden="true">·</span>
-        <span>Closes November 15, 2026, 11:59 PM ET</span>
       </p>
       <p className="lot__fine">Framing is separate; options are quoted to the winner. Pickup in Toronto or shipping at cost.</p>
       <div className="lot__about">
@@ -1059,6 +1057,11 @@ function LotDetails() {
           height="1200"
           loading="lazy"
         />
+        {/* the closing date moved onto the picture (Greg, 2026-10-18): set
+            in the upper right on a dark pool that creeps in behind Shadow
+            and fades before it reaches her, the same device as the gallery
+            hero; the terms line above keeps the bid and the rule */}
+        <figcaption className="lot__art-date">Auction ends November 15, 2026, 11:59 PM ET</figcaption>
       </figure>
     </div>
   );
