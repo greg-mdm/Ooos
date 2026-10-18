@@ -698,6 +698,10 @@ function LoopVideo({ media }: { media: Extract<Media, { kind: "video" }> }) {
    visitor can unmute or scrub. Each clip fades up from black, so a frame
    from inside each (captured in the browser) is its poster. No webm yet. */
 type Clip = { mp4: string; poster: string; alt: string };
+/* The START card's picture: the ride's opening frame from the mouth of the
+   tunnel, cut tall (3:4) around the ENTER portal so the tablet shows the
+   portal whole (Greg, 2026-10-18). The 16:9 poster is the same frame. */
+const RIDE_POSTER_TALL = `${ASSETS}kayak-enter-tunnel-tall.jpg`;
 const KAYAK_RIDE: Clip[] = [
   {
     mp4: `${ASSETS}kayak%20enter%20tunnel.mp4`,
@@ -747,14 +751,14 @@ function FeatureVideo({ clips }: { clips: Clip[] }) {
 
   return (
     <figure ref={figRef} className={`exhibit-feature${started ? " is-open" : ""}`}>
-      {!started && (
-        <button type="button" className="ride-start" onClick={start} aria-label="Start the kayak ride video">
-          <img className="ride-start__poster" src={clips[0].poster} alt="" />
-          <span className="ride-start__label">
-            <Icon name="coaster" />
-            <span>Start</span>
-          </span>
-        </button>
+            {!started && (
+        <div className="ride-tablet">
+          <button type="button" className="ride-start ride-tablet__screen" onClick={start} aria-label="Start the kayak ride video">
+            <img className="ride-start__poster" src={RIDE_POSTER_TALL} alt="" />
+            <span className="ride-start__label"><Icon name="coaster" /><span>Start</span></span>
+          </button>
+          <span className="ride-tablet__chin" aria-hidden="true"><span className="ride-tablet__key" /><span className="ride-tablet__brand">Ooo!</span></span>
+        </div>
       )}
       {started && clips.map((c, i) => (
         <video
