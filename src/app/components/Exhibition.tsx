@@ -536,7 +536,8 @@ const ATTRACTIONS: Attraction[] = [
    shown side by side at the top of the programming (Greg, 2026-10-16: two
    feature pieces to come). Fill each slot's `media` when the art lands in
    public/assets/exhibition/; until then the slot holds a quiet panel. */
-type GalleryPiece = { id: string; title: string; credit?: string; media?: Media };
+type GalleryPiece = { id: string; title: string; credit?: string;
+  line?: string; media?: Media };
 
 /* The approved main video (Greg's "Shadow LEAKED - Preview 1.mp4",
    2026-10-17): Shadow and kin on the rainy plaza, 5 seconds, transcoded
@@ -564,6 +565,28 @@ const GALLERY: GalleryPiece[] = [
       kind: "image",
       src: `${ASSETS}national-gallery-shadow-painting.webp`,
       alt: "A shrouded white figure outlined in black, painted in thick strokes over a pink, blue and violet field",
+      frame: "tall",
+    },
+  },
+  /* the two renderings (Greg, 2026-10-18: these stay): the card portrait
+     cut from the approved still, with the approved line; and the silver
+     corridor rendering, Greg's pick, with no caption */
+  {
+    id: "shadow-card",
+    line: "Shadow is searching for home.",
+    media: {
+      kind: "image",
+      src: `${ASSETS}shadow-card-tall.webp`,
+      alt: "Shadow, a white sheet ghost with violet eyes and colour soaking up its hem, on the rainy plaza",
+      frame: "tall",
+    },
+  },
+  {
+    id: "shadow-silver",
+    media: {
+      kind: "image",
+      src: `${ASSETS}national-gallery-shadow-silver.webp`,
+      alt: "The same shrouded figure as liquid chrome, its cape flaring pink and blue in a white-silver corridor",
       frame: "tall",
     },
   },
@@ -898,21 +921,27 @@ function GalleryHero() {
    whole on the left, title, artist, terms, the bid and the folded note on
    the right, so the lot takes a band's width and not a column's height. */
 function GalleryLot() {
-  const piece = GALLERY[0];
   return (
     <section className="dicho dicho--gallery lot-spread" aria-labelledby="lot-title">
-      <figure className="lot-spread__pic">
-        {piece.media?.kind === "image" && (
-          <img className="lot-spread__img" src={piece.media.src} alt={piece.media.alt} loading="lazy" />
-        )}
-      </figure>
-      <div className="lot-spread__side">
-        <p className="gallery-piece__cap lot-spread__cap">
-          <span id="lot-title" className="gallery-piece__title"><Icon name="venn" />{piece.title}</span>
-          <span className="gallery-piece__credit">{piece.credit}</span>
-        </p>
-        <LotDetails />
+      <div className="lot-spread__row">
+        {GALLERY.map((piece) => (
+          <figure key={piece.id} className="lot-spread__piece">
+            <div className="lot-spread__pic">
+              {piece.media?.kind === "image" && (
+                <img className="lot-spread__img" src={piece.media.src} alt={piece.media.alt} loading="lazy" />
+              )}
+            </div>
+            {(piece.title || piece.credit || piece.line) && (
+              <figcaption className="gallery-piece__cap lot-spread__cap">
+                {piece.title && <span id={piece.id === "shadow-painting" ? "lot-title" : undefined} className="gallery-piece__title"><Icon name="venn" />{piece.title}</span>}
+                {piece.credit && <span className="gallery-piece__credit">{piece.credit}</span>}
+                {piece.line && <span className="gallery-piece__title lot-spread__line">{piece.line}</span>}
+              </figcaption>
+            )}
+          </figure>
+        ))}
       </div>
+      <LotDetails />
     </section>
   );
 }
