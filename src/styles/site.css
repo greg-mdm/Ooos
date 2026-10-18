@@ -5763,6 +5763,20 @@ textarea:focus-visible,
 .lot-spread .gallery-piece__title > .hicon { align-self: center; }
 .lot-spread__name { white-space: nowrap; }
 .lot-spread__tag { font-weight: 500; font-size: 0.78em; opacity: 0.85; white-space: nowrap; }
+/* the first card as a museum hang (Greg, 2026-10-18): the title on its own
+   card above the painting, the name big with the symbol after it; the
+   byline on the smaller card beneath */
+.lot-spread__head { padding: 16px 18px 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+.lot-spread .lot-spread__title-big {
+  font-family: var(--font-heading); font-size: clamp(1.5rem, 2.3vw, 2rem); font-weight: 700; line-height: 1.1;
+  letter-spacing: 0.08em; text-transform: uppercase; color: #ffffff; column-gap: 0.45em;
+}
+.lot-spread .lot-spread__title-big > .hicon { font-size: 0.9em; }
+.lot-spread__byline { font-size: 0.95rem; line-height: 1.45; }
+.lot-spread__piece--1 .lot-spread__cap { padding: 12px 18px 16px; }
+/* the second picture anchored to its foot, so the ceiling is what is cut */
+.lot-spread__pic { overflow: hidden; }
+.lot-spread__img--bottom { object-position: 50% 100%; transform: scale(1.1); transform-origin: 50% 100%; }
 /* the one line over the third picture, on a translucent band */
 .lot-spread__line {
   position: absolute; left: 0; right: 0; bottom: 0;

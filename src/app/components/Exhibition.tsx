@@ -536,7 +536,12 @@ const ATTRACTIONS: Attraction[] = [
    shown side by side at the top of the programming (Greg, 2026-10-16: two
    feature pieces to come). Fill each slot's `media` when the art lands in
    public/assets/exhibition/; until then the slot holds a quiet panel. */
-type GalleryPiece = { id: string; title?: string; tag?: string; credit?: string; line?: string; share?: boolean; bid?: boolean; media?: Media };
+/* `head`: the title sits on its own card above the picture, the name in
+   big type with the symbol, and the caption beneath carries only the
+   byline, the way a museum label hangs under a painting (Greg,
+   2026-10-18). `crop: "bottom"` anchors the picture to its foot so the
+   top is what gets cut. */
+type GalleryPiece = { id: string; title?: string; tag?: string; credit?: string; line?: string; share?: boolean; bid?: boolean; head?: boolean; crop?: "bottom"; media?: Media };
 
 /* The approved main video (Greg's "Shadow LEAKED - Preview 1.mp4",
    2026-10-17): Shadow and kin on the rainy plaza, 5 seconds, transcoded
@@ -561,8 +566,8 @@ const GALLERY: GalleryPiece[] = [
   {
     id: "shadow-painting",
     title: "Shadow",
-    tag: "[Original Painting]",
-    credit: "Dennis McCormack",
+    head: true,
+    credit: "Abstract painting by Dennis McCormack",
     media: {
       kind: "image",
       src: `${ASSETS}national-gallery-shadow-painting.webp`,
@@ -576,8 +581,8 @@ const GALLERY: GalleryPiece[] = [
   {
     id: "shadow-silver",
     title: "Shadow Twin",
-    tag: "[In hyperreality]",
     credit: "Digitized by Ooo!",
+    crop: "bottom",
     media: {
       kind: "image",
       src: `${ASSETS}national-gallery-shadow-silver.webp`,
@@ -938,15 +943,23 @@ function GalleryLot() {
       <div className="lot-spread__row">
         {GALLERY.map((piece, i) => (
           <figure key={piece.id} className={`lot-spread__piece lot-spread__piece--${i + 1}`}>
+            {piece.head && piece.title && (
+              <header className="lot-spread__head">
+                <span id={piece.id === "shadow-painting" ? "lot-title" : undefined} className="gallery-piece__title lot-spread__title-big">
+                  <span className="lot-spread__name">{piece.title}</span>
+                  <Icon name="venn" />
+                </span>
+              </header>
+            )}
             <div className="lot-spread__pic">
               {piece.media?.kind === "image" && (
-                <img className="lot-spread__img" src={piece.media.src} alt={piece.media.alt} loading="lazy" />
+                <img className={`lot-spread__img${piece.crop === "bottom" ? " lot-spread__img--bottom" : ""}`} src={piece.media.src} alt={piece.media.alt} loading="lazy" />
               )}
               {piece.line && <span className="lot-spread__line">{piece.line}</span>}
             </div>
             <figcaption className="lot-spread__cap">
-              {piece.title && <span id={piece.id === "shadow-painting" ? "lot-title" : undefined} className="gallery-piece__title"><Icon name="venn" /><span className="lot-spread__name">{piece.title}</span>{piece.tag && <span className="lot-spread__tag">{piece.tag}</span>}</span>}
-              {piece.credit && <span className="gallery-piece__credit">{piece.credit}</span>}
+              {piece.title && !piece.head && <span id={piece.id === "shadow-painting" ? "lot-title" : undefined} className="gallery-piece__title"><Icon name="venn" /><span className="lot-spread__name">{piece.title}</span>{piece.tag && <span className="lot-spread__tag">{piece.tag}</span>}</span>}
+              {piece.credit && <span className={`gallery-piece__credit${piece.head ? " lot-spread__byline" : ""}`}>{piece.credit}</span>}
               {piece.share && <ShareLink />}
               {piece.bid && <BidButton />}
             </figcaption>
