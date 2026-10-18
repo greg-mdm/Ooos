@@ -5787,9 +5787,14 @@ textarea:focus-visible,
 .lot-spread .lot-spread__title-big > .hicon { font-size: 0.9em; }
 .lot-spread__byline { font-size: 0.95rem; line-height: 1.45; }
 .lot-spread__piece--1 .lot-spread__cap { padding: 12px 18px 16px; }
-/* the second picture anchored to its foot, so the ceiling is what is cut */
+/* the second picture runs down to the same line as the painting beside it
+   (Greg, 2026-10-18): its box fills the card above the caption rather than
+   keeping the tall ratio, so the picture is taller than its own shape,
+   the full figure and head in view and only the corridor walls cut */
 .lot-spread__pic { overflow: hidden; }
-.lot-spread__img--bottom { object-position: 50% 100%; transform: scale(1.1); transform-origin: 50% 100%; }
+.lot-spread__piece--2 .lot-spread__pic { aspect-ratio: auto; flex: 1 1 0; min-height: 0; }
+.lot-spread__piece--2 .lot-spread__cap { flex: 0 0 auto; padding: 10px 18px 12px; }
+.lot-spread__img--bottom { object-position: 50% 50%; }
 /* the one line over the third picture, on a translucent band */
 .lot-spread__line {
   position: absolute; left: 0; right: 0; bottom: 0;
