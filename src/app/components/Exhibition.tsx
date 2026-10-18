@@ -537,14 +537,6 @@ const ATTRACTIONS: Attraction[] = [
    public/assets/exhibition/; until then the slot holds a quiet panel. */
 type GalleryPiece = { id: string; title: string; credit?: string; media?: Media };
 
-/* The card portrait, cut from the approved still so Shadow's build matches
-   the video (Greg, 2026-10-18); it sits in the lot panel beside the
-   searching-for-home line. */
-const SHADOW_CARD = {
-  src: `${ASSETS}shadow-card-tall.webp`,
-  alt: "Shadow, a white sheet ghost with violet eyes and colour soaking up its hem, on the rainy plaza",
-};
-
 /* The approved main video (Greg's "Shadow LEAKED - Preview 1.mp4",
    2026-10-17): Shadow and kin on the rainy plaza, 5 seconds, transcoded
    to H.264 and VP9 for the web, muted loop; its poster is the "Hopeful
@@ -915,7 +907,6 @@ function GallerySpread() {
             {piece.id === "shadow-painting" && <LotDetails />}
           </figure>
         ))}
-        <ShadowLot />
       </div>
     </section>
   );
@@ -974,18 +965,6 @@ function LotDetails() {
 
 /* The character, the campaign's digital side (not for sale): the card
    portrait and the one approved line. */
-function ShadowLot() {
-  return (
-    <div className="lot lot--card" aria-labelledby="lot-title">
-      <div className="lot__pic">
-        <img className="lot__img" src={SHADOW_CARD.src} alt={SHADOW_CARD.alt} loading="lazy" />
-      </div>
-      <div className="lot__body">
-        <p id="lot-title" className="lot__title">Shadow is searching for home.</p>
-      </div>
-    </div>
-  );
-}
 
 /* One contrast on one ground: the two tags either side of a seam, then the
    two attractions side by side (stacked on a phone). The ground runs from
