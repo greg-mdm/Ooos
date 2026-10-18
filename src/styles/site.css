@@ -5469,8 +5469,12 @@ textarea:focus-visible,
 .lot__img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .lot__body { padding: 18px 20px 20px; }
 .lot--card .lot__title { font-size: clamp(1.3rem, 1.9vw, 1.6rem); margin-bottom: 14px; }
-.lot--card .lot__terms { font-size: 0.78rem; margin-top: 4px; }
-.lot--card .lot__cta, .lot--card .lot__closed { display: inline-block; margin-top: 14px; }
+.lot--card .lot__title { margin-bottom: 0; }
+/* the bid details under the painting's caption */
+.lot--painting { border-top: 1px solid rgba(255, 255, 255, 0.06); padding: 14px 20px 20px; }
+.lot--painting .lot__terms { font-size: 0.78rem; }
+.lot--painting .lot__cta, .lot--painting .lot__closed { display: inline-block; margin-top: 14px; }
+.lot--painting .lot__about { margin-top: 12px; }
 .lot--card .lot__about { margin-top: 12px; }
 @media (max-width: 640px) {
   .lot__actions { grid-template-columns: minmax(0, 1fr); }
