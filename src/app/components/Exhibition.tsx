@@ -556,6 +556,8 @@ const SHADOW_HOST: Extract<Media, { kind: "video" }> = {
    folder. The violet-corridor rendering is cut too
    (national-gallery-shadow-violet.webp) if the pair should swap. */
 const GALLERY: GalleryPiece[] = [
+  /* the painting as before (Greg, 2026-10-18): the picture whole in its
+     frame, nothing laid over it, its title and credit beneath */
   {
     id: "shadow-painting",
     title: "Shadow",
