@@ -536,8 +536,7 @@ const ATTRACTIONS: Attraction[] = [
    shown side by side at the top of the programming (Greg, 2026-10-16: two
    feature pieces to come). Fill each slot's `media` when the art lands in
    public/assets/exhibition/; until then the slot holds a quiet panel. */
-type GalleryPiece = { id: string; title: string; credit?: string;
-  line?: string; media?: Media };
+type GalleryPiece = { id: string; title?: string; credit?: string; line?: string; share?: boolean; bid?: boolean; media?: Media };
 
 /* The approved main video (Greg's "Shadow LEAKED - Preview 1.mp4",
    2026-10-17): Shadow and kin on the rainy plaza, 5 seconds, transcoded
@@ -568,25 +567,27 @@ const GALLERY: GalleryPiece[] = [
       frame: "tall",
     },
   },
-  /* the two renderings (Greg, 2026-10-18: these stay): the card portrait
-     cut from the approved still, with the approved line; and the silver
-     corridor rendering, Greg's pick, with no caption */
-  {
-    id: "shadow-card",
-    line: "Shadow is searching for home.",
-    media: {
-      kind: "image",
-      src: `${ASSETS}shadow-card-tall.webp`,
-      alt: "Shadow, a white sheet ghost with violet eyes and colour soaking up its hem, on the rainy plaza",
-      frame: "tall",
-    },
-  },
+  /* the two renderings (Greg, 2026-10-18): the silver corridor rendering
+     second, beside the original, with a Share link; the card portrait cut
+     from the approved still third, with the approved line and the bid */
   {
     id: "shadow-silver",
+    share: true,
     media: {
       kind: "image",
       src: `${ASSETS}national-gallery-shadow-silver.webp`,
       alt: "The same shrouded figure as liquid chrome, its cape flaring pink and blue in a white-silver corridor",
+      frame: "tall",
+    },
+  },
+  {
+    id: "shadow-card",
+    line: "Shadow is searching for a home",
+    bid: true,
+    media: {
+      kind: "image",
+      src: `${ASSETS}shadow-card-tall.webp`,
+      alt: "Shadow, a white sheet ghost with violet eyes and colour soaking up its hem, on the rainy plaza",
       frame: "tall",
     },
   },
@@ -931,18 +932,50 @@ function GalleryLot() {
                 <img className="lot-spread__img" src={piece.media.src} alt={piece.media.alt} loading="lazy" />
               )}
             </div>
-            {(piece.title || piece.credit || piece.line) && (
-              <figcaption className="gallery-piece__cap lot-spread__cap">
-                {piece.title && <span id={piece.id === "shadow-painting" ? "lot-title" : undefined} className="gallery-piece__title"><Icon name="venn" />{piece.title}</span>}
-                {piece.credit && <span className="gallery-piece__credit">{piece.credit}</span>}
-                {piece.line && <span className="gallery-piece__title lot-spread__line">{piece.line}</span>}
-              </figcaption>
-            )}
+            <figcaption className="gallery-piece__cap lot-spread__cap">
+              {piece.title && <span id={piece.id === "shadow-painting" ? "lot-title" : undefined} className="gallery-piece__title"><Icon name="venn" />{piece.title}</span>}
+              {piece.credit && <span className="gallery-piece__credit">{piece.credit}</span>}
+              {piece.line && <span className="gallery-piece__title lot-spread__line">{piece.line}</span>}
+              {piece.share && <ShareLink />}
+              {piece.bid && <BidButton />}
+            </figcaption>
           </figure>
         ))}
       </div>
       <LotDetails />
     </section>
+  );
+}
+
+/* Share: the page's own share sheet where there is one (phones, Safari,
+   Edge); elsewhere the link is copied and the label says so for a moment. */
+function ShareLink() {
+  const [done, setDone] = useState(false);
+  const share = async () => {
+    const url = `${window.location.origin}${window.location.pathname}#midway-national-gallery`;
+    const data = { title: "Shadow, rendered", url };
+    try {
+      if (navigator.share) { await navigator.share(data); return; }
+      await navigator.clipboard.writeText(url);
+      setDone(true); window.setTimeout(() => setDone(false), 1800);
+    } catch { /* the visitor closed the sheet */ }
+  };
+  return (
+    <button type="button" className="lot-spread__share" onClick={share} aria-live="polite">
+      {done ? "Link copied" : "Share"}
+    </button>
+  );
+}
+
+/* The bid button, under the campaign card (Greg, 2026-10-18). */
+function BidButton() {
+  const closed = Date.now() >= AUCTION_CLOSE.getTime();
+  return closed ? (
+    <span className="lot__closed lot-spread__bid">Bidding closed</span>
+  ) : (
+    <a className="lot__cta lot-spread__bid" href={BID_FORM_URL} target="_blank" rel="noopener noreferrer">
+      Place a bid
+    </a>
   );
 }
 
@@ -956,7 +989,6 @@ const AUCTION_CLOSE = new Date("2026-11-16T04:59:00Z"); // Nov 15, 11:59 PM ET
 
 function LotDetails() {
   const [open, setOpen] = useState(false);
-  const closed = Date.now() >= AUCTION_CLOSE.getTime();
   return (
     <div className="lot lot--painting">
       <p className="lot__terms">
@@ -967,13 +999,6 @@ function LotDetails() {
         <span>Closes November 15, 2026, 11:59 PM ET</span>
       </p>
       <p className="lot__fine">Framing is separate; options are quoted to the winner. Pickup in Toronto or shipping at cost.</p>
-      {closed ? (
-        <span className="lot__closed">Bidding closed</span>
-      ) : (
-        <a className="lot__cta" href={BID_FORM_URL} target="_blank" rel="noopener noreferrer">
-          Place a bid
-        </a>
-      )}
       <div className="lot__about">
         <button
           type="button"
