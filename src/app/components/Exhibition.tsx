@@ -536,7 +536,7 @@ const ATTRACTIONS: Attraction[] = [
    shown side by side at the top of the programming (Greg, 2026-10-16: two
    feature pieces to come). Fill each slot's `media` when the art lands in
    public/assets/exhibition/; until then the slot holds a quiet panel. */
-type GalleryPiece = { id: string; title?: string; credit?: string; line?: string; share?: boolean; bid?: boolean; media?: Media };
+type GalleryPiece = { id: string; title?: string; tag?: string; credit?: string; line?: string; share?: boolean; bid?: boolean; media?: Media };
 
 /* The approved main video (Greg's "Shadow LEAKED - Preview 1.mp4",
    2026-10-17): Shadow and kin on the rainy plaza, 5 seconds, transcoded
@@ -561,6 +561,7 @@ const GALLERY: GalleryPiece[] = [
   {
     id: "shadow-painting",
     title: "Shadow",
+    tag: "[Original Painting]",
     credit: "Dennis McCormack",
     media: {
       kind: "image",
@@ -574,6 +575,9 @@ const GALLERY: GalleryPiece[] = [
      from the approved still third, with the approved line and the bid */
   {
     id: "shadow-silver",
+    title: "Shadow Twin",
+    tag: "[In hyperreality]",
+    credit: "Digitized by Ooo!",
     share: true,
     media: {
       kind: "image",
@@ -935,7 +939,7 @@ function GalleryLot() {
               )}
             </div>
             <figcaption className="gallery-piece__cap lot-spread__cap">
-              {piece.title && <span id={piece.id === "shadow-painting" ? "lot-title" : undefined} className="gallery-piece__title"><Icon name="venn" />{piece.title}</span>}
+              {piece.title && <span id={piece.id === "shadow-painting" ? "lot-title" : undefined} className="gallery-piece__title"><Icon name="venn" /><span className="lot-spread__name">{piece.title}</span>{piece.tag && <span className="lot-spread__tag">{piece.tag}</span>}</span>}
               {piece.credit && <span className="gallery-piece__credit">{piece.credit}</span>}
               {piece.line && <span className="gallery-piece__title lot-spread__line">{piece.line}</span>}
               {piece.share && <ShareLink />}
