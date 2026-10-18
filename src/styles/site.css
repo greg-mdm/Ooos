@@ -5693,11 +5693,13 @@ textarea:focus-visible,
 }
 .gallery-hero__media { position: absolute; inset: 0; }
 .gallery-hero__media .midway-card__video { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; }
+/* The contrast gradient (Greg, 2026-10-18): one dark pool in the lower
+   right behind the words, fading out on a diagonal before it reaches
+   Shadow or the kin, nothing laid over the rest of the picture. */
 .gallery-hero::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
-  background:
-    linear-gradient(180deg, rgba(6, 2, 28, 0.35) 0%, transparent 28%, transparent 55%, rgba(6, 2, 28, 0.82) 100%),
-    linear-gradient(90deg, transparent 45%, rgba(6, 2, 28, 0.35) 100%);
+  background: radial-gradient(ellipse 72% 92% at 100% 100%,
+    rgba(6, 2, 28, 0.9) 0%, rgba(6, 2, 28, 0.78) 38%, rgba(6, 2, 28, 0.4) 60%, rgba(6, 2, 28, 0) 76%);
 }
 .gallery-hero__words {
   position: absolute; z-index: 1; right: clamp(24px, 5vw, 72px); bottom: clamp(22px, 4vw, 48px);
@@ -5715,16 +5717,27 @@ textarea:focus-visible,
   color: #ffffff; text-shadow: 0 2px 24px rgba(0, 0, 0, 0.55);
 }
 .gallery-hero__cap {
-  margin-top: 6px;
-  font-family: var(--font-elevated, var(--sans)); font-size: clamp(0.82rem, 1.2vw, 1rem); font-weight: 700;
-  letter-spacing: 0.22em; text-transform: uppercase; color: rgba(240, 192, 64, 0.95);
-  display: inline-flex; align-items: center; gap: 0.6em;
+  font-family: var(--font-elevated, var(--sans)); font-size: clamp(0.72rem, 1vw, 0.9rem); font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase; color: rgba(240, 192, 64, 0.95);
 }
-.gallery-hero__wordmark { display: block; height: 1.9em; width: auto; filter: drop-shadow(0 1px 2px rgba(3, 1, 10, 0.6)); }
+/* the host line in a disc at the lower left: dark glass, a hairline, the
+   wordmark over the line, both centred; it is taken out of the words
+   column and placed on the hero itself */
+.gallery-hero__disc {
+  position: absolute; z-index: 1; left: clamp(24px, 5vw, 72px); bottom: clamp(22px, 4vw, 48px);
+  width: clamp(150px, 17vw, 230px); aspect-ratio: 1 / 1; border-radius: 50%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5em;
+  padding: clamp(16px, 1.6vw, 26px); box-sizing: border-box; text-align: center; line-height: 1.35;
+  background: rgba(6, 2, 28, 0.62); border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 12px 40px rgba(3, 1, 10, 0.45), inset 0 0 0 1px rgba(6, 2, 28, 0.3);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.gallery-hero__wordmark { display: block; height: 2.4em; width: auto; filter: drop-shadow(0 1px 2px rgba(3, 1, 10, 0.6)); }
 @media (max-width: 720px) {
   .gallery-hero { height: auto; aspect-ratio: 4 / 3; }
   .gallery-hero__words { left: 20px; right: 20px; bottom: 18px; max-width: none; align-items: flex-start; text-align: left; }
   .gallery-hero::after { background: linear-gradient(180deg, transparent 40%, rgba(6, 2, 28, 0.88) 100%); }
+  .gallery-hero__disc { left: auto; right: 16px; top: 16px; bottom: auto; width: 118px; font-size: 0.6rem; }
 }
 
 /* The lot spread (Greg, 2026-10-18): three cards, darker on the left to
