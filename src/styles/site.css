@@ -5317,31 +5317,34 @@ textarea:focus-visible,
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
 }
 .exhibit-ride-row:has(.exhibit-feature.is-open) .exhibit-anatomy { grid-column: 1 / -1; }
-/* the tablet: a violet metal bezel with a cyan hairline, like the phones' frame */
+/* the tablet: a violet metal bezel with a cyan hairline, like the phones'
+   frame. The phone artwork has clear canvas above and below its frame
+   (1.81% and 2.85%), so the tablet is inset the same and its screen lands
+   on the phones' screen lines (5.43% to 92.6% of the row). */
 .ride-tablet {
-  position: absolute; inset: 0;
+  position: absolute; inset: 1.81% 0 2.85% 0;
   border-radius: clamp(18px, 3.2vw, 34px);
   background: linear-gradient(160deg, #6a1fe0 0%, #3d0b9c 28%, #24065e 55%, #4b12b4 100%);
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25), inset 0 -2px 6px rgba(0, 0, 0, 0.6);
 }
 .ride-tablet::before {
-  content: ""; position: absolute; inset: 2.2% 3.2%; pointer-events: none;
+  content: ""; position: absolute; inset: 1.6% 2.6%; pointer-events: none;
   border-radius: clamp(12px, 2.4vw, 26px);
   border: 1.5px solid rgba(106, 227, 224, 0.7);
   box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.55);
 }
 .ride-tablet__screen {
-  position: absolute; top: 5.27%; left: 5.2%; width: 89.6%; height: 87.45%;
+  position: absolute; top: 3.8%; left: 5.2%; width: 89.6%; height: 91.4%;
   margin: 0; padding: 0; border: 0; background: #040608; cursor: pointer;
   border-radius: clamp(8px, 1.4vw, 16px); overflow: hidden;
   display: grid; place-items: end center; padding-bottom: 9%;
 }
 .ride-tablet__chin {
-  position: absolute; left: 5.2%; right: 5.2%; bottom: 0; height: 7.28%;
+  position: absolute; left: 5.2%; right: 5.2%; bottom: 0; height: 4.8%;
   display: flex; align-items: center; justify-content: center; gap: 8px;
 }
 .ride-tablet__key {
-  width: clamp(44px, 16%, 90px); height: clamp(8px, 1.4vw, 13px); border-radius: 999px;
+  width: clamp(40px, 14%, 80px); height: clamp(6px, 0.9vw, 9px); border-radius: 999px;
   background: linear-gradient(180deg, #5a1ac9, #2a0770); box-shadow: inset 0 1px 1px rgba(255,255,255,0.3), 0 1px 2px rgba(0,0,0,0.6);
 }
 .ride-start__poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; opacity: 0.92; }
