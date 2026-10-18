@@ -5489,6 +5489,8 @@ textarea:focus-visible,
   gap: clamp(20px, 3vw, 36px);
   padding: 0 clamp(16px, 2.5vw, 28px) clamp(16px, 2.5vw, 28px);
 }
+/* the gallery holds the painting alone now (Greg, 2026-10-18): one column, centred */
+.dicho__sides--lot { grid-template-columns: minmax(0, 560px); justify-content: center; }
 .dicho__sides > * {
   border-radius: 14px;
   overflow: hidden;
