@@ -531,6 +531,19 @@ const ATTRACTIONS: Attraction[] = [
    feature pieces to come). Fill each slot's `media` when the art lands in
    public/assets/exhibition/; until then the slot holds a quiet panel. */
 type GalleryPiece = { id: string; title: string; credit?: string; media?: Media };
+
+/* The approved main video (Greg's "Shadow LEAKED - Preview 1.mp4",
+   2026-10-17): Shadow and kin on the rainy plaza, 5 seconds, transcoded
+   to H.264 and VP9 for the web, muted loop; its poster is the "Hopeful
+   Shadow - FINAL ART" still. Featured across the top of the gallery
+   spread with the approved line. */
+const SHADOW_HOST: Extract<Media, { kind: "video" }> = {
+  kind: "video",
+  mp4: `${ASSETS}shadow-host.mp4`,
+  webm: `${ASSETS}shadow-host.webm`,
+  poster: `${ASSETS}shadow-host-poster.webp`,
+  alt: "Shadow, a white sheet ghost, stands on a rainy Toronto plaza of painted lines and looks around; a small hooded kin trails far behind with bubbles",
+};
 /* Greg's "Shadow" (IMG_2568, 2026-10-17): the Shadow Flash painting, then
    its digital rendering in a silver corridor (Greg's pick, 2026-10-17).
    Both cut to the tall frame (1150 x 1592) from the originals in this
@@ -549,13 +562,14 @@ const GALLERY: GalleryPiece[] = [
     },
   },
   {
-    id: "shadow-silver",
+    /* Greg's "Shadow - Real Pink Brick - Card size.png" (2026-10-17), the
+       mascot on the parkette brick, cut to the tall frame */
+    id: "shadow-card",
     title: "Shadow, rendered",
-    credit: "Ooo! Meet our Halloween host",
     media: {
       kind: "image",
-      src: `${ASSETS}national-gallery-shadow-silver.webp`,
-      alt: "The same shrouded figure as liquid chrome, its cape flaring pink and blue in a white-silver corridor",
+      src: `${ASSETS}shadow-card-tall.webp`,
+      alt: "Shadow, a white sheet ghost with violet eyes and colour soaking up its hem, on wet pink brick scattered with leaves",
       frame: "tall",
     },
   },
@@ -856,6 +870,12 @@ function GallerySpread() {
         <span className="dicho__tag dicho__tag--a">Digital Art Influencers</span>
         <h3 id="midway-national-gallery" className="dicho__title">National Gallery</h3>
       </header>
+      <figure className="gallery-feature">
+        <div className="gallery-feature__media">
+          <LoopVideo media={SHADOW_HOST} />
+        </div>
+        <figcaption className="gallery-feature__cap">Ooo! Meet our Halloween host</figcaption>
+      </figure>
       <div className="dicho__sides">
         {GALLERY.map((piece, i) => (
           <figure key={piece.id} className="gallery-piece">
