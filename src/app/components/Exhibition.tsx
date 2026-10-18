@@ -138,13 +138,17 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
           not a local fair). The Idea Accelerator plays a short muted loop;
           attractions without art hold a quiet slot. Add an attraction's art
           by filling in its `media` entry in ATTRACTIONS. */}
-      <section className="exhibit-midway" aria-labelledby="exhibit-midway-heading">
+      <section className="exhibit-midway" aria-labelledby="midway-national-gallery">
+        {/* The National Gallery leads the band (Greg, 2026-10-18): the host
+            video edge to edge as a hero, its words set on the picture, then
+            the painting with its text beside it, then the three media cards,
+            then the programming. It is outside, in Toronto, so it gets the
+            whole width. */}
+        <GalleryHero />
         <div className="exhibit-band exhibit-midway__inner">
-          {/* The kayak ride, widescreen, above the phones (Greg, 2026-10-13):
-              scene one into the tunnel, scene two past the portal, played
-              as one run. */}
+          <GalleryLot />
           {/* The three media cards on one row (Greg, 2026-10-18): the kayak
-              ride as a card that only plays on START (no autoplay; the ride
+              ride in a tablet that only plays on RIDE (no autoplay; the ride
               flips perspective, so the visitor chooses it), then the two
               anatomy phones. Started, the ride takes the full row. */}
           <div className="exhibit-ride-row">
@@ -156,15 +160,12 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
           <h2 id="exhibit-midway-heading" className="exhibit-midway__heading">
             Interactive Programming
           </h2>
-          {/* The programming reads as one spread and three contrasts (Greg,
-              2026-10-16): the National Gallery first, two featured pieces
-              side by side; then each remaining pair as a dichotomy on one
-              ground, its two tags either side of a single seam. Descriptions
-              stay folded until a visitor taps a title (progressive
-              disclosure), so the band reads as a quiet playground, not a
-              fairground of placards. */}
+          {/* Three contrasts (Greg, 2026-10-16): each pair as a dichotomy on
+              one ground, its two tags either side of a single seam.
+              Descriptions stay folded until a visitor taps a title
+              (progressive disclosure), so the band reads as a quiet
+              playground, not a fairground of placards. */}
           <div className="exhibit-midway__stack">
-            <GallerySpread />
             {PAIRS.map((pair) => (
               <DichotomyPair key={pair.id} pair={pair} />
             ))}
@@ -874,43 +875,41 @@ function Icon({ name }: { name: IconName }) {
   );
 }
 
-function GallerySpread() {
+/* The hero: the host loop edge to edge, the gallery's words set on the
+   picture's lower right (Shadow stands at the left), over a soft scrim. */
+function GalleryHero() {
   return (
-    <section className="dicho dicho--gallery dicho--tall" aria-labelledby="midway-national-gallery">
-      <header className="dicho__head">
-        <span className="dicho__tag dicho__tag--a">Digital Art Influencers</span>
-        <h3 id="midway-national-gallery" className="dicho__title">National Gallery</h3>
-      </header>
-      <figure className="gallery-feature">
-        <div className="gallery-feature__media">
-          <LoopVideo media={SHADOW_HOST} />
-        </div>
-        <figcaption className="gallery-feature__cap">Ooo! Meet our Halloween host</figcaption>
+    <figure className="gallery-hero">
+      <div className="gallery-hero__media">
+        <LoopVideo media={SHADOW_HOST} />
+      </div>
+      <figcaption className="gallery-hero__words">
+        <span className="gallery-hero__tag">Digital Art Influencers</span>
+        <h3 id="midway-national-gallery" className="gallery-hero__title">National Gallery</h3>
+        <span className="gallery-hero__cap">Ooo! Meet our Halloween host</span>
+      </figcaption>
+    </figure>
+  );
+}
+
+/* The painting with its text beside it (Greg, 2026-10-18): the picture
+   whole on the left, title, artist, terms, the bid and the folded note on
+   the right, so the lot takes a band's width and not a column's height. */
+function GalleryLot() {
+  const piece = GALLERY[0];
+  return (
+    <section className="dicho dicho--gallery lot-spread" aria-labelledby="lot-title">
+      <figure className="lot-spread__pic">
+        {piece.media?.kind === "image" && (
+          <img className="lot-spread__img" src={piece.media.src} alt={piece.media.alt} loading="lazy" />
+        )}
       </figure>
-      <div className="dicho__sides dicho__sides--lot">
-        {GALLERY.map((piece, i) => (
-          <figure key={piece.id} className="gallery-piece">
-            <div className={`midway-card__media${piece.media?.kind === "image" && piece.media.frame === "tall" ? " midway-card__media--tall" : ""}`}>
-              {piece.media?.kind === "video" && <LoopVideo media={piece.media} />}
-              {piece.media?.kind === "image" && (
-                <img className="midway-card__img" src={piece.media.src} alt={piece.media.alt} loading="lazy" />
-              )}
-              {!piece.media && (
-                <div className="midway-card__slot" aria-hidden="true">
-                  <span className="midway-card__slot-no">{String(i + 1).padStart(2, "0")}</span>
-                </div>
-              )}
-            </div>
-            {(piece.title || piece.credit) && (
-              <figcaption className="gallery-piece__cap">
-                {piece.title && <span className="gallery-piece__title"><Icon name="venn" />{piece.title}</span>}
-                {piece.credit && <span className="gallery-piece__credit">{piece.credit}</span>}
-              </figcaption>
-            )}
-            {/* the bid belongs with the painting (Greg, 2026-10-18) */}
-            {piece.id === "shadow-painting" && <LotDetails />}
-          </figure>
-        ))}
+      <div className="lot-spread__side">
+        <p className="gallery-piece__cap lot-spread__cap">
+          <span id="lot-title" className="gallery-piece__title"><Icon name="venn" />{piece.title}</span>
+          <span className="gallery-piece__credit">{piece.credit}</span>
+        </p>
+        <LotDetails />
       </div>
     </section>
   );
