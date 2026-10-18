@@ -651,7 +651,9 @@ function TapVideo({ media }: { media: Extract<Media, { kind: "video" }> }) {
 
 /* Muted, looping card art. Plays only while on screen, and not at all for
    visitors who asked for reduced motion (they get the poster). */
-function LoopVideo({ media }: { media: Extract<Media, { kind: "video" }> }) {
+/* `once`: play through a single time when it comes into view and hold the
+   last frame (the hero: Shadow turns, turns back, and stays). */
+function LoopVideo({ media, once = false }: { media: Extract<Media, { kind: "video" }>; once?: boolean }) {
   const ref = useRef<HTMLVideoElement>(null);
   useEffect(() => {
     const el = ref.current;
@@ -659,20 +661,20 @@ function LoopVideo({ media }: { media: Extract<Media, { kind: "video" }> }) {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) el.play().catch(() => {});
+        if (entry.isIntersecting) { if (!(once && el.ended)) el.play().catch(() => {}); }
         else el.pause();
       },
       { threshold: 0.25 }
     );
     io.observe(el);
     return () => io.disconnect();
-  }, []);
+  }, [once]);
   return (
     <video
       ref={ref}
       className="midway-card__video"
       muted
-      loop
+      loop={!once}
       playsInline
       preload="metadata"
       poster={media.poster}
@@ -881,7 +883,7 @@ function GalleryHero() {
   return (
     <figure className="gallery-hero">
       <div className="gallery-hero__media">
-        <LoopVideo media={SHADOW_HOST} />
+        <LoopVideo media={SHADOW_HOST} once />
       </div>
       <figcaption className="gallery-hero__words">
         <span className="gallery-hero__tag">Digital Art Influencers</span>
