@@ -5283,39 +5283,73 @@ textarea:focus-visible,
    beneath it. */
 .exhibit-ride-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
-  align-items: start;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 5fr);
+  align-items: stretch;
   gap: clamp(12px, 2vw, 24px);
   max-width: 1200px;
   margin: 0 auto clamp(18px, 3vw, 36px);
 }
 .exhibit-ride-row .exhibit-anatomy { margin: 0; }
 .exhibit-ride-row .ooo-exhibit { padding: 0; }
-.exhibit-ride-row .ooo-exhibit__pair { width: 100%; }
+.exhibit-ride-row .ooo-exhibit__pair { width: 100%; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.exhibit-ride-row .ooo-device { width: 100%; }
+/* Closed, the ride is a tablet standing as tall as the two phones beside
+   it (the row's height comes from them); its width is the wider column. */
 .exhibit-feature {
   position: relative;
   margin: 0;
   width: 100%;
-  aspect-ratio: 863 / 1823;
+  min-height: 100%;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+  box-shadow: none;
+}
+.exhibit-feature.is-open {
+  grid-column: 1 / -1;
+  min-height: 0;
+  aspect-ratio: 16 / 9;
   background: #0F031C;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(240, 192, 64, 0.35);
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
 }
-.exhibit-feature.is-open {
-  grid-column: 1 / -1;
-  aspect-ratio: 16 / 9;
-  border-color: rgba(240, 192, 64, 0.35);
-}
 .exhibit-ride-row:has(.exhibit-feature.is-open) .exhibit-anatomy { grid-column: 1 / -1; }
-/* the START card: the ride's poster with one neumorphic button */
-.ride-start {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  margin: 0; padding: 0; border: 0; background: #0F031C; cursor: pointer;
-  display: grid; place-items: center;
+/* the tablet: a violet metal bezel with a cyan hairline, like the phones' frame */
+.ride-tablet {
+  position: absolute; inset: 0;
+  border-radius: clamp(18px, 3.2vw, 34px);
+  background: linear-gradient(160deg, #6a1fe0 0%, #3d0b9c 28%, #24065e 55%, #4b12b4 100%);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25), inset 0 -2px 6px rgba(0, 0, 0, 0.6);
 }
-.ride-start__poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.85; }
+.ride-tablet::before {
+  content: ""; position: absolute; inset: 2.2% 3.2%; pointer-events: none;
+  border-radius: clamp(12px, 2.4vw, 26px);
+  border: 1.5px solid rgba(106, 227, 224, 0.7);
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.55);
+}
+.ride-tablet__screen {
+  position: absolute; top: 3.4%; left: 4.6%; width: 90.8%; height: 86%;
+  margin: 0; padding: 0; border: 0; background: #040608; cursor: pointer;
+  border-radius: clamp(8px, 1.4vw, 16px); overflow: hidden;
+  display: grid; place-items: end center; padding-bottom: 9%;
+}
+.ride-tablet__chin {
+  position: absolute; left: 4.6%; right: 4.6%; bottom: 0; height: 10.6%;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.ride-tablet__key {
+  width: clamp(44px, 16%, 90px); height: clamp(8px, 1.4vw, 13px); border-radius: 999px;
+  background: linear-gradient(180deg, #5a1ac9, #2a0770); box-shadow: inset 0 1px 1px rgba(255,255,255,0.3), 0 1px 2px rgba(0,0,0,0.6);
+}
+.ride-tablet__brand {
+  position: absolute; right: 6%; bottom: 50%; transform: translateY(50%);
+  font-family: var(--serif, Georgia, serif); font-style: italic; font-weight: 700;
+  font-size: clamp(0.95rem, 1.6vw, 1.4rem); color: #c9b3ff; text-shadow: 0 1px 1px rgba(0,0,0,0.6);
+}
+.ride-start__poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; opacity: 0.92; }
 .ride-start__label {
   position: relative; z-index: 1;
   display: inline-flex; align-items: center; gap: 12px;
@@ -5340,7 +5374,10 @@ textarea:focus-visible,
 .ride-exit:hover, .ride-exit:focus-visible { border-color: #F0C040; outline: none; }
 @media (max-width: 820px) {
   .exhibit-ride-row { grid-template-columns: minmax(0, 1fr); }
-  .exhibit-feature { aspect-ratio: 16 / 9; }
+  .exhibit-feature { min-height: 0; aspect-ratio: 3 / 4; }
+  .exhibit-feature.is-open { aspect-ratio: 16 / 9; }
+  .exhibit-ride-row .ooo-exhibit__pair { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+  .exhibit-ride-row .ooo-device { width: min(100%, 420px); }
 }
 /* the two scenes sit stacked in the one frame; only the playing one shows */
 .exhibit-feature__video {
