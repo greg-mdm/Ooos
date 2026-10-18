@@ -918,7 +918,12 @@ function GalleryHero() {
       <figcaption className="gallery-hero__words">
         <span className="gallery-hero__tag">Digital Art Influencers</span>
         <h3 id="midway-national-gallery" className="gallery-hero__title">National Gallery</h3>
-        <span className="gallery-hero__cap">Ooo! Meet our Halloween host</span>
+        {/* the studio name is never set in caps (site convention): the
+            wordmark carries it, the line after it takes the small caps */}
+        <span className="gallery-hero__cap">
+          <img className="gallery-hero__wordmark" src={`${import.meta.env.BASE_URL}assets/brand/ooo-wordmark-white-transparent.png`} alt="Ooo!" />
+          <span>Meet our Halloween host</span>
+        </span>
       </figcaption>
     </figure>
   );
