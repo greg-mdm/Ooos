@@ -5277,17 +5277,70 @@ textarea:focus-visible,
 }
 /* The featured ride at the top of the midway: one widescreen video on its
    own, the width of the band, framed like the booths (Greg, 2026-10-13). */
+/* The three media cards on one row (Greg, 2026-10-18): the ride card at
+   the phones' proportions on the left, the anatomy pair on the right.
+   Started, the ride takes the whole row at 16:9 and the phones drop
+   beneath it. */
+.exhibit-ride-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  align-items: start;
+  gap: clamp(12px, 2vw, 24px);
+  max-width: 1200px;
+  margin: 0 auto clamp(18px, 3vw, 36px);
+}
+.exhibit-ride-row .exhibit-anatomy { margin: 0; }
+.exhibit-ride-row .ooo-exhibit { padding: 0; }
+.exhibit-ride-row .ooo-exhibit__pair { width: 100%; }
 .exhibit-feature {
   position: relative;
-  margin: 0 auto 40px;
+  margin: 0;
   width: 100%;
-  max-width: 1100px;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 863 / 1823;
   background: #0F031C;
-  border: 1px solid rgba(240, 192, 64, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+}
+.exhibit-feature.is-open {
+  grid-column: 1 / -1;
+  aspect-ratio: 16 / 9;
+  border-color: rgba(240, 192, 64, 0.35);
+}
+.exhibit-ride-row:has(.exhibit-feature.is-open) .exhibit-anatomy { grid-column: 1 / -1; }
+/* the START card: the ride's poster with one neumorphic button */
+.ride-start {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  margin: 0; padding: 0; border: 0; background: #0F031C; cursor: pointer;
+  display: grid; place-items: center;
+}
+.ride-start__poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.85; }
+.ride-start__label {
+  position: relative; z-index: 1;
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 16px 28px; border-radius: 999px;
+  background: linear-gradient(145deg, #2a1150, #150826);
+  box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.6), -4px -4px 12px rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(240, 192, 64, 0.55);
+  font-family: var(--font-elevated, var(--sans)); font-size: 1rem; font-weight: 700;
+  letter-spacing: 0.24em; text-transform: uppercase; color: #ffffff;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+.ride-start__label .hicon { margin: 0; font-size: 1.6rem; color: #F0C040; }
+.ride-start:hover .ride-start__label, .ride-start:focus-visible .ride-start__label { transform: translateY(-2px); box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.65), -4px -4px 12px rgba(255, 255, 255, 0.1); }
+.ride-start:focus-visible { outline: 3px solid #F0C040; outline-offset: -3px; }
+.ride-exit {
+  position: absolute; top: 14px; right: 14px; z-index: 2;
+  padding: 9px 16px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(15, 3, 28, 0.75); color: #ffffff; cursor: pointer;
+  font-family: var(--font-elevated, var(--sans)); font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+}
+.ride-exit:hover, .ride-exit:focus-visible { border-color: #F0C040; outline: none; }
+@media (max-width: 820px) {
+  .exhibit-ride-row { grid-template-columns: minmax(0, 1fr); }
+  .exhibit-feature { aspect-ratio: 16 / 9; }
 }
 /* the two scenes sit stacked in the one frame; only the playing one shows */
 .exhibit-feature__video {
@@ -5305,7 +5358,7 @@ textarea:focus-visible,
 }
 .exhibit-feature__video.is-active { opacity: 1; pointer-events: auto; }
 @media (max-width: 720px) {
-  .exhibit-feature { margin-bottom: 28px; border-radius: 12px; }
+  .exhibit-feature { border-radius: 12px; }
 }
 .exhibit-midway__eyebrow {
   margin: 0 0 10px;
