@@ -5272,7 +5272,7 @@ textarea:focus-visible,
   pointer-events: none;
 }
 .exhibit-midway__inner {
-  padding-top: 52px;
+  padding-top: clamp(28px, 4vw, 48px);
   padding-bottom: 60px;
 }
 /* The featured ride at the top of the midway: one widescreen video on its
@@ -5678,6 +5678,71 @@ textarea:focus-visible,
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: rgba(240, 192, 64, 0.95);
+}
+
+/* The gallery hero (Greg, 2026-10-18): the host loop edge to edge across
+   the band's top, height capped so it reads as a cinema strip, not a wall;
+   the words sit lower right over a scrim, clear of Shadow on the left. */
+.gallery-hero {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  height: clamp(340px, 46vw, 620px);
+  background: #0F031C;
+  overflow: hidden;
+}
+.gallery-hero__media { position: absolute; inset: 0; }
+.gallery-hero__media .midway-card__video { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; }
+.gallery-hero::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(6, 2, 28, 0.35) 0%, transparent 28%, transparent 55%, rgba(6, 2, 28, 0.82) 100%),
+    linear-gradient(90deg, transparent 45%, rgba(6, 2, 28, 0.35) 100%);
+}
+.gallery-hero__words {
+  position: absolute; z-index: 1; right: clamp(24px, 5vw, 72px); bottom: clamp(22px, 4vw, 48px);
+  max-width: min(92%, 640px);
+  display: flex; flex-direction: column; align-items: flex-end; gap: 6px;
+  text-align: right;
+}
+.gallery-hero__tag {
+  font-family: var(--font-elevated, var(--sans)); font-size: clamp(0.72rem, 1vw, 0.9rem); font-weight: 700;
+  letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255, 255, 255, 0.78);
+}
+.gallery-hero__title {
+  margin: 0;
+  font-family: var(--serif); font-size: clamp(2rem, 4.6vw, 3.6rem); font-weight: 700; line-height: 1.05;
+  color: #ffffff; text-shadow: 0 2px 24px rgba(0, 0, 0, 0.55);
+}
+.gallery-hero__cap {
+  margin-top: 6px;
+  font-family: var(--font-elevated, var(--sans)); font-size: clamp(0.82rem, 1.2vw, 1rem); font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase; color: rgba(240, 192, 64, 0.95);
+}
+@media (max-width: 720px) {
+  .gallery-hero { height: auto; aspect-ratio: 4 / 3; }
+  .gallery-hero__words { left: 20px; right: 20px; bottom: 18px; max-width: none; align-items: flex-start; text-align: left; }
+  .gallery-hero::after { background: linear-gradient(180deg, transparent 40%, rgba(6, 2, 28, 0.88) 100%); }
+}
+
+/* The lot spread: the painting whole on the left, its text beside it. */
+.lot-spread {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 0;
+  align-items: stretch;
+  max-width: 1200px;
+  margin: 0 auto clamp(28px, 4vw, 48px);
+}
+.lot-spread__pic { margin: 0; min-width: 0; aspect-ratio: 1150 / 1592; background: #0F031C; }
+.lot-spread__img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.lot-spread__side { min-width: 0; display: flex; flex-direction: column; justify-content: center; padding: clamp(18px, 2.5vw, 32px) clamp(18px, 3vw, 40px); }
+.lot-spread__cap { margin: 0; padding: 0 0 12px; }
+.lot-spread .lot--painting { border-top: 1px solid rgba(255, 255, 255, 0.08); padding: 16px 0 0; }
+.lot-spread .lot__text p { font-size: 1rem; }
+@media (max-width: 820px) {
+  .lot-spread { grid-template-columns: minmax(0, 1fr); }
+  .lot-spread__pic { aspect-ratio: 1150 / 1592; max-height: 70vh; }
 }
 
 /* The National Gallery spread: two featured pieces, each with its title in
