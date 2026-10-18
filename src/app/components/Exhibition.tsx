@@ -1029,6 +1029,20 @@ function LotDetails() {
           </p>
         </div>
       </div>
+      {/* The third space (Greg, 2026-10-18): Shadow on the real pink brick,
+          beside the terms and the artist note, in the lot cards' own frame.
+          The page serves a 960 px JPEG made from his card-size PNG, which
+          stays in the folder as the source. */}
+      <figure className="lot__art">
+        <img
+          className="lot__art-img"
+          src={`${ASSETS}shadow-pink-brick-card.jpg`}
+          alt="Shadow, the white ghost with violet eyes, floating over a parkette of pink and purple brick scattered with yellow leaves"
+          width="960"
+          height="1200"
+          loading="lazy"
+        />
+      </figure>
     </div>
   );
 }
