@@ -5762,6 +5762,11 @@ textarea:focus-visible,
   text-shadow: 0 1px 1px rgba(3, 1, 8, 0.7);
 }
 .lot-spread__line { font-size: 1.15rem; }
+/* the bracketed qualifier after a title (Greg, 2026-10-18): lighter, smaller, wraps as its own unit */
+.lot-spread .gallery-piece__title { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 0.4em; row-gap: 0; }
+.lot-spread .gallery-piece__title > .hicon { align-self: center; }
+.lot-spread__name { white-space: nowrap; }
+.lot-spread__tag { font-weight: 500; font-size: 0.78em; opacity: 0.85; white-space: nowrap; }
 .lot-spread__share {
   align-self: flex-start; margin-top: 2px; padding: 0; border: 0; background: none; cursor: pointer;
   font-family: var(--font-elevated, var(--sans)); font-size: 0.85rem; font-weight: 700;
