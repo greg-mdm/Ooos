@@ -753,11 +753,11 @@ function FeatureVideo({ clips }: { clips: Clip[] }) {
     <figure ref={figRef} className={`exhibit-feature${started ? " is-open" : ""}`}>
             {!started && (
         <div className="ride-tablet">
-          <button type="button" className="ride-start ride-tablet__screen" onClick={start} aria-label="Start the kayak ride video">
+          <button type="button" className="ride-start ride-tablet__screen" onClick={start} aria-label="Ride: play the kayak video">
             <img className="ride-start__poster" src={RIDE_POSTER_TALL} alt="" />
-            <span className="ride-start__label"><Icon name="coaster" /><span>Start</span></span>
+            <span className="ride-start__label"><Icon name="coaster" /><span>Ride</span></span>
           </button>
-          <span className="ride-tablet__chin" aria-hidden="true"><span className="ride-tablet__key" /><span className="ride-tablet__brand">Ooo!</span></span>
+          <span className="ride-tablet__chin" aria-hidden="true"><span className="ride-tablet__key" /></span>
         </div>
       )}
       {started && clips.map((c, i) => (
