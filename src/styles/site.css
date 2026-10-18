@@ -5727,9 +5727,10 @@ textarea:focus-visible,
   .gallery-hero::after { background: linear-gradient(180deg, transparent 40%, rgba(6, 2, 28, 0.88) 100%); }
 }
 
-/* The lot spread (Greg, 2026-10-18): the painting and its two renderings
-   in one row, each whole in its tall frame with its line beneath; the bid
-   band runs the full width under them, facts left, button right. */
+/* The lot spread (Greg, 2026-10-18): three cards, darker on the left to
+   lighter on the right; each picture whole at the top with nothing over
+   it, the text beneath in one format. The third card's line sits over
+   its picture on a translucent band and the bid takes the card body. */
 .lot-spread {
   display: block;
   max-width: 1200px;
@@ -5740,44 +5741,55 @@ textarea:focus-visible,
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(12px, 2vw, 24px);
   padding: clamp(14px, 2vw, 24px) clamp(14px, 2vw, 24px) 0;
+  align-items: stretch;
 }
-/* each caption sits on its picture's lower edge as a dark translucent
-   panel, the phones' convention (Greg, 2026-10-18) */
-.lot-spread__piece { position: relative; margin: 0; min-width: 0; border-radius: 12px; overflow: hidden; }
-.lot-spread__row { align-items: start; }
-.lot-spread__pic { aspect-ratio: 1150 / 1592; background: #0F031C; }
+.lot-spread__piece {
+  position: relative; margin: 0; min-width: 0;
+  display: flex; flex-direction: column;
+  border-radius: 14px; overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 10px 30px rgba(3, 1, 10, 0.35);
+}
+.lot-spread__piece--1 { background: linear-gradient(180deg, #120626 0%, #0C0319 100%); }
+.lot-spread__piece--2 { background: linear-gradient(180deg, #1E0D3A 0%, #150829 100%); }
+.lot-spread__piece--3 { background: linear-gradient(180deg, #2C1552 0%, #1F0E3C 100%); border-color: rgba(240, 192, 64, 0.22); }
+.lot-spread__pic { position: relative; aspect-ratio: 1150 / 1592; background: #0F031C; }
 .lot-spread__img { display: block; width: 100%; height: 100%; object-fit: cover; }
-/* the painting keeps the earlier treatment (Greg, 2026-10-18): nothing laid
-   over it; its title and credit sit beneath the picture, as before */
-.lot-spread__piece:first-child { overflow: visible; }
-.lot-spread__piece:first-child .lot-spread__pic { border-radius: 12px; overflow: hidden; }
-.lot-spread__piece:first-child .lot-spread__cap {
-  position: static; padding: 12px 4px 4px; background: none;
-  backdrop-filter: none; -webkit-backdrop-filter: none; border-top: 0; text-shadow: none;
-}
 .lot-spread__cap {
-  position: absolute; left: 0; right: 0; bottom: 0;
-  padding: 14px 18px 16px;
-  background: linear-gradient(180deg, rgba(15, 3, 28, 0.55) 0%, rgba(15, 3, 28, 0.88) 100%);
-  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  text-shadow: 0 1px 1px rgba(3, 1, 8, 0.7);
+  display: flex; flex-direction: column; gap: 4px; flex: 1 1 auto;
+  padding: 14px 18px 18px;
 }
-.lot-spread__line { font-size: 1.15rem; }
-/* the bracketed qualifier after a title (Greg, 2026-10-18): lighter, smaller, wraps as its own unit */
 .lot-spread .gallery-piece__title { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 0.4em; row-gap: 0; }
 .lot-spread .gallery-piece__title > .hicon { align-self: center; }
 .lot-spread__name { white-space: nowrap; }
 .lot-spread__tag { font-weight: 500; font-size: 0.78em; opacity: 0.85; white-space: nowrap; }
+/* the one line over the third picture, on a translucent band */
+.lot-spread__line {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 12px 18px 14px;
+  font-family: var(--font-heading); font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 600; line-height: 1.25;
+  color: #F4EEFE; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  background: linear-gradient(180deg, rgba(15, 3, 28, 0.45) 0%, rgba(15, 3, 28, 0.85) 100%);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-shadow: 0 1px 1px rgba(3, 1, 8, 0.7);
+}
 .lot-spread__share {
-  align-self: flex-start; margin-top: 2px; padding: 0; border: 0; background: none; cursor: pointer;
+  align-self: flex-start; margin-top: 6px; padding: 0; border: 0; background: none; cursor: pointer;
   font-family: var(--font-elevated, var(--sans)); font-size: 0.85rem; font-weight: 700;
   letter-spacing: 0.2em; text-transform: uppercase; color: rgba(240, 192, 64, 0.95);
   text-decoration: underline; text-underline-offset: 5px; text-decoration-color: rgba(240, 192, 64, 0.45);
 }
 .lot-spread__share:hover, .lot-spread__share:focus-visible { text-decoration-color: #F0C040; outline: none; }
 .lot-spread__share:focus-visible { outline: 2px solid #F0C040; outline-offset: 4px; border-radius: 4px; }
-.lot-spread__bid { align-self: flex-start; margin-top: 10px; }
+/* the bid, the main call: fills the third card's body in large Poppins */
+.lot-spread__piece--3 .lot-spread__cap { justify-content: center; padding: 18px; }
+.lot-spread__bid {
+  align-self: stretch; margin: 0; text-align: center;
+  padding: 18px 20px; border-radius: 16px;
+  font-family: var(--font-heading); font-size: clamp(1.25rem, 2vw, 1.7rem); font-weight: 700;
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
 .lot-spread__cap:empty { display: none; }
 .lot-spread .lot--painting {
   display: grid;
@@ -5794,8 +5806,11 @@ textarea:focus-visible,
 .lot-spread .lot__text p { font-size: 1rem; }
 @media (max-width: 820px) {
   .lot-spread__row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .lot-spread__piece:first-child { grid-column: 1 / -1; }
-  .lot-spread__piece:first-child .lot-spread__pic { max-height: 70vh; }
+  .lot-spread__piece--1 { grid-column: 1 / -1; }
+  .lot-spread__piece--1 .lot-spread__pic { max-height: 70vh; }
+}
+@media (max-width: 520px) {
+  .lot-spread__row { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* The National Gallery spread: two featured pieces, each with its title in
