@@ -532,6 +532,14 @@ const ATTRACTIONS: Attraction[] = [
    public/assets/exhibition/; until then the slot holds a quiet panel. */
 type GalleryPiece = { id: string; title: string; credit?: string; media?: Media };
 
+/* The card portrait, cut from the approved still so Shadow's build matches
+   the video (Greg, 2026-10-18); it sits in the lot panel beside the
+   searching-for-home line. */
+const SHADOW_CARD = {
+  src: `${ASSETS}shadow-card-tall.webp`,
+  alt: "Shadow, a white sheet ghost with violet eyes and colour soaking up its hem, on the rainy plaza",
+};
+
 /* The approved main video (Greg's "Shadow LEAKED - Preview 1.mp4",
    2026-10-17): Shadow and kin on the rainy plaza, 5 seconds, transcoded
    to H.264 and VP9 for the web, muted loop; its poster is the "Hopeful
@@ -558,18 +566,6 @@ const GALLERY: GalleryPiece[] = [
       kind: "image",
       src: `${ASSETS}national-gallery-shadow-painting.webp`,
       alt: "A shrouded white figure outlined in black, painted in thick strokes over a pink, blue and violet field",
-      frame: "tall",
-    },
-  },
-  {
-    /* Greg's "Shadow - Real Pink Brick - Card size.png" (2026-10-17), the
-       mascot on the parkette brick, cut to the tall frame */
-    id: "shadow-card",
-    title: "Shadow, rendered",
-    media: {
-      kind: "image",
-      src: `${ASSETS}shadow-card-tall.webp`,
-      alt: "Shadow, a white sheet ghost with violet eyes and colour soaking up its hem, on wet pink brick scattered with leaves",
       frame: "tall",
     },
   },
@@ -876,7 +872,7 @@ function GallerySpread() {
         </div>
         <figcaption className="gallery-feature__cap">Ooo! Meet our Halloween host</figcaption>
       </figure>
-      <div className="dicho__sides">
+      <div className="dicho__sides dicho__sides--lot">
         {GALLERY.map((piece, i) => (
           <figure key={piece.id} className="gallery-piece">
             <div className={`midway-card__media${piece.media?.kind === "image" && piece.media.frame === "tall" ? " midway-card__media--tall" : ""}`}>
@@ -898,8 +894,8 @@ function GallerySpread() {
             )}
           </figure>
         ))}
+        <ShadowLot />
       </div>
-      <ShadowLot />
     </section>
   );
 }
@@ -916,19 +912,20 @@ function ShadowLot() {
   const [open, setOpen] = useState(false);
   const closed = Date.now() >= AUCTION_CLOSE.getTime();
   return (
-    <div className="lot" aria-labelledby="lot-title">
-      <div className="lot__row">
-        <div className="lot__facts">
-          <p id="lot-title" className="lot__title">Shadow is looking for a home</p>
-          <p className="lot__terms">
-            <span>Opening bid $200 CAD</span>
-            <span aria-hidden="true">·</span>
-            <span>Highest bid at close wins</span>
-            <span aria-hidden="true">·</span>
-            <span>Closes November 15, 2026, 11:59 PM ET</span>
-          </p>
-          <p className="lot__fine">Framing is separate; options are quoted to the winner. Pickup in Toronto or shipping at cost.</p>
-        </div>
+    <div className="lot lot--card" aria-labelledby="lot-title">
+      <div className="lot__pic">
+        <img className="lot__img" src={SHADOW_CARD.src} alt={SHADOW_CARD.alt} loading="lazy" />
+      </div>
+      <div className="lot__body">
+        <p id="lot-title" className="lot__title">Shadow is searching for home.</p>
+        <p className="lot__terms">
+          <span>Opening bid $200 CAD</span>
+          <span aria-hidden="true">·</span>
+          <span>Highest bid at close wins</span>
+          <span aria-hidden="true">·</span>
+          <span>Closes November 15, 2026, 11:59 PM ET</span>
+        </p>
+        <p className="lot__fine">Framing is separate; options are quoted to the winner. Pickup in Toronto or shipping at cost.</p>
         {closed ? (
           <span className="lot__closed">Bidding closed</span>
         ) : (
@@ -936,24 +933,24 @@ function ShadowLot() {
             Place a bid
           </a>
         )}
-      </div>
-      <div className="lot__about">
-        <button
-          type="button"
-          className="lot__toggle"
-          aria-expanded={open}
-          aria-controls="lot-about"
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span>About the artist</span>
-          <span className="midway-card__mark" aria-hidden="true">{open ? "\u2212" : "+"}</span>
-        </button>
-        <div id="lot-about" className="lot__text" hidden={!open}>
-          <p className="lot__quote">
-            &ldquo;I started painting at 18. I had just aged out of the foster system and started making my own
-            canvases from pillow slips: primed with a few coats, stretched by hand. I used many techniques and
-            styles to channel my highs and lows, and expressed my creativity in vibrant colours.&rdquo;
-          </p>
+        <div className="lot__about">
+          <button
+            type="button"
+            className="lot__toggle"
+            aria-expanded={open}
+            aria-controls="lot-about"
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span>About the artist</span>
+            <span className="midway-card__mark" aria-hidden="true">{open ? "\u2212" : "+"}</span>
+          </button>
+          <div id="lot-about" className="lot__text" hidden={!open}>
+            <p className="lot__quote">
+              &ldquo;I started painting at 18. I had just aged out of the foster system and started making my own
+              canvases from pillow slips: primed with a few coats, stretched by hand. I used many techniques and
+              styles to channel my highs and lows, and expressed my creativity in vibrant colours.&rdquo;
+            </p>
+          </div>
         </div>
       </div>
     </div>
