@@ -578,7 +578,6 @@ const GALLERY: GalleryPiece[] = [
     title: "Shadow Twin",
     tag: "[In hyperreality]",
     credit: "Digitized by Ooo!",
-    share: true,
     media: {
       kind: "image",
       src: `${ASSETS}national-gallery-shadow-silver.webp`,
@@ -588,7 +587,7 @@ const GALLERY: GalleryPiece[] = [
   },
   {
     id: "shadow-card",
-    line: "Shadow is searching for a home",
+    line: "Shadow searches for home",
     bid: true,
     media: {
       kind: "image",
@@ -929,24 +928,25 @@ function GalleryHero() {
   );
 }
 
-/* The painting with its text beside it (Greg, 2026-10-18): the picture
-   whole on the left, title, artist, terms, the bid and the folded note on
-   the right, so the lot takes a band's width and not a column's height. */
+/* Three cards, darker to lighter left to right (Greg, 2026-10-18): the
+   picture whole at the top of each, nothing over it, the text in the card
+   beneath in one format; the third card's line sits over its picture and
+   the bid, the main call, takes the card body in large Poppins. */
 function GalleryLot() {
   return (
     <section className="dicho dicho--gallery lot-spread" aria-labelledby="lot-title">
       <div className="lot-spread__row">
-        {GALLERY.map((piece) => (
-          <figure key={piece.id} className="lot-spread__piece">
+        {GALLERY.map((piece, i) => (
+          <figure key={piece.id} className={`lot-spread__piece lot-spread__piece--${i + 1}`}>
             <div className="lot-spread__pic">
               {piece.media?.kind === "image" && (
                 <img className="lot-spread__img" src={piece.media.src} alt={piece.media.alt} loading="lazy" />
               )}
+              {piece.line && <span className="lot-spread__line">{piece.line}</span>}
             </div>
-            <figcaption className="gallery-piece__cap lot-spread__cap">
+            <figcaption className="lot-spread__cap">
               {piece.title && <span id={piece.id === "shadow-painting" ? "lot-title" : undefined} className="gallery-piece__title"><Icon name="venn" /><span className="lot-spread__name">{piece.title}</span>{piece.tag && <span className="lot-spread__tag">{piece.tag}</span>}</span>}
               {piece.credit && <span className="gallery-piece__credit">{piece.credit}</span>}
-              {piece.line && <span className="gallery-piece__title lot-spread__line">{piece.line}</span>}
               {piece.share && <ShareLink />}
               {piece.bid && <BidButton />}
             </figcaption>
