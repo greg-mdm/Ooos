@@ -5742,12 +5742,21 @@ textarea:focus-visible,
 /* each caption sits on its picture's lower edge as a dark translucent
    panel, the phones' convention (Greg, 2026-10-18) */
 .lot-spread__piece { position: relative; margin: 0; min-width: 0; border-radius: 12px; overflow: hidden; }
+.lot-spread__row { align-items: start; }
 .lot-spread__pic { aspect-ratio: 1150 / 1592; background: #0F031C; }
 .lot-spread__img { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* the painting keeps the earlier treatment (Greg, 2026-10-18): nothing laid
+   over it; its title and credit sit beneath the picture, as before */
+.lot-spread__piece:first-child { overflow: visible; }
+.lot-spread__piece:first-child .lot-spread__pic { border-radius: 12px; overflow: hidden; }
+.lot-spread__piece:first-child .lot-spread__cap {
+  position: static; padding: 12px 4px 4px; background: none;
+  backdrop-filter: none; -webkit-backdrop-filter: none; border-top: 0; text-shadow: none;
+}
 .lot-spread__cap {
   position: absolute; left: 0; right: 0; bottom: 0;
   padding: 14px 18px 16px;
-  background: linear-gradient(180deg, rgba(15, 3, 28, 0.7) 0%, rgba(15, 3, 28, 0.94) 100%);
+  background: linear-gradient(180deg, rgba(15, 3, 28, 0.55) 0%, rgba(15, 3, 28, 0.88) 100%);
   backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   text-shadow: 0 1px 1px rgba(3, 1, 8, 0.7);
