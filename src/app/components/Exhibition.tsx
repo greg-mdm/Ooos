@@ -143,9 +143,14 @@ export function Exhibition({ onSupport }: { onSupport: () => void }) {
           {/* The kayak ride, widescreen, above the phones (Greg, 2026-10-13):
               scene one into the tunnel, scene two past the portal, played
               as one run. */}
-          <FeatureVideo clips={KAYAK_RIDE} />
-          {/* The anatomy display, above "Scroll right up" (Greg, 2026-10-12). */}
-          <AnatomyDisplay />
+          {/* The three media cards on one row (Greg, 2026-10-18): the kayak
+              ride as a card that only plays on START (no autoplay; the ride
+              flips perspective, so the visitor chooses it), then the two
+              anatomy phones. Started, the ride takes the full row. */}
+          <div className="exhibit-ride-row">
+            <FeatureVideo clips={KAYAK_RIDE} />
+            <AnatomyDisplay />
+          </div>
           {/* "Scroll right up", Greg's turn on the barker's line (2026-10-13). */}
           <p className="exhibit-midway__eyebrow">Scroll right up</p>
           <h2 id="exhibit-midway-heading" className="exhibit-midway__heading">
@@ -720,29 +725,24 @@ function FeatureVideo({ clips }: { clips: Clip[] }) {
   const refs = useRef<(HTMLVideoElement | null)[]>([]);
   const figRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
-  const inView = useRef(false);
+  const [started, setStarted] = useState(false);
 
-  // play the active clip while the frame is in view; pause it when not
-  useEffect(() => {
-    const fig = figRef.current;
-    if (!fig) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        inView.current = entry.isIntersecting;
-        const el = refs.current[active];
-        if (!el) return;
-        if (entry.isIntersecting) el.play().catch(() => {});
-        else el.pause();
-      },
-      { threshold: 0.4 }
-    );
-    io.observe(fig);
-    return () => io.disconnect();
-  }, [active]);
+  // START: the visitor chooses the ride; nothing moves before that
+  const start = () => {
+    setStarted(true);
+    window.setTimeout(() => {
+      const el = refs.current[0];
+      if (el) { el.currentTime = 0; el.play().catch(() => {}); }
+      figRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 50);
+  };
+  const stop = () => {
+    refs.current.forEach((v) => { if (v) { v.pause(); v.currentTime = 0; } });
+    setActive(0);
+    setStarted(false);
+  };
 
-  // when the active clip ends, hand off to the next one from its start; it
-  // was playing a moment ago, so the visitor is watching: play on
+  // when the active clip ends, hand off to the next one from its start
   const next = (i: number) => {
     const n = (i + 1) % clips.length;
     const el = refs.current[n];
@@ -754,8 +754,17 @@ function FeatureVideo({ clips }: { clips: Clip[] }) {
   };
 
   return (
-    <figure ref={figRef} className="exhibit-feature">
-      {clips.map((c, i) => (
+    <figure ref={figRef} className={`exhibit-feature${started ? " is-open" : ""}`}>
+      {!started && (
+        <button type="button" className="ride-start" onClick={start} aria-label="Start the kayak ride video">
+          <img className="ride-start__poster" src={clips[0].poster} alt="" />
+          <span className="ride-start__label">
+            <Icon name="coaster" />
+            <span>Start</span>
+          </span>
+        </button>
+      )}
+      {started && clips.map((c, i) => (
         <video
           key={c.mp4}
           ref={(el) => { refs.current[i] = el; }}
@@ -763,7 +772,7 @@ function FeatureVideo({ clips }: { clips: Clip[] }) {
           controls
           muted
           playsInline
-          preload={i === 0 ? "metadata" : "auto"}
+          preload={i === 0 ? "auto" : "metadata"}
           poster={c.poster}
           aria-label={c.alt}
           aria-hidden={i !== active}
@@ -776,6 +785,9 @@ function FeatureVideo({ clips }: { clips: Clip[] }) {
           <source src={c.mp4} type="video/mp4" />
         </video>
       ))}
+      {started && (
+        <button type="button" className="ride-exit" onClick={stop}>Exit ride</button>
+      )}
     </figure>
   );
 }
@@ -805,7 +817,7 @@ function TouchImage({ media }: { media: Extract<Media, { kind: "touch" }> }) {
 /* Heading glyphs (Greg, 2026-10-17): simple open-source-style line icons,
    drawn inline so they take the heading's colour. 24-unit grid, 2px
    stroke, round joins. */
-type IconName = "alert" | "dice" | "venn" | "door" | "beam" | "seed";
+type IconName = "alert" | "dice" | "venn" | "door" | "beam" | "seed" | "coaster";
 const ICON_PATHS: Record<IconName, ReactNode> = {
   alert: (
     <>
@@ -841,6 +853,13 @@ const ICON_PATHS: Record<IconName, ReactNode> = {
   beam: (
     <>
       <path d="M13 2.5L5 13.5h6l-1 8 9-12h-6l1-7z" />
+    </>
+  ),
+  coaster: (
+    <>
+      <path d="M2 18c3-6 6-9 9-9 2.5 0 3.5 2 2.5 4s-3 2.5-4 1 .5-4 3-6c3-2.5 6.5-2 9.5 1" />
+      <path d="M4 21v-5M9 21v-7M14 21v-6M19 21v-8" />
+      <rect x="15.5" y="7" width="3.5" height="2.4" rx="0.8" fill="currentColor" stroke="none" />
     </>
   ),
   seed: (
