@@ -141,3 +141,8 @@
     width: 100%;
   }
 }
+
+/* mobile rehab (2026-10-19): the placard may break onto two lines */
+@media (max-width: 480px) {
+  .ac-placard { white-space: normal; letter-spacing: 0.18em; text-wrap: balance; padding: 0 8px; }
+}

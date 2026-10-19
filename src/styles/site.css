@@ -43,7 +43,7 @@
   --bg: #F0F4F5;
   --bone: #F6F2EC;
   --ink: #1A0033;
-  --slate: #5A5A6E;
+  --slate: #485559;
   --charcoal: #2A2340;
   --mist: rgba(255, 255, 255, 0.9);
   --border-soft: rgba(26, 0, 51, 0.12);
@@ -1588,7 +1588,7 @@ a:hover { color: var(--electric); }
   flex-wrap: wrap;
   gap: 12px;
   font-size: 11px;
-  color: rgba(255,255,255,0.45);
+  color: rgba(255,255,255,0.78);
 }
 @media (max-width: 720px) {
   .footer-grid { grid-template-columns: 1fr; }
@@ -2982,7 +2982,7 @@ textarea:focus-visible,
   box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.8);
 }
 .exhibit-intro-card--portal { --tone: #4B00B6; --tone-ink: #ffffff; }
-.exhibit-intro-card--teal { --tone: #008080; --tone-ink: #ffffff; }
+.exhibit-intro-card--teal { --tone: #1FCECB; --tone-ink: #0A0614; }
 .exhibit-intro-card__media { position: relative; background: #0F031C; }
 .exhibit-intro-card__media--portrait { aspect-ratio: 9 / 16; }
 .exhibit-intro-card__media--wide { aspect-ratio: 3 / 2; }
@@ -3482,7 +3482,7 @@ textarea:focus-visible,
   font-family: var(--sans);
   letter-spacing: 0.04em;
   font-weight: 500;
-  opacity: 0.7;
+  color: var(--slate);
 }
 .exhibit-reach__plays {
   display: flex;
@@ -5482,8 +5482,8 @@ textarea:focus-visible,
   line-height: 1.4;
   color: #ffffff;
 }
-.dicho__tag--a { color: color-mix(in srgb, var(--tone-a) 55%, #ffffff); }
-.dicho__tag--b { color: color-mix(in srgb, var(--tone-b) 45%, #ffffff); }
+.dicho__tag--a { color: color-mix(in srgb, var(--tone-a) 32%, #ffffff); }
+.dicho__tag--b { color: color-mix(in srgb, var(--tone-b) 28%, #ffffff); }
 .dicho--gallery { --tone-a: #822F00; --tone-b: #4B00B6; }
 .dicho--gallery .dicho__tag--a { color: rgba(255, 255, 255, 0.72); }
 .dicho__slash {
@@ -5600,7 +5600,7 @@ textarea:focus-visible,
   max-width: 60ch;
   font-size: 1rem;
   line-height: 1.5;
-  color: rgba(232, 236, 244, 0.7);
+  color: rgba(232, 236, 244, 0.88);
 }
 .lot__cta,
 .lot__closed {
@@ -6060,7 +6060,7 @@ textarea:focus-visible,
   letter-spacing: 0.14em;
   text-transform: uppercase;
   white-space: nowrap;
-  color: rgba(232, 236, 244, 0.6);
+  color: rgba(232, 236, 244, 0.9);
 }
 .midway-card__toggle { align-items: flex-start; }
 .midway-card__label { padding-top: 10px; }
@@ -6172,7 +6172,7 @@ html, body { overflow-x: clip; }
     --bg: #F0F4F5;
     --bone: #F6F2EC;
     --ink: #1A0033;
-    --slate: #5A5A6E;
+    --slate: #485559;
     --charcoal: #2A2340;
     --mist: rgba(255, 255, 255, 0.9);
     --border-soft: rgba(26, 0, 51, 0.12);
@@ -6189,4 +6189,38 @@ html, body { overflow-x: clip; }
   }
   h1, h2, h3, h4, h5, h6 { color: var(--ink); }
   input, textarea, select, button { color-scheme: light; }
+}
+
+/* ===== MOBILE REHAB (Greg, 2026-10-19) =====
+   Phones with a larger text size setting were clipping titles and prices:
+   the layout assumed default text. Everything below lets text wrap and
+   cards stack instead of cutting, tested down to a 276px stand-in for a
+   412px phone at 150 percent text. */
+@media (max-width: 640px) {
+  /* midway card titles wrap beside their toggle instead of running under it */
+  .midway-card__label { white-space: normal; flex: 1 1 auto; text-wrap: balance; }
+  .midway-card__toggle { gap: 10px; }
+  /* the section tags: less tracking so two-word tags break evenly */
+  .dicho__tag { letter-spacing: 0.14em; text-wrap: balance; }
+  /* the campaign line on the bid card wraps rather than truncating */
+  .lot-spread__line { white-space: normal; text-overflow: clip; text-wrap: balance; }
+  .lot-spread .lot--painting .lot__art-widget { max-width: 76%; }
+}
+@media (max-width: 520px) {
+  /* Community Reach: the picture over the text, not squeezed beside it */
+  .exhibit-reach__feature { flex-direction: column; align-items: flex-start; padding: 16px; }
+  .exhibit-reach__thumb { width: 76px; height: 76px; }
+  /* the co-marketing pill: label and date on their own lines */
+  .exhibit-reach__pill { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; border-radius: 14px; padding: 8px 14px; }
+  .exhibit-reach__pill-sep { display: none; }
+  /* donation tiers: one per row so the amounts are never cut */
+  .exhibit-support .support-tiers { grid-template-columns: minmax(0, 1fr); }
+  .exhibit-support .tier-note--demand { font-size: clamp(1.15rem, 5.4vw, 1.5rem); text-wrap: balance; overflow-wrap: break-word; }
+}
+
+/* Home, the shop card (mobile rehab, 2026-10-19): the art over the words
+   on a narrow phone, so the copy is not squeezed against the art */
+@media (max-width: 420px) {
+  .shop-ad { flex-direction: column; text-align: center; padding: 6px 16px 18px; }
+  .shop-ad__art { width: 150px; height: 150px; margin: -24px auto -18px; }
 }
