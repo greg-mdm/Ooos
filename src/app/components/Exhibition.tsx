@@ -381,6 +381,9 @@ type Attraction = {
   body: ReactNode;
   tagIcon?: IconName;
   titleIcon?: IconName;
+  /* the small line under the toggle, per booth (Greg, 2026-10-19);
+     "Read into it" where a booth has none of its own */
+  hint?: string;
 };
 
 const ASSETS = `${import.meta.env.BASE_URL}assets/exhibition/`;
@@ -417,6 +420,7 @@ const ATTRACTIONS: Attraction[] = [
     title: "Thought Garden",
     tag: "Plant a seed",
     tagIcon: "seed",
+    hint: "Dig deeper",
     tone: "teal",
     /* Greg's photo (2026-10-07): public/assets/exhibition/Leaf Silhoutte -
        Stage Light.heic, a monstera leaf under a single stage light. Decoded
@@ -449,6 +453,7 @@ const ATTRACTIONS: Attraction[] = [
     tag: "Play with purpose",
     tagIcon: "dice",
     titleIcon: "alert",
+    hint: "Try your luck",
     tone: "electric",
     /* Greg's "double sixes.png" (2026-10-17): two neon dice on a glass
        board, the board cut to the Sassy photo's portrait so the two
@@ -471,6 +476,7 @@ const ATTRACTIONS: Attraction[] = [
     id: "sassy-games",
     title: "Sassy Games Spotlight",
     tag: "Play proud",
+    hint: "Sass en masse? Yaaas!",
     tone: "portal",
     /* Greg's "SASSY GAMES.jpg" (2026-10-17): a performer mid-song under
        violet light, the crowd's hands up; shown whole (Greg: do not crop) */
@@ -1175,7 +1181,7 @@ function AttractionCard({ attraction, side }: { attraction: Attraction; side: "a
               <span className={`midway-card__mark${attraction.titleIcon ? " midway-card__mark--glyph" : ""}`} aria-hidden="true">
                 {attraction.titleIcon ? <Icon name={attraction.titleIcon} /> : open ? "\u2212" : "+"}
               </span>
-              <span className="midway-card__hint">Read into it</span>
+              <span className="midway-card__hint">{attraction.hint ?? "Read into it"}</span>
             </span>
           </button>
         </h3>

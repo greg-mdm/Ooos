@@ -6059,7 +6059,9 @@ textarea:focus-visible,
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  white-space: nowrap;
+  /* per-booth lines vary in length (Greg, 2026-10-19): a long one breaks
+     into two balanced lines under the button rather than crowding the title */
+  max-width: 12.5em; text-align: center; text-wrap: balance; line-height: 1.35;
   color: rgba(232, 236, 244, 0.9);
 }
 .midway-card__toggle { align-items: flex-start; }
