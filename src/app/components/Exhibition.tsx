@@ -932,15 +932,18 @@ function GalleryHero() {
         <span className="gallery-hero__tag">Digital Art Influencers</span>
         <h3 id="midway-national-gallery" className="gallery-hero__title">National Gallery</h3>
       </figcaption>
-      {/* the host line moved to the other side (Greg, 2026-10-18): the
-          wordmark and the line in a dark translucent disc at the lower left,
-          on the plaza, clear of Shadow; a child of the hero so it is placed
-          against the picture, not the words column. The studio name is never
-          set in caps (site convention): the wordmark carries it, the line
-          after it takes the small caps. */}
-      <span className="gallery-hero__cap gallery-hero__disc">
-        <img className="gallery-hero__wordmark" src={`${import.meta.env.BASE_URL}assets/brand/ooo-wordmark-white-transparent.png`} alt="Ooo!" />
-        <span>Meet our Halloween host</span>
+      {/* the host's name card (Greg, 2026-10-19): a near-black disc at the
+          lower left, on the plaza, clear of Shadow, read like a credit, the
+          character's name as the title and her role beneath. A child of the
+          hero so it is placed against the picture, not the words column. The
+          studio name is never set in caps (site convention): the wordmark
+          carries it, the role after it takes the small caps. */}
+      <span className="gallery-hero__disc">
+        <span className="gallery-hero__disc-name">Shadow</span>
+        <span className="gallery-hero__cap gallery-hero__disc-role">
+          <img className="gallery-hero__wordmark" src={`${import.meta.env.BASE_URL}assets/brand/ooo-wordmark-white-transparent.png`} alt="Ooo!" />
+          <span>Halloween host</span>
+        </span>
       </span>
     </figure>
   );
