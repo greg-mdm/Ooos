@@ -384,6 +384,9 @@ type Attraction = {
   /* the small line under the toggle, per booth (Greg, 2026-10-19);
      "Read into it" where a booth has none of its own */
   hint?: string;
+  /* a word on the round button in place of the plus (Greg, 2026-10-19:
+     "YAAS!" on the Sassy Games booth); raised at rest, pressed while open */
+  mark?: string;
 };
 
 const ASSETS = `${import.meta.env.BASE_URL}assets/exhibition/`;
@@ -476,7 +479,8 @@ const ATTRACTIONS: Attraction[] = [
     id: "sassy-games",
     title: "Sassy Games Spotlight",
     tag: "Play proud",
-    hint: "Sass en masse? Yaaas!",
+    hint: "Sass en masse",
+    mark: "Yaas!",
     tone: "portal",
     /* Greg's "SASSY GAMES.jpg" (2026-10-17): a performer mid-song under
        violet light, the crowd's hands up; shown whole (Greg: do not crop) */
@@ -1178,8 +1182,8 @@ function AttractionCard({ attraction, side }: { attraction: Attraction; side: "a
             {/* the glyph is the button (Greg, 2026-10-17): raised at rest,
                 pressed in while the description is open */}
             <span className="midway-card__ctl">
-              <span className={`midway-card__mark${attraction.titleIcon ? " midway-card__mark--glyph" : ""}`} aria-hidden="true">
-                {attraction.titleIcon ? <Icon name={attraction.titleIcon} /> : open ? "\u2212" : "+"}
+              <span className={`midway-card__mark${attraction.titleIcon ? " midway-card__mark--glyph" : ""}${attraction.mark ? " midway-card__mark--word" : ""}`} aria-hidden="true">
+                {attraction.titleIcon ? <Icon name={attraction.titleIcon} /> : attraction.mark ? attraction.mark : open ? "\u2212" : "+"}
               </span>
               <span className="midway-card__hint">{attraction.hint ?? "Read into it"}</span>
             </span>

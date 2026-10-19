@@ -6051,6 +6051,15 @@ textarea:focus-visible,
   transition: box-shadow 160ms ease, transform 160ms ease, color 160ms ease;
 }
 .midway-card__mark .hicon { margin: 0; font-size: 1.35rem; vertical-align: 0; }
+/* a word on the button instead of the plus (Greg, 2026-10-19: YAAS! on the
+   Sassy Games booth): a larger disc so the word sits inside its rim, set
+   in caps; it keeps the raised and pressed states of the round toggle */
+.midway-card__mark--word {
+  width: 58px; height: 58px;
+  font-family: var(--font-heading); font-size: 0.78rem; font-weight: 800;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: #ffffff;
+}
 /* the button and its small hint, stacked (Greg, 2026-10-17) */
 .midway-card__ctl { flex: none; display: flex; flex-direction: column; align-items: center; gap: 6px; }
 .midway-card__hint {
