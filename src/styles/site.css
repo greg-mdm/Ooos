@@ -5857,18 +5857,27 @@ textarea:focus-visible,
   background: #0F031C;
 }
 .lot-spread .lot--painting .lot__art-img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
-/* the closing date on the picture: a dark pool in the upper right behind
-   the words, fading on a diagonal before Shadow at the left (Greg, 2026-10-18) */
+/* the auction widget on the picture: a dark pool in the upper right behind
+   it, fading on a diagonal before Shadow at the left (Greg, 2026-10-18) */
 .lot-spread .lot--painting .lot__art { position: relative; }
 .lot-spread .lot--painting .lot__art::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(ellipse 78% 62% at 100% 0%, rgba(6, 2, 28, 0.92) 0%, rgba(6, 2, 28, 0.78) 36%, rgba(6, 2, 28, 0.38) 60%, rgba(6, 2, 28, 0) 78%);
+  background: radial-gradient(ellipse 86% 72% at 100% 0%, rgba(6, 2, 28, 0.94) 0%, rgba(6, 2, 28, 0.82) 38%, rgba(6, 2, 28, 0.4) 62%, rgba(6, 2, 28, 0) 80%);
 }
-.lot-spread .lot--painting .lot__art-date {
-  position: absolute; z-index: 1; top: clamp(14px, 2vw, 22px); right: clamp(14px, 2vw, 22px); left: 38%;
-  margin: 0; text-align: right;
-  font-family: var(--font-elevated, var(--sans)); font-size: clamp(0.72rem, 1vw, 0.86rem); font-weight: 700; line-height: 1.5;
-  letter-spacing: 0.18em; text-transform: uppercase; color: rgba(240, 192, 64, 0.95);
+.lot-spread .lot--painting .lot__art-widget {
+  position: absolute; z-index: 1; top: clamp(16px, 2.2vw, 26px); right: clamp(14px, 2vw, 22px); left: 36%;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 10px; text-align: right;
+}
+.lot-spread .lot--painting .lot__art-widget__name {
+  font-family: var(--font-heading); font-size: clamp(1rem, 1.5vw, 1.3rem); font-weight: 700; line-height: 1.2;
+  color: #ffffff; text-shadow: 0 1px 3px rgba(3, 1, 10, 0.7);
+}
+.lot-spread .lot--painting .lot__art-widget__cta {
+  margin: 0; padding: 10px 18px; font-size: 0.8rem; letter-spacing: 0.16em; text-transform: uppercase;
+}
+.lot-spread .lot--painting .lot__art-widget__dates {
+  font-family: var(--font-elevated, var(--sans)); font-size: clamp(0.68rem, 0.95vw, 0.8rem); font-weight: 700; line-height: 1.5;
+  letter-spacing: 0.14em; text-transform: uppercase; color: rgba(240, 192, 64, 0.95);
   text-shadow: 0 1px 2px rgba(3, 1, 10, 0.7);
 }
 .lot-spread .lot__text p { font-size: 1rem; }

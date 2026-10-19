@@ -541,7 +541,7 @@ const ATTRACTIONS: Attraction[] = [
    byline, the way a museum label hangs under a painting (Greg,
    2026-10-18). `crop: "bottom"` anchors the picture to its foot so the
    top is what gets cut. */
-type GalleryPiece = { id: string; title?: string; tag?: string; credit?: string; line?: string; share?: boolean; bid?: boolean; head?: boolean; crop?: "bottom"; media?: Media };
+type GalleryPiece = { id: string; title?: string; tag?: string; credit?: string; line?: string; share?: boolean; bid?: boolean; head?: boolean; crop?: "bottom"; icon?: IconName; media?: Media };
 
 /* The approved main video (Greg's "Shadow LEAKED - Preview 1.mp4",
    2026-10-17): Shadow and kin on the rainy plaza, 5 seconds, transcoded
@@ -581,6 +581,7 @@ const GALLERY: GalleryPiece[] = [
   {
     id: "shadow-silver",
     title: "Shadow Twin",
+    icon: "shapes",
     credit: "Digitized by Ooo!",
     crop: "bottom",
     media: {
@@ -850,8 +851,16 @@ function TouchImage({ media }: { media: Extract<Media, { kind: "touch" }> }) {
 /* Heading glyphs (Greg, 2026-10-17): simple open-source-style line icons,
    drawn inline so they take the heading's colour. 24-unit grid, 2px
    stroke, round joins. */
-type IconName = "alert" | "dice" | "venn" | "door" | "beam" | "seed" | "coaster";
+type IconName = "alert" | "dice" | "venn" | "shapes" | "door" | "beam" | "seed" | "coaster";
 const ICON_PATHS: Record<IconName, ReactNode> = {
+  /* after Ionicons' shapes-outline (MIT): a triangle over a circle, for
+     the rendered twin (Greg, 2026-10-18) */
+  shapes: (
+    <>
+      <path d="M3.5 16.5L10.5 4l7 12.5z" />
+      <circle cx="15.5" cy="15.5" r="5" />
+    </>
+  ),
   alert: (
     <>
       <path d="M8.2 3h7.6l5.2 5.2v7.6L15.8 21H8.2L3 15.8V8.2L8.2 3z" />
@@ -949,9 +958,10 @@ function GalleryLot() {
           <figure key={piece.id} className={`lot-spread__piece lot-spread__piece--${i + 1}`}>
             {piece.head && piece.title && (
               <header className="lot-spread__head">
+                {/* icon first, then the name, on both cards (Greg, 2026-10-18) */}
                 <span id={piece.id === "shadow-painting" ? "lot-title" : undefined} className="gallery-piece__title lot-spread__title-big">
+                  <Icon name={piece.icon ?? "venn"} />
                   <span className="lot-spread__name">{piece.title}</span>
-                  <Icon name="venn" />
                 </span>
               </header>
             )}
@@ -962,7 +972,7 @@ function GalleryLot() {
               {piece.line && <span className="lot-spread__line">{piece.line}</span>}
             </div>
             <figcaption className="lot-spread__cap">
-              {piece.title && !piece.head && <span id={piece.id === "shadow-painting" ? "lot-title" : undefined} className="gallery-piece__title"><Icon name="venn" /><span className="lot-spread__name">{piece.title}</span>{piece.tag && <span className="lot-spread__tag">{piece.tag}</span>}</span>}
+              {piece.title && !piece.head && <span id={piece.id === "shadow-painting" ? "lot-title" : undefined} className="gallery-piece__title"><Icon name={piece.icon ?? "venn"} /><span className="lot-spread__name">{piece.title}</span>{piece.tag && <span className="lot-spread__tag">{piece.tag}</span>}</span>}
               {piece.credit && <span className={`gallery-piece__credit${piece.head ? " lot-spread__byline" : ""}`}>{piece.credit}</span>}
               {piece.share && <ShareLink />}
               {piece.bid && <BidButton />}
@@ -995,25 +1005,47 @@ function ShareLink() {
   );
 }
 
-/* The bid button, under the campaign card (Greg, 2026-10-18). */
+/* The gold button under the campaign card: "Adopt a hero" (Greg,
+   2026-10-18), the line that goes with Shadow searching for a home. */
 function BidButton() {
   const closed = Date.now() >= AUCTION_CLOSE.getTime();
   return closed ? (
     <span className="lot__closed lot-spread__bid">Bidding closed</span>
   ) : (
     <a className="lot__cta lot-spread__bid" href={BID_FORM_URL} target="_blank" rel="noopener noreferrer">
-      Place a bid
+      Adopt a hero
     </a>
   );
 }
 
 /* The lot: Shadow is looking for a home. Bids go to the standalone Wix
    form on Slow Stream (Greg's back office, 2026-10-17); this panel is the
-   front door. The auction closes November 15, 2026, 11:59 PM ET; after
-   that the button gives way to a closed line. Framing is quoted to the
-   winner. The artist note stays folded. */
+   front door. The auction runs October 20 to November 20, 2026, closing
+   11:59 PM ET (Greg, 2026-10-18: pushed from the 15th while the page is
+   set up); after the close the buttons give way to a closed line. Framing
+   is quoted to the winner. The artist note stays folded. */
 const BID_FORM_URL = "https://greg31122.wixforms.com/f/7517118600616870916";
-const AUCTION_CLOSE = new Date("2026-11-16T04:59:00Z"); // Nov 15, 11:59 PM ET
+const AUCTION_CLOSE = new Date("2026-11-21T04:59:00Z"); // Nov 20, 11:59 PM ET
+
+/* The auction widget on Shadow's pink brick picture (Greg, 2026-10-18):
+   the event name, the bid button and the dates, in the upper right on the
+   dark pool. */
+function AuctionWidget() {
+  const closed = Date.now() >= AUCTION_CLOSE.getTime();
+  return (
+    <div className="lot__art-widget">
+      <span className="lot__art-widget__name">Live Art Auction</span>
+      {closed ? (
+        <span className="lot__closed lot__art-widget__cta">Bidding closed</span>
+      ) : (
+        <a className="lot__cta lot__art-widget__cta" href={BID_FORM_URL} target="_blank" rel="noopener noreferrer">
+          Place a bid
+        </a>
+      )}
+      <span className="lot__art-widget__dates">[October 20 &ndash;<br />November 20, 2026]</span>
+    </div>
+  );
+}
 
 function LotDetails() {
   const [open, setOpen] = useState(false);
@@ -1057,11 +1089,11 @@ function LotDetails() {
           height="1200"
           loading="lazy"
         />
-        {/* the closing date moved onto the picture (Greg, 2026-10-18): set
-            in the upper right on a dark pool that creeps in behind Shadow
-            and fades before it reaches her, the same device as the gallery
-            hero; the terms line above keeps the bid and the rule */}
-        <figcaption className="lot__art-date">Auction ends November 15, 2026, 11:59 PM ET</figcaption>
+        {/* the auction widget on the picture (Greg, 2026-10-18): the upper
+            right, on a dark pool that creeps in behind Shadow and fades
+            before it reaches her, the same device as the gallery hero; the
+            terms line above keeps the bid and the rule */}
+        <AuctionWidget />
       </figure>
     </div>
   );
