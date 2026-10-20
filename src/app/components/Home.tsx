@@ -817,6 +817,9 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 Canadian nonprofits share real-world challenges and community insights, matching with digital artists to design virtual experiences that bring these diverse narratives to life. Collaborating from ideation to execution, our teams develop interactive experiences that engage the public, build understanding and foster dialogue about solutions.
               </p>
             </div>
+            {/* Pools 1 and 2 stacked, read one at a time, with the Play with
+                Purpose ticket and its blue sky beside them (Greg, 2026-10-20) */}
+            <div className="pool-split">
             <div className="pool-board" role="group" aria-label="Project funding pools">
               <PoolWidget
                 label="Pool 1 · Launch"
@@ -839,6 +842,17 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 cta="Support the exhibition!"
                 onSupport={onSupport}
               />
+            </div>
+            <div className="pool-ticket">
+              <iframe
+                src={`${import.meta.env.BASE_URL}assets/exhibition/index.html`}
+                title="Play with Purpose: interactive beach ball and ADMIT ONE ticket"
+                width="480"
+                height="600"
+                loading="lazy"
+                allow="clipboard-write; web-share"
+              />
+            </div>
             </div>
           </div>
         </div>

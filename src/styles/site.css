@@ -1195,9 +1195,28 @@ a:hover { color: var(--electric); }
   padding: 0 14px 0 22px;
 }
 .path-feature__narrative > :last-child { margin-bottom: 0; }
+/* Pools 1 and 2 stacked in one column, the Play with Purpose ticket
+   (4:5, transparent around its scallops) in the other (Greg, 2026-10-20) */
+.pool-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+  max-width: 960px;
+  margin: 0 auto;
+  width: 100%;
+}
+.pool-ticket iframe {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  border: 0;
+  background: transparent;
+}
 .pool-board {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 18px;
   max-width: 960px;
   margin: 0 auto;
@@ -1392,6 +1411,8 @@ a:hover { color: var(--electric); }
 @media (max-width: 820px) {
   .path-feature__grid { grid-template-columns: 1fr; gap: 18px; }
   .pool-board { grid-template-columns: 1fr; max-width: 420px; }
+  .pool-split { grid-template-columns: 1fr; max-width: 420px; }
+  .pool-board { max-width: none; }
 }
 .path-links {
   max-width: 1040px;
