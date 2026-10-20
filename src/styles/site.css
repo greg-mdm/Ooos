@@ -6077,7 +6077,7 @@ textarea:focus-visible,
    in caps; it keeps the raised and pressed states of the round toggle */
 .midway-card__mark--word {
   width: 58px; height: 58px;
-  font-family: var(--font-heading); font-size: 0.78rem; font-weight: 800;
+  font-family: var(--font-heading); font-size: 0.78rem; font-weight: 800; font-style: italic;
   letter-spacing: 0.04em; text-transform: uppercase;
   color: #ffffff;
 }
@@ -6094,6 +6094,8 @@ textarea:focus-visible,
   max-width: 12.5em; text-align: center; text-wrap: balance; line-height: 1.35;
   color: rgba(232, 236, 244, 0.9);
 }
+/* the Sass logo in place of the word on the Sassy Games line (Greg, 2026-10-20) */
+.midway-card__sass { display: inline-block; height: 2.7em; width: auto; aspect-ratio: 512 / 352; vertical-align: -0.95em; margin-right: 0.15em; }
 .midway-card__toggle { align-items: flex-start; }
 .midway-card__label { padding-top: 10px; }
 .midway-card__toggle:hover .midway-card__mark { color: #ffffff; transform: translateY(-1px); }
