@@ -64,7 +64,7 @@
   .jbj-lite { container-type: inline-size; }
   .jbj-top { width: min(1500px, 100cqi); margin-left: 50%; translate: -50% 0; display: grid; grid-template-columns: minmax(0,0.85fr) minmax(0,1.3fr) minmax(0,0.85fr); gap: clamp(20px,3vw,48px); align-items: center; }
   .jbj-top-mid { text-align: center; }
-  .jbj-top-side { max-width: 36ch; justify-self: start; }
+  .jbj-top-side { width: 100%; max-width: 40ch; justify-self: center; }
   .jbj-top-side p { margin: 0; font-size: clamp(14.5px,1.35vw,16.5px); line-height: 1.62; color: #353F42; text-wrap: balance; }
   .jbj-top-side strong { color: #1C2325; font-weight: 700; }
 
@@ -109,6 +109,26 @@
   .jbj-series { position: relative; z-index: 1; margin: 0; display: flex; flex-direction: column; align-items: center; gap: 3cqi; text-align: center; font-family: 'Poppins', system-ui, sans-serif; font-weight: 800; font-size: 12.5cqi; line-height: 1.02; letter-spacing: -0.01em; color: #E9EEEF; }
   .jbj-series span { background: linear-gradient(180deg, #FFFFFF 0%, #F9FAFB 35%, #C2CDCF 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
   .jbj-series svg { width: 11cqi; height: 11cqi; }
+  /* the reflections as progressive disclosure bubbles: closed, a rounded
+     tile in the frame of Dillo's "Other rectangles" pen (one hue, a
+     diagonal dark-to-light sweep, a thin black gap), here in the Robin's
+     Egg greys, with the bold first sentence in silver; open, it pops into
+     a Robin's Egg 50 card with the full paragraph (Greg, 2026-10-20) */
+  .jbj-pop { width: fit-content; margin: 0 auto; }
+  .jbj-pop > summary { list-style: none; cursor: pointer; position: relative; box-sizing: border-box; max-width: 100%; border-radius: 15px; padding: 18px 20px 18px 24px; display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 14px; text-align: center; background: linear-gradient(to top right, #1C2325 0%, #1C2325 15%, #353F42 55%, #485559 100%); box-shadow: 0 0 0 2px #0d0d11, inset 0 1px 0 rgba(255,255,255,0.12), 0 14px 28px -16px rgba(13,13,17,0.6); transition: transform .3s cubic-bezier(.2,1.2,.4,1), filter .2s; }
+  .jbj-pop > summary::-webkit-details-marker { display: none; }
+  .jbj-pop > summary:hover { transform: scale(1.03); filter: brightness(1.08); }
+  .jbj-pop > summary:focus-visible { outline: 3px solid #5B04DE; outline-offset: 4px; }
+  .jbj-pop__lead { position: relative; z-index: 1; font-family: 'Poppins', system-ui, sans-serif; font-weight: 800; font-size: clamp(14px,1.25vw,16.5px); line-height: 1.25; text-wrap: balance; color: #F9FAFB; }
+  .jbj-pop__cue { position: relative; z-index: 1; display: inline-flex; width: 22px; height: 22px; border-radius: 50%; align-items: center; justify-content: center; border: 1.5px solid #C2CDCF; color: #F9FAFB; transition: transform .25s; }
+  .jbj-pop[open] { width: 100%; max-width: 62ch; box-sizing: border-box; padding: 16px 18px 18px; border-radius: 15px; background: #F9FAFB; border: 1px solid #C2CDCF; box-shadow: 0 14px 30px -18px rgba(28,35,37,0.45); text-align: left; animation: jbjPop .42s cubic-bezier(.2,1.35,.45,1) both; }
+  .jbj-pop[open] > summary { max-width: none; padding: 0; border-radius: 0; flex-direction: row; justify-content: space-between; align-items: flex-start; gap: 12px; text-align: left; background: none; box-shadow: none; animation: none; }
+  .jbj-pop[open] > summary:hover { filter: none; transform: none; }
+  .jbj-pop[open] .jbj-pop__lead { font-size: clamp(15px,1.4vw,17.5px); color: #1C2325; }
+  .jbj-pop[open] .jbj-pop__cue { flex: 0 0 auto; border-color: #5C6C70; color: #1C2325; transform: rotate(45deg); }
+  .jbj-pop > p { margin: 6px 0 0; font-size: clamp(14.5px,1.35vw,16.5px); line-height: 1.62; color: #353F42; text-wrap: balance; }
+  @keyframes jbjPop { 0% { transform: scale(0.7); opacity: 0; } 55% { transform: scale(1.03); opacity: 1; } 100% { transform: scale(1); } }
+  @media (prefers-reduced-motion: reduce) { .jbj-pop[open] { animation: none; } .jbj-pop > summary { transition: none; } }
   @keyframes jbjFloat { 0% { transform: translateY(0) scale(1) rotate(0deg); } 50% { transform: translateY(-12px) scale(1.01,0.99) rotate(0.5deg); } 100% { transform: translateY(6px) scale(0.99,1.01) rotate(-0.5deg); } }
   @media (prefers-reduced-motion: reduce) { .jbj-bubble { animation: none; } }
   @media (max-width: 900px) {
@@ -517,15 +537,24 @@
           <p class="jbj-intro">For centuries, art and storytelling have reminded us that life is short. Now, interactive digital media uncovers human connections through vibrant visual languages and real-time analytics.</p>
         </div>
         <div class="jbj-top-side">
-          <p><strong>Every 1 is someone.</strong> For people willing to reflect on their life&rsquo;s purpose in relation to others, lifelong learning is fundamental.</p>
+          <details class="jbj-pop">
+            <summary><span class="jbj-pop__lead">Every 1 is someone.</span><span class="jbj-pop__cue" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+            <p>For people willing to reflect on their life&rsquo;s purpose in relation to others, lifelong learning is fundamental.</p>
+          </details>
         </div>
       </div>
       <div class="jbj-story">
         <div>
-          <p><strong>Big numbers tell relatable stories.</strong> Learning how to analyze demographic data provides a powerful lens to expand your point of view.</p>
+          <details class="jbj-pop">
+            <summary><span class="jbj-pop__lead">Big numbers tell relatable stories.</span><span class="jbj-pop__cue" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+            <p>Learning how to analyze demographic data provides a powerful lens to expand your point of view.</p>
+          </details>
         </div>
         <div>
-          <p><strong>Awareness leads to understanding.</strong> Infrastructure, institutions, supply chains, and public spaces are interconnected in complex ways. Increased awareness fosters empathy, enriching the human connections that give our daily lives deeper meaning.</p>
+          <details class="jbj-pop">
+            <summary><span class="jbj-pop__lead">Awareness leads to understanding.</span><span class="jbj-pop__cue" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+            <p>Infrastructure, institutions, supply chains, and public spaces are interconnected in complex ways. Increased awareness fosters empathy, enriching the human connections that give our daily lives deeper meaning.</p>
+          </details>
         </div>
       </div>
       <div class="jbj-filmrow" style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(18px,2.6vw,34px); align-items:start; margin-top:clamp(16px,2.6vh,26px);">
