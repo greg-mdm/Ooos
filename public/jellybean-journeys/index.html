@@ -63,7 +63,14 @@
      and the first reflection (Greg, 2026-10-20) */
   .jbj-lite { container-type: inline-size; }
   .jbj-top { width: min(1500px, 100cqi); margin-left: 50%; translate: -50% 0; display: grid; grid-template-columns: minmax(0,0.85fr) minmax(0,1.3fr) minmax(0,0.85fr); gap: clamp(20px,3vw,48px); align-items: center; }
-  .jbj-top-mid { text-align: center; }
+  /* the nav's cosmic river (AuroraHeader's shader) shown at full scale behind
+     everything above the films, edge to edge; the gradient is the no-WebGL
+     fallback (Greg, 2026-10-20) */
+  .jbj-river { position: relative; isolation: isolate; margin-top: calc(-1 * clamp(24px,4vh,46px)); padding: clamp(30px,4.6vh,54px) 0 clamp(30px,4.6vh,50px); }
+  .jbj-river__bg { position: absolute; z-index: -1; top: 0; left: 50%; width: calc(100cqi + 2 * clamp(16px,4vw,44px)); height: 100%; translate: -50% 0; display: block; background: linear-gradient(180deg, #0F031C 0%, #07002B 22%, #120063 55%, #22038B 80%, #310299 100%); }
+  .jbj-river + .jbj-filmrow { margin-top: clamp(22px,3.4vh,34px) !important; }
+  /* the episode heading and intro in their own light box on the river */
+  .jbj-top-mid { text-align: center; padding: clamp(18px,2.4vw,28px) clamp(18px,2.6vw,34px); border-radius: 15px; background: #F9FAFB; border: 1.5px solid #C2CDCF; box-shadow: 0 18px 40px -20px rgba(0,0,0,0.7); }
   .jbj-top-side { width: 100%; max-width: 40ch; justify-self: center; }
   .jbj-top-side p { margin: 0; font-size: clamp(14.5px,1.35vw,16.5px); line-height: 1.62; color: #353F42; text-wrap: balance; }
   .jbj-top-side strong { color: #1C2325; font-weight: 700; }
@@ -100,7 +107,7 @@
       linear-gradient(0deg, rgba(255,255,255,0.4) 0%, rgba(0,255,255,0.25) 8%, rgba(255,0,128,0.2) 15%, rgba(255,255,255,0) 35%, rgba(255,255,255,0) 65%, rgba(255,230,0,0.2) 82%, rgba(0,255,150,0.25) 90%, rgba(255,255,255,0.5) 100%),
       linear-gradient(180deg, rgba(255,255,255,0.3) 2%, rgba(255,0,255,0.15) 12%, rgba(0,0,255,0.15) 22%, rgba(0,0,0,0) 40%, rgba(0,0,0,0) 60%, rgba(0,255,255,0.15) 85%, rgba(255,255,255,0.3) 98%);
     background-blend-mode: screen;
-    box-shadow: inset 0 40px 50px rgba(255,255,255,0.6), inset 0 -30px 45px rgba(255,255,255,0.35), inset 15px 0 25px rgba(255,0,150,0.2), inset -15px 0 25px rgba(0,200,255,0.25), inset 0 0 8px rgba(255,255,255,0.9), 0 18px 40px -18px rgba(13,13,17,0.55);
+    box-shadow: inset 0 40px 50px rgba(255,255,255,0.6), inset 0 -30px 45px rgba(255,255,255,0.35), inset 15px 0 25px rgba(255,0,150,0.2), inset -15px 0 25px rgba(0,200,255,0.25), inset 0 0 8px rgba(255,255,255,0.9), 0 0 0 2px #C2CDCF, 0 0 0 6px rgba(13,13,17,0.35), 0 18px 40px -18px rgba(0,0,0,0.7);
     animation: jbjFloat 6s ease-in-out infinite alternate; }
   .jbj-bubble::before { content: ""; position: absolute; top: 5.6%; left: 14%; width: 31%; height: 14%; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 25%, rgba(255,255,255,0.2) 60%, rgba(255,255,255,0) 100%); transform: rotate(-28deg); mix-blend-mode: overlay; filter: drop-shadow(0 0 2px rgba(255,255,255,0.8)); pointer-events: none; }
   .jbj-bubble::after { content: ""; position: absolute; top: 19.4%; left: 11.2%; width: 5%; height: 5%; border-radius: 50%; background: radial-gradient(circle, #fff 20%, rgba(255,255,255,0.4) 60%, transparent 100%); pointer-events: none; }
@@ -114,13 +121,13 @@
      Egg greys, with the bold first sentence in silver; open, it pops into
      a Robin's Egg 50 card with the full paragraph (Greg, 2026-10-20) */
   .jbj-pop { width: fit-content; margin: 0 auto; }
-  .jbj-pop > summary { list-style: none; cursor: pointer; position: relative; box-sizing: border-box; max-width: 100%; border-radius: 15px; padding: 18px 20px 18px 24px; display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 14px; text-align: center; background: linear-gradient(to top right, #1C2325 0%, #1C2325 15%, #353F42 55%, #485559 100%); box-shadow: 0 0 0 2px #0d0d11, inset 0 1px 0 rgba(255,255,255,0.12), 0 14px 28px -16px rgba(13,13,17,0.6); transition: transform .3s cubic-bezier(.2,1.2,.4,1), filter .2s; }
+  .jbj-pop > summary { list-style: none; cursor: pointer; position: relative; box-sizing: border-box; max-width: 100%; border-radius: 15px; padding: 18px 20px 18px 24px; display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 14px; text-align: center; background: linear-gradient(to top right, #1C2325 0%, #1C2325 15%, #353F42 55%, #485559 100%); box-shadow: 0 0 0 1.5px #C2CDCF, 0 0 0 4px rgba(13,13,17,0.45), inset 0 1px 0 rgba(255,255,255,0.12), 0 14px 28px -16px rgba(0,0,0,0.7); transition: transform .3s cubic-bezier(.2,1.2,.4,1), filter .2s; }
   .jbj-pop > summary::-webkit-details-marker { display: none; }
   .jbj-pop > summary:hover { transform: scale(1.03); filter: brightness(1.08); }
-  .jbj-pop > summary:focus-visible { outline: 3px solid #5B04DE; outline-offset: 4px; }
+  .jbj-pop > summary:focus-visible { outline: 3px solid #F9FAFB; outline-offset: 5px; }
   .jbj-pop__lead { position: relative; z-index: 1; font-family: 'Poppins', system-ui, sans-serif; font-weight: 800; font-size: clamp(14px,1.25vw,16.5px); line-height: 1.25; text-wrap: balance; color: #F9FAFB; }
   .jbj-pop__cue { position: relative; z-index: 1; display: inline-flex; width: 22px; height: 22px; border-radius: 50%; align-items: center; justify-content: center; border: 1.5px solid #C2CDCF; color: #F9FAFB; transition: transform .25s; }
-  .jbj-pop[open] { width: 100%; max-width: 62ch; box-sizing: border-box; padding: 16px 18px 18px; border-radius: 15px; background: #F9FAFB; border: 1px solid #C2CDCF; box-shadow: 0 14px 30px -18px rgba(28,35,37,0.45); text-align: left; animation: jbjPop .42s cubic-bezier(.2,1.35,.45,1) both; }
+  .jbj-pop[open] { width: 100%; max-width: 62ch; box-sizing: border-box; padding: 16px 18px 18px; border-radius: 15px; background: #F9FAFB; border: 1px solid #C2CDCF; box-shadow: 0 18px 40px -20px rgba(0,0,0,0.7); text-align: left; animation: jbjPop .42s cubic-bezier(.2,1.35,.45,1) both; }
   .jbj-pop[open] > summary { max-width: none; padding: 0; border-radius: 0; flex-direction: row; justify-content: space-between; align-items: flex-start; gap: 12px; text-align: left; background: none; box-shadow: none; animation: none; }
   .jbj-pop[open] > summary:hover { filter: none; transform: none; }
   .jbj-pop[open] .jbj-pop__lead { font-size: clamp(15px,1.4vw,17.5px); color: #1C2325; }
@@ -523,6 +530,8 @@
            left; Remember to Live, this episode, in the centre; the first
            reflection on the right; the other two over the films
            (Greg, 2026-10-20) -->
+      <div class="jbj-river">
+      <canvas class="jbj-river__bg" aria-hidden="true"></canvas>
       <div class="jbj-top">
         <div class="jbj-bubble">
           <span class="jbj-bubble__glare" aria-hidden="true"></span>
@@ -554,6 +563,7 @@
             <p>Infrastructure, institutions, supply chains, and public spaces are interconnected in complex ways. Increased awareness fosters empathy, enriching the human connections that give our daily lives deeper meaning.</p>
           </details>
         </div>
+      </div>
       </div>
       <div class="jbj-filmrow" style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(18px,2.6vw,34px); align-items:start; margin-top:clamp(16px,2.6vh,26px);">
         <figure class="jbj-media" style="margin:0; min-width:0;">
@@ -968,6 +978,104 @@ class Component extends DCLogic {
       mo.observe(document.documentElement, { childList: true, subtree: true });
     } catch (e) {}
     schedule();
+  })();
+</script>
+<script>
+  /* the cosmic river: AuroraHeader's nav shader (src/app/components/
+     AuroraHeader.tsx) at full scale behind the Pop Culture Parallels top,
+     ~30fps, only while on screen, one still frame under reduced motion; no
+     WebGL leaves the CSS gradient (Greg, 2026-10-20) */
+  (function () {
+    var FRAG = [
+      'precision highp float;',
+      'uniform vec2 u_res; uniform float u_time;',
+      'const vec3 DARKEST=vec3(0.035,0.012,0.145);',
+      'const vec3 PORTAL=vec3(0.294,0.0,0.714);',
+      'const vec3 ELECTRIC=vec3(0.357,0.016,0.871);',
+      'const vec3 EMBER=vec3(0.62,0.18,0.42);',
+      'mat2 rot(float a){float c=cos(a),s=sin(a);return mat2(c,-s,s,c);}',
+      'float hash21(vec2 p){p=fract(p*vec2(123.34,345.45));p+=dot(p,p+34.345);return fract(p.x*p.y);}',
+      'float noise(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.0-2.0*f);',
+      '  float a=hash21(i),b=hash21(i+vec2(1,0)),c=hash21(i+vec2(0,1)),d=hash21(i+vec2(1,1));',
+      '  return mix(mix(a,b,u.x),mix(c,d,u.x),u.y);}',
+      'float fbm(vec2 p){float v=0.0,a=0.5;for(int i=0;i<4;i++){v+=a*noise(p);p=rot(0.5)*p*2.0+11.3;a*=0.5;}return v;}',
+      'void main(){',
+      '  vec2 uv=gl_FragCoord.xy/u_res; float asp=u_res.x/u_res.y;',
+      '  vec2 p=uv; p.x*=asp;',
+      '  float mt=u_time*0.016; float drift=u_time*0.12;',
+      '  vec3 col=DARKEST;',
+      '  for(int i=0;i<2;i++){ float fi=float(i); float depth=1.0+fi*0.7;',
+      '    vec2 q=p/depth; q*=vec2(0.62,2.0)*1.4;',
+      '    q.x-=drift*(1.0+fi*0.30);',
+      '    vec2 w=vec2(fbm(q+vec2(0.0,mt)),fbm(q+vec2(3.1,-mt)));',
+      '    float dens=fbm(q+1.7*w); dens=smoothstep(0.36,0.95,dens);',
+      '    float layerA=dens*(0.62/depth);',
+      '    vec3 lc=mix(PORTAL,ELECTRIC,smoothstep(0.30,1.0,dens));',
+      '    lc=mix(lc,EMBER,smoothstep(0.35,0.85,w.x)*0.22);',
+      '    col=mix(col,lc,layerA);',
+      '  }',
+      '  col+=(hash21(gl_FragCoord.xy+u_time)-0.5)*0.01;',
+      '  col*=0.92;',
+      '  gl_FragColor=vec4(col,1.0);',
+      '}'].join('\n');
+    var VERT = 'attribute vec2 a_pos; void main(){ gl_Position=vec4(a_pos,0.0,1.0); }';
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var canvas = null, gl = null, uRes, uTime, last = 0, start = performance.now();
+    /* the page framework re-renders the section after load: it can swap the
+       canvas or reset its size attributes, so a light loop re-attaches and
+       redraws whenever that happens, and animates only while on screen
+       (in this page's viewport and, when framed, the homepage's) */
+    function setup() {
+      var c = document.querySelector('.jbj-river__bg');
+      if (!c || c === canvas) return;
+      canvas = c; gl = canvas.getContext('webgl', { antialias: false, premultipliedAlpha: false });
+      if (!gl) return; /* no WebGL: the CSS gradient stays */
+      function comp(src, t) { var o = gl.createShader(t); gl.shaderSource(o, src); gl.compileShader(o); return o; }
+      var prog = gl.createProgram();
+      gl.attachShader(prog, comp(VERT, gl.VERTEX_SHADER));
+      gl.attachShader(prog, comp(FRAG, gl.FRAGMENT_SHADER));
+      gl.linkProgram(prog);
+      if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { gl = null; return; }
+      gl.useProgram(prog);
+      var buf = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+      var la = gl.getAttribLocation(prog, 'a_pos');
+      gl.enableVertexAttribArray(la);
+      gl.vertexAttribPointer(la, 2, gl.FLOAT, false, 0, 0);
+      uRes = gl.getUniformLocation(prog, 'u_res');
+      uTime = gl.getUniformLocation(prog, 'u_time');
+      render();
+    }
+    function sized() { return canvas.width === Math.max(1, Math.floor(canvas.clientWidth)) && canvas.height === Math.max(1, Math.floor(canvas.clientHeight)); }
+    function render() {
+      if (!gl) return;
+      var w = Math.max(1, Math.floor(canvas.clientWidth)), h = Math.max(1, Math.floor(canvas.clientHeight));
+      if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
+      gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+      gl.uniform2f(uRes, gl.drawingBufferWidth, gl.drawingBufferHeight);
+      gl.uniform1f(uTime, reduce ? 40.0 : (performance.now() - start) / 1000 + 40.0);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+    function onScreen() {
+      var r = canvas.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) return false;
+      try {
+        var fe = window.frameElement;
+        if (fe) { var fr = fe.getBoundingClientRect(), ph = fe.ownerDocument.defaultView.innerHeight; if (fr.top + r.bottom < 0 || fr.top + r.top > ph) return false; }
+      } catch (e) {}
+      return true;
+    }
+    function loop(now) {
+      requestAnimationFrame(loop);
+      if (now - last < 1000 / 30) return;
+      last = now;
+      if (!canvas || !canvas.isConnected) setup();
+      if (!gl) return;
+      if (!sized() || (!reduce && onScreen())) render();
+    }
+    setup();
+    requestAnimationFrame(loop);
   })();
 </script>
 <script>
