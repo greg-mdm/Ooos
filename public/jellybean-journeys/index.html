@@ -106,9 +106,8 @@
   .jbj-bubble::after { content: ""; position: absolute; top: 19.4%; left: 11.2%; width: 5%; height: 5%; border-radius: 50%; background: radial-gradient(circle, #fff 20%, rgba(255,255,255,0.4) 60%, transparent 100%); pointer-events: none; }
   .jbj-bubble__glare::before { content: ""; position: absolute; bottom: 7.8%; right: 17.2%; width: 23.4%; height: 9.4%; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%); transform: rotate(-35deg); pointer-events: none; }
   .jbj-bubble__glare::after { content: ""; position: absolute; top: 18.8%; right: 7.8%; width: 13.8%; height: 43.8%; border-radius: 50%; background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.12), transparent); transform: rotate(-10deg); pointer-events: none; }
-  .jbj-series { position: relative; z-index: 1; margin: 0; display: flex; flex-direction: column; align-items: center; gap: 3cqi; text-align: center; font-family: 'Poppins', system-ui, sans-serif; font-weight: 800; font-size: 12.5cqi; line-height: 1.02; letter-spacing: -0.01em; color: #E9EEEF; }
+  .jbj-series { position: relative; z-index: 1; margin: 0; display: flex; flex-direction: column; align-items: center; text-align: center; font-family: 'Poppins', system-ui, sans-serif; font-weight: 800; font-size: 12.5cqi; line-height: 1.02; letter-spacing: -0.01em; color: #E9EEEF; }
   .jbj-series span { background: linear-gradient(180deg, #FFFFFF 0%, #F9FAFB 35%, #C2CDCF 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-  .jbj-series svg { width: 11cqi; height: 11cqi; }
   /* the reflections as progressive disclosure bubbles: closed, a rounded
      tile in the frame of Dillo's "Other rectangles" pen (one hue, a
      diagonal dark-to-light sweep, a thin black gap), here in the Robin's
@@ -528,7 +527,6 @@
         <div class="jbj-bubble">
           <span class="jbj-bubble__glare" aria-hidden="true"></span>
           <h2 class="jbj-series">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#DAE1E3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
             <span>Pop Culture Parallels</span>
           </h2>
         </div>
