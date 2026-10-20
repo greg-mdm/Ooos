@@ -59,13 +59,71 @@
      episode sits under it, Remember to Live the first (Greg, 2026-10-20).
      The palette is the Shadow pair's black and silver: Robin's Egg 950 and
      50, with Sunshine and Gold 200 for the accents, no purple or red. */
-  .jbj-series { margin: 0; display: flex; align-items: center; justify-content: center; gap: clamp(8px,1vw,14px); font-family: 'Poppins', system-ui, sans-serif; font-weight: 800; font-size: clamp(28px,3.8vw,46px); line-height: 1.1; color: #1C2325; }
-  .jbj-series svg { flex: 0 0 auto; }
-  .jbj-episode { margin: clamp(10px,1.6vh,16px) 0 0; font-family: 'Audiowide', system-ui, sans-serif; font-weight: 400; font-size: clamp(20px,2.5vw,30px); line-height: 1.15; color: #353F42; }
+  /* the top row runs the panel's full width: the series bubble, the episode,
+     and the first reflection (Greg, 2026-10-20) */
+  .jbj-lite { container-type: inline-size; }
+  .jbj-top { width: min(1500px, 100cqi); margin-left: 50%; translate: -50% 0; display: grid; grid-template-columns: minmax(0,0.85fr) minmax(0,1.3fr) minmax(0,0.85fr); gap: clamp(20px,3vw,48px); align-items: center; }
+  .jbj-top-mid { text-align: center; }
+  .jbj-top-side { max-width: 36ch; justify-self: start; }
+  .jbj-top-side p { margin: 0; font-size: clamp(14.5px,1.35vw,16.5px); line-height: 1.62; color: #353F42; text-wrap: balance; }
+  .jbj-top-side strong { color: #1C2325; font-weight: 700; }
+
+  /* the series bubble: the pen's glass bubble on its own black core, so it
+     holds on the light panel, with the title in bright silver inside.
+     Adapted from "bubble pure css" by rafaelcastrocouto,
+     https://codepen.io/rafaelcastrocouto/pen/RNKQQpY, under this licence:
+
+     The MIT License (MIT)
+
+     Copyright (c) 2026 rafaelcastrocouto (https://codepen.io/rafaelcastrocouto/pen/RNKQQpY)
+
+     Permission is hereby granted, free of charge, to any person obtaining a copy
+     of this software and associated documentation files (the "Software"), to deal
+     in the Software without restriction, including without limitation the rights
+     to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+     copies of the Software, and to permit persons to whom the Software is
+     furnished to do so, subject to the following conditions:
+
+     The above copyright notice and this permission notice shall be included in all
+     copies or substantial portions of the Software.
+
+     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+     IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+     FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+     AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+     SOFTWARE.
+  */
+  .jbj-bubble { position: relative; justify-self: center; width: min(100%, 320px); aspect-ratio: 1; border-radius: 50%; container-type: inline-size; display: flex; align-items: center; justify-content: center; background-color: #0d0d11;
+    background-image: radial-gradient(circle at 50% 50%, rgba(0,0,0,1) 35%, rgba(0,0,0,0) 70%),
+      linear-gradient(0deg, rgba(255,255,255,0.4) 0%, rgba(0,255,255,0.25) 8%, rgba(255,0,128,0.2) 15%, rgba(255,255,255,0) 35%, rgba(255,255,255,0) 65%, rgba(255,230,0,0.2) 82%, rgba(0,255,150,0.25) 90%, rgba(255,255,255,0.5) 100%),
+      linear-gradient(180deg, rgba(255,255,255,0.3) 2%, rgba(255,0,255,0.15) 12%, rgba(0,0,255,0.15) 22%, rgba(0,0,0,0) 40%, rgba(0,0,0,0) 60%, rgba(0,255,255,0.15) 85%, rgba(255,255,255,0.3) 98%);
+    background-blend-mode: screen;
+    box-shadow: inset 0 40px 50px rgba(255,255,255,0.6), inset 0 -30px 45px rgba(255,255,255,0.35), inset 15px 0 25px rgba(255,0,150,0.2), inset -15px 0 25px rgba(0,200,255,0.25), inset 0 0 8px rgba(255,255,255,0.9), 0 18px 40px -18px rgba(13,13,17,0.55);
+    animation: jbjFloat 6s ease-in-out infinite alternate; }
+  .jbj-bubble::before { content: ""; position: absolute; top: 5.6%; left: 14%; width: 31%; height: 14%; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 25%, rgba(255,255,255,0.2) 60%, rgba(255,255,255,0) 100%); transform: rotate(-28deg); mix-blend-mode: overlay; filter: drop-shadow(0 0 2px rgba(255,255,255,0.8)); pointer-events: none; }
+  .jbj-bubble::after { content: ""; position: absolute; top: 19.4%; left: 11.2%; width: 5%; height: 5%; border-radius: 50%; background: radial-gradient(circle, #fff 20%, rgba(255,255,255,0.4) 60%, transparent 100%); pointer-events: none; }
+  .jbj-bubble__glare::before { content: ""; position: absolute; bottom: 7.8%; right: 17.2%; width: 23.4%; height: 9.4%; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%); transform: rotate(-35deg); pointer-events: none; }
+  .jbj-bubble__glare::after { content: ""; position: absolute; top: 18.8%; right: 7.8%; width: 13.8%; height: 43.8%; border-radius: 50%; background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.12), transparent); transform: rotate(-10deg); pointer-events: none; }
+  .jbj-series { position: relative; z-index: 1; margin: 0; display: flex; flex-direction: column; align-items: center; gap: 3cqi; text-align: center; font-family: 'Poppins', system-ui, sans-serif; font-weight: 800; font-size: 12.5cqi; line-height: 1.02; letter-spacing: -0.01em; color: #E9EEEF; }
+  .jbj-series span { background: linear-gradient(180deg, #FFFFFF 0%, #F9FAFB 35%, #C2CDCF 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .jbj-series svg { width: 11cqi; height: 11cqi; }
+  @keyframes jbjFloat { 0% { transform: translateY(0) scale(1) rotate(0deg); } 50% { transform: translateY(-12px) scale(1.01,0.99) rotate(0.5deg); } 100% { transform: translateY(6px) scale(0.99,1.01) rotate(-0.5deg); } }
+  @media (prefers-reduced-motion: reduce) { .jbj-bubble { animation: none; } }
+  @media (max-width: 900px) {
+    .jbj-top { grid-template-columns: minmax(0,0.8fr) minmax(0,1.2fr); }
+    .jbj-top-side { grid-column: 1 / -1; justify-self: center; max-width: 62ch; text-align: center; }
+  }
+  @media (max-width: 600px) {
+    .jbj-top { grid-template-columns: 1fr; }
+    .jbj-bubble { width: min(72%, 260px); }
+  }
+  .jbj-episode { margin: 0; font-family: 'Audiowide', system-ui, sans-serif; font-weight: 400; font-size: clamp(20px,2.5vw,30px); line-height: 1.15; color: #353F42; }
   /* the intro spans both columns; the reflections then run as two
      parallel columns on the films' own grid, text inset to the cards'
      title strips (Greg, 2026-10-20) */
-  .jbj-intro { max-width: 62ch; margin: clamp(14px,2.2vh,22px) auto 0; text-align: center; font-size: clamp(15px,1.5vw,18px); line-height: 1.6; color: #353F42; text-wrap: balance; }
+  .jbj-intro { max-width: 62ch; margin: clamp(12px,1.8vh,18px) auto 0; text-align: center; font-size: clamp(15px,1.5vw,18px); line-height: 1.6; color: #353F42; text-wrap: balance; }
   .jbj-story { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(18px,2.6vw,34px); margin: clamp(16px,2.6vh,26px) 0 0; text-align: left; }
   .jbj-story > div { max-width: 62ch; padding: 0 16px; }
   .jbj-story p { margin: 0 0 0.9em; font-size: clamp(14.5px,1.35vw,16.5px); line-height: 1.62; color: #353F42; text-wrap: balance; }
@@ -442,20 +500,28 @@
        and the two charts open on tap to keep the section compact. ===== -->
   <div class="jbj-lite">
     <div class="jbj-lite-in">
-      <!-- Pop Culture Parallels, the running series, as the main heading;
-           Remember to Live, this episode, under it with its text as one
-           block of short paragraphs (Greg, 2026-10-20) -->
-      <div style="text-align:center;">
-        <h2 class="jbj-series">
-          <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#1C2325" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-          <span>Pop Culture Parallels</span>
-        </h2>
-        <h3 class="jbj-episode">Remember to Live</h3>
+      <!-- Pop Culture Parallels, the running series, in the bubble on the
+           left; Remember to Live, this episode, in the centre; the first
+           reflection on the right; the other two over the films
+           (Greg, 2026-10-20) -->
+      <div class="jbj-top">
+        <div class="jbj-bubble">
+          <span class="jbj-bubble__glare" aria-hidden="true"></span>
+          <h2 class="jbj-series">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#DAE1E3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            <span>Pop Culture Parallels</span>
+          </h2>
+        </div>
+        <div class="jbj-top-mid">
+          <h3 class="jbj-episode">Remember to Live</h3>
+          <p class="jbj-intro">For centuries, art and storytelling have reminded us that life is short. Now, interactive digital media uncovers human connections through vibrant visual languages and real-time analytics.</p>
+        </div>
+        <div class="jbj-top-side">
+          <p><strong>Every 1 is someone.</strong> For people willing to reflect on their life&rsquo;s purpose in relation to others, lifelong learning is fundamental.</p>
+        </div>
       </div>
-      <p class="jbj-intro">For centuries, art and storytelling have reminded us that life is short. Now, interactive digital media uncovers human connections through vibrant visual languages and real-time analytics.</p>
       <div class="jbj-story">
         <div>
-          <p><strong>Every 1 is someone.</strong> For people willing to reflect on their life&rsquo;s purpose in relation to others, lifelong learning is fundamental.</p>
           <p><strong>Big numbers tell relatable stories.</strong> Learning how to analyze demographic data provides a powerful lens to expand your point of view.</p>
         </div>
         <div>
