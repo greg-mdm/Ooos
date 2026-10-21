@@ -1094,7 +1094,7 @@ const ARTIST_QA: { q: string; a: ReactNode }[] = [
   { q: "When?", a: <>&ldquo;Started painting at the age of 18. I remember it was in the fall&hellip; It was 20 years ago this season.&rdquo;</> },
   { q: "How?", a: <>&ldquo;I used to make my own homemade canvases from pillow slips. My hack was to prime with a few coats and stretch by hand.&rdquo;</> },
   { q: "Why?", a: <>&ldquo;Growing up in foster homes and being away from family meant facing many emotional hardships. I poured the highs and lows of those experiences into my art, painting with vibrant colours and mixing various styles and techniques.&rdquo;</> },
-  { q: "Where?", a: <>&ldquo;I grew up moving around the GTA, spent my teenage years in Ajax, and now call Toronto home&hellip; I don&rsquo;t know if you&rsquo;ve ever thought about it, but sometimes I feel like the earth is in the middle of nowhere.&rdquo;</> },
+  { q: "Where?", a: <>&ldquo;I grew up moving around the GTA, spent my teenage years in Ajax, and now call Toronto home&hellip; Sometimes I find myself wondering where we are, like the earth itself is in the middle of nowhere. It&rsquo;s a feeling that fills me with questions, and a sense that we&rsquo;re all a little lost in space. This uncertainty might spill into my canvases.&rdquo;</> },
   { q: "When?", a: <>&ldquo;I&rsquo;ve had questions about reality throughout my life, but after settling into a sober lifestyle, I struggled and searched for meaning.&rdquo;</> },
   { q: "What?", a: <>&ldquo;Everyone sees different things&hellip;&rdquo;</> },
 ];
