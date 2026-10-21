@@ -1079,14 +1079,15 @@ const ARTIST_QA: { q: string; a: ReactNode }[] = [
   { q: "When?", a: <>&ldquo;Started painting at the age of 18&ndash;20 years ago.&rdquo;</> },
   { q: "How?", a: <>&ldquo;I used to make my own homemade canvases from pillow slips. My hack was to prime with a few coats and stretch by hand.&rdquo;</> },
   { q: "Why?", a: <>Had a lot of emotional hardships growing up in foster homes. I channelled my highs and lows and expressed my creativity using vibrant colours, mixing my techniques with different styles.</> },
-  { q: "Where?", a: <>Toronto is home. I don&rsquo;t know if you&rsquo;ve ever thought about it, but sometimes I feel like the earth is in the middle of nowhere.</> },
-  { q: "When?", a: <>I&rsquo;ve had questions about reality throughout my life, but after settling into a sober lifestyle, I struggled and searched for meaning.</> },
+  { q: "Where?", a: <>&ldquo;Toronto is home. I don&rsquo;t know if you&rsquo;ve ever thought about it, but sometimes I feel like the earth is in the middle of nowhere.&rdquo;</> },
+  { q: "When?", a: <>&ldquo;I&rsquo;ve had questions about reality throughout my life, but after settling into a sober lifestyle, I struggled and searched for meaning.&rdquo;</> },
   { q: "What?", a: <>&ldquo;Everyone sees different things&hellip;&rdquo;</> },
 ];
 
 /* Two columns (Greg, 2026-10-20): the Live Art Auction picture with the
-   bid terms under it on the left; the artist's photo and About the artist
-   on the right, open, its answers folded on their first words. */
+   bid terms under it on the left; About the artist on the right, open,
+   the artist's photo a thumbnail beside it (2026-10-21), its answers
+   folded on their first words. */
 function LotDetails() {
   const [open, setOpen] = useState(true);
   return (
@@ -1115,18 +1116,19 @@ function LotDetails() {
         <p className="lot__fine">Framing is separate; options are quoted to the winner. Pickup in Toronto or shipping at cost.</p>
       </div>
       <div className="lot__col lot__col--artist">
-        {/* Greg's "McCormack - Abstract Artist - 2026.jpg" (2026-10-20); the
-            page serves an 800 px JPEG made from it, the original stays */}
-        <figure className="lot__artist">
+        <div className="lot__about">
+          {/* the artist's photo as a thumbnail beside the heading, so the
+              artwork leads (Greg, 2026-10-21); the page serves an 800 px
+              JPEG made from his "McCormack - Abstract Artist - 2026.jpg" */}
+          <div className="lot__about-head">
           <img
+            className="lot__artist"
             src={`${ASSETS}mccormack-artist.jpg`}
-            alt="Portrait of the artist McCormack in saturated, painterly colour: dark tousled hair, a short beard and a light blue T-shirt, lit warm against a deep blue wall"
-            width="800"
-            height="1000"
+            alt="Portrait of the artist McCormack in saturated, painterly colour: dark tousled hair, a short beard and a light blue T-shirt"
+            width="88"
+            height="88"
             loading="lazy"
           />
-        </figure>
-        <div className="lot__about">
           <button
             type="button"
             className="lot__toggle"
@@ -1137,6 +1139,7 @@ function LotDetails() {
             <span>About the artist</span>
             <span className="midway-card__mark" aria-hidden="true">{open ? "−" : "+"}</span>
           </button>
+          </div>
           <div id="lot-about" className="lot__text" hidden={!open}>
             {ARTIST_QA.map((item, i) => (
               <details key={i} className="lot__qa">
