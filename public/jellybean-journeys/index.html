@@ -290,6 +290,25 @@
   .jbj-res__refs li { padding-left: 1.2em; text-indent: -1.2em; }
   .jbj-res__note { margin: 12px 0 0 !important; font-size: 12.5px; color: #353F42; }
 
+  /* the country buttons (Greg, 2026-10-21): sharp recessed rectangles,
+     three over two; a round LED, lit and raised in a dark bezel; the count
+     set into a dark scoreboard slot in Sunshine */
+  .jbj-isos { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; width: 100%; }
+  .jbj-iso { flex: 0 0 calc((100% - 16px) / 3); min-width: 0; display: flex; align-items: center; gap: 10px; padding: 6px 6px 6px 12px; font: inherit; font-size: 13.5px; font-weight: 600; text-align: left; border: 1px solid #C2CDCF; border-radius: 0; cursor: pointer;
+    box-shadow: inset 0 2px 4px rgba(28,35,37,0.22), inset 0 -1px 0 rgba(255,255,255,0.8); transition: border-color .2s, background .2s; }
+  .jbj-iso[aria-pressed="true"] { border-width: 2px; padding: 5px 5px 5px 11px; }
+  .jbj-iso__led { flex: 0 0 auto; width: 14px; height: 14px; border-radius: 50%;
+    background: radial-gradient(circle at 34% 30%, rgba(255,255,255,0.95) 0 14%, rgba(255,255,255,0) 42%), var(--led);
+    box-shadow: inset 0 -2px 3px rgba(0,0,0,0.35), 0 0 0 2px #353F42, 0 0 0 3px #C2CDCF, 0 2px 3px 3px rgba(28,35,37,0.28), 0 0 12px 3px var(--led); }
+  .jbj-iso__name { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
+  .jbj-iso__count { flex: 0 0 auto; min-width: 3.4em; padding: 4px 8px; text-align: right; font-family: 'Audiowide', system-ui, sans-serif; font-size: 13px; font-weight: 400; letter-spacing: 0.06em; font-variant-numeric: tabular-nums; color: #FFF3B0; background: #1C2325; border-radius: 0; box-shadow: inset 0 2px 5px rgba(0,0,0,0.65), 0 1px 0 rgba(255,255,255,0.7); }
+  [data-iso]:focus-visible { outline-color: #4B00B6 !important; }
+  @media (max-width: 560px) {
+    .jbj-iso { display: grid; grid-template-columns: auto 1fr; row-gap: 6px; column-gap: 8px; padding: 7px; font-size: 12.5px; }
+    .jbj-iso[aria-pressed="true"] { padding: 6px; }
+    .jbj-iso__count { grid-column: 1 / -1; text-align: center; min-width: 0; }
+  }
+
   /* the 3D toolbar under the screen wraps when it runs out of width */
   [aria-label="3D scene controls"] { flex-wrap: wrap; }
 
@@ -337,8 +356,6 @@
     <div style="font-family:'Montserrat',system-ui,-apple-system,sans-serif; font-size:clamp(1.25rem,2.2vw,2rem); letter-spacing:3px; text-transform:uppercase; color:#5B04DE; font-weight:800; line-height:1.1;">&#9733; Featured Data Visualization</div>
     <!-- 2 · main title -->
     <h1 style="margin:0; font-size:clamp(22px,2.8vw,34px); font-weight:700; letter-spacing:-0.4px; line-height:1.12; color:#1a1646;">International Student Enrolment: Top 5 Countries (2023&ndash;2024)</h1>
-    <!-- 3 · data source -->
-    <span style="font-size:clamp(13px,1.3vw,15.5px); font-weight:500; letter-spacing:0.3px; color:#353F42;">(University Enrolment, Ontario Data Catalogue)</span>
   </div>
 
   <!-- ===== Stage: screen + side light-switch ===== -->
@@ -407,10 +424,12 @@
       </button>
     </div>
 
-    <div role="group" aria-label="Isolate a country" style="display:flex; flex-wrap:wrap; gap:7px; justify-content:center;">
+    <!-- the five countries, three over two (Greg, 2026-10-21): a lit LED,
+         the name, and the count set in its own scoreboard slot -->
+    <div role="group" aria-label="Isolate a country" class="jbj-isos">
       <sc-for list="{{ isos }}" as="c" hint-placeholder-count="5">
-        <button data-iso="{{ c.idx }}" aria-pressed="{{ c.cur }}" style="display:inline-flex; align-items:center; gap:7px; font:inherit; font-size:13px; font-weight:600; color:{{ c.color }}; background:{{ c.bg }}; border:1px solid {{ c.border }}; border-radius:999px; padding:7px 14px; cursor:pointer;">
-          <span style="flex:0 0 auto; width:27px; height:16px; border-radius:999px; background:{{ c.dot }}; box-shadow:0 0 6px {{ c.dot }};"></span>{{ c.name }} <span style="color:#353F42; font-weight:500; font-variant-numeric:tabular-nums;">{{ c.count }}</span>
+        <button data-iso="{{ c.idx }}" aria-pressed="{{ c.cur }}" class="jbj-iso" style="--led:{{ c.dot }}; color:{{ c.color }}; background:{{ c.bg }}; border-color:{{ c.border }};">
+          <span class="jbj-iso__led" aria-hidden="true"></span><span class="jbj-iso__name">{{ c.name }}</span><span class="jbj-iso__count">{{ c.count }}</span>
         </button>
       </sc-for>
     </div>
@@ -841,7 +860,7 @@ class Component extends DCLogic {
         idx: i, name: c.name, count: c.count, dot: c.color,
         cur: sel ? 'true' : 'false',
         color: '#1C2325',
-        bg: sel ? '#FFF3B0' : '#F9FAFB',
+        bg: sel ? '#FFF3B0' : '#DAE1E3',
         border: sel ? '#4B00B6' : '#C2CDCF'
       };
     });
