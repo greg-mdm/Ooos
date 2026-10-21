@@ -1,4 +1,4 @@
-import { CSSProperties, ReactNode, useEffect, useRef, useState } from "react";
+import { CSSProperties, FormEvent, ReactNode, useEffect, useRef, useState } from "react";
 import { RadioAd } from "./RadioAd";
 import { AnatomyDisplay } from "./AnatomyDisplay";
 
@@ -1032,13 +1032,14 @@ function ShareLink() {
 }
 
 /* The gold button under the campaign card: "Adopt a hero" (Greg,
-   2026-10-18), the line that goes with Shadow searching for a home. */
+   2026-10-18), the line that goes with Shadow searching for a home. It
+   opens the bid form below the auction card (2026-10-21). */
 function BidButton() {
   const closed = Date.now() >= AUCTION_CLOSE.getTime();
   return closed ? (
     <span className="lot__closed lot-spread__bid">Bidding closed</span>
   ) : (
-    <a className="lot__cta lot-spread__bid" href={BID_FORM_URL} target="_blank" rel="noopener noreferrer">
+    <a className="lot__cta lot-spread__bid" href="#lot-bid" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event(OPEN_BID_EVENT)); }}>
       Adopt a hero
     </a>
   );
@@ -1050,7 +1051,102 @@ function BidButton() {
    11:59 PM ET (Greg, 2026-10-21: the dates on the new auction card; it
    was October 20 to November 20); after the close the buttons give way to
    a closed line. Framing is quoted to the winner. */
-const BID_FORM_URL = "https://greg31122.wixforms.com/f/7517118600616870916";
+/* Bids go to Greg's private Google Form (2026-10-21: the Wix form added
+   nothing Ooo! cannot do itself); its responses land in his Sheet, which
+   only he can open, so bidders' details never appear on the site. Fill in
+   the form's id and each question's entry id from its pre-filled link;
+   until then the form opens a pre-filled email to greg@ooos.ca instead. */
+const BID_GOOGLE_FORM = {
+  id: "",
+  entries: { name: "", email: "", phone: "", amount: "", terms: "" },
+};
+const BID_EMAIL = "greg@ooos.ca";
+const OPENING_BID = 200;
+const OPEN_BID_EVENT = "ooos:open-bid";
+const BID_TERMS = "I understand the highest bid at close wins, that bidding closes November 25, 2026 at 11:59 PM ET, and that framing is quoted separately.";
+
+function BidForm() {
+  const [sent, setSent] = useState<"" | "google" | "email">("");
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  const google = BID_GOOGLE_FORM.id && Object.values(BID_GOOGLE_FORM.entries).every(Boolean);
+
+  async function submit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const f = new FormData(e.currentTarget);
+    const name = String(f.get("name") || "").trim();
+    const email = String(f.get("email") || "").trim();
+    const phone = String(f.get("phone") || "").trim();
+    const amount = Number(f.get("amount"));
+    if (!name || !email || !amount) { setError("Please fill in your name, email and bid."); return; }
+    if (!(amount >= OPENING_BID)) { setError(`The opening bid is $${OPENING_BID} CAD.`); return; }
+    if (!f.get("terms")) { setError("Please confirm the terms to place your bid."); return; }
+    setError("");
+    const bid = `$${amount.toLocaleString("en-CA")} CAD`;
+    if (google) {
+      setBusy(true);
+      const body = new URLSearchParams();
+      body.set(BID_GOOGLE_FORM.entries.name, name);
+      body.set(BID_GOOGLE_FORM.entries.email, email);
+      body.set(BID_GOOGLE_FORM.entries.phone, phone);
+      body.set(BID_GOOGLE_FORM.entries.amount, String(amount));
+      body.set(BID_GOOGLE_FORM.entries.terms, "Agreed: " + BID_TERMS);
+      try {
+        // Google answers cross-origin posts opaquely; the response is recorded
+        await fetch(`https://docs.google.com/forms/d/e/${BID_GOOGLE_FORM.id}/formResponse`, { method: "POST", mode: "no-cors", body });
+        setSent("google");
+      } catch {
+        setError("The bid could not be sent. Please check your connection and try again.");
+      } finally {
+        setBusy(false);
+      }
+      return;
+    }
+    const lines = [`Name: ${name}`, `Email: ${email}`, `Phone: ${phone || "(not given)"}`, `Bid: ${bid}`, "", `Agreed: ${BID_TERMS}`];
+    window.location.href = `mailto:${BID_EMAIL}?subject=${encodeURIComponent("Bid on Shadow: " + bid)}&body=${encodeURIComponent(lines.join("\n"))}`;
+    setSent("email");
+  }
+
+  if (sent === "google") {
+    return (
+      <p className="lot__bid-done" role="status">
+        Thank you, your bid is in. If yours is the highest bid at close, we&rsquo;ll be in touch by email.
+      </p>
+    );
+  }
+  return (
+    <form className="lot__bid-form" onSubmit={submit} noValidate>
+      <p className="lot__bid-private">Your details stay private: bids go to Ooo!&rsquo;s own records and are never shown on the site.</p>
+      <label className="lot__field">
+        <span>Full name</span>
+        <input name="name" type="text" autoComplete="name" required />
+      </label>
+      <label className="lot__field">
+        <span>Email</span>
+        <input name="email" type="email" autoComplete="email" required />
+      </label>
+      <label className="lot__field">
+        <span>Phone <em>(optional)</em></span>
+        <input name="phone" type="tel" autoComplete="tel" />
+      </label>
+      <label className="lot__field">
+        <span>Bid amount (CAD)</span>
+        <input name="amount" type="number" inputMode="numeric" min={OPENING_BID} step={1} placeholder={String(OPENING_BID)} required />
+      </label>
+      <label className="lot__check">
+        <input name="terms" type="checkbox" required />
+        <span>{BID_TERMS}</span>
+      </label>
+      {error && <p className="lot__bid-error" role="alert">{error}</p>}
+      {sent === "email" && (
+        <p className="lot__bid-done" role="status">Your email app should open with your bid filled in. Press Send to place it.</p>
+      )}
+      <button type="submit" className="lot__cta lot__bid-go" disabled={busy}>
+        {busy ? "Placing your bid\u2026" : "Place my bid"}
+      </button>
+    </form>
+  );
+}
 const AUCTION_CLOSE = new Date("2026-11-26T04:59:00Z"); // Nov 25, 11:59 PM ET
 
 /* The Live Art Auction card (Greg, 2026-10-21): Shadow floating in a
@@ -1106,6 +1202,18 @@ const ARTIST_QA: { q: string; a: ReactNode }[] = [
 function LotDetails() {
   const [open, setOpen] = useState(true);
   const [bidOpen, setBidOpen] = useState(false);
+  useEffect(() => {
+    const open = () => {
+      setBidOpen(true);
+      window.setTimeout(() => {
+        const el = document.getElementById("lot-bid");
+        el?.scrollIntoView({ behavior: "smooth", block: "center" });
+        el?.querySelector<HTMLInputElement>("input")?.focus({ preventScroll: true });
+      }, 60);
+    };
+    window.addEventListener(OPEN_BID_EVENT, open);
+    return () => window.removeEventListener(OPEN_BID_EVENT, open);
+  }, []);
   return (
     <div className="lot lot--painting">
       <div className="lot__col lot__col--auction">
@@ -1118,9 +1226,7 @@ function LotDetails() {
             <span>Highest bid at close wins</span>
           </p>
           <p className="lot__fine">Framing is separate; options are quoted to the winner. Pickup in Toronto or shipping at cost.</p>
-          <a className="lot__cta lot__bid-go" href={BID_FORM_URL} target="_blank" rel="noopener noreferrer">
-            Go to the bid form <span aria-hidden="true">&#8599;</span>
-          </a>
+          <BidForm />
         </div>
       </div>
       <div className="lot__col lot__col--artist">

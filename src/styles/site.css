@@ -5968,6 +5968,22 @@ textarea:focus-visible,
 button.lot__cta { font: inherit; cursor: pointer; }
 .lot__art-widget__cta[aria-expanded="true"] { box-shadow: 0 0 0 4px rgba(240, 192, 64, 0.3); }
 .lot__bid { padding-top: 2px; }
+/* the Ooo! bid form (Greg, 2026-10-21), on the lot's dark ground */
+.lot__bid-form { display: flex; flex-direction: column; gap: 12px; margin-top: 14px; }
+.lot__bid-private { margin: 0; font-size: 0.85rem; line-height: 1.5; color: rgba(232, 236, 244, 0.9); }
+.lot__field { display: flex; flex-direction: column; gap: 5px; font-size: 0.85rem; font-weight: 600; color: #E8ECF4; }
+.lot__field em { font-style: normal; font-weight: 400; color: rgba(232, 236, 244, 0.85); }
+.lot__field input {
+  width: 100%; padding: 10px 12px; border-radius: 10px; font: inherit; font-weight: 500; font-size: 1rem;
+  color: #ffffff; background: #0F031C; border: 1px solid rgba(255, 255, 255, 0.22);
+}
+.lot__field input:focus { outline: 2px solid #F0C040; outline-offset: 1px; border-color: transparent; }
+.lot__check { display: flex; align-items: flex-start; gap: 10px; font-size: 0.85rem; line-height: 1.5; color: #E8ECF4; cursor: pointer; }
+.lot__check input { flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px; accent-color: #F0C040; }
+.lot__bid-error { margin: 0; font-size: 0.9rem; font-weight: 600; color: #FFC2C2; }
+.lot__bid-done { margin: 14px 0 0; font-size: 0.95rem; line-height: 1.5; color: #F0C040; }
+.lot__bid-form .lot__bid-go { align-self: flex-start; margin-top: 2px; border: 0; }
+.lot__bid-form .lot__bid-go[disabled] { opacity: 0.7; cursor: progress; }
 .lot__bid-go { display: inline-block; margin-top: 14px; padding: 10px 18px; border-radius: 999px; font-family: var(--font-elevated, var(--sans)); font-size: 0.8rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; }
 .lot-spread .lot--painting .lot__terms { margin: 16px 0 6px; flex-direction: column; align-items: flex-start; gap: 2px; }
 .lot-spread .lot--painting .lot__terms > [aria-hidden] { display: none; }
