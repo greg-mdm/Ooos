@@ -1076,7 +1076,7 @@ function AuctionWidget() {
 /* The artist's answers, Greg's text (2026-10-20), quotes balanced per answer; each opens on
    its first word, inside About the artist. */
 const ARTIST_QA: { q: string; a: ReactNode }[] = [
-  { q: "When?", a: <>&ldquo;Started painting at the age of 18&ndash;20 years ago.&rdquo;</> },
+  { q: "When?", a: <>&ldquo;Started painting at the age of 18. I remember it was in the fall&hellip; It was 20 years ago this season.&rdquo;</> },
   { q: "How?", a: <>&ldquo;I used to make my own homemade canvases from pillow slips. My hack was to prime with a few coats and stretch by hand.&rdquo;</> },
   { q: "Why?", a: <>Had a lot of emotional hardships growing up in foster homes. I channelled my highs and lows and expressed my creativity using vibrant colours, mixing my techniques with different styles.</> },
   { q: "Where?", a: <>&ldquo;Toronto is home. I don&rsquo;t know if you&rsquo;ve ever thought about it, but sometimes I feel like the earth is in the middle of nowhere.&rdquo;</> },
