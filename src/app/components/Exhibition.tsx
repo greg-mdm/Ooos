@@ -1055,8 +1055,9 @@ const AUCTION_CLOSE = new Date("2026-11-21T04:59:00Z"); // Nov 20, 11:59 PM ET
 
 /* The auction widget on Shadow's pink brick picture (Greg, 2026-10-18):
    the event name, the bid button and the dates, in the upper right on the
-   dark pool. */
-function AuctionWidget() {
+   dark pool. Place a bid opens the terms below the picture (Greg,
+   2026-10-21), where the form link waits. */
+function AuctionWidget({ open, onToggle }: { open: boolean; onToggle: () => void }) {
   const closed = Date.now() >= AUCTION_CLOSE.getTime();
   return (
     <div className="lot__art-widget">
@@ -1064,9 +1065,9 @@ function AuctionWidget() {
       {closed ? (
         <span className="lot__closed lot__art-widget__cta">Bidding closed</span>
       ) : (
-        <a className="lot__cta lot__art-widget__cta" href={BID_FORM_URL} target="_blank" rel="noopener noreferrer">
+        <button type="button" className="lot__cta lot__art-widget__cta" aria-expanded={open} aria-controls="lot-bid" onClick={onToggle}>
           Place a bid
-        </a>
+        </button>
       )}
       <span className="lot__art-widget__dates">[October 20 &ndash;<br />November 20, 2026]</span>
     </div>
@@ -1090,6 +1091,7 @@ const ARTIST_QA: { q: string; a: ReactNode }[] = [
    folded on their first words. */
 function LotDetails() {
   const [open, setOpen] = useState(true);
+  const [bidOpen, setBidOpen] = useState(false);
   return (
     <div className="lot lot--painting">
       <div className="lot__col lot__col--auction">
@@ -1106,14 +1108,20 @@ function LotDetails() {
             height="1200"
             loading="lazy"
           />
-          <AuctionWidget />
+          <AuctionWidget open={bidOpen} onToggle={() => setBidOpen((v) => !v)} />
         </figure>
-        <p className="lot__terms">
-          <span>Opening bid $200 CAD</span>
-          <span aria-hidden="true">·</span>
-          <span>Highest bid at close wins</span>
-        </p>
-        <p className="lot__fine">Framing is separate; options are quoted to the winner. Pickup in Toronto or shipping at cost.</p>
+        {/* the terms, folded until Place a bid is pressed (Greg, 2026-10-21) */}
+        <div id="lot-bid" className="lot__bid" hidden={!bidOpen}>
+          <p className="lot__terms">
+            <span>Opening bid $200 CAD</span>
+            <span aria-hidden="true">·</span>
+            <span>Highest bid at close wins</span>
+          </p>
+          <p className="lot__fine">Framing is separate; options are quoted to the winner. Pickup in Toronto or shipping at cost.</p>
+          <a className="lot__cta lot__bid-go" href={BID_FORM_URL} target="_blank" rel="noopener noreferrer">
+            Go to the bid form <span aria-hidden="true">&#8599;</span>
+          </a>
+        </div>
       </div>
       <div className="lot__col lot__col--artist">
         <div className="lot__about">

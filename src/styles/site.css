@@ -5872,7 +5872,7 @@ textarea:focus-visible,
    right; one column below 820px. */
 .lot-spread .lot--painting {
   display: grid;
-  grid-template-columns: minmax(0, 400px) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
   column-gap: clamp(20px, 3.4vw, 48px);
   row-gap: 18px;
   max-width: 1060px; margin-left: auto; margin-right: auto;
@@ -5882,6 +5882,13 @@ textarea:focus-visible,
   padding: 18px clamp(14px, 2vw, 24px) 18px;
 }
 .lot-spread .lot--painting .lot__col { min-width: 0; display: flex; flex-direction: column; }
+/* the poster sized to sit level with About the artist (Greg, 2026-10-21);
+   Place a bid is a button that opens the terms beneath it */
+.lot-spread .lot--painting .lot__art-widget { max-width: 82%; }
+button.lot__cta { font: inherit; cursor: pointer; }
+.lot__art-widget__cta[aria-expanded="true"] { box-shadow: 0 0 0 4px rgba(240, 192, 64, 0.3); }
+.lot__bid { padding-top: 2px; }
+.lot__bid-go { display: inline-block; margin-top: 14px; padding: 10px 18px; border-radius: 999px; font-family: var(--font-elevated, var(--sans)); font-size: 0.8rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; }
 .lot-spread .lot--painting .lot__terms { margin: 16px 0 6px; flex-direction: column; align-items: flex-start; gap: 2px; }
 .lot-spread .lot--painting .lot__terms > [aria-hidden] { display: none; }
 .lot-spread .lot--painting .lot__about { margin-top: 0; border-top: 0; }
@@ -5945,7 +5952,7 @@ textarea:focus-visible,
 .lot-spread .lot__text p { font-size: 1rem; }
 @media (max-width: 820px) {
   .lot-spread .lot--painting { grid-template-columns: minmax(0, 1fr); row-gap: 24px; }
-  .lot-spread .lot--painting .lot__col--auction { width: 100%; max-width: 400px; margin: 0 auto; }
+  .lot-spread .lot--painting .lot__col--auction { width: 100%; max-width: 360px; margin: 0 auto; }
   .lot-spread__row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .lot-spread__piece--1 { grid-column: 1 / -1; }
   .lot-spread__piece--1 .lot-spread__pic { max-height: 70vh; }
