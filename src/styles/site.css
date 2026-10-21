@@ -5807,6 +5807,8 @@ textarea:focus-visible,
 .lot-spread__piece--3 { background: linear-gradient(180deg, #2C1552 0%, #1F0E3C 100%); border-color: rgba(240, 192, 64, 0.22); }
 .lot-spread__pic { position: relative; aspect-ratio: 1150 / 1592; background: #0F031C; }
 .lot-spread__img { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* the painting is never cropped (Greg, 2026-10-21) */
+.lot-spread__piece--1 .lot-spread__img { object-fit: contain; }
 .lot-spread__cap {
   display: flex; flex-direction: column; gap: 4px; flex: 1 1 auto;
   padding: 14px 18px 18px;
@@ -5884,7 +5886,66 @@ textarea:focus-visible,
 .lot-spread .lot--painting .lot__col { min-width: 0; display: flex; flex-direction: column; }
 /* the poster sized to sit level with About the artist (Greg, 2026-10-21);
    Place a bid is a button that opens the terms beneath it */
-.lot-spread .lot--painting .lot__art-widget { max-width: 82%; }
+/* The Live Art Auction card (Greg, 2026-10-21): his supplied design, a
+   recessed midnight-violet well inside a broad rounded lip, Shadow
+   floating 10px over 3.8s with her shadow receding; sized from the column
+   (300 x 375 on desktop) through container units */
+.lot-auction { width: 100%; container-type: inline-size; }
+.lot-auction__card {
+  position: relative; isolation: isolate; width: 100%; aspect-ratio: 4 / 5;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 8cqw 6.6667cqw 6.3333cqw; overflow: hidden; border-radius: 8cqw;
+  border: 1px solid rgba(124, 82, 153, .24); color: #fffaf3;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(143deg, rgba(135, 98, 161, .25), transparent 13%, rgba(0, 0, 0, .65) 43%, transparent 70%, rgba(96, 55, 126, .28)), #0F031C;
+  box-shadow: inset 1px 1px 2px rgba(181, 151, 203, .14), inset -2px -3px 5px #06021C, 0 10px 28px rgba(0, 0, 0, .38);
+}
+.lot-auction__card::before {
+  content: ""; position: absolute; z-index: -1; inset: 3.3333cqw; pointer-events: none; border-radius: 6cqw;
+  background: radial-gradient(ellipse 72% 44% at 50% 43%, rgba(70, 38, 96, .20), transparent 80%), linear-gradient(152deg, #06021C 0%, #0F0222 42%, #110320 78%, #0F031C 100%);
+  box-shadow: inset 7px 10px 16px rgba(0, 0, 0, .80), inset -5px -7px 12px rgba(104, 62, 135, .11), 1px 2px 3px rgba(140, 97, 167, .20), -1px -2px 4px rgba(0, 0, 0, .90);
+}
+.lot-auction__card::after {
+  content: ""; position: absolute; z-index: 1; inset: 0; pointer-events: none; border-radius: inherit;
+  box-shadow: inset 0 12px 20px rgba(0, 0, 0, .32), inset 10px 0 18px rgba(6, 2, 28, .24), inset -10px 0 18px rgba(6, 2, 28, .24), inset 0 -6px 14px rgba(0, 0, 0, .18);
+}
+.lot-auction__stage { position: relative; width: 100%; flex: 1 0 62.3333cqw; min-height: 0; }
+.lot-auction__ghost {
+  display: block; position: absolute; width: 34cqw; height: 59.3333cqw; left: calc(50% - 17cqw); top: 2cqw;
+  filter: drop-shadow(0 10px 12px rgba(0, 0, 0, .70)) drop-shadow(0 1px 7px rgba(81, 42, 112, .12));
+  animation: lot-auction-float 3.8s ease-in-out infinite;
+}
+.lot-auction__shadow {
+  position: absolute; left: calc(50% - 12.3333cqw); bottom: .3333cqw; width: 24.6667cqw; height: 3cqw; border-radius: 50%;
+  background: rgba(0, 0, 0, .85); filter: blur(2px); box-shadow: 0 0 18px 9px rgba(94, 57, 125, .10);
+  animation: lot-auction-shadow 3.8s ease-in-out infinite;
+}
+.lot-auction__title { position: relative; z-index: 2; margin: 6cqw 0 0; text-align: center; font-size: max(18px, 7.3333cqw); line-height: 1.2; font-weight: 700; letter-spacing: -.035em; }
+.lot-auction__bid {
+  position: relative; z-index: 2; appearance: none; -webkit-appearance: none; display: inline-flex; align-items: center; justify-content: center;
+  margin: 5.6667cqw 0 0; width: 69.3333cqw; max-width: 100%; min-height: 44px; padding: 4.3333cqw 4cqw;
+  border: 1px solid #5B04DE; border-radius: 999px; background: linear-gradient(165deg, #110320 0%, #06021C 85%);
+  color: #fffaf3; font: 700 max(10px, 3.6667cqw) / 1.3 Arial, Helvetica, sans-serif; letter-spacing: .15em; text-transform: uppercase;
+  text-align: center; cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  box-shadow: 0 0 5px rgba(91, 4, 222, .65), 0 0 13px rgba(91, 4, 222, .26), 0 7px 12px rgba(0, 0, 0, .5), inset 0 1px 3px rgba(133, 81, 181, .14);
+  transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+}
+.lot-auction__bid[aria-expanded="true"] { box-shadow: 0 0 7px rgba(91, 4, 222, .9), 0 0 20px rgba(91, 4, 222, .45), 0 7px 12px rgba(0, 0, 0, .5); }
+.lot-auction__bid--closed { cursor: default; border-color: rgba(255, 255, 255, .25); box-shadow: none; }
+.lot-auction__bid:focus-visible { outline: 3px solid #f1cf78; outline-offset: 5px; }
+.lot-auction__bid:active { transform: translateY(0) scale(.98); }
+.lot-auction__dates { position: relative; z-index: 2; margin: 5.6667cqw 0 0; color: #d3c9df; font-size: max(10px, 3.6667cqw); line-height: 1.4; letter-spacing: .015em; text-align: center; }
+@keyframes lot-auction-float { 0%, 100% { transform: translateY(1px); } 50% { transform: translateY(-9px); } }
+@keyframes lot-auction-shadow { 0%, 100% { transform: scaleX(1); opacity: .62; } 50% { transform: scaleX(.80); opacity: .38; } }
+@media (hover: hover) and (pointer: fine) {
+  button.lot-auction__bid:hover { transform: translateY(-3px); background: #110320; box-shadow: 0 0 6px rgba(91, 4, 222, .85), 0 0 18px rgba(91, 4, 222, .38), 0 9px 17px rgba(0, 0, 0, .55); }
+  button.lot-auction__bid:active { transform: translateY(0) scale(.98); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lot-auction__ghost, .lot-auction__shadow { animation: none; }
+  .lot-auction__bid { transition: none; }
+  .lot-auction__bid:hover, .lot-auction__bid:active { transform: none; }
+}
 button.lot__cta { font: inherit; cursor: pointer; }
 .lot__art-widget__cta[aria-expanded="true"] { box-shadow: 0 0 0 4px rgba(240, 192, 64, 0.3); }
 .lot__bid { padding-top: 2px; }
@@ -5955,7 +6016,10 @@ button.lot__cta { font: inherit; cursor: pointer; }
   .lot-spread .lot--painting .lot__col--auction { width: 100%; max-width: 360px; margin: 0 auto; }
   .lot-spread__row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .lot-spread__piece--1 { grid-column: 1 / -1; }
-  .lot-spread__piece--1 .lot-spread__pic { max-height: 70vh; }
+  /* the painting keeps its own proportions when the card spans the row
+     (Greg, 2026-10-21: the 70vh cap was cropping heads): the frame narrows
+     and centres on the black card instead */
+  .lot-spread__piece--1 .lot-spread__pic { width: min(100%, calc(70vh * 1150 / 1592)); margin: 0 auto; }
 }
 @media (max-width: 520px) {
   .lot-spread__row { grid-template-columns: minmax(0, 1fr); }

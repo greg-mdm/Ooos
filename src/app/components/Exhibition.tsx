@@ -1046,30 +1046,44 @@ function BidButton() {
 
 /* The lot: Shadow is looking for a home. Bids go to the standalone Wix
    form on Slow Stream (Greg's back office, 2026-10-17); this panel is the
-   front door. The auction runs October 20 to November 20, 2026, closing
-   11:59 PM ET (Greg, 2026-10-18: pushed from the 15th while the page is
-   set up); after the close the buttons give way to a closed line. Framing
-   is quoted to the winner. The artist note stays folded. */
+   front door. The auction runs October 25 to November 25, 2026, closing
+   11:59 PM ET (Greg, 2026-10-21: the dates on the new auction card; it
+   was October 20 to November 20); after the close the buttons give way to
+   a closed line. Framing is quoted to the winner. */
 const BID_FORM_URL = "https://greg31122.wixforms.com/f/7517118600616870916";
-const AUCTION_CLOSE = new Date("2026-11-21T04:59:00Z"); // Nov 20, 11:59 PM ET
+const AUCTION_CLOSE = new Date("2026-11-26T04:59:00Z"); // Nov 25, 11:59 PM ET
 
-/* The auction widget on Shadow's pink brick picture (Greg, 2026-10-18):
-   the event name, the bid button and the dates, in the upper right on the
-   dark pool. Place a bid opens the terms below the picture (Greg,
-   2026-10-21), where the form link waits. */
-function AuctionWidget({ open, onToggle }: { open: boolean; onToggle: () => void }) {
+/* The Live Art Auction card (Greg, 2026-10-21): Shadow floating in a
+   recessed midnight well, the title, the bid button with its violet edge,
+   and the dates. A design he supplied as standalone HTML (motion after
+   Julie Park's Daily UI #011), rebuilt here so the button stays the page's
+   own: it opens the terms below, where the form link waits. The artwork is
+   his PNG cropped to what the card shows and served as a 306 px WebP. */
+function AuctionCard({ open, onToggle }: { open: boolean; onToggle: () => void }) {
   const closed = Date.now() >= AUCTION_CLOSE.getTime();
   return (
-    <div className="lot__art-widget">
-      <span className="lot__art-widget__name">Live Art Auction</span>
-      {closed ? (
-        <span className="lot__closed lot__art-widget__cta">Bidding closed</span>
-      ) : (
-        <button type="button" className="lot__cta lot__art-widget__cta" aria-expanded={open} aria-controls="lot-bid" onClick={onToggle}>
-          Place a bid
-        </button>
-      )}
-      <span className="lot__art-widget__dates">[October 20 &ndash;<br />November 20, 2026]</span>
+    <div className="lot-auction">
+      <div className="lot-auction__card">
+        <div className="lot-auction__stage">
+          <span className="lot-auction__shadow" aria-hidden="true" />
+          <img
+            className="lot-auction__ghost"
+            src={`${ASSETS}live-auction-shadow.webp`}
+            alt="Shadow, the white ghost with violet eyes, floating"
+            width="306"
+            height="532"
+          />
+        </div>
+        <p className="lot-auction__title">Live Art Auction</p>
+        {closed ? (
+          <span className="lot-auction__bid lot-auction__bid--closed">Bidding closed</span>
+        ) : (
+          <button type="button" className="lot-auction__bid" aria-expanded={open} aria-controls="lot-bid" onClick={onToggle}>
+            Place your bid
+          </button>
+        )}
+        <p className="lot-auction__dates">October 25 &ndash; November 25</p>
+      </div>
     </div>
   );
 }
@@ -1095,21 +1109,7 @@ function LotDetails() {
   return (
     <div className="lot lot--painting">
       <div className="lot__col lot__col--auction">
-        {/* Shadow on the real pink brick, the auction widget on it (Greg,
-            2026-10-18): a dark pool behind the widget that fades before it
-            reaches her. The page serves a 960 px JPEG made from his
-            card-size PNG, which stays in the folder as the source. */}
-        <figure className="lot__art">
-          <img
-            className="lot__art-img"
-            src={`${ASSETS}shadow-pink-brick-card.jpg`}
-            alt="Shadow, the white ghost with violet eyes, floating over a parkette of pink and purple brick scattered with yellow leaves"
-            width="960"
-            height="1200"
-            loading="lazy"
-          />
-          <AuctionWidget open={bidOpen} onToggle={() => setBidOpen((v) => !v)} />
-        </figure>
+        <AuctionCard open={bidOpen} onToggle={() => setBidOpen((v) => !v)} />
         {/* the terms, folded until Place a bid is pressed (Greg, 2026-10-21) */}
         <div id="lot-bid" className="lot__bid" hidden={!bidOpen}>
           <p className="lot__terms">
