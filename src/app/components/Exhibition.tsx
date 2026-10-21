@@ -563,7 +563,7 @@ const ATTRACTIONS: Attraction[] = [
    byline, the way a museum label hangs under a painting (Greg,
    2026-10-18). `crop: "bottom"` anchors the picture to its foot so the
    top is what gets cut. */
-type GalleryPiece = { id: string; title?: string; tag?: string; credit?: string; line?: string; share?: boolean; bid?: boolean; head?: boolean; crop?: "bottom"; icon?: IconName; media?: Media };
+type GalleryPiece = { id: string; title?: string; tag?: string; credit?: ReactNode; line?: string; share?: boolean; bid?: boolean; head?: boolean; crop?: "bottom"; icon?: IconName; media?: Media };
 
 /* The approved main video (Greg's "Shadow LEAKED - Preview 1.mp4",
    2026-10-17): Shadow and kin on the rainy plaza, 5 seconds, transcoded
@@ -589,7 +589,8 @@ const GALLERY: GalleryPiece[] = [
     id: "shadow-painting",
     title: "Shadow",
     head: true,
-    credit: "Abstract painting by Dennis McCormack",
+    /* the original subtitle (Greg, 2026-10-20) */
+    credit: <>Title: <em>Shadow</em>. Artist: McCormack<br />From the series &lsquo;Canvases of Old Dreams,&rsquo; a collection of abstract artworks.</>,
     media: {
       kind: "image",
       src: `${ASSETS}national-gallery-shadow-painting.webp`,
@@ -1072,54 +1073,80 @@ function AuctionWidget() {
   );
 }
 
+/* The artist's answers, Greg's text verbatim (2026-10-20); each opens on
+   its first word, inside About the artist. */
+const ARTIST_QA: { q: string; a: ReactNode }[] = [
+  { q: "When?", a: <>&ldquo;Started painting at the age of 18 - 20 years ago.</> },
+  { q: "How?", a: <>I used to make my own homemade canvases from pillow slips. My hack was to prime with a few coats and stretch by hand.&rdquo;</> },
+  { q: "Why?", a: <>Had a lot of emotional hardships growing up in foster homes. I channelled my highs and lows and expressed my creativity using vibrant colours, mixing my techniques with different styles.</> },
+  { q: "Where?", a: <>Toronto is home. I don&rsquo;t know if you&rsquo;ve ever thought about it, but sometimes I feel like the earth is in the middle of nowhere.</> },
+  { q: "When?", a: <>I&rsquo;ve had questions about reality throughout my life, but after settling into a sober lifestyle, I struggled and searched for meaning.</> },
+  { q: "What?", a: <>&ldquo;Everyone sees different things...&rdquo;</> },
+];
+
+/* Two columns (Greg, 2026-10-20): the Live Art Auction picture with the
+   bid terms under it on the left; the artist's photo and About the artist
+   on the right, open, its answers folded on their first words. */
 function LotDetails() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   return (
     <div className="lot lot--painting">
-      <p className="lot__terms">
-        <span>Opening bid $200 CAD</span>
-        <span aria-hidden="true">·</span>
-        <span>Highest bid at close wins</span>
-      </p>
-      <p className="lot__fine">Framing is separate; options are quoted to the winner. Pickup in Toronto or shipping at cost.</p>
-      <div className="lot__about">
-        <button
-          type="button"
-          className="lot__toggle"
-          aria-expanded={open}
-          aria-controls="lot-about"
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span>About the artist</span>
-          <span className="midway-card__mark" aria-hidden="true">{open ? "\u2212" : "+"}</span>
-        </button>
-        <div id="lot-about" className="lot__text" hidden={!open}>
-          <p className="lot__quote">
-            &ldquo;I started painting at 18. I had just aged out of the foster system and started making my own
-            canvases from pillow slips: primed with a few coats, stretched by hand. I used many techniques and
-            styles to channel my highs and lows, and expressed my creativity in vibrant colours.&rdquo;
-          </p>
+      <div className="lot__col lot__col--auction">
+        {/* Shadow on the real pink brick, the auction widget on it (Greg,
+            2026-10-18): a dark pool behind the widget that fades before it
+            reaches her. The page serves a 960 px JPEG made from his
+            card-size PNG, which stays in the folder as the source. */}
+        <figure className="lot__art">
+          <img
+            className="lot__art-img"
+            src={`${ASSETS}shadow-pink-brick-card.jpg`}
+            alt="Shadow, the white ghost with violet eyes, floating over a parkette of pink and purple brick scattered with yellow leaves"
+            width="960"
+            height="1200"
+            loading="lazy"
+          />
+          <AuctionWidget />
+        </figure>
+        <p className="lot__terms">
+          <span>Opening bid $200 CAD</span>
+          <span aria-hidden="true">·</span>
+          <span>Highest bid at close wins</span>
+        </p>
+        <p className="lot__fine">Framing is separate; options are quoted to the winner. Pickup in Toronto or shipping at cost.</p>
+      </div>
+      <div className="lot__col lot__col--artist">
+        {/* Greg's "McCormack - Abstract Artist - 2026.jpg" (2026-10-20); the
+            page serves an 800 px JPEG made from it, the original stays */}
+        <figure className="lot__artist">
+          <img
+            src={`${ASSETS}mccormack-artist.jpg`}
+            alt="Portrait of the artist McCormack in saturated, painterly colour: dark tousled hair, a short beard and a light blue T-shirt, lit warm against a deep blue wall"
+            width="800"
+            height="1000"
+            loading="lazy"
+          />
+        </figure>
+        <div className="lot__about">
+          <button
+            type="button"
+            className="lot__toggle"
+            aria-expanded={open}
+            aria-controls="lot-about"
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span>About the artist</span>
+            <span className="midway-card__mark" aria-hidden="true">{open ? "−" : "+"}</span>
+          </button>
+          <div id="lot-about" className="lot__text" hidden={!open}>
+            {ARTIST_QA.map((item, i) => (
+              <details key={i} className="lot__qa">
+                <summary className="lot__q">{item.q}</summary>
+                <p className="lot__a">{item.a}</p>
+              </details>
+            ))}
+          </div>
         </div>
       </div>
-      {/* The third space (Greg, 2026-10-18): Shadow on the real pink brick,
-          beside the terms and the artist note, in the lot cards' own frame.
-          The page serves a 960 px JPEG made from his card-size PNG, which
-          stays in the folder as the source. */}
-      <figure className="lot__art">
-        <img
-          className="lot__art-img"
-          src={`${ASSETS}shadow-pink-brick-card.jpg`}
-          alt="Shadow, the white ghost with violet eyes, floating over a parkette of pink and purple brick scattered with yellow leaves"
-          width="960"
-          height="1200"
-          loading="lazy"
-        />
-        {/* the auction widget on the picture (Greg, 2026-10-18): the upper
-            right, on a dark pool that creeps in behind Shadow and fades
-            before it reaches her, the same device as the gallery hero; the
-            terms line above keeps the bid and the rule */}
-        <AuctionWidget />
-      </figure>
     </div>
   );
 }

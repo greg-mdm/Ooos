@@ -5867,22 +5867,43 @@ textarea:focus-visible,
    column, Shadow on the real pink brick in the lot cards' own frame. The
    picture keeps its 4:5 and sets the row's height; the text sits at the top
    of its column. Below 820px the picture follows the text at full width. */
+/* Two columns since 2026-10-20 (Greg): the auction picture with the terms
+   under it on the left, the artist's photo and About the artist on the
+   right; one column below 820px. */
 .lot-spread .lot--painting {
   display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-  grid-template-areas: "terms art" "fine art" "about art";
-  grid-template-rows: auto auto 1fr;
-  column-gap: clamp(12px, 2vw, 24px);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: clamp(16px, 2.6vw, 34px);
+  row-gap: 18px;
+  max-width: 1100px; margin-left: auto; margin-right: auto;
   align-items: start;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   margin-top: clamp(14px, 2vw, 22px);
   padding: 18px clamp(14px, 2vw, 24px) 18px;
 }
-.lot-spread .lot--painting .lot__terms { grid-area: terms; margin: 0 0 6px; }
-.lot-spread .lot--painting .lot__fine { grid-area: fine; }
-.lot-spread .lot--painting .lot__about { grid-area: about; margin-top: 14px; align-self: start; }
+.lot-spread .lot--painting .lot__col { min-width: 0; display: flex; flex-direction: column; }
+.lot-spread .lot--painting .lot__terms { margin: 16px 0 6px; }
+.lot-spread .lot--painting .lot__about { margin-top: 14px; }
+.lot-spread .lot--painting .lot__artist {
+  margin: 0; border-radius: 14px; overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 10px 30px rgba(3, 1, 10, 0.35); background: #0F031C;
+}
+.lot-spread .lot--painting .lot__artist img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+/* the artist's answers: each folded on its first word (Greg, 2026-10-20) */
+.lot__qa { border-top: 1px solid rgba(255, 255, 255, 0.08); }
+.lot__qa:last-child { border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+.lot__q {
+  list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 11px 2px; font-family: var(--font-heading); font-size: 1.02rem; font-weight: 700; color: #F0C040;
+}
+.lot__q::-webkit-details-marker { display: none; }
+.lot__q::after { content: "+"; font-family: var(--sans); font-weight: 700; color: rgba(232, 236, 244, 0.85); }
+.lot__qa[open] > .lot__q::after { content: "−"; }
+.lot__q:focus-visible { outline: 2px solid #F0C040; outline-offset: 2px; border-radius: 4px; }
+.lot-spread .lot__text p.lot__a { margin: 0 0 14px; }
 .lot-spread .lot--painting .lot__art {
-  grid-area: art; margin: 0; min-width: 0;
+  margin: 0; min-width: 0;
   border-radius: 14px; overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.07);
   box-shadow: 0 10px 30px rgba(3, 1, 10, 0.35);
@@ -5920,7 +5941,7 @@ textarea:focus-visible,
 }
 .lot-spread .lot__text p { font-size: 1rem; }
 @media (max-width: 820px) {
-  .lot-spread .lot--painting { grid-template-columns: minmax(0, 1fr); grid-template-areas: "terms" "fine" "about" "art"; grid-template-rows: auto; row-gap: 14px; }
+  .lot-spread .lot--painting { grid-template-columns: minmax(0, 1fr); row-gap: 24px; }
   .lot-spread__row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .lot-spread__piece--1 { grid-column: 1 / -1; }
   .lot-spread__piece--1 .lot-spread__pic { max-height: 70vh; }
