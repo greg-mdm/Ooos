@@ -1073,15 +1073,15 @@ function AuctionWidget() {
   );
 }
 
-/* The artist's answers, Greg's text verbatim (2026-10-20); each opens on
+/* The artist's answers, Greg's text (2026-10-20), quotes balanced per answer; each opens on
    its first word, inside About the artist. */
 const ARTIST_QA: { q: string; a: ReactNode }[] = [
-  { q: "When?", a: <>&ldquo;Started painting at the age of 18 - 20 years ago.</> },
-  { q: "How?", a: <>I used to make my own homemade canvases from pillow slips. My hack was to prime with a few coats and stretch by hand.&rdquo;</> },
+  { q: "When?", a: <>&ldquo;Started painting at the age of 18&ndash;20 years ago.&rdquo;</> },
+  { q: "How?", a: <>&ldquo;I used to make my own homemade canvases from pillow slips. My hack was to prime with a few coats and stretch by hand.&rdquo;</> },
   { q: "Why?", a: <>Had a lot of emotional hardships growing up in foster homes. I channelled my highs and lows and expressed my creativity using vibrant colours, mixing my techniques with different styles.</> },
   { q: "Where?", a: <>Toronto is home. I don&rsquo;t know if you&rsquo;ve ever thought about it, but sometimes I feel like the earth is in the middle of nowhere.</> },
   { q: "When?", a: <>I&rsquo;ve had questions about reality throughout my life, but after settling into a sober lifestyle, I struggled and searched for meaning.</> },
-  { q: "What?", a: <>&ldquo;Everyone sees different things...&rdquo;</> },
+  { q: "What?", a: <>&ldquo;Everyone sees different things&hellip;&rdquo;</> },
 ];
 
 /* Two columns (Greg, 2026-10-20): the Live Art Auction picture with the
