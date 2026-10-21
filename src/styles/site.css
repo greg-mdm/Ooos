@@ -5864,6 +5864,25 @@ textarea:focus-visible,
   letter-spacing: 0.04em; text-transform: uppercase;
 }
 .lot-spread__cap:empty { display: none; }
+/* Three identical cards on wide screens (Greg, 2026-10-21): the painting
+   sets the measure and is never cropped or resized; the cards share three
+   rows through subgrid (the SHADOW header, the painting, the caption band),
+   the twin and the ghost filling the header-plus-painting height, and the
+   bid button centred in the third card's caption band. */
+@media (min-width: 821px) {
+  .lot-spread__row { grid-template-rows: auto auto auto; row-gap: 0; }
+  .lot-spread__piece { display: grid; grid-row: span 3; grid-template-rows: subgrid; row-gap: 0; }
+  .lot-spread__piece--1 .lot-spread__head { grid-row: 1; }
+  .lot-spread__piece--1 .lot-spread__pic { grid-row: 2; }
+  .lot-spread__piece--2 .lot-spread__pic,
+  .lot-spread__piece--3 .lot-spread__pic { grid-row: 1 / 3; aspect-ratio: auto; min-height: 0; height: 100%; }
+  .lot-spread__piece--2 .lot-spread__img,
+  .lot-spread__piece--3 .lot-spread__img { position: absolute; inset: 0; }
+  .lot-spread__cap { grid-row: 3; }
+  .lot-spread__piece--2 .lot-spread__cap { padding: 12px 18px 16px; }
+  .lot-spread__piece--3 .lot-spread__cap { justify-content: center; align-items: center; padding: 12px 18px; }
+  .lot-spread__piece--3 .lot-spread__bid { align-self: center; width: 100%; }
+}
 /* Three spaces under the cards (Greg, 2026-10-18): the terms and the
    fine print, the artist note beneath them, and beside both, in the third
    column, Shadow on the real pink brick in the lot cards' own frame. The
@@ -6023,6 +6042,9 @@ button.lot__cta { font: inherit; cursor: pointer; }
 }
 @media (max-width: 520px) {
   .lot-spread__row { grid-template-columns: minmax(0, 1fr); }
+  /* one column: nothing beside the twin to stretch to, so it keeps the
+     painting's proportions (it collapsed to nothing here) */
+  .lot-spread__piece--2 .lot-spread__pic { aspect-ratio: 1150 / 1592; flex: none; }
 }
 
 /* The National Gallery spread: two featured pieces, each with its title in

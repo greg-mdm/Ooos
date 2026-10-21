@@ -590,7 +590,7 @@ const GALLERY: GalleryPiece[] = [
     title: "Shadow",
     head: true,
     /* the original subtitle (Greg, 2026-10-20) */
-    credit: <>Artist: McCormack<br />From the series &lsquo;Canvases of Old Dreams,&rsquo; a collection of abstract artworks.</>,
+    credit: <>Artist: McCormack<br />From &lsquo;Canvases of Old Dreams,&rsquo; a collection of abstract artworks.</>,
     media: {
       kind: "image",
       src: `${ASSETS}national-gallery-shadow-painting.webp`,
