@@ -380,6 +380,9 @@ type Attraction = {
   media?: Media;
   body: ReactNode;
   tagIcon?: IconName;
+  /* a drawn icon beside the tag where the line set has none (Greg,
+     2026-10-22: Ionicons balloon-outline on Play proud) */
+  tagGlyph?: ReactNode;
   titleIcon?: IconName;
   /* the small line under the toggle, per booth (Greg, 2026-10-19);
      "Read into it" where a booth has none of its own; it can carry an icon */
@@ -461,13 +464,13 @@ const ATTRACTIONS: Attraction[] = [
       touched: `${ASSETS}thought-garden-touch.webp`,
       touchedAlt: "A hand reaches up and holds the lit monstera leaf",
     },
+    /* the description (Greg, 2026-10-22), in place of the haiku */
     body: (
-      <div className="exhibit-haiku">
-        <p className="exhibit-haiku__line">Underground roots meet,</p>
-        <p className="exhibit-haiku__line">Trees trade gifts beneath the soil,</p>
-        <p className="exhibit-haiku__line">We grow together.</p>
-        <p className="exhibit-haiku__author">GTL 6/2026</p>
-      </div>
+      <p>
+        Cultivate common ground by sharing a hope, fear, worry, or wish. Leave
+        a worry behind and find new connections ahead. What matters to you?
+        Discover how your concerns intersect with others.
+      </p>
     ),
   },
   {
@@ -500,6 +503,7 @@ const ATTRACTIONS: Attraction[] = [
     id: "sassy-games",
     title: "Sassy Games Spotlight",
     tag: "Play proud",
+    tagGlyph: <BalloonIcon />,
     /* the Sass logo stands in for the word (Greg, 2026-10-20) */
     hint: <><SassMark /> <span className="midway-card__hint-keep">en masse</span></>,
     mark: "Yaas!",
@@ -979,6 +983,16 @@ function PhosphorIcon({ name }: { name: "mask-happy" | "hand-heart" | "flower-tu
   );
 }
 
+/* Ionicons balloon-outline (v7.4.0, MIT licence, Copyright (c) 2015-present
+   Ionic, https://ionic.io), paths verbatim, for the Play proud tag */
+function BalloonIcon() {
+  return (
+    <svg className="hicon" viewBox="0 0 512 512" width="1em" height="1em" aria-hidden="true" focusable="false">
+      <path d="M414.11 153.82C429.66 264.4 345.85 357.09 282.54 366s-169.48-57.5-185-167.68a159.82 159.82 0 11316.53-44.49z" fill="none" stroke="currentColor" strokeMiterlimit="10" strokeWidth="32" /><path d="M236.06 308.05c-32.83-13-67.08-43.1-82.27-85.46M367.7 495.78c-32.83-13-63.31-40.06-78.5-82.41" fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="32" /><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" d="M266.71 368.21l-9.17 49.61 63.31-8.9-22.49-45.16-31.65 4.45z" />
+    </svg>
+  );
+}
+
 function Icon({ name }: { name: IconName }) {
   return (
     <svg className="hicon" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
@@ -1331,9 +1345,9 @@ function DichotomyPair({ pair }: { pair: Pair }) {
       style={{ "--tone-a": TONES[a.tone], "--tone-b": TONES[b.tone] } as CSSProperties}
     >
       <header className="dicho__head">
-        <span className="dicho__tag dicho__tag--a">{a.tagIcon && <Icon name={a.tagIcon} />}{a.tag}</span>
+        <span className="dicho__tag dicho__tag--a">{a.tagGlyph ?? (a.tagIcon && <Icon name={a.tagIcon} />)}{a.tag}</span>
         <span className="dicho__slash" aria-hidden="true" />
-        <span className="dicho__tag dicho__tag--b">{b.tagIcon && <Icon name={b.tagIcon} />}{b.tag}</span>
+        <span className="dicho__tag dicho__tag--b">{b.tagGlyph ?? (b.tagIcon && <Icon name={b.tagIcon} />)}{b.tag}</span>
       </header>
       <div className="dicho__sides">
         <AttractionCard attraction={a} side="a" />
