@@ -423,6 +423,7 @@ const ATTRACTIONS: Attraction[] = [
     title: "Idea Accelerator",
     tag: "Shoot a beam",
     hint: "See what sparks",
+    glyph: <SparklesIcon />,
     tagIcon: "beam",
     tone: "gold",
     media: {
@@ -464,13 +465,22 @@ const ATTRACTIONS: Attraction[] = [
       touched: `${ASSETS}thought-garden-touch.webp`,
       touchedAlt: "A hand reaches up and holds the lit monstera leaf",
     },
-    /* the description (Greg, 2026-10-22), in place of the haiku */
+    /* the description (Greg, 2026-10-22), the haiku kept beneath it in
+       smaller type */
     body: (
-      <p>
-        Cultivate common ground by sharing a hope, fear, worry, or wish. Leave
-        a worry behind and find new connections ahead. What matters to you?
-        Discover how your concerns intersect with others.
-      </p>
+      <>
+        <p>
+          Cultivate common ground by sharing a hope, fear, worry, or wish.
+          Leave a worry behind and find new connections ahead. What matters to
+          you? Discover how your concerns intersect with others.
+        </p>
+        <div className="exhibit-haiku exhibit-haiku--small">
+          <p className="exhibit-haiku__line">Underground roots meet,</p>
+          <p className="exhibit-haiku__line">Trees trade gifts beneath the soil,</p>
+          <p className="exhibit-haiku__line">We grow together.</p>
+          <p className="exhibit-haiku__author">GTL 6/2026</p>
+        </div>
+      </>
     ),
   },
   {
@@ -989,6 +999,16 @@ function BalloonIcon() {
   return (
     <svg className="hicon" viewBox="0 0 512 512" width="1em" height="1em" aria-hidden="true" focusable="false">
       <path d="M414.11 153.82C429.66 264.4 345.85 357.09 282.54 366s-169.48-57.5-185-167.68a159.82 159.82 0 11316.53-44.49z" fill="none" stroke="currentColor" strokeMiterlimit="10" strokeWidth="32" /><path d="M236.06 308.05c-32.83-13-67.08-43.1-82.27-85.46M367.7 495.78c-32.83-13-63.31-40.06-78.5-82.41" fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="32" /><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" d="M266.71 368.21l-9.17 49.61 63.31-8.9-22.49-45.16-31.65 4.45z" />
+    </svg>
+  );
+}
+
+/* Ionicons sparkles-outline (v7.4.0, MIT, as above), paths verbatim, on the
+   Idea Accelerator button beside "See what sparks" (Greg, 2026-10-22) */
+function SparklesIcon() {
+  return (
+    <svg className="hicon" viewBox="0 0 512 512" width="1em" height="1em" aria-hidden="true" focusable="false">
+      <path d="M259.92 262.91L216.4 149.77a9 9 0 00-16.8 0l-43.52 113.14a9 9 0 01-5.17 5.17L37.77 311.6a9 9 0 000 16.8l113.14 43.52a9 9 0 015.17 5.17l43.52 113.14a9 9 0 0016.8 0l43.52-113.14a9 9 0 015.17-5.17l113.14-43.52a9 9 0 000-16.8l-113.14-43.52a9 9 0 01-5.17-5.17zM108 68L88 16 68 68 16 88l52 20 20 52 20-52 52-20-52-20zM426.67 117.33L400 48l-26.67 69.33L304 144l69.33 26.67L400 240l26.67-69.33L496 144l-69.33-26.67z" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" />
     </svg>
   );
 }

@@ -6276,6 +6276,11 @@ under it in the Mask's green on the midnight-purple button, kept on hover;
    and credit read in silver and gold rather than ink and teal. */
 .midway-card__text .exhibit-haiku__line { color: #E8ECF4; font-size: 1.05rem; }
 .midway-card__text .exhibit-haiku__author { color: #F0C040; margin-top: 12px; }
+/* the haiku kept under the Thought Garden description in smaller type
+   (Greg, 2026-10-22) */
+.midway-card__text .exhibit-haiku--small { margin: 14px 0 4px; }
+.midway-card__text .exhibit-haiku--small .exhibit-haiku__line { font-size: 0.9rem; line-height: 1.5; }
+.midway-card__text .exhibit-haiku--small .exhibit-haiku__author { margin-top: 8px; }
 
 /* ===== MOBILE LAYOUT GUARD (2026-09-27) =====
    Phones (Samsung Internet with Android font scaling) pushed the nav links,
