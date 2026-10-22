@@ -523,8 +523,8 @@ const ATTRACTIONS: Attraction[] = [
     id: "radical-jester",
     /* the name on top, the cry below the image with the Ooo! wordmark
        (Greg, 2026-10-21) */
-    title: "Ooo! Somebody stop me!",
-    heading: <><img className="midway-card__wordmark" src={`${import.meta.env.BASE_URL}assets/brand/ooo-wordmark-white-transparent.png`} alt="Ooo!" width="1772" height="655" /> Somebody stop me!</>,
+    title: "Ooo! Somebody stop me",
+    heading: <><img className="midway-card__wordmark" src={`${import.meta.env.BASE_URL}assets/brand/ooo-wordmark-white-transparent.png`} alt="Ooo!" width="1772" height="655" /> Somebody stop me</>,
     tag: "The Most Radical Jester",
     hint: <><em>Is</em> it jest a joke?</>,
     /* The Mask's happy mask in the film's green beside its catchphrase (Greg,
