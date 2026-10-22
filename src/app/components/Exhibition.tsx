@@ -419,6 +419,7 @@ const ATTRACTIONS: Attraction[] = [
     id: "idea-accelerator",
     title: "Idea Accelerator",
     tag: "Shoot a beam",
+    hint: "See what sparks",
     tagIcon: "beam",
     tone: "gold",
     media: {
@@ -500,7 +501,7 @@ const ATTRACTIONS: Attraction[] = [
     title: "Sassy Games Spotlight",
     tag: "Play proud",
     /* the Sass logo stands in for the word (Greg, 2026-10-20) */
-    hint: <><SassMark /> en masse</>,
+    hint: <><SassMark /> <span className="midway-card__hint-keep">en masse</span></>,
     mark: "Yaas!",
     tone: "portal",
     /* Greg's "SASSY GAMES.jpg" (2026-10-17): a performer mid-song under

@@ -5671,10 +5671,16 @@ textarea:focus-visible,
 }
 .dicho__tag .hicon { font-size: 1.5em; vertical-align: -0.3em; }
 /* titles stay on one line; the pair is wide enough (Greg, 2026-10-17) */
-.midway-card__label { display: inline-flex; align-items: center; white-space: nowrap; min-width: 0; }
+/* booth titles take the room beside the button: one line wherever that is
+   enough (desktop), wrapping only where the card is too narrow, never
+   running under the button (Greg, 2026-10-21) */
+.midway-card__label { display: inline-flex; align-items: center; flex: 1 1 auto; white-space: normal; min-width: 0; line-height: 1.2; }
 /* the Ooo! wordmark standing in for the word in a booth title (Greg, 2026-10-21) */
-.midway-card__label--wrap { display: inline; white-space: normal; text-wrap: balance; line-height: 1.2; }
-.midway-card__wordmark { display: inline-block; height: 1.05em; width: auto; margin-right: 0.3em; vertical-align: -0.1em; }
+/* one line wherever it fits (Greg, 2026-10-21: desktop); where the card is
+   too narrow it wraps at a natural break onto two lines spaced clear of
+   each other, never running under the button */
+.midway-card__label--wrap { display: block; }
+.midway-card__wordmark { display: inline-block; height: 1.05em; width: auto; margin-right: 0.08em; vertical-align: -0.1em; }
 .gallery-piece__title { display: inline-flex; align-items: center; }
 .exhibit-intro-card__tag .hicon { font-size: 1.4em; vertical-align: -0.3em; }
 
@@ -6237,11 +6243,12 @@ under it in the Mask's green on the midnight-purple button, kept on hover;
   text-transform: uppercase;
   /* per-booth lines vary in length (Greg, 2026-10-19): a long one breaks
      into two balanced lines under the button rather than crowding the title */
-  max-width: 12.5em; text-align: center; text-wrap: balance; line-height: 1.35;
+  max-width: 8.5em; text-align: center; text-wrap: balance; line-height: 1.35;
   color: rgba(232, 236, 244, 0.9);
 }
 /* the Sass logo in place of the word on the Sassy Games line (Greg, 2026-10-20) */
 .midway-card__sass { display: inline-block; height: 2.7em; width: auto; aspect-ratio: 512 / 352; vertical-align: -0.95em; margin-right: 0.15em; }
+.midway-card__hint-keep { white-space: nowrap; }
 .midway-card__toggle { align-items: flex-start; }
 .midway-card__label { padding-top: 10px; }
 .midway-card__toggle:hover .midway-card__mark { color: #ffffff; transform: translateY(-1px); }
