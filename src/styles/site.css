@@ -6212,11 +6212,12 @@ button.lot__cta { font: inherit; cursor: pointer; }
 /* Phosphor's filled glyphs (Greg, 2026-10-21) read a touch larger */
 .midway-card__mark .phicon { font-size: 1.6rem; }
 /* the Jester's lime (Greg, 2026-10-21: The Mask): the mask and the line
-   under it in bright lime on the midnight-purple button, kept on hover;
-   not a canon colour, Tailwind's lime-400 */
+under it in the Mask's green on the midnight-purple button, kept on hover;
+   the hue of the lit face in the 1994 film (about 87 deg), lifted to read
+   on the dark disc: Material Light Green 500, not a canon colour */
 .midway-card__ctl--lime .midway-card__mark,
-.midway-card__toggle:hover .midway-card__ctl--lime .midway-card__mark { color: #A3E635; }
-.midway-card__ctl--lime .midway-card__hint { color: #A3E635; }
+.midway-card__toggle:hover .midway-card__ctl--lime .midway-card__mark { color: #8BC34A; }
+.midway-card__ctl--lime .midway-card__hint { color: #8BC34A; }
 /* a word on the button instead of the plus (Greg, 2026-10-19: YAAS! on the
    Sassy Games booth): a larger disc so the word sits inside its rim, set
    in caps; it keeps the raised and pressed states of the round toggle */

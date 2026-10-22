@@ -527,7 +527,7 @@ const ATTRACTIONS: Attraction[] = [
     heading: <><img className="midway-card__wordmark" src={`${import.meta.env.BASE_URL}assets/brand/ooo-wordmark-white-transparent.png`} alt="Ooo!" width="1772" height="655" /> Somebody stop me!</>,
     tag: "The Most Radical Jester",
     hint: <><em>Is</em> it jest a joke?</>,
-    /* The Mask's happy mask in bright lime beside its catchphrase (Greg,
+    /* The Mask's happy mask in the film's green beside its catchphrase (Greg,
        2026-10-21); the mask is the subject, the line makes it the film */
     glyph: <PhosphorIcon name="mask-happy" />,
     accent: "lime",
