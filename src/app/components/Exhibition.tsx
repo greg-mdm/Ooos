@@ -384,6 +384,9 @@ type Attraction = {
   /* the small line under the toggle, per booth (Greg, 2026-10-19);
      "Read into it" where a booth has none of its own; it can carry an icon */
   hint?: ReactNode;
+  /* the title as shown, where it carries more than text (the Ooo!
+     wordmark); `title` stays the plain words */
+  heading?: ReactNode;
   /* a word on the round button in place of the plus (Greg, 2026-10-19:
      "YAAS!" on the Sassy Games booth); raised at rest, pressed while open */
   mark?: string;
@@ -467,7 +470,7 @@ const ATTRACTIONS: Attraction[] = [
     tag: "Play with purpose",
     tagIcon: "dice",
     titleIcon: "alert",
-    hint: "Try your luck",
+    hint: "Play with your heart",
     tone: "electric",
     /* Greg's "double sixes.png" (2026-10-17): two neon dice on a glass
        board, the board cut to the Sassy photo's portrait so the two
@@ -512,8 +515,12 @@ const ATTRACTIONS: Attraction[] = [
   },
   {
     id: "radical-jester",
-    title: "The Most Radical Jester",
-    tag: "Truth to power",
+    /* the name on top, the cry below the image with the Ooo! wordmark
+       (Greg, 2026-10-21) */
+    title: "Ooo! Somebody stop me!",
+    heading: <><img className="midway-card__wordmark" src={`${import.meta.env.BASE_URL}assets/brand/ooo-wordmark-white-transparent.png`} alt="Ooo!" width="1772" height="655" /> Somebody stop me!</>,
+    tag: "The Most Radical Jester",
+    hint: <><em>Is</em> it jest a joke?</>,
     tone: "ruby",
     /* Greg's "Radical Jester.png" (SPRINT 6, 2026-10-12): an iridescent
        jester mask beside the book "The Most Radical Gesture", on glitter;
@@ -1334,7 +1341,7 @@ function AttractionCard({ attraction, side }: { attraction: Attraction; side: "a
             aria-controls={textId}
             onClick={() => setOpen((v) => !v)}
           >
-            <span className="midway-card__label">{title}</span>
+            <span className={`midway-card__label${attraction.heading ? " midway-card__label--wrap" : ""}`}>{attraction.heading ?? title}</span>
             {/* the glyph is the button (Greg, 2026-10-17): raised at rest,
                 pressed in while the description is open */}
             <span className="midway-card__ctl">

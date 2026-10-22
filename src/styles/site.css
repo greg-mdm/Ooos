@@ -5672,6 +5672,9 @@ textarea:focus-visible,
 .dicho__tag .hicon { font-size: 1.5em; vertical-align: -0.3em; }
 /* titles stay on one line; the pair is wide enough (Greg, 2026-10-17) */
 .midway-card__label { display: inline-flex; align-items: center; white-space: nowrap; min-width: 0; }
+/* the Ooo! wordmark standing in for the word in a booth title (Greg, 2026-10-21) */
+.midway-card__label--wrap { display: inline; white-space: normal; text-wrap: balance; line-height: 1.2; }
+.midway-card__wordmark { display: inline-block; height: 1.05em; width: auto; margin-right: 0.3em; vertical-align: -0.1em; }
 .gallery-piece__title { display: inline-flex; align-items: center; }
 .exhibit-intro-card__tag .hicon { font-size: 1.4em; vertical-align: -0.3em; }
 
