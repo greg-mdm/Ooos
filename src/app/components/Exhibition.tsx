@@ -387,6 +387,11 @@ type Attraction = {
   /* the title as shown, where it carries more than text (the Ooo!
      wordmark); `title` stays the plain words */
   heading?: ReactNode;
+  /* a drawn glyph on the round button in place of the plus or a line icon
+     (Phosphor's, 2026-10-21); accent tints the button's glyph and the line
+     under it */
+  glyph?: ReactNode;
+  accent?: "lime";
   /* a word on the round button in place of the plus (Greg, 2026-10-19:
      "YAAS!" on the Sassy Games booth); raised at rest, pressed while open */
   mark?: string;
@@ -469,7 +474,8 @@ const ATTRACTIONS: Attraction[] = [
     title: "Serious Games Showcase",
     tag: "Play with purpose",
     tagIcon: "dice",
-    titleIcon: "alert",
+    /* hand-heart with "Play with your heart" (Greg, 2026-10-21) */
+    glyph: <PhosphorIcon name="hand-heart" />,
     hint: "Play with your heart",
     tone: "electric",
     /* Greg's "double sixes.png" (2026-10-17): two neon dice on a glass
@@ -521,6 +527,10 @@ const ATTRACTIONS: Attraction[] = [
     heading: <><img className="midway-card__wordmark" src={`${import.meta.env.BASE_URL}assets/brand/ooo-wordmark-white-transparent.png`} alt="Ooo!" width="1772" height="655" /> Somebody stop me!</>,
     tag: "The Most Radical Jester",
     hint: <><em>Is</em> it jest a joke?</>,
+    /* The Mask's happy mask in bright lime beside its catchphrase (Greg,
+       2026-10-21); the mask is the subject, the line makes it the film */
+    glyph: <PhosphorIcon name="mask-happy" />,
+    accent: "lime",
     tone: "ruby",
     /* Greg's "Radical Jester.png" (SPRINT 6, 2026-10-12): an iridescent
        jester mask beside the book "The Most Radical Gesture", on glitter;
@@ -942,6 +952,25 @@ const ICON_PATHS: Record<IconName, ReactNode> = {
     </>
   ),
 };
+/* Two Phosphor icons (Greg, 2026-10-21), from phosphor-icons/core at
+   2b75f3a: mask-happy (duotone) for the Jester, after The Mask's
+   catchphrase beside it, and hand-heart (regular) for Serious Games.
+   Phosphor Icons, MIT License, Copyright (c) 2023 Phosphor Icons. */
+function PhosphorIcon({ name }: { name: "mask-happy" | "hand-heart" }) {
+  return (
+    <svg className="hicon phicon" viewBox="0 0 256 256" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false">
+      {name === "mask-happy" ? (
+        <>
+          <path d="M216,48v55.77C216,174.6,176.6,232,128,232S40,174.6,40,103.79V48a8,8,0,0,1,10.89-7.47C66,46.41,95.11,55.71,128,55.71s62-9.3,77.11-15.16A8,8,0,0,1,216,48Z" opacity="0.2" />
+          <path d="M217,34.8a15.94,15.94,0,0,0-14.82-1.71C188.15,38.55,159.82,47.71,128,47.71S67.84,38.55,53.79,33.09A16,16,0,0,0,32,48v55.77c0,35.84,9.65,69.65,27.18,95.18,18.16,26.46,42.6,41,68.82,41s50.66-14.57,68.82-41C214.35,173.44,224,139.63,224,103.79V48A16,16,0,0,0,217,34.8Zm-9,69c0,32.64-8.66,63.23-24.37,86.13C168.54,211.9,148.79,224,128,224s-40.54-12.1-55.63-34.08C56.66,167,48,136.43,48,103.79V48c15.11,5.87,45.58,15.71,80,15.71S192.9,53.87,208,48v55.81Zm-18,18.87A8,8,0,1,1,178,133.33c-2.68-3-8.85-5.33-14-5.33s-11.36,2.34-14,5.33A8,8,0,1,1,138,122.66c5.71-6.38,16.14-10.66,26-10.66S184.25,116.28,190,122.66ZM92,128c-5.19,0-11.36,2.34-14,5.33A8,8,0,1,1,66,122.66C71.75,116.28,82.18,112,92,112s20.25,4.28,26,10.66A8,8,0,1,1,106,133.33C103.36,130.34,97.19,128,92,128Zm76.45,45.19a52.9,52.9,0,0,1-80.9,0A8,8,0,1,1,99.72,162.8a36.89,36.89,0,0,0,56.56,0,8,8,0,0,1,12.17,10.39Z" />
+        </>
+      ) : (
+        <path d="M230.33,141.06a24.34,24.34,0,0,0-18.61-4.77C230.5,117.33,240,98.48,240,80c0-26.47-21.29-48-47.46-48A47.58,47.58,0,0,0,156,48.75,47.58,47.58,0,0,0,119.46,32C93.29,32,72,53.53,72,80c0,11,3.24,21.69,10.06,33a31.87,31.87,0,0,0-14.75,8.4L44.69,144H16A16,16,0,0,0,0,160v40a16,16,0,0,0,16,16H120a7.93,7.93,0,0,0,1.94-.24l64-16a6.94,6.94,0,0,0,1.19-.4L226,182.82l.44-.2a24.6,24.6,0,0,0,3.93-41.56ZM119.46,48A31.15,31.15,0,0,1,148.6,67a8,8,0,0,0,14.8,0,31.15,31.15,0,0,1,29.14-19C209.59,48,224,62.65,224,80c0,19.51-15.79,41.58-45.66,63.9l-11.09,2.55A28,28,0,0,0,140,112H100.68C92.05,100.36,88,90.12,88,80,88,62.65,102.41,48,119.46,48ZM16,160H40v40H16Zm203.43,8.21-38,16.18L119,200H56V155.31l22.63-22.62A15.86,15.86,0,0,1,89.94,128H140a12,12,0,0,1,0,24H112a8,8,0,0,0,0,16h32a8.32,8.32,0,0,0,1.79-.2l67-15.41.31-.08a8.6,8.6,0,0,1,6.3,15.9Z" />
+      )}
+    </svg>
+  );
+}
+
 function Icon({ name }: { name: IconName }) {
   return (
     <svg className="hicon" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
@@ -1344,9 +1373,9 @@ function AttractionCard({ attraction, side }: { attraction: Attraction; side: "a
             <span className={`midway-card__label${attraction.heading ? " midway-card__label--wrap" : ""}`}>{attraction.heading ?? title}</span>
             {/* the glyph is the button (Greg, 2026-10-17): raised at rest,
                 pressed in while the description is open */}
-            <span className="midway-card__ctl">
-              <span className={`midway-card__mark${attraction.titleIcon ? " midway-card__mark--glyph" : ""}${attraction.mark ? " midway-card__mark--word" : ""}`} aria-hidden="true">
-                {attraction.titleIcon ? <Icon name={attraction.titleIcon} /> : attraction.mark ? attraction.mark : open ? "\u2212" : "+"}
+            <span className={`midway-card__ctl${attraction.accent ? ` midway-card__ctl--${attraction.accent}` : ""}`}>
+              <span className={`midway-card__mark${attraction.titleIcon || attraction.glyph ? " midway-card__mark--glyph" : ""}${attraction.mark ? " midway-card__mark--word" : ""}`} aria-hidden="true">
+                {attraction.glyph ? attraction.glyph : attraction.titleIcon ? <Icon name={attraction.titleIcon} /> : attraction.mark ? attraction.mark : open ? "\u2212" : "+"}
               </span>
               <span className="midway-card__hint">{attraction.hint ?? "Read into it"}</span>
             </span>
