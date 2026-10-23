@@ -738,7 +738,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                   {shopQuoteOpen ? (
                     <>&ldquo;I have already applied some of the strategies to expand our network and add practical value to our marketplace. Your report was very helpful.&rdquo;</>
                   ) : (
-                    <>&ldquo;I have already applied some of the strategies to expand our community&hellip;</>
+                    <>&ldquo;I have already applied some of the strategies to expand our network&hellip;</>
                   )}
                 </span>
                 <span className="studio-testimonial__arrow" aria-hidden="true">&rarr;</span>
