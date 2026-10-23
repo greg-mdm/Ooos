@@ -260,11 +260,20 @@
   .jbj-qcard .qh { margin: 0 0 10px; font-weight: 800; font-size: clamp(16px,1.6vw,20px); color: #1C2325; }
   .jbj-qcard .qq { margin: 0 0 14px; font-size: clamp(14px,1.35vw,16px); font-style: italic; line-height: 1.55; color: #353F42; }
   .jbj-qcard .qs { margin: auto 0 0; font-size: 12px; color: #485559; }
-  .jbj-qcard--a { background: #1C2325; border-color: #1C2325; }
+  /* the pair in the CID pads' neumorphic language (Greg, 2026-10-23, after
+     Mark Boots' Button 1, MIT, notice at .jbj-cid__col): Human-Centred
+     Design extruded, standing out of the canvas on the outer light and
+     shade alone, its face lit a step from the top left */
+  .jbj-qcard--a { background: linear-gradient(145deg, #353F42, #1C2325 55%); border-color: transparent;
+    box-shadow: -.5rem -.5rem 1rem hsl(0 0% 100% / .75), .5rem .5rem 1rem hsl(0 0% 50% / .5), inset 1px 1px 0 hsl(0 0% 100% / .1); }
   .jbj-qcard--a .qh { color: #FFF3B0; }
   .jbj-qcard--a .qq { color: #F9FAFB; }
   .jbj-qcard--a .qs { color: #C2CDCF; }
-  .jbj-qcard--b { background: #F9FAFB; border-color: #C2CDCF; }
+  /* Relationality pressed into the canvas, light and bright: the same
+     rim and inset pair as the CID pads at half the depth, a thinner rim
+     and softer shade */
+  .jbj-qcard--b { background: #F9FAFB; border: .25rem solid transparent;
+    box-shadow: -.25rem -.25rem .5rem hsl(0 0% 100% / .7), .25rem .25rem .5rem hsl(0 0% 50% / .28), inset .25rem .25rem .5rem hsl(0 0% 50% / .28), inset -.25rem -.25rem .5rem hsl(0 0% 100% / .7); }
   .jbj-note { font-size: 11.5px; line-height: 1.55; color: #353F42; }
   @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
 
