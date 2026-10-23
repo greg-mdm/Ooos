@@ -901,14 +901,18 @@ a:hover { color: var(--electric); }
 }
 .studio-pitch-dot--problem { background: #822F00; }
 .studio-pitch-dot--solution { background: #008080; }
+/* The two promo cards in Creative Offerings take the Ooo Divisions heading
+   blocks' violet (Greg, 2026-10-23: the lavender did not fit the homepage):
+   Portal to Electric, a dark-indigo edge, Bright Silver type, Sunshine for
+   the call-outs */
 .studio-ad {
   position: relative;
   margin-top: 20px;
   padding: 6px 4px 6px 18px;
-  border: 1.5px solid var(--electric);
+  border: 1px solid #19007D;
   border-radius: 10px;
-  background: linear-gradient(135deg, var(--mv-50) 0%, var(--mv-100) 55%, var(--mv-200) 100%);
-  box-shadow: 0 0 0 4px rgba(91,4,222,0.10), 0 14px 32px rgba(91,4,222,0.24);
+  background: linear-gradient(180deg, #4B00B6 0%, #5B04DE 100%);
+  box-shadow: 0 1px 0 rgba(232,236,244,.18) inset, 0 14px 30px -14px rgba(75,0,182,.7);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -924,19 +928,20 @@ a:hover { color: var(--electric); }
   margin: 0 -4px 0 4px;
   flex-shrink: 0;
   object-fit: contain;
-  filter: drop-shadow(0 4px 12px rgba(49, 37, 131, 0.22));
+  filter: drop-shadow(0 4px 12px rgba(6, 2, 28, 0.45));
 }
 .studio-ad__eyebrow {
   font-family: var(--font-elevated);
   font-size: 17px;
   font-weight: 800;
   letter-spacing: 0.01em;
-  color: var(--resolution);
+  color: #E8ECF4;
+  text-shadow: 0 1px 2px rgba(6,2,28,.45);
   margin-bottom: 6px;
 }
-.studio-ad__text {
+.pane .studio-ad__text {
   font-size: 13px;
-  color: var(--ink);
+  color: #E8ECF4;
   line-height: 1.5;
   margin: 0 0 10px;
 }
@@ -946,29 +951,28 @@ a:hover { color: var(--electric); }
   font-size: 11.5px;
   font-weight: 700;
   letter-spacing: 0.04em;
-  color: var(--resolution);
+  color: #E8ECF4;
   background: transparent;
-  border: 1px solid var(--resolution);
+  border: 1px solid #E8ECF4;
   border-radius: 6px;
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease;
 }
 .studio-ad__cta:hover,
 .studio-ad__cta:focus-visible {
-  background: var(--resolution);
-  color: #fff;
+  background: #E8ECF4;
+  color: #4B00B6;
   outline: none;
 }
+.studio-ad__cta:focus-visible { box-shadow: 0 0 0 3px #FFF3B0; }
 .shop-ad {
   position: relative;
   margin-top: 20px;
   padding: 6px 18px 6px 4px;
   border-radius: 10px;
-  border: 2px solid transparent;
-  background:
-    linear-gradient(135deg, var(--mv-50) 0%, var(--mv-100) 55%, var(--mv-200) 100%) padding-box,
-    linear-gradient(135deg, #5B04DE 0%, #4B00B6 50%, #312583 100%) border-box;
-  box-shadow: 0 0 0 4px rgba(91,4,222,0.12), 0 14px 32px rgba(91,4,222,0.24);
+  border: 1px solid #19007D;
+  background: linear-gradient(180deg, #4B00B6 0%, #5B04DE 100%);
+  box-shadow: 0 1px 0 rgba(232,236,244,.18) inset, 0 14px 30px -14px rgba(75,0,182,.7);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -980,7 +984,7 @@ a:hover { color: var(--electric); }
   inset: -40% -10% auto auto;
   width: 220px;
   height: 220px;
-  background: radial-gradient(circle, rgba(91,4,222,0.16) 0%, rgba(91,4,222,0) 70%);
+  background: radial-gradient(circle, rgba(232,236,244,0.12) 0%, rgba(232,236,244,0) 70%);
   pointer-events: none;
 }
 .shop-ad__art {
@@ -989,7 +993,8 @@ a:hover { color: var(--electric); }
   margin: -40px -20px -40px -20px;
   flex-shrink: 0;
   object-fit: contain;
-  filter: drop-shadow(0 4px 12px rgba(91,4,222,0.28));
+  /* the purple illustration lifted so it reads on the violet card */
+  filter: brightness(2.8) saturate(0.35) drop-shadow(0 4px 12px rgba(6,2,28,0.5));
 }
 .shop-ad__body {
   position: relative;
@@ -1000,17 +1005,18 @@ a:hover { color: var(--electric); }
   font-size: 17px;
   font-weight: 800;
   letter-spacing: 0.01em;
-  color: var(--electric);
+  color: #E8ECF4;
+  text-shadow: 0 1px 2px rgba(6,2,28,.45);
   margin-bottom: 6px;
 }
 .shop-ad__status {
-  color: var(--ruby);
+  color: #FFF3B0;
   letter-spacing: 0.01em;
 }
-.shop-ad__text {
+.pane .shop-ad__text {
   font-size: 13px;
   font-weight: 700;
-  color: var(--dark-indigo);
+  color: #E8ECF4;
   line-height: 1.4;
   margin: 0;
 }
