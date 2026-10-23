@@ -319,13 +319,19 @@
 
   /* the CID line under the doors (Greg, 2026-10-22): the CID icon beside one
      paragraph across the width, the watchlist button beneath */
-  .jbj-cid { margin: clamp(18px,2.8vh,30px) auto 0; border-top: 1px solid #C2CDCF; padding-top: clamp(16px,2.4vh,22px); display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: clamp(18px,3vw,44px); align-items: start; }
+  .jbj-cid { margin: clamp(18px,2.8vh,30px) auto 0; border-top: 1px solid #C2CDCF; padding-top: clamp(16px,2.4vh,22px); display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); column-gap: clamp(32px,6vw,96px); row-gap: 18px; align-items: stretch; }
   .jbj-cid__col { display: flex; align-items: flex-start; gap: clamp(12px,1.4vw,18px); }
+  /* each block on its own neumorphic pad, embedded in the page: the
+     ground's own Robin's Egg pressed in by a Chrome Silver shade and a
+     White light, the site's spirit-button recipe (hero-top.css) in its
+     inset state; it marks the two as links to different places, CID main
+     and the watchlist prototype (Greg, 2026-10-23) */
+  .jbj-cid__col { padding: clamp(14px,1.6vw,20px) clamp(16px,1.8vw,24px); border-radius: 14px; background: #F0F4F5; border: 0; box-shadow: inset 0.35rem 0.35rem 0.7rem #D8DBDE, inset -0.25rem -0.25rem 0.6rem #FFFFFF; }
   /* two blocks sized to their text, the page's true centre running through
      the gap between them; on wide screens each sentence keeps its three
      set lines, the CID one breaking after "connects", the watchlist one
-     after "from" (Greg, 2026-10-23); narrower, the lines wrap freely */
-  @media (min-width: 1180px) {
+     after "from" (Greg, 2026-10-23); narrower than 1280px they wrap freely */
+  @media (min-width: 1280px) {
     .jbj-cid__col:first-child { justify-self: end; }
     .jbj-cid__col:last-child { justify-self: start; }
     .jbj-cid__ln { display: block; white-space: nowrap; }
@@ -709,7 +715,7 @@
         </div>
         <div class="jbj-cid__col">
           <img class="jbj-cid__nav" src="/assets/images/brand/LEAF-transp.png" alt="" width="56" height="56" />
-          <p class="jbj-cid__text"><span class="jbj-cid__ln"><a href="https://ooos.ca/cid/iwatchlist" target="_top">The Innovation Watchlist</a> brings together data from</span> <span class="jbj-cid__ln">public sources, helping you explore shifting sectors,</span> <span class="jbj-cid__ln">policy trends, and market forces shaping what comes next.</span></p>
+          <p class="jbj-cid__text"><span class="jbj-cid__ln"><a href="https://ooos.ca/cid/iwatchlist" target="_top">CID&rsquo;s Innovation Watchlist</a> brings together data from</span> <span class="jbj-cid__ln">public sources, helping you explore shifting sectors,</span> <span class="jbj-cid__ln">policy trends, and market forces shaping what comes next.</span></p>
         </div>
       </div>
     </div>
