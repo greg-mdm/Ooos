@@ -321,6 +321,10 @@
      paragraph across the width, the watchlist button beneath */
   .jbj-cid { margin: clamp(18px,2.8vh,30px) auto 0; border-top: 1px solid #C2CDCF; padding-top: clamp(16px,2.4vh,22px); display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: clamp(18px,3vw,44px); align-items: start; }
   .jbj-cid__col { display: flex; align-items: flex-start; gap: clamp(12px,1.4vw,18px); }
+  /* the CID side indented from the doors above, so its sentence sits on
+     three lines like the watchlist one beside it (Greg, 2026-10-23) */
+  .jbj-cid__col:first-child { padding-left: clamp(16px, 3.4vw, 48px); }
+  @media (max-width: 760px) { .jbj-cid__col:first-child { padding-left: 0; } }
   .jbj-cid__icon { flex: 0 0 auto; display: inline-flex; color: #4B00B6; }
   /* the navigator PNG carries wide padding; the negative margin lines its
      compass up with the CID icon beside */
