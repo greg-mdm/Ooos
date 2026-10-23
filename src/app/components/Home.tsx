@@ -117,10 +117,15 @@ function OstaraParticleCanvas() {
   return <canvas ref={canvasRef} className="ostara-particle-canvas" aria-hidden="true" />;
 }
 
+/* The Ooo Media Shop's address (Greg, 2026-10-23: the store links are
+   coming); the shop button becomes a link once this is set. */
+const SHOP_URL = "";
+
 export function Home({ onSupport }: { onSupport: () => void }) {
   const [pathwayOpen, setPathwayOpen] = useState(false);
   // the Studio Services testimonial folds to its first line (Greg, 2026-10-23)
   const [quoteOpen, setQuoteOpen] = useState(false);
+  const [shopQuoteOpen, setShopQuoteOpen] = useState(false);
   const [rings, setRings] = useState(0);
   /* the block under each division card resets that card to its first state */
   const [micReset, setMicReset] = useState(0);
@@ -719,18 +724,43 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 </ul>
               </div>
             </div>
+            {/* the same fold as the Services quote (Greg, 2026-10-23): its
+                first words at rest, the whole quote and who said it opened */}
             <div className="studio-testimonial">
-              <p className="studio-testimonial__quote">&ldquo;Your report was very helpful. I have already applied some of the strategies to expand our community network and add practical value to our marketplace.&rdquo;</p>
-              <div className="studio-testimonial__meta">
-                <img src="/assets/NORWAY-flag-ooo.png" alt="Norway" height="14" style={{borderRadius:'2px',flexShrink:0,display:'block'}} />
-                <span className="studio-testimonial__role">Founder &amp; CEO <img src="/assets/Ooo-Global-Network-Electric.png?v=2" alt="" className="studio-testimonial__globe" /> Norway</span>
+              <button
+                type="button"
+                className={`studio-testimonial__toggle${shopQuoteOpen ? " is-open" : ""}`}
+                aria-expanded={shopQuoteOpen}
+                aria-controls="products-testimonial-more"
+                onClick={() => setShopQuoteOpen((v) => !v)}
+              >
+                <span className="studio-testimonial__quote">
+                  {shopQuoteOpen ? (
+                    <>&ldquo;I have already applied some of the strategies to expand our network and add practical value to our marketplace. Your report was very helpful.&rdquo;</>
+                  ) : (
+                    <>&ldquo;I have already applied some of the strategies to expand our community&hellip;</>
+                  )}
+                </span>
+                <span className="studio-testimonial__arrow" aria-hidden="true">&rarr;</span>
+              </button>
+              <div id="products-testimonial-more" hidden={!shopQuoteOpen}>
+                <div className="studio-testimonial__meta">
+                  <img src="/assets/NORWAY-flag-ooo.png" alt="Norway" height="14" style={{borderRadius:'2px',flexShrink:0,display:'block'}} />
+                  <span className="studio-testimonial__role">Founder &amp; CEO <img src="/assets/Ooo-Global-Network-Electric.png?v=2" alt="" className="studio-testimonial__globe" /> Norway</span>
+                </div>
               </div>
             </div>
             <div className="shop-ad" role="complementary" aria-label="Ooo Media Shop">
               <img src="/assets/Ooo.Media-Shop-Trans.png" alt="" className="shop-ad__art" />
               <div className="shop-ad__body">
-                <div className="shop-ad__eyebrow">Ooo Media Shop <span className="shop-ad__status">&middot; Open Soon!</span></div>
-                <p className="shop-ad__text">Shop digital assets on demand.</p>
+                <div className="shop-ad__eyebrow">Ooo Media Shop</div>
+                {/* a button now (Greg, 2026-10-23); it links once the store's
+                    address is set in SHOP_URL */}
+                {SHOP_URL ? (
+                  <a className="ood-btn-dark" href={SHOP_URL}>Shop digital assets on demand.</a>
+                ) : (
+                  <span className="ood-btn-dark" aria-disabled="true">Shop digital assets on demand.</span>
+                )}
               </div>
             </div>
           </div>
@@ -802,7 +832,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 </p>
                 <button
                   type="button"
-                  className="studio-ad__cta"
+                  className="ood-btn-dark"
                   onClick={() => setPathwayOpen(true)}
                 >
                   Open the pathway with a conversation →
