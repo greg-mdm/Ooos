@@ -119,6 +119,8 @@ function OstaraParticleCanvas() {
 
 export function Home({ onSupport }: { onSupport: () => void }) {
   const [pathwayOpen, setPathwayOpen] = useState(false);
+  // the Studio Services testimonial folds to its first line (Greg, 2026-10-23)
+  const [quoteOpen, setQuoteOpen] = useState(false);
   const [rings, setRings] = useState(0);
   /* the block under each division card resets that card to its first state */
   const [micReset, setMicReset] = useState(0);
@@ -758,7 +760,26 @@ export function Home({ onSupport }: { onSupport: () => void }) {
             </div>
             <div className="studio-testimonial">
               <p className="studio-testimonial__eyebrow">One creative contact. No reset cycle.</p>
-              <p className="studio-testimonial__quote">&ldquo;The problem with external SEO agencies is the turnover. Every six months, there&rsquo;s a new key contact to bring up to speed.&rdquo;</p>
+              {/* at rest the quote's first words and an arrow; opened, the
+                  whole quote, who said it, the problem and the solution
+                  (Greg, 2026-10-23) */}
+              <button
+                type="button"
+                className={`studio-testimonial__toggle${quoteOpen ? " is-open" : ""}`}
+                aria-expanded={quoteOpen}
+                aria-controls="studio-testimonial-more"
+                onClick={() => setQuoteOpen((v) => !v)}
+              >
+                <span className="studio-testimonial__quote">
+                  {quoteOpen ? (
+                    <>&ldquo;The problem with external SEO agencies is the turnover. Every six months, there&rsquo;s a new key contact to bring up to speed.&rdquo;</>
+                  ) : (
+                    <>&ldquo;The problem with external SEO agencies is the turnover&hellip;</>
+                  )}
+                </span>
+                <span className="studio-testimonial__arrow" aria-hidden="true">&rarr;</span>
+              </button>
+              <div id="studio-testimonial-more" hidden={!quoteOpen}>
               <div className="studio-testimonial__meta">
                 <img src="/assets/CANADA-Flag-Drop.png" alt="Canada" height="14" style={{borderRadius:'2px',flexShrink:0,display:'block'}} />
                 <span className="studio-testimonial__role">CEO <img src="/assets/Ooo-Global-Network-Electric.png?v=2" alt="" className="studio-testimonial__globe" /> Canada</span>
@@ -771,6 +792,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                 <span className="studio-pitch-dot studio-pitch-dot--solution" aria-hidden="true"></span>
                 <span><strong>Ooo Digital Media Studio</strong> provides a consistent creative lead, so your team can build on every success, strengthen internal digital capacity, and drive measurable business growth.</span>
               </p>
+              </div>
             </div>
             <div className="studio-ad" role="complementary" aria-label="Limited studio spaces">
               <div className="studio-ad__body">

@@ -831,6 +831,22 @@ a:hover { color: var(--electric); }
   color: var(--electric);
   margin: 0 0 10px;
 }
+/* the quote is the toggle (Greg, 2026-10-23): its first words and an arrow
+   at rest, the arrow turning down while the rest is open */
+.studio-testimonial__toggle {
+  display: flex; align-items: baseline; gap: 10px; width: 100%;
+  margin: 0 0 12px; padding: 0; border: 0; background: none;
+  font: inherit; text-align: left; color: inherit; cursor: pointer;
+}
+.studio-testimonial__toggle .studio-testimonial__quote { margin: 0; }
+.studio-testimonial__arrow {
+  flex: none; font-family: var(--font-elevated); font-weight: 800; font-size: 16px;
+  color: var(--electric); transition: transform 200ms ease;
+}
+.studio-testimonial__toggle:hover .studio-testimonial__arrow { transform: translateX(3px); }
+.studio-testimonial__toggle.is-open .studio-testimonial__arrow { transform: rotate(90deg); }
+.studio-testimonial__toggle:focus-visible { outline: 2px solid var(--electric); outline-offset: 4px; border-radius: 4px; }
+@media (prefers-reduced-motion: reduce) { .studio-testimonial__arrow { transition: none; } }
 .studio-testimonial__quote {
   font-family: var(--serif);
   font-size: 15px;
