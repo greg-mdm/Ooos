@@ -321,12 +321,30 @@
      paragraph across the width, the watchlist button beneath */
   .jbj-cid { margin: clamp(18px,2.8vh,30px) auto 0; border-top: 1px solid #C2CDCF; padding-top: clamp(16px,2.4vh,22px); display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); column-gap: clamp(32px,6vw,96px); row-gap: 18px; align-items: stretch; }
   .jbj-cid__col { display: flex; align-items: flex-start; gap: clamp(12px,1.4vw,18px); }
-  /* each block on its own neumorphic pad, embedded in the page: the
-     ground's own Robin's Egg pressed in by a Chrome Silver shade and a
-     White light, the site's spirit-button recipe (hero-top.css) in its
-     inset state; it marks the two as links to different places, CID main
-     and the watchlist prototype (Greg, 2026-10-23) */
-  .jbj-cid__col { padding: clamp(14px,1.6vw,20px) clamp(16px,1.8vw,24px); border-radius: 14px; background: #F0F4F5; border: 0; box-shadow: inset 0.35rem 0.35rem 0.7rem #D8DBDE, inset -0.25rem -0.25rem 0.6rem #FFFFFF; }
+  /* each block on its own neumorphic pad (Greg, 2026-10-23), Button 1 of
+     Mark Boots' "Neumorphic buttons" (codepen.io/MarkBoots/pen/RwvGxPL) in
+     its active state, grown to hold the text: a transparent rim raised by
+     the outer light and shade, the middle pressed in by the inset pair; it
+     marks the two as links to different places, CID main and the watchlist
+     prototype. Adapted under the MIT License:
+     Copyright (c) 2026 Mark Boots (https://codepen.io/MarkBoots/pen/RwvGxPL)
+     Permission is hereby granted, free of charge, to any person obtaining a
+     copy of this software and associated documentation files (the
+     "Software"), to deal in the Software without restriction, including
+     without limitation the rights to use, copy, modify, merge, publish,
+     distribute, sublicense, and/or sell copies of the Software, and to
+     permit persons to whom the Software is furnished to do so, subject to
+     the following conditions: The above copyright notice and this
+     permission notice shall be included in all copies or substantial
+     portions of the Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT
+     WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO
+     THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+     NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+     LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+     OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+     WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
+  .jbj-cid__col { padding: clamp(14px,1.6vw,20px) clamp(16px,1.8vw,24px); border: 0.5rem solid transparent; border-radius: 1rem; background: none;
+    box-shadow: -.5rem -.5rem 1rem hsl(0 0% 100% / .75), .5rem .5rem 1rem hsl(0 0% 50% / .5), inset .5rem .5rem 1rem hsl(0 0% 50% / .5), inset -.5rem -.5rem 1rem hsl(0 0% 100% / .75); }
   /* two blocks sized to their text, the page's true centre running through
      the gap between them; on wide screens each sentence keeps its three
      set lines, the CID one breaking after "connects", the watchlist one
