@@ -921,6 +921,8 @@ a:hover { color: var(--electric); }
 .studio-ad__body {
   flex: 1;
   min-width: 0;
+  /* the one-line button sizes to the card, never the card to it */
+  contain: inline-size;
 }
 .studio-ad__art {
   width: 95px;
@@ -989,9 +991,10 @@ a:hover { color: var(--electric); }
   pointer-events: none;
 }
 .shop-ad__art {
-  width: 200px;
-  height: 200px;
-  margin: -40px -20px -40px -20px;
+  /* a little narrower so the button holds one line (2026-10-23) */
+  width: 170px;
+  height: 170px;
+  margin: -30px -24px -30px -18px;
   flex-shrink: 0;
   object-fit: contain;
   /* the purple illustration lifted so it reads on the violet card */
@@ -1000,6 +1003,7 @@ a:hover { color: var(--electric); }
 .shop-ad__body {
   flex: 1;
   min-width: 0;
+  contain: inline-size;
   position: relative;
   z-index: 1;
 }
@@ -1017,6 +1021,8 @@ a:hover { color: var(--electric); }
    column, and the gold wash on hover */
 .ood-btn-dark {
   display: flex; width: 100%; box-sizing: border-box; align-items: center; justify-content: center; gap: 8px;
+  /* one line, the arrow kept with its words (Greg, 2026-10-23) */
+  white-space: nowrap;
   margin-top: 4px; padding: 9px 10px; border: 0; border-radius: 11px;
   font-family: Poppins, sans-serif; font-weight: 800; font-size: .86rem; letter-spacing: .01em;
   color: #F0C040; background: transparent; text-decoration: none; cursor: pointer;
@@ -6449,10 +6455,22 @@ html, body { overflow-x: clip; }
   .exhibit-support .tier-note--demand { font-size: clamp(1.15rem, 5.4vw, 1.5rem); text-wrap: balance; overflow-wrap: break-word; }
 }
 
+/* Home, the two promo cards side by side on a narrow laptop or tablet:
+   a smaller target so the Studio button still holds one line */
+@media (min-width: 601px) and (max-width: 1180px) {
+  .studio-ad__art { width: 72px; height: 72px; }
+  .ood-btn-dark { padding: 9px 6px; }
+}
+
 /* Home, the shop card (mobile rehab, 2026-10-19): the art over the words
    on a narrow phone, so the copy is not squeezed against the art */
-@media (max-width: 420px) {
+@media (max-width: 600px) {
   .shop-ad { flex-direction: column; text-align: center; padding: 6px 16px 18px; }
   .shop-ad__art { width: 150px; height: 150px; margin: -24px auto -18px; }
   .shop-ad__body { align-self: stretch; }
+  /* the studio card the same way, so its one-line button has the width */
+  .studio-ad { flex-direction: column; text-align: center; padding: 18px 6px; }
+  .ood-btn-dark { font-size: .75rem; letter-spacing: 0; padding: 9px 4px; }
+  .studio-ad__art { order: -1; margin: 0 auto; }
+  .studio-ad__body { align-self: stretch; }
 }
