@@ -5926,18 +5926,39 @@ textarea:focus-visible,
    rows through subgrid (the SHADOW header, the painting, the caption band),
    the twin and the ghost filling the header-plus-painting height, and the
    bid button centred in the third card's caption band. */
+/* The print card (Greg, 2026-10-24) takes the first two columns: the
+   SHADOW header, the chosen room view, three thumbnails, then the print's
+   name, byline and line beside the price and the order button. The card
+   portrait keeps the third column at the print card's height. */
+.lot-spread__piece--print { background: #000000; border-color: rgba(255, 255, 255, 0.1); }
+.print-card__stage { position: relative; aspect-ratio: 3 / 2; background: #0F031C; overflow: hidden; }
+.print-card__img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.print-card__thumbs { display: flex; gap: 10px; padding: 12px 18px 0; }
+.print-card__thumb {
+  flex: 0 0 auto; width: 76px; aspect-ratio: 3 / 2; padding: 0; border-radius: 8px; overflow: hidden; cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.14); background: #0F031C; opacity: 0.7; transition: opacity .15s, border-color .15s;
+}
+.print-card__thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.print-card__thumb:hover { opacity: 1; }
+.print-card__thumb[aria-pressed="true"] { opacity: 1; border-color: #F0C040; }
+.print-card__thumb:focus-visible { outline: 2px solid #F0C040; outline-offset: 2px; }
+.print-card__body { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 28px; padding: 14px 18px 18px; flex: 1 1 auto; }
+.print-card__about { display: flex; flex-direction: column; gap: 4px; flex: 1 1 300px; min-width: 0; }
+.print-card__name { font-family: var(--font-heading); font-size: clamp(1.1rem, 1.6vw, 1.35rem); font-weight: 700; color: #ffffff; }
+.lot-spread .print-card__desc { margin: 6px 0 0; max-width: 60ch; font-size: 0.95rem; line-height: 1.5; color: rgba(232, 236, 244, 0.85); text-wrap: balance; }
+.print-card__buy { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; flex: 0 0 auto; }
+.print-card__price { font-family: var(--font-heading); font-size: clamp(1.5rem, 2.2vw, 1.9rem); font-weight: 700; line-height: 1.1; color: #F0C040; }
+.print-card__size { font-size: 0.85rem; color: rgba(232, 236, 244, 0.75); }
+.print-card__cta {
+  display: inline-block; margin-top: 8px; padding: 12px 22px; border-radius: 12px; text-decoration: none;
+  font-family: var(--font-heading); font-size: 1rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap;
+}
+span.print-card__cta { cursor: default; }
 @media (min-width: 821px) {
-  .lot-spread__row { grid-template-rows: auto auto auto; row-gap: 0; }
-  .lot-spread__piece { display: grid; grid-row: span 3; grid-template-rows: subgrid; row-gap: 0; }
-  .lot-spread__piece--1 .lot-spread__head { grid-row: 1; }
-  .lot-spread__piece--1 .lot-spread__pic { grid-row: 2; }
-  .lot-spread__piece--2 .lot-spread__pic,
-  .lot-spread__piece--3 .lot-spread__pic { grid-row: 1 / 3; aspect-ratio: auto; min-height: 0; height: 100%; }
-  .lot-spread__piece--2 .lot-spread__img,
+  .lot-spread__piece--print { grid-column: span 2; }
+  .lot-spread__piece--3 .lot-spread__pic { aspect-ratio: auto; flex: 1 1 0; min-height: 0; }
   .lot-spread__piece--3 .lot-spread__img { position: absolute; inset: 0; }
-  .lot-spread__cap { grid-row: 3; }
-  .lot-spread__piece--2 .lot-spread__cap { padding: 12px 18px 16px; }
-  .lot-spread__piece--3 .lot-spread__cap { justify-content: center; align-items: center; padding: 12px 18px; }
+  .lot-spread__piece--3 .lot-spread__cap { flex: 0 0 auto; justify-content: center; align-items: center; padding: 12px 18px 18px; }
   .lot-spread__piece--3 .lot-spread__bid { align-self: center; width: 100%; }
 }
 /* Three spaces under the cards (Greg, 2026-10-18): the terms and the
@@ -6106,18 +6127,12 @@ button.lot__cta { font: inherit; cursor: pointer; }
 @media (max-width: 820px) {
   .lot-spread .lot--painting { grid-template-columns: minmax(0, 1fr); row-gap: 24px; }
   .lot-spread .lot--painting .lot__col--auction { width: 100%; max-width: 360px; margin: 0 auto; }
-  .lot-spread__row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .lot-spread__piece--1 { grid-column: 1 / -1; }
-  /* the painting keeps its own proportions when the card spans the row
-     (Greg, 2026-10-21: the 70vh cap was cropping heads): the frame narrows
-     and centres on the black card instead */
-  .lot-spread__piece--1 .lot-spread__pic { width: min(100%, calc(70vh * 1150 / 1592)); margin: 0 auto; }
+  /* one column: the print card, then the card portrait at a phone-sized width */
+  .lot-spread__row { grid-template-columns: minmax(0, 1fr); }
+  .lot-spread__piece--3 { width: min(100%, 420px); justify-self: center; }
 }
 @media (max-width: 520px) {
-  .lot-spread__row { grid-template-columns: minmax(0, 1fr); }
-  /* one column: nothing beside the twin to stretch to, so it keeps the
-     painting's proportions (it collapsed to nothing here) */
-  .lot-spread__piece--2 .lot-spread__pic { aspect-ratio: 1150 / 1592; flex: none; }
+  .print-card__thumb { width: 64px; }
 }
 
 /* The National Gallery spread: two featured pieces, each with its title in

@@ -619,37 +619,8 @@ const SHADOW_HOST: Extract<Media, { kind: "video" }> = {
    folder. The violet-corridor rendering is cut too
    (national-gallery-shadow-violet.webp) if the pair should swap. */
 const GALLERY: GalleryPiece[] = [
-  /* the painting as before (Greg, 2026-10-18): the picture whole in its
-     frame, nothing laid over it, its title and credit beneath */
-  {
-    id: "shadow-painting",
-    title: "Shadow",
-    head: true,
-    /* the original subtitle (Greg, 2026-10-20) */
-    credit: <>Artist: McCormack<br />From &lsquo;Canvases of Old Dreams,&rsquo; a collection of abstract artworks.</>,
-    media: {
-      kind: "image",
-      src: `${ASSETS}national-gallery-shadow-painting.webp`,
-      alt: "A shrouded white figure outlined in black, painted in thick strokes over a pink, blue and violet field",
-      frame: "tall",
-    },
-  },
-  /* the two renderings (Greg, 2026-10-18): the silver corridor rendering
-     second, beside the original, with a Share link; the card portrait cut
-     from the approved still third, with the approved line and the bid */
-  {
-    id: "shadow-silver",
-    title: "Shadow Twin",
-    icon: "shapes",
-    credit: "Digitized by Ooo!",
-    crop: "bottom",
-    media: {
-      kind: "image",
-      src: `${ASSETS}national-gallery-shadow-silver.webp`,
-      alt: "The same shrouded figure as liquid chrome, its cape flaring pink and blue in a white-silver corridor",
-      frame: "tall",
-    },
-  },
+  /* the painting and its twin gave way to the print card (Greg,
+     2026-10-24); the card portrait stays beside it with the bid */
   {
     id: "shadow-card",
     line: "Shadow searches for home",
@@ -1050,6 +1021,65 @@ function GalleryHero() {
   );
 }
 
+/* The Shadow print (Greg, 2026-10-24): the framed print for sale where the
+   painting and its twin hung, one card across two columns with the three
+   approved room mockups (Artlist 4K upscales, the original painting set in
+   each frame). The order button links the Wix store's product page; until
+   the Slow Stream store is published and the product visible, PRINT.url is
+   empty and the button shows without a link. */
+const PRINT = {
+  url: "",
+  name: "Framed Art Print",
+  size: "12 \u00d7 16 in, black wood frame",
+  price: "CA$69",
+  shots: [
+    { src: `${ASSETS}shadow-print-marble.jpg`, alt: "Shadow framed in black on a dark marble wall above a marble console, a brass lamp and a silver vase beside it" },
+    { src: `${ASSETS}shadow-print-gallery.jpg`, alt: "Shadow framed in black on a pale gallery wall, an arched hallway to the left" },
+    { src: `${ASSETS}shadow-print-studio.jpg`, alt: "Shadow framed in black on a white studio wall between a wooden easel and a paint-covered worktable" },
+  ],
+};
+
+function ShadowPrintCard() {
+  const [shot, setShot] = useState(0);
+  const cta = "Order the print";
+  return (
+    <article className="lot-spread__piece lot-spread__piece--print">
+      <header className="lot-spread__head">
+        <span id="lot-title" className="gallery-piece__title lot-spread__title-big">
+          <Icon name="venn" />
+          <span className="lot-spread__name">Shadow</span>
+        </span>
+      </header>
+      <div className="print-card__stage">
+        <img className="print-card__img" src={PRINT.shots[shot].src} alt={PRINT.shots[shot].alt} />
+      </div>
+      <div className="print-card__thumbs" role="group" aria-label="Views of the framed print">
+        {PRINT.shots.map((v, i) => (
+          <button key={v.src} type="button" className="print-card__thumb" aria-pressed={i === shot} aria-label={`View ${i + 1}`} onClick={() => setShot(i)}>
+            <img src={v.src} alt="" loading="lazy" />
+          </button>
+        ))}
+      </div>
+      <div className="print-card__body">
+        <div className="print-card__about">
+          <span className="print-card__name">{PRINT.name}</span>
+          <span className="gallery-piece__credit lot-spread__byline">Artist: McCormack<br />From &lsquo;Canvases of Old Dreams,&rsquo; a collection of abstract artworks.</span>
+          <p className="print-card__desc">Collect Shadow in physical form: an elegant wooden frame holds a vibrant painting digitally remixed by the artist.</p>
+        </div>
+        <div className="print-card__buy">
+          <span className="print-card__price">{PRINT.price}</span>
+          <span className="print-card__size">{PRINT.size}</span>
+          {PRINT.url ? (
+            <a className="lot__cta print-card__cta" href={PRINT.url} target="_blank" rel="noopener noreferrer">{cta}</a>
+          ) : (
+            <span className="lot__cta print-card__cta" aria-disabled="true">{cta}</span>
+          )}
+        </div>
+      </div>
+    </article>
+  );
+}
+
 /* Three cards, darker to lighter left to right (Greg, 2026-10-18): the
    picture whole at the top of each, nothing over it, the text in the card
    beneath in one format; the third card's line sits over its picture and
@@ -1058,8 +1088,10 @@ function GalleryLot() {
   return (
     <section className="dicho dicho--gallery lot-spread" aria-labelledby="lot-title">
       <div className="lot-spread__row">
+        <ShadowPrintCard />
+        {/* the print card holds the first two places (2026-10-24) */}
         {GALLERY.map((piece, i) => (
-          <figure key={piece.id} className={`lot-spread__piece lot-spread__piece--${i + 1}`}>
+          <figure key={piece.id} className={`lot-spread__piece lot-spread__piece--${i + 3}`}>
             {piece.head && piece.title && (
               <header className="lot-spread__head">
                 {/* icon first, then the name, on both cards (Greg, 2026-10-18) */}
