@@ -1061,6 +1061,7 @@ function ShadowPrintCard() {
           <Icon name="venn" />
           <span className="lot-spread__name">Shadow</span>
         </span>
+        <span className="print-card__tag">From &lsquo;Canvases of Old Dreams,&rsquo; a collection of abstract artworks.</span>
       </header>
       <div className="print-card__stage">
         <img className="print-card__img" src={PRINT.shots[shot].src} alt={PRINT.shots[shot].alt} />
@@ -1071,11 +1072,11 @@ function ShadowPrintCard() {
             <img src={v.src} alt="" loading="lazy" />
           </button>
         ))}
+        <span className="print-card__artist">Artist: McCormack</span>
       </div>
       <div className="print-card__body">
         <div className="print-card__about">
           <span className="print-card__name">{PRINT.name}</span>
-          <span className="gallery-piece__credit lot-spread__byline">Artist: McCormack<br />From &lsquo;Canvases of Old Dreams,&rsquo; a collection of abstract artworks.</span>
           <p className="print-card__desc">Collect Shadow in physical form: this black wooden frame holds a vibrant painting digitally remixed by the artist, printed on museum-quality matte paper.</p>
         </div>
         <div className="print-card__buy">
