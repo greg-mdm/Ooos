@@ -337,11 +337,11 @@ export function Home({ onSupport }: { onSupport: () => void }) {
           <ul className="ot-divs" aria-label="Divisions">
             <li className="ot-div">
               <MicroDeLuxeCard resetSignal={micReset} />
-              <SpiritButton division="MIC" label="Media, Information and Culture (MIC)" onPress={() => setMicReset((n) => n + 1)} />
+              <SpiritButton division="MIC" label="Media, Information and Culture (MIC)" to="/mic" onPress={() => setMicReset((n) => n + 1)} />
             </li>
             <li className="ot-div">
               <CidSealCard resetSignal={cidReset} />
-              <SpiritButton division="CID" icon="fund" label="Canadian Innovation Dimension (CID)" onPress={() => setCidReset((n) => n + 1)} />
+              <SpiritButton division="CID" icon="fund" label="Canadian Innovation Dimension (CID)" to="/cid" onPress={() => setCidReset((n) => n + 1)} />
             </li>
             <li className="ot-div">
               <div className="ot-div__art ot-ra">
@@ -354,7 +354,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                   loading="lazy"
                 />
               </div>
-              <SpiritButton division="The RA" icon="house" label="The RA: Reclaiming Agency" />
+              <SpiritButton division="The RA" icon="house" label="The RA: Reclaiming Agency" restricted />
             </li>
           </ul>
         </div>

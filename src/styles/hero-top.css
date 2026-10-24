@@ -372,7 +372,13 @@
 .ot-spirit__btn:hover { color: var(--ot-electric); }
 .ot-spirit__btn:active, .ot-spirit__btn.is-cheering { color: var(--ot-electric);
   box-shadow: inset 0.2rem 0.2rem 0.5rem var(--neu-shade), inset -0.2rem -0.2rem 0.5rem var(--neu-light); }
+.ot-spirit__btn.is-armed.is-cheering, .ot-spirit__btn.is-armed:active { box-shadow: 0 0 0 2px var(--ot-electric), inset 0.2rem 0.2rem 0.5rem var(--neu-shade), inset -0.2rem -0.2rem 0.5rem var(--neu-light); }
+.ot-spirit__btn.is-restricted.is-cheering, .ot-spirit__btn.is-restricted:active { color: #822F00; box-shadow: 0 0 0 2px #822F00, inset 0.2rem 0.2rem 0.5rem var(--neu-shade), inset -0.2rem -0.2rem 0.5rem var(--neu-light); }
 .ot-spirit__btn:focus-visible { outline: 2px solid var(--ot-electric); outline-offset: 3px; }
+/* armed after a press (Greg, 2026-10-24): an Electric border round the button
+   and the enter mark; the RA, with no home yet, a Ruby border and the ban mark */
+.ot-spirit__btn.is-armed { color: var(--ot-electric); box-shadow: 0 0 0 2px var(--ot-electric), 0.3rem 0.3rem 0.6rem var(--neu-shade), -0.2rem -0.2rem 0.5rem var(--neu-light); }
+.ot-spirit__btn.is-restricted, .ot-spirit__btn.is-restricted:hover { color: #822F00; box-shadow: 0 0 0 2px #822F00, 0.3rem 0.3rem 0.6rem var(--neu-shade), -0.2rem -0.2rem 0.5rem var(--neu-light); cursor: not-allowed; }
 .ot-spirit__btn svg { flex: 0 0 auto; width: 22px; height: 22px; transform-origin: 50% 88%; }
 .ot-spirit__btn.is-cheering svg { animation: otPomShake 0.72s ease-in-out; }
 .ot-div:has(.ot-spirit__btn.is-cheering) .ot-div__art { animation: otCheer 0.72s ease-out; }

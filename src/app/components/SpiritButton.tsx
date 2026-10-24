@@ -7,8 +7,17 @@
    "fund-projection-screen" (outlined, MIT, ant.design), materials and
    value on the board; the RA uses a house with a person in it (Font
    Awesome Free 6 solid "house-user", CC BY 4.0), body and property in
-   one mark. Nothing loads for the icons. */
+   one mark. Nothing loads for the icons.
+
+   Since 2026-10-24 (Greg) a press also arms the button: an active border
+   and the mark swapped for Ionicons "enter-outline"; pressing again goes to
+   the division's home (`to`). A division with no home yet (`restricted`)
+   shows a Ruby border and Ionicons "ban-outline" instead and goes nowhere.
+   Ionicons v7.4.0, MIT License, Copyright (c) 2015-present Ionic
+   (http://ionic.io/); the full notice is in
+   public/assets/exhibition/anatomy/anatomy-display.html. */
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CHEER_MS = 720;
 
@@ -39,6 +48,24 @@ function HouseUserIcon() {
   );
 }
 
+function EnterIcon() {
+  return (
+    <svg viewBox="0 0 512 512" aria-hidden="true" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32">
+      <path d="M176 176v-40a40 40 0 0140-40h208a40 40 0 0140 40v240a40 40 0 01-40 40H216a40 40 0 01-40-40v-40" />
+      <path d="M272 336l80-80-80-80M48 256h288" />
+    </svg>
+  );
+}
+
+function BanIcon() {
+  return (
+    <svg viewBox="0 0 512 512" aria-hidden="true" fill="none" stroke="currentColor" strokeMiterlimit="10" strokeWidth="32">
+      <circle cx="256" cy="256" r="208" />
+      <path d="M108.92 108.92l294.16 294.16" />
+    </svg>
+  );
+}
+
 type SpiritIcon = "pompoms" | "fund" | "house";
 const ICONS: Record<SpiritIcon, () => JSX.Element> = { pompoms: PomPomsIcon, fund: FundScreenIcon, house: HouseUserIcon };
 
@@ -47,17 +74,27 @@ export function SpiritButton({
   label,
   icon = "pompoms",
   onPress,
+  to,
+  restricted = false,
 }: {
   division: string;
   label: string;
   icon?: SpiritIcon;
   /* the card above resets to its first state on each press */
   onPress?: () => void;
+  /* the division's home, entered on the second press */
+  to?: string;
+  /* no home to enter yet: a press shows the restricted state */
+  restricted?: boolean;
 }) {
+  const navigate = useNavigate();
   const [cheering, setCheering] = useState(false);
+  const [armed, setArmed] = useState(false);
   const timer = useRef<number | undefined>(undefined);
   useEffect(() => () => window.clearTimeout(timer.current), []);
   const cheer = () => {
+    if (armed && to && !restricted) { navigate(to); return; }
+    setArmed(true);
     onPress?.();
     window.clearTimeout(timer.current);
     setCheering(false);
@@ -72,12 +109,16 @@ export function SpiritButton({
     <div className="ot-spirit">
       <button
         type="button"
-        className={`ot-spirit__btn${cheering ? " is-cheering" : ""}`}
+        className={`ot-spirit__btn${cheering ? " is-cheering" : ""}${armed ? (restricted ? " is-restricted" : " is-armed") : ""}`}
         onClick={cheer}
-        aria-label={`${label}: Spirit, cheer for ${division}`}
-        title="Spirit"
+        aria-label={
+          armed && restricted ? `${label}: not open yet`
+          : armed && to ? `${label}: press again to enter`
+          : `${label}: Spirit, cheer for ${division}`
+        }
+        title={armed && restricted ? "Not open yet" : armed && to ? "Enter" : "Spirit"}
       >
-        {ICONS[icon]()}
+        {armed ? (restricted ? <BanIcon /> : to ? <EnterIcon /> : ICONS[icon]()) : ICONS[icon]()}
         <span className="ot-spirit__label">{label}</span>
       </button>
     </div>
