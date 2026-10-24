@@ -448,6 +448,8 @@ const ATTRACTIONS: Attraction[] = [
     tag: "Plant a seed",
     tagIcon: "seed",
     hint: "Dig deeper",
+    /* git-merge with "Dig deeper" (Greg, 2026-10-24), in place of the plus */
+    glyph: <GitMergeIcon />,
     tone: "teal",
     /* Greg's photo (2026-10-07): public/assets/exhibition/Leaf Silhoutte -
        Stage Light.heic, a monstera leaf under a single stage light. Decoded
@@ -959,6 +961,18 @@ function SparklesIcon() {
   return (
     <svg className="hicon" viewBox="0 0 512 512" width="1em" height="1em" aria-hidden="true" focusable="false">
       <path d="M259.92 262.91L216.4 149.77a9 9 0 00-16.8 0l-43.52 113.14a9 9 0 01-5.17 5.17L37.77 311.6a9 9 0 000 16.8l113.14 43.52a9 9 0 015.17 5.17l43.52 113.14a9 9 0 0016.8 0l43.52-113.14a9 9 0 015.17-5.17l113.14-43.52a9 9 0 000-16.8l-113.14-43.52a9 9 0 01-5.17-5.17zM108 68L88 16 68 68 16 88l52 20 20 52 20-52 52-20-52-20zM426.67 117.33L400 48l-26.67 69.33L304 144l69.33 26.67L400 240l26.67-69.33L496 144l-69.33-26.67z" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" />
+    </svg>
+  );
+}
+
+/* Ionicons git-merge-outline (v7.4.0, MIT, as above), shapes verbatim, on
+   the Thought Garden button beside "Dig deeper" (Greg, 2026-10-24) */
+function GitMergeIcon() {
+  return (
+    <svg className="hicon" viewBox="0 0 512 512" width="1em" height="1em" aria-hidden="true" focusable="false">
+      <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32">
+        <circle cx="129" cy="96" r="48" /><circle cx="129" cy="416" r="48" /><path d="M129 144v224" /><circle cx="385" cy="288" r="48" /><path d="M129 144c0 96 112 144 208 144" />
+      </g>
     </svg>
   );
 }
