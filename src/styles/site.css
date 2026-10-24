@@ -901,18 +901,18 @@ a:hover { color: var(--electric); }
 }
 .studio-pitch-dot--problem { background: #822F00; }
 .studio-pitch-dot--solution { background: #008080; }
-/* The two promo cards in Creative Offerings take the Ooo Divisions heading
-   blocks' violet (Greg, 2026-10-23: the lavender did not fit the homepage):
-   Portal to Electric, a dark-indigo edge, Bright Silver type, Sunshine for
-   the call-outs */
+/* The two promo cards in Creative Offerings are the Ooo Divisions cards
+   (Greg, 2026-10-23: "EXACTLY THE SAME"): the .ood-col dark glass, rim and
+   shadow, laid on Darkest Indigo, the aurora's base, since this ground is
+   light; Bright Silver type */
 .studio-ad {
   position: relative;
   margin-top: 20px;
-  padding: 6px 4px 6px 18px;
-  border: 1px solid #19007D;
-  border-radius: 10px;
-  background: linear-gradient(180deg, #4B00B6 0%, #5B04DE 100%);
-  box-shadow: 0 1px 0 rgba(232,236,244,.18) inset, 0 14px 30px -14px rgba(75,0,182,.7);
+  padding: 14px 8px 14px 22px;
+  border: 1px solid rgba(91,4,222,.42);
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(20,8,48,.55) 0%, rgba(12,5,32,.58) 46%, rgba(8,3,24,.62) 100%), #06021C;
+  box-shadow: 0 1px 0 rgba(190,150,250,.16) inset, 0 1px 2px rgba(6,2,28,.35), 0 24px 50px -26px rgba(6,2,28,.7);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -968,17 +968,18 @@ a:hover { color: var(--electric); }
 .shop-ad {
   position: relative;
   margin-top: 20px;
-  padding: 6px 18px 6px 4px;
-  border-radius: 10px;
-  border: 1px solid #19007D;
-  background: linear-gradient(180deg, #4B00B6 0%, #5B04DE 100%);
-  box-shadow: 0 1px 0 rgba(232,236,244,.18) inset, 0 14px 30px -14px rgba(75,0,182,.7);
+  padding: 14px 22px 14px 8px;
+  border: 1px solid rgba(91,4,222,.42);
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(20,8,48,.55) 0%, rgba(12,5,32,.58) 46%, rgba(8,3,24,.62) 100%), #06021C;
+  box-shadow: 0 1px 0 rgba(190,150,250,.16) inset, 0 1px 2px rgba(6,2,28,.35), 0 24px 50px -26px rgba(6,2,28,.7);
   display: flex;
   align-items: center;
   gap: 10px;
   overflow: hidden;
 }
 .shop-ad::before {
+  display: none;
   content: '';
   position: absolute;
   inset: -40% -10% auto auto;
@@ -997,6 +998,8 @@ a:hover { color: var(--electric); }
   filter: brightness(2.8) saturate(0.35) drop-shadow(0 4px 12px rgba(6,2,28,0.5));
 }
 .shop-ad__body {
+  flex: 1;
+  min-width: 0;
   position: relative;
   z-index: 1;
 }
@@ -1009,20 +1012,18 @@ a:hover { color: var(--electric); }
   text-shadow: 0 1px 2px rgba(6,2,28,.45);
   margin-bottom: 6px;
 }
-/* The dark indigo button with gold type (Greg, 2026-10-23), the Ooo
-   Divisions' Products & Services toggle as a filled button: Gold on
-   Darkest Indigo, the ground that toggle sits on, and the same gold wash
-   on hover (Greg, 2026-10-23: the exact Ooo Divisions button) */
+/* The Ooo Divisions' Products & Services toggle, exactly (Greg,
+   2026-10-23): Gold type on the card's dark ground, the full width of its
+   column, and the gold wash on hover */
 .ood-btn-dark {
-  display: inline-flex; align-items: center; gap: 8px;
-  margin-top: 4px; padding: 9px 16px; border: 0; border-radius: 11px;
+  display: flex; width: 100%; box-sizing: border-box; align-items: center; justify-content: center; gap: 8px;
+  margin-top: 4px; padding: 9px 10px; border: 0; border-radius: 11px;
   font-family: Poppins, sans-serif; font-weight: 800; font-size: .86rem; letter-spacing: .01em;
-  color: #F0C040; background: #06021C; text-decoration: none; cursor: pointer;
-  box-shadow: 0 6px 16px -8px rgba(6,2,28,.7);
+  color: #F0C040; background: transparent; text-decoration: none; cursor: pointer;
   transition: background .18s;
 }
 /* the wash shows on the shop button before its store link is set, too */
-.ood-btn-dark:hover { background: linear-gradient(rgba(240,192,64,.12), rgba(240,192,64,.12)), #06021C; }
+.ood-btn-dark:hover { background: rgba(240,192,64,.12); }
 .ood-btn-dark:focus-visible { outline: 2px solid #FFF3B0; outline-offset: 2px; }
 span.ood-btn-dark { cursor: default; }
 .shop-ad__status {
@@ -6453,4 +6454,5 @@ html, body { overflow-x: clip; }
 @media (max-width: 420px) {
   .shop-ad { flex-direction: column; text-align: center; padding: 6px 16px 18px; }
   .shop-ad__art { width: 150px; height: 150px; margin: -24px auto -18px; }
+  .shop-ad__body { align-self: stretch; }
 }
