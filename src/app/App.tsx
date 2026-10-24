@@ -32,6 +32,8 @@ export default function App() {
           <Route path="/cid" element={<CID onSupport={open} />} />
           <Route path="/pop-clock-mini" element={<PopClockMini />} />
           <Route path="/exhibition" element={<Exhibition onSupport={open} />} />
+          {/* ooos.ca/cix, the Canadian Interactive Exhibition (CIX), the same page (Greg, 2026-10-24) */}
+          <Route path="/cix" element={<Exhibition onSupport={open} />} />
           <Route path="/about" element={<About />} />
           <Route
             path="/legacy"

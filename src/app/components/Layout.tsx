@@ -41,7 +41,7 @@ export function Nav() {
 
 export function Footer() {
   const { pathname } = useLocation();
-  const showDisclosure = !pathname.startsWith("/exhibition");
+  const showDisclosure = !pathname.startsWith("/exhibition") && !pathname.startsWith("/cix");
   return (
     <>
       <footer className="footer">
