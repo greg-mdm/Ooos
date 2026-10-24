@@ -1064,7 +1064,7 @@ function ShadowPrintCard() {
         <div className="print-card__about">
           <span className="print-card__name">{PRINT.name}</span>
           <span className="gallery-piece__credit lot-spread__byline">Artist: McCormack<br />From &lsquo;Canvases of Old Dreams,&rsquo; a collection of abstract artworks.</span>
-          <p className="print-card__desc">Collect Shadow in physical form: an elegant wooden frame holds a vibrant painting digitally remixed by the artist.</p>
+          <p className="print-card__desc">Collect Shadow in physical form: this black wooden frame holds a vibrant painting digitally remixed by the artist, printed on museum-quality matte paper.</p>
         </div>
         <div className="print-card__buy">
           <span className="print-card__price">{PRINT.price}</span>
