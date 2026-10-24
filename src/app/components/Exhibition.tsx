@@ -1,4 +1,4 @@
-import { CSSProperties, FormEvent, ReactNode, useEffect, useRef, useState } from "react";
+import { CSSProperties, FormEvent, MouseEvent, ReactNode, useEffect, useRef, useState } from "react";
 import { RadioAd } from "./RadioAd";
 import { AnatomyDisplay } from "./AnatomyDisplay";
 
@@ -599,7 +599,7 @@ const ATTRACTIONS: Attraction[] = [
    byline, the way a museum label hangs under a painting (Greg,
    2026-10-18). `crop: "bottom"` anchors the picture to its foot so the
    top is what gets cut. */
-type GalleryPiece = { id: string; title?: string; tag?: string; credit?: ReactNode; line?: string; share?: boolean; bid?: boolean; head?: boolean; crop?: "bottom"; icon?: IconName; media?: Media };
+
 
 /* The approved main video (Greg's "Shadow LEAKED - Preview 1.mp4",
    2026-10-17): Shadow and kin on the rainy plaza, 5 seconds, transcoded
@@ -613,27 +613,6 @@ const SHADOW_HOST: Extract<Media, { kind: "video" }> = {
   poster: `${ASSETS}shadow-host-poster.webp`,
   alt: "Shadow, a white sheet ghost, stands on a rainy Toronto plaza of painted lines and looks around; a small hooded kin trails far behind with bubbles",
 };
-/* Greg's "Shadow" (IMG_2568, 2026-10-17): the Shadow Flash painting, then
-   its digital rendering in a silver corridor (Greg's pick, 2026-10-17).
-   Both cut to the tall frame (1150 x 1592) from the originals in this
-   folder. The violet-corridor rendering is cut too
-   (national-gallery-shadow-violet.webp) if the pair should swap. */
-const GALLERY: GalleryPiece[] = [
-  /* the painting and its twin gave way to the print card (Greg,
-     2026-10-24); the card portrait stays beside it with the bid */
-  {
-    id: "shadow-card",
-    line: "Shadow searches for home",
-    bid: true,
-    media: {
-      kind: "image",
-      src: `${ASSETS}shadow-card-tall.webp`,
-      alt: "Shadow, a white sheet ghost with violet eyes and colour soaking up its hem, on the rainy plaza",
-      frame: "tall",
-    },
-  },
-];
-
 /* The three contrasts, each a pair of attractions that are two answers to
    one question (Greg, 2026-10-16): the beam and the seed; purpose and
    pride; the jester and the queen. The order here is the order on the page. */
@@ -1039,6 +1018,39 @@ const PRINT = {
   ],
 };
 
+/* Art on Demand (Greg, 2026-10-24): the Live Art Auction card reworked
+   beside the print, Shadow still floating over her shadow; the line on top,
+   the name under her, and Adopt a hero opening the print's product page
+   (until PRINT.url is set it brings the print card into view). */
+function AdoptCard() {
+  const go = (e: MouseEvent<HTMLAnchorElement>) => {
+    if (PRINT.url) return;
+    e.preventDefault();
+    document.getElementById("lot-title")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  return (
+    <div className="lot-auction lot-spread__adopt">
+      <div className="lot-auction__card">
+        <p className="lot-auction__kicker">Shadow searches for home</p>
+        <div className="lot-auction__stage">
+          <span className="lot-auction__shadow" aria-hidden="true" />
+          <img
+            className="lot-auction__ghost"
+            src={`${ASSETS}live-auction-shadow.webp`}
+            alt="Shadow, the white ghost with violet eyes, floating"
+            width="306"
+            height="532"
+          />
+        </div>
+        <p className="lot-auction__title">Art on Demand</p>
+        <a className="lot-auction__bid" href={PRINT.url || "#lot-title"} onClick={go} {...(PRINT.url ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
+          Adopt a hero
+        </a>
+      </div>
+    </div>
+  );
+}
+
 function ShadowPrintCard() {
   const [shot, setShot] = useState(0);
   const cta = "Order the print";
@@ -1089,83 +1101,20 @@ function GalleryLot() {
     <section className="dicho dicho--gallery lot-spread" aria-labelledby="lot-title">
       <div className="lot-spread__row">
         <ShadowPrintCard />
-        {/* the print card holds the first two places (2026-10-24) */}
-        {GALLERY.map((piece, i) => (
-          <figure key={piece.id} className={`lot-spread__piece lot-spread__piece--${i + 3}`}>
-            {piece.head && piece.title && (
-              <header className="lot-spread__head">
-                {/* icon first, then the name, on both cards (Greg, 2026-10-18) */}
-                <span id={piece.id === "shadow-painting" ? "lot-title" : undefined} className="gallery-piece__title lot-spread__title-big">
-                  <Icon name={piece.icon ?? "venn"} />
-                  <span className="lot-spread__name">{piece.title}</span>
-                </span>
-              </header>
-            )}
-            <div className="lot-spread__pic">
-              {piece.media?.kind === "image" && (
-                <img className={`lot-spread__img${piece.crop === "bottom" ? " lot-spread__img--bottom" : ""}`} src={piece.media.src} alt={piece.media.alt} loading="lazy" />
-              )}
-              {piece.line && <span className="lot-spread__line">{piece.line}</span>}
-            </div>
-            <figcaption className="lot-spread__cap">
-              {piece.title && !piece.head && <span id={piece.id === "shadow-painting" ? "lot-title" : undefined} className="gallery-piece__title"><Icon name={piece.icon ?? "venn"} /><span className="lot-spread__name">{piece.title}</span>{piece.tag && <span className="lot-spread__tag">{piece.tag}</span>}</span>}
-              {piece.credit && <span className={`gallery-piece__credit${piece.head ? " lot-spread__byline" : ""}`}>{piece.credit}</span>}
-              {piece.share && <ShareLink />}
-              {piece.bid && <BidButton />}
-            </figcaption>
-          </figure>
-        ))}
+        <AdoptCard />
       </div>
       <LotDetails />
     </section>
   );
 }
 
-/* Share: the page's own share sheet where there is one (phones, Safari,
-   Edge); elsewhere the link is copied and the label says so for a moment. */
-function ShareLink() {
-  const [done, setDone] = useState(false);
-  const share = async () => {
-    const url = `${window.location.origin}${window.location.pathname}#midway-national-gallery`;
-    const data = { title: "Shadow, rendered", url };
-    try {
-      if (navigator.share) { await navigator.share(data); return; }
-      await navigator.clipboard.writeText(url);
-      setDone(true); window.setTimeout(() => setDone(false), 1800);
-    } catch { /* the visitor closed the sheet */ }
-  };
-  return (
-    <button type="button" className="lot-spread__share" onClick={share} aria-live="polite">
-      {done ? "Link copied" : "Share"}
-    </button>
-  );
-}
-
-/* The gold button under the campaign card: "Adopt a hero" (Greg,
-   2026-10-18), the line that goes with Shadow searching for a home. It
-   opens the bid form below the auction card (2026-10-21). */
-function BidButton() {
-  const closed = Date.now() >= AUCTION_CLOSE.getTime();
-  return closed ? (
-    <span className="lot__closed lot-spread__bid">Bidding closed</span>
-  ) : (
-    <a className="lot__cta lot-spread__bid" href="#lot-bid" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event(OPEN_BID_EVENT)); }}>
-      Adopt a hero
-    </a>
-  );
-}
-
-/* The lot: Shadow is looking for a home. Bids go to the standalone Wix
-   form on Slow Stream (Greg's back office, 2026-10-17); this panel is the
-   front door. The auction runs October 25 to November 25, 2026, closing
-   11:59 PM ET (Greg, 2026-10-21: the dates on the new auction card; it
-   was October 20 to November 20); after the close the buttons give way to
-   a closed line. Framing is quoted to the winner. */
 /* Bids go to Greg's private Google Form (2026-10-21: the Wix form added
    nothing Ooo! cannot do itself); its responses land in his Sheet, which
    only he can open, so bidders' details never appear on the site. Fill in
    the form's id and each question's entry id from its pre-filled link;
-   until then the form opens a pre-filled email to greg@ooos.ca instead. */
+   until then the form opens a pre-filled email to greg@ooos.ca instead.
+   The auction's button left the page on 2026-10-24 (Art on Demand took its
+   card); the form stays here should the auction return. */
 const BID_GOOGLE_FORM = {
   id: "",
   entries: { name: "", email: "", phone: "", amount: "", terms: "" },
@@ -1326,19 +1275,17 @@ function LotDetails() {
   }, []);
   return (
     <div className="lot lot--painting">
-      <div className="lot__col lot__col--auction">
-        <AuctionCard open={bidOpen} onToggle={() => setBidOpen((v) => !v)} />
-        {/* the terms, folded until Place a bid is pressed (Greg, 2026-10-21) */}
-        <div id="lot-bid" className="lot__bid" hidden={!bidOpen}>
-          <p className="lot__terms">
-            <span>Opening bid $200 CAD</span>
-            <span aria-hidden="true">·</span>
-            <span>Highest bid at close wins</span>
-          </p>
-          <p className="lot__fine">Framing is separate; options are quoted to the winner. Pickup in Toronto or shipping at cost.</p>
-          <BidForm />
+      {/* the auction card and its terms left on 2026-10-24 (Art on Demand
+          took the card); they return here, with AuctionCard and BidForm,
+          should the auction come back */}
+      {bidOpen && (
+        <div className="lot__col lot__col--auction">
+          <AuctionCard open={bidOpen} onToggle={() => setBidOpen((v) => !v)} />
+          <div id="lot-bid" className="lot__bid">
+            <BidForm />
+          </div>
         </div>
-      </div>
+      )}
       <div className="lot__col lot__col--artist">
         <div className="lot__about">
           {/* the artist's photo as a thumbnail beside the heading, so the
