@@ -1,4 +1,4 @@
-import { CSSProperties, FormEvent, MouseEvent, ReactNode, useEffect, useRef, useState } from "react";
+import { CSSProperties, MouseEvent, ReactNode, useEffect, useRef, useState } from "react";
 import { RadioAd } from "./RadioAd";
 import { AnatomyDisplay } from "./AnatomyDisplay";
 
@@ -1108,141 +1108,6 @@ function GalleryLot() {
   );
 }
 
-/* Bids go to Greg's private Google Form (2026-10-21: the Wix form added
-   nothing Ooo! cannot do itself); its responses land in his Sheet, which
-   only he can open, so bidders' details never appear on the site. Fill in
-   the form's id and each question's entry id from its pre-filled link;
-   until then the form opens a pre-filled email to greg@ooos.ca instead.
-   The auction's button left the page on 2026-10-24 (Art on Demand took its
-   card); the form stays here should the auction return. */
-const BID_GOOGLE_FORM = {
-  id: "",
-  entries: { name: "", email: "", phone: "", amount: "", terms: "" },
-};
-const BID_EMAIL = "greg@ooos.ca";
-const OPENING_BID = 200;
-const OPEN_BID_EVENT = "ooos:open-bid";
-const BID_TERMS = "I understand the highest bid at close wins, that bidding closes November 25, 2026 at 11:59 PM ET, and that framing is quoted separately.";
-
-function BidForm() {
-  const [sent, setSent] = useState<"" | "google" | "email">("");
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState("");
-  const google = BID_GOOGLE_FORM.id && Object.values(BID_GOOGLE_FORM.entries).every(Boolean);
-
-  async function submit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const f = new FormData(e.currentTarget);
-    const name = String(f.get("name") || "").trim();
-    const email = String(f.get("email") || "").trim();
-    const phone = String(f.get("phone") || "").trim();
-    const amount = Number(f.get("amount"));
-    if (!name || !email || !amount) { setError("Please fill in your name, email and bid."); return; }
-    if (!(amount >= OPENING_BID)) { setError(`The opening bid is $${OPENING_BID} CAD.`); return; }
-    if (!f.get("terms")) { setError("Please confirm the terms to place your bid."); return; }
-    setError("");
-    const bid = `$${amount.toLocaleString("en-CA")} CAD`;
-    if (google) {
-      setBusy(true);
-      const body = new URLSearchParams();
-      body.set(BID_GOOGLE_FORM.entries.name, name);
-      body.set(BID_GOOGLE_FORM.entries.email, email);
-      body.set(BID_GOOGLE_FORM.entries.phone, phone);
-      body.set(BID_GOOGLE_FORM.entries.amount, String(amount));
-      body.set(BID_GOOGLE_FORM.entries.terms, "Agreed: " + BID_TERMS);
-      try {
-        // Google answers cross-origin posts opaquely; the response is recorded
-        await fetch(`https://docs.google.com/forms/d/e/${BID_GOOGLE_FORM.id}/formResponse`, { method: "POST", mode: "no-cors", body });
-        setSent("google");
-      } catch {
-        setError("The bid could not be sent. Please check your connection and try again.");
-      } finally {
-        setBusy(false);
-      }
-      return;
-    }
-    const lines = [`Name: ${name}`, `Email: ${email}`, `Phone: ${phone || "(not given)"}`, `Bid: ${bid}`, "", `Agreed: ${BID_TERMS}`];
-    window.location.href = `mailto:${BID_EMAIL}?subject=${encodeURIComponent("Bid on Shadow: " + bid)}&body=${encodeURIComponent(lines.join("\n"))}`;
-    setSent("email");
-  }
-
-  if (sent === "google") {
-    return (
-      <p className="lot__bid-done" role="status">
-        Thank you, your bid is in. If yours is the highest bid at close, we&rsquo;ll be in touch by email.
-      </p>
-    );
-  }
-  return (
-    <form className="lot__bid-form" onSubmit={submit} noValidate>
-      <p className="lot__bid-private">Your details stay private: bids go to Ooo!&rsquo;s own records and are never shown on the site.</p>
-      <label className="lot__field">
-        <span>Full name</span>
-        <input name="name" type="text" autoComplete="name" required />
-      </label>
-      <label className="lot__field">
-        <span>Email</span>
-        <input name="email" type="email" autoComplete="email" required />
-      </label>
-      <label className="lot__field">
-        <span>Phone <em>(optional)</em></span>
-        <input name="phone" type="tel" autoComplete="tel" />
-      </label>
-      <label className="lot__field">
-        <span>Bid amount (CAD)</span>
-        <input name="amount" type="number" inputMode="numeric" min={OPENING_BID} step={1} placeholder={String(OPENING_BID)} required />
-      </label>
-      <label className="lot__check">
-        <input name="terms" type="checkbox" required />
-        <span>{BID_TERMS}</span>
-      </label>
-      {error && <p className="lot__bid-error" role="alert">{error}</p>}
-      {sent === "email" && (
-        <p className="lot__bid-done" role="status">Your email app should open with your bid filled in. Press Send to place it.</p>
-      )}
-      <button type="submit" className="lot__cta lot__bid-go" disabled={busy}>
-        {busy ? "Placing your bid\u2026" : "Place my bid"}
-      </button>
-    </form>
-  );
-}
-const AUCTION_CLOSE = new Date("2026-11-26T04:59:00Z"); // Nov 25, 11:59 PM ET
-
-/* The Live Art Auction card (Greg, 2026-10-21): Shadow floating in a
-   recessed midnight well, the title, the bid button with its violet edge,
-   and the dates. A design he supplied as standalone HTML (motion after
-   Julie Park's Daily UI #011), rebuilt here so the button stays the page's
-   own: it opens the terms below, where the form link waits. The artwork is
-   his PNG cropped to what the card shows and served as a 306 px WebP. */
-function AuctionCard({ open, onToggle }: { open: boolean; onToggle: () => void }) {
-  const closed = Date.now() >= AUCTION_CLOSE.getTime();
-  return (
-    <div className="lot-auction">
-      <div className="lot-auction__card">
-        <div className="lot-auction__stage">
-          <span className="lot-auction__shadow" aria-hidden="true" />
-          <img
-            className="lot-auction__ghost"
-            src={`${ASSETS}live-auction-shadow.webp`}
-            alt="Shadow, the white ghost with violet eyes, floating"
-            width="306"
-            height="532"
-          />
-        </div>
-        <p className="lot-auction__title">Live Art Auction</p>
-        {closed ? (
-          <span className="lot-auction__bid lot-auction__bid--closed">Bidding closed</span>
-        ) : (
-          <button type="button" className="lot-auction__bid" aria-expanded={open} aria-controls="lot-bid" onClick={onToggle}>
-            Place your bid
-          </button>
-        )}
-        <p className="lot-auction__dates">October 25 &ndash; November 25</p>
-      </div>
-    </div>
-  );
-}
-
 /* The artist's answers, Greg's text (2026-10-20), quotes balanced per answer; each opens on
    its first word, inside About the artist. */
 const ARTIST_QA: { q: string; a: ReactNode }[] = [
@@ -1254,38 +1119,13 @@ const ARTIST_QA: { q: string; a: ReactNode }[] = [
   { q: "What?", a: <>&ldquo;Everyone sees different things&hellip;&rdquo;</> },
 ];
 
-/* Two columns (Greg, 2026-10-20): the Live Art Auction picture with the
-   bid terms under it on the left; About the artist on the right, open,
-   the artist's photo a thumbnail beside it (2026-10-21), its answers
-   folded on their first words. */
+/* About the artist, open, the artist's photo a thumbnail beside it
+   (2026-10-21), its answers folded on their first words; on its own since
+   the auction was cancelled (Greg, 2026-10-24: Art on Demand replaced it) */
 function LotDetails() {
   const [open, setOpen] = useState(true);
-  const [bidOpen, setBidOpen] = useState(false);
-  useEffect(() => {
-    const open = () => {
-      setBidOpen(true);
-      window.setTimeout(() => {
-        const el = document.getElementById("lot-bid");
-        el?.scrollIntoView({ behavior: "smooth", block: "center" });
-        el?.querySelector<HTMLInputElement>("input")?.focus({ preventScroll: true });
-      }, 60);
-    };
-    window.addEventListener(OPEN_BID_EVENT, open);
-    return () => window.removeEventListener(OPEN_BID_EVENT, open);
-  }, []);
   return (
     <div className="lot lot--painting">
-      {/* the auction card and its terms left on 2026-10-24 (Art on Demand
-          took the card); they return here, with AuctionCard and BidForm,
-          should the auction come back */}
-      {bidOpen && (
-        <div className="lot__col lot__col--auction">
-          <AuctionCard open={bidOpen} onToggle={() => setBidOpen((v) => !v)} />
-          <div id="lot-bid" className="lot__bid">
-            <BidForm />
-          </div>
-        </div>
-      )}
       <div className="lot__col lot__col--artist">
         <div className="lot__about">
           {/* the artist's photo as a thumbnail beside the heading, so the
