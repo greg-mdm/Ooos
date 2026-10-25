@@ -828,7 +828,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               <div className="studio-ad__body">
                 <div className="studio-ad__eyebrow">Studio Services · 2026–2027</div>
                 <p className="studio-ad__text">
-                  Our creative services are open to Professional teams, artists, and researchers.
+                  Collaboration spaces are opening for teams seeking research-led creative and digital strategy.
                 </p>
                 {/* the chat bubble in place of the arrow, and no bullseye (Greg,
                     2026-10-24): Ionicons chatbubble-ellipses-outline (v7.4.0, MIT,
