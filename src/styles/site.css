@@ -947,6 +947,10 @@ a:hover { color: var(--electric); }
   line-height: 1.5;
   margin: 0 0 10px;
 }
+/* the contact line follows the text with no paragraph break (Greg, 2026-10-25):
+   no gap above the button, and its hover pill trimmed to sit close */
+.pane .studio-ad .studio-ad__text { margin-bottom: 0; }
+.studio-ad .ood-btn-dark { margin-top: 0; padding-top: 3px; padding-bottom: 3px; }
 .studio-ad__cta {
   display: inline-block;
   padding: 7px 12px;
