@@ -1595,6 +1595,10 @@ span.ood-btn-dark { cursor: default; }
   gap: 10px;
   margin-top: 22px;
 }
+/* the pathway form's hidden trap field and its error line (2026-10-24) */
+.modal-trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.modal-error { margin: 14px 0 0; font-size: 13px; font-weight: 600; color: #822F00; }
+.modal-actions .btn[disabled] { opacity: 0.7; cursor: progress; }
 .modal-banner {
   background: rgba(0,212,170,0.1);
   border-left: 3px solid var(--teal-deep);
