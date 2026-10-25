@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState } from "react";
 
-/* Each enquiry goes to Greg's Google Sheet, one row per enquiry, and an email
+/* Each inquiry goes to Greg's Google Sheet, one row per inquiry, and an email
    to greg@ooos.ca (Greg, 2026-10-24), through the Apps Script web app in
    scripts/pathway-form.gs. Paste its /exec URL here once deployed; until
    then the form opens a pre-filled email to greg@ooos.ca instead. */
@@ -55,7 +55,7 @@ export function PathwayModal({ onClose }: { onClose: () => void }) {
         "",
         data.exploring,
       ];
-      window.location.href = `mailto:${PATHWAY_EMAIL}?subject=${encodeURIComponent("Studio enquiry: " + data.name)}&body=${encodeURIComponent(lines.join("\n"))}`;
+      window.location.href = `mailto:${PATHWAY_EMAIL}?subject=${encodeURIComponent("Studio inquiry: " + data.name)}&body=${encodeURIComponent(lines.join("\n"))}`;
       setSubmitted("email");
       return;
     }

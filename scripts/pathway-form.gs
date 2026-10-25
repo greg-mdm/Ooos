@@ -1,11 +1,11 @@
 /**
  * Ooo! pathway form: receives the "Open the pathway with a conversation"
- * enquiries from ooos.ca (src/app/components/PathwayModal.tsx), adds each
+ * inquiries from ooos.ca (src/app/components/PathwayModal.tsx), adds each
  * one as a row in this Google Sheet and emails it to greg@ooos.ca
  * (Greg, 2026-10-24).
  *
  * Setup, once:
- * 1. Make a new Google Sheet (for example "Ooo! Studio enquiries").
+ * 1. Make a new Google Sheet (for example "Ooo! Studio Inquiries").
  * 2. Extensions > Apps Script. Replace the editor's contents with this file
  *    and save.
  * 3. Deploy > New deployment > type "Web app". Execute as: Me. Who has
@@ -19,7 +19,9 @@
  */
 
 const NOTIFY = "greg@ooos.ca";
-const SHEET_NAME = "Enquiries";
+// the tab the rows go to; the first name found is used, so the tab can be
+// spelled either way (Greg, 2026-10-24)
+const SHEET_NAMES = ["Inquiries", "Inquires"];
 const HEADERS = ["Received", "Name", "Email", "Exploring", "Stage", "Timeline", "Budget", "Page"];
 const MAX = 5000; // characters kept per field
 
@@ -51,7 +53,7 @@ function doPost(e) {
   lock.waitLock(10000);
   try {
     const book = SpreadsheetApp.getActiveSpreadsheet();
-    const sheet = book.getSheetByName(SHEET_NAME) || book.insertSheet(SHEET_NAME);
+    const sheet = SHEET_NAMES.map((n) => book.getSheetByName(n)).find(Boolean) || book.insertSheet(SHEET_NAMES[0]);
     if (sheet.getLastRow() === 0) {
       sheet.appendRow(HEADERS);
       sheet.setFrozenRows(1);
@@ -59,6 +61,8 @@ function doPost(e) {
     // a leading apostrophe keeps a typed "=" or "+" as text, never a formula
     const safe = (v) => (/^[=+\-@]/.test(v) ? "'" + v : v);
     sheet.appendRow([new Date(), row.name, row.email, row.exploring, row.stage, row.timeline, row.budget, row.page].map((v) => (typeof v === "string" ? safe(v) : v)));
+    // the tracker's Status column, where it has one, starts each inquiry at New
+    if (sheet.getRange(1, 9).getValue() === "Status") sheet.getRange(sheet.getLastRow(), 9).setValue("New");
   } finally {
     lock.releaseLock();
   }
@@ -66,9 +70,9 @@ function doPost(e) {
   MailApp.sendEmail({
     to: NOTIFY,
     replyTo: row.email,
-    subject: "Studio enquiry: " + row.name,
+    subject: "Studio inquiry: " + row.name,
     body: [
-      "A new enquiry came in through ooos.ca.",
+      "A new inquiry came in through ooos.ca.",
       "",
       "Name: " + row.name,
       "Email: " + row.email,
@@ -80,7 +84,7 @@ function doPost(e) {
       row.exploring,
       "",
       "Sent from: " + (row.page || "ooos.ca"),
-      "Every enquiry is also in the Sheet: " + SpreadsheetApp.getActiveSpreadsheet().getUrl(),
+      "Every inquiry is also in the Sheet: " + SpreadsheetApp.getActiveSpreadsheet().getUrl(),
     ].join("\n"),
   });
 
