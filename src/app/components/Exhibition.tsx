@@ -1,4 +1,4 @@
-import { CSSProperties, MouseEvent, ReactNode, useEffect, useRef, useState } from "react";
+import { CSSProperties, ReactNode, useEffect, useRef, useState } from "react";
 import { RadioAd } from "./RadioAd";
 import { AnatomyDisplay } from "./AnatomyDisplay";
 
@@ -1037,11 +1037,10 @@ const PRINT = {
    the name under her, and Adopt a hero opening the print's product page
    (until PRINT.url is set it brings the print card into view). */
 function AdoptCard() {
-  const go = (e: MouseEvent<HTMLAnchorElement>) => {
-    if (PRINT.url) return;
-    e.preventDefault();
-    document.getElementById("lot-title")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
+  /* the button no longer links (Greg, 2026-10-25: Order the print finishes
+     that path): gold at rest, and a press turns it Electric, "Collect a
+     creature" */
+  const [collected, setCollected] = useState(false);
   return (
     <div className="lot-auction lot-spread__adopt">
       <div className="lot-auction__card">
@@ -1057,9 +1056,9 @@ function AdoptCard() {
           />
         </div>
         <p className="lot-auction__title">Art on Demand</p>
-        <a className="lot-auction__bid" href={PRINT.url || "#lot-title"} onClick={go} {...(PRINT.url ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
-          Adopt a hero
-        </a>
+        <button type="button" className={`lot-auction__bid lot-auction__bid--gold${collected ? " is-collected" : ""}`} aria-pressed={collected} onClick={() => setCollected((v) => !v)}>
+          {collected ? "Collect a creature" : "Adopt a hero"}
+        </button>
       </div>
     </div>
   );

@@ -951,6 +951,8 @@ a:hover { color: var(--electric); }
    no gap above the button, and its hover pill trimmed to sit close */
 .pane .studio-ad .studio-ad__text { margin-bottom: 0; }
 .studio-ad .ood-btn-dark { margin-top: 0; padding-top: 3px; padding-bottom: 3px; }
+/* "Open the pathway" inside the line, as its next sentence (2026-10-25) */
+.studio-ad .studio-ad__text .ood-btn-dark { display: inline-flex; width: auto; margin: 0; padding: 1px 6px; gap: 6px; vertical-align: baseline; }
 .studio-ad__cta {
   display: inline-block;
   padding: 7px 12px;
@@ -5997,6 +5999,14 @@ span.print-card__cta { cursor: default; }
 .lot-spread__adopt .lot-auction__stage { flex: 1 0 64cqw; }
 .lot-spread__adopt .lot-auction__ghost { top: calc(50% - 31cqw); }
 a.lot-auction__bid { text-decoration: none; }
+/* the gold laser glow at rest (Greg, 2026-10-25), the Electric glow it had
+   before once pressed */
+.lot-auction__bid.lot-auction__bid--gold { border-color: #F0C040; box-shadow: 0 0 5px rgba(240, 192, 64, .65), 0 0 13px rgba(240, 192, 64, .26), 0 7px 12px rgba(0, 0, 0, .5), inset 0 1px 3px rgba(240, 192, 64, .14); }
+.lot-auction__bid.lot-auction__bid--gold.is-collected { border-color: #5B04DE; box-shadow: 0 0 5px rgba(91, 4, 222, .65), 0 0 13px rgba(91, 4, 222, .26), 0 7px 12px rgba(0, 0, 0, .5), inset 0 1px 3px rgba(133, 81, 181, .14); }
+@media (hover: hover) and (pointer: fine) {
+  button.lot-auction__bid.lot-auction__bid--gold:hover { box-shadow: 0 0 6px rgba(240, 192, 64, .85), 0 0 18px rgba(240, 192, 64, .38), 0 9px 17px rgba(0, 0, 0, .55); }
+  button.lot-auction__bid.lot-auction__bid--gold.is-collected:hover { box-shadow: 0 0 6px rgba(91, 4, 222, .85), 0 0 18px rgba(91, 4, 222, .38), 0 9px 17px rgba(0, 0, 0, .55); }
+}
 @media (hover: hover) and (pointer: fine) {
   a.lot-auction__bid:hover { transform: translateY(-3px); background: #110320; box-shadow: 0 0 6px rgba(91, 4, 222, .85), 0 0 18px rgba(91, 4, 222, .38), 0 9px 17px rgba(0, 0, 0, .55); }
   a.lot-auction__bid:active { transform: translateY(0) scale(.98); }
