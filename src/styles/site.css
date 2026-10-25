@@ -5963,8 +5963,11 @@ textarea:focus-visible,
   .print-card__tag { min-width: 0; }
 }
 .print-card__artist { margin-left: auto; align-self: center; font-size: 0.95rem; color: rgba(232, 236, 244, 0.85); white-space: nowrap; }
-.print-card__stage { position: relative; aspect-ratio: 16 / 9; background: #0F031C; overflow: hidden; }
-.print-card__img { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* 16:10 and anchored to the floor (Greg, 2026-10-25: the dog bowl was cut):
+   the 3:2 rooms lose only a strip of wall at the top, the 16:9 gallery a
+   little of each side */
+.print-card__stage { position: relative; aspect-ratio: 16 / 10; background: #0F031C; overflow: hidden; }
+.print-card__img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; }
 .print-card__thumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 12px 18px 0; }
 .print-card__thumb {
   flex: 0 0 auto; width: 76px; aspect-ratio: 3 / 2; padding: 0; border-radius: 8px; overflow: hidden; cursor: pointer;

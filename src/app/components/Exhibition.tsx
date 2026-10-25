@@ -1075,7 +1075,7 @@ function ShadowPrintCard() {
           <Icon name="venn" />
           <span className="lot-spread__name">Shadow</span>
         </span>
-        <span className="print-card__tag">From &lsquo;Canvases of Old Dreams,&rsquo; a collection of abstract artworks.</span>
+        <span className="print-card__tag">From &lsquo;Canvases of Old Dreams,&rsquo; a collection of abstract artworks</span>
       </header>
       <div className="print-card__stage">
         <img className="print-card__img" src={PRINT.shots[shot].src} alt={PRINT.shots[shot].alt} />
