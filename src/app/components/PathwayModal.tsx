@@ -4,7 +4,7 @@ import { FormEvent, useEffect, useState } from "react";
    to greg@ooos.ca (Greg, 2026-10-24), through the Apps Script web app in
    scripts/pathway-form.gs. Paste its /exec URL here once deployed; until
    then the form opens a pre-filled email to greg@ooos.ca instead. */
-const PATHWAY_ENDPOINT = "";
+const PATHWAY_ENDPOINT = "https://script.google.com/macros/s/AKfycbzEh_NG0IfFKbjqIzExdGTOo8wr5bDxGYirNtU_1VzeO4IuGkqb6lppMBXGD9QUqoqj/exec";
 const PATHWAY_EMAIL = "greg@ooos.ca";
 
 export function PathwayModal({ onClose }: { onClose: () => void }) {
