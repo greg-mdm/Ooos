@@ -738,7 +738,7 @@ export function Home({ onSupport }: { onSupport: () => void }) {
                   {shopQuoteOpen ? (
                     <>&ldquo;I have already applied some of the strategies to expand our network and add practical value to our marketplace. Your report was very helpful.&rdquo;</>
                   ) : (
-                    <>&ldquo;I have already applied some of the strategies to expand our network&hellip;</>
+                    <>&ldquo;I already applied some of the strategies to expand our network&hellip;</>
                   )}
                 </span>
                 <span className="studio-testimonial__arrow" aria-hidden="true">&rarr;</span>
@@ -828,17 +828,23 @@ export function Home({ onSupport }: { onSupport: () => void }) {
               <div className="studio-ad__body">
                 <div className="studio-ad__eyebrow">Studio Services · 2026–2027</div>
                 <p className="studio-ad__text">
-                  Collaboration spaces are opening for teams seeking research-led creative and digital strategy.
+                  Our creative services are open to Professional teams, artists, and researchers.
                 </p>
+                {/* the chat bubble in place of the arrow, and no bullseye (Greg,
+                    2026-10-24): Ionicons chatbubble-ellipses-outline (v7.4.0, MIT,
+                    notice in public/assets/exhibition/anatomy/anatomy-display.html) */}
                 <button
                   type="button"
                   className="ood-btn-dark"
                   onClick={() => setPathwayOpen(true)}
                 >
-                  Open the pathway with a conversation →
+                  Open the pathway with a conversation.
+                  <svg className="ood-btn-dark__icon" viewBox="0 0 512 512" width="1.15em" height="1.15em" aria-hidden="true" focusable="false">
+                    <path d="M87.48 380c1.2-4.38-1.43-10.47-3.94-14.86a42.63 42.63 0 00-2.54-3.8 199.81 199.81 0 01-33-110C47.64 139.09 140.72 48 255.82 48 356.2 48 440 117.54 459.57 209.85a199 199 0 014.43 41.64c0 112.41-89.49 204.93-204.59 204.93-18.31 0-43-4.6-56.47-8.37s-26.92-8.77-30.39-10.11a31.14 31.14 0 00-11.13-2.07 30.7 30.7 0 00-12.08 2.43L81.5 462.78a15.92 15.92 0 01-4.66 1.22 9.61 9.61 0 01-9.58-9.74 15.85 15.85 0 01.6-3.29z" fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="32" />
+                    <circle cx="160" cy="256" r="32" fill="currentColor" /><circle cx="256" cy="256" r="32" fill="currentColor" /><circle cx="352" cy="256" r="32" fill="currentColor" />
+                  </svg>
                 </button>
               </div>
-              <img src="/assets/Ooo-Target.png" alt="" className="studio-ad__art" />
             </div>
           </div>
         </div>

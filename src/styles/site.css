@@ -1033,6 +1033,7 @@ a:hover { color: var(--electric); }
 /* in the promo cards the words start under the heading (Greg,
    2026-10-23); the hover pill reaches back past them by its own padding */
 .shop-ad .ood-btn-dark, .studio-ad .ood-btn-dark { justify-content: flex-start; margin-left: -10px; width: calc(100% + 10px); }
+.ood-btn-dark__icon { flex: 0 0 auto; }
 .ood-btn-dark:focus-visible { outline: 2px solid #FFF3B0; outline-offset: 2px; }
 span.ood-btn-dark { cursor: default; }
 .shop-ad__status {
@@ -1544,13 +1545,22 @@ span.ood-btn-dark { cursor: default; }
   color: var(--ink);
 }
 .modal p.muted { font-size: 13px; color: var(--slate); margin: 0 0 18px; }
+/* "Explore what's possible": the pathway copy folds under it (2026-10-24) */
+.modal-more {
+  display: inline-flex; align-items: center; gap: 6px; margin: -6px 0 14px; padding: 0; border: 0; background: none; cursor: pointer;
+  font: inherit; font-size: 14px; font-weight: 700; color: var(--electric, #5B04DE);
+}
+.modal-more:hover { text-decoration: underline; text-underline-offset: 4px; }
+.modal-more:focus-visible { outline: 2px solid var(--electric, #5B04DE); outline-offset: 3px; border-radius: 4px; }
+.modal-more__text p.muted { max-width: 60ch; text-wrap: balance; }
 .modal label {
   display: block;
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: var(--mist);
+  /* Robin's Egg 700: --mist turned white and hid the labels (2026-10-24) */
+  color: #5C6C70;
   margin: 14px 0 6px;
 }
 .modal input,
@@ -1578,7 +1588,7 @@ span.ood-btn-dark { cursor: default; }
   font-size: 22px;
   line-height: 1;
   cursor: pointer;
-  color: var(--mist);
+  color: #5C6C70;
 }
 .modal-actions {
   display: flex;

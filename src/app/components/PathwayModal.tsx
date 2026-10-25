@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 export function PathwayModal({ onClose }: { onClose: () => void }) {
   const [submitted, setSubmitted] = useState(false);
+  const [more, setMore] = useState(false);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -42,17 +43,43 @@ export function PathwayModal({ onClose }: { onClose: () => void }) {
 
         {!submitted && (
           <>
-            <h3 id="pathway-modal-title">Open the Pathway with a Conversation</h3>
+            {/* Greg's copy (2026-10-24); the three paragraphs fold under
+                "Explore what's possible" so the form stays in view */}
+            <h3 id="pathway-modal-title">Studio Services · 2026–2027</h3>
             <p className="muted">
-              Studio capacity is limited, but every thoughtful inquiry will
-              receive a clear response: resources, a referral, or an
-              introductory proposal sharing where our stars might align for
-              outstanding creative work.
+              For professional teams, artists, and researchers seeking a new
+              standard of excellence.
             </p>
-            <p className="muted">
-              Curiosity is welcome. You do not need a finished brief, only a
-              starting point.
-            </p>
+            <button
+              type="button"
+              className="modal-more"
+              aria-expanded={more}
+              aria-controls="pathway-more"
+              onClick={() => setMore((v) => !v)}
+            >
+              Explore what&rsquo;s possible <span aria-hidden="true">{more ? "↓" : "→"}</span>
+            </button>
+            <div id="pathway-more" className="modal-more__text" hidden={!more}>
+              <p className="muted">
+                We welcome a broad range of entrepreneurial, artistic, and
+                research-led projects. We&rsquo;re selective about who we work
+                with, seeking shared ambition, creative fit, and a commitment to
+                quality.
+              </p>
+              <p className="muted">
+                For every collaboration, we define deliverables that are
+                Specific, Measurable, Achievable, Relevant, and Time-bound. Our
+                SMART projects are typically scoped to be completed within 1–3
+                design sprints. Each project receives dedicated time and
+                creative attention throughout this expert-led creative process.
+              </p>
+              <p className="muted">
+                Share your vision for what you want to make possible. We respond
+                to every thoughtful inquiry with a considered reply: relevant
+                resources, a thoughtful referral, or an invitation to explore a
+                meaningful collaboration.
+              </p>
+            </div>
 
             <form onSubmit={handleSubmit}>
               <label htmlFor="pathway-name">Name</label>
