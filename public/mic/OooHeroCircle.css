@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap');
+
+/* ============ Ooo! Hero Circle — mobile-first ============
+   Sizing model:
+   - .ohc-stage is a size container; stage-level values use cqw of the stage.
+   - Each floater (.ohc-phone / .ohc-tri / .ohc-tab) is ALSO an inline-size
+     container, so everything inside is in cqw of that floater. Changing a
+     floater's width per breakpoint scales its whole contents.            */
+
+.ohc {
+  --ohc-bg: #0F0222;
+  --ohc-accent: #5B04DE;
+  --ohc-accent-2: #4B00B6;
+  --ohc-ink: #F4EFFF;
+  --ohc-ink-2: #CDBDF0;
+  background: var(--ohc-bg);
+  width: 100%;
+  box-sizing: border-box;
+  font-family: Kanit, system-ui, sans-serif;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  container: ohc / inline-size;
+}
+.ohc-inner { width: 100%; display: flex; justify-content: center; padding: 40px 8px 32px; }
+.ohc *, .ohc *::before, .ohc *::after { box-sizing: border-box; }
+
+/* ---------- Stage: MOBILE (portrait 1 : 1.4) ---------- */
+.ohc-stage {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 1 / 1.4;
+  container-type: inline-size;
+}
+.ohc-glow {
+  position: absolute; left: 50%; top: 50%;
+  width: 92%; aspect-ratio: 1; transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(91,4,222,0.28) 0%, transparent 70%);
+  pointer-events: none;
+}
+.ohc-circle {
+  position: absolute; left: 10%; top: 21.4%; width: 80%; aspect-ratio: 1;
+  border-radius: 50%;
+  border: 0.7cqw solid var(--ohc-accent);
+  background: #0D011D;
+  box-shadow:
+    0 0 2.4cqw rgba(91,4,222,0.45), 0 0 6cqw rgba(75,0,182,0.22),
+    inset 2.4cqw 2.4cqw 4.8cqw #050009, inset -2cqw -2cqw 4.4cqw rgba(140,90,230,0.10);
+}
+.ohc-phone { position: absolute; top: -2%;  right: 22%; width: 30%; container-type: inline-size; }
+.ohc-tri   { position: absolute; top: 28%;  left: -4%;  width: 64%; container-type: inline-size; z-index: 2; }
+.ohc-tab   { position: absolute; bottom: 1%; right: 0;  width: 54%; container-type: inline-size; }
+
+/* ---------- Stage: TABLET / DESKTOP (square) ---------- */
+@container ohc (min-width: 600px) {
+  .ohc-inner { padding: 56px 16px; }
+  .ohc-stage { max-width: 640px; aspect-ratio: 1 / 1; }
+  .ohc-glow { width: 84%; }
+  .ohc-circle { left: 15%; top: 15%; width: 70%; border-width: 0.6cqw; }
+  .ohc-phone { top: -3%; right: 29%; width: 23%; }
+  .ohc-tri   { top: 24%; left: -4%;  width: 52%; }
+  .ohc-tab   { bottom: 9%; right: 0;  width: 48%; }
+}
+
+/* ---------- Shared bits ---------- */
+.ohc-btn { cursor: pointer; outline: none; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.ohc-btn:focus-visible { outline: 2px solid #B98BFF; outline-offset: 4px; }
+.ohc-title { font-weight: 600; color: var(--ohc-ink); line-height: 1.1; margin: 0; }
+.ohc-sub   { font-weight: 300; color: var(--ohc-ink-2); line-height: 1.3; margin: 0; text-wrap: balance; }
+.ohc-layer { position: absolute; inset: 0; }
+.ohc-fade  { transition: opacity .45s ease, transform .45s ease; }
+.is-hidden { opacity: 0; transform: scale(0.92); pointer-events: none; }
+
+/* ---------- PHONE (ART) — units = cqw of phone ---------- */
+.ohc-phone__body {
+  aspect-ratio: 9 / 17;
+  background: linear-gradient(145deg, #1A0739 0%, #0F0222 100%);
+  border-radius: 20cqw; padding: 5.65cqw;
+  display: flex; flex-direction: column; gap: 3.9cqw;
+  box-shadow: 5.2cqw 5.2cqw 10.4cqw #050009, -2.6cqw -2.6cqw 7cqw rgba(170,130,255,0.07), inset 0.65cqw 0.65cqw 0 rgba(255,255,255,0.06);
+  transition: transform .5s ease, box-shadow .5s ease;
+}
+.ohc-phone__speaker { width: 21.7cqw; height: 3.9cqw; margin: 0.87cqw auto 0; border-radius: 4cqw; background: #08010F; box-shadow: inset 0.65cqw 0.65cqw 1.3cqw #000, 0.4cqw 0.4cqw 0 rgba(255,255,255,0.05); }
+.ohc-phone__screen  { flex: 1; position: relative; overflow: hidden; border-radius: 14.8cqw; background: #0C011B; box-shadow: inset 2.2cqw 2.2cqw 5.2cqw #040008, inset -1.3cqw -1.3cqw 3.5cqw rgba(170,130,255,0.07); }
+.ohc-phone__home    { width: 26cqw; height: 2.2cqw; margin: 0 auto 1.3cqw; border-radius: 4cqw; background: rgba(205,189,240,0.18); }
+.ohc-phone .ohc-content { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 6.1cqw; }
+.ohc-phone .ohc-well { width: 36.5cqw; height: 36.5cqw; margin: 0 auto 7cqw; box-shadow: inset 2.2cqw 2.2cqw 4.3cqw #050009, inset -1.7cqw -1.7cqw 3.9cqw rgba(170,130,255,0.08); }
+.ohc-phone .ohc-well svg { width: 20.4cqw; height: 20.4cqw; }
+.ohc-phone .ohc-title { font-size: 15.65cqw; letter-spacing: 0.14em; }
+.ohc-phone .ohc-sub   { font-size: max(11px, 10cqw); margin-top: 3.9cqw; }
+.ohc-well { border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #0F0222; }
+.ohc-well svg { display: block; overflow: visible; }
+
+.ohc-ghost-layer { pointer-events: none; transition: opacity .6s ease; background: radial-gradient(ellipse at 50% 42%, rgba(91,4,222,0.32) 0%, rgba(12,1,27,0) 65%); }
+.ohc-ghost-shadow { position: absolute; left: 30%; bottom: 11%; width: 40%; height: 2.4%; border-radius: 50%; background: rgba(0,0,0,0.85); filter: blur(2px); box-shadow: 0 0 7cqw 3.5cqw rgba(94,57,125,0.10); }
+.ohc-ghost { position: absolute; width: 58%; left: 21%; top: 21%; display: block; filter: drop-shadow(0 3.5cqw 4.3cqw rgba(0,0,0,0.7)) drop-shadow(0 0.43cqw 2.6cqw rgba(81,42,112,0.12)); }
+
+/* ---------- TRIANGLE (EDUCATION) — units = cqw of triangle ---------- */
+.ohc-tri__wrap { filter: drop-shadow(2.3cqw 2.7cqw 3.1cqw #050009) drop-shadow(-0.96cqw -0.96cqw 2.1cqw rgba(170,130,255,0.08)); }
+.ohc-tri__body { position: relative; aspect-ratio: 112 / 100; transition: transform .5s ease; }
+.ohc-tri__body:active { transform: scale(0.97); }
+.ohc-tri__svg  { position: absolute; inset: 0; width: 100%; height: 100%; display: block; overflow: visible; }
+.ohc-tri .ohc-content { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center; padding-bottom: 21.2cqw; pointer-events: none; }
+.ohc-tri__icon { width: 10.8cqw; height: 10.8cqw; display: block; margin-bottom: 2.7cqw; overflow: visible; filter: drop-shadow(0 0 1.5cqw rgba(91,4,222,0.45)); }
+.ohc-tri .ohc-title { font-size: 5.77cqw; letter-spacing: 0.07em; }
+.ohc-tri .ohc-sub   { font-size: max(11px, 4.42cqw); margin-top: 1.73cqw; white-space: nowrap; }
+.ohc-tri__lava { pointer-events: none; }
+
+/* ---------- TABLET (CULTURE) — units = cqw of tablet ---------- */
+.ohc-tab__body {
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(145deg, #1A0739 0%, #0F0222 100%);
+  border-radius: 7.5cqw; padding: 4.2cqw 5cqw;
+  display: flex; align-items: center; gap: 2.5cqw;
+  box-shadow: 2.5cqw 2.5cqw 5cqw #050009, -1.25cqw -1.25cqw 3.3cqw rgba(170,130,255,0.07), inset 0.31cqw 0.31cqw 0 rgba(255,255,255,0.06);
+  transition: transform .5s ease, box-shadow .5s ease;
+}
+.ohc-tab__cam    { width: 1.9cqw; height: 1.9cqw; flex: none; border-radius: 50%; background: #08010F; box-shadow: inset 0.25cqw 0.25cqw 0.5cqw #000, 0.2cqw 0.2cqw 0 rgba(255,255,255,0.06); }
+.ohc-tab__spacer { width: 1.9cqw; flex: none; }
+.ohc-tab__screen { flex: 1; align-self: stretch; position: relative; overflow: hidden; border-radius: 4.2cqw; background: #0C011B; box-shadow: inset 1.04cqw 1.04cqw 2.5cqw #040008, inset -0.63cqw -0.63cqw 1.67cqw rgba(170,130,255,0.07); }
+.ohc-tab .ohc-content { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 4.2cqw; }
+.ohc-tab .ohc-well { width: 17.5cqw; height: 17.5cqw; margin: 0 auto 3.3cqw; box-shadow: inset 1.04cqw 1.04cqw 2.08cqw #050009, inset -0.83cqw -0.83cqw 1.9cqw rgba(170,130,255,0.08); }
+.ohc-tab .ohc-well svg { width: 9.8cqw; height: 9.8cqw; }
+.ohc-tab .ohc-title { font-size: 7.5cqw; letter-spacing: 0.14em; }
+.ohc-tab .ohc-sub   { font-size: max(11px, 4.8cqw); margin-top: 1.9cqw; }
+.ohc-stone { pointer-events: none; transition: opacity .6s ease, transform 1.2s ease; }
+.ohc-stone.is-off { opacity: 0; transform: scale(1.06); }
+.ohc-stone img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; }
+.ohc-stone__vignette { position: absolute; inset: 0; box-shadow: inset 1.25cqw 1.25cqw 2.9cqw rgba(0,0,0,0.7), inset -0.63cqw -0.63cqw 1.67cqw rgba(0,0,0,0.4); }
+
+/* Hover (pointer devices only — avoids sticky hover on touch) */
+@media (hover: hover) and (pointer: fine) {
+  .ohc-phone__body:hover { transform: scale(0.985); box-shadow: 2.2cqw 2.2cqw 5.2cqw #050009, -1.3cqw -1.3cqw 3.9cqw rgba(170,130,255,0.06), inset 0.65cqw 0.65cqw 0 rgba(255,255,255,0.06); }
+  .ohc-tri__body:hover   { transform: scale(0.985); }
+  .ohc-tab__body:hover   { transform: scale(0.985); box-shadow: 1.04cqw 1.04cqw 2.5cqw #050009, -0.63cqw -0.63cqw 1.9cqw rgba(170,130,255,0.06), inset 0.31cqw 0.31cqw 0 rgba(255,255,255,0.06); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ohc-fade, .ohc-ghost-layer, .ohc-stone, .ohc-phone__body, .ohc-tri__body, .ohc-tab__body { transition: none; }
+}
