@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import OooHeroCircle from "./OooHeroCircle";
+import { MicCastList } from "./MicCastList";
 import "../../styles/mic.css";
 
 // MIC — Media, Information and Culture. First of the three Ooo divisions.
@@ -7,7 +8,7 @@ import "../../styles/mic.css";
 // large, the three words stacked beside it, and the Hero Circle (ART,
 // EDUCATION, CULTURE; Greg's handoff in src/app/components/OooHeroCircle.tsx)
 // centred beneath, mobile first and sized up for tablet and desktop. The
-// Twelve Signs decode board follows under its own heading; it ships as a
+// cast list comes next (MicCastList), then the Twelve Signs decode board follows under its own heading; it ships as a
 // self-contained experience from public/mic/twelve-signs/.
 export function MIC() {
   const base = import.meta.env.BASE_URL;
@@ -66,6 +67,8 @@ export function MIC() {
           <OooHeroCircle />
         </div>
       </section>
+
+      <MicCastList />
 
       <section className="mic-feature" aria-labelledby="mic-twelve-title">
         <div className="mic-feature__head">
