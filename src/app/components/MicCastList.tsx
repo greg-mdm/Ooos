@@ -73,6 +73,8 @@ export function MicCastList() {
               <span className="mic-cast__leader" aria-hidden="true" />
               <span className="mic-cast__role">Understudy</span>
             </p>
+            {/* a mouse has a strain where a dog has a pedigree (Greg, 2026-10-26) */}
+            <p className="mic-cast__note"><span>Strain:</span> Classically trained cartoon mouse</p>
             {/* held until Lil Mike's video is finished (Greg, 2026-10-26) */}
             <figure className="mic-cast__reel">
               <div className="mic-cast__screen mic-cast__screen--soon">
