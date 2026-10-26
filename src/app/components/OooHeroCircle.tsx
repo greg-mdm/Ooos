@@ -188,8 +188,9 @@ export default function OooHeroCircle({
   const toggleGhost = () => setGhost((v) => !v);
   const toggleStone = () => setStone((v) => !v);
 
-  // the culture video runs only while the screen is on, and starts over on
-  // the next tap; muted, since a touch press can't unlock sound
+  // the culture video plays once from the start when the screen comes on and
+  // holds its last frame; the next tap returns to the cover card (Greg,
+  // 2026-10-26); muted, since a touch press can't unlock sound
   useEffect(() => {
     const v = cultureRef.current;
     if (!v) return;
@@ -308,7 +309,7 @@ export default function OooHeroCircle({
                 <p className="ohc-sub">Music • Technology • Style</p>
               </div>
               <div className={`ohc-layer ohc-stone ${stone ? '' : 'is-off'}`} aria-hidden={!stone}>
-                <video ref={cultureRef} src={`${assetBase}culture.mp4`} muted loop playsInline preload="none" disablePictureInPicture />
+                <video ref={cultureRef} src={`${assetBase}culture.mp4`} muted playsInline preload="none" disablePictureInPicture />
                 <div className="ohc-stone__vignette" />
               </div>
             </div>
