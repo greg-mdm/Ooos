@@ -72,19 +72,31 @@
    A transparent 0.5rem border is the rim: the outer light (top left) and
    shade (bottom right) raise it, and the inset shade and light sink
    everything inside it, so the rim rolls down into the pit like a
-   halfpipe. The laser-gold line runs round the pit's lip. */
+   halfpipe. The laser-gold line runs round the pit's lip.
+   The pit is lined with Greg's Ooo! Creative Card (2026-10-26; master in
+   SPRINT 6), its chip top left, its name plate top right and its live
+   balance display bottom right, so the words sit in the clear lower left.
+   A dark indigo wash from that corner, and a soft shadow under the
+   letters, lift the words off the card (Greg: over the card, not part of it).
+   On a phone the pad keeps the card's own 3:2 shape, so all of it shows. */
 .mic-hero__words {
   --mic-pad-gap: 16px;
   position: relative;
-  display: flex; flex-direction: column; align-items: center; gap: 0.08em;
-  align-self: stretch; margin: 0 var(--mic-pad-gap); padding: 22px 16px;
-  border: 0.5rem solid transparent; border-radius: 1.25rem; background: none;
+  display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; gap: 0.08em;
+  align-self: stretch; margin: 0 var(--mic-pad-gap); padding: 0 16px 16px;
+  aspect-ratio: 3 / 2;
+  border: 0.5rem solid transparent; border-radius: 1.25rem;
+  background:
+    linear-gradient(24deg, rgba(6, 2, 28, 0.94) 0%, rgba(6, 2, 28, 0.82) 26%, rgba(6, 2, 28, 0.45) 44%, rgba(6, 2, 28, 0) 64%),
+    url("/assets/brand/ooo-creative-card.webp") center / cover no-repeat;
+  background-origin: padding-box; background-clip: padding-box;
   box-shadow:
     -0.7rem -0.7rem 1.4rem rgba(170, 130, 255, 0.17),
     0.75rem 0.75rem 1.5rem rgba(0, 0, 0, 0.95),
     inset 0.85rem 0.85rem 1.5rem rgba(0, 0, 0, 0.95),
     inset -0.65rem -0.65rem 1.3rem rgba(170, 130, 255, 0.15);
-  font-size: clamp(1.15rem, 5vw, 1.9rem); font-weight: 700; line-height: 1.05; letter-spacing: 0.16em; text-transform: uppercase; color: #CDBDF0;
+  font-size: clamp(0.95rem, 4.2vw, 1.9rem); font-weight: 700; line-height: 1.05; letter-spacing: 0.16em; text-transform: uppercase; color: #CDBDF0;
+  text-shadow: 0 2px 10px rgba(6, 2, 28, 0.9), 0 1px 2px rgba(6, 2, 28, 0.8);
 }
 /* the laser-gold lip, at the inner edge of the rim where the pit begins */
 .mic-hero__words::before {
@@ -93,7 +105,8 @@
   box-shadow: 0 0 8px rgba(240, 192, 64, 0.75), 0 0 20px rgba(240, 192, 64, 0.28), inset 0 0 10px rgba(240, 192, 64, 0.32), inset 0 0 26px rgba(240, 192, 64, 0.12);
 }
 .mic-hero__words > span:nth-child(2) { color: #F4EFFF; }
-/* on a phone the button sits under the words; top right from 600px */
+/* on a phone the button sits under the card; from 600px it stands on the
+   clear floor at the lower right of the MIC picture */
 .mic-hero__head .mic-banner__back { display: table; margin: 16px auto 0; }
 .mic-hero__circle { max-width: 760px; margin: 0 auto; padding: 0 16px; }
 @media (min-width: 600px) {
@@ -107,17 +120,22 @@
   /* the pad sits a gap inside the right side, so its raised rim shows all
      round; the words' bottom padding takes off that gap and the rim to
      stay level with the letters' base */
+  /* the words come down a size so Information ends short of the card's
+     balance display */
   .mic-hero__words {
     --mic-pad-gap: clamp(10px, 1.4vw, 20px);
-    flex: 1; justify-content: flex-end; align-items: flex-start; margin: var(--mic-pad-gap);
-    font-size: clamp(1rem, 2.6vw, 1.9rem);
+    flex: 1; margin: var(--mic-pad-gap); aspect-ratio: auto;
+    font-size: clamp(0.9rem, 2.1vw, 1.6rem);
     padding: 0 clamp(16px, 3vw, 48px) calc(3.88vw - 0.16em - var(--mic-pad-gap) - 0.5rem) clamp(20px, 3.4vw, 52px);
   }
+  /* Greg's spot (2026-10-26): the floor under the orb, its right edge at
+     97.5% of the picture's width (59vw) and its middle 80% down the
+     picture (59vw / 2.235 tall) */
   .mic-hero__head .mic-banner__back {
     position: absolute; z-index: 2; margin: 0;
-    top: calc(clamp(10px, 1.4vw, 20px) + 0.5rem + clamp(10px, 1.6vw, 24px));
-    right: calc(clamp(10px, 1.4vw, 20px) + 0.5rem + clamp(12px, 1.8vw, 28px));
+    left: 57.5vw; top: calc(21.1vw - 1.4rem); transform: translateX(-100%);
   }
+  .mic-hero__head .mic-banner__back:active { transform: translateX(-100%) scale(0.98); }
 }
 
 /* Twelve Signs, under its own heading below the hero */
