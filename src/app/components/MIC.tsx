@@ -20,15 +20,15 @@ export function MIC() {
           <h1 id="mic-hero-title" className="mic-hero__lockup" aria-label="MIC: Media, Information, Culture">
             {/* the MIC letters are Greg's render (2026-10-26): lit, extruded
                 letters on a violet light tunnel, the texture and depth web
-                type can't give; cropped to his lines, the edges faded into
-                the hero ground */}
+                type can't give. It fills the hero's left side, flush to
+                the page edge and up to the nav */}
             <img
               className="mic-hero__image"
               src={`${base}assets/brand/mic-hero-1672.webp`}
               srcSet={`${base}assets/brand/mic-hero-900.webp 900w, ${base}assets/brand/mic-hero-1672.webp 1672w`}
-              sizes="(min-width: 600px) min(46vw, 720px), 100vw"
+              sizes="(min-width: 600px) 59vw, 100vw"
               width="1672"
-              height="680"
+              height="748"
               alt=""
               decoding="async"
             />
