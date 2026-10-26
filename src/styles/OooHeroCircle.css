@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap');
+/* Poppins, the site's heading face, in place of the handoff's Kanit (Greg,
+   2026-10-25: MIC is for everyone, fun and stylish); it loads with the site
+   in src/styles/fonts.css */
 
 /* ============ Ooo! Hero Circle — mobile-first ============
    Sizing model:
@@ -16,7 +18,7 @@
   background: var(--ohc-bg);
   width: 100%;
   box-sizing: border-box;
-  font-family: Kanit, system-ui, sans-serif;
+  font-family: var(--font-heading, Poppins, system-ui, sans-serif);
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
   container: ohc / inline-size;
@@ -66,8 +68,10 @@
 /* ---------- Shared bits ---------- */
 .ohc-btn { cursor: pointer; outline: none; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 .ohc-btn:focus-visible { outline: 2px solid #B98BFF; outline-offset: 4px; }
+/* the site sets paragraphs in Inter; the circle's labels keep its own face */
+.ohc p { font-family: inherit; }
 .ohc-title { font-weight: 600; color: var(--ohc-ink); line-height: 1.1; margin: 0; }
-.ohc-sub   { font-weight: 300; color: var(--ohc-ink-2); line-height: 1.3; margin: 0; text-wrap: balance; }
+.ohc-sub   { font-weight: 400; color: var(--ohc-ink-2); line-height: 1.3; margin: 0; text-wrap: balance; }
 .ohc-layer { position: absolute; inset: 0; }
 .ohc-fade  { transition: opacity .45s ease, transform .45s ease; }
 .is-hidden { opacity: 0; transform: scale(0.92); pointer-events: none; }

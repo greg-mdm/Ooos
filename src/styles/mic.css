@@ -52,11 +52,12 @@
   margin: 0; display: flex; flex-direction: column; align-items: center; gap: 0.4em;
   font-family: var(--font-heading, Poppins, system-ui, sans-serif); color: #F4EFFF;
 }
-.mic-hero__mark {
-  font-size: clamp(4.5rem, 22vw, 9.5rem); font-weight: 800; line-height: 0.85; letter-spacing: -0.02em;
-  background: linear-gradient(180deg, #F4EFFF 0%, #CDBDF0 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
-  text-shadow: 0 0 40px rgba(91, 4, 222, 0.35);
-}
+/* the velvet MIC: Poppins 800 set in the SVG, Midnight Black filled, a
+   Bright Silver edge round every letter */
+.mic-hero__mark { display: block; width: clamp(240px, 64vw, 460px); height: auto; overflow: visible; }
+.mic-hero__mark text { font-family: var(--font-heading, Poppins, system-ui, sans-serif); font-weight: 800; font-size: 190px; letter-spacing: 4px; }
+.mic-hero__mark-fill { fill: #0F031C; }
+.mic-hero__mark-edge { fill: none; stroke: #E8ECF4; stroke-width: 2.6; stroke-linejoin: round; }
 .mic-hero__words {
   display: flex; flex-direction: column; align-items: center; gap: 0.08em;
   font-size: clamp(1.15rem, 5vw, 1.9rem); font-weight: 700; line-height: 1.05; letter-spacing: 0.16em; text-transform: uppercase; color: #CDBDF0;
@@ -65,6 +66,7 @@
 .mic-hero__circle { max-width: 760px; margin: 0 auto; }
 @media (min-width: 600px) {
   .mic-hero__lockup { flex-direction: row; align-items: center; gap: 0.35em; }
+  .mic-hero__mark { width: clamp(240px, 44vw, 460px); }
   .mic-hero__words { align-items: flex-start; padding-left: 0.6em; border-left: 3px solid #5B04DE; }
 }
 
@@ -94,6 +96,18 @@
   border-color: #F0C040;
   color: #F0C040;
 }
+/* in the hero the button stands out of the ground while MIC sinks into it
+   (Greg, 2026-10-25): the Hero Circle's extruded surface, its dark shade
+   bottom right and faint lilac light top left; a press settles it in */
+.mic-hero .mic-banner__back {
+  border: 0; border-radius: 12px; padding: 0.75rem 1.2rem; color: #E8ECF4;
+  background: linear-gradient(145deg, #1A0739 0%, #0F0222 100%);
+  box-shadow: 6px 6px 12px #050009, -4px -4px 10px rgba(170, 130, 255, 0.07), inset 1px 1px 0 rgba(255, 255, 255, 0.06);
+  transition: color 0.15s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+.mic-hero .mic-banner__back:hover { color: #F0C040; box-shadow: 8px 8px 16px #050009, -5px -5px 12px rgba(170, 130, 255, 0.09), inset 1px 1px 0 rgba(255, 255, 255, 0.07); }
+.mic-hero .mic-banner__back:active { transform: scale(0.98); box-shadow: inset 3px 3px 6px #050009, inset -2px -2px 5px rgba(170, 130, 255, 0.07); }
+.mic-hero .mic-banner__back:focus-visible { outline: 2px solid #F0C040; outline-offset: 3px; color: #F0C040; }
 
 /* Full-bleed frame. The board sets its own height as it opens tablets, so the
    iframe is given a tall fixed viewport-relative height rather than trying to
