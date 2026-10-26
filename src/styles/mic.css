@@ -38,6 +38,43 @@
   margin: 0.5rem 0 0.7rem;
 }
 
+/* The division hero (Greg, 2026-10-25): the MIC lockup set large, the three
+   words stacked beside it, the Hero Circle centred beneath. Mobile first:
+   the words sit under the mark on a phone and beside it from 600px; the
+   ground is the circle's own #0F0222, easing into the page's indigo. */
+.mic-hero {
+  background: linear-gradient(180deg, #0F0222 0%, #0F0222 78%, #06021C 100%);
+  padding: clamp(28px, 6vw, 64px) 16px 8px;
+  border-bottom: 1px solid #251a4d;
+}
+.mic-hero__head { max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center; }
+.mic-hero__lockup {
+  margin: 0; display: flex; flex-direction: column; align-items: center; gap: 0.4em;
+  font-family: var(--font-heading, Poppins, system-ui, sans-serif); color: #F4EFFF;
+}
+.mic-hero__mark {
+  font-size: clamp(4.5rem, 22vw, 9.5rem); font-weight: 800; line-height: 0.85; letter-spacing: -0.02em;
+  background: linear-gradient(180deg, #F4EFFF 0%, #CDBDF0 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
+  text-shadow: 0 0 40px rgba(91, 4, 222, 0.35);
+}
+.mic-hero__words {
+  display: flex; flex-direction: column; align-items: center; gap: 0.08em;
+  font-size: clamp(1.15rem, 5vw, 1.9rem); font-weight: 700; line-height: 1.05; letter-spacing: 0.16em; text-transform: uppercase; color: #CDBDF0;
+}
+.mic-hero__words > span:nth-child(2) { color: #F4EFFF; }
+.mic-hero__circle { max-width: 760px; margin: 0 auto; }
+@media (min-width: 600px) {
+  .mic-hero__lockup { flex-direction: row; align-items: center; gap: 0.35em; }
+  .mic-hero__words { align-items: flex-start; padding-left: 0.6em; border-left: 3px solid #5B04DE; }
+}
+
+/* Twelve Signs, under its own heading below the hero */
+.mic-feature__head { max-width: 1120px; margin: 0 auto; padding: clamp(28px, 4vw, 44px) 22px 14px; }
+.mic-feature__title {
+  margin: 0; font-family: var(--font-elevated, Montserrat, system-ui, sans-serif);
+  font-size: clamp(1.4rem, 3vw, 2rem); letter-spacing: 0.02em; color: #eef1fa;
+}
+
 .mic-banner__back {
   display: inline-block;
   font-family: var(--font-elevated, Montserrat, system-ui, sans-serif);

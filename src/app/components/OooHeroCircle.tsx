@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState, type KeyboardEvent } from 'react';
-import './OooHeroCircle.css';
+import '../../styles/OooHeroCircle.css';
 
 /**
  * Ooo! Hero Circle — three neumorphic floaters balanced on a glowing ring.
