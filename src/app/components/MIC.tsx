@@ -32,10 +32,14 @@ export function MIC() {
               alt=""
               decoding="async"
             />
+            {/* the words ride in a laser-gold rising sun over the card
+                (Greg, 2026-10-26) */}
             <span className="mic-hero__words" aria-hidden="true">
-              <span>Media</span>
-              <span>Information</span>
-              <span>Culture</span>
+              <span className="mic-hero__sun">
+                <span>Media</span>
+                <span>Information</span>
+                <span>Culture</span>
+              </span>
             </span>
           </h1>
           <Link to="/" className="mic-banner__back">Back to Ooo Divisions</Link>

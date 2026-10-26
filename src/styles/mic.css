@@ -73,43 +73,61 @@
    shade (bottom right) raise it, and the inset shade and light sink
    everything inside it, so the rim rolls down into the pit like a
    halfpipe. The laser-gold line runs round the pit's lip.
-   The pit is lined with Greg's Ooo! Creative Card (2026-10-26; master in
-   SPRINT 6), its chip top left, its name plate top right and its live
-   balance display bottom right, so the words sit in the clear lower left.
-   A dark indigo wash from that corner, and a soft shadow under the
-   letters, lift the words off the card (Greg: over the card, not part of it).
+   The pit is lined with Greg's Ooo! Creative Card (FINAL, 2026-10-26;
+   master in public/mic, its silver rim trimmed since the gold lip frames
+   it), its chip top left, its name plate top right and its live balance
+   display bottom right. Only the dark inset shade sits over the card, at
+   the top and left: the inner light that once lit the bottom right edge
+   veiled the display, so it is gone (Greg: the screen looked faded).
    On a phone the pad keeps the card's own 3:2 shape, so all of it shows. */
 .mic-hero__words {
   --mic-pad-gap: 16px;
   position: relative;
-  display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; gap: 0.08em;
-  align-self: stretch; margin: 0 var(--mic-pad-gap); padding: 0 16px 16px;
+  display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start;
+  align-self: stretch; margin: 0 max(var(--mic-pad-gap), calc((100% - 560px) / 2)); padding: 0 0 0 clamp(6px, 1.4vw, 20px);
   aspect-ratio: 3 / 2;
   border: 0.5rem solid transparent; border-radius: 1.25rem;
-  background:
-    linear-gradient(24deg, rgba(6, 2, 28, 0.94) 0%, rgba(6, 2, 28, 0.82) 26%, rgba(6, 2, 28, 0.45) 44%, rgba(6, 2, 28, 0) 64%),
-    url("/assets/brand/ooo-creative-card.webp") center / cover no-repeat;
+  background: url("/assets/brand/ooo-creative-card.webp?v=2") center / cover no-repeat;
   background-origin: padding-box; background-clip: padding-box;
   box-shadow:
     -0.7rem -0.7rem 1.4rem rgba(170, 130, 255, 0.17),
     0.75rem 0.75rem 1.5rem rgba(0, 0, 0, 0.95),
-    inset 0.85rem 0.85rem 1.5rem rgba(0, 0, 0, 0.95),
-    inset -0.65rem -0.65rem 1.3rem rgba(170, 130, 255, 0.15);
-  font-size: clamp(0.95rem, 4.2vw, 1.9rem); font-weight: 700; line-height: 1.05; letter-spacing: 0.16em; text-transform: uppercase; color: #CDBDF0;
-  text-shadow: 0 2px 10px rgba(6, 2, 28, 0.9), 0 1px 2px rgba(6, 2, 28, 0.8);
+    inset 0.85rem 0.85rem 1.5rem rgba(0, 0, 0, 0.9);
+  font-size: clamp(0.95rem, 4.2vw, 1.5rem); font-weight: 700; line-height: 1.05; letter-spacing: 0.16em; text-transform: uppercase; color: #CDBDF0;
 }
-/* the laser-gold lip, at the inner edge of the rim where the pit begins */
+/* the laser-gold lip, at the inner edge of the rim where the pit begins;
+   its glow stays on the rim side and a hair inside, clear of the display */
 .mic-hero__words::before {
-  content: ""; position: absolute; inset: 0; border-radius: 0.75rem; pointer-events: none;
+  content: ""; position: absolute; inset: 0; z-index: 2; border-radius: 0.75rem; pointer-events: none;
   border: 2px solid #F0C040;
-  box-shadow: 0 0 8px rgba(240, 192, 64, 0.75), 0 0 20px rgba(240, 192, 64, 0.28), inset 0 0 10px rgba(240, 192, 64, 0.32), inset 0 0 26px rgba(240, 192, 64, 0.12);
+  box-shadow: 0 0 8px rgba(240, 192, 64, 0.75), 0 0 20px rgba(240, 192, 64, 0.28), inset 0 0 6px rgba(240, 192, 64, 0.3);
 }
-.mic-hero__words > span:nth-child(2) { color: #F4EFFF; }
-/* on a phone the button sits under the card; from 600px it stands on the
-   clear floor at the lower right of the MIC picture */
+/* The rising sun (Greg, 2026-10-26): a circle in the same laser gold,
+   rising from the card's bottom edge just past halfway, a little more than
+   half of it showing. Inside, Midnight Black (#0F031C) at 80%, so the card
+   shows through darkened; the line is laser cut, crisp inside, glowing
+   outside. Sized in the words' own em so the text keeps its size and room:
+   11.6em across, 6.8em of it risen, the centre 1em above the edge, its
+   right side ending short of the balance display; the box
+   is 12px larger all round than the circle so the glow has room. */
+.mic-hero__sun {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; gap: 0.08em;
+  width: calc(11.6em + 24px); height: calc(6.8em + 12px); flex: none; box-sizing: border-box;
+  margin-left: -12px; padding: 0 0 0.6em calc(1.35em + 12px);
+  background: radial-gradient(circle calc(5.8em + 14px) at 50% calc(5.8em + 12px),
+    rgba(15, 3, 28, 0.8) 0, rgba(15, 3, 28, 0.8) calc(5.8em - 2px),
+    #F0C040 calc(5.8em - 1.5px), #F0C040 calc(5.8em + 0.5px),
+    rgba(240, 192, 64, 0.45) calc(5.8em + 1.5px), rgba(240, 192, 64, 0.16) calc(5.8em + 5px), rgba(240, 192, 64, 0) calc(5.8em + 12px));
+}
+.mic-hero__sun > span:nth-child(2) { color: #F4EFFF; }
+/* on phones and tablets the button sits under the card; from 960px it
+   stands on the clear floor at the lower right of the MIC picture */
 .mic-hero__head .mic-banner__back { display: table; margin: 16px auto 0; }
 .mic-hero__circle { max-width: 760px; margin: 0 auto; padding: 0 16px; }
-@media (min-width: 600px) {
+/* side by side from 960px: below that the button would cover the letters
+   and the sun would crowd the card's display, so tablets stack like phones */
+@media (min-width: 960px) {
   .mic-hero__head { padding-bottom: 0; }
   /* the picture takes 59% of the width at its own shape (1672 x 748); the
      gold block fills the rest at the same height, and its words end level
@@ -125,9 +143,14 @@
   .mic-hero__words {
     --mic-pad-gap: clamp(10px, 1.4vw, 20px);
     flex: 1; margin: var(--mic-pad-gap); aspect-ratio: auto;
-    font-size: clamp(0.9rem, 2.1vw, 1.6rem);
-    padding: 0 clamp(16px, 3vw, 48px) calc(3.88vw - 0.16em - var(--mic-pad-gap) - 0.5rem) clamp(20px, 3.4vw, 52px);
+    /* full size (1.6rem) from 1366px; below that it eases down faster so
+       the sun keeps clear of the balance display */
+    font-size: clamp(0.9rem, calc(2.18vw - 4.2px), 1.6rem);
+    padding: 0 0 0 clamp(6px, 1.4vw, 20px);
   }
+  /* the sun's bottom padding keeps Culture's baseline on the letters' base
+     (14.7% of the picture's height, less the pad's gap and rim) */
+  .mic-hero__sun { padding-bottom: calc(3.88vw - 0.16em - var(--mic-pad-gap) - 0.5rem); }
   /* Greg's spot (2026-10-26): the floor under the orb, its right edge at
      97.5% of the picture's width (59vw) and its middle 80% down the
      picture (59vw / 2.235 tall) */
