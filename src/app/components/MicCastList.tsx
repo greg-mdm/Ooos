@@ -6,7 +6,9 @@ import { MicroDeLuxeCard } from "./MicroDeLuxeCard";
    Luxe's reel is the homepage player itself (the rise clip, then the β
    younger-stage clip), shown larger here; Lil Mike's slot holds its place
    until his video is finished in Artlist. The clapper and the two masks
-   are drawn for this page. */
+   are drawn for this page; they stand under the column labels (Greg,
+   2026-10-26), the masks under Character and the clapper under Role, and
+   the Ooo! wordmark leads the heading. */
 
 function ClapperIcon() {
   return (
@@ -38,15 +40,20 @@ export function MicCastList() {
     <section className="mic-cast" aria-labelledby="mic-cast-title">
       <div className="mic-cast__card">
         <h2 id="mic-cast-title" className="mic-cast__title">
-          <span className="mic-cast__well"><ClapperIcon /></span>
+          <img className="mic-cast__wordmark" src={`${import.meta.env.BASE_URL}assets/brand/ooo-wordmark-white-transparent.png`} alt="Ooo!" width="1772" height="655" />
           <span>Cast List</span>
-          <span className="mic-cast__well"><MasksIcon /></span>
         </h2>
 
-        <p className="mic-cast__cols" aria-hidden="true">
-          <span>Character</span>
-          <span>Role</span>
-        </p>
+        <div className="mic-cast__cols" aria-hidden="true">
+          <p className="mic-cast__col">
+            <span>Character</span>
+            <span className="mic-cast__well mic-cast__well--lg"><MasksIcon /></span>
+          </p>
+          <p className="mic-cast__col mic-cast__col--role">
+            <span>Role</span>
+            <span className="mic-cast__well mic-cast__well--lg"><ClapperIcon /></span>
+          </p>
+        </div>
 
         <ul className="mic-cast__list">
           <li className="mic-cast__entry">

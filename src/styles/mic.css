@@ -150,10 +150,19 @@
   background: #0C011B; box-shadow: inset 3px 3px 7px #040008, inset -2px -2px 6px rgba(170, 130, 255, 0.08);
 }
 .mic-cast__well svg { width: 26px; height: 26px; }
+/* the Ooo! wordmark ahead of the words, at the caps' height */
+.mic-cast__wordmark { display: block; height: 1.15em; width: auto; margin-right: -0.1em; transform: translateY(-0.04em); }
+/* the column labels, each with its icon beneath: the masks under
+   Character, the clapper under Role (Greg, 2026-10-26) */
 .mic-cast__cols {
-  display: flex; justify-content: space-between; margin-top: clamp(22px, 4vw, 30px) !important; padding-bottom: 8px;
-  border-bottom: 1px solid #2A1A55; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: #9A86C0;
+  display: flex; justify-content: space-between; align-items: flex-start; margin-top: clamp(22px, 4vw, 30px); padding-bottom: clamp(14px, 3vw, 18px);
+  border-bottom: 1px solid #2A1A55;
 }
+.mic-cast__col { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: #9A86C0; }
+.mic-cast__col--role { align-items: flex-end; }
+.mic-cast__col--role > span:first-child { margin-right: -0.24em; }
+.mic-cast__well--lg { width: clamp(72px, 20vw, 96px); height: clamp(72px, 20vw, 96px); border-radius: clamp(18px, 5vw, 24px); }
+.mic-cast__well--lg svg { width: 66%; height: 66%; }
 .mic-cast__list { list-style: none; margin: 0; padding: 0; }
 .mic-cast__entry { padding-top: clamp(18px, 3.5vw, 24px); }
 .mic-cast__entry + .mic-cast__entry { margin-top: clamp(18px, 3.5vw, 26px); border-top: 1px solid #1F1342; }
