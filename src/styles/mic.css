@@ -49,29 +49,32 @@
 }
 /* The hero band (Greg, 2026-10-26): two blocks that read as one. The MIC
    picture on the left, flush to the page edge and up to the nav; on the
-   right a self-contained light block from the gold ramp (Suncloud White
-   into Sunshine and gold 700) holding the words and the back button. One
-   straight Electric line runs under both. Mobile first: the picture runs
-   the full width with the gold block under it. */
+   right a self-contained dark block, the Hero Circle's surface framed in
+   laser gold (the Adopt a hero glow), holding the words and the back
+   button. One straight Electric line runs under both. Mobile first: the
+   picture runs the full width with the gold-framed block under it. */
 .mic-hero__head {
   position: relative; padding-bottom: 20px;
-  background: linear-gradient(160deg, #FFFDF4 0%, #FFF3B0 58%, #F9DF88 100%);
+  background: linear-gradient(145deg, #1A0739 0%, #0F0222 100%);
   border-bottom: 3px solid #5B04DE;
 }
 .mic-hero__lockup {
   margin: 0; display: flex; flex-direction: column; align-items: center; gap: 18px;
-  font-family: var(--font-heading, Poppins, system-ui, sans-serif); color: #0A0614;
+  font-family: var(--font-heading, Poppins, system-ui, sans-serif); color: #F4EFFF;
 }
 /* the MIC letters, Greg's render (2026-10-26); the base of the letters
    sits at 85.3% of the picture's height */
 .mic-hero__image { display: block; width: 100%; height: auto; }
-/* on the gold, Portal for Media and Culture and the gold ramp's own dark
-   ink for Information */
+/* the gold-framed block: a laser-gold edge with its glow, outward and
+   just inside */
 .mic-hero__words {
   display: flex; flex-direction: column; align-items: center; gap: 0.08em;
-  font-size: clamp(1.15rem, 5vw, 1.9rem); font-weight: 700; line-height: 1.05; letter-spacing: 0.16em; text-transform: uppercase; color: #4B00B6;
+  align-self: stretch; margin: 0 16px; padding: 18px 16px;
+  border: 2px solid #F0C040; border-radius: 4px;
+  box-shadow: 0 0 8px rgba(240, 192, 64, 0.8), 0 0 22px rgba(240, 192, 64, 0.32), inset 0 0 10px rgba(240, 192, 64, 0.35), inset 0 0 28px rgba(240, 192, 64, 0.12);
+  font-size: clamp(1.15rem, 5vw, 1.9rem); font-weight: 700; line-height: 1.05; letter-spacing: 0.16em; text-transform: uppercase; color: #CDBDF0;
 }
-.mic-hero__words > span:nth-child(2) { color: #1A1203; }
+.mic-hero__words > span:nth-child(2) { color: #F4EFFF; }
 /* on a phone the button sits under the words; top right from 600px */
 .mic-hero__head .mic-banner__back { display: table; margin: 16px auto 0; }
 .mic-hero__circle { max-width: 760px; margin: 0 auto; padding: 0 16px; }
@@ -84,9 +87,9 @@
   .mic-hero__lockup { flex-direction: row; align-items: stretch; gap: 0; }
   .mic-hero__image { flex: none; width: 59vw; }
   .mic-hero__words {
-    flex: 1; justify-content: flex-end; align-items: flex-start;
+    flex: 1; justify-content: flex-end; align-items: flex-start; margin: 0; border-radius: 0;
     font-size: clamp(1rem, 2.6vw, 1.9rem);
-    padding: 0 clamp(16px, 3vw, 48px) calc(3.88vw - 0.16em) clamp(20px, 3.4vw, 52px);
+    padding: 0 clamp(16px, 3vw, 48px) calc(3.88vw - 0.16em - 2px) clamp(20px, 3.4vw, 52px);
   }
   .mic-hero__head .mic-banner__back { position: absolute; z-index: 2; margin: 0; top: clamp(16px, 2.6vw, 40px); right: clamp(16px, 3vw, 48px); }
 }
@@ -117,19 +120,18 @@
   border-color: #F0C040;
   color: #F0C040;
 }
-/* in the hero the button stands out of the gold block (Greg, 2026-10-25,
-   on the gold since 2026-10-26): the Hero Circle's dark extruded surface,
-   a warm shade below right and a light catch above left; a press settles
-   it in */
+/* in the hero the button stands out of the ground while MIC sinks into it
+   (Greg, 2026-10-25): the Hero Circle's extruded surface, its dark shade
+   bottom right and faint lilac light top left; a press settles it in */
 .mic-hero .mic-banner__back {
   border: 0; border-radius: 12px; padding: 0.75rem 1.2rem; color: #E8ECF4;
   background: linear-gradient(145deg, #1A0739 0%, #0F0222 100%);
-  box-shadow: 5px 6px 12px rgba(26, 18, 3, 0.32), -4px -4px 10px rgba(255, 255, 255, 0.75), inset 1px 1px 0 rgba(255, 255, 255, 0.08);
+  box-shadow: 6px 6px 12px #050009, -4px -4px 10px rgba(170, 130, 255, 0.07), inset 1px 1px 0 rgba(255, 255, 255, 0.06);
   transition: color 0.15s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
-.mic-hero .mic-banner__back:hover { color: #F0C040; box-shadow: 7px 8px 16px rgba(26, 18, 3, 0.38), -5px -5px 12px rgba(255, 255, 255, 0.8), inset 1px 1px 0 rgba(255, 255, 255, 0.09); }
+.mic-hero .mic-banner__back:hover { color: #F0C040; box-shadow: 8px 8px 16px #050009, -5px -5px 12px rgba(170, 130, 255, 0.09), inset 1px 1px 0 rgba(255, 255, 255, 0.07); }
 .mic-hero .mic-banner__back:active { transform: scale(0.98); box-shadow: inset 3px 3px 6px #050009, inset -2px -2px 5px rgba(170, 130, 255, 0.07); }
-.mic-hero .mic-banner__back:focus-visible { outline: 2px solid #4B00B6; outline-offset: 3px; color: #F0C040; }
+.mic-hero .mic-banner__back:focus-visible { outline: 2px solid #F0C040; outline-offset: 3px; color: #F0C040; }
 
 /* Full-bleed frame. The board sets its own height as it opens tablets, so the
    iframe is given a tall fixed viewport-relative height rather than trying to
