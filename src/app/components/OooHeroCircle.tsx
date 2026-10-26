@@ -5,12 +5,12 @@ import '../../styles/OooHeroCircle.css';
  * Ooo! Hero Circle — three neumorphic floaters balanced on a glowing ring.
  *  ART (phone)        tap → screen reveals "Shadow" the ghost, bobbing
  *  EDUCATION (tri)    tap → volcano: crater bursts, gooey crimson lava pours
- *  CULTURE (tablet)   tap → screen reveals the Rosetta Stone image
+ *  CULTURE (tablet)   tap → screen plays the culture video (Greg, 2026-10-26)
  * Mobile-first: portrait stage < 600px, square stage ≥ 600px (see CSS).
  */
 
 export interface OooHeroCircleProps {
-  /** Folder holding the 3 image assets. Default: `${BASE_URL}hero-circle/` */
+  /** Folder holding the image and video assets. Default: `${BASE_URL}hero-circle/` */
   assetBase?: string;
   /** Float amplitude of triangle + tablet, px. Default 12 */
   floatAmount?: number;
@@ -53,6 +53,7 @@ export default function OooHeroCircle({
   const triRef = useRef<HTMLDivElement>(null);
   const tabRef = useRef<HTMLDivElement>(null);
   const ghostRef = useRef<HTMLImageElement>(null);
+  const cultureRef = useRef<HTMLVideoElement>(null);
   const ghostShadowRef = useRef<HTMLSpanElement>(null);
   const lavaRef = useRef<SVGGElement>(null);
   const clipRef = useRef<SVGPathElement>(null);
@@ -187,6 +188,15 @@ export default function OooHeroCircle({
   const toggleGhost = () => setGhost((v) => !v);
   const toggleStone = () => setStone((v) => !v);
 
+  // the culture video runs only while the screen is on, and starts over on
+  // the next tap; muted, since a touch press can't unlock sound
+  useEffect(() => {
+    const v = cultureRef.current;
+    if (!v) return;
+    if (stone) { v.currentTime = 0; v.play().catch(() => {}); }
+    else v.pause();
+  }, [stone]);
+
   return (
     <section className={`ohc ${className}`} aria-label="Art, Education, Culture">
       <div className="ohc-inner">
@@ -287,7 +297,7 @@ export default function OooHeroCircle({
         {/* CULTURE — tablet */}
         <div ref={tabRef} className="ohc-tab">
           <div className="ohc-tab__body ohc-btn" role="button" tabIndex={0} aria-pressed={stone}
-            aria-label="Culture — tap to reveal the Rosetta Stone" onPointerDown={toggleStone} onKeyDown={onActivate(toggleStone)}>
+            aria-label="Culture — tap to play the culture video" onPointerDown={toggleStone} onKeyDown={onActivate(toggleStone)}>
             <div className="ohc-tab__cam" />
             <div className="ohc-tab__screen">
               <div className={`ohc-layer ohc-content ohc-fade ${stone ? 'is-hidden' : ''}`}>
@@ -298,7 +308,7 @@ export default function OooHeroCircle({
                 <p className="ohc-sub">Music • Technology • Style</p>
               </div>
               <div className={`ohc-layer ohc-stone ${stone ? '' : 'is-off'}`} aria-hidden={!stone}>
-                <img src={`${assetBase}rosetta-stone.webp`} alt="The Rosetta Stone, with the reflections of two viewers" loading="lazy" decoding="async" />
+                <video ref={cultureRef} src={`${assetBase}culture.mp4`} muted loop playsInline preload="none" disablePictureInPicture />
                 <div className="ohc-stone__vignette" />
               </div>
             </div>
