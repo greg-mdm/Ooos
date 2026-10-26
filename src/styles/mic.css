@@ -150,9 +150,9 @@
   background: #0C011B; box-shadow: inset 3px 3px 7px #040008, inset -2px -2px 6px rgba(170, 130, 255, 0.08);
 }
 .mic-cast__well svg { width: 26px; height: 26px; }
-/* the Ooo! wordmark ahead of the words, at the caps' height, set close
-   up against CAST with no space between (Greg, 2026-10-26) */
-.mic-cast__title:has(.mic-cast__wordmark) { gap: 0; }
+/* the Ooo! wordmark ahead of the words, at the caps' height, with half
+   the old space before CAST (Greg, 2026-10-26) */
+.mic-cast__title:has(.mic-cast__wordmark) { gap: 0.3em; }
 .mic-cast__wordmark { display: block; height: 1.15em; width: auto; margin-right: 0; transform: translateY(-0.04em); }
 /* the column labels, each with its icon beneath: the masks under
    Character, the clapper under Role (Greg, 2026-10-26) */
