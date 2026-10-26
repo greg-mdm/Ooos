@@ -65,14 +65,32 @@
 /* the MIC letters, Greg's render (2026-10-26); the base of the letters
    sits at 85.3% of the picture's height */
 .mic-hero__image { display: block; width: 100%; height: auto; }
-/* the gold-framed block: a laser-gold edge with its glow, outward and
-   just inside */
+/* the words sit in an embedded pad (Greg, 2026-10-26), the homepage CID
+   pads' technique: Button 1 of Mark Boots' "Neumorphic buttons"
+   (codepen.io/MarkBoots/pen/RwvGxPL, MIT; the notice is at .jbj-cid__col
+   in public/jellybean-journeys/index.html), set here for the dark ground.
+   A transparent 0.5rem border is the rim: the outer light (top left) and
+   shade (bottom right) raise it, and the inset shade and light sink
+   everything inside it, so the rim rolls down into the pit like a
+   halfpipe. The laser-gold line runs round the pit's lip. */
 .mic-hero__words {
+  --mic-pad-gap: 16px;
+  position: relative;
   display: flex; flex-direction: column; align-items: center; gap: 0.08em;
-  align-self: stretch; margin: 0 16px; padding: 18px 16px;
-  border: 2px solid #F0C040; border-radius: 4px;
-  box-shadow: 0 0 8px rgba(240, 192, 64, 0.8), 0 0 22px rgba(240, 192, 64, 0.32), inset 0 0 10px rgba(240, 192, 64, 0.35), inset 0 0 28px rgba(240, 192, 64, 0.12);
+  align-self: stretch; margin: 0 var(--mic-pad-gap); padding: 22px 16px;
+  border: 0.5rem solid transparent; border-radius: 1.25rem; background: none;
+  box-shadow:
+    -0.7rem -0.7rem 1.4rem rgba(170, 130, 255, 0.17),
+    0.75rem 0.75rem 1.5rem rgba(0, 0, 0, 0.95),
+    inset 0.85rem 0.85rem 1.5rem rgba(0, 0, 0, 0.95),
+    inset -0.65rem -0.65rem 1.3rem rgba(170, 130, 255, 0.15);
   font-size: clamp(1.15rem, 5vw, 1.9rem); font-weight: 700; line-height: 1.05; letter-spacing: 0.16em; text-transform: uppercase; color: #CDBDF0;
+}
+/* the laser-gold lip, at the inner edge of the rim where the pit begins */
+.mic-hero__words::before {
+  content: ""; position: absolute; inset: 0; border-radius: 0.75rem; pointer-events: none;
+  border: 2px solid #F0C040;
+  box-shadow: 0 0 8px rgba(240, 192, 64, 0.75), 0 0 20px rgba(240, 192, 64, 0.28), inset 0 0 10px rgba(240, 192, 64, 0.32), inset 0 0 26px rgba(240, 192, 64, 0.12);
 }
 .mic-hero__words > span:nth-child(2) { color: #F4EFFF; }
 /* on a phone the button sits under the words; top right from 600px */
@@ -86,12 +104,20 @@
      tall, less the caps' gap under the baseline */
   .mic-hero__lockup { flex-direction: row; align-items: stretch; gap: 0; }
   .mic-hero__image { flex: none; width: 59vw; }
+  /* the pad sits a gap inside the right side, so its raised rim shows all
+     round; the words' bottom padding takes off that gap and the rim to
+     stay level with the letters' base */
   .mic-hero__words {
-    flex: 1; justify-content: flex-end; align-items: flex-start; margin: 0; border-radius: 0;
+    --mic-pad-gap: clamp(10px, 1.4vw, 20px);
+    flex: 1; justify-content: flex-end; align-items: flex-start; margin: var(--mic-pad-gap);
     font-size: clamp(1rem, 2.6vw, 1.9rem);
-    padding: 0 clamp(16px, 3vw, 48px) calc(3.88vw - 0.16em - 2px) clamp(20px, 3.4vw, 52px);
+    padding: 0 clamp(16px, 3vw, 48px) calc(3.88vw - 0.16em - var(--mic-pad-gap) - 0.5rem) clamp(20px, 3.4vw, 52px);
   }
-  .mic-hero__head .mic-banner__back { position: absolute; z-index: 2; margin: 0; top: clamp(16px, 2.6vw, 40px); right: clamp(16px, 3vw, 48px); }
+  .mic-hero__head .mic-banner__back {
+    position: absolute; z-index: 2; margin: 0;
+    top: calc(clamp(10px, 1.4vw, 20px) + 0.5rem + clamp(10px, 1.6vw, 24px));
+    right: calc(clamp(10px, 1.4vw, 20px) + 0.5rem + clamp(12px, 1.8vw, 28px));
+  }
 }
 
 /* Twelve Signs, under its own heading below the hero */
