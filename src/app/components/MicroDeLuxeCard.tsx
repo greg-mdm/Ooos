@@ -14,13 +14,34 @@ import { useCallback, useEffect, useRef, useState } from "react";
    tap on the beta button is the visitor's own choice, and while it is the
    current clip the speaker control appears so the sound can be turned off
    (the choice sticks for later beta plays). Icons are Ionicons (MIT),
-   inlined so no font or script loads for them. */
+   inlined so no font or script loads for them.
+
+   The MIC page's cast list (Greg, 2026-10-26) reuses this player with
+   `withSound`: a visitor who has travelled into MIC and clicks a video
+   expects to hear it, so there nothing plays on scroll, every clip plays
+   with sound when clicked, and the sound-off control shows for every clip.
+   The clips are props, so the same player carries Lil Mike (one clip, no
+   beta); the defaults are Micro De Luxe's, as on the homepage. */
 
 const BASE = import.meta.env.BASE_URL;
 const POSTER = `${BASE}assets/brand/mic-micro-de-luxe-640.webp`;
 const CLIP = `${BASE}assets/brand/micro-de-luxe-rise.mp4`;
 // the younger-stage clip, played by the β button
 const BETA_CLIP = `${BASE}assets/brand/micro-de-luxe-beta.mp4`;
+
+type ReelProps = {
+  resetSignal?: number;
+  /** play with sound on click, nothing on scroll, sound-off shown (MIC page) */
+  withSound?: boolean;
+  poster?: string;
+  clip?: string;
+  /** the β clip; null for a reel without one */
+  betaClip?: string | null;
+  clipLabel?: string;
+  betaLabel?: string;
+  width?: number;
+  height?: number;
+};
 
 type Clip = "rise" | "beta";
 
@@ -49,12 +70,23 @@ function ReplayIcon() {
   );
 }
 
-export function MicroDeLuxeCard({ resetSignal = 0 }: { resetSignal?: number }) {
+export function MicroDeLuxeCard({
+  resetSignal = 0,
+  withSound = false,
+  poster = POSTER,
+  clip: clipSrc = CLIP,
+  betaClip = BETA_CLIP,
+  clipLabel = "Micro De Luxe, the MIC mascot, rises from his stage",
+  betaLabel = "Micro De Luxe at a younger stage",
+  width = 720,
+  height = 720,
+}: ReelProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [showStill, setShowStill] = useState(true);
   const [playedOnce, setPlayedOnce] = useState(false);
   const [clip, setClip] = useState<Clip>("rise");
-  // the visitor's choice for the beta clip's sound; the rise clip is always muted
+  // the visitor's sound choice: on the homepage it covers the beta clip only
+  // (rise is always muted there); with `withSound` it covers every clip
   const [betaSoundOff, setBetaSoundOff] = useState(false);
   const clipRef = useRef<Clip>("rise");
   const betaSoundOffRef = useRef(false);
@@ -62,13 +94,14 @@ export function MicroDeLuxeCard({ resetSignal = 0 }: { resetSignal?: number }) {
   clipRef.current = clip;
   betaSoundOffRef.current = betaSoundOff;
 
-  // Start the current clip under the sound rule: rise is always muted; beta
-  // plays with sound unless the visitor turned it off (and falls back to
-  // muted if the browser refuses sound).
+  // Start the current clip under the sound rule: on the homepage rise is
+  // always muted and beta plays with sound unless the visitor turned it off;
+  // with `withSound` every clip does. Falls back to muted if the browser
+  // refuses sound.
   const start = useCallback(async () => {
     const v = videoRef.current;
     if (!v) return;
-    const wantSound = clipRef.current === "beta" && !betaSoundOffRef.current;
+    const wantSound = (withSound || clipRef.current === "beta") && !betaSoundOffRef.current;
     v.muted = !wantSound;
     try {
       await v.play();
@@ -84,14 +117,22 @@ export function MicroDeLuxeCard({ resetSignal = 0 }: { resetSignal?: number }) {
     }
     setShowStill(false);
     setPlayedOnce(true);
-  }, []);
+  }, [withSound]);
 
   // Play when the card scrolls into view (once), pause if it scrolls away
   // mid-clip. Visitors who asked for reduced motion get the still and the
-  // replay control instead.
+  // replay control instead. With `withSound` nothing starts on scroll; the
+  // visitor clicks to play, and a clip scrolled away mid-play pauses.
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
+    if (withSound) {
+      const io = new IntersectionObserver(([entry]) => {
+        if (!entry.isIntersecting && !v.paused) v.pause();
+      });
+      io.observe(v);
+      return () => io.disconnect();
+    }
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let done = false;
     const io = new IntersectionObserver(
@@ -113,14 +154,15 @@ export function MicroDeLuxeCard({ resetSignal = 0 }: { resetSignal?: number }) {
       io.disconnect();
       v.removeEventListener("ended", onEnded);
     };
-  }, [start]);
+  }, [start, withSound]);
 
-  // the speaker control, shown only while the beta clip is current
+  // the speaker control, shown while the beta clip is current, or always with
+  // `withSound`
   const toggleBetaSound = () => {
     const v = videoRef.current;
     const next = !betaSoundOff;
     setBetaSoundOff(next);
-    if (v && clip === "beta") v.muted = next;
+    if (v && (withSound || clip === "beta")) v.muted = next;
   };
 
   const replay = () => {
@@ -166,25 +208,30 @@ export function MicroDeLuxeCard({ resetSignal = 0 }: { resetSignal?: number }) {
     }
   }, [resetSignal, start]);
 
-  const soundOn = clip === "beta" && !betaSoundOff;
+  const soundOn = (withSound || clip === "beta") && !betaSoundOff;
+  // with `withSound` a click on the picture itself plays the clip
+  const playFromPicture = () => {
+    const v = videoRef.current;
+    if (withSound && v && v.paused) replay();
+  };
   return (
-    <div className={`ot-div__art ot-micro${showStill ? " ot-micro--still" : ""}`}>
+    <div className={`ot-div__art ot-micro${showStill ? " ot-micro--still" : ""}${withSound ? " ot-micro--click" : ""}`} onClick={playFromPicture}>
       <video
         ref={videoRef}
         className="ot-micro__clip"
-        src={clip === "beta" ? BETA_CLIP : CLIP}
-        poster={POSTER}
+        src={clip === "beta" && betaClip ? betaClip : clipSrc}
+        poster={poster}
         muted={!soundOn}
         playsInline
-        preload="auto"
-        width="720"
-        height="720"
+        preload={withSound ? "metadata" : "auto"}
+        width={width}
+        height={height}
         onEnded={() => setShowStill(true)}
-        aria-label={clip === "beta" ? "Micro De Luxe at a younger stage" : "Micro De Luxe, the MIC mascot, rises from his stage"}
+        aria-label={clip === "beta" ? betaLabel : clipLabel}
       />
-      <img className="ot-micro__still" src={POSTER} alt="" width="640" height="640" loading="lazy" />
-      <div className="ot-micro__ctl">
-        {clip === "beta" && (
+      <img className="ot-micro__still" src={poster} alt="" width={width} height={height} loading="lazy" />
+      <div className="ot-micro__ctl" onClick={(e) => e.stopPropagation()}>
+        {(withSound || clip === "beta") && (
           <button
             type="button"
             className="ot-micro__btn"
@@ -200,14 +247,14 @@ export function MicroDeLuxeCard({ resetSignal = 0 }: { resetSignal?: number }) {
           type="button"
           className="ot-micro__btn"
           onClick={replay}
-          aria-label={playedOnce ? "Replay video" : "Play video"}
+          aria-label={`${playedOnce ? "Replay" : "Play"} video${soundOn ? ", with sound" : ""}`}
           title={playedOnce ? "Replay" : "Play"}
         >
           <ReplayIcon />
         </button>
       </div>
-      {BETA_CLIP && (
-        <div className="ot-micro__ctl ot-micro__ctl--beta">
+      {betaClip && (
+        <div className="ot-micro__ctl ot-micro__ctl--beta" onClick={(e) => e.stopPropagation()}>
           <button
             type="button"
             className="ot-micro__btn ot-micro__btn--beta"

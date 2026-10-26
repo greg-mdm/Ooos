@@ -4,11 +4,11 @@ import { MicroDeLuxeCard } from "./MicroDeLuxeCard";
    programme of the division's characters. Each credit runs name, dot
    leader, role, with the character's featured video beneath. Micro De
    Luxe's reel is the homepage player itself (the rise clip, then the β
-   younger-stage clip), shown larger here; Lil Mike's slot holds its place
-   until his video is finished in Artlist. The clapper and the two masks
-   are drawn for this page; they stand under the column labels (Greg,
-   2026-10-26), the masks under Character and the clapper under Role, and
-   the Ooo! wordmark leads the heading. */
+   younger-stage clip), shown larger here, and Lil Mike's runs in the same
+   player; here both play with sound when clicked (see MicroDeLuxeCard).
+   The clapper and the two masks are drawn for this page; they stand under
+   the column labels (Greg, 2026-10-26), the masks under Character and the
+   clapper under Role, and the Ooo! wordmark leads the heading. */
 
 function ClapperIcon() {
   return (
@@ -34,6 +34,10 @@ function MasksIcon() {
     </svg>
   );
 }
+
+const BASE = import.meta.env.BASE_URL;
+const LIL_MIKE_CLIP = `${BASE}assets/brand/lil-mike.mp4`;
+const LIL_MIKE_POSTER = `${BASE}assets/brand/lil-mike-poster.webp`;
 
 export function MicCastList() {
   return (
@@ -65,7 +69,7 @@ export function MicCastList() {
             <p className="mic-cast__note"><span>Pedigree:</span> Media Darling</p>
             <figure className="mic-cast__reel">
               <div className="mic-cast__screen">
-                <MicroDeLuxeCard />
+                <MicroDeLuxeCard withSound />
               </div>
               <figcaption className="mic-cast__plate">
                 <strong>Micro De Luxe</strong>
@@ -82,11 +86,19 @@ export function MicCastList() {
             </p>
             {/* a mouse has a strain where a dog has a pedigree (Greg, 2026-10-26) */}
             <p className="mic-cast__note"><span>Strain:</span> Classically trained cartoon mouse</p>
-            {/* held until Lil Mike's video is finished (Greg, 2026-10-26) */}
+            {/* his audition, finished in Artlist (Greg, 2026-10-26): 4:5, so the
+                hat and the dropped mic both stay in the frame */}
             <figure className="mic-cast__reel">
-              <div className="mic-cast__screen mic-cast__screen--soon">
-                <span className="mic-cast__well"><ClapperIcon /></span>
-                <span className="mic-cast__soon">Coming soon</span>
+              <div className="mic-cast__screen mic-cast__screen--portrait">
+                <MicroDeLuxeCard
+                  withSound
+                  poster={LIL_MIKE_POSTER}
+                  clip={LIL_MIKE_CLIP}
+                  betaClip={null}
+                  clipLabel="Lil Mike sings, hears he did not get the part, drops the microphone and runs off"
+                  width={720}
+                  height={900}
+                />
               </div>
               <figcaption className="mic-cast__plate">
                 <strong>Lil Mike</strong>

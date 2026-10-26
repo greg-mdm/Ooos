@@ -189,8 +189,11 @@
   box-shadow: inset 4px 4px 10px #040008, inset -3px -3px 8px rgba(170, 130, 255, 0.08);
 }
 .mic-cast__screen .ot-div__art { height: 100%; border-radius: 16px; box-shadow: none; background: #06021C; }
-.mic-cast__screen--soon { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
-.mic-cast__soon { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: #9A86C0; }
+/* Lil Mike's reel is 4:5, his video's own shape */
+.mic-cast__screen--portrait { aspect-ratio: 4 / 5; }
+.mic-cast__screen--portrait .ot-div__art { aspect-ratio: auto; }
+/* click the picture to play, with sound */
+.mic-cast .ot-micro--click { cursor: pointer; }
 .mic-cast__plate { margin-top: 12px; display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center; }
 .mic-cast__plate strong { font-size: 1rem; font-weight: 600; letter-spacing: 0.04em; color: #F4EFFF; }
 .mic-cast__plate span { font-size: 0.82rem; color: #CDBDF0; }
