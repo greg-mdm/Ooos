@@ -73,13 +73,13 @@
    shade (bottom right) raise it, and the inset shade and light sink
    everything inside it, so the rim rolls down into the pit like a
    halfpipe. The laser-gold line runs round the pit's lip.
-   The pit is lined with Greg's Ooo! Creative Card (FINAL, 2026-10-26;
-   master in public/mic, its silver rim trimmed since the gold lip frames
-   it), its chip top left, its name plate top right and its live balance
-   display bottom right. Only the dark inset shade sits over the card, at
-   the top and left: the inner light that once lit the bottom right edge
-   veiled the display, so it is gone (Greg: the screen looked faded).
-   On a phone the pad keeps the card's own 3:2 shape, so all of it shows. */
+   Greg's Ooo! Creative Card (FINAL, 2026-10-26; master in public/mic)
+   sits in the pit as an object (::after), whole, with its own silver brim
+   and rounded corners (cut to transparency in the web copy), a drop
+   shadow setting it down on the pit floor. The gold lip frames the
+   container, not the card. The pit's inset shade falls on the floor round
+   the card, never over it, so the balance display stays at full strength.
+   On a phone the pad keeps the card's own 3:2 shape. */
 .mic-hero__words {
   --mic-pad-gap: 16px;
   position: relative;
@@ -87,8 +87,7 @@
   align-self: stretch; margin: 0 max(var(--mic-pad-gap), calc((100% - 560px) / 2)); padding: 0 0 0 clamp(6px, 1.4vw, 20px);
   aspect-ratio: 3 / 2;
   border: 0.5rem solid transparent; border-radius: 1.25rem;
-  background: url("/assets/brand/ooo-creative-card.webp?v=2") center / cover no-repeat;
-  background-origin: padding-box; background-clip: padding-box;
+  background: none;
   box-shadow:
     -0.7rem -0.7rem 1.4rem rgba(170, 130, 255, 0.17),
     0.75rem 0.75rem 1.5rem rgba(0, 0, 0, 0.95),
@@ -102,11 +101,18 @@
   border: 2px solid #F0C040;
   box-shadow: 0 0 8px rgba(240, 192, 64, 0.75), 0 0 20px rgba(240, 192, 64, 0.28), inset 0 0 6px rgba(240, 192, 64, 0.3);
 }
+/* the card, inset from the lip so its brim and the pit floor both show */
+.mic-hero__words::after {
+  content: ""; position: absolute; z-index: 0; inset: clamp(8px, 1.2vw, 16px); pointer-events: none;
+  background: url("/assets/brand/ooo-creative-card.webp?v=3") center / contain no-repeat;
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.75)) drop-shadow(0 2px 3px rgba(0, 0, 0, 0.6));
+}
 /* The rising sun (Greg, 2026-10-26): a circle in the same laser gold,
    rising from the card's bottom edge just past halfway, a little more than
-   half of it showing. Inside, Midnight Black (#0F031C) at 80%, so the card
-   shows through darkened; the line is laser cut, crisp inside, glowing
-   outside. Sized in the words' own em so the text keeps its size and room:
+   half of it showing. Inside, near black at 90% (Greg: Midnight Black
+   read as grape), so the card shows through only faintly; the line is
+   laser cut, crisp inside, glowing outside. The words sit one space in
+   from where they were (Greg, 2026-10-26). Sized in the words' own em so the text keeps its size and room:
    11.6em across, 6.8em of it risen, the centre 1em above the edge, its
    right side ending short of the balance display; the box
    is 12px larger all round than the circle so the glow has room. */
@@ -114,9 +120,9 @@
   position: relative; z-index: 1;
   display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; gap: 0.08em;
   width: calc(11.6em + 24px); height: calc(6.8em + 12px); flex: none; box-sizing: border-box;
-  margin-left: -12px; padding: 0 0 0.6em calc(1.35em + 12px);
+  margin-left: -12px; padding: 0 0 0.6em calc(1.8em + 12px);
   background: radial-gradient(circle calc(5.8em + 14px) at 50% calc(5.8em + 12px),
-    rgba(15, 3, 28, 0.8) 0, rgba(15, 3, 28, 0.8) calc(5.8em - 2px),
+    rgba(3, 1, 8, 0.9) 0, rgba(3, 1, 8, 0.9) calc(5.8em - 2px),
     #F0C040 calc(5.8em - 1.5px), #F0C040 calc(5.8em + 0.5px),
     rgba(240, 192, 64, 0.45) calc(5.8em + 1.5px), rgba(240, 192, 64, 0.16) calc(5.8em + 5px), rgba(240, 192, 64, 0) calc(5.8em + 12px));
 }
