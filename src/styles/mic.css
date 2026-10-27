@@ -43,9 +43,8 @@
    the words sit under the mark on a phone and beside it from 600px; the
    ground is the circle's own #0F0222, easing into the page's indigo. */
 .mic-hero {
-  background: linear-gradient(180deg, #0F0222 0%, #0F0222 78%, #06021C 100%);
-  padding: 0 0 8px;
-  border-bottom: 1px solid #251a4d;
+  background: #06021C;
+  padding: 0;
 }
 /* The hero band (Greg, 2026-10-26): two blocks that read as one. The MIC
    picture on the left, flush to the page edge and up to the nav; on the
@@ -130,7 +129,16 @@
 /* on phones and tablets the button sits under the card; from 960px it
    stands on the clear floor at the lower right of the MIC picture */
 .mic-hero__head .mic-banner__back { display: table; margin: 16px auto 0; }
-.mic-hero__circle { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+/* the Hero Circle in a soft spotlight (Greg, 2026-10-26): no box and no
+   rule round it; a full-width radial glow, the Hero Circle's own surface
+   (#1A0739) at the centre, deepening through #0F0222 to the page's Darkest
+   Indigo at the sides and the bottom, so the interaction holds the focus
+   and the edges melt into the page */
+.mic-hero__circle {
+  padding: 0 16px;
+  background: radial-gradient(ellipse 62% 58% at 50% 48%, #1A0739 0%, #12042B 30%, #0B0220 58%, #06021C 100%);
+}
+.mic-hero__circle > .ohc { max-width: 760px; margin: 0 auto; background: transparent; }
 /* side by side from 960px: below that the button would cover the letters
    and the sun would crowd the card's display, so tablets stack like phones */
 @media (min-width: 960px) {
