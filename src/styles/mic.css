@@ -147,11 +147,13 @@
 .mic-hero__sun > span { position: relative; z-index: 1; }
 .mic-hero__sun > span:nth-child(2) { color: #F4EFFF; }
 /* the fold: the strip of flap below the card's bottom edge, as tall as the
-   card's inset and as wide as the circle there (centre 1em above the
-   bottom, so it spans 11.44em, 2px inside the gold line each side) */
+   card's inset, cut to the circle itself (2px inside the gold line) so its
+   ends follow the arc at every height with no gap at the corners (Greg,
+   2026-10-26) */
 .mic-hero__sun::after {
   content: ""; position: absolute; z-index: 0; bottom: 0; pointer-events: none;
-  left: calc(12px + 0.08em + 2px); width: calc(11.44em - 4px); height: var(--mic-card-inset);
+  left: 12px; width: 11.6em; height: var(--mic-card-inset);
+  clip-path: circle(calc(5.8em - 2px) at 5.8em calc(100% - 1em));
   background: linear-gradient(180deg,
     rgba(255, 226, 140, 0.75) 0, rgba(240, 192, 64, 0.38) 14%, rgba(28, 16, 4, 0.92) 42%,
     rgba(6, 3, 10, 0.96) 58%, rgba(240, 192, 64, 0.26) 86%, rgba(255, 226, 140, 0.62) 100%);
