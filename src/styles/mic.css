@@ -334,6 +334,38 @@
 /* Lil Mike's reel is 4:5, his video's own shape */
 .mic-cast__screen--portrait { aspect-ratio: 4 / 5; }
 .mic-cast__screen--portrait .ot-div__art { aspect-ratio: auto; }
+/* Lil Mike's light (Greg, 2026-10-26): his video's flat grey ground read
+   as lifeless next to him, so two light layers lie over the clip and its
+   still. A soft-light violet wash, clear over his suit, turns the dark
+   grey ground toward Midnight Violet 800 while leaving brights (his
+   gloves, his blue tail) nearly untouched; over it a
+   screen layer casts Blue Light (#4DAEFF) on him from above, the light
+   his original video had, with a soft Midnight Violet 800 (#320A5C) lift
+   so he floats with no hard stage. Both step aside for the β headshot. */
+.mic-cast__screen--portrait .ot-micro::before,
+.mic-cast__screen--portrait .ot-micro::after {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; transition: opacity 0.35s ease;
+}
+.mic-cast__screen--portrait .ot-micro::before {
+  mix-blend-mode: soft-light;
+  background: radial-gradient(ellipse 48% 44% at 50% 52%, rgba(138, 46, 220, 0) 0%, rgba(138, 46, 220, 0) 40%, rgba(138, 46, 220, 0.85) 75%, #8A2EDC 100%);
+}
+.mic-cast__screen--portrait .ot-micro::after {
+  mix-blend-mode: screen;
+  background:
+    radial-gradient(ellipse 58% 44% at 50% 30%, rgba(77, 174, 255, 0.34) 0%, rgba(77, 174, 255, 0.14) 42%, rgba(77, 174, 255, 0) 72%),
+    radial-gradient(ellipse 95% 85% at 50% 52%, rgba(50, 10, 92, 0.2) 0%, rgba(50, 10, 92, 0.08) 60%, rgba(50, 10, 92, 0) 100%);
+}
+.mic-cast__screen--portrait .ot-micro--beta-img::before,
+.mic-cast__screen--portrait .ot-micro--beta-img::after { opacity: 0; }
+/* the β still lies over the clip, fading in and out */
+.mic-cast .ot-micro__beta-img {
+  position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; object-fit: cover; display: block;
+  opacity: 0; transition: opacity 0.4s ease; pointer-events: none;
+}
+.mic-cast .ot-micro__beta-img.is-on { opacity: 1; }
+/* his controls sit lower, so the β lands under replay where Greg marked it */
+.mic-cast__screen--portrait .ot-micro__ctl { bottom: 6%; }
 /* click the picture to play, with sound */
 .mic-cast .ot-micro--click { cursor: pointer; }
 .mic-cast__plate { margin-top: 12px; display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center; }

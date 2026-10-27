@@ -21,7 +21,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
    expects to hear it, so there nothing plays on scroll, every clip plays
    with sound when clicked, and the sound-off control shows for every clip.
    The clips are props, so the same player carries Lil Mike (one clip, no
-   beta); the defaults are Micro De Luxe's, as on the homepage. */
+   beta); the defaults are Micro De Luxe's, as on the homepage. A reel can
+   instead have a β still (`betaImage`): Lil Mike's headshot (Greg,
+   2026-10-26), its β under the replay control; a press shows the picture
+   over the clip and pauses it, and a second press, replay or a click on
+   the picture returns to the clip. */
 
 const BASE = import.meta.env.BASE_URL;
 const POSTER = `${BASE}assets/brand/mic-micro-de-luxe-640.webp`;
@@ -39,6 +43,9 @@ type ReelProps = {
   betaClip?: string | null;
   clipLabel?: string;
   betaLabel?: string;
+  /** a still the β button shows instead of a β clip */
+  betaImage?: string;
+  betaImageLabel?: string;
   width?: number;
   height?: number;
 };
@@ -78,6 +85,8 @@ export function MicroDeLuxeCard({
   betaClip = BETA_CLIP,
   clipLabel = "Micro De Luxe, the MIC mascot, rises from his stage",
   betaLabel = "Micro De Luxe at a younger stage",
+  betaImage,
+  betaImageLabel = "",
   width = 720,
   height = 720,
 }: ReelProps) {
@@ -85,6 +94,7 @@ export function MicroDeLuxeCard({
   const [showStill, setShowStill] = useState(true);
   const [playedOnce, setPlayedOnce] = useState(false);
   const [clip, setClip] = useState<Clip>("rise");
+  const [showBetaImage, setShowBetaImage] = useState(false);
   // the visitor's sound choice: on the homepage it covers the beta clip only
   // (rise is always muted there); with `withSound` it covers every clip
   const [betaSoundOff, setBetaSoundOff] = useState(false);
@@ -168,8 +178,16 @@ export function MicroDeLuxeCard({
   const replay = () => {
     const v = videoRef.current;
     if (!v) return;
+    setShowBetaImage(false);
     v.currentTime = 0;
     void start();
+  };
+
+  // β still: show the picture over the clip (pausing it), or put it away
+  const toggleBetaImage = () => {
+    const v = videoRef.current;
+    if (!showBetaImage && v && !v.paused) v.pause();
+    setShowBetaImage((on) => !on);
   };
 
   // β: swap to the younger-stage clip and play it from the top, with sound.
@@ -215,7 +233,7 @@ export function MicroDeLuxeCard({
     if (withSound && v && v.paused) replay();
   };
   return (
-    <div className={`ot-div__art ot-micro${showStill ? " ot-micro--still" : ""}${withSound ? " ot-micro--click" : ""}`} onClick={playFromPicture}>
+    <div className={`ot-div__art ot-micro${showStill ? " ot-micro--still" : ""}${withSound ? " ot-micro--click" : ""}${showBetaImage ? " ot-micro--beta-img" : ""}`} onClick={playFromPicture}>
       <video
         ref={videoRef}
         className="ot-micro__clip"
@@ -230,6 +248,17 @@ export function MicroDeLuxeCard({
         aria-label={clip === "beta" ? betaLabel : clipLabel}
       />
       <img className="ot-micro__still" src={poster} alt="" width={width} height={height} loading="lazy" />
+      {betaImage && (
+        <img
+          className={`ot-micro__beta-img${showBetaImage ? " is-on" : ""}`}
+          src={betaImage}
+          alt={showBetaImage ? betaImageLabel : ""}
+          aria-hidden={!showBetaImage}
+          width={width}
+          height={height}
+          loading="lazy"
+        />
+      )}
       <div className="ot-micro__ctl" onClick={(e) => e.stopPropagation()}>
         {(withSound || clip === "beta") && (
           <button
@@ -252,6 +281,18 @@ export function MicroDeLuxeCard({
         >
           <ReplayIcon />
         </button>
+        {betaImage && (
+          <button
+            type="button"
+            className="ot-micro__btn ot-micro__btn--beta"
+            onClick={toggleBetaImage}
+            aria-pressed={showBetaImage}
+            aria-label={showBetaImage ? "Back to the video" : `Show ${betaImageLabel || "the beta picture"} (beta)`}
+            title={showBetaImage ? "Back to the video" : "Beta"}
+          >
+            <span aria-hidden="true">β</span>
+          </button>
+        )}
       </div>
       {betaClip && (
         <div className="ot-micro__ctl ot-micro__ctl--beta" onClick={(e) => e.stopPropagation()}>

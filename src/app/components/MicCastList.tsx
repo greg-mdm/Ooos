@@ -38,6 +38,8 @@ function MasksIcon() {
 const BASE = import.meta.env.BASE_URL;
 const LIL_MIKE_CLIP = `${BASE}assets/brand/lil-mike.mp4`;
 const LIL_MIKE_POSTER = `${BASE}assets/brand/lil-mike-poster.webp`;
+// his headshot, Former Pinky Star (Greg, 2026-10-26; master in SPRINT 6/LIL MIKE)
+const LIL_MIKE_BETA = `${BASE}assets/brand/lil-mike-pinky-star.webp`;
 
 export function MicCastList() {
   return (
@@ -95,6 +97,8 @@ export function MicCastList() {
                   poster={LIL_MIKE_POSTER}
                   clip={LIL_MIKE_CLIP}
                   betaClip={null}
+                  betaImage={LIL_MIKE_BETA}
+                  betaImageLabel="Lil Mike, former Pinky star, framed in a red velvet heart"
                   clipLabel="Lil Mike sings, hears he did not get the part, drops the microphone and runs off"
                   width={720}
                   height={900}
