@@ -57,6 +57,13 @@
   background: linear-gradient(145deg, #1A0739 0%, #0F0222 100%);
   border-bottom: 3px solid #5B04DE;
 }
+/* the laser-gold line along the top of the band, all the way across,
+   opposite the Electric line under it (Greg, 2026-10-26) */
+.mic-hero__head::before {
+  content: ""; position: absolute; z-index: 3; left: 0; right: 0; top: 0; height: 2px; pointer-events: none;
+  background: #F0C040;
+  box-shadow: 0 0 8px rgba(240, 192, 64, 0.75), 0 0 18px rgba(240, 192, 64, 0.3);
+}
 .mic-hero__lockup {
   margin: 0; display: flex; flex-direction: column; align-items: center; gap: 18px;
   font-family: var(--font-heading, Poppins, system-ui, sans-serif); color: #F4EFFF;
@@ -81,6 +88,7 @@
    On a phone the pad keeps the card's own 3:2 shape. */
 .mic-hero__words {
   --mic-pad-gap: 16px;
+  --mic-card-inset: clamp(8px, 1.2vw, 16px);
   position: relative;
   display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start;
   align-self: stretch; margin: 0 max(var(--mic-pad-gap), calc((100% - 560px) / 2)); padding: 0 0 0 clamp(6px, 1.4vw, 20px);
@@ -102,7 +110,7 @@
 }
 /* the card, inset from the lip so its brim and the pit floor both show */
 .mic-hero__words::after {
-  content: ""; position: absolute; z-index: 0; inset: clamp(8px, 1.2vw, 16px); pointer-events: none;
+  content: ""; position: absolute; z-index: 0; inset: var(--mic-card-inset); pointer-events: none;
   background: url("/assets/brand/ooo-creative-card.webp?v=3") center / contain no-repeat;
   filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.75)) drop-shadow(0 2px 3px rgba(0, 0, 0, 0.6));
 }
@@ -111,21 +119,48 @@
    half of it showing. Inside, near black at 90% (Greg: Midnight Black
    read as grape), so the card shows through only faintly; the line is
    laser cut, crisp inside, glowing outside. The words sit one space in
-   from where they were (Greg, 2026-10-26). Sized in the words' own em so the text keeps its size and room:
-   11.6em across, 6.8em of it risen, the centre 1em above the edge, its
-   right side ending short of the balance display; the box
-   is 12px larger all round than the circle so the glow has room. */
+   from where they were (Greg, 2026-10-26). Sized in the words' own em so
+   the text keeps its size and room: 11.6em across, 6.8em of it risen, the
+   centre 1em above the edge, its right side ending short of the balance
+   display; the box is 12px larger all round than the circle so the glow
+   has room.
+   The clasp flap (Greg, 2026-10-26): the sun reads as a flap that wraps
+   over the card and secures it, something like a fancy wallet's but
+   uncanny, hologram rather than leather. A shadow follows the arc onto
+   the card so the flap stands over it; a faint laser glow lies just
+   inside the gold edge; and below the card's bottom edge (::after) the
+   flap folds down into the impression, gold-lit along the top where it
+   rolls over the card's edge and along the bottom where it tucks into the
+   pit, dark between, in the pads' neumorphic light and shade. */
 .mic-hero__sun {
   position: relative; z-index: 1;
   display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; gap: 0.08em;
   width: calc(11.6em + 24px); height: calc(6.8em + 12px); flex: none; box-sizing: border-box;
   margin-left: -12px; padding: 0 0 0.6em calc(1.8em + 12px);
   background: radial-gradient(circle calc(5.8em + 14px) at 50% calc(5.8em + 12px),
-    rgba(3, 1, 8, 0.9) 0, rgba(3, 1, 8, 0.9) calc(5.8em - 2px),
+    rgba(3, 1, 8, 0.9) 0, rgba(3, 1, 8, 0.9) calc(5.8em - 9px),
+    rgba(240, 192, 64, 0.1) calc(5.8em - 3px), rgba(240, 192, 64, 0.16) calc(5.8em - 2px),
     #F0C040 calc(5.8em - 1.5px), #F0C040 calc(5.8em + 0.5px),
     rgba(240, 192, 64, 0.45) calc(5.8em + 1.5px), rgba(240, 192, 64, 0.16) calc(5.8em + 5px), rgba(240, 192, 64, 0) calc(5.8em + 12px));
 }
+.mic-hero__sun { filter: drop-shadow(0 -2px 6px rgba(0, 0, 0, 0.55)) drop-shadow(0 6px 12px rgba(0, 0, 0, 0.6)); }
+.mic-hero__sun > span { position: relative; z-index: 1; }
 .mic-hero__sun > span:nth-child(2) { color: #F4EFFF; }
+/* the fold: the strip of flap below the card's bottom edge, as tall as the
+   card's inset and as wide as the circle there (centre 1em above the
+   bottom, so it spans 11.44em, 2px inside the gold line each side) */
+.mic-hero__sun::after {
+  content: ""; position: absolute; z-index: 0; bottom: 0; pointer-events: none;
+  left: calc(12px + 0.08em + 2px); width: calc(11.44em - 4px); height: var(--mic-card-inset);
+  background: linear-gradient(180deg,
+    rgba(255, 226, 140, 0.75) 0, rgba(240, 192, 64, 0.38) 14%, rgba(28, 16, 4, 0.92) 42%,
+    rgba(6, 3, 10, 0.96) 58%, rgba(240, 192, 64, 0.26) 86%, rgba(255, 226, 140, 0.62) 100%);
+  box-shadow:
+    inset 0 2px 3px rgba(255, 240, 190, 0.45),
+    inset 0 -2px 3px rgba(255, 240, 190, 0.35),
+    inset 0 5px 7px rgba(0, 0, 0, 0.55),
+    0 -2px 5px rgba(0, 0, 0, 0.55);
+}
 /* on phones and tablets the button sits under the card; from 960px it
    stands on the clear floor at the lower right of the MIC picture */
 .mic-hero__head .mic-banner__back { display: table; margin: 16px auto 0; }
