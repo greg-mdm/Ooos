@@ -1035,10 +1035,11 @@ const PRINT = {
     // midnight at the end of Nov 7 in Toronto (EST, UTC-5)
     endsAt: Date.parse("2026-11-08T00:00:00-05:00"),
   },
+  // the artist's studio leads (Greg, 2026-10-31)
   shots: [
+    { src: `${ASSETS}shadow-print-studio.jpg`, alt: "Shadow framed in black on a white studio wall between a wooden easel and a paint-covered worktable" },
     { src: `${ASSETS}shadow-print-marble.jpg`, alt: "Shadow framed in black on a dark marble wall above a marble console, a brass lamp and a silver vase beside it" },
     { src: `${ASSETS}shadow-print-gallery.jpg`, alt: "Shadow framed in black on a pale gallery wall, an arched hallway to the left" },
-    { src: `${ASSETS}shadow-print-studio.jpg`, alt: "Shadow framed in black on a white studio wall between a wooden easel and a paint-covered worktable" },
   ],
 };
 
