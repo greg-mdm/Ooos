@@ -5985,6 +5985,9 @@ textarea:focus-visible,
 .lot-spread .print-card__desc { margin: 6px 0 0; max-width: 60ch; font-size: 0.95rem; line-height: 1.5; color: rgba(232, 236, 244, 0.85); text-wrap: balance; }
 .print-card__buy { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; flex: 0 0 auto; }
 .print-card__price { font-family: var(--font-heading); font-size: clamp(1.5rem, 2.2vw, 1.9rem); font-weight: 700; line-height: 1.1; color: #F0C040; }
+/* the sale's crossed-out price (Greg, 2026-10-31): smaller and quiet, beside
+   the gold sale price */
+.print-card__was { margin-right: 0.45em; font-size: 0.62em; font-weight: 600; color: rgba(232, 236, 244, 0.6); text-decoration-thickness: 2px; text-decoration-color: rgba(232, 236, 244, 0.75); }
 .print-card__size { font-size: 0.85rem; color: rgba(232, 236, 244, 0.75); }
 .print-card__cta {
   display: inline-block; margin-top: 8px; padding: 12px 22px; border-radius: 12px; text-decoration: none;

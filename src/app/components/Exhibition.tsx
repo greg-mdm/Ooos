@@ -1019,12 +1019,22 @@ function GalleryHero() {
    approved room mockups (Artlist 4K upscales, the original painting set in
    each frame). The order button links the Wix store's product page; until
    the Slow Stream store is published and the product visible, PRINT.url is
-   empty and the button shows without a link. */
+   empty and the button shows without a link.
+   The sale (Greg, 2026-10-31): CA$100 crossed out over CA$69 until the end
+   of November 7, Toronto time; from November 8 the card shows CA$88, the
+   switch made in the visitor's browser so nothing needs publishing on the
+   day. */
 const PRINT = {
   url: "",
   name: "Framed Art Print",
   size: "12 \u00d7 16 in, black wood frame",
-  price: "CA$69",
+  price: "CA$88",
+  sale: {
+    price: "CA$69",
+    was: "CA$100",
+    // midnight at the end of Nov 7 in Toronto (EST, UTC-5)
+    endsAt: Date.parse("2026-11-08T00:00:00-05:00"),
+  },
   shots: [
     { src: `${ASSETS}shadow-print-marble.jpg`, alt: "Shadow framed in black on a dark marble wall above a marble console, a brass lamp and a silver vase beside it" },
     { src: `${ASSETS}shadow-print-gallery.jpg`, alt: "Shadow framed in black on a pale gallery wall, an arched hallway to the left" },
@@ -1067,6 +1077,7 @@ function AdoptCard() {
 function ShadowPrintCard() {
   const [shot, setShot] = useState(0);
   const cta = "Order the print";
+  const onSale = Date.now() < PRINT.sale.endsAt;
   return (
     <article className="lot-spread__piece lot-spread__piece--print">
       <header className="lot-spread__head">
@@ -1093,7 +1104,14 @@ function ShadowPrintCard() {
           <p className="print-card__desc">Collect Shadow in physical form: this black wooden frame holds a vibrant painting digitally remixed by the artist, printed on museum-quality matte paper.</p>
         </div>
         <div className="print-card__buy">
-          <span className="print-card__price">{PRINT.price}</span>
+          {onSale ? (
+            <span className="print-card__price">
+              <s className="print-card__was" aria-label={`Was ${PRINT.sale.was}`}>{PRINT.sale.was}</s>
+              <span aria-label={`now ${PRINT.sale.price}`}>{PRINT.sale.price}</span>
+            </span>
+          ) : (
+            <span className="print-card__price">{PRINT.price}</span>
+          )}
           <span className="print-card__size">{PRINT.size}</span>
           {PRINT.url ? (
             <a className="lot__cta print-card__cta" href={PRINT.url} target="_blank" rel="noopener noreferrer">{cta}</a>
