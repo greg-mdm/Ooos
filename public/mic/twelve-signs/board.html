@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- embedded elsewhere (Greg, 2026-10-31: the Slow Stream site) the board
+     ends at Portal 60: ?embed=1 hides the footnotes under it -->
+<script>if (/[?&]embed=1(&|$)/.test(location.search)) document.documentElement.classList.add("is-embed");</script>
 <title>Twelve Signs: decode board</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -238,6 +241,7 @@
     h1{font-size:17px}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+  html.is-embed .foot{display:none}
 </style>
 </head>
 <body>

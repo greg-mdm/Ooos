@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MIC hero band · Ooo! Digital Media Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+<!-- Ooo! Digital Media Studio, ooos.ca. The ooos.ca/mic hero band as one
+     standalone embed (Greg, 2026-10-31), for an HTML embed on another site
+     (Wix: Add > Embed > Embed code > Code, paste this whole file): the gold
+     laser line along the top, the MIC render on the left, on the right the
+     Ooo! Creative Card in its gold-lipped pit with Media / Information /
+     Culture in the laser-gold rising-sun flap, and the Electric line along
+     the bottom. The images load from ooos.ca; nothing else is needed.
+
+     An embed's height is fixed by the host, so the band fills the frame it
+     is given (100vh = the frame's height): the picture crops round the MIC
+     letters and Culture's baseline stays on the letters' base whatever the
+     frame's shape. From 960px wide the two blocks sit side by side; below
+     that they stack (picture, then the card), so give the frame more height
+     on tablet and mobile. The ooos.ca back button is left out here. -->
+<style>
+  :root {
+    --gold: #F0C040;
+    --electric: #5B04DE;
+    --lilac: #CDBDF0;
+    --silver: #F4EFFF;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #06021C; }
+  body { -webkit-font-smoothing: antialiased; font-family: 'Poppins', system-ui, sans-serif; }
+
+  .band {
+    position: relative;
+    display: flex; flex-direction: column; align-items: stretch; gap: 18px;
+    padding-bottom: 20px;
+    background: linear-gradient(145deg, #1A0739 0%, #0F0222 100%);
+    border-bottom: 3px solid var(--electric);
+  }
+  /* the laser-gold line along the top, all the way across */
+  .band::before {
+    content: ""; position: absolute; z-index: 3; left: 0; right: 0; top: 0; height: 2px; pointer-events: none;
+    background: var(--gold);
+    box-shadow: 0 0 8px rgba(240, 192, 64, .75), 0 0 18px rgba(240, 192, 64, .3);
+  }
+  /* the MIC render; the base of the letters sits at 85.3% of its height */
+  .pic { display: block; width: 100%; height: auto; }
+
+  /* the pit: a raised rim rolling down into an impression (Mark Boots'
+     "Neumorphic buttons", Button 1, MIT, codepen.io/MarkBoots/pen/RwvGxPL),
+     the laser-gold lip on its inner edge, the card set down inside */
+  .pad {
+    --gap: 16px;
+    --inset: clamp(8px, 1.2vw, 16px);
+    position: relative;
+    display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start;
+    margin: 0 max(var(--gap), calc((100% - 560px) / 2));
+    padding: 0 0 0 clamp(6px, 1.4vw, 20px);
+    aspect-ratio: 3 / 2;
+    border: .5rem solid transparent; border-radius: 1.25rem;
+    box-shadow:
+      -.7rem -.7rem 1.4rem rgba(170, 130, 255, .17),
+      .75rem .75rem 1.5rem rgba(0, 0, 0, .95),
+      inset .85rem .85rem 1.5rem rgba(0, 0, 0, .9);
+    font-size: clamp(.95rem, 4.2vw, 1.5rem); font-weight: 700; line-height: 1.05; letter-spacing: .16em; text-transform: uppercase; color: var(--lilac);
+  }
+  .pad::before {
+    content: ""; position: absolute; inset: 0; z-index: 2; border-radius: .75rem; pointer-events: none;
+    border: 2px solid var(--gold);
+    box-shadow: 0 0 8px rgba(240, 192, 64, .75), 0 0 20px rgba(240, 192, 64, .28), inset 0 0 6px rgba(240, 192, 64, .3);
+  }
+  .pad::after {
+    content: ""; position: absolute; z-index: 0; inset: var(--inset); pointer-events: none;
+    background: url("https://ooos.ca/assets/brand/ooo-creative-card.webp?v=3") center / contain no-repeat;
+    filter: drop-shadow(0 8px 14px rgba(0, 0, 0, .75)) drop-shadow(0 2px 3px rgba(0, 0, 0, .6));
+  }
+
+  /* the rising-sun flap: laser gold, near black inside, 11.6em across and
+     6.8em risen; its fold tucks under the card into the pit */
+  .sun {
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; gap: .08em;
+    width: calc(11.6em + 24px); height: calc(6.8em + 12px); flex: none;
+    margin-left: -12px; padding: 0 0 .6em calc(1.8em + 12px);
+    background: radial-gradient(circle calc(5.8em + 14px) at 50% calc(5.8em + 12px),
+      rgba(3, 1, 8, .9) 0, rgba(3, 1, 8, .9) calc(5.8em - 9px),
+      rgba(240, 192, 64, .1) calc(5.8em - 3px), rgba(240, 192, 64, .16) calc(5.8em - 2px),
+      var(--gold) calc(5.8em - 1.5px), var(--gold) calc(5.8em + .5px),
+      rgba(240, 192, 64, .45) calc(5.8em + 1.5px), rgba(240, 192, 64, .16) calc(5.8em + 5px), rgba(240, 192, 64, 0) calc(5.8em + 12px));
+    filter: drop-shadow(0 -2px 6px rgba(0, 0, 0, .55)) drop-shadow(0 6px 12px rgba(0, 0, 0, .6));
+  }
+  .sun > span { position: relative; z-index: 1; }
+  .sun > span:nth-child(2) { color: var(--silver); }
+  .sun::after {
+    content: ""; position: absolute; z-index: 0; bottom: 0; pointer-events: none;
+    left: 12px; width: 11.6em; height: var(--inset);
+    clip-path: circle(calc(5.8em - 2px) at 5.8em calc(100% - 1em));
+    background: linear-gradient(180deg,
+      rgba(255, 226, 140, .75) 0, rgba(240, 192, 64, .38) 14%, rgba(28, 16, 4, .92) 42%,
+      rgba(6, 3, 10, .96) 58%, rgba(240, 192, 64, .26) 86%, rgba(255, 226, 140, .62) 100%);
+    box-shadow:
+      inset 0 2px 3px rgba(255, 240, 190, .45),
+      inset 0 -2px 3px rgba(255, 240, 190, .35),
+      inset 0 5px 7px rgba(0, 0, 0, .55),
+      0 -2px 5px rgba(0, 0, 0, .55);
+  }
+
+  /* side by side from 960px, the band filling the frame's height */
+  @media (min-width: 960px) {
+    html, body { height: 100%; overflow: hidden; }
+    .band { flex-direction: row; gap: 0; height: 100vh; padding-bottom: 0; }
+    /* 59% of the width; the crop keeps the letters (left) and keeps their
+       base at 85.3% of the height whichever way the frame crops */
+    .pic { flex: none; width: 59%; height: 100%; object-fit: cover; object-position: 0% 85.3%; }
+    .pad {
+      --gap: clamp(10px, 1.4vw, 20px);
+      flex: 1; margin: var(--gap); aspect-ratio: auto;
+      /* full size from 1366px; and never so large the flap outgrows a short
+         frame */
+      font-size: min(clamp(.9rem, calc(2.18vw - 4.2px), 1.6rem), calc((100vh - 76px) / 7.2));
+    }
+    /* Culture's baseline on the letters' base: 14.7% of the picture's
+       height (the frame less the 3px line), less the pad's gap and rim */
+    .sun { padding-bottom: max(.3em, calc((100vh - 3px) * .147 - .16em - var(--gap) - .5rem)); }
+  }
+</style>
+</head>
+<body>
+  <section class="band" aria-label="MIC: Media, Information, Culture">
+    <img class="pic"
+      src="https://ooos.ca/assets/brand/mic-hero-1672.webp"
+      srcset="https://ooos.ca/assets/brand/mic-hero-900.webp 900w, https://ooos.ca/assets/brand/mic-hero-1672.webp 1672w"
+      sizes="(min-width: 960px) 59vw, 100vw"
+      width="1672" height="748" alt="MIC in lit, extruded letters beside a violet light tunnel">
+    <div class="pad" aria-hidden="true">
+      <span class="sun">
+        <span>Media</span>
+        <span>Information</span>
+        <span>Culture</span>
+      </span>
+    </div>
+  </section>
+</body>
+</html>
