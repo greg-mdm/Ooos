@@ -6007,8 +6007,10 @@ a.lot-auction__bid { text-decoration: none; }
 .lot-auction__bid.lot-auction__bid--gold { border-color: #F0C040; box-shadow: 0 0 5px rgba(240, 192, 64, .65), 0 0 13px rgba(240, 192, 64, .26), 0 7px 12px rgba(0, 0, 0, .5), inset 0 1px 3px rgba(240, 192, 64, .14); }
 .lot-auction__bid.lot-auction__bid--gold.is-collected { border-color: #5B04DE; box-shadow: 0 0 5px rgba(91, 4, 222, .65), 0 0 13px rgba(91, 4, 222, .26), 0 7px 12px rgba(0, 0, 0, .5), inset 0 1px 3px rgba(133, 81, 181, .14); }
 @media (hover: hover) and (pointer: fine) {
-  button.lot-auction__bid.lot-auction__bid--gold:hover { box-shadow: 0 0 6px rgba(240, 192, 64, .85), 0 0 18px rgba(240, 192, 64, .38), 0 9px 17px rgba(0, 0, 0, .55); }
-  button.lot-auction__bid.lot-auction__bid--gold.is-collected:hover { box-shadow: 0 0 6px rgba(91, 4, 222, .85), 0 0 18px rgba(91, 4, 222, .38), 0 9px 17px rgba(0, 0, 0, .55); }
+  button.lot-auction__bid.lot-auction__bid--gold:hover,
+  a.lot-auction__bid.lot-auction__bid--gold:hover { box-shadow: 0 0 6px rgba(240, 192, 64, .85), 0 0 18px rgba(240, 192, 64, .38), 0 9px 17px rgba(0, 0, 0, .55); }
+  button.lot-auction__bid.lot-auction__bid--gold.is-collected:hover,
+  a.lot-auction__bid.lot-auction__bid--gold.is-collected:hover { box-shadow: 0 0 6px rgba(91, 4, 222, .85), 0 0 18px rgba(91, 4, 222, .38), 0 9px 17px rgba(0, 0, 0, .55); }
 }
 @media (hover: hover) and (pointer: fine) {
   a.lot-auction__bid:hover { transform: translateY(-3px); background: #110320; box-shadow: 0 0 6px rgba(91, 4, 222, .85), 0 0 18px rgba(91, 4, 222, .38), 0 9px 17px rgba(0, 0, 0, .55); }

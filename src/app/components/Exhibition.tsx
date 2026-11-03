@@ -1025,7 +1025,7 @@ function GalleryHero() {
    switch made in the visitor's browser so nothing needs publishing on the
    day. */
 const PRINT = {
-  url: "",
+  url: "https://www.slowstream.ca/product-page/framed-poster",
   name: "Framed Art Print",
   size: "12 \u00d7 16 in, black wood frame",
   price: "CA$88",
@@ -1045,12 +1045,11 @@ const PRINT = {
 
 /* Art on Demand (Greg, 2026-10-24): the Live Art Auction card reworked
    beside the print, Shadow still floating over her shadow; the line on top,
-   the name under her, and Adopt a hero opening the print's product page
-   (until PRINT.url is set it brings the print card into view). */
+   the name under her, and Adopt a hero opening the print's product page. */
 function AdoptCard() {
-  /* the button no longer links (Greg, 2026-10-25: Order the print finishes
-     that path): gold at rest, and a press turns it Electric, "Collect a
-     creature" */
+  /* the button links the product page again (Greg, 2026-11-03, with Order
+     the print): gold at rest, and a press turns it Electric, "Collect a
+     creature", as the page opens in a new tab */
   const [collected, setCollected] = useState(false);
   return (
     <div className="lot-auction lot-spread__adopt">
@@ -1067,9 +1066,15 @@ function AdoptCard() {
           />
         </div>
         <p className="lot-auction__title">Art on Demand</p>
-        <button type="button" className={`lot-auction__bid lot-auction__bid--gold${collected ? " is-collected" : ""}`} aria-pressed={collected} onClick={() => setCollected((v) => !v)}>
+        <a
+          className={`lot-auction__bid lot-auction__bid--gold${collected ? " is-collected" : ""}`}
+          href={PRINT.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => setCollected(true)}
+        >
           {collected ? "Collect a creature" : "Adopt a hero"}
-        </button>
+        </a>
       </div>
     </div>
   );
