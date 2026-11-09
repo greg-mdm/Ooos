@@ -3,71 +3,106 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ontario regions · Ooo! Digital Media Studio</title>
+<title>Ontario regions · Slow Stream</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&family=Montserrat:wght@600;700&family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&family=Montserrat:wght@600;700&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
 <!-- Ooo! Digital Media Studio, ooos.ca. The Ontario section of
-     ooos.ca/cid/iwatchlist as one standalone embed (Greg, 2026-11-09), for an
-     HTML embed on slowstream.ca (Wix: Add > Embed > Embed code > Code, paste
-     this whole file). A guide to the province's regions for doing business in
-     Ontario: the provincial map, the five geographic zones and the eleven
-     economic regions, with the employment statistics left out.
+     ooos.ca/cid/iwatchlist as one standalone embed for slowstream.ca (Greg,
+     2026-11-09), for an HTML embed (Wix: Add > Embed > Embed code > Code,
+     paste this whole file). A guide to the province's regions for doing
+     business in Ontario, with the employment statistics left out: the
+     interactive provincial map from the ooos.ca homepage on top (Ontario or
+     the Greater Toronto Area), then the five geographic zones and the eleven
+     economic regions.
 
-     Built from the site's own region data (src/app/components/ontarioRegions.ts:
-     Statistics Canada 2021 economic region boundaries). The deck is set in the
-     Slow Stream violets (#6C0BF4, #4A0F8A, #19052E); the ooos.ca original keeps
-     its ruby. The map tints are the deck's own. Regenerate with SLOW STREAM/ontario-regions-embed/
-     build-ontario-embed.cjs (node) rather than
-     editing the map paths by hand. Pointing at a zone card, a map zone or a
-     region name lights it on the map. -->
+     Set in the Slow Stream colours (purples, indigo-blue and greys); the
+     ooos.ca original keeps its own. Map data: Statistics Canada 2021 economic
+     region boundaries, from the site's ontarioRegions.ts and ontarioContext.ts.
+     Regenerate with SLOW STREAM/ontario-regions-embed/build-ontario-embed.cjs
+     (node) rather than editing this file by hand. Pointing at a zone card, a
+     map zone or a region name lights it on the map. -->
 <style>
   :root {
-    /* Slow Stream palette (Greg, 2026-11-09): #6C0BF4, #4A0F8A, #19052E;
-       the lights are the same ramp on ooos.ca/about */
+    /* Slow Stream: #6C0BF4, #4A0F8A, #19052E (Greg), #19007D, #06021C (the
+       site), with the lights from the same ramp on ooos.ca/about */
     --electric: #6C0BF4;
     --amethyst: #4A0F8A;
     --midnight: #19052E;
+    --indigo: #19007D;
+    --night: #06021C;
     --lilac: #C49EFA;
     --lilac-pale: #E2CEFD;
-    --ink: #0C0E12;
-    --muted: #6B6B75;
+    --lavender: #E6E6FA;
+    --cloud: #F1F0F2;
+    --muted: #6E6F7A;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
-  body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; color: var(--ink); background: #E6E8EC; -webkit-font-smoothing: antialiased; }
-  a:focus-visible, [tabindex]:focus-visible { outline: 3px solid var(--electric); outline-offset: 3px; }
+  body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; color: var(--night); background: var(--cloud); -webkit-font-smoothing: antialiased; }
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 3px solid var(--electric); outline-offset: 3px; }
 
-  /* the lede strip */
-  .lede-band { background: #F0F4F5; padding: clamp(24px, 3vw, 40px) 0; }
+  /* the lede strip, on Slow Stream's lavender to cloud grey */
+  .lede-band { background: linear-gradient(126deg, var(--lavender) 20%, var(--cloud) 100%); padding: clamp(24px, 3vw, 40px) 0; }
   .wrap { max-width: 1400px; margin: 0 auto; padding: 0 clamp(16px, 3vw, 48px); }
   .lede-row { display: flex; flex-wrap: wrap; gap: 1.4rem 2rem; align-items: flex-start; justify-content: space-between; }
-  .lede { flex: 1 1 560px; max-width: 64ch; margin: 0; font-size: clamp(1.02rem, 1.4vw, 1.26rem); line-height: 1.55; color: #16222B; text-wrap: balance; }
+  .lede { flex: 1 1 560px; max-width: 64ch; margin: 0; font-size: clamp(1.02rem, 1.4vw, 1.26rem); line-height: 1.55; color: var(--night); text-wrap: balance; }
   .lede b { color: var(--amethyst); font-weight: 800; }
   .side-label { margin: 0 0 .6rem; font-size: .86rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--amethyst); }
   .links { display: grid; gap: .5rem; }
   .links a { width: fit-content; padding-bottom: 2px; font-size: .98rem; font-weight: 700; color: var(--electric); text-decoration: none; border-bottom: 1px solid rgba(108, 11, 244, .35); }
   .links a:hover { color: var(--amethyst); border-color: var(--amethyst); }
 
-  /* the deck */
-  .deck { background: linear-gradient(180deg, #E7EAF0 0%, #E5E8EE 100%); padding: clamp(24px, 3vw, 40px) 0 clamp(20px, 2.4vw, 32px); }
-  .deck-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.15fr); gap: clamp(20px, 2.6vw, 40px); align-items: start; }
+  .deck { background: linear-gradient(180deg, var(--cloud) 0%, var(--lavender) 100%); padding: clamp(24px, 3vw, 40px) 0 clamp(20px, 2.4vw, 32px); }
 
-  .map-card { margin: 0; padding: 14px; border-radius: 18px; background: #FFFFFF; box-shadow: 0 10px 28px rgba(25, 5, 46, .10), 0 1px 3px rgba(25, 5, 46, .08); }
-  .map-inner { position: relative; border-radius: 12px; overflow: hidden; background: linear-gradient(180deg, #F0E7FE 0%, #F8F8F8 55%, #F2F4F5 100%); }
-  .map-pill { position: absolute; z-index: 1; top: 14px; left: 14px; padding: 7px 14px; border-radius: 999px; background: #FFFFFF; box-shadow: 0 1px 4px rgba(25, 5, 46, .12); font-family: 'Montserrat', sans-serif; font-size: .7rem; font-weight: 700; letter-spacing: .24em; text-transform: uppercase; color: var(--amethyst); }
-  .map { display: block; width: 100%; height: auto; padding-top: 40px; }
-  .zone path { fill: var(--tint); stroke: #FFFFFF; stroke-width: 1.4; stroke-linejoin: round; vector-effect: non-scaling-stroke; transition: opacity .18s, fill .18s; cursor: pointer; }
-  .map-label { font-family: 'Inter', sans-serif; font-size: 27px; font-weight: 700; fill: #0F0F0F; paint-order: stroke; stroke: rgba(255, 255, 255, .85); stroke-width: 6px; stroke-linejoin: round; cursor: pointer; transition: opacity .18s; }
-  .map-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; margin: 12px 4px 0; font-family: 'Montserrat', sans-serif; font-size: .68rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  /* the map card, as the homepage's viewbook: a title bar, then the map */
+  .map-card { margin: 0 0 clamp(24px, 3vw, 40px); border-radius: 18px; overflow: hidden; background: #FFFFFF; border: 1.5px solid var(--electric); box-shadow: 0 0 0 4px rgba(108, 11, 244, .08), 0 18px 44px rgba(25, 5, 46, .14); }
+  .map-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 12px 16px; background: var(--cloud); border-bottom: 1px solid var(--lavender); }
+  .map-title { flex: 1 1 auto; display: inline-flex; align-items: center; gap: 8px; margin: 0; font-size: .74rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--indigo); }
+  .map-title svg { width: 16px; height: 16px; flex: none; fill: none; stroke: var(--electric); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .map-title i { width: 5px; height: 5px; border-radius: 50%; background: var(--electric); }
+  .views { display: flex; gap: 6px; }
+  .view { padding: 6px 12px; border-radius: 999px; border: 1.5px solid var(--electric); background: #FFFFFF; color: var(--electric); font: 600 .72rem/1.2 'Inter', sans-serif; letter-spacing: .06em; cursor: pointer; transition: background-color .2s, color .2s; }
+  .view[aria-pressed="true"] { background: var(--electric); color: #FFFFFF; }
+  .map-body { padding: clamp(14px, 2vw, 24px); }
+  /* the stage keeps Ontario's shape, so switching to the Greater Toronto Area
+     never changes the embed's height */
+  .map-stage { width: min(100%, 760px); aspect-ratio: 1250 / 1180; margin: 0 auto; display: flex; align-items: center; }
+  .map { display: block; width: 100%; height: auto; border-radius: 12px; overflow: hidden; }
+  .map__water { fill: #DCEBF3; }
+  .map__land { fill: #E4E6EC; stroke: #FFFFFF; stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .map__lake { fill: #DCEBF3; }
+  .map__usa { fill: #D8DBDE; fill-rule: evenodd; stroke: none; }
+  .map__border { fill: none; stroke: var(--muted); stroke-width: 1.2; stroke-dasharray: 5 3; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; pointer-events: none; }
+  .map__zone path { fill: var(--tint); stroke: #FFFFFF; stroke-width: 1; vector-effect: non-scaling-stroke; stroke-linejoin: round; cursor: pointer; transition: fill-opacity .25s, filter .25s; }
+  .map__label { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 20px; letter-spacing: .02em; text-anchor: middle; pointer-events: none; }
+  .map__label--water { fill: #4A7A9B; font-style: italic; }
+  .map__label--land { fill: var(--muted); text-transform: uppercase; letter-spacing: .14em; font-size: 18px; }
+  .map--gta .map__label { font-size: 7.5px; }
+  .map--gta .map__label--land { font-size: 6px; }
+  .map__city circle { fill: var(--indigo); stroke: #FFFFFF; stroke-width: .6; }
+  .map__city text { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 6.5px; fill: var(--night); pointer-events: none; paint-order: stroke; stroke: rgba(255, 255, 255, .85); stroke-width: 1.4px; stroke-linejoin: round; }
+  .map__peek-hit { fill: transparent; stroke: none; pointer-events: all; cursor: help; outline: none; }
+  .map__peek-tag { opacity: 0; transition: opacity .2s; pointer-events: none; }
+  .map__peek:hover .map__peek-tag, .map__peek:focus-within .map__peek-tag { opacity: 1; }
+  .map__peek-line { fill: none; stroke: #4A7A9B; stroke-width: .8; stroke-linecap: round; }
+  .map__peek-head { fill: #4A7A9B; }
+  .map__peek-tag .map__label { paint-order: stroke; stroke: rgba(255, 255, 255, .85); stroke-width: 1.4px; stroke-linejoin: round; }
+  .map-caption { margin: 12px 0 0; min-height: 1.2em; text-align: center; font-size: .78rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--indigo); }
 
-  .deck-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 4px 0 16px; }
-  .deck-title { margin: 0; font-family: 'Montserrat', sans-serif; font-size: .86rem; font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: var(--ink); }
+  /* lighting a zone, or one region inside it */
+  .deck[data-hot] .map__zone path { fill-opacity: .3; }
+  .deck[data-hot] .map__zone.is-hot path { fill-opacity: 1; filter: drop-shadow(0 6px 14px rgba(25, 5, 46, .28)); }
+  .deck[data-region] .map__zone.is-hot path { fill-opacity: .4; filter: none; }
+  .deck[data-region] .map__zone.is-hot path.is-hot { fill-opacity: 1; filter: drop-shadow(0 6px 14px rgba(25, 5, 46, .3)); }
+
+  .deck-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 16px; }
+  .deck-title { margin: 0; font-family: 'Montserrat', sans-serif; font-size: .86rem; font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: var(--night); }
   .chip { flex: none; padding: 5px 12px; border-radius: 999px; background: var(--amethyst); font-family: 'Poppins', sans-serif; font-size: .74rem; font-weight: 700; color: #FFFFFF; }
 
   .zcards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; margin: 0 0 22px; padding: 0; list-style: none; }
   .zcard { container-type: inline-size; position: relative; display: flex; flex-direction: column; min-height: 196px; padding: 18px 18px 40px; border-radius: 14px; background: linear-gradient(180deg, var(--amethyst) 0%, var(--midnight) 62%); box-shadow: 0 10px 22px rgba(25, 5, 46, .25); cursor: pointer; transition: transform .18s, box-shadow .18s; }
-  .zcard::before { content: ""; position: absolute; left: 18px; right: 18px; top: 0; height: 3px; border-radius: 0 0 3px 3px; background: var(--tint); opacity: .9; }
+  .zcard::before { content: ""; position: absolute; left: 18px; right: 18px; top: 0; height: 4px; border-radius: 0 0 4px 4px; background: var(--tint); }
   /* sized to the card so Southwestern stays on one line */
   .zcard__big { font-family: 'Poppins', sans-serif; font-size: min(1.2rem, 11.2cqi); font-weight: 800; line-height: 1.1; text-transform: uppercase; color: #FFFFFF; white-space: nowrap; }
   .zcard__sub { margin-top: 6px; font-family: 'Montserrat', sans-serif; font-size: .78rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--lilac-pale); }
@@ -75,33 +110,21 @@
   .zcard__centres span { white-space: nowrap; }
   .zcard__centres { margin-top: auto; padding-top: 16px; font-size: .84rem; line-height: 1.45; color: var(--lilac-pale); text-wrap: balance; }
   .zcard__code { position: absolute; right: 18px; bottom: 14px; font-family: 'Poppins', sans-serif; font-size: .76rem; font-weight: 700; letter-spacing: .08em; color: var(--lilac); }
+  .zcard.is-hot { transform: translateY(-3px); box-shadow: 0 0 0 2px var(--tint), 0 14px 26px rgba(25, 5, 46, .32); }
 
   .eregions { padding: clamp(20px, 2.4vw, 32px); border-radius: 18px; background: linear-gradient(135deg, var(--electric) 0%, var(--amethyst) 30%, var(--midnight) 70%); box-shadow: 0 14px 30px rgba(25, 5, 46, .28); color: #FFFFFF; }
   .eregions .deck-title { color: #FFFFFF; }
   .eregions .chip { background: var(--electric); }
   .ecols { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0 18px; margin-top: 18px; }
-  .ecol__head { margin: 0; padding-bottom: 10px; border-bottom: 1px solid rgba(196, 158, 250, .3); font-family: 'Montserrat', sans-serif; font-size: .78rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: #FFFFFF; }
+  .ecol__head { display: flex; align-items: center; gap: 8px; margin: 0; padding-bottom: 10px; border-bottom: 1px solid rgba(196, 158, 250, .3); font-family: 'Montserrat', sans-serif; font-size: .78rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: #FFFFFF; }
+  .ecol__head::before { content: ""; flex: none; width: 10px; height: 10px; border-radius: 3px; background: var(--tint); box-shadow: 0 0 0 1px rgba(255, 255, 255, .55); }
   .ecol ul { margin: 0 0 14px; padding: 0; list-style: none; }
   .ecol li { position: relative; padding: 10px 0 10px 16px; border-bottom: 1px solid rgba(196, 158, 250, .3); font-size: .95rem; line-height: 1.35; color: var(--lilac-pale); cursor: pointer; transition: color .15s; }
   .ecol li::before { content: "\203A"; position: absolute; left: 0; top: 8px; font-weight: 800; color: var(--lilac); }
   .ecol li:hover, .ecol li:focus-visible, .ecol li.is-hot { color: #FFFFFF; }
 
-  .deck-foot { margin: 22px 0 0; padding-top: 14px; border-top: 1px solid rgba(12, 14, 18, .12); font-family: 'Montserrat', sans-serif; font-size: .68rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; text-align: center; color: var(--muted); }
+  .deck-foot { margin: 22px auto 0; padding-top: 14px; border-top: 1px solid rgba(25, 5, 46, .12); font-family: 'Montserrat', sans-serif; font-size: .68rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; text-align: center; color: var(--muted); }
 
-  /* lighting a zone or a region */
-  .deck[data-hot] .zone path, .deck[data-hot] .map-label { opacity: .32; }
-  .deck[data-hot="northern"] [data-zone="northern"] path, .deck[data-hot="northern"] .map-label[data-zone="northern"],
-  .deck[data-hot="eastern"] [data-zone="eastern"] path, .deck[data-hot="eastern"] .map-label[data-zone="eastern"],
-  .deck[data-hot="southwestern"] [data-zone="southwestern"] path, .deck[data-hot="southwestern"] .map-label[data-zone="southwestern"],
-  .deck[data-hot="gta"] [data-zone="gta"] path, .deck[data-hot="gta"] .map-label[data-zone="gta"],
-  .deck[data-hot="central"] [data-zone="central"] path, .deck[data-hot="central"] .map-label[data-zone="central"] { opacity: 1; }
-  .zone path.is-hot { fill: var(--electric); }
-  .zcard.is-hot { transform: translateY(-3px); box-shadow: 0 0 0 2px var(--tint), 0 14px 26px rgba(25, 5, 46, .32); }
-
-  @media (max-width: 1100px) {
-    .deck-grid { grid-template-columns: minmax(0, 1fr); }
-    .map-card { width: min(100%, 620px); justify-self: center; }
-  }
   @media (max-width: 900px) {
     .zcards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .ecols { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -111,12 +134,13 @@
     .zcard { min-height: 168px; padding: 16px 14px 36px; }
     .zcard__sub { letter-spacing: .14em; }
     .ecols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .map-title { flex-basis: 100%; }
   }
   @media (max-width: 340px) {
     .zcards, .ecols { grid-template-columns: minmax(0, 1fr); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .zone path, .map-label, .zcard, .ecol li { transition: none; }
+    .map__zone path, .zcard, .ecol li, .view, .map__peek-tag { transition: none; }
     .zcard.is-hot { transform: none; }
   }
 </style>
@@ -137,65 +161,144 @@
   </section>
 
   <section class="deck" id="deck" aria-label="Ontario regions">
-    <div class="wrap deck-grid">
+    <div class="wrap">
       <figure class="map-card">
-        <div class="map-inner">
-          <span class="map-pill">Ontario &middot; Provincial map</span>
-          <svg class="map" viewBox="-10 -6 1030 1024" role="img" aria-label="Map of Ontario's five geographic zones and eleven economic regions">
-%%MAP_ZONES%%
-%%MAP_LABELS%%
-          </svg>
+        <div class="map-bar">
+          <p class="map-title">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>
+            <span>Ontario</span><i aria-hidden="true"></i><span>Provincial map</span>
+          </p>
+          <div class="views" role="group" aria-label="Map scale">
+            <button type="button" class="view" data-view="ontario" aria-pressed="true">Ontario</button>
+            <button type="button" class="view" data-view="gta" aria-pressed="false">Greater Toronto Area</button>
+          </div>
         </div>
-        <figcaption class="map-foot">Boundaries: Statistics Canada economic regions, 2021</figcaption>
+        <div class="map-body">
+          <div class="map-stage">
+            <svg class="map map--ontario" id="map" role="img" aria-label="Ontario provincial map on its water: five geographic zones and eleven economic regions, with the Great Lakes, Hudson Bay and the neighbouring shores"></svg>
+          </div>
+          <p class="map-caption" id="caption" aria-live="polite">Ontario</p>
+        </div>
       </figure>
 
-      <div>
-        <div class="deck-head">
-          <h2 class="deck-title">Geographic regions</h2>
-          <span class="chip">05 Zones</span>
-        </div>
-        <ul class="zcards">
+      <div class="deck-head">
+        <h2 class="deck-title">Geographic regions</h2>
+        <span class="chip">05 Zones</span>
+      </div>
+      <ul class="zcards">
 %%CARDS%%
-        </ul>
+      </ul>
 
-        <div class="eregions">
-          <div class="deck-head">
-            <h2 class="deck-title">Economic regions</h2>
-            <span class="chip">11 Sub-Regions</span>
-          </div>
-          <div class="ecols">
+      <div class="eregions">
+        <div class="deck-head">
+          <h2 class="deck-title">Economic regions</h2>
+          <span class="chip">11 Sub-Regions</span>
+        </div>
+        <div class="ecols">
 %%COLUMNS%%
-          </div>
         </div>
       </div>
+      <p class="deck-foot">5 geographic zones &middot; 11 economic regions &middot; Boundaries: Statistics Canada</p>
     </div>
-    <p class="wrap deck-foot">5 geographic zones &middot; 11 economic regions</p>
   </section>
 
 <script>
-  /* light a zone (card, map zone or label) or one region (a name in the list) */
+  var MAP = %%MAP_DATA%%;
+  var NS = "http://www.w3.org/2000/svg";
   var deck = document.getElementById("deck");
-  var tint = {};
-  deck.querySelectorAll(".zone").forEach(function (g) { tint[g.dataset.zone] = g.style.getPropertyValue("--tint"); });
-  deck.querySelectorAll(".zcard").forEach(function (c) { c.style.setProperty("--tint", tint[c.dataset.zone]); });
+  var svg = document.getElementById("map");
+  var caption = document.getElementById("caption");
+  var view = "ontario";
 
+  function el(name, attrs, parent) {
+    var n = document.createElementNS(NS, name);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+
+  /* draw the map as the homepage does: water, the neighbouring land, the
+     United States clipped to that land, the lakes, the border, the zones,
+     then the labels for the view */
+  function draw() {
+    var v = MAP.views[view];
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.setAttribute("viewBox", v.viewBox);
+    svg.setAttribute("class", "map map--" + view);
+    svg.setAttribute("aria-label", view === "gta"
+      ? "The Greater Toronto Area on the western shore of Lake Ontario, across the water from Niagara Falls and the United States"
+      : "Ontario provincial map on its water: five geographic zones and eleven economic regions, with the Great Lakes, Hudson Bay and the neighbouring shores");
+    var defs = el("defs", {}, svg);
+    el("path", { d: v.land }, el("clipPath", { id: "land-clip" }, defs));
+    el("path", { d: "M0 0L10 5L0 10z", "class": "map__peek-head" },
+      el("marker", { id: "peek-arrow", viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 4, markerHeight: 4, orient: "auto" }, defs));
+    el("rect", { "class": "map__water", x: -1000, y: -1000, width: 4000, height: 4000 }, svg);
+    el("path", { "class": "map__land", d: v.land }, svg);
+    el("path", { "class": "map__usa", d: MAP.usa, "clip-path": "url(#land-clip)" }, svg);
+    el("path", { "class": "map__lake", d: v.lakes }, svg);
+    el("path", { "class": "map__border", d: MAP.border }, svg);
+    MAP.zones.forEach(function (z) {
+      var g = el("g", { "class": "map__zone", "data-zone": z.id, style: "--tint:" + z.tint }, svg);
+      el("title", {}, g).textContent = z.name;
+      z.regions.forEach(function (r) {
+        var p = el("path", { d: r.d, "data-region": r.id }, g);
+        p.addEventListener("mouseenter", function () { light(z.id, r.id); });
+        p.addEventListener("click", function () { light(z.id, r.id); });
+      });
+    });
+    v.labels.forEach(function (t) {
+      var a = { "class": "map__label map__label--" + (t.kind || "land"), x: t.x, y: t.y };
+      if (t.size) a.style = "font-size:" + t.size + "px";
+      if (t.rotate) a.transform = "rotate(" + t.rotate + " " + t.x + " " + t.y + ")";
+      el("text", a, svg).textContent = t.name;
+    });
+    if (view === "gta") {
+      MAP.cities.forEach(function (c) {
+        var g = el("g", { "class": "map__city" }, svg);
+        el("circle", { cx: c.x, cy: c.y, r: 1.6 }, g);
+        el("text", { x: c.x + 2.8, y: c.y + 1.2 }, g).textContent = c.name;
+      });
+      /* Lake Simcoe: hover or focus the lake and its name appears */
+      var s = MAP.simcoe;
+      var peek = el("g", { "class": "map__peek" }, svg);
+      el("path", { "class": "map__peek-hit", d: s.d, tabindex: 0, role: "img", "aria-label": "Lake Simcoe" }, peek);
+      var tag = el("g", { "class": "map__peek-tag", "aria-hidden": "true" }, peek);
+      el("line", { "class": "map__peek-line", x1: s.x - 11, y1: s.y - 17, x2: s.x, y2: s.y, "marker-end": "url(#peek-arrow)" }, tag);
+      el("text", { "class": "map__label map__label--water", x: s.x - 10, y: s.y - 19, "text-anchor": "end" }, tag).textContent = "Lake Simcoe";
+    }
+    light(null);
+  }
+
+  /* light a zone (card, map zone) or one region (map region, name in the list) */
   function light(zone, region) {
     if (zone) deck.setAttribute("data-hot", zone); else deck.removeAttribute("data-hot");
-    deck.querySelectorAll(".is-hot").forEach(function (el) { el.classList.remove("is-hot"); });
-    if (zone) deck.querySelectorAll('.zcard[data-zone="' + zone + '"]').forEach(function (el) { el.classList.add("is-hot"); });
-    if (region) deck.querySelectorAll('[data-region="' + region + '"]').forEach(function (el) { el.classList.add("is-hot"); });
+    if (region) deck.setAttribute("data-region", region); else deck.removeAttribute("data-region");
+    deck.querySelectorAll(".is-hot").forEach(function (n) { n.classList.remove("is-hot"); });
+    if (zone) deck.querySelectorAll('[data-zone="' + zone + '"]').forEach(function (n) {
+      if (n.classList.contains("zcard") || n.classList.contains("map__zone")) n.classList.add("is-hot");
+    });
+    if (region) deck.querySelectorAll('[data-region="' + region + '"]').forEach(function (n) { n.classList.add("is-hot"); });
+    var z = null, r = null;
+    MAP.zones.forEach(function (x) { if (x.id === zone) { z = x; x.regions.forEach(function (y) { if (y.id === region) r = y; }); } });
+    caption.textContent = r && z.regions.length > 1 ? z.name + " · " + r.name : z ? z.name : (view === "gta" ? "Greater Toronto Area" : "Ontario");
   }
-  function bind(el, zone, region) {
-    el.addEventListener("mouseenter", function () { light(zone, region); });
-    el.addEventListener("focus", function () { light(zone, region); });
-    el.addEventListener("click", function () { light(zone, region); });
+
+  function bind(n, zone, region) {
+    ["mouseenter", "focus", "click"].forEach(function (ev) { n.addEventListener(ev, function () { light(zone, region); }); });
   }
-  deck.querySelectorAll(".zcard, .map-label").forEach(function (el) { bind(el, el.dataset.zone); });
-  deck.querySelectorAll(".zone path").forEach(function (p) { bind(p, p.parentNode.dataset.zone, p.dataset.region); });
-  deck.querySelectorAll(".ecol li").forEach(function (li) { bind(li, li.dataset.zone, li.dataset.region); });
-  deck.querySelectorAll(".map-card, .zcards, .ecols").forEach(function (el) {
-    el.addEventListener("mouseleave", function () { light(null); });
+  deck.querySelectorAll(".zcard").forEach(function (n) { bind(n, n.dataset.zone); });
+  deck.querySelectorAll(".ecol li").forEach(function (n) { bind(n, n.dataset.zone, n.dataset.region); });
+  deck.querySelectorAll(".map-stage, .zcards, .ecols").forEach(function (n) {
+    n.addEventListener("mouseleave", function () { light(null); });
   });
+  deck.querySelectorAll(".view").forEach(function (b) {
+    b.addEventListener("click", function () {
+      view = b.dataset.view;
+      deck.querySelectorAll(".view").forEach(function (o) { o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
+      draw();
+    });
+  });
+  draw();
 </script>
 </body>
 </html>
