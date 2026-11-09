@@ -64,27 +64,39 @@ const cards = cardOrder.map((id) => {
         </li>`;
 }).join("\n");
 
-// every GTA municipality by name, grouped by its region, from the official
-// Region of Peel GTA map the dashboard already uses (R.GTA_MUNICIPALITIES);
-// listed in the GTA column under Toronto (Greg, 2026-11-09)
+// The panel (Greg, 2026-11-09): the four zones in a row on top, then the GTA
+// across the full width below, Toronto first and then every municipality by
+// name, each on its own line under its region, from the official Region of
+// Peel GTA map the dashboard already uses (R.GTA_MUNICIPALITIES). Regions
+// take the names people say ("Peel Region", not "Region of Peel").
+const SPOKEN = { "Region of Halton": "Halton Region", "Region of Peel": "Peel Region", "Region of York": "York Region", "Region of Durham": "Durham Region" };
 const gtaCount = R.GTA_MUNICIPALITIES.reduce((n, g) => n + g.places.length, 0);
-const gtaPlaces = `
-            <div class="gta">
-              <p class="gta__head">${gtaCount} municipalities</p>
-              <ul class="gta__list">
-${R.GTA_MUNICIPALITIES.map((g) => `                <li><span class="gta__group">${esc(g.group)}</span><span class="gta__names">${g.places.map(esc).join(", ")}</span></li>`).join("\n")}
-              </ul>
-              <p class="gta__source">Source: Region of Peel, Peel Data Centre GTA map (2022)</p>
-            </div>`;
 
-const columns = columnOrder.map((id) => {
+const columns = columnOrder.filter((id) => id !== "gta").map((id) => {
   const z = byId[id];
   const items = z.regions.map((r) => `<li data-region="${r.id}" data-zone="${id}" tabindex="0">${esc(r.name)}</li>`).join("");
   return `          <div class="ecol" data-zone="${id}" style="--tint:${TINT[id]}">
             <p class="ecol__head">${COLUMN_HEAD[id]}</p>
-            <ul>${items}</ul>${id === "gta" ? gtaPlaces : ""}
+            <ul class="rlist">${items}</ul>
           </div>`;
 }).join("\n");
+
+const gtaZone = byId.gta;
+const gtaGroups = R.GTA_MUNICIPALITIES.map((g) => `              <div class="gta__group">
+                <p class="gta__group-name">${esc(SPOKEN[g.group] || g.group)}</p>
+                <ul>${g.places.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>
+              </div>`).join("\n");
+const gtaPanel = `          <div class="ecol ecol--gta" data-zone="gta" style="--tint:${TINT.gta}">
+            <div class="gta__lead">
+              <p class="ecol__head">${COLUMN_HEAD.gta}</p>
+              <ul class="rlist">${gtaZone.regions.map((r) => `<li data-region="${r.id}" data-zone="gta" tabindex="0">${esc(r.name)}</li>`).join("")}</ul>
+              <p class="gta__count">${gtaCount} municipalities</p>
+              <p class="gta__source">Source: Region of Peel, Peel Data Centre GTA map (2022)</p>
+            </div>
+            <div class="gta__groups">
+${gtaGroups}
+            </div>
+          </div>`;
 
 // Quebec and Manitoba in their flag colours (Greg, 2026-11-09). The context
 // land is one shape for all of Canada, so each neighbour is drawn as the area
@@ -168,6 +180,7 @@ const MAP = {
 const html = fs.readFileSync(path.join(__dirname, "ontario-embed-template.html"), "utf8")
   .replace("%%CARDS%%", cards)
   .replace("%%COLUMNS%%", columns)
+  .replace("%%GTA_PANEL%%", gtaPanel)
   .replace(/%%GOLD%%/g, TORONTO_GOLD)
   .replace("%%MAP_DATA%%", JSON.stringify(MAP));
 fs.writeFileSync(path.join(root, "public/embeds/ontario-regions.html"), html);

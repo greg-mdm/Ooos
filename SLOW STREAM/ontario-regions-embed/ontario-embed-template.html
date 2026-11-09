@@ -134,47 +134,44 @@
   .eregions { padding: clamp(20px, 2.4vw, 32px); border-radius: 18px; background: linear-gradient(135deg, var(--electric) 0%, var(--amethyst) 30%, var(--midnight) 70%); box-shadow: 0 14px 30px rgba(25, 5, 46, .28); color: #FFFFFF; }
   .eregions .deck-title { color: #FFFFFF; }
   .eregions .chip { background: var(--electric); }
-  /* the GTA column runs wider, its municipalities in two columns, so the
-     list doesn't make the panel (and the embed) tall */
-  .ecols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(0, 1.9fr); gap: 0 18px; margin-top: 18px; }
-  .ecol[data-zone="gta"] .gta__list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; }
+  /* the four zones in a row; the GTA below them across the full width */
+  .ecols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 18px; margin-top: 18px; }
   .ecol__head { display: flex; align-items: center; gap: 8px; margin: 0; padding-bottom: 10px; border-bottom: 1px solid rgba(196, 158, 250, .3); font-family: 'Montserrat', sans-serif; font-size: .78rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: #FFFFFF; }
   .ecol__head::before { content: ""; flex: none; width: 10px; height: 10px; border-radius: 3px; background: var(--tint); box-shadow: 0 0 0 1px rgba(255, 255, 255, .55); }
-  .ecol ul { margin: 0 0 14px; padding: 0; list-style: none; }
-  .ecol > ul > li { position: relative; padding: 10px 0 10px 16px; border-bottom: 1px solid rgba(196, 158, 250, .3); font-size: .95rem; line-height: 1.35; color: var(--lilac-pale); cursor: pointer; transition: color .15s; }
-  .ecol > ul > li::before { content: "\203A"; position: absolute; left: 0; top: 8px; font-weight: 800; color: var(--lilac); }
-  .ecol > ul > li:hover, .ecol > ul > li:focus-visible, .ecol > ul > li.is-hot { color: #FFFFFF; }
-  .ecol li[data-region="3530"]::before { color: var(--gold); }
+  .rlist { margin: 0 0 14px; padding: 0; list-style: none; }
+  .rlist > li { position: relative; padding: 10px 0 10px 16px; border-bottom: 1px solid rgba(196, 158, 250, .3); font-size: .95rem; line-height: 1.35; color: var(--lilac-pale); cursor: pointer; transition: color .15s; }
+  .rlist > li::before { content: "\203A"; position: absolute; left: 0; top: 8px; font-weight: 800; color: var(--lilac); }
+  .rlist > li:hover, .rlist > li:focus-visible, .rlist > li.is-hot { color: #FFFFFF; }
+  .rlist > li[data-region="3530"]::before { color: var(--gold); }
 
-  /* the GTA's municipalities, all of them by name, under Toronto in the GTA
-     column: plain text in one colour */
-  .gta { margin: 0 0 14px; }
-  .gta__head { margin: 0 0 10px; font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--lilac); }
-  .gta__list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
-  .gta__list li { display: flex; flex-direction: column; gap: 2px; }
-  .gta__group { font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #FFFFFF; }
-  .gta__names { font-size: .86rem; line-height: 1.45; color: var(--lilac-pale); }
-  .gta__source { margin: 10px 0 0; font-size: .7rem; line-height: 1.4; color: var(--lilac); }
+  /* the GTA: Toronto and the count on the left, then every municipality
+     under its region, one per line */
+  .ecol--gta { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 4.2fr); gap: 18px 18px; margin-top: 8px; padding-top: 20px; border-top: 1px solid rgba(196, 158, 250, .3); }
+  .gta__count { margin: 0; font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--lilac); }
+  .gta__source { margin: 8px 0 0; font-size: .7rem; line-height: 1.4; color: var(--lilac); }
+  .gta__groups { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; align-content: start; }
+  .gta__group-name { margin: 0 0 8px; padding-bottom: 8px; border-bottom: 1px solid rgba(196, 158, 250, .3); font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #FFFFFF; }
+  .gta__group ul { margin: 0; padding: 0; list-style: none; }
+  .gta__group li { position: relative; padding: 3px 0 3px 14px; font-size: .9rem; line-height: 1.35; color: var(--lilac-pale); }
+  .gta__group li::before { content: ""; position: absolute; left: 2px; top: .7em; width: 5px; height: 5px; border-radius: 50%; background: var(--lilac); }
 
   .deck-foot { margin: 22px auto 0; padding-top: 14px; border-top: 1px solid rgba(25, 5, 46, .12); font-family: 'Montserrat', sans-serif; font-size: .68rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; text-align: center; color: var(--muted); }
 
   @media (max-width: 900px) {
     .zcards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .ecols { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    /* the GTA takes a full row of its own, its municipalities across it */
-    .ecol[data-zone="gta"] { grid-column: 1 / -1; }
-    .ecol[data-zone="gta"] .gta__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .ecols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ecol--gta { grid-template-columns: minmax(0, 1fr); }
+    .gta__groups { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
   @media (max-width: 620px) {
     .zcards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
     .zcard { min-height: 168px; padding: 16px 14px 36px; }
     .zcard__sub { letter-spacing: .14em; }
-    .ecols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .ecol[data-zone="gta"] .gta__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .gta__groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .map-title { flex-basis: 100%; }
   }
   @media (max-width: 340px) {
-    .zcards, .ecols, .ecol[data-zone="gta"] .gta__list { grid-template-columns: minmax(0, 1fr); }
+    .zcards, .ecols, .gta__groups { grid-template-columns: minmax(0, 1fr); }
   }
   @media (prefers-reduced-motion: reduce) {
     .map__zone path, .zcard, .ecol li, .view, .map__peek-tag { transition: none; }
@@ -234,6 +231,7 @@
         <div class="ecols">
 %%COLUMNS%%
         </div>
+%%GTA_PANEL%%
       </div>
       <p class="deck-foot">5 geographic zones &middot; 11 economic regions &middot; Boundaries: Statistics Canada</p>
     </div>
@@ -359,7 +357,7 @@
   }
   deck.querySelectorAll(".zcard").forEach(function (n) { bind(n, n.dataset.zone); });
   deck.querySelectorAll(".ecol li[data-region]").forEach(function (n) { bind(n, n.dataset.zone, n.dataset.region); });
-  deck.querySelectorAll(".map-stage, .zcards, .ecols").forEach(function (n) {
+  deck.querySelectorAll(".map-stage, .zcards, .ecols, .ecol--gta").forEach(function (n) {
     n.addEventListener("mouseleave", function () { light(null); });
   });
   deck.querySelectorAll(".view").forEach(function (b) {
