@@ -80,9 +80,9 @@
      Manitoba's green blended into gold, so neither reads as water or as the
      Southwestern green */
   .map__prov { stroke: none; pointer-events: none; }
-  .map__prov--quebec { fill: #001F97; }
-  .map__haze { pointer-events: none; }
-  .map__haze path { fill: none; stroke: #FFFFFF; stroke-width: 150; stroke-linejoin: round; }
+  .map__prov--quebec { fill: url(#quebec-flag); }
+  .map__haze { pointer-events: none; opacity: .45; }
+  .map__haze path { fill: none; stroke: #FFFFFF; stroke-width: 90; stroke-linejoin: round; }
   .map__zone[data-zone="central"] path { fill: url(#central-blend); }
   .map__prov--manitoba { fill: url(#manitoba-flag); }
   .map__label.map__label--quebec, .map__label.map__label--manitoba { fill: #FFFFFF; paint-order: stroke; stroke-width: 4px; stroke-linejoin: round; }
@@ -272,12 +272,11 @@
     el("path", { d: "M0 0L10 5L0 10z", "class": "map__peek-head" },
       el("marker", { id: "peek-arrow", viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 4, markerHeight: 4, orient: "auto" }, defs));
     /* blends that run all the way through an area, soft like the gradients
-       on Slow Stream's pages. Quebec: a wide white haze off the Ontario
-       border, blurred far enough to fade across the province into its blue.
-       Central: its light blue at the heart easing out to sand at the edges,
+       on Slow Stream's pages. Quebec (below): blue rising into white from
+       the top, with a faint haze off the Ontario border. Central: its light blue at the heart easing out to sand at the edges,
        through a pale step so blue and sand never mix into green, so the zone
        reads as land, never water. */
-    el("feGaussianBlur", { stdDeviation: 70 }, el("filter", { id: "soft-white", x: "-50%", y: "-50%", width: "200%", height: "200%" }, defs));
+    el("feGaussianBlur", { stdDeviation: 40 }, el("filter", { id: "soft-white", x: "-50%", y: "-50%", width: "200%", height: "200%" }, defs));
     var cb = el("radialGradient", { id: "central-blend", gradientUnits: "userSpaceOnUse", cx: 785, cy: 812, r: 135 }, defs);
     [["0", "#4DAEFF"], ["0.3", "#8DC2EC"], ["0.55", "#E6D8B4"], ["1", "#D9B97E"]].forEach(function (s) {
       el("stop", { offset: s[0], "stop-color": s[1] }, cb);
@@ -296,9 +295,15 @@
           el("path", { "class": "map__prov map__prov--" + p.id, d: p.d, "clip-path": "url(#land-clip)" }, svg);
           return;
         }
-        /* Quebec: its flag blue, with white glowing in from the whole
-           Ontario border (Ontario's outline, drawn wide and blurred, only
-           inside Quebec; Ontario is painted over the inner half) */
+        /* Quebec: its flag blue rising into a white that comes down from the
+           top (Greg, 2026-11-09: the earlier top-light gradient, with more
+           of the white), plus a faint white shading in off the Ontario
+           border (Ontario's outline, drawn wide and blurred, only inside
+           Quebec; Ontario is painted over the inner half) */
+        var qg = el("linearGradient", { id: "quebec-flag", gradientUnits: "userSpaceOnUse", x1: 760, y1: 702, x2: 1000, y2: -60 }, defs);
+        [["0", "#001F97"], ["0.45", "#1F3BA6"], ["1", "#C3CBEB"]].forEach(function (s) {
+          el("stop", { offset: s[0], "stop-color": s[1] }, qg);
+        });
         el("path", { d: p.d }, el("clipPath", { id: "quebec-clip" }, defs));
         var q = el("g", { "clip-path": "url(#quebec-clip)" }, el("g", { "clip-path": "url(#land-clip)" }, svg));
         el("path", { "class": "map__prov map__prov--quebec", d: p.d }, q);
