@@ -75,10 +75,9 @@
   .map__land { fill: #E4E6EC; stroke: #FFFFFF; stroke-width: 1; vector-effect: non-scaling-stroke; }
   .map__lake { fill: #DCEBF3; }
   .map__usa { fill: #D8DBDE; fill-rule: evenodd; stroke: none; }
-  /* the neighbouring provinces in their flag colours, both in the same
-     stripes: Quebec's blue (Pantone 293 C) and white, so it never reads as
-     water; Manitoba's green and gold, so it never reads as the Southwestern
-     green */
+  /* the neighbouring provinces in their flag colours, each a soft gradient:
+     Quebec's blue (Pantone 293 C) toward white, Manitoba's green into gold,
+     so neither reads as water or as the Southwestern green */
   .map__prov { stroke: none; pointer-events: none; }
   .map__prov--quebec { fill: url(#quebec-flag); }
   .map__prov--manitoba { fill: url(#manitoba-flag); }
@@ -133,7 +132,10 @@
   .eregions { padding: clamp(20px, 2.4vw, 32px); border-radius: 18px; background: linear-gradient(135deg, var(--electric) 0%, var(--amethyst) 30%, var(--midnight) 70%); box-shadow: 0 14px 30px rgba(25, 5, 46, .28); color: #FFFFFF; }
   .eregions .deck-title { color: #FFFFFF; }
   .eregions .chip { background: var(--electric); }
-  .ecols { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0 18px; margin-top: 18px; }
+  /* the GTA column runs wider, its municipalities in two columns, so the
+     list doesn't make the panel (and the embed) tall */
+  .ecols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(0, 1.9fr); gap: 0 18px; margin-top: 18px; }
+  .ecol[data-zone="gta"] .gta__list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; }
   .ecol__head { display: flex; align-items: center; gap: 8px; margin: 0; padding-bottom: 10px; border-bottom: 1px solid rgba(196, 158, 250, .3); font-family: 'Montserrat', sans-serif; font-size: .78rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: #FFFFFF; }
   .ecol__head::before { content: ""; flex: none; width: 10px; height: 10px; border-radius: 3px; background: var(--tint); box-shadow: 0 0 0 1px rgba(255, 255, 255, .55); }
   .ecol ul { margin: 0 0 14px; padding: 0; list-style: none; }
@@ -157,16 +159,20 @@
   @media (max-width: 900px) {
     .zcards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .ecols { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    /* the GTA takes a full row of its own, its municipalities across it */
+    .ecol[data-zone="gta"] { grid-column: 1 / -1; }
+    .ecol[data-zone="gta"] .gta__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
   @media (max-width: 620px) {
     .zcards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
     .zcard { min-height: 168px; padding: 16px 14px 36px; }
     .zcard__sub { letter-spacing: .14em; }
     .ecols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ecol[data-zone="gta"] .gta__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .map-title { flex-basis: 100%; }
   }
   @media (max-width: 340px) {
-    .zcards, .ecols { grid-template-columns: minmax(0, 1fr); }
+    .zcards, .ecols, .ecol[data-zone="gta"] .gta__list { grid-template-columns: minmax(0, 1fr); }
   }
   @media (prefers-reduced-motion: reduce) {
     .map__zone path, .zcard, .ecol li, .view, .map__peek-tag { transition: none; }
@@ -264,12 +270,15 @@
     el("rect", { "class": "map__water", x: -1000, y: -1000, width: 4000, height: 4000 }, svg);
     el("path", { "class": "map__land", d: v.land }, svg);
     if (view === "ontario") {
-      var stripes = el("pattern", { id: "manitoba-flag", patternUnits: "userSpaceOnUse", width: 64, height: 64, patternTransform: "rotate(45)" }, defs);
-      el("rect", { width: 64, height: 64, fill: "#165016" }, stripes);
-      el("rect", { width: 32, height: 64, fill: "#A07F37" }, stripes);
-      var qstripes = el("pattern", { id: "quebec-flag", patternUnits: "userSpaceOnUse", width: 64, height: 64, patternTransform: "rotate(45)" }, defs);
-      el("rect", { width: 64, height: 64, fill: "#001F97" }, qstripes);
-      el("rect", { width: 32, height: 64, fill: "#FFFFFF" }, qstripes);
+      /* each flag's colours blended across the province, soft like the
+         gradients on Slow Stream's pages: Manitoba's green into its gold,
+         Quebec's blue easing toward white (stopping at half, so it never
+         turns pale enough to read as water) */
+      [["manitoba-flag", -170, -60, 60, 560, [["0", "#165016"], ["1", "#A07F37"]]],
+       ["quebec-flag", 700, 702, 1080, -60, [["0", "#001F97"], ["1", "#7F8FCB"]]]].forEach(function (g) {
+        var grad = el("linearGradient", { id: g[0], gradientUnits: "userSpaceOnUse", x1: g[1], y1: g[2], x2: g[3], y2: g[4] }, defs);
+        g[5].forEach(function (s) { el("stop", { offset: s[0], "stop-color": s[1] }, grad); });
+      });
       MAP.provinces.forEach(function (p) {
         el("path", { "class": "map__prov map__prov--" + p.id, d: p.d, "clip-path": "url(#land-clip)" }, svg);
       });
