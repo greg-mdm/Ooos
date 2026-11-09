@@ -86,8 +86,64 @@ const columns = columnOrder.map((id) => {
           </div>`;
 }).join("\n");
 
+// Quebec and Manitoba in their flag colours (Greg, 2026-11-09). The context
+// land is one shape for all of Canada, so each neighbour is drawn as the area
+// beyond Ontario's own edge: for every row of the map, everything west of
+// Ontario's westernmost point is Manitoba and everything east of its
+// easternmost point is Quebec. The shapes run 3 units under Ontario so no seam
+// shows, are clipped to the land on the map, and the United States is painted
+// over them, so only Canadian land takes the colour.
+function edges(ds) {
+  const segs = [];
+  for (const d of ds) {
+    for (const sub of d.split(/(?=M)/)) {
+      const n = sub.match(/-?\d+(\.\d+)?/g).map(Number);
+      const pts = [];
+      for (let i = 0; i + 1 < n.length; i += 2) pts.push([n[i], n[i + 1]]);
+      for (let i = 0; i < pts.length; i++) segs.push([pts[i], pts[(i + 1) % pts.length]]);
+    }
+  }
+  return segs;
+}
+function across(segs, y) {
+  const xs = [];
+  for (const [[x1, y1], [x2, y2]] of segs) {
+    if ((y1 <= y && y2 > y) || (y2 <= y && y1 > y)) xs.push(x1 + ((y - y1) / (y2 - y1)) * (x2 - x1));
+  }
+  return xs;
+}
+const allSegs = edges(Object.values(R.ONTARIO_REGION_PATHS));
+const STEP = 2, INSET = 3, TOP = -120, BOTTOM = 1180;
+const rows = [];
+for (let y = TOP; y <= BOTTOM; y += STEP) {
+  const xs = across(allSegs, y);
+  rows.push({ y, min: xs.length ? Math.min(...xs) : null, max: xs.length ? Math.max(...xs) : null });
+}
+const firstRow = rows.find((r) => r.min !== null), lastRow = [...rows].reverse().find((r) => r.min !== null);
+const f = (n) => n.toFixed(1);
+// each shape stops at the Canada-US border (yEnd), so nothing south of it,
+// and no stretch of Ontario's own shoreline, can pick up the colour
+function side(pick, far, fallbackTop, yEnd) {
+  const line = rows.filter((r) => r.y <= yEnd).map((r) => {
+    const x = r[pick] !== null ? r[pick] + (pick === "min" ? INSET : -INSET) : fallbackTop;
+    return `${f(x)} ${r.y}`;
+  });
+  return `M${far} ${TOP}L${line.join("L")}L${far} ${yEnd}Z`;
+}
+// Manitoba: west of the border, down to the 49th parallel at Lake of the Woods
+// (the boundary path meets x = 0 at about y 507 to 533); Quebec: east of
+// James Bay and Ontario, down to the 45th parallel east of Cornwall (the
+// boundary reaches 977, 701 there)
+const manitobaD = side("min", -2000, firstRow.min + INSET, 560);
+const quebecD = side("max", 3000, 650, 702);
+const PROVINCES = [
+  { id: "manitoba", name: "Manitoba", d: manitobaD },
+  { id: "quebec", name: "Quebec", d: quebecD },
+];
+
 // everything the map script draws, in the order the homepage draws it
 const MAP = {
+  provinces: PROVINCES,
   views: {
     ontario: { viewBox: C.ONTARIO_CONTEXT_VIEWBOX, land: C.CONTEXT_PATHS.ontario.land, lakes: C.CONTEXT_PATHS.ontario.lakes, labels: C.ONTARIO_LABELS },
     gta: { viewBox: C.GTA_VIEWBOX, land: C.CONTEXT_PATHS.gta.land, lakes: C.CONTEXT_PATHS.gta.lakes, labels: C.GTA_LABELS },
