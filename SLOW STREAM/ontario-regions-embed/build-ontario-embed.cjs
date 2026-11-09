@@ -123,9 +123,10 @@ const firstRow = rows.find((r) => r.min !== null), lastRow = [...rows].reverse()
 const f = (n) => n.toFixed(1);
 // each shape stops at the Canada-US border (yEnd), so nothing south of it,
 // and no stretch of Ontario's own shoreline, can pick up the colour
-function side(pick, far, fallbackTop, yEnd) {
+function side(pick, far, fallbackTop, yEnd, floor) {
   const line = rows.filter((r) => r.y <= yEnd).map((r) => {
-    const x = r[pick] !== null ? r[pick] + (pick === "min" ? INSET : -INSET) : fallbackTop;
+    let x = r[pick] !== null ? r[pick] + (pick === "min" ? INSET : -INSET) : fallbackTop;
+    if (floor && r.y < floor.below) x = Math.max(x, floor.x);
     return `${f(x)} ${r.y}`;
   });
   return `M${far} ${TOP}L${line.join("L")}L${far} ${yEnd}Z`;
@@ -135,7 +136,10 @@ function side(pick, far, fallbackTop, yEnd) {
 // James Bay and Ontario, down to the 45th parallel east of Cornwall (the
 // boundary reaches 977, 701 there)
 const manitobaD = side("min", -2000, firstRow.min + INSET, 560);
-const quebecD = side("max", 3000, 650, 702);
+// above the top of Northeastern Ontario, Quebec starts on James Bay's east
+// shore (x 640), so the Nunavut islands in James Bay and Hudson Bay (Akimiski,
+// the Belchers) stay plain land
+const quebecD = side("max", 3000, 650, 702, { below: 330, x: 640 });
 const PROVINCES = [
   { id: "manitoba", name: "Manitoba", d: manitobaD },
   { id: "quebec", name: "Quebec", d: quebecD },

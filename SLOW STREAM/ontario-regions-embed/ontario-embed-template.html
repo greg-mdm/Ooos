@@ -75,11 +75,14 @@
   .map__land { fill: #E4E6EC; stroke: #FFFFFF; stroke-width: 1; vector-effect: non-scaling-stroke; }
   .map__lake { fill: #DCEBF3; }
   .map__usa { fill: #D8DBDE; fill-rule: evenodd; stroke: none; }
-  /* the neighbouring provinces in their flag colours, each a soft gradient:
-     Quebec's blue (Pantone 293 C) toward white, Manitoba's green into gold,
-     so neither reads as water or as the Southwestern green */
+  /* the neighbouring provinces in their flag colours, soft: Quebec's blue
+     (Pantone 293 C) with white glowing in from the Ontario border,
+     Manitoba's green blended into gold, so neither reads as water or as the
+     Southwestern green */
   .map__prov { stroke: none; pointer-events: none; }
-  .map__prov--quebec { fill: url(#quebec-flag); }
+  .map__prov--quebec { fill: #001F97; }
+  .map__haze { pointer-events: none; }
+  .map__haze path { fill: none; stroke: #FFFFFF; stroke-width: 60; stroke-linejoin: round; }
   .map__prov--manitoba { fill: url(#manitoba-flag); }
   .map__label.map__label--quebec, .map__label.map__label--manitoba { fill: #FFFFFF; paint-order: stroke; stroke-width: 4px; stroke-linejoin: round; }
   .map__label.map__label--quebec { stroke: #001F97; }
@@ -267,20 +270,42 @@
     el("path", { d: v.land }, el("clipPath", { id: "land-clip" }, defs));
     el("path", { d: "M0 0L10 5L0 10z", "class": "map__peek-head" },
       el("marker", { id: "peek-arrow", viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 4, markerHeight: 4, orient: "auto" }, defs));
+    /* soft edges, sized to the view (the GTA view is about 4x closer):
+       a white haze for Quebec, and Central's sandy rim, which lies just
+       inside the zone's outline so its light blue never reads as water */
+    var k = view === "gta" ? 0.28 : 1;
+    el("feGaussianBlur", { stdDeviation: 16 * k }, el("filter", { id: "soft-white", x: "-20%", y: "-20%", width: "140%", height: "140%" }, defs));
+    var sand = el("filter", { id: "sand-edge", x: "-5%", y: "-5%", width: "110%", height: "110%" }, defs);
+    el("feGaussianBlur", { "in": "SourceAlpha", stdDeviation: 14 * k, result: "inside" }, sand);
+    el("feComposite", { "in": "SourceAlpha", in2: "inside", operator: "out", result: "thin" }, sand);
+    el("feFuncA", { type: "linear", slope: 2.4 }, el("feComponentTransfer", { "in": "thin", result: "rim" }, sand));
+    el("feFlood", { "flood-color": "#E2C48E", result: "sand" }, sand);
+    el("feComposite", { "in": "sand", in2: "rim", operator: "in", result: "sandrim" }, sand);
+    var merge = el("feMerge", {}, sand);
+    el("feMergeNode", { "in": "SourceGraphic" }, merge);
+    el("feMergeNode", { "in": "sandrim" }, merge);
+
     el("rect", { "class": "map__water", x: -1000, y: -1000, width: 4000, height: 4000 }, svg);
     el("path", { "class": "map__land", d: v.land }, svg);
     if (view === "ontario") {
-      /* each flag's colours blended across the province, soft like the
-         gradients on Slow Stream's pages: Manitoba's green into its gold,
-         Quebec's blue easing toward white (stopping at half, so it never
-         turns pale enough to read as water) */
-      [["manitoba-flag", -170, -60, 60, 560, [["0", "#165016"], ["1", "#A07F37"]]],
-       ["quebec-flag", 700, 702, 1080, -60, [["0", "#001F97"], ["1", "#7F8FCB"]]]].forEach(function (g) {
-        var grad = el("linearGradient", { id: g[0], gradientUnits: "userSpaceOnUse", x1: g[1], y1: g[2], x2: g[3], y2: g[4] }, defs);
-        g[5].forEach(function (s) { el("stop", { offset: s[0], "stop-color": s[1] }, grad); });
-      });
+      /* Manitoba's flag green blended into its gold, soft like the gradients
+         on Slow Stream's pages */
+      var grad = el("linearGradient", { id: "manitoba-flag", gradientUnits: "userSpaceOnUse", x1: -170, y1: -60, x2: 60, y2: 560 }, defs);
+      el("stop", { offset: "0", "stop-color": "#165016" }, grad);
+      el("stop", { offset: "1", "stop-color": "#A07F37" }, grad);
       MAP.provinces.forEach(function (p) {
-        el("path", { "class": "map__prov map__prov--" + p.id, d: p.d, "clip-path": "url(#land-clip)" }, svg);
+        if (p.id !== "quebec") {
+          el("path", { "class": "map__prov map__prov--" + p.id, d: p.d, "clip-path": "url(#land-clip)" }, svg);
+          return;
+        }
+        /* Quebec: its flag blue, with white glowing in from the whole
+           Ontario border (Ontario's outline, drawn wide and blurred, only
+           inside Quebec; Ontario is painted over the inner half) */
+        el("path", { d: p.d }, el("clipPath", { id: "quebec-clip" }, defs));
+        var q = el("g", { "clip-path": "url(#quebec-clip)" }, el("g", { "clip-path": "url(#land-clip)" }, svg));
+        el("path", { "class": "map__prov map__prov--quebec", d: p.d }, q);
+        var haze = el("g", { "class": "map__haze", filter: "url(#soft-white)" }, q);
+        MAP.zones.forEach(function (z) { z.regions.forEach(function (r) { el("path", { d: r.d }, haze); }); });
       });
     }
     el("path", { "class": "map__usa", d: MAP.usa, "clip-path": "url(#land-clip)" }, svg);
@@ -288,6 +313,7 @@
     el("path", { "class": "map__border", d: MAP.border }, svg);
     MAP.zones.forEach(function (z) {
       var g = el("g", { "class": "map__zone", "data-zone": z.id, style: "--tint:" + z.tint }, svg);
+      if (z.id === "central") g.setAttribute("filter", "url(#sand-edge)");
       el("title", {}, g).textContent = z.name;
       z.regions.forEach(function (r) {
         var p = el("path", { d: r.d, "data-region": r.id }, g);
