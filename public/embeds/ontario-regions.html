@@ -82,7 +82,8 @@
   .map__prov { stroke: none; pointer-events: none; }
   .map__prov--quebec { fill: #001F97; }
   .map__haze { pointer-events: none; }
-  .map__haze path { fill: none; stroke: #FFFFFF; stroke-width: 60; stroke-linejoin: round; }
+  .map__haze path { fill: none; stroke: #FFFFFF; stroke-width: 150; stroke-linejoin: round; }
+  .map__zone[data-zone="central"] path { fill: url(#central-blend); }
   .map__prov--manitoba { fill: url(#manitoba-flag); }
   .map__label.map__label--quebec, .map__label.map__label--manitoba { fill: #FFFFFF; paint-order: stroke; stroke-width: 4px; stroke-linejoin: round; }
   .map__label.map__label--quebec { stroke: #001F97; }
@@ -330,20 +331,17 @@
     el("path", { d: v.land }, el("clipPath", { id: "land-clip" }, defs));
     el("path", { d: "M0 0L10 5L0 10z", "class": "map__peek-head" },
       el("marker", { id: "peek-arrow", viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 4, markerHeight: 4, orient: "auto" }, defs));
-    /* soft edges, sized to the view (the GTA view is about 4x closer):
-       a white haze for Quebec, and Central's sandy rim, which lies just
-       inside the zone's outline so its light blue never reads as water */
-    var k = view === "gta" ? 0.28 : 1;
-    el("feGaussianBlur", { stdDeviation: 16 * k }, el("filter", { id: "soft-white", x: "-20%", y: "-20%", width: "140%", height: "140%" }, defs));
-    var sand = el("filter", { id: "sand-edge", x: "-5%", y: "-5%", width: "110%", height: "110%" }, defs);
-    el("feGaussianBlur", { "in": "SourceAlpha", stdDeviation: 14 * k, result: "inside" }, sand);
-    el("feComposite", { "in": "SourceAlpha", in2: "inside", operator: "out", result: "thin" }, sand);
-    el("feFuncA", { type: "linear", slope: 2.4 }, el("feComponentTransfer", { "in": "thin", result: "rim" }, sand));
-    el("feFlood", { "flood-color": "#E2C48E", result: "sand" }, sand);
-    el("feComposite", { "in": "sand", in2: "rim", operator: "in", result: "sandrim" }, sand);
-    var merge = el("feMerge", {}, sand);
-    el("feMergeNode", { "in": "SourceGraphic" }, merge);
-    el("feMergeNode", { "in": "sandrim" }, merge);
+    /* blends that run all the way through an area, soft like the gradients
+       on Slow Stream's pages. Quebec: a wide white haze off the Ontario
+       border, blurred far enough to fade across the province into its blue.
+       Central: its light blue at the heart easing out to sand at the edges,
+       through a pale step so blue and sand never mix into green, so the zone
+       reads as land, never water. */
+    el("feGaussianBlur", { stdDeviation: 70 }, el("filter", { id: "soft-white", x: "-50%", y: "-50%", width: "200%", height: "200%" }, defs));
+    var cb = el("radialGradient", { id: "central-blend", gradientUnits: "userSpaceOnUse", cx: 785, cy: 812, r: 135 }, defs);
+    [["0", "#4DAEFF"], ["0.3", "#8DC2EC"], ["0.55", "#E6D8B4"], ["1", "#D9B97E"]].forEach(function (s) {
+      el("stop", { offset: s[0], "stop-color": s[1] }, cb);
+    });
 
     el("rect", { "class": "map__water", x: -1000, y: -1000, width: 4000, height: 4000 }, svg);
     el("path", { "class": "map__land", d: v.land }, svg);
@@ -373,7 +371,6 @@
     el("path", { "class": "map__border", d: MAP.border }, svg);
     MAP.zones.forEach(function (z) {
       var g = el("g", { "class": "map__zone", "data-zone": z.id, style: "--tint:" + z.tint }, svg);
-      if (z.id === "central") g.setAttribute("filter", "url(#sand-edge)");
       el("title", {}, g).textContent = z.name;
       z.regions.forEach(function (r) {
         var p = el("path", { d: r.d, "data-region": r.id }, g);
