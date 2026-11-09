@@ -16,8 +16,9 @@
      the Greater Toronto Area), then the five geographic zones and the eleven
      economic regions.
 
-     Set in the Slow Stream colours (purples, indigo-blue and greys); the
-     ooos.ca original keeps its own. Map data: Statistics Canada 2021 economic
+     The page is set in the Slow Stream colours; the map zones are coloured
+     to be told apart (rock grey, deep red, forest green, Blue Light, indigo,
+     with Toronto in gold). The ooos.ca original keeps its own. Map data: Statistics Canada 2021 economic
      region boundaries, from the site's ontarioRegions.ts and ontarioContext.ts.
      Regenerate with SLOW STREAM/ontario-regions-embed/build-ontario-embed.cjs
      (node) rather than editing this file by hand. Pointing at a zone card, a
@@ -36,6 +37,7 @@
     --lavender: #E6E6FA;
     --cloud: #F1F0F2;
     --muted: #6E6F7A;
+    --gold: %%GOLD%%;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
@@ -81,6 +83,12 @@
   .map--gta .map__label { font-size: 7.5px; }
   .map--gta .map__label--land { font-size: 6px; }
   .map__city circle { fill: var(--indigo); stroke: #FFFFFF; stroke-width: .6; }
+  /* Toronto in gold inside the GTA: a marker on the Ontario view, the gold
+     dot among the cities on the GTA view */
+  .map__city--toronto circle { fill: var(--gold); stroke: var(--night); stroke-width: .5; }
+  .map__toronto { pointer-events: none; }
+  .map__toronto circle { fill: var(--gold); stroke: #FFFFFF; stroke-width: 2; vector-effect: non-scaling-stroke; filter: drop-shadow(0 1px 2px rgba(6, 2, 28, .5)); }
+  .map__toronto text { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 19px; fill: var(--night); paint-order: stroke; stroke: rgba(255, 255, 255, .9); stroke-width: 5px; stroke-linejoin: round; }
   .map__city text { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 6.5px; fill: var(--night); pointer-events: none; paint-order: stroke; stroke: rgba(255, 255, 255, .85); stroke-width: 1.4px; stroke-linejoin: round; }
   .map__peek-hit { fill: transparent; stroke: none; pointer-events: all; cursor: help; outline: none; }
   .map__peek-tag { opacity: 0; transition: opacity .2s; pointer-events: none; }
@@ -119,9 +127,20 @@
   .ecol__head { display: flex; align-items: center; gap: 8px; margin: 0; padding-bottom: 10px; border-bottom: 1px solid rgba(196, 158, 250, .3); font-family: 'Montserrat', sans-serif; font-size: .78rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: #FFFFFF; }
   .ecol__head::before { content: ""; flex: none; width: 10px; height: 10px; border-radius: 3px; background: var(--tint); box-shadow: 0 0 0 1px rgba(255, 255, 255, .55); }
   .ecol ul { margin: 0 0 14px; padding: 0; list-style: none; }
-  .ecol li { position: relative; padding: 10px 0 10px 16px; border-bottom: 1px solid rgba(196, 158, 250, .3); font-size: .95rem; line-height: 1.35; color: var(--lilac-pale); cursor: pointer; transition: color .15s; }
-  .ecol li::before { content: "\203A"; position: absolute; left: 0; top: 8px; font-weight: 800; color: var(--lilac); }
-  .ecol li:hover, .ecol li:focus-visible, .ecol li.is-hot { color: #FFFFFF; }
+  .ecol > ul > li { position: relative; padding: 10px 0 10px 16px; border-bottom: 1px solid rgba(196, 158, 250, .3); font-size: .95rem; line-height: 1.35; color: var(--lilac-pale); cursor: pointer; transition: color .15s; }
+  .ecol > ul > li::before { content: "\203A"; position: absolute; left: 0; top: 8px; font-weight: 800; color: var(--lilac); }
+  .ecol > ul > li:hover, .ecol > ul > li:focus-visible, .ecol > ul > li.is-hot { color: #FFFFFF; }
+  .ecol li[data-region="3530"]::before { color: var(--gold); }
+
+  /* the GTA's municipalities, all of them by name, under Toronto in the GTA
+     column: plain text in one colour */
+  .gta { margin: 0 0 14px; }
+  .gta__head { margin: 0 0 10px; font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--lilac); }
+  .gta__list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+  .gta__list li { display: flex; flex-direction: column; gap: 2px; }
+  .gta__group { font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #FFFFFF; }
+  .gta__names { font-size: .86rem; line-height: 1.45; color: var(--lilac-pale); }
+  .gta__source { margin: 10px 0 0; font-size: .7rem; line-height: 1.4; color: var(--lilac); }
 
   .deck-foot { margin: 22px auto 0; padding-top: 14px; border-top: 1px solid rgba(25, 5, 46, .12); font-family: 'Montserrat', sans-serif; font-size: .68rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; text-align: center; color: var(--muted); }
 
@@ -252,10 +271,16 @@
       if (t.rotate) a.transform = "rotate(" + t.rotate + " " + t.x + " " + t.y + ")";
       el("text", a, svg).textContent = t.name;
     });
+    if (view === "ontario") {
+      var to = MAP.toronto;
+      var mark = el("g", { "class": "map__toronto", "aria-hidden": "true" }, svg);
+      el("circle", { cx: to.x, cy: to.y, r: 7 }, mark);
+      el("text", { x: to.x + 12, y: to.y + 22 }, mark).textContent = "Toronto";
+    }
     if (view === "gta") {
       MAP.cities.forEach(function (c) {
-        var g = el("g", { "class": "map__city" }, svg);
-        el("circle", { cx: c.x, cy: c.y, r: 1.6 }, g);
+        var g = el("g", { "class": "map__city" + (c.name === "Toronto" ? " map__city--toronto" : "") }, svg);
+        el("circle", { cx: c.x, cy: c.y, r: c.name === "Toronto" ? 2.4 : 1.6 }, g);
         el("text", { x: c.x + 2.8, y: c.y + 1.2 }, g).textContent = c.name;
       });
       /* Lake Simcoe: hover or focus the lake and its name appears */
@@ -287,7 +312,7 @@
     ["mouseenter", "focus", "click"].forEach(function (ev) { n.addEventListener(ev, function () { light(zone, region); }); });
   }
   deck.querySelectorAll(".zcard").forEach(function (n) { bind(n, n.dataset.zone); });
-  deck.querySelectorAll(".ecol li").forEach(function (n) { bind(n, n.dataset.zone, n.dataset.region); });
+  deck.querySelectorAll(".ecol li[data-region]").forEach(function (n) { bind(n, n.dataset.zone, n.dataset.region); });
   deck.querySelectorAll(".map-stage, .zcards, .ecols").forEach(function (n) {
     n.addEventListener("mouseleave", function () { light(null); });
   });

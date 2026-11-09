@@ -26,16 +26,18 @@ const dataFile = path.join(tmp, "data.json");
 execFileSync(process.execPath, [bundle, dataFile]);
 const { R, C } = JSON.parse(fs.readFileSync(dataFile, "utf8"));
 
-// Slow Stream's map colours (Greg, 2026-11-09: purples, indigo-blue and
-// greys; no greens or reds). Each is a site value: lilac and the violets from
-// the ramp on ooos.ca/about, Blue Light, Slow Stream's indigo.
+// Map colours chosen for reading the map, not the brand (Greg, 2026-11-09):
+// Northern rock grey, Eastern deep red (Ottawa, the capital), Southwestern
+// forest green (London, the Forest City), Central Blue Light, the GTA Slow
+// Stream's indigo, and Toronto itself marked in gold inside it.
 const TINT = {
-  northern: "#CBA3F5",
-  eastern: "#6C0BF4",
+  northern: "#868C94",
+  eastern: "#9E1B32",
   central: "#4DAEFF",
-  southwestern: "#4A0F8A",
+  southwestern: "#2E7D32",
   gta: "#19007D",
 };
+const TORONTO_GOLD = "#F0C040";
 // the deck's card titles, and a line of main centres in place of the statistics
 const CARD = {
   gta: { big: "Greater", sub: "Toronto", sub2: "Area (GTA)", centres: "Toronto · Mississauga · Brampton" },
@@ -62,12 +64,25 @@ const cards = cardOrder.map((id) => {
         </li>`;
 }).join("\n");
 
+// every GTA municipality by name, grouped by its region, from the official
+// Region of Peel GTA map the dashboard already uses (R.GTA_MUNICIPALITIES);
+// listed in the GTA column under Toronto (Greg, 2026-11-09)
+const gtaCount = R.GTA_MUNICIPALITIES.reduce((n, g) => n + g.places.length, 0);
+const gtaPlaces = `
+            <div class="gta">
+              <p class="gta__head">${gtaCount} municipalities</p>
+              <ul class="gta__list">
+${R.GTA_MUNICIPALITIES.map((g) => `                <li><span class="gta__group">${esc(g.group)}</span><span class="gta__names">${g.places.map(esc).join(", ")}</span></li>`).join("\n")}
+              </ul>
+              <p class="gta__source">Source: Region of Peel, Peel Data Centre GTA map (2022)</p>
+            </div>`;
+
 const columns = columnOrder.map((id) => {
   const z = byId[id];
   const items = z.regions.map((r) => `<li data-region="${r.id}" data-zone="${id}" tabindex="0">${esc(r.name)}</li>`).join("");
   return `          <div class="ecol" data-zone="${id}" style="--tint:${TINT[id]}">
             <p class="ecol__head">${COLUMN_HEAD[id]}</p>
-            <ul>${items}</ul>
+            <ul>${items}</ul>${id === "gta" ? gtaPlaces : ""}
           </div>`;
 }).join("\n");
 
@@ -80,6 +95,7 @@ const MAP = {
   usa: C.USA_PATH,
   border: C.CANADA_US_BORDER,
   cities: C.GTA_CITIES,
+  toronto: C.GTA_CITIES.find((c) => c.name === "Toronto"),
   simcoe: { d: C.SIMCOE_PATH, x: C.SIMCOE_CENTRE.x, y: C.SIMCOE_CENTRE.y },
   zones: columnOrder.map((id) => ({
     id,
@@ -92,6 +108,7 @@ const MAP = {
 const html = fs.readFileSync(path.join(__dirname, "ontario-embed-template.html"), "utf8")
   .replace("%%CARDS%%", cards)
   .replace("%%COLUMNS%%", columns)
+  .replace(/%%GOLD%%/g, TORONTO_GOLD)
   .replace("%%MAP_DATA%%", JSON.stringify(MAP));
 fs.writeFileSync(path.join(root, "public/embeds/ontario-regions.html"), html);
 fs.rmSync(tmp, { recursive: true, force: true });
