@@ -75,14 +75,12 @@
   .map__land { fill: #E4E6EC; stroke: #FFFFFF; stroke-width: 1; vector-effect: non-scaling-stroke; }
   .map__lake { fill: #DCEBF3; }
   .map__usa { fill: #D8DBDE; fill-rule: evenodd; stroke: none; }
-  /* the neighbouring provinces in their flag colours, soft: Quebec's blue
-     (Pantone 293 C) with white glowing in from the Ontario border,
+  /* the neighbouring provinces in their flag colours, soft: Quebec its blue
+     (Pantone 293 C) blending through grey to white,
      Manitoba's green blended into gold, so neither reads as water or as the
      Southwestern green */
   .map__prov { stroke: none; pointer-events: none; }
   .map__prov--quebec { fill: url(#quebec-flag); }
-  .map__haze { pointer-events: none; opacity: .45; }
-  .map__haze path { fill: none; stroke: #FFFFFF; stroke-width: 90; stroke-linejoin: round; }
   .map__zone[data-zone="central"] path { fill: url(#central-blend); }
   .map__prov--manitoba { fill: url(#manitoba-flag); }
   .map__label.map__label--quebec, .map__label.map__label--manitoba { fill: #FFFFFF; paint-order: stroke; stroke-width: 4px; stroke-linejoin: round; }
@@ -332,11 +330,10 @@
     el("path", { d: "M0 0L10 5L0 10z", "class": "map__peek-head" },
       el("marker", { id: "peek-arrow", viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 4, markerHeight: 4, orient: "auto" }, defs));
     /* blends that run all the way through an area, soft like the gradients
-       on Slow Stream's pages. Quebec (below): blue rising into white from
-       the top, with a faint haze off the Ontario border. Central: its light blue at the heart easing out to sand at the edges,
+       on Slow Stream's pages. Quebec (below): blue blending through grey to
+       white, one smooth sweep. Central: its light blue at the heart easing out to sand at the edges,
        through a pale step so blue and sand never mix into green, so the zone
        reads as land, never water. */
-    el("feGaussianBlur", { stdDeviation: 40 }, el("filter", { id: "soft-white", x: "-50%", y: "-50%", width: "200%", height: "200%" }, defs));
     var cb = el("radialGradient", { id: "central-blend", gradientUnits: "userSpaceOnUse", cx: 785, cy: 812, r: 135 }, defs);
     [["0", "#4DAEFF"], ["0.3", "#8DC2EC"], ["0.55", "#E6D8B4"], ["1", "#D9B97E"]].forEach(function (s) {
       el("stop", { offset: s[0], "stop-color": s[1] }, cb);
@@ -350,44 +347,16 @@
       var grad = el("linearGradient", { id: "manitoba-flag", gradientUnits: "userSpaceOnUse", x1: -170, y1: -60, x2: 60, y2: 560 }, defs);
       el("stop", { offset: "0", "stop-color": "#165016" }, grad);
       el("stop", { offset: "1", "stop-color": "#A07F37" }, grad);
+      /* Quebec: one soft blend across the whole province (Greg,
+         2026-11-09), from its flag blue in the south through bluish and
+         grey to a grey-white at the top: distinct from the water, no
+         patches */
+      var qg = el("linearGradient", { id: "quebec-flag", gradientUnits: "userSpaceOnUse", x1: 780, y1: 702, x2: 1060, y2: -60 }, defs);
+      [["0", "#001F97"], ["0.4", "#4458AA"], ["0.72", "#9EA5C0"], ["1", "#ECECF1"]].forEach(function (s) {
+        el("stop", { offset: s[0], "stop-color": s[1] }, qg);
+      });
       MAP.provinces.forEach(function (p) {
-        if (p.id !== "quebec") {
-          el("path", { "class": "map__prov map__prov--" + p.id, d: p.d, "clip-path": "url(#land-clip)" }, svg);
-          return;
-        }
-        /* Quebec: its flag blue rising into a white that comes down from the
-           top (Greg, 2026-11-09: the earlier top-light gradient, with more
-           of the white), plus a faint white shading in off the Ontario
-           border (Ontario's outline, drawn wide and blurred, only inside
-           Quebec; Ontario is painted over the inner half) */
-        /* the base runs light at the top, the flag blue through the
-           middle, and light again at the bottom; soft spots laid over it
-           (white at the top corner and along the St. Lawrence, blue at the
-           heart) blend it the way a mesh gradient does, from several points
-           rather than one direction */
-        var qg = el("linearGradient", { id: "quebec-flag", gradientUnits: "userSpaceOnUse", x1: 880, y1: -60, x2: 900, y2: 702 }, defs);
-        [["0", "#C3CBEB"], ["0.3", "#3D55B3"], ["0.55", "#001F97"], ["0.8", "#2E47AC"], ["1", "#B4BEE6"]].forEach(function (s) {
-          el("stop", { offset: s[0], "stop-color": s[1] }, qg);
-        });
-        var spots = [
-          ["q-spot-1", 1060, 0, 230, "#FFFFFF", 0.55],
-          ["q-spot-2", 760, 690, 170, "#FFFFFF", 0.5],
-          ["q-spot-3", 1010, 640, 160, "#FFFFFF", 0.45],
-          ["q-spot-4", 900, 330, 190, "#001F97", 0.6],
-        ];
-        spots.forEach(function (s) {
-          var rg = el("radialGradient", { id: s[0], gradientUnits: "userSpaceOnUse", cx: s[1], cy: s[2], r: s[3] }, defs);
-          el("stop", { offset: "0", "stop-color": s[4], "stop-opacity": s[5] }, rg);
-          el("stop", { offset: "1", "stop-color": s[4], "stop-opacity": 0 }, rg);
-        });
-        el("path", { d: p.d }, el("clipPath", { id: "quebec-clip" }, defs));
-        var q = el("g", { "clip-path": "url(#quebec-clip)" }, el("g", { "clip-path": "url(#land-clip)" }, svg));
-        el("path", { "class": "map__prov map__prov--quebec", d: p.d }, q);
-        spots.forEach(function (s) {
-          el("circle", { cx: s[1], cy: s[2], r: s[3], fill: "url(#" + s[0] + ")", "pointer-events": "none" }, q);
-        });
-        var haze = el("g", { "class": "map__haze", filter: "url(#soft-white)" }, q);
-        MAP.zones.forEach(function (z) { z.regions.forEach(function (r) { el("path", { d: r.d }, haze); }); });
+        el("path", { "class": "map__prov map__prov--" + p.id, d: p.d, "clip-path": "url(#land-clip)" }, svg);
       });
     }
     el("path", { "class": "map__usa", d: MAP.usa, "clip-path": "url(#land-clip)" }, svg);
