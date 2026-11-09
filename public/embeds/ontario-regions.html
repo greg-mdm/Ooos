@@ -360,13 +360,32 @@
            of the white), plus a faint white shading in off the Ontario
            border (Ontario's outline, drawn wide and blurred, only inside
            Quebec; Ontario is painted over the inner half) */
-        var qg = el("linearGradient", { id: "quebec-flag", gradientUnits: "userSpaceOnUse", x1: 760, y1: 702, x2: 1000, y2: -60 }, defs);
-        [["0", "#001F97"], ["0.45", "#1F3BA6"], ["1", "#C3CBEB"]].forEach(function (s) {
+        /* the base runs light at the top, the flag blue through the
+           middle, and light again at the bottom; soft spots laid over it
+           (white at the top corner and along the St. Lawrence, blue at the
+           heart) blend it the way a mesh gradient does, from several points
+           rather than one direction */
+        var qg = el("linearGradient", { id: "quebec-flag", gradientUnits: "userSpaceOnUse", x1: 880, y1: -60, x2: 900, y2: 702 }, defs);
+        [["0", "#C3CBEB"], ["0.3", "#3D55B3"], ["0.55", "#001F97"], ["0.8", "#2E47AC"], ["1", "#B4BEE6"]].forEach(function (s) {
           el("stop", { offset: s[0], "stop-color": s[1] }, qg);
+        });
+        var spots = [
+          ["q-spot-1", 1060, 0, 230, "#FFFFFF", 0.55],
+          ["q-spot-2", 760, 690, 170, "#FFFFFF", 0.5],
+          ["q-spot-3", 1010, 640, 160, "#FFFFFF", 0.45],
+          ["q-spot-4", 900, 330, 190, "#001F97", 0.6],
+        ];
+        spots.forEach(function (s) {
+          var rg = el("radialGradient", { id: s[0], gradientUnits: "userSpaceOnUse", cx: s[1], cy: s[2], r: s[3] }, defs);
+          el("stop", { offset: "0", "stop-color": s[4], "stop-opacity": s[5] }, rg);
+          el("stop", { offset: "1", "stop-color": s[4], "stop-opacity": 0 }, rg);
         });
         el("path", { d: p.d }, el("clipPath", { id: "quebec-clip" }, defs));
         var q = el("g", { "clip-path": "url(#quebec-clip)" }, el("g", { "clip-path": "url(#land-clip)" }, svg));
         el("path", { "class": "map__prov map__prov--quebec", d: p.d }, q);
+        spots.forEach(function (s) {
+          el("circle", { cx: s[1], cy: s[2], r: s[3], fill: "url(#" + s[0] + ")", "pointer-events": "none" }, q);
+        });
         var haze = el("g", { "class": "map__haze", filter: "url(#soft-white)" }, q);
         MAP.zones.forEach(function (z) { z.regions.forEach(function (r) { el("path", { d: r.d }, haze); }); });
       });
