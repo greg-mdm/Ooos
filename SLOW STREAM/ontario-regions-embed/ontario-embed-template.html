@@ -75,11 +75,12 @@
   .map__land { fill: #E4E6EC; stroke: #FFFFFF; stroke-width: 1; vector-effect: non-scaling-stroke; }
   .map__lake { fill: #DCEBF3; }
   .map__usa { fill: #D8DBDE; fill-rule: evenodd; stroke: none; }
-  /* the neighbouring provinces in their flag colours: Quebec's blue (Pantone
-     293 C), Manitoba's green and gold in stripes so it never reads as the
-     Southwestern green */
+  /* the neighbouring provinces in their flag colours, both in the same
+     stripes: Quebec's blue (Pantone 293 C) and white, so it never reads as
+     water; Manitoba's green and gold, so it never reads as the Southwestern
+     green */
   .map__prov { stroke: none; pointer-events: none; }
-  .map__prov--quebec { fill: #001F97; }
+  .map__prov--quebec { fill: url(#quebec-flag); }
   .map__prov--manitoba { fill: url(#manitoba-flag); }
   .map__label.map__label--quebec, .map__label.map__label--manitoba { fill: #FFFFFF; paint-order: stroke; stroke-width: 4px; stroke-linejoin: round; }
   .map__label.map__label--quebec { stroke: #001F97; }
@@ -266,6 +267,9 @@
       var stripes = el("pattern", { id: "manitoba-flag", patternUnits: "userSpaceOnUse", width: 24, height: 24, patternTransform: "rotate(45)" }, defs);
       el("rect", { width: 24, height: 24, fill: "#165016" }, stripes);
       el("rect", { width: 12, height: 24, fill: "#A07F37" }, stripes);
+      var qstripes = el("pattern", { id: "quebec-flag", patternUnits: "userSpaceOnUse", width: 24, height: 24, patternTransform: "rotate(45)" }, defs);
+      el("rect", { width: 24, height: 24, fill: "#001F97" }, qstripes);
+      el("rect", { width: 12, height: 24, fill: "#FFFFFF" }, qstripes);
       MAP.provinces.forEach(function (p) {
         el("path", { "class": "map__prov map__prov--" + p.id, d: p.d, "clip-path": "url(#land-clip)" }, svg);
       });
