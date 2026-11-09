@@ -264,12 +264,12 @@
     el("rect", { "class": "map__water", x: -1000, y: -1000, width: 4000, height: 4000 }, svg);
     el("path", { "class": "map__land", d: v.land }, svg);
     if (view === "ontario") {
-      var stripes = el("pattern", { id: "manitoba-flag", patternUnits: "userSpaceOnUse", width: 24, height: 24, patternTransform: "rotate(45)" }, defs);
-      el("rect", { width: 24, height: 24, fill: "#165016" }, stripes);
-      el("rect", { width: 12, height: 24, fill: "#A07F37" }, stripes);
-      var qstripes = el("pattern", { id: "quebec-flag", patternUnits: "userSpaceOnUse", width: 24, height: 24, patternTransform: "rotate(45)" }, defs);
-      el("rect", { width: 24, height: 24, fill: "#001F97" }, qstripes);
-      el("rect", { width: 12, height: 24, fill: "#FFFFFF" }, qstripes);
+      var stripes = el("pattern", { id: "manitoba-flag", patternUnits: "userSpaceOnUse", width: 64, height: 64, patternTransform: "rotate(45)" }, defs);
+      el("rect", { width: 64, height: 64, fill: "#165016" }, stripes);
+      el("rect", { width: 32, height: 64, fill: "#A07F37" }, stripes);
+      var qstripes = el("pattern", { id: "quebec-flag", patternUnits: "userSpaceOnUse", width: 64, height: 64, patternTransform: "rotate(45)" }, defs);
+      el("rect", { width: 64, height: 64, fill: "#001F97" }, qstripes);
+      el("rect", { width: 32, height: 64, fill: "#FFFFFF" }, qstripes);
       MAP.provinces.forEach(function (p) {
         el("path", { "class": "map__prov map__prov--" + p.id, d: p.d, "clip-path": "url(#land-clip)" }, svg);
       });
