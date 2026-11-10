@@ -56,27 +56,41 @@
   .intro__tagline { margin-top: .5em !important; font-size: clamp(1.25rem, 2.4vw, 1.9rem); font-weight: 400; line-height: 1.3; color: var(--electric); }
   .intro .intro__thanks { margin-top: 1.1em; font-size: clamp(1.05rem, 1.5vw, 1.25rem); line-height: 1.6; color: var(--amethyst); text-wrap: balance; max-width: 60ch; margin-left: auto; margin-right: auto; }
 
-  .topics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 2vw, 24px); margin: 0 0 clamp(32px, 4.5vw, 56px); }
+  /* row one: three cards; row two: the image across the first two
+     columns, the acknowledgement continuing in the third */
+  .topics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 2vw, 24px); }
   .topic { padding: clamp(22px, 2.4vw, 32px); border-radius: 20px; background: rgba(255, 255, 255, .62); border: 1px solid rgba(255, 255, 255, .9); box-shadow: 0 10px 30px rgba(25, 5, 46, .07); }
   .topic__lead { font-size: clamp(1.15rem, 1.6vw, 1.38rem); font-weight: 500; line-height: 1.4; color: var(--night); text-wrap: balance; }
-  .topic__body { margin-top: .8em !important; font-size: clamp(1.05rem, 1.35vw, 1.18rem); line-height: 1.65; color: #2A2340; text-wrap: balance; }
-  .neighbours { display: grid; gap: 12px; margin: 16px 0 0; padding: 0; list-style: none; font-size: clamp(1rem, 1.25vw, 1.1rem); line-height: 1.4; color: #2A2340; }
-  .neighbours li { display: flex; align-items: center; gap: 12px; }
-  /* the provinces' map colours, as keys */
-  .swatch { flex: none; width: 30px; height: 30px; border-radius: 9px; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .6), 0 2px 6px rgba(25, 5, 46, .15); }
+  .topic__body { margin-top: .8em !important; font-size: clamp(1.05rem, 1.35vw, 1.18rem); line-height: 1.65; color: #2A2340; text-wrap: pretty; }
+  /* the two halves of the acknowledgement share one tint, so they read as
+     one statement */
+  .topic--ack { background: linear-gradient(160deg, rgba(255, 255, 255, .8) 0%, rgba(230, 230, 250, .85) 100%); }
+  .ack__eyebrow { margin: 0 0 12px; font-family: 'Poppins', sans-serif; font-size: .78rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--amethyst); }
+  .ack__link { margin-top: 1.1em !important; font-size: .95rem; }
+  .ack__link a { color: var(--electric); font-weight: 500; text-decoration: none; border-bottom: 1px solid rgba(108, 11, 244, .35); }
+  .ack__link a:hover { color: var(--amethyst); border-color: var(--amethyst); }
+  .topic-image { grid-column: 1 / span 2; margin: 0; border-radius: 20px; overflow: hidden; box-shadow: 0 14px 34px rgba(25, 5, 46, .18); aspect-ratio: 16 / 9; background: var(--midnight); }
+  .topic-image img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .topic--ack2 { align-self: stretch; }
+
+  /* under the map: the neighbours, keyed to their map colours */
+  .neighbours-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 28px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--lavender); font-family: 'Poppins', sans-serif; }
+  .neighbours__title { margin: 0; font-size: clamp(1.02rem, 1.3vw, 1.15rem); font-weight: 500; color: var(--night); }
+  .neighbours { display: flex; flex-wrap: wrap; gap: 10px 24px; margin: 0; padding: 0; list-style: none; font-size: clamp(1rem, 1.25vw, 1.1rem); font-weight: 300; line-height: 1.4; color: #2A2340; }
+  .neighbours li { display: flex; align-items: center; gap: 10px; }
+  .swatch { flex: none; width: 26px; height: 26px; border-radius: 8px; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .6), 0 2px 6px rgba(25, 5, 46, .15); }
   .swatch--manitoba { background: linear-gradient(160deg, #165016 0%, #A07F37 100%); }
   .swatch--quebec { background: linear-gradient(20deg, #001F97 0%, #4458AA 40%, #9EA5C0 72%, #ECECF1 100%); }
 
-  .ack { max-width: 980px; margin: 0 auto; padding: clamp(26px, 3.2vw, 44px); border-radius: 22px; background: linear-gradient(135deg, rgba(255, 255, 255, .78) 0%, rgba(230, 230, 250, .7) 100%); border: 1px solid rgba(255, 255, 255, .9); box-shadow: 0 10px 30px rgba(25, 5, 46, .07); }
-  .ack__eyebrow { margin: 0 0 12px; font-family: 'Poppins', sans-serif; font-size: .82rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--amethyst); }
-  .ack__lead { font-size: clamp(1.35rem, 2.4vw, 1.9rem); font-weight: 400; line-height: 1.3; color: var(--night); text-wrap: balance; }
-  .ack__body { display: grid; gap: 1em; margin-top: 1.2em; max-width: 62ch; font-size: clamp(1rem, 1.3vw, 1.14rem); line-height: 1.7; color: #2A2340; }
-  .ack__body p { text-wrap: pretty; }
-  .ack__source { margin-top: 1.4em !important; font-size: .88rem; color: var(--muted); }
-  .ack__source a { color: var(--electric); font-weight: 500; text-decoration: none; border-bottom: 1px solid rgba(108, 11, 244, .35); }
-  .ack__source a:hover { color: var(--amethyst); border-color: var(--amethyst); }
   @media (max-width: 900px) {
+    /* one column: Ontario, the image, Explore the map, then the two halves
+       of the acknowledgement in one run */
     .topics { grid-template-columns: minmax(0, 1fr); }
+    .topic-image { grid-column: auto; order: 1; }
+    .topic--ontario { order: 0; }
+    .topic--explore { order: 2; }
+    .topic--ack1 { order: 3; }
+    .topic--ack2 { order: 4; }
   }
 
   .deck { background: linear-gradient(180deg, var(--cloud) 0%, var(--lavender) 100%); padding: clamp(24px, 3vw, 40px) 0 clamp(20px, 2.4vw, 32px); }
@@ -213,33 +227,36 @@
         <p class="intro__thanks">Thank you for doing business with the people of Ontario.</p>
       </header>
 
+      <!-- row one: Ontario, the map, the land acknowledgement (part one);
+           row two: the image under the first two, part two of the
+           acknowledgement continuing under part one (Greg, 2026-11-10) -->
       <div class="topics">
-        <article class="topic">
+        <article class="topic topic--ontario">
           <p class="topic__lead">Ontario is home to more people than any other province in Canada.</p>
           <p class="topic__body">The interactive map below highlights 11 economic regions that power Ontario&rsquo;s economy.</p>
         </article>
-        <article class="topic">
+        <article class="topic topic--explore">
           <p class="topic__lead">Explore the map to learn what Ontario&rsquo;s economy offers creative partners.</p>
           <p class="topic__body">Each region&rsquo;s public records on employment, industries, wages, education, and immigration are tracked, so the data can be mapped, compared, and followed over time.</p>
         </article>
-        <article class="topic">
-          <p class="topic__lead">Meet our provincial neighbours:</p>
-          <ul class="neighbours">
-            <li><span class="swatch swatch--manitoba" aria-hidden="true"></span>Manitoba to the northwest</li>
-            <li><span class="swatch swatch--quebec" aria-hidden="true"></span>Quebec to the east</li>
-          </ul>
-        </article>
+        <section class="topic topic--ack topic--ack1" aria-labelledby="ack-title">
+          <h2 class="ack__eyebrow" id="ack-title">Land acknowledgement</h2>
+          <p class="topic__lead">Slow Stream Studio sits on Indigenous land in Toronto, Ontario, Canada.</p>
+          <p class="topic__body">&ldquo;Tkar&oacute;n&rdquo; (Toronto) belongs to the Dish with One Spoon territory, which is the traditional territory of the Haudenosaunee Confederacy, the Wendat, and the Mississaugas of the Credit First Nation.</p>
+          <p class="ack__link"><a href="https://tpl.ca/about-the-library/land-acknowledgements/land-acknowledgements-statements/" target="_blank" rel="noopener noreferrer">Read the full land acknowledgement &#8599;</a></p>
+        </section>
+        <figure class="topic-image">
+          <picture>
+            <source type="image/webp" srcset="https://ooos.ca/assets/slowstream/ontario-11-economic-regions-960.webp 960w, https://ooos.ca/assets/slowstream/ontario-11-economic-regions-1600.webp 1600w" sizes="(min-width: 901px) 66vw, 100vw">
+            <img src="https://ooos.ca/assets/slowstream/ontario-11-economic-regions-1600.jpg" width="1600" height="900" loading="lazy"
+              alt="Toronto's skyline at night across a rain-wet waterfront, the CN Tower lit violet and a small ghost among soap bubbles, above the words 11 Economic Regions">
+          </picture>
+        </figure>
+        <section class="topic topic--ack topic--ack2" aria-label="Land acknowledgement, continued">
+          <p class="topic__lead">46 treaties and agreements cover the territory now called Ontario.</p>
+          <p class="topic__body">The Dish with One Spoon territory is the result of a treaty between the Six Nations Confederacy, the Anishinaabek, and allied nations to peaceably share and care for this land, its waters, and all the biodiversity in the Great Lakes region. Everyone that settles here is called to uphold this treaty peacefully, building friendship and mutual respect.</p>
+        </section>
       </div>
-
-      <section class="ack" aria-labelledby="ack-title">
-        <h2 class="ack__eyebrow" id="ack-title">Land acknowledgement</h2>
-        <p class="ack__lead">46 treaties and agreements cover the territory now called Ontario.</p>
-        <div class="ack__body">
-          <p>Slow Stream Studio sits on Indigenous land in Toronto. &ldquo;Tkar&oacute;n&rdquo; (Toronto) is situated on Dish with One Spoon territory. This is the traditional territory of the Haudenosaunee Confederacy, the Wendat, and the Mississaugas of the Credit First Nation.</p>
-          <p>The Dish with One Spoon territory is the result of a treaty between the Six Nations Confederacy, the Anishinaabek, and allied nations to peaceably share and care for this land, its waters, and all the biodiversity in the Great Lakes region. Everyone that settles here is called to uphold this treaty peacefully, building friendship and mutual respect.</p>
-        </div>
-        <p class="ack__source">Source: <a href="https://tpl.ca/about-the-library/land-acknowledgements/land-acknowledgements-statements/" target="_blank" rel="noopener noreferrer">Toronto Public Library &#8599;</a></p>
-      </section>
     </div>
   </section>
 
@@ -261,6 +278,13 @@
             <svg class="map map--ontario" id="map" role="img" aria-label="Ontario provincial map on its water: five geographic zones and eleven economic regions, with the Great Lakes, Hudson Bay and the neighbouring shores"></svg>
           </div>
           <p class="map-caption" id="caption" aria-live="polite">Ontario</p>
+          <div class="neighbours-row">
+            <p class="neighbours__title">Meet our provincial neighbours:</p>
+            <ul class="neighbours">
+              <li><span class="swatch swatch--manitoba" aria-hidden="true"></span>Manitoba to the northwest</li>
+              <li><span class="swatch swatch--quebec" aria-hidden="true"></span>Quebec to the east</li>
+            </ul>
+          </div>
         </div>
       </figure>
 
