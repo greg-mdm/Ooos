@@ -6,7 +6,7 @@
 <title>Ontario regions · Slow Stream</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&family=Montserrat:wght@600;700&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@600;700&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
 <!-- Ooo! Digital Media Studio, ooos.ca. The Ontario section of
      ooos.ca/cid/iwatchlist as one standalone embed for slowstream.ca (Greg,
      2026-11-09), for an HTML embed (Wix: Add > Embed > Embed code > Code,
@@ -44,16 +44,40 @@
   body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; color: var(--night); background: var(--cloud); -webkit-font-smoothing: antialiased; }
   a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 3px solid var(--electric); outline-offset: 3px; }
 
-  /* the lede strip, on Slow Stream's lavender to cloud grey */
-  .lede-band { background: linear-gradient(126deg, var(--lavender) 20%, var(--cloud) 100%); padding: clamp(24px, 3vw, 40px) 0; }
   .wrap { max-width: 1400px; margin: 0 auto; padding: 0 clamp(16px, 3vw, 48px); }
-  .lede-row { display: flex; flex-wrap: wrap; gap: 1.4rem 2rem; align-items: flex-start; justify-content: space-between; }
-  .lede { flex: 1 1 560px; max-width: 64ch; margin: 0; font-size: clamp(1.02rem, 1.4vw, 1.26rem); line-height: 1.55; color: var(--night); text-wrap: balance; }
-  .lede b { color: var(--amethyst); font-weight: 800; }
-  .side-label { margin: 0 0 .6rem; font-size: .86rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--amethyst); }
-  .links { display: grid; gap: .5rem; }
-  .links a { width: fit-content; padding-bottom: 2px; font-size: .98rem; font-weight: 700; color: var(--electric); text-decoration: none; border-bottom: 1px solid rgba(108, 11, 244, .35); }
-  .links a:hover { color: var(--amethyst); border-color: var(--amethyst); }
+
+  /* the welcome, in Slow Stream's own voice: Poppins Light, large and
+     unhurried, on its lavender to cloud grey; prose held to a 55 to 65
+     character measure and balanced */
+  .intro { background: linear-gradient(126deg, var(--lavender) 20%, var(--cloud) 100%); padding: clamp(40px, 6vw, 88px) 0 clamp(36px, 5vw, 72px); font-family: 'Poppins', system-ui, sans-serif; font-weight: 300; color: var(--night); }
+  .intro p { margin: 0; }
+  .intro__hero { max-width: 980px; margin: 0 auto clamp(32px, 4.5vw, 56px); text-align: center; }
+  .intro__title { margin: 0; font-size: clamp(2.4rem, 5.6vw, 4.4rem); font-weight: 600; line-height: 1.05; letter-spacing: -.01em; color: var(--night); }
+  .intro__tagline { margin-top: .5em !important; font-size: clamp(1.25rem, 2.4vw, 1.9rem); font-weight: 400; line-height: 1.3; color: var(--electric); }
+  .intro .intro__thanks { margin-top: 1.1em; font-size: clamp(1.05rem, 1.5vw, 1.25rem); line-height: 1.6; color: var(--amethyst); text-wrap: balance; max-width: 60ch; margin-left: auto; margin-right: auto; }
+
+  .topics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 2vw, 24px); margin: 0 0 clamp(32px, 4.5vw, 56px); }
+  .topic { padding: clamp(22px, 2.4vw, 32px); border-radius: 20px; background: rgba(255, 255, 255, .62); border: 1px solid rgba(255, 255, 255, .9); box-shadow: 0 10px 30px rgba(25, 5, 46, .07); }
+  .topic__lead { font-size: clamp(1.15rem, 1.6vw, 1.38rem); font-weight: 500; line-height: 1.4; color: var(--night); text-wrap: balance; }
+  .topic__body { margin-top: .8em !important; font-size: clamp(1.05rem, 1.35vw, 1.18rem); line-height: 1.65; color: #2A2340; text-wrap: balance; }
+  .neighbours { display: grid; gap: 12px; margin: 16px 0 0; padding: 0; list-style: none; font-size: clamp(1rem, 1.25vw, 1.1rem); line-height: 1.4; color: #2A2340; }
+  .neighbours li { display: flex; align-items: center; gap: 12px; }
+  /* the provinces' map colours, as keys */
+  .swatch { flex: none; width: 30px; height: 30px; border-radius: 9px; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .6), 0 2px 6px rgba(25, 5, 46, .15); }
+  .swatch--manitoba { background: linear-gradient(160deg, #165016 0%, #A07F37 100%); }
+  .swatch--quebec { background: linear-gradient(20deg, #001F97 0%, #4458AA 40%, #9EA5C0 72%, #ECECF1 100%); }
+
+  .ack { max-width: 980px; margin: 0 auto; padding: clamp(26px, 3.2vw, 44px); border-radius: 22px; background: linear-gradient(135deg, rgba(255, 255, 255, .78) 0%, rgba(230, 230, 250, .7) 100%); border: 1px solid rgba(255, 255, 255, .9); box-shadow: 0 10px 30px rgba(25, 5, 46, .07); }
+  .ack__eyebrow { margin: 0 0 12px; font-family: 'Poppins', sans-serif; font-size: .82rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--amethyst); }
+  .ack__lead { font-size: clamp(1.35rem, 2.4vw, 1.9rem); font-weight: 400; line-height: 1.3; color: var(--night); text-wrap: balance; }
+  .ack__body { display: grid; gap: 1em; margin-top: 1.2em; max-width: 62ch; font-size: clamp(1rem, 1.3vw, 1.14rem); line-height: 1.7; color: #2A2340; }
+  .ack__body p { text-wrap: pretty; }
+  .ack__source { margin-top: 1.4em !important; font-size: .88rem; color: var(--muted); }
+  .ack__source a { color: var(--electric); font-weight: 500; text-decoration: none; border-bottom: 1px solid rgba(108, 11, 244, .35); }
+  .ack__source a:hover { color: var(--amethyst); border-color: var(--amethyst); }
+  @media (max-width: 900px) {
+    .topics { grid-template-columns: minmax(0, 1fr); }
+  }
 
   .deck { background: linear-gradient(180deg, var(--cloud) 0%, var(--lavender) 100%); padding: clamp(24px, 3vw, 40px) 0 clamp(20px, 2.4vw, 32px); }
 
@@ -180,17 +204,42 @@
 </style>
 </head>
 <body>
-  <section class="lede-band" aria-label="Ontario">
-    <div class="wrap lede-row">
-      <p class="lede"><b>Ontario</b> is <b>Canada&rsquo;s</b> largest province by population and has the highest GDP per capita. It actively monitors public records on employment, industries, wages, education, and immigration across its 11 economic regions. This data can be mapped, compared, and analyzed over time.</p>
-      <div>
-        <p class="side-label">Ontario data</p>
-        <div class="links">
-          <a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026" target="_blank" rel="noopener noreferrer">Ontario Employment Reports &#8599;</a>
-          <a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">Map of regions: Report &sect;4 &#8599;</a>
-          <a href="https://www.jobbank.gc.ca/trend-analysis/job-market-reports/ontario/environmental-scan" target="_blank" rel="noopener noreferrer">Ontario environmental scan: Job Bank &#8599;</a>
-        </div>
+  <!-- the welcome (Greg's copy, 2026-11-09), in topics rather than one block -->
+  <section class="intro" aria-labelledby="intro-title">
+    <div class="wrap">
+      <header class="intro__hero">
+        <h1 class="intro__title" id="intro-title">Welcome to Ontario</h1>
+        <p class="intro__tagline">Open for business. Yours to discover.</p>
+        <p class="intro__thanks">Thank you for doing business with the people of Ontario.</p>
+      </header>
+
+      <div class="topics">
+        <article class="topic">
+          <p class="topic__lead">Ontario is home to more people than any other province in Canada.</p>
+          <p class="topic__body">The interactive map below highlights 11 economic regions that power Ontario&rsquo;s economy.</p>
+        </article>
+        <article class="topic">
+          <p class="topic__lead">Explore the map to learn what Ontario&rsquo;s economy offers creative partners.</p>
+          <p class="topic__body">Each region&rsquo;s public records on employment, industries, wages, education, and immigration are tracked, so the data can be mapped, compared, and followed over time.</p>
+        </article>
+        <article class="topic">
+          <p class="topic__lead">Meet our provincial neighbours:</p>
+          <ul class="neighbours">
+            <li><span class="swatch swatch--manitoba" aria-hidden="true"></span>Manitoba to the northwest</li>
+            <li><span class="swatch swatch--quebec" aria-hidden="true"></span>Quebec to the east</li>
+          </ul>
+        </article>
       </div>
+
+      <section class="ack" aria-labelledby="ack-title">
+        <h2 class="ack__eyebrow" id="ack-title">Land acknowledgement</h2>
+        <p class="ack__lead">46 treaties and agreements cover the territory now called Ontario.</p>
+        <div class="ack__body">
+          <p>Slow Stream Studio sits on Indigenous land in Toronto. &ldquo;Tkar&oacute;n&rdquo; (Toronto) is situated on Dish with One Spoon territory. This is the traditional territory of the Haudenosaunee Confederacy, the Wendat, and the Mississaugas of the Credit First Nation.</p>
+          <p>The Dish with One Spoon territory is the result of a treaty between the Six Nations Confederacy, the Anishinaabek, and allied nations to peaceably share and care for this land, its waters, and all the biodiversity in the Great Lakes region. Everyone that settles here is called to uphold this treaty peacefully, building friendship and mutual respect.</p>
+        </div>
+        <p class="ack__source">Source: <a href="https://tpl.ca/about-the-library/land-acknowledgements/land-acknowledgements-statements/" target="_blank" rel="noopener noreferrer">Toronto Public Library &#8599;</a></p>
+      </section>
     </div>
   </section>
 
