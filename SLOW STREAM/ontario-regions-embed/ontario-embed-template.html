@@ -69,9 +69,13 @@
   .ack__link { margin-top: 1.1em !important; font-size: .95rem; }
   .ack__link a { color: var(--electric); font-weight: 500; text-decoration: none; border-bottom: 1px solid rgba(108, 11, 244, .35); }
   .ack__link a:hover { color: var(--amethyst); border-color: var(--amethyst); }
-  .topic-image { grid-column: 1 / span 2; margin: 0; border-radius: 20px; overflow: hidden; box-shadow: 0 14px 34px rgba(25, 5, 46, .18); aspect-ratio: 16 / 9; background: var(--midnight); }
-  .topic-image img { display: block; width: 100%; height: 100%; object-fit: cover; }
-  .topic--ack2 { align-self: stretch; }
+  /* the map in row two, filling its two columns edge to edge */
+  .topics .topic-map { grid-column: 1 / span 2; margin: 0; align-self: start; }
+  .topics .topic-map .map-stage { width: 100%; }
+  /* the 11 Economic Regions banner, below the map and treaties */
+  .banner { max-width: 1200px; margin: clamp(20px, 2.6vw, 32px) auto 0; border-radius: 20px; overflow: hidden; box-shadow: 0 14px 34px rgba(25, 5, 46, .18); aspect-ratio: 16 / 9; background: var(--midnight); }
+  .banner img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .topic--ack2 { align-self: start; }
   /* the land map source, set as a clear button-card, not a footnote */
   .land-map { display: flex; flex-direction: column; gap: 4px; margin-top: 1.2em; padding: 14px 16px; border-radius: 14px; background: var(--amethyst); color: #FFFFFF; text-decoration: none; box-shadow: 0 8px 20px rgba(74, 15, 138, .25); transition: background-color .2s, transform .2s; }
   .land-map:hover, .land-map:focus-visible { background: var(--electric); transform: translateY(-2px); }
@@ -85,8 +89,9 @@
   .intro .story > * { max-width: 700px; margin-left: auto; margin-right: auto; }
   .story__kicker { margin-bottom: .4em !important; font-family: 'Poppins', sans-serif; font-size: .8rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--amethyst); }
   .story__title { margin-top: 0; margin-bottom: .55em; font-family: 'Source Serif 4', Georgia, serif; font-size: clamp(2rem, 3.8vw, 3rem); font-weight: 600; line-height: 1.1; color: #1E1E22; }
-  .story__dek { padding-bottom: 1.1em !important; border-bottom: 1px solid #E4E2EA; font-family: 'Source Serif 4', Georgia, serif; font-size: clamp(1.15rem, 1.7vw, 1.32rem); font-style: italic; line-height: 1.55; color: #3A3A40; text-wrap: pretty; }
-  .story__dek cite { font-style: normal; }
+  /* the standfirst in roman, so the titles in it stand out in italic */
+  .story__dek { padding-bottom: 1.1em !important; border-bottom: 1px solid #E4E2EA; font-family: 'Source Serif 4', Georgia, serif; font-size: clamp(1.15rem, 1.7vw, 1.32rem); font-style: normal; line-height: 1.55; color: #3A3A40; text-wrap: pretty; }
+  .story__dek cite { font-style: italic; font-weight: 600; color: #1E1E22; }
   .story__body { margin-top: 1.4em; font-family: 'Source Serif 4', Georgia, serif; font-size: clamp(1.06rem, 1.35vw, 1.18rem); font-weight: 400; line-height: 1.75; }
   .story__body p { margin: 0 0 1.05em; text-wrap: pretty; }
   .story__body p:last-child { margin-bottom: 0; }
@@ -95,6 +100,12 @@
   .story a { color: var(--amethyst); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
   .story a:hover { color: var(--electric); }
   .story sup a { text-decoration: none; }
+  /* the lede shows; the rest opens on the page */
+  .story__more { margin-top: 1.05em; }
+  .story__more[hidden] { display: none; }
+  .intro .story__toggle-row { margin-top: 1.4em; text-align: center; }
+  .story__toggle { padding: 12px 26px; border: 1.5px solid var(--amethyst); border-radius: 999px; background: #FFFFFF; color: var(--amethyst); font: 500 .98rem/1 'Poppins', sans-serif; letter-spacing: .02em; cursor: pointer; transition: background-color .2s, color .2s; }
+  .story__toggle:hover, .story__toggle[aria-expanded="true"] { background: var(--amethyst); color: #FFFFFF; }
   .story__notes { margin-top: 2em; padding-top: 1.2em; border-top: 1px solid #E4E2EA; font-family: 'Source Serif 4', Georgia, serif; }
   .story__notes-title { margin: 0 0 .6em; font-family: 'Poppins', sans-serif; font-size: .78rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: #55555C; }
   .story__notes ol { margin: 0; padding-left: 1.4em; font-size: .92rem; line-height: 1.6; color: #45454C; }
@@ -110,14 +121,9 @@
   .swatch--quebec { background: linear-gradient(20deg, #001F97 0%, #4458AA 40%, #9EA5C0 72%, #ECECF1 100%); }
 
   @media (max-width: 900px) {
-    /* one column: Ontario, the image, Explore the map, then the two halves
-       of the acknowledgement in one run */
+    /* one column, in reading order */
     .topics { grid-template-columns: minmax(0, 1fr); }
-    .topic-image { grid-column: auto; order: 1; }
-    .topic--ontario { order: 0; }
-    .topic--explore { order: 2; }
-    .topic--ack1 { order: 3; }
-    .topic--ack2 { order: 4; }
+    .topics .topic-map { grid-column: auto; }
   }
 
   .deck { background: linear-gradient(180deg, var(--cloud) 0%, var(--lavender) 100%); padding: clamp(24px, 3vw, 40px) 0 clamp(20px, 2.4vw, 32px); }
@@ -175,10 +181,10 @@
   .map-caption { margin: 12px 0 0; min-height: 1.2em; text-align: center; font-size: .78rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--indigo); }
 
   /* lighting a zone, or one region inside it */
-  .deck[data-hot] .map__zone path { fill-opacity: .3; }
-  .deck[data-hot] .map__zone.is-hot path { fill-opacity: 1; filter: drop-shadow(0 6px 14px rgba(25, 5, 46, .28)); }
-  .deck[data-region] .map__zone.is-hot path { fill-opacity: .4; filter: none; }
-  .deck[data-region] .map__zone.is-hot path.is-hot { fill-opacity: 1; filter: drop-shadow(0 6px 14px rgba(25, 5, 46, .3)); }
+  #deck[data-hot] .map__zone path { fill-opacity: .3; }
+  #deck[data-hot] .map__zone.is-hot path { fill-opacity: 1; filter: drop-shadow(0 6px 14px rgba(25, 5, 46, .28)); }
+  #deck[data-region] .map__zone.is-hot path { fill-opacity: .4; filter: none; }
+  #deck[data-region] .map__zone.is-hot path.is-hot { fill-opacity: 1; filter: drop-shadow(0 6px 14px rgba(25, 5, 46, .3)); }
 
   .deck-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 16px; }
   .deck-title { margin: 0; font-family: 'Montserrat', sans-serif; font-size: .86rem; font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: var(--night); }
@@ -246,6 +252,7 @@
 </head>
 <body>
   <!-- the welcome (Greg's copy, 2026-11-09), in topics rather than one block -->
+  <main id="deck">
   <section class="intro" aria-labelledby="intro-title">
     <div class="wrap">
       <header class="intro__hero">
@@ -254,9 +261,10 @@
         <p class="intro__thanks">Thank you for doing business with the people of Ontario.</p>
       </header>
 
-      <!-- row one: Ontario, the map, the land acknowledgement (part one);
-           row two: the image under the first two, part two of the
-           acknowledgement continuing under part one (Greg, 2026-11-10) -->
+      <!-- row one: Ontario, Explore the map, the land acknowledgement (part
+           one); row two: the provincial map across the first two columns,
+           the treaties (part two) on the right; then the 11 Economic Regions
+           banner (Greg, 2026-11-10) -->
       <div class="topics">
         <article class="topic topic--ontario">
           <p class="topic__lead">Ontario is home to more people than any other province in Canada.</p>
@@ -272,12 +280,30 @@
           <p class="topic__body">&ldquo;Tkar&oacute;n&rdquo; (Toronto) belongs to the Dish with One Spoon territory, which is the traditional territory of the Haudenosaunee Confederacy, the Wendat, and the Mississaugas of the Credit First Nation.</p>
           <p class="ack__link"><a href="https://tpl.ca/about-the-library/land-acknowledgements/land-acknowledgements-statements/" target="_blank" rel="noopener noreferrer">Read the full land acknowledgement &#8599;</a></p>
         </section>
-        <figure class="topic-image">
-          <picture>
-            <source type="image/webp" srcset="https://ooos.ca/assets/slowstream/ontario-11-economic-regions-960.webp 960w, https://ooos.ca/assets/slowstream/ontario-11-economic-regions-1600.webp 1600w" sizes="(min-width: 901px) 66vw, 100vw">
-            <img src="https://ooos.ca/assets/slowstream/ontario-11-economic-regions-1600.jpg" width="1600" height="900" loading="lazy"
-              alt="Toronto's skyline at night across a rain-wet waterfront, the CN Tower lit violet and a small ghost among soap bubbles, above the words 11 Economic Regions">
-          </picture>
+        <figure class="map-card topic-map">
+          <div class="map-bar">
+            <p class="map-title">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>
+              <span>Ontario</span><i aria-hidden="true"></i><span>Provincial map</span>
+            </p>
+            <div class="views" role="group" aria-label="Map scale">
+              <button type="button" class="view" data-view="ontario" aria-pressed="true">Ontario</button>
+              <button type="button" class="view" data-view="gta" aria-pressed="false">Greater Toronto Area</button>
+            </div>
+          </div>
+          <div class="map-body">
+            <div class="map-stage">
+              <svg class="map map--ontario" id="map" role="img" aria-label="Ontario provincial map on its water: five geographic zones and eleven economic regions, with the Great Lakes, Hudson Bay and the neighbouring shores"></svg>
+            </div>
+            <p class="map-caption" id="caption" aria-live="polite">Ontario</p>
+            <div class="neighbours-row">
+              <p class="neighbours__title">Meet our provincial neighbours:</p>
+              <ul class="neighbours">
+                <li><span class="swatch swatch--manitoba" aria-hidden="true"></span>Manitoba to the northwest</li>
+                <li><span class="swatch swatch--quebec" aria-hidden="true"></span>Quebec to the east</li>
+              </ul>
+            </div>
+          </div>
         </figure>
         <section class="topic topic--ack topic--ack2" aria-label="Land acknowledgement, continued">
           <p class="topic__lead">46 treaties and agreements cover the territory now called Ontario.</p>
@@ -289,20 +315,31 @@
         </section>
       </div>
 
+      <figure class="banner">
+        <picture>
+          <source type="image/webp" srcset="https://ooos.ca/assets/slowstream/ontario-11-economic-regions-960.webp 960w, https://ooos.ca/assets/slowstream/ontario-11-economic-regions-1600.webp 1600w" sizes="(min-width: 1240px) 1200px, 100vw">
+          <img src="https://ooos.ca/assets/slowstream/ontario-11-economic-regions-1600.jpg" width="1600" height="900" loading="lazy"
+            alt="Toronto's skyline at night across a rain-wet waterfront, the CN Tower lit violet and a small ghost among soap bubbles, above the words 11 Economic Regions">
+        </picture>
+      </figure>
+
       <!-- the story behind the image, set as a news article (Greg's copy,
            2026-11-10): light ground, charcoal text, a serif reading face -->
       <article class="story" aria-labelledby="story-title">
         <p class="story__kicker">Shadowy Backstory</p>
         <h2 class="story__title" id="story-title">A Remix of a Remix</h2>
-        <p class="story__dek"><cite>Singing in the Shadows</cite> (2026), by Gregory Tyler Long. The experimental cover art is a second-generation remix of <cite>Shadow</cite>, an abstract painting from McCormack&rsquo;s collection <cite>Canvases of Old Dreams</cite>.</p>
+        <p class="story__dek"><cite>Singing in the Shadows</cite> (2026), by Gregory Tyler Long. The experimental cover art is a second-generation remix of <cite>Shadow</cite>, an abstract painting from McCormack&rsquo;s collection <cite>Canvases of Old Dreams</cite> (2006&ndash;2026).</p>
         <div class="story__body">
-          <p>The remix is a collaboration: the two trade media back and forth, painting to pixels and back again. That exchange led to a third-generation Shadow. McCormack&rsquo;s canvas gives the sheet-ghost its colour and its shiver. Long&rsquo;s media aesthetics surround Shadow in a new environment.</p>
+          <p class="story__lede">The remix is a collaboration: the two trade media back and forth, painting to pixels and back again. That exchange led to a third-generation Shadow. McCormack&rsquo;s canvas gives the sheet-ghost its colour and its shiver. Long&rsquo;s media aesthetics surround Shadow in a new environment.</p>
+        </div>
+        <div class="story__more" id="story-more" hidden>
+          <div class="story__body">
           <p>The receding floor lines and the small figure in the distance reimagine the &ldquo;Broadway Melody&rdquo; ballet in <cite>Singin&rsquo; in the Rain</cite> (1952), a film about a studio faking its own voice.<sup><a href="#note-1" id="ref-1" aria-label="Note 1">1</a></sup></p>
           <p>The bubbles floated out of Jean Sim&eacute;on Chardin&rsquo;s <cite>Soap Bubbles</cite> (c. 1733/1734) and into Long&rsquo;s personal collection of media memories. Now they drift through <cite>Singing in the Shadows</cite> (2026).</p>
           <p>In European art, bubbles often suggest life is fleeting and fun is frivolous. Yet Chardin&rsquo;s figures show deep concentration. The painting may be about learning the world through experience.<sup><a href="#note-2" id="ref-2" aria-label="Note 2">2</a></sup></p>
           <p>The Toronto skyline was designed as a photo montage with Long&rsquo;s cityscape in silhouette. Text overlay: &ldquo;11 economic regions.&rdquo; The cover art is a remix of a remix. Each layer reworks the last, and no single original sits behind it.<sup>3</sup> <sup>4</sup> A ghost in all senses: a figure, and a sign pointing to other signs. The viewer completes it.<sup>5</sup></p>
           <p>The Canadian Interactive Exhibition (CIX) gave Shadow its first home, featuring McCormack&rsquo;s work in its National Gallery of Digital Art Influencers. Now you can <a href="https://www.slowstream.ca/product-page/shadow-from-canvases-of-old-dreams-a-collection-of-abstract-artworks" target="_top">collect Shadow in physical form</a>: a black wooden frame holds his vibrant painting, remixed in the spirit of renewal.</p>
-        </div>
+          </div>
         <footer class="story__notes">
           <h3 class="story__notes-title">Notes</h3>
           <ol>
@@ -310,37 +347,14 @@
             <li id="note-2">Jean Sim&eacute;on Chardin, <cite>Soap Bubbles</cite>, probably 1733/1734, oil on canvas, 93 &times; 74.6 cm, National Gallery of Art, Washington, DC, gift of Mrs. John W. Simpson, 1942, CC0, Google Arts &amp; Culture, <a href="https://artsandculture.google.com/asset/soap-bubbles-jean-sim%C3%A9on-chardin/PwEzmPJFv4OYuA" target="_blank" rel="noopener noreferrer">https://artsandculture.google.com/asset/soap-bubbles-jean-sim%C3%A9on-chardin/PwEzmPJFv4OYuA</a>. <a href="#ref-2" aria-label="Back to the text">&#8617;</a></li>
           </ol>
         </footer>
+        </div>
+        <p class="story__toggle-row"><button type="button" class="story__toggle" aria-expanded="false" aria-controls="story-more">Read the full story</button></p>
       </article>
     </div>
   </section>
 
-  <section class="deck" id="deck" aria-label="Ontario regions">
+  <section class="deck" aria-label="Ontario regions">
     <div class="wrap">
-      <figure class="map-card">
-        <div class="map-bar">
-          <p class="map-title">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>
-            <span>Ontario</span><i aria-hidden="true"></i><span>Provincial map</span>
-          </p>
-          <div class="views" role="group" aria-label="Map scale">
-            <button type="button" class="view" data-view="ontario" aria-pressed="true">Ontario</button>
-            <button type="button" class="view" data-view="gta" aria-pressed="false">Greater Toronto Area</button>
-          </div>
-        </div>
-        <div class="map-body">
-          <div class="map-stage">
-            <svg class="map map--ontario" id="map" role="img" aria-label="Ontario provincial map on its water: five geographic zones and eleven economic regions, with the Great Lakes, Hudson Bay and the neighbouring shores"></svg>
-          </div>
-          <p class="map-caption" id="caption" aria-live="polite">Ontario</p>
-          <div class="neighbours-row">
-            <p class="neighbours__title">Meet our provincial neighbours:</p>
-            <ul class="neighbours">
-              <li><span class="swatch swatch--manitoba" aria-hidden="true"></span>Manitoba to the northwest</li>
-              <li><span class="swatch swatch--quebec" aria-hidden="true"></span>Quebec to the east</li>
-            </ul>
-          </div>
-        </div>
-      </figure>
 
       <div class="deck-head">
         <h2 class="deck-title">Geographic regions</h2>
@@ -363,6 +377,7 @@
       <p class="deck-foot">5 geographic zones &middot; 11 economic regions &middot; Boundaries: Statistics Canada</p>
     </div>
   </section>
+  </main>
 
 <script>
   var MAP = %%MAP_DATA%%;
@@ -495,6 +510,17 @@
     });
   });
   draw();
+
+  /* the story: the lede shows, the rest opens on the page */
+  var more = document.getElementById("story-more");
+  var toggle = document.querySelector(".story__toggle");
+  toggle.addEventListener("click", function () {
+    var open = more.hidden;
+    more.hidden = !open;
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    toggle.textContent = open ? "Show less" : "Read the full story";
+    if (!open) document.getElementById("story-title").scrollIntoView({ block: "start", behavior: "smooth" });
+  });
 </script>
 </body>
 </html>
