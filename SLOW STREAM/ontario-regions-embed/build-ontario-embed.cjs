@@ -182,7 +182,7 @@ const html = fs.readFileSync(path.join(__dirname, "ontario-embed-template.html")
   .replace("%%COLUMNS%%", columns)
   .replace("%%GTA_PANEL%%", gtaPanel)
   .replace(/%%GOLD%%/g, TORONTO_GOLD)
-  .replace("%%MAP_DATA%%", JSON.stringify(MAP));
+  .replace("null /*%%MAP_DATA%%*/", JSON.stringify(MAP));
 fs.writeFileSync(path.join(root, "public/embeds/ontario-regions.html"), html);
 fs.rmSync(tmp, { recursive: true, force: true });
 console.log("ok", html.length);

@@ -281,6 +281,9 @@
         <article class="topic topic--ontario">
           <p class="topic__lead">Ontario is home to more people than any other province in Canada.</p>
           <p class="topic__body">The interactive map below highlights 11 economic regions that power Ontario&rsquo;s economy.</p>
+          <ul class="record-links">
+            <li><a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">Map of Regions: Report &sect;4 &#8599;</a></li>
+          </ul>
         </article>
         <article class="topic topic--explore">
           <p class="topic__lead">Explore the map to learn what Ontario&rsquo;s economy offers creative partners.</p>
@@ -288,7 +291,6 @@
           <!-- the Ontario data links from ooos.ca/cid/iwatchlist -->
           <ul class="record-links">
             <li><a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026" target="_blank" rel="noopener noreferrer">Ontario Employment Reports &#8599;</a></li>
-            <li><a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">Map of Regions: Report &sect;4 &#8599;</a></li>
             <li><a href="https://www.jobbank.gc.ca/trend-analysis/job-market-reports/ontario/environmental-scan" target="_blank" rel="noopener noreferrer">Ontario Environmental Scan: Job Bank &#8599;</a></li>
           </ul>
         </article>
@@ -404,7 +406,7 @@
   </main>
 
 <script>
-  var MAP = %%MAP_DATA%%;
+  var MAP = null /*%%MAP_DATA%%*/;
   var NS = "http://www.w3.org/2000/svg";
   var deck = document.getElementById("deck");
   var svg = document.getElementById("map");
@@ -533,7 +535,7 @@
       draw();
     });
   });
-  draw();
+  if (MAP) draw();
 
   /* the story: the lede shows, the rest opens on the page */
   var more = document.getElementById("story-more");
