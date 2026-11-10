@@ -82,15 +82,16 @@
   .land-map__title { font-size: 1rem; font-weight: 500; line-height: 1.35; }
   .land-map__from { font-size: .82rem; font-weight: 400; letter-spacing: .04em; color: var(--lilac-pale); }
 
-  /* the story behind the image: a news article, light ground and charcoal
+  /* the story behind the image: a news article on cloud white-grey #F1F0F2
+     with #FDFDFD edges and rules (Greg, 2026-11-10), charcoal
      text in a serif reading face, held to a 55 to 65 character measure */
-  .story { margin: clamp(20px, 2.6vw, 32px) 0 0; padding: clamp(28px, 4vw, 56px) clamp(20px, 4vw, 56px); border-radius: 20px; background: #FCFCFA; box-shadow: 0 10px 30px rgba(25, 5, 46, .07); color: #2B2B2E; }
+  .story { margin: clamp(20px, 2.6vw, 32px) 0 0; padding: clamp(28px, 4vw, 56px) clamp(20px, 4vw, 56px); border-radius: 20px; background: #F1F0F2; border: 1px solid #FDFDFD; box-shadow: 0 10px 30px rgba(25, 5, 46, .07); color: #2B2B2E; }
   /* one reading column for every part (about 62 characters of the body) */
   .intro .story > * { max-width: 700px; margin-left: auto; margin-right: auto; }
   .story__kicker { margin-bottom: .4em !important; font-family: 'Poppins', sans-serif; font-size: .8rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--amethyst); }
   .story__title { margin-top: 0; margin-bottom: .55em; font-family: 'Source Serif 4', Georgia, serif; font-size: clamp(2rem, 3.8vw, 3rem); font-weight: 600; line-height: 1.1; color: #1E1E22; }
   /* the standfirst in roman, so the titles in it stand out in italic */
-  .story__dek { padding-bottom: 1.1em !important; border-bottom: 1px solid #E4E2EA; font-family: 'Source Serif 4', Georgia, serif; font-size: clamp(1.15rem, 1.7vw, 1.32rem); font-style: normal; line-height: 1.55; color: #3A3A40; text-wrap: pretty; }
+  .story__dek { padding-bottom: 1.1em !important; border-bottom: 2px solid #FDFDFD; font-family: 'Source Serif 4', Georgia, serif; font-size: clamp(1.15rem, 1.7vw, 1.32rem); font-style: normal; line-height: 1.55; color: #3A3A40; text-wrap: pretty; }
   .story__dek cite { font-style: italic; font-weight: 600; color: #1E1E22; }
   .story__body { margin-top: 1.4em; font-family: 'Source Serif 4', Georgia, serif; font-size: clamp(1.06rem, 1.35vw, 1.18rem); font-weight: 400; line-height: 1.75; }
   .story__body p { margin: 0 0 1.05em; text-wrap: pretty; }
@@ -104,9 +105,9 @@
   .story__more { margin-top: 1.05em; }
   .story__more[hidden] { display: none; }
   .intro .story__toggle-row { margin-top: 1.4em; text-align: center; }
-  .story__toggle { padding: 12px 26px; border: 1.5px solid var(--amethyst); border-radius: 999px; background: #FFFFFF; color: var(--amethyst); font: 500 .98rem/1 'Poppins', sans-serif; letter-spacing: .02em; cursor: pointer; transition: background-color .2s, color .2s; }
+  .story__toggle { padding: 12px 26px; border: 1.5px solid var(--amethyst); border-radius: 999px; background: #FDFDFD; color: var(--amethyst); font: 500 .98rem/1 'Poppins', sans-serif; letter-spacing: .02em; cursor: pointer; transition: background-color .2s, color .2s; }
   .story__toggle:hover, .story__toggle[aria-expanded="true"] { background: var(--amethyst); color: #FFFFFF; }
-  .story__notes { margin-top: 2em; padding-top: 1.2em; border-top: 1px solid #E4E2EA; font-family: 'Source Serif 4', Georgia, serif; }
+  .story__notes { margin-top: 2em; padding-top: 1.2em; border-top: 2px solid #FDFDFD; font-family: 'Source Serif 4', Georgia, serif; }
   .story__notes-title { margin: 0 0 .6em; font-family: 'Poppins', sans-serif; font-size: .78rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: #55555C; }
   .story__notes ol { margin: 0; padding-left: 1.4em; font-size: .92rem; line-height: 1.6; color: #45454C; }
   .story__notes li { margin-bottom: .6em; overflow-wrap: anywhere; }
