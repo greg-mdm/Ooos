@@ -76,11 +76,22 @@
   .banner { max-width: 1200px; margin: clamp(20px, 2.6vw, 32px) auto 0; border-radius: 20px; overflow: hidden; box-shadow: 0 14px 34px rgba(25, 5, 46, .18); aspect-ratio: 16 / 9; background: var(--midnight); }
   .banner img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .topic--ack2 { align-self: start; }
-  /* the land map source, set as a clear button-card, not a footnote */
-  .land-map { display: flex; flex-direction: column; gap: 4px; margin-top: 1.2em; padding: 14px 16px; border-radius: 14px; background: var(--amethyst); color: #FFFFFF; text-decoration: none; box-shadow: 0 8px 20px rgba(74, 15, 138, .25); transition: background-color .2s, transform .2s; }
-  .land-map:hover, .land-map:focus-visible { background: var(--electric); transform: translateY(-2px); }
+  /* the treaty sources as clear button-cards, not footnotes: the Toronto
+     Public Library statement first (the main source, filled), then the
+     Grace Chapter land map (outlined) */
+  .sources { display: grid; gap: 10px; margin-top: 1.2em; }
+  .land-map { display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-radius: 14px; background: var(--amethyst); color: #FFFFFF; text-decoration: none; box-shadow: 0 8px 20px rgba(74, 15, 138, .25); transition: background-color .2s, color .2s, transform .2s; }
+  .land-map:hover, .land-map:focus-visible { background: var(--electric); color: #FFFFFF; transform: translateY(-2px); }
   .land-map__title { font-size: 1rem; font-weight: 500; line-height: 1.35; }
   .land-map__from { font-size: .82rem; font-weight: 400; letter-spacing: .04em; color: var(--lilac-pale); }
+  .land-map--second { background: #FDFDFD; color: var(--amethyst); border: 1.5px solid var(--amethyst); box-shadow: none; }
+  .land-map--second .land-map__from { color: var(--muted); }
+  .land-map--second:hover .land-map__from, .land-map--second:focus-visible .land-map__from { color: var(--lilac-pale); }
+
+  /* the watchlist's Ontario sources, as a short list of links */
+  .record-links { display: grid; gap: 8px; margin: 1em 0 0; padding: 0; list-style: none; }
+  .record-links a { display: inline-block; font-size: clamp(1rem, 1.25vw, 1.08rem); font-weight: 500; color: var(--electric); text-decoration: none; border-bottom: 1px solid rgba(108, 11, 244, .35); padding-bottom: 1px; }
+  .record-links a:hover { color: var(--amethyst); border-color: var(--amethyst); }
 
   /* the story behind the image: a news article on cloud white-grey #F1F0F2
      with #FDFDFD edges and rules (Greg, 2026-11-10), charcoal
@@ -273,7 +284,13 @@
         </article>
         <article class="topic topic--explore">
           <p class="topic__lead">Explore the map to learn what Ontario&rsquo;s economy offers creative partners.</p>
-          <p class="topic__body">Each region&rsquo;s public records on employment, industries, wages, education, and immigration are tracked, so the data can be mapped, compared, and followed over time.</p>
+          <p class="topic__body">Public records on employment, industries, wages, education, and immigration across 11 economic regions are integrated to create a province-wide picture of economic and social well-being. These resources make it possible to track lifestyle trends over time, which helps support evidence-based decisions:</p>
+          <!-- the Ontario data links from ooos.ca/cid/iwatchlist -->
+          <ul class="record-links">
+            <li><a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026" target="_blank" rel="noopener noreferrer">Ontario Employment Reports &#8599;</a></li>
+            <li><a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026#section-4" target="_blank" rel="noopener noreferrer">Map of Regions: Report &sect;4 &#8599;</a></li>
+            <li><a href="https://www.jobbank.gc.ca/trend-analysis/job-market-reports/ontario/environmental-scan" target="_blank" rel="noopener noreferrer">Ontario Environmental Scan: Job Bank &#8599;</a></li>
+          </ul>
         </article>
         <section class="topic topic--ack topic--ack1" aria-labelledby="ack-title">
           <h2 class="ack__eyebrow" id="ack-title">Land acknowledgement</h2>
@@ -309,10 +326,16 @@
         <section class="topic topic--ack topic--ack2" aria-label="Land acknowledgement, continued">
           <p class="topic__lead">46 treaties and agreements cover the territory now called Ontario.</p>
           <p class="topic__body">The Dish with One Spoon territory is the result of a treaty between the Six Nations Confederacy, the Anishinaabek, and allied nations to peaceably share and care for this land, its waters, and all the biodiversity in the Great Lakes region. Everyone that settles here is called to uphold this treaty peacefully, building friendship and mutual respect.</p>
-          <a class="land-map" href="https://thegracechapter.com/indigenous-land-map-toronto/" target="_blank" rel="noopener noreferrer">
-            <span class="land-map__title">Indigenous Land Map Toronto: A Guide to Native Territories &#8599;</span>
-            <span class="land-map__from">The Grace Chapter</span>
-          </a>
+          <div class="sources">
+            <a class="land-map" href="https://tpl.ca/about-the-library/land-acknowledgements/land-acknowledgements-statements/" target="_blank" rel="noopener noreferrer">
+              <span class="land-map__title">Land Acknowledgements: Statements &#8599;</span>
+              <span class="land-map__from">Toronto Public Library (TPL)</span>
+            </a>
+            <a class="land-map land-map--second" href="https://thegracechapter.com/indigenous-land-map-toronto/" target="_blank" rel="noopener noreferrer">
+              <span class="land-map__title">Indigenous Land Map Toronto: A Guide to Native Territories &#8599;</span>
+              <span class="land-map__from">The Grace Chapter</span>
+            </a>
+          </div>
         </section>
       </div>
 
