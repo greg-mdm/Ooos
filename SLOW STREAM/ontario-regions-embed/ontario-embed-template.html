@@ -6,7 +6,7 @@
 <title>Ontario regions · Slow Stream</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@600;700&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Montserrat:wght@600;700&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
 <!-- Ooo! Digital Media Studio, ooos.ca. The Ontario section of
      ooos.ca/cid/iwatchlist as one standalone embed for slowstream.ca (Greg,
      2026-11-09), for an HTML embed (Wix: Add > Embed > Embed code > Code,
@@ -72,6 +72,33 @@
   .topic-image { grid-column: 1 / span 2; margin: 0; border-radius: 20px; overflow: hidden; box-shadow: 0 14px 34px rgba(25, 5, 46, .18); aspect-ratio: 16 / 9; background: var(--midnight); }
   .topic-image img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .topic--ack2 { align-self: stretch; }
+  /* the land map source, set as a clear button-card, not a footnote */
+  .land-map { display: flex; flex-direction: column; gap: 4px; margin-top: 1.2em; padding: 14px 16px; border-radius: 14px; background: var(--amethyst); color: #FFFFFF; text-decoration: none; box-shadow: 0 8px 20px rgba(74, 15, 138, .25); transition: background-color .2s, transform .2s; }
+  .land-map:hover, .land-map:focus-visible { background: var(--electric); transform: translateY(-2px); }
+  .land-map__title { font-size: 1rem; font-weight: 500; line-height: 1.35; }
+  .land-map__from { font-size: .82rem; font-weight: 400; letter-spacing: .04em; color: var(--lilac-pale); }
+
+  /* the story behind the image: a news article, light ground and charcoal
+     text in a serif reading face, held to a 55 to 65 character measure */
+  .story { margin: clamp(20px, 2.6vw, 32px) 0 0; padding: clamp(28px, 4vw, 56px) clamp(20px, 4vw, 56px); border-radius: 20px; background: #FCFCFA; box-shadow: 0 10px 30px rgba(25, 5, 46, .07); color: #2B2B2E; }
+  /* one reading column for every part (about 62 characters of the body) */
+  .intro .story > * { max-width: 700px; margin-left: auto; margin-right: auto; }
+  .story__kicker { margin-bottom: .4em !important; font-family: 'Poppins', sans-serif; font-size: .8rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--amethyst); }
+  .story__title { margin-top: 0; margin-bottom: .55em; font-family: 'Source Serif 4', Georgia, serif; font-size: clamp(2rem, 3.8vw, 3rem); font-weight: 600; line-height: 1.1; color: #1E1E22; }
+  .story__dek { padding-bottom: 1.1em !important; border-bottom: 1px solid #E4E2EA; font-family: 'Source Serif 4', Georgia, serif; font-size: clamp(1.15rem, 1.7vw, 1.32rem); font-style: italic; line-height: 1.55; color: #3A3A40; text-wrap: pretty; }
+  .story__dek cite { font-style: normal; }
+  .story__body { margin-top: 1.4em; font-family: 'Source Serif 4', Georgia, serif; font-size: clamp(1.06rem, 1.35vw, 1.18rem); font-weight: 400; line-height: 1.75; }
+  .story__body p { margin: 0 0 1.05em; text-wrap: pretty; }
+  .story__body p:last-child { margin-bottom: 0; }
+  .story cite { font-style: italic; }
+  .story sup { font-family: 'Poppins', sans-serif; font-size: .62em; font-weight: 600; color: var(--amethyst); }
+  .story a { color: var(--amethyst); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  .story a:hover { color: var(--electric); }
+  .story sup a { text-decoration: none; }
+  .story__notes { margin-top: 2em; padding-top: 1.2em; border-top: 1px solid #E4E2EA; font-family: 'Source Serif 4', Georgia, serif; }
+  .story__notes-title { margin: 0 0 .6em; font-family: 'Poppins', sans-serif; font-size: .78rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: #55555C; }
+  .story__notes ol { margin: 0; padding-left: 1.4em; font-size: .92rem; line-height: 1.6; color: #45454C; }
+  .story__notes li { margin-bottom: .6em; overflow-wrap: anywhere; }
 
   /* under the map: the neighbours, keyed to their map colours */
   .neighbours-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 28px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--lavender); font-family: 'Poppins', sans-serif; }
@@ -255,8 +282,35 @@
         <section class="topic topic--ack topic--ack2" aria-label="Land acknowledgement, continued">
           <p class="topic__lead">46 treaties and agreements cover the territory now called Ontario.</p>
           <p class="topic__body">The Dish with One Spoon territory is the result of a treaty between the Six Nations Confederacy, the Anishinaabek, and allied nations to peaceably share and care for this land, its waters, and all the biodiversity in the Great Lakes region. Everyone that settles here is called to uphold this treaty peacefully, building friendship and mutual respect.</p>
+          <a class="land-map" href="https://thegracechapter.com/indigenous-land-map-toronto/" target="_blank" rel="noopener noreferrer">
+            <span class="land-map__title">Indigenous Land Map Toronto: A Guide to Native Territories &#8599;</span>
+            <span class="land-map__from">The Grace Chapter</span>
+          </a>
         </section>
       </div>
+
+      <!-- the story behind the image, set as a news article (Greg's copy,
+           2026-11-10): light ground, charcoal text, a serif reading face -->
+      <article class="story" aria-labelledby="story-title">
+        <p class="story__kicker">Shadowy Backstory</p>
+        <h2 class="story__title" id="story-title">A Remix of a Remix</h2>
+        <p class="story__dek"><cite>Singing in the Shadows</cite> (2026), by Gregory Tyler Long. The experimental cover art is a second-generation remix of <cite>Shadow</cite>, an abstract painting from McCormack&rsquo;s collection <cite>Canvases of Old Dreams</cite>.</p>
+        <div class="story__body">
+          <p>The remix is a collaboration: the two trade media back and forth, painting to pixels and back again. That exchange led to a third-generation Shadow. McCormack&rsquo;s canvas gives the sheet-ghost its colour and its shiver. Long&rsquo;s media aesthetics surround Shadow in a new environment.</p>
+          <p>The receding floor lines and the small figure in the distance reimagine the &ldquo;Broadway Melody&rdquo; ballet in <cite>Singin&rsquo; in the Rain</cite> (1952), a film about a studio faking its own voice.<sup><a href="#note-1" id="ref-1" aria-label="Note 1">1</a></sup></p>
+          <p>The bubbles floated out of Jean Sim&eacute;on Chardin&rsquo;s <cite>Soap Bubbles</cite> (c. 1733/1734) and into Long&rsquo;s personal collection of media memories. Now they drift through <cite>Singing in the Shadows</cite> (2026).</p>
+          <p>In European art, bubbles often suggest life is fleeting and fun is frivolous. Yet Chardin&rsquo;s figures show deep concentration. The painting may be about learning the world through experience.<sup><a href="#note-2" id="ref-2" aria-label="Note 2">2</a></sup></p>
+          <p>The Toronto skyline was designed as a photo montage with Long&rsquo;s cityscape in silhouette. Text overlay: &ldquo;11 economic regions.&rdquo; The cover art is a remix of a remix. Each layer reworks the last, and no single original sits behind it.<sup>3</sup> <sup>4</sup> A ghost in all senses: a figure, and a sign pointing to other signs. The viewer completes it.<sup>5</sup></p>
+          <p>The Canadian Interactive Exhibition (CIX) gave Shadow its first home, featuring McCormack&rsquo;s work in its National Gallery of Digital Art Influencers. Now you can <a href="https://www.slowstream.ca/product-page/shadow-from-canvases-of-old-dreams-a-collection-of-abstract-artworks" target="_top">collect Shadow in physical form</a>: a black wooden frame holds his vibrant painting, remixed in the spirit of renewal.</p>
+        </div>
+        <footer class="story__notes">
+          <h3 class="story__notes-title">Notes</h3>
+          <ol>
+            <li id="note-1"><cite>Singin&rsquo; in the Rain</cite>, directed by Stanley Donen and Gene Kelly (Metro-Goldwyn-Mayer, 1952), &ldquo;Broadway Melody Ballet,&rdquo; Gene Kelly and Cyd Charisse. Still reproduced for Educational commentary; &copy; Turner Entertainment Co., a Warner Bros. Discovery company. <a href="#ref-1" aria-label="Back to the text">&#8617;</a></li>
+            <li id="note-2">Jean Sim&eacute;on Chardin, <cite>Soap Bubbles</cite>, probably 1733/1734, oil on canvas, 93 &times; 74.6 cm, National Gallery of Art, Washington, gift of Mrs. John W. Simpson, 1942, CC0, <a href="https://artsandculture.google.com/asset/soap-bubbles-jean-sim%C3%A9on-chardin/PwEzmPJFv4OYuA" target="_blank" rel="noopener noreferrer">https://artsandculture.google.com/asset/soap-bubbles-jean-sim%C3%A9on-chardin/PwEzmPJFv4OYuA</a>. <a href="#ref-2" aria-label="Back to the text">&#8617;</a></li>
+          </ol>
+        </footer>
+      </article>
     </div>
   </section>
 
