@@ -183,6 +183,10 @@ const html = fs.readFileSync(path.join(__dirname, "ontario-embed-template.html")
   .replace("%%GTA_PANEL%%", gtaPanel)
   .replace(/%%GOLD%%/g, TORONTO_GOLD)
   .replace("null /*%%MAP_DATA%%*/", JSON.stringify(MAP));
-fs.writeFileSync(path.join(root, "public/embeds/ontario-regions.html"), html);
+// the full embed, then one file per part (each shorter, to fit a Wix section)
+fs.writeFileSync(path.join(root, "public/embeds/ontario-regions.html"), html.replace("%%PART_CLASS%%", ""));
+for (const part of ["welcome", "story", "regions"]) {
+  fs.writeFileSync(path.join(root, `public/embeds/ontario-regions-${part}.html`), html.replace("%%PART_CLASS%%", ` class="part-${part}"`));
+}
 fs.rmSync(tmp, { recursive: true, force: true });
 console.log("ok", html.length);

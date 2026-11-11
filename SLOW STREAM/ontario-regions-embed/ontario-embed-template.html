@@ -1,5 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"%%PART_CLASS%%>
+<script>
+  /* ?part=welcome|story|regions shows one part of the full file */
+  (function () {
+    var m = /[?&]part=(welcome|story|regions)(&|$)/.exec(location.search);
+    if (m) document.documentElement.classList.add("part-" + m[1]);
+  })();
+</script>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -52,8 +59,8 @@
   .intro { background: linear-gradient(126deg, var(--lavender) 20%, var(--cloud) 100%); padding: clamp(40px, 6vw, 88px) 0 clamp(36px, 5vw, 72px); font-family: 'Poppins', system-ui, sans-serif; font-weight: 300; color: var(--night); }
   .intro p { margin: 0; }
   .intro__hero { max-width: 980px; margin: 0 auto clamp(32px, 4.5vw, 56px); text-align: center; }
-  .intro__title { margin: 0; font-size: clamp(2.4rem, 5.6vw, 4.4rem); font-weight: 600; line-height: 1.05; letter-spacing: -.01em; color: var(--night); }
-  .intro__tagline { margin-top: .5em !important; font-size: clamp(1.25rem, 2.4vw, 1.9rem); font-weight: 400; line-height: 1.3; color: var(--electric); }
+  .intro__title { margin: 0; font-size: clamp(2.4rem, 5.6vw, 4.4rem); font-weight: 600; line-height: 1.05; letter-spacing: -.01em; color: var(--midnight); }
+  .intro__tagline { margin-top: .5em !important; font-size: clamp(1.25rem, 2.4vw, 1.9rem); font-weight: 400; line-height: 1.3; color: var(--indigo); }
   .intro .intro__thanks { margin-top: 1.1em; font-size: clamp(1.05rem, 1.5vw, 1.25rem); line-height: 1.6; color: var(--amethyst); text-wrap: balance; max-width: 60ch; margin-left: auto; margin-right: auto; }
 
   /* row one: three cards; row two: the image across the first two
@@ -76,17 +83,20 @@
   .banner { max-width: 1200px; margin: clamp(20px, 2.6vw, 32px) auto 0; border-radius: 20px; overflow: hidden; box-shadow: 0 14px 34px rgba(25, 5, 46, .18); aspect-ratio: 16 / 9; background: var(--midnight); }
   .banner img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .topic--ack2 { align-self: start; }
-  /* the treaty sources as clear button-cards, not footnotes: the Toronto
-     Public Library statement first (the main source, filled), then the
-     Grace Chapter land map (outlined) */
+  /* the treaties' source as a clear button-card, not a footnote: the
+     Toronto Public Library statement */
   .sources { display: grid; gap: 10px; margin-top: 1.2em; }
   .land-map { display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-radius: 14px; background: var(--amethyst); color: #FFFFFF; text-decoration: none; box-shadow: 0 8px 20px rgba(74, 15, 138, .25); transition: background-color .2s, color .2s, transform .2s; }
   .land-map:hover, .land-map:focus-visible { background: var(--electric); color: #FFFFFF; transform: translateY(-2px); }
   .land-map__title { font-size: 1rem; font-weight: 500; line-height: 1.35; }
   .land-map__from { font-size: .82rem; font-weight: 400; letter-spacing: .04em; color: var(--lilac-pale); }
-  .land-map--second { background: #FDFDFD; color: var(--amethyst); border: 1.5px solid var(--amethyst); box-shadow: none; }
-  .land-map--second .land-map__from { color: var(--muted); }
-  .land-map--second:hover .land-map__from, .land-map--second:focus-visible .land-map__from { color: var(--lilac-pale); }
+
+  /* Native Land and Whose Land, under part one of the acknowledgement */
+  .land-resources { display: grid; gap: 12px; margin: 1.1em 0 0; padding: 0; list-style: none; }
+  .land-resources li { padding: 12px 14px; border-radius: 12px; background: rgba(255, 255, 255, .7); border: 1px solid rgba(74, 15, 138, .14); }
+  .land-resources p { font-size: .95rem; line-height: 1.55; color: #2A2340; }
+  .land-resources a { font-weight: 500; color: var(--electric); text-decoration: none; border-bottom: 1px solid rgba(108, 11, 244, .35); }
+  .land-resources a:hover { color: var(--amethyst); border-color: var(--amethyst); }
 
   /* the watchlist's Ontario sources, as a short list of links */
   .record-links { display: grid; gap: 8px; margin: 1em 0 0; padding: 0; list-style: none; }
@@ -138,6 +148,14 @@
     .topics .topic-map { grid-column: auto; }
   }
 
+  /* parts (Greg, 2026-11-11): welcome = the intro, cards, map and treaties;
+     story = the banner and the article; regions = the zone cards, economic
+     regions and the GTA */
+  html.part-welcome .banner, html.part-welcome .story, html.part-welcome section.deck { display: none; }
+  html.part-story .intro__hero, html.part-story .topics, html.part-story section.deck { display: none; }
+  html.part-story .banner { margin-top: 0; }
+  html.part-story .intro { padding-top: clamp(20px, 3vw, 40px); }
+  html.part-regions section.intro { display: none; }
   .deck { background: linear-gradient(180deg, var(--cloud) 0%, var(--lavender) 100%); padding: clamp(24px, 3vw, 40px) 0 clamp(20px, 2.4vw, 32px); }
 
   /* the map card, as the homepage's viewbook: a title bar, then the map */
@@ -287,7 +305,7 @@
         </article>
         <article class="topic topic--explore">
           <p class="topic__lead">Explore the map to learn what Ontario&rsquo;s economy offers creative partners.</p>
-          <p class="topic__body">Public records on employment, industries, wages, education, and immigration across 11 economic regions are integrated to create a province-wide picture of economic and social well-being. These resources make it possible to track lifestyle trends over time, which helps support evidence-based decisions:</p>
+          <p class="topic__body">Integrated public records reveal our collective economic impact and track trends in employment, industry, wages, education, and immigration across Ontario&rsquo;s 11 economic regions.</p>
           <!-- the Ontario data links from ooos.ca/cid/iwatchlist -->
           <ul class="record-links">
             <li><a href="https://www.ontario.ca/document/ontario-employment-reports/january-march-2026" target="_blank" rel="noopener noreferrer">Ontario Employment Reports &#8599;</a></li>
@@ -298,7 +316,14 @@
           <h2 class="ack__eyebrow" id="ack-title">Land acknowledgement</h2>
           <p class="topic__lead">Slow Stream Studio sits on Indigenous land in Toronto, Ontario, Canada.</p>
           <p class="topic__body">&ldquo;Tkar&oacute;n&rdquo; (Toronto) belongs to the Dish with One Spoon territory, which is the traditional territory of the Haudenosaunee Confederacy, the Wendat, and the Mississaugas of the Credit First Nation.</p>
-          <p class="ack__link"><a href="https://tpl.ca/about-the-library/land-acknowledgements/land-acknowledgements-statements/" target="_blank" rel="noopener noreferrer">Read the full land acknowledgement &#8599;</a></p>
+          <ul class="land-resources">
+            <li>
+              <p><a href="https://native-land.ca/" target="_blank" rel="noopener noreferrer">Native Land &#8599;</a>, an app by Canadian non-profit Native Land Digital, maps Indigenous territories, treaties, and languages. Learn more about the people and partners behind this resource.</p>
+            </li>
+            <li>
+              <p><a href="https://www.whose.land" target="_blank" rel="noopener noreferrer">Whose land are you on? &#8599;</a> Explore Canadian history from an Indigenous perspective.</p>
+            </li>
+          </ul>
         </section>
         <figure class="map-card topic-map">
           <div class="map-bar">
@@ -332,10 +357,6 @@
             <a class="land-map" href="https://tpl.ca/about-the-library/land-acknowledgements/land-acknowledgements-statements/" target="_blank" rel="noopener noreferrer">
               <span class="land-map__title">Land Acknowledgements: Statements &#8599;</span>
               <span class="land-map__from">Toronto Public Library (TPL)</span>
-            </a>
-            <a class="land-map land-map--second" href="https://thegracechapter.com/indigenous-land-map-toronto/" target="_blank" rel="noopener noreferrer">
-              <span class="land-map__title">Indigenous Land Map Toronto: A Guide to Native Territories &#8599;</span>
-              <span class="land-map__from">The Grace Chapter</span>
             </a>
           </div>
         </section>
