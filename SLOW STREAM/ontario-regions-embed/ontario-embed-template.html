@@ -123,6 +123,10 @@
   .story a:hover { color: var(--electric); }
   .story sup a { text-decoration: none; }
   /* the lede shows; the rest opens on the page */
+  /* the sign-off: first person, so the article closes with the author */
+  .story__body .story__sign { margin-top: 1.6em; display: flex; flex-direction: column; gap: .15em; }
+  .story__sign-name { font-weight: 600; font-style: italic; color: #1E1E22; }
+  .story__sign-role { font-family: 'Poppins', sans-serif; font-size: .82rem; letter-spacing: .04em; color: #55555C; }
   .story__more { margin-top: 1.05em; }
   .story__more[hidden] { display: none; }
   .intro .story__toggle-row { margin-top: 1.4em; text-align: center; }
@@ -373,19 +377,21 @@
       <!-- the story behind the image, set as a news article (Greg's copy,
            2026-11-10): light ground, charcoal text, a serif reading face -->
       <article class="story" aria-labelledby="story-title">
-        <p class="story__kicker">Shadowy Backstory</p>
+        <p class="story__kicker">Our Shadowy Backstory</p>
         <h2 class="story__title" id="story-title">A Remix of a Remix</h2>
-        <p class="story__dek"><cite>Singing in the Shadows</cite> (2026), by Gregory Tyler Long. The experimental cover art is a second-generation remix of <cite>Shadow</cite>, an abstract painting from McCormack&rsquo;s collection <cite>Canvases of Old Dreams</cite> (2006&ndash;2026).</p>
+        <p class="story__dek"><cite>Singing in the Shadows</cite> (2026) is cover art in every sense: a second-generation remix of <cite>Shadow</cite>, the print-on-demand release of McCormack&rsquo;s abstract painting from <cite>Canvases of Old Dreams</cite> (2006&ndash;2026).</p>
         <div class="story__body">
-          <p class="story__lede">The remix is a collaboration: the two trade media back and forth, painting to pixels and back again. That exchange led to a third-generation Shadow. McCormack&rsquo;s canvas gives the sheet-ghost its colour and its shiver. Long&rsquo;s media aesthetics surround Shadow in a new environment.</p>
+          <p class="story__lede">McCormack and I trade media back and forth, paintings to pixels and back. His canvas gives the sheet-ghost colour and form. Admittedly, my media aesthetics surround Shadow in a new environment.</p>
         </div>
         <div class="story__more" id="story-more" hidden>
           <div class="story__body">
-          <p>The receding floor lines and the small figure in the distance reimagine the &ldquo;Broadway Melody&rdquo; ballet in <cite>Singin&rsquo; in the Rain</cite> (1952), a film about a studio faking its own voice.<sup><a href="#note-1" id="ref-1" aria-label="Note 1">1</a></sup></p>
-          <p>The bubbles floated out of Jean Sim&eacute;on Chardin&rsquo;s <cite>Soap Bubbles</cite> (c. 1733/1734) and into Long&rsquo;s personal collection of media memories. Now they drift through <cite>Singing in the Shadows</cite> (2026).</p>
-          <p>In European art, bubbles often suggest life is fleeting and fun is frivolous. Yet Chardin&rsquo;s figures show deep concentration. The painting may be about learning the world through experience.<sup><a href="#note-2" id="ref-2" aria-label="Note 2">2</a></sup></p>
-          <p>The Toronto skyline was designed as a photo montage with Long&rsquo;s cityscape in silhouette. Text overlay: &ldquo;11 economic regions.&rdquo; The cover art is a remix of a remix. Each layer reworks the last, and no single original sits behind it.<sup>3</sup> <sup>4</sup> A ghost in all senses: a figure, and a sign pointing to other signs. The viewer completes it.<sup>5</sup></p>
-          <p>The Canadian Interactive Exhibition (CIX) gave Shadow its first home, featuring McCormack&rsquo;s work in its National Gallery of Digital Art Influencers. Now you can <a href="https://www.slowstream.ca/product-page/shadow-from-canvases-of-old-dreams-a-collection-of-abstract-artworks" target="_top">collect Shadow in physical form</a>: a black wooden frame holds his vibrant painting, remixed in the spirit of renewal.</p>
+          <p>The receding floor lines and the small figure in the distance reimagine the &ldquo;Broadway Melody&rdquo; ballet in <cite>Singin&rsquo; in the Rain</cite> (1952), a beautifully surreal scene from a film about a studio faking its own voice.<sup><a href="#note-1" id="ref-1" aria-label="Note 1">1</a></sup></p>
+          <p>The bubbles floated out of Jean Sim&eacute;on Chardin&rsquo;s <cite>Soap Bubbles</cite> (c. 1733/1734). In European art, bubbles often suggest life is fleeting, and fun is frivolous. Yet Chardin&rsquo;s figures show deep concentration. The painting may be about learning the world through experience.<sup><a href="#note-2" id="ref-2" aria-label="Note 2">2</a></sup> Drifting through <cite>Singing in the Shadows</cite> (2026), they are filled with possibility.</p>
+          <p>I shot the Toronto skyline with a handheld camera, turned it into a silhouette photo montage, and overlaid the generated image with &ldquo;11 economic regions.&rdquo; Shadow&rsquo;s release is hyped with a remix of a remix.</p>
+          <p>Now, Shadow is a hyperreal ghost, both figure and sign, waiting to be seen as meanings multiply.</p>
+          <p>McCormack&rsquo;s influential painting debuted at the Canadian Interactive Exhibition (CIX). Shadow is available to bring home as a vibrant art piece, printed on museum-quality matte and framed in black wood.</p>
+          <p>Slow Stream makes it easy to buy directly from artists. Available exclusively through <a href="https://www.slowstream.ca/product-page/shadow-from-canvases-of-old-dreams-a-collection-of-abstract-artworks" target="_top">our studio shop</a>, the inaugural edition of &ldquo;Shadow&rdquo; is limited to 100 authentic prints. We license artwork for a limited term, after which distribution rights revert to the creator and future releases reflect new appraisal of the work&rsquo;s value.</p>
+          <p class="story__sign"><span class="story__sign-name">Gregory Tyler Long</span><span class="story__sign-role">Artistic Director, Slow Stream</span></p>
           </div>
         <footer class="story__notes">
           <h3 class="story__notes-title">Notes</h3>
