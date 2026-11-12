@@ -72,6 +72,8 @@
   /* the two halves of the acknowledgement share one tint, so they read as
      one statement */
   .topic--ack { background: linear-gradient(160deg, rgba(255, 255, 255, .8) 0%, rgba(230, 230, 250, .85) 100%); }
+  .ack__sign { display: block; margin: 2px 0 14px; }
+  .ack__sign img { display: block; width: 100%; max-width: 420px; height: auto; margin: 0 auto; filter: drop-shadow(0 6px 14px rgba(25, 5, 46, .18)); }
   .ack__eyebrow { margin: 0 0 12px; font-family: 'Poppins', sans-serif; font-size: .78rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--amethyst); }
   .ack__link { margin-top: 1.1em !important; font-size: .95rem; }
   .ack__link a { color: var(--electric); font-weight: 500; text-decoration: none; border-bottom: 1px solid rgba(108, 11, 244, .35); }
@@ -318,6 +320,12 @@
         </article>
         <section class="topic topic--ack topic--ack1" aria-labelledby="ack-title">
           <h2 class="ack__eyebrow" id="ack-title">Land acknowledgement</h2>
+          <!-- the Toronto street sign from the ooos.ca homepage, as light WebP
+               copies, with the homepage PNG as the fallback (Greg, 2026-11-12) -->
+          <picture class="ack__sign">
+            <source type="image/webp" srcset="https://ooos.ca/assets/slowstream/toronto-canada-sign-640.webp 640w, https://ooos.ca/assets/slowstream/toronto-canada-sign-1200.webp 1200w" sizes="(min-width: 901px) 360px, 90vw">
+            <img src="https://ooos.ca/assets/Ooo%20Street%20Sign%20(2).png" width="2800" height="860" alt="Street sign reading Toronto, Canada" loading="lazy" decoding="async">
+          </picture>
           <p class="topic__lead">Slow Stream Studio sits on Indigenous land in Toronto, Ontario, Canada.</p>
           <p class="topic__body">&ldquo;Tkar&oacute;n&rdquo; (Toronto) belongs to the Dish with One Spoon territory, which is the traditional territory of the Haudenosaunee Confederacy, the Wendat, and the Mississaugas of the Credit First Nation.</p>
           <ul class="land-resources">
