@@ -1,0 +1,22 @@
+{
+  "notes": "Slow Stream 'Enter the present moment' logo (Greg, 2026-11-14): Raleway Italic 400 in Darkest Indigo #06021C on the stitched waves, each letter sliding backwards into place, 40 ms apart, playing once. Rendered at 860 px wide to display at 430 px or less. The size is fixed so every line set with this preset matches; the x/y place the line in the open space above the waves.",
+  "image": "../assets/slow-stream-waves.webp",
+  "width": 860,
+  "size": 53.26,
+  "x": 0.091,
+  "y": 0.13,
+  "family": "Raleway",
+  "weight": 400,
+  "italic": true,
+  "color": "#06021C",
+  "direction": "backwards",
+  "travel": 0.0535,
+  "each": 520,
+  "stagger": 40,
+  "fade": 0.6,
+  "lead": 400,
+  "hold": 1000,
+  "frame": 40,
+  "loop": 1,
+  "quality": 90
+}

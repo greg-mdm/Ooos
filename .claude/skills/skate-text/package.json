@@ -1,0 +1,9 @@
+{
+  "name": "skate-text",
+  "private": true,
+  "description": "Canva-style Skate text entrance rendered into an animated WebP",
+  "dependencies": {
+    "@expo-google-fonts/raleway": "^0.4.2",
+    "sharp": "^0.34.5"
+  }
+}
