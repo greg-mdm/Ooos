@@ -19,8 +19,8 @@
      artist's studio view first, then marble and gallery) and the Art on
      Demand card with Shadow floating.
 
-     The price: CA$100 crossed out over CA$69 until the end of November 7
-     (Toronto), then CA$88; the switch happens in the visitor's browser.
+     The price: CA$100 crossed out over CA$69 (Greg, 2026-11-13: the sale
+     runs on until the print has been promoted).
 
      The buy button: set BUY_URL below to the product page's address (the
      Wix store's product page); it then opens there, in the main window
@@ -210,7 +210,7 @@
               <p class="print-card__desc">Collect Shadow in physical form: this black wooden frame holds a vibrant painting digitally remixed by the artist, printed on museum-quality matte paper.</p>
             </div>
             <div class="print-card__buy">
-              <span class="print-card__price" id="price">CA$88</span>
+              <span class="print-card__price" id="price"><s class="print-card__was" aria-label="Was CA$100">CA$100</s><span aria-label="now CA$69">CA$69</span></span>
               <span class="print-card__size">12 &times; 16 in, black wood frame</span>
               <span class="print-card__cta" id="cta" aria-disabled="true">Order the print</span>
             </div>
@@ -237,14 +237,6 @@
      Paste its full address between the quotes, for example
      "https://www.slowstream.ca/product-page/...". Empty: no link yet. */
   var BUY_URL = "https://www.slowstream.ca/product-page/framed-poster";
-
-  /* the sale: CA$100 crossed out over CA$69 until the end of Nov 7 (Toronto,
-     EST), then CA$88 */
-  var SALE_ENDS = Date.parse("2026-11-08T00:00:00-05:00");
-  if (Date.now() < SALE_ENDS) {
-    document.getElementById("price").innerHTML =
-      '<s class="print-card__was" aria-label="Was CA$100">CA$100</s><span aria-label="now CA$69">CA$69</span>';
-  }
 
   if (BUY_URL) {
     var old = document.getElementById("cta");
