@@ -121,7 +121,7 @@
   .lot-auction__ghost { display: block; position: absolute; width: 34cqw; height: 59.3333cqw; left: calc(50% - 17cqw); top: calc(50% - 31cqw); filter: drop-shadow(rgba(0, 0, 0, .7) 0 10px 12px) drop-shadow(rgba(81, 42, 112, .12) 0 1px 7px); animation: lot-auction-float 3.8s ease-in-out infinite; }
   .lot-auction__shadow { position: absolute; left: calc(50% - 12.3333cqw); bottom: .3333cqw; width: 24.6667cqw; height: 3cqw; border-radius: 50%; background: rgba(0, 0, 0, .85); filter: blur(2px); box-shadow: rgba(94, 57, 125, .1) 0 0 18px 9px; animation: lot-auction-shadow 3.8s ease-in-out infinite; }
   .lot-auction__title { position: relative; z-index: 2; margin: 6cqw 0 0; text-align: center; font-size: max(18px, 7.3333cqw); line-height: 1.2; font-weight: 700; letter-spacing: -.035em; }
-  .lot-auction__bid { position: relative; z-index: 2; appearance: none; display: inline-flex; align-items: center; justify-content: center; margin: 5.6667cqw 0 0; width: 69.3333cqw; max-width: 100%; min-height: 44px; padding: 4.3333cqw 4cqw; border: 1px solid #F0C040; border-radius: 999px; background: linear-gradient(165deg, #110320 0%, #06021C 85%); color: #FFFAF3; font: 700 max(10px, 3.6667cqw) / 1.3 Arial, Helvetica, sans-serif; letter-spacing: .15em; text-transform: uppercase; text-align: center; cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; box-shadow: rgba(240, 192, 64, .65) 0 0 5px, rgba(240, 192, 64, .26) 0 0 13px, rgba(0, 0, 0, .5) 0 7px 12px, rgba(240, 192, 64, .14) 0 1px 3px inset; transition: transform .22s, box-shadow .22s, background .22s; }
+  .lot-auction__bid { text-decoration: none; position: relative; z-index: 2; appearance: none; display: inline-flex; align-items: center; justify-content: center; margin: 5.6667cqw 0 0; width: 69.3333cqw; max-width: 100%; min-height: 44px; padding: 4.3333cqw 4cqw; border: 1px solid #F0C040; border-radius: 999px; background: linear-gradient(165deg, #110320 0%, #06021C 85%); color: #FFFAF3; font: 700 max(10px, 3.6667cqw) / 1.3 Arial, Helvetica, sans-serif; letter-spacing: .15em; text-transform: uppercase; text-align: center; cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; box-shadow: rgba(240, 192, 64, .65) 0 0 5px, rgba(240, 192, 64, .26) 0 0 13px, rgba(0, 0, 0, .5) 0 7px 12px, rgba(240, 192, 64, .14) 0 1px 3px inset; transition: transform .22s, box-shadow .22s, background .22s; }
   .lot-auction__bid.is-collected { border-color: #5B04DE; box-shadow: rgba(91, 4, 222, .65) 0 0 5px, rgba(91, 4, 222, .26) 0 0 13px, rgba(0, 0, 0, .5) 0 7px 12px, rgba(133, 81, 181, .14) 0 1px 3px inset; }
   .lot-auction__bid:focus-visible { outline: 3px solid #F1CF78; outline-offset: 5px; }
   .lot-auction__bid:active { transform: translateY(0) scale(.98); }
@@ -222,10 +222,10 @@
             <p class="lot-auction__kicker">Shadow searches for home</p>
             <div class="lot-auction__stage">
               <span class="lot-auction__shadow" aria-hidden="true"></span>
-              <img class="lot-auction__ghost" src="https://ooos.ca/assets/exhibition/live-auction-shadow.webp" alt="Shadow, the white ghost with violet eyes, floating" width="306" height="532">
+              <img class="lot-auction__ghost" src="https://ooos.ca/assets/exhibition/live-auction-shadow.webp" alt="Shadow, the sheet ghost with violet eyes, floating" width="306" height="532">
             </div>
             <p class="lot-auction__title">Art on Demand</p>
-            <button type="button" class="lot-auction__bid" id="adopt" aria-pressed="false">Adopt a hero</button>
+            <a class="lot-auction__bid" href="https://www.slowstream.ca/product-page/framed-poster" target="_top">Adopt a hero</a>
           </div>
         </div>
       </div>
@@ -259,14 +259,8 @@
     });
   });
 
-  /* Adopt a hero: gold at rest; a press turns it Electric, "Collect a creature" */
-  var adopt = document.getElementById("adopt");
-  adopt.addEventListener("click", function () {
-    var on = adopt.getAttribute("aria-pressed") !== "true";
-    adopt.setAttribute("aria-pressed", on ? "true" : "false");
-    adopt.classList.toggle("is-collected", on);
-    adopt.textContent = on ? "Collect a creature" : "Adopt a hero";
-  });
+  /* Adopt a hero opens the product page too (Greg, 2026-11-14: every Shadow
+     call to action goes to the product page on Wix) */
 
   /* the host clip plays once, muted, when the hero is in view */
   var host = document.getElementById("host");
