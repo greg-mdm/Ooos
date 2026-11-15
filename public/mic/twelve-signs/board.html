@@ -235,11 +235,35 @@
     .grid{grid-template-columns:repeat(2,1fr);gap:18px}
     .tile[data-open="1"]{grid-column:span 2}
   }
+  /* phones (Greg, 2026-11-15): the tablet front shows the sign alone; its
+     name appears once the tablet opens. Wider tablets in the same space,
+     the sort value moved under the sign on one line so it never covers it,
+     and the fifth sort button across both columns so the grid stays even. */
   @media (max-width:560px){
-    .tile[data-open="1"] .face{flex-direction:column}
-    .tile[data-open="1"] .glyph{width:38%;padding:20px 0 0}
+    .wrap{padding:22px 14px 44px}
+    .console{padding:13px 12px}
+    .sorts{gap:8px}
+    .sortbtn:last-child{grid-column:span 2}
+    .board{padding:6px 0}
+    .grid{gap:14px}
+    .tile{padding:7px;border-radius:14px}
+    .face{border-radius:10px}
+    .label{display:none}
+    .glyph{height:50%;margin-bottom:0}
+    .rank{top:8px;left:9px}
+    .chip{top:auto;bottom:7px;left:8px;right:8px;font-size:9px;text-align:center;
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .chip.on~.glyph{margin-bottom:12px}
+    .tile[data-open="1"] .chip{display:none}
+    .tile[data-open="1"] .face,
+    .tile[data-lit="1"][data-open="1"] .face{flex-direction:column}
+    .tile[data-open="1"] .glyph{width:34%;padding:26px 0 0;margin-bottom:0}
+    .detail{padding:16px 14px 18px}
+    .detail .nm{padding-right:64px;font-size:13px}
+    .closebtn{top:12px;right:12px}
     h1{font-size:17px}
   }
+  @media (max-width:360px){ .chip{font-size:8px;letter-spacing:-.2px;left:5px;right:5px} }
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
   html.is-embed .foot{display:none}
 </style>

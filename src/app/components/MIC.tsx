@@ -57,7 +57,7 @@ export function MIC() {
         </div>
         <iframe
           className="mic-feature__frame"
-          src={`${base}mic/twelve-signs/board.html?v=1`}
+          src={`${base}mic/twelve-signs/board.html?v=2`}
           title="Twelve Signs decode board"
           loading="lazy"
           allowFullScreen
