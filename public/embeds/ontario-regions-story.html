@@ -184,7 +184,25 @@
   .map-body { padding: clamp(14px, 2vw, 24px); }
   /* the stage keeps Ontario's shape, so switching to the Greater Toronto Area
      never changes the embed's height */
-  .map-stage { width: min(100%, 760px); aspect-ratio: 1250 / 1180; margin: 0 auto; display: flex; align-items: center; }
+  .map-stage { width: min(100%, 760px); aspect-ratio: 1250 / 1180; margin: 0 auto; display: flex; flex-direction: column; justify-content: center; }
+  /* the GTA view's key, in the neighbours' format, in the space above the
+     wider GTA map (Greg, 2026-11-14) */
+  .map-key { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 22px; margin: 0 0 clamp(10px, 2vw, 22px); font-family: 'Poppins', sans-serif; }
+  .map-key[hidden] { display: none; }
+  .map-key .neighbours { gap: 8px 20px; justify-content: center; }
+  .swatch--gta { background: #19007D; }
+  .swatch--toronto { background: #F0C040; border-radius: 50%; width: 18px; height: 18px; margin: 4px; box-shadow: 0 0 0 1.5px var(--night), 0 2px 6px rgba(25, 5, 46, .15); }
+  .swatch--central { background: radial-gradient(circle at 35% 35%, #4DAEFF 0%, #8DC2EC 30%, #E6D8B4 58%, #D9B97E 100%); }
+  .swatch--southwestern { background: #2E7D32; }
+  .swatch--eastern { background: #9E1B32; }
+  @media (max-width: 560px) {
+    .map-key { gap: 6px 14px; }
+    /* on phones the key alone, so it fits the space above the map */
+    .map-key .neighbours__title { display: none; }
+    .map-key .neighbours { gap: 6px 14px; font-size: .86rem; }
+    .map-key .swatch { width: 18px; height: 18px; border-radius: 6px; }
+    .map-key .swatch--toronto { width: 13px; height: 13px; margin: 2.5px; border-radius: 50%; }
+  }
   .map { display: block; width: 100%; height: auto; border-radius: 12px; overflow: hidden; }
   .map__water { fill: #DCEBF3; }
   .map__land { fill: #E4E6EC; stroke: #FFFFFF; stroke-width: 1; vector-effect: non-scaling-stroke; }
@@ -358,6 +376,16 @@
           </div>
           <div class="map-body">
             <div class="map-stage">
+              <div class="map-key" id="map-key" hidden>
+                <p class="neighbours__title">Around the GTA:</p>
+                <ul class="neighbours">
+                  <li><span class="swatch swatch--gta" aria-hidden="true"></span>Greater Toronto Area (GTA)</li>
+                  <li><span class="swatch swatch--toronto" aria-hidden="true"></span>Toronto</li>
+                  <li><span class="swatch swatch--central" aria-hidden="true"></span>Central Ontario</li>
+                  <li><span class="swatch swatch--southwestern" aria-hidden="true"></span>Southwestern Ontario</li>
+                  <li><span class="swatch swatch--eastern" aria-hidden="true"></span>Eastern Ontario</li>
+                </ul>
+              </div>
               <svg class="map map--ontario" id="map" role="img" aria-label="Ontario provincial map on its water: five geographic zones and eleven economic regions, with the Great Lakes, Hudson Bay and the neighbouring shores"></svg>
             </div>
             <p class="map-caption" id="caption" aria-live="polite">Ontario</p>
@@ -553,6 +581,7 @@
     while (svg.firstChild) svg.removeChild(svg.firstChild);
     svg.setAttribute("viewBox", v.viewBox);
     svg.setAttribute("class", "map map--" + view);
+    document.getElementById("map-key").hidden = view !== "gta";
     svg.setAttribute("aria-label", view === "gta"
       ? "The Greater Toronto Area on the western shore of Lake Ontario, across the water from Niagara Falls and the United States"
       : "Ontario provincial map on its water: five geographic zones and eleven economic regions, with the Great Lakes, Hudson Bay and the neighbouring shores");
