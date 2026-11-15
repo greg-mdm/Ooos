@@ -128,6 +128,8 @@
   .story__body { margin-top: 1.4em; font-family: 'Source Serif 4', Georgia, serif; font-size: clamp(1.06rem, 1.35vw, 1.18rem); font-weight: 400; line-height: 1.75; }
   .story__body p { margin: 0 0 1.05em; text-wrap: pretty; }
   .story__body p:last-child { margin-bottom: 0; }
+  /* the lede's last sentence on a line of its own, wider than a phone */
+  @media (max-width: 600px) { .story__break { display: none; } }
   .story cite { font-style: italic; }
   .story sup { font-family: 'Poppins', sans-serif; font-size: .62em; font-weight: 600; color: var(--amethyst); }
   .story a { color: var(--amethyst); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
@@ -480,7 +482,7 @@
         <h2 class="story__title" id="story-title">A Remix of a Remix</h2>
         <p class="story__dek"><cite>Singing in the Shadows</cite> (2026) is cover art in every sense: a second-generation remix of <cite>Shadow</cite>, the print-on-demand release of McCormack&rsquo;s abstract painting from <cite>Canvases of Old Dreams</cite> (2006&ndash;2026).</p>
         <div class="story__body">
-          <p class="story__lede">For over 20 years, we&rsquo;ve traded media back and forth, from paintings to pixels and back again. McCormack&rsquo;s canvas gives the sheet ghost colour and form. Admittedly, my media aesthetic gives Shadow a presence in a new, unreal environment.</p>
+          <p class="story__lede">For over 20 years, we&rsquo;ve traded media back and forth, from paintings to pixels and back again. McCormack&rsquo;s canvas gives the sheet ghost colour and form.<br class="story__break"> My media aesthetic gives Shadow a presence in a new, unreal environment.</p>
         </div>
         <div class="story__more" id="story-more" hidden>
           <div class="story__body">
