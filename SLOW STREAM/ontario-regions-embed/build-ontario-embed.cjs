@@ -168,6 +168,9 @@ const MAP = {
   border: C.CANADA_US_BORDER,
   cities: C.GTA_CITIES,
   toronto: C.GTA_CITIES.find((c) => c.name === "Toronto"),
+  // Ottawa (45.4215 N, 75.6972 W) in the map's Statistics Canada Lambert
+  // projection, fitted to the city dots above (within 0.25 units of each)
+  ottawa: { x: 930.6, y: 681.8 },
   simcoe: { d: C.SIMCOE_PATH, x: C.SIMCOE_CENTRE.x, y: C.SIMCOE_CENTRE.y },
   zones: columnOrder.map((id) => ({
     id,

@@ -96,6 +96,7 @@
   /* the treaties' source as a clear button-card, not a footnote: the
      Toronto Public Library statement */
   .sources { display: grid; gap: 10px; margin-top: 1.2em; }
+  .sources__title { font-family: 'Poppins', sans-serif; font-size: clamp(1rem, 1.25vw, 1.1rem); font-weight: 600; line-height: 1.35; color: var(--night); }
   .land-map { display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-radius: 14px; background: var(--amethyst); color: #FFFFFF; text-decoration: none; box-shadow: 0 8px 20px rgba(74, 15, 138, .25); transition: background-color .2s, color .2s, transform .2s; }
   .land-map:hover, .land-map:focus-visible { background: var(--electric); color: #FFFFFF; transform: translateY(-2px); }
   .land-map__title { font-size: 1rem; font-weight: 500; line-height: 1.35; }
@@ -240,6 +241,37 @@
   .map__peek-line { fill: none; stroke: #4A7A9B; stroke-width: .8; stroke-linecap: round; }
   .map__peek-head { fill: #4A7A9B; }
   .map__peek-tag .map__label { paint-order: stroke; stroke: rgba(255, 255, 255, .85); stroke-width: 1.4px; stroke-linejoin: round; }
+  /* Ottawa, the capital (Greg, 2026-11-14): a starred marker on the Ontario
+     view; hover, focus or tap opens its card over the map */
+  .map-stage { position: relative; }
+  .map__capital { cursor: pointer; outline: none; }
+  .map__capital-dot { fill: var(--indigo); stroke: #FFFFFF; stroke-width: 2; vector-effect: non-scaling-stroke; filter: drop-shadow(0 1px 2px rgba(6, 2, 28, .5)); }
+  .map__capital-star { fill: #FFFFFF; }
+  .map__capital-ring { fill: none; stroke: var(--indigo); stroke-width: 2; vector-effect: non-scaling-stroke; opacity: 0; transform-box: fill-box; transform-origin: center; animation: capital-beckon 2.4s ease-out 1.2s 2; }
+  .map__capital text { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 19px; fill: var(--night); paint-order: stroke; stroke: rgba(255, 255, 255, .9); stroke-width: 5px; stroke-linejoin: round; }
+  .map__capital:hover .map__capital-dot, .map__capital:focus-visible .map__capital-dot, .map__capital[aria-expanded="true"] .map__capital-dot { fill: var(--electric); }
+  .map__capital:focus-visible text { text-decoration: underline; }
+  @keyframes capital-beckon { 0% { opacity: .8; transform: scale(1); } 100% { opacity: 0; transform: scale(2.6); } }
+  .capital-card { position: absolute; z-index: 2; top: 2%; right: 2%; width: min(58%, 340px); max-height: 96%; overflow-y: auto; padding: 14px 16px; border-radius: 14px; background: #FFFFFF; border: 1.5px solid var(--electric); box-shadow: 0 0 0 4px rgba(108, 11, 244, .08), 0 14px 34px rgba(25, 5, 46, .22); font-family: 'Poppins', sans-serif; color: var(--night); }
+  .capital-card[hidden] { display: none; }
+  .capital-card__close { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; padding: 0; border: 1px solid rgba(74, 15, 138, .25); border-radius: 50%; background: #FFFFFF; color: var(--night); font-size: 1.05rem; line-height: 1; cursor: pointer; }
+  .capital-card__close:hover, .capital-card__close:focus-visible { border-color: var(--electric); color: var(--electric); outline: none; }
+  .capital-card__title { margin: 0 32px 0 0; font-size: 1.02rem; font-weight: 600; line-height: 1.3; }
+  .capital-card__text { margin: 6px 0 0; font-size: .86rem; font-weight: 300; line-height: 1.5; color: #2A2340; }
+  .capital-card a { color: var(--electric); text-decoration: none; border-bottom: 1px solid rgba(108, 11, 244, .35); }
+  .capital-card a:hover, .capital-card a:focus-visible { color: var(--amethyst); border-color: var(--amethyst); outline: none; }
+  .capital-card__locate { display: inline-block; margin-top: 8px; font-size: .86rem; font-weight: 500; }
+  .capital-card__label { margin: 12px 0 6px; padding-top: 10px; border-top: 1px solid var(--lavender); font-size: .8rem; font-weight: 600; letter-spacing: .04em; color: var(--night); }
+  .capital-card__points { display: grid; gap: 5px; margin: 0; padding: 0; list-style: none; font-size: .86rem; line-height: 1.35; }
+  .capital-card__points li { position: relative; padding-left: 14px; }
+  .capital-card__points li::before { content: ""; position: absolute; left: 1px; top: .55em; width: 6px; height: 6px; border-radius: 50%; background: var(--indigo); }
+  @media (max-width: 560px) {
+    .capital-card { top: 6px; right: 6px; left: 6px; width: auto; max-height: calc(100% - 12px); padding: 10px 12px; }
+    .capital-card__title { font-size: .92rem; }
+    .capital-card__text, .capital-card__locate, .capital-card__points { font-size: .78rem; }
+    .capital-card__label { margin-top: 8px; padding-top: 7px; font-size: .74rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { .map__capital-ring { animation: none; } }
   .map-caption { margin: 12px 0 0; min-height: 1.2em; text-align: center; font-size: .78rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--indigo); }
 
   /* lighting a zone, or one region inside it */
@@ -386,6 +418,20 @@
                   <li><span class="swatch swatch--eastern" aria-hidden="true"></span>Eastern Ontario</li>
                 </ul>
               </div>
+              <div class="capital-card" id="ottawa-card" role="dialog" aria-labelledby="ottawa-title" hidden>
+                <button type="button" class="capital-card__close" id="ottawa-close" aria-label="Close">&times;</button>
+                <p class="capital-card__title" id="ottawa-title">Ottawa, Canada&rsquo;s Capital City</p>
+                <p class="capital-card__text">Canada&rsquo;s capital, in the east of southern Ontario, near the city of Montr&eacute;al and the U.S. border.</p>
+                <a class="capital-card__locate" href="https://www.google.com/maps/place/Ottawa,+ON,+Canada" target="_blank" rel="noopener noreferrer">Locate on Google Maps &#8599;</a>
+                <p class="capital-card__label">Relevant Points for Ottawa:</p>
+                <ul class="capital-card__points">
+                  <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Ottawa+River,+Ottawa,+ON" target="_blank" rel="noopener noreferrer">Ottawa River</a></li>
+                  <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Rideau+Canal,+Ottawa,+ON" target="_blank" rel="noopener noreferrer">Rideau Canal</a></li>
+                  <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Parliament+Hill,+Ottawa,+ON" target="_blank" rel="noopener noreferrer">Canada&rsquo;s legislature</a></li>
+                  <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Supreme+Court+of+Canada,+Ottawa,+ON" target="_blank" rel="noopener noreferrer">Supreme Court</a></li>
+                  <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Royal+Canadian+Mint,+Ottawa,+ON" target="_blank" rel="noopener noreferrer">Royal Mint of Canada</a></li>
+                </ul>
+              </div>
               <svg class="map map--ontario" id="map" role="img" aria-label="Ontario provincial map on its water: five geographic zones and eleven economic regions, with the Great Lakes, Hudson Bay and the neighbouring shores"></svg>
             </div>
             <p class="map-caption" id="caption" aria-live="polite">Ontario</p>
@@ -402,6 +448,7 @@
           <p class="topic__lead">46 treaties and agreements cover the territory now called Ontario.</p>
           <p class="topic__body">The Dish with One Spoon territory is the result of a treaty between the Six Nations Confederacy, the Anishinaabek, and allied nations to peaceably share and care for this land, its waters, and all the biodiversity in the Great Lakes region. Everyone that settles here is called to uphold this treaty peacefully, building friendship and mutual respect.</p>
           <div class="sources">
+            <p class="sources__title">Learning resources to explore:</p>
             <a class="land-map" href="https://tpl.ca/about-the-library/land-acknowledgements/land-acknowledgements-statements/" target="_blank" rel="noopener noreferrer">
               <span class="land-map__title">Land Acknowledgements: Statements &#8599;</span>
               <span class="land-map__from">Toronto Public Library (TPL)</span>
@@ -568,7 +615,19 @@
       var mark = el("g", { "class": "map__toronto", "aria-hidden": "true" }, svg);
       el("circle", { cx: to.x, cy: to.y, r: 7 }, mark);
       el("text", { x: to.x + 12, y: to.y + 22 }, mark).textContent = "Toronto";
+      /* Ottawa: a white star on an indigo dot, the capital's mark */
+      var ot = MAP.ottawa;
+      var cap = el("g", { "class": "map__capital", tabindex: 0, role: "button", "aria-label": "Ottawa, Canada\u2019s capital: show details", "aria-controls": "ottawa-card", "aria-expanded": "false" }, svg);
+      el("circle", { "class": "map__capital-ring", cx: ot.x, cy: ot.y, r: 10 }, cap);
+      el("circle", { "class": "map__capital-dot", cx: ot.x, cy: ot.y, r: 10 }, cap);
+      var pts = [];
+      for (var k = 0; k < 10; k++) { var rr = k % 2 ? 2.7 : 6.6, ang = -Math.PI / 2 + k * Math.PI / 5; pts.push((ot.x + rr * Math.cos(ang)).toFixed(2) + "," + (ot.y + rr * Math.sin(ang)).toFixed(2)); }
+      el("polygon", { "class": "map__capital-star", points: pts.join(" ") }, cap);
+      el("text", { x: ot.x - 15, y: ot.y - 13, "text-anchor": "end" }, cap).textContent = "Ottawa";
+      ["mouseenter", "focus", "click"].forEach(function (ev) { cap.addEventListener(ev, function (e) { e.stopPropagation(); capital(true); }); });
+      cap.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); capital(true); } });
     }
+    if (view !== "ontario") capital(false);
     if (view === "gta") {
       MAP.cities.forEach(function (c) {
         var g = el("g", { "class": "map__city" + (c.name === "Toronto" ? " map__city--toronto" : "") }, svg);
@@ -599,6 +658,22 @@
     MAP.zones.forEach(function (x) { if (x.id === zone) { z = x; x.regions.forEach(function (y) { if (y.id === region) r = y; }); } });
     caption.textContent = r && z.regions.length > 1 ? z.name + " · " + r.name : z ? z.name : (view === "gta" ? "Greater Toronto Area" : "Ontario");
   }
+
+  /* the Ottawa card: opens from the marker; closes with its button, Escape,
+     or a tap elsewhere on the map */
+  var ottawaCard = document.getElementById("ottawa-card");
+  function capital(open) {
+    ottawaCard.hidden = !open;
+    var m = svg.querySelector(".map__capital");
+    if (m) m.setAttribute("aria-expanded", open ? "true" : "false");
+  }
+  document.getElementById("ottawa-close").addEventListener("click", function () {
+    capital(false);
+    var m = svg.querySelector(".map__capital");
+    if (m) m.focus();
+  });
+  svg.addEventListener("click", function () { capital(false); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !ottawaCard.hidden) capital(false); });
 
   function bind(n, zone, region) {
     ["mouseenter", "focus", "click"].forEach(function (ev) { n.addEventListener(ev, function () { light(zone, region); }); });
