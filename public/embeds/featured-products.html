@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Featured Products intro</title>
+<!-- Slow Stream Studio Shop, Featured Products intro (Greg, 2026-11-16).
+     Its own section above the product gallery, kept short so the products
+     stay in view: a mini banner (shop name and the discover line on one
+     ruled strip), the 42px "Featured Products" signpost, then a pyramid row
+     where each lede line on the left sits on the same baseline as its
+     partner on the right (feel / objects, touch / je ne sais quoi).
+     Then the two pairs as one compact split panel (dark leaning blue on the
+     left, light leaning purple on the right, gradients running opposite ways
+     so they meet at the seam). Grey ground from #DADADA at the top to the
+     page colour #F1F0F2 at the foot. Hosted at ooos.ca/embeds/featured-products.html: point the Wix Embed HTML
+     element at it with Website address (Link). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  /* the ground: Greg's page greys, darkest at the top behind the banner,
+     easing down to the page colour #F1F0F2 so it runs straight into the
+     Wix product gallery below */
+  html { min-height: 100%; background: linear-gradient(180deg, #DADADA 0%, #E2E1E3 30%, #ECEBED 62%, #F1F0F2 88%, #F1F0F2 100%); }
+  body { margin: 0; background: transparent; }
+  body { color: #06021C; font-family: 'Raleway', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  p, h2 { margin: 0; }
+
+  .intro { max-width: 980px; margin: 0 auto; padding: 22px clamp(16px, 4vw, 40px) 14px; }   /* top room for the pad's outer light */
+
+  /* mini banner on a neumorphic pad, the same pad as the CID and watchlist
+     blocks on ooos.ca (jellybean-journeys): Button 1 of Mark Boots'
+     "Neumorphic buttons" (codepen.io/MarkBoots/pen/RwvGxPL) in its active
+     state, grown to hold the text. A transparent rim raised by the outer
+     light and shade, the middle pressed in by the inset pair; no fill of its
+     own, so the grey ground shows through it. Rim halved for a finer edge
+     (Greg, 2026-11-16), as on the light Relationality card.
+     Adapted under the MIT License:
+     Copyright (c) 2026 Mark Boots (https://codepen.io/MarkBoots/pen/RwvGxPL)
+     Permission is hereby granted, free of charge, to any person obtaining a
+     copy of this software and associated documentation files (the
+     "Software"), to deal in the Software without restriction, including
+     without limitation the rights to use, copy, modify, merge, publish,
+     distribute, sublicense, and/or sell copies of the Software, and to
+     permit persons to whom the Software is furnished to do so, subject to
+     the following conditions: The above copyright notice and this
+     permission notice shall be included in all copies or substantial
+     portions of the Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT
+     WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO
+     THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+     NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+     LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+     OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+     WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
+  .intro__banner { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; column-gap: .75em; row-gap: .1em; width: fit-content; max-width: 100%; margin: 0 auto;
+    padding: clamp(12px, 1.5vw, 18px) clamp(20px, 2.8vw, 34px); border: .25rem solid transparent; border-radius: .85rem; background: none; text-align: center;
+    box-shadow: -.3rem -.3rem .6rem hsl(0 0% 100% / .8), .3rem .3rem .6rem hsl(0 0% 45% / .4), inset .3rem .3rem .6rem hsl(0 0% 45% / .4), inset -.3rem -.3rem .6rem hsl(0 0% 100% / .8);
+    font-family: "Poppins", sans-serif; font-weight: 400; font-size: clamp(1.02rem, 1.6vw, 1.22rem); letter-spacing: .01em; line-height: 1.45; color: #3B3552; }
+  .intro__banner b { font-family: "Raleway", sans-serif; font-weight: 700; letter-spacing: .02em; color: #4B00B6; }   /* the brand name in Raleway for its signature W */
+  .intro__banner i { font-style: normal; color: #5B04DE; }
+  .intro__banner span { text-wrap: balance; }
+  .intro__title { margin-top: .45em; text-align: center; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: clamp(2rem, 4.2vw, 42px); line-height: 1.15; letter-spacing: -.01em; color: #06021C; }
+
+  /* pyramid: each left line paired with the right line on its row */
+  .intro__row { display: grid; grid-template-columns: 1fr 1px 1fr; column-gap: clamp(20px, 3.4vw, 36px); align-items: baseline; max-width: 900px; margin: clamp(14px, 2vw, 22px) auto 0; }
+  .intro__left  { grid-column: 1; text-align: right; font-size: clamp(1.2rem, 1.9vw, 1.45rem); font-weight: 500; line-height: 1.35; }
+  .intro__right { grid-column: 3; text-align: left; font-size: clamp(1rem, 1.3vw, 1.1rem); line-height: 1.5; color: #3B3552; }
+  .r1 { grid-row: 1; }
+  .r2 { grid-row: 2; }
+  .intro__split { grid-column: 2; grid-row: 1 / 3; align-self: stretch; background: linear-gradient(180deg, rgba(91, 4, 222, 0), rgba(91, 4, 222, .4) 25%, rgba(91, 4, 222, .4) 75%, rgba(91, 4, 222, 0)); }
+  .jnsq { font-weight: 600; color: #5B04DE; }   /* upright, same family as its line, bold violet */
+
+  /* the two pairs: one compact split panel */
+  .pairs { display: grid; grid-template-columns: 1fr 1fr; max-width: 900px; margin: clamp(18px, 2.6vw, 28px) auto 0;
+    border-radius: 18px; overflow: hidden;
+    box-shadow: 0 1px 2px rgba(6, 2, 28, .18), 0 18px 40px -24px rgba(58, 10, 156, .55); }
+  .pair { padding: clamp(16px, 2.2vw, 22px) clamp(18px, 3vw, 30px); text-align: center; display: flex; flex-direction: column; justify-content: center; }
+  .pair__lead { font-size: clamp(1.04rem, 1.4vw, 1.16rem); font-weight: 600; line-height: 1.35; text-wrap: balance; }
+  .pair__line { margin-top: .2em; font-size: clamp(.98rem, 1.25vw, 1.06rem); line-height: 1.45; text-wrap: balance; }
+
+  /* left: night indigo deepening out to the edge, brightening to blue at the seam */
+  .pair--dark { background:
+      radial-gradient(120% 140% at 100% 50%, rgba(77, 110, 255, .32) 0%, rgba(77, 110, 255, 0) 60%),
+      linear-gradient(90deg, #06021C 0%, #120A4A 38%, #1A2696 78%, #2338C4 100%); }
+  .pair--dark .pair__lead { color: #E8ECF4; }
+  .pair--dark .pair__line { color: #BFC8EE; }
+
+  /* right: violet at the seam, easing to a lighter violet at the edge, kept
+     rich all the way across so the dark text reads on colour, not on white */
+  .pair--light { background:
+      radial-gradient(120% 140% at 0% 50%, rgba(108, 11, 244, .30) 0%, rgba(108, 11, 244, 0) 60%),
+      linear-gradient(90deg, #9150FF 0%, #A877FF 35%, #BC97FF 70%, #C9AEFF 100%); }
+  .pair--light .pair__lead { color: #06021C; }
+  .pair--light .pair__line { color: #1E1440; }
+
+  @media (max-width: 600px) {
+    .intro__row { grid-template-columns: 1fr; }
+    .intro__left, .intro__right { grid-column: 1; grid-row: auto; text-align: center; }
+    .intro__left.r2 + .intro__split + .intro__right { margin-top: 10px; }
+    .intro__banner i { display: none; }
+    .intro__split { display: none; }
+    .pairs { grid-template-columns: 1fr; }
+    .pair--dark { background:
+      radial-gradient(140% 120% at 50% 100%, rgba(77, 110, 255, .32) 0%, rgba(77, 110, 255, 0) 60%),
+      linear-gradient(180deg, #06021C 0%, #120A4A 38%, #1A2696 78%, #2338C4 100%); }
+    .pair--light { background:
+      radial-gradient(140% 120% at 50% 0%, rgba(108, 11, 244, .30) 0%, rgba(108, 11, 244, 0) 60%),
+      linear-gradient(180deg, #9150FF 0%, #A877FF 35%, #BC97FF 70%, #C9AEFF 100%); }
+  }
+  /* phone (Greg, 2026-11-18): the Wix phone embed is 281 x 313 in the editor
+     and keeps that shape on every phone. Drawn at 281 wide and zoomed to the
+     real width (script below). The shop lines and their divider stay on
+     desktop only; the two lede lines run as one unbroken line. */
+  @media (max-width: 480px) {
+    .intro { padding: 16px 10px 14px; }
+    .intro__banner { padding: 7px 12px; border-width: .2rem; font-size: .78rem; line-height: 1.35; }
+    .intro__title { margin-top: .3em; font-size: 1.5rem; }
+    .intro__row { display: flex; justify-content: center; gap: .3em; margin-top: 6px; }
+    .intro__left { font-size: .76rem; line-height: 1.35; white-space: nowrap; letter-spacing: 0; }
+    .intro__right, .intro__split { display: none; }
+    .pairs { margin-top: 16px; border-radius: 14px; }
+    .pair { padding: 10px 12px; }
+    .pair__lead { font-size: .86rem; }
+    .pair__line { margin-top: .1em; font-size: .78rem; }
+  }
+</style>
+</head>
+<body>
+<section class="intro" aria-labelledby="fp-title">
+  <p class="intro__banner"><b>Slow Stream Studio Shop</b> <i aria-hidden="true">&bull;</i> <span>Discover original artwork and multimedia designs</span></p>
+  <h2 class="intro__title" id="fp-title">Featured Products</h2>
+
+  <div class="intro__row">
+    <p class="intro__left r1">Value you can feel.</p>
+    <p class="intro__left r2">Quality you can touch.</p>
+    <span class="intro__split" aria-hidden="true"></span>
+    <p class="intro__right r1">Shop skillfully created objects.</p>
+    <p class="intro__right r2">Still, possessing a special <span class="jnsq">je ne sais quoi</span>.</p>
+  </div>
+
+  <div class="pairs">
+    <div class="pair pair--dark">
+      <p class="pair__lead">Pick an original piece to treasure.</p>
+      <p class="pair__line">Chart its journey from here to anywhere.</p>
+    </div>
+    <div class="pair pair--light">
+      <p class="pair__lead">Collect a creation.</p>
+      <p class="pair__line">Find a favourite. Give it a home.</p>
+    </div>
+  </div>
+</section>
+<script>
+  /* Wix scales every element with the window (desktop drawn on a ~1280 px
+     canvas, phones on a 320 px one), so the embed keeps its editor shape on
+     every screen. Drawn at the editor width (1270 desktop, 281 phone) and
+     zoomed by the same factor; shrinks to fit rather than crop. */
+  (function () {
+    function fit() {
+      var root = document.documentElement;
+      var w = root.clientWidth, h = root.clientHeight;
+      var z = w <= 480 ? w / 281 : (w >= 1000 ? w / 1270 : 1);
+      for (var i = 0; i < 4; i++) {
+        document.body.style.zoom = String(z);
+        var need = document.querySelector(".intro").getBoundingClientRect().bottom;
+        if (need <= h + 1) break;
+        z = z * h / need;
+      }
+    }
+    fit();
+    window.addEventListener("resize", fit);
+    window.addEventListener("load", fit);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+  })();
+</script>
+</body>
+</html>

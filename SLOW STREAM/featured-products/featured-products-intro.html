@@ -13,7 +13,8 @@
      Then the two pairs as one compact split panel (dark leaning blue on the
      left, light leaning purple on the right, gradients running opposite ways
      so they meet at the seam). Grey ground from #DADADA at the top to the
-     page colour #F1F0F2 at the foot. Paste the whole file into a Wix Embed HTML element in Code mode. -->
+     page colour #F1F0F2 at the foot. Hosted at ooos.ca/embeds/featured-products.html: point the Wix Embed HTML
+     element at it with Website address (Link). -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -108,6 +109,22 @@
       radial-gradient(140% 120% at 50% 0%, rgba(108, 11, 244, .30) 0%, rgba(108, 11, 244, 0) 60%),
       linear-gradient(180deg, #9150FF 0%, #A877FF 35%, #BC97FF 70%, #C9AEFF 100%); }
   }
+  /* phone (Greg, 2026-11-18): the Wix phone embed is 281 x 313 in the editor
+     and keeps that shape on every phone. Drawn at 281 wide and zoomed to the
+     real width (script below). The shop lines and their divider stay on
+     desktop only; the two lede lines run as one unbroken line. */
+  @media (max-width: 480px) {
+    .intro { padding: 16px 10px 14px; }
+    .intro__banner { padding: 7px 12px; border-width: .2rem; font-size: .78rem; line-height: 1.35; }
+    .intro__title { margin-top: .3em; font-size: 1.5rem; }
+    .intro__row { display: flex; justify-content: center; gap: .3em; margin-top: 6px; }
+    .intro__left { font-size: .76rem; line-height: 1.35; white-space: nowrap; letter-spacing: 0; }
+    .intro__right, .intro__split { display: none; }
+    .pairs { margin-top: 16px; border-radius: 14px; }
+    .pair { padding: 10px 12px; }
+    .pair__lead { font-size: .86rem; }
+    .pair__line { margin-top: .1em; font-size: .78rem; }
+  }
 </style>
 </head>
 <body>
@@ -134,5 +151,28 @@
     </div>
   </div>
 </section>
+<script>
+  /* Wix scales every element with the window (desktop drawn on a ~1280 px
+     canvas, phones on a 320 px one), so the embed keeps its editor shape on
+     every screen. Drawn at the editor width (1270 desktop, 281 phone) and
+     zoomed by the same factor; shrinks to fit rather than crop. */
+  (function () {
+    function fit() {
+      var root = document.documentElement;
+      var w = root.clientWidth, h = root.clientHeight;
+      var z = w <= 480 ? w / 281 : (w >= 1000 ? w / 1270 : 1);
+      for (var i = 0; i < 4; i++) {
+        document.body.style.zoom = String(z);
+        var need = document.querySelector(".intro").getBoundingClientRect().bottom;
+        if (need <= h + 1) break;
+        z = z * h / need;
+      }
+    }
+    fit();
+    window.addEventListener("resize", fit);
+    window.addEventListener("load", fit);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+  })();
+</script>
 </body>
 </html>
