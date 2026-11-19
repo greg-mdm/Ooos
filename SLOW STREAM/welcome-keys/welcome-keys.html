@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Welcome to Slow Stream</title>
+<!-- Slow Stream welcome section (Greg, 2026-11-13): the welcome text on the
+     left, and the three containers (Presence, Awareness, Cozy connections)
+     turned into the dark indigo piano keys from Ooo Divisions on ooos.ca,
+     stacked in one column on the right. Key lighting, hover glow ring and lit
+     state are copied from src/styles/ooodivisions2.css and OooDivisions.tsx.
+     Paste the whole file into a Wix Embed HTML element in Code mode. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Raleway:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: #F9FAFB; color: #333333; font-family: 'Raleway', 'Poppins', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  p, h1, h2 { margin: 0; }
+
+  /* two halves, centred as one group. The waves' centre of mass sits 67.2%
+     down the logo image (measured from its pixels): the logo's first row
+     ends on that line, and the key panel starts on it, so the waves' middle
+     is level with the top of the panel. */
+  .welcome {
+    --w: clamp(250px, 24vw, 315px);                 /* logo width */
+    --below: calc(var(--w) * 403 / 860 * .328);     /* logo below its centre line */
+    display: grid; grid-template-columns: minmax(0, 27rem) minmax(0, 520px); justify-content: center;
+    column-gap: clamp(32px, 6vw, 84px); row-gap: 0; align-items: start;
+    max-width: 1180px; margin: 0 auto;
+    padding: clamp(32px, 5vw, 64px) clamp(20px, 4vw, 48px);
+  }
+
+  /* left: the welcome text, charcoal on the light ground */
+  .welcome__text { grid-column: 1; grid-row: 2; align-self: end; padding-top: calc(var(--below) + clamp(8px, 1.2vw, 14px)); }  /* ends level with the panel */
+  .welcome__title { font-family: 'Raleway', sans-serif; font-weight: 700; font-size: clamp(2.05rem, 3.7vw, 3.05rem); line-height: 1.08; letter-spacing: -.005em; color: #333333; text-wrap: balance; }
+  /* the Slow Stream waves, transparent on the light ground, and the mask violet */
+  .welcome__waves { grid-column: 1; grid-row: 1; display: block; width: var(--w); margin: 0 0 calc(var(--below) * -1) calc(var(--w) * -.09); }
+  .welcome__waves img { display: block; width: 100%; height: auto; }
+  .welcome__brand { color: #6C0BF4; }
+  /* the two lines share one style and one measure */
+  .welcome__lede, .welcome__close { max-width: 30rem; margin-top: .9em; font-size: clamp(1.02rem, 1.3vw, 1.14rem); font-weight: 400; line-height: 1.55; color: #06021C; text-wrap: balance; }  /* the logo's ink */
+  .welcome__lede { margin-top: .85em; }
+
+  /* right: one division column, solid dark indigo so it holds on the light
+     ground (on ooos.ca it is translucent glass over the aurora) */
+  .ood-col {
+    grid-column: 2; grid-row: 2; width: 100%; max-width: 520px;
+    border-radius: 22px; padding: 22px 18px;
+    border: 1px solid rgba(108, 11, 244, .55);
+    background: linear-gradient(180deg, #160A33 0%, #0E0626 46%, #09031B 100%);
+    box-shadow: 0 1px 0 rgba(190, 150, 250, .16) inset, 0 1px 2px rgba(6, 2, 28, .35), 0 28px 60px -24px rgba(108, 11, 244, .5), 0 24px 50px -26px rgba(6, 2, 28, .6);
+  }
+  .ood-keys { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+  .ood-key-wrap { margin: 0; }
+  .ood-key {
+    appearance: none; -webkit-appearance: none; border: 0; width: 100%;
+    display: flex; flex-direction: column; align-items: flex-start; gap: 0; justify-content: center;
+    min-height: 72px; border-radius: 13px; padding: 1rem 1.15rem;
+    text-align: left; font: inherit; color: #E8ECF4; cursor: pointer;
+    transition: background .2s, box-shadow .2s, transform .12s;
+    position: relative; isolation: isolate; overflow: hidden;
+  }
+  .ood-key::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: radial-gradient(120% 150% at 0% 0%, rgba(108, 11, 244, .42) 0%, rgba(108, 11, 244, 0) 62%); opacity: .85; transition: opacity .25s; }
+  .ood-key:hover::before, .ood-key.is-on::before { opacity: 1; }
+  .ood-key > span { position: relative; }
+  .ood-key:focus-visible { outline: 2px solid #6C0BF4; outline-offset: 2px; }
+  /* the glow ring on hover */
+  .ood-key:hover { box-shadow: inset 0 1px 1px rgba(190, 150, 250, .42), 0 0 0 1px rgba(108, 11, 244, .7), 0 0 22px rgba(108, 11, 244, .5), 0 8px 18px rgba(8, 2, 24, .22); transform: translateY(1px); }
+  /* lit (pressed) state, toggled on click */
+  .ood-key.is-on { box-shadow: inset 0 2px 0 rgba(255, 255, 255, .30), 0 0 0 1px rgba(108, 11, 244, .9), 0 0 24px rgba(108, 11, 244, .65), 0 6px 16px rgba(108, 11, 244, .42); transform: translateY(2px); }
+
+  .key__name { font-family: 'Poppins', sans-serif; font-size: .74rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: #C9B6F2; text-shadow: 0 1px 2px rgba(0, 0, 0, .55); }
+  .key__line { margin-top: .3rem; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.02rem; line-height: 1.32; color: #E8ECF4; text-wrap: balance; text-shadow: 0 1px 2px rgba(0, 0, 0, .55); }
+  /* the italic subline waits under the main line and opens on hover, on
+     keyboard focus, or while the key is lit (a tap on a phone) */
+  .key__more { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows .3s ease, opacity .3s ease; }
+  .key__more > span { overflow: hidden; }
+  .ood-key:hover .key__more, .ood-key:focus-visible .key__more, .ood-key.is-on .key__more { grid-template-rows: 1fr; opacity: 1; }
+  .key__aside { display: block; padding-top: .3rem; font-family: 'Raleway', sans-serif; font-style: italic; font-weight: 400; font-size: .98rem; line-height: 1.4; color: rgba(232, 236, 244, .82); text-shadow: 0 1px 2px rgba(0, 0, 0, .5); }
+  .ood-key.is-on .key__line { color: #FFFFFF; }
+
+  /* phones and narrow tablets: the halves stack, the welcome first */
+  @media (max-width: 760px) {
+    .welcome { grid-template-columns: minmax(0, 1fr); }
+    .welcome__waves, .welcome__text, .ood-col { grid-column: 1; grid-row: auto; }
+    .welcome__text { text-align: center; }
+    .welcome__waves { margin-left: auto; margin-right: auto; }
+    .ood-col { justify-self: center; margin-top: 32px; }
+    .welcome__lede, .welcome__close { margin-left: auto; margin-right: auto; }
+  }
+  /* phone (Greg, 2026-11-18). Wix draws its mobile page on a 320 px canvas
+     and scales every element with the phone width, so this embed is always
+     281 x 460 in the editor and keeps that shape on every phone (329 x 539 on
+     a 375 px phone). The phone layout is drawn for 281 x 460 and the script
+     below zooms it by the same factor, so it fills the embed the way Wix
+     scales everything around it. Room is left under the panel for one key's
+     subline to open (a tap lights one key at a time here). */
+  @media (max-width: 480px) {
+    .welcome { --w: 132px; padding: 6px 12px 14px; }
+    .welcome__text { padding-top: calc(var(--below) + 2px); }
+    .welcome__title { font-size: 1.22rem; line-height: 1.15; }
+    .welcome__lede, .welcome__close { margin-top: .4em; font-size: .82rem; line-height: 1.4; }
+    .ood-col { margin-top: 12px; padding: 8px; border-radius: 16px; }
+    .ood-keys { gap: 6px; }
+    .ood-key { min-height: 0; padding: .5rem .75rem; border-radius: 10px; }
+    .key__name { font-size: .6rem; letter-spacing: .18em; }
+    .key__line { margin-top: .12rem; font-size: .84rem; line-height: 1.26; }
+    .key__aside { padding-top: .18rem; font-size: .8rem; line-height: 1.35; }
+  }
+  .is-measuring .key__more { grid-template-rows: 0fr !important; transition: none !important; }
+  @media (prefers-reduced-motion: reduce) { .ood-key, .ood-key::before, .key__more { transition: none; } }
+</style>
+</head>
+<body>
+  <section class="welcome" aria-labelledby="welcome-title">
+    <!-- the waves with "Enter the present moment" skating in; it plays once and
+         holds on its last frame (a still for reduced motion) -->
+    <picture class="welcome__waves">
+      <source media="(prefers-reduced-motion: reduce)" srcset="https://ooos.ca/assets/slowstream/enter-the-present-waves-still.webp">
+      <img src="https://ooos.ca/assets/slowstream/enter-the-present-waves.webp" width="860" height="403" alt="Enter the present moment">
+    </picture>
+
+    <div class="welcome__text">
+      <h1 class="welcome__title" id="welcome-title">Welcome to <span class="welcome__brand">Slow Stream</span></h1>
+      <p class="welcome__lede">Unwind with intricate detail, analog warmth, and the character of lo-fi recording.</p>
+      <p class="welcome__close">Discover a new space on the web to see other perspectives.</p>
+    </div>
+
+    <div class="ood-col">
+      <ul class="ood-keys">
+        <!-- the Ooo Divisions key lighting: top key brightest, fading down -->
+        <li class="ood-key-wrap" style="filter: drop-shadow(0 14px 32px rgba(8,2,24,0.29))">
+          <button type="button" class="ood-key" aria-pressed="false" style="background: radial-gradient(135% 165% at 50% -34%, rgb(137,119,162) 0%, rgb(44,28,86) 42%, rgb(15,9,29) 100%)">
+            <span class="key__name">Presence</span>
+            <span class="key__line">Dynamic harmony. Alive by design.</span>
+            <span class="key__more"><span class="key__aside">Flow into your natural rhythm.</span></span>
+          </button>
+        </li>
+        <li class="ood-key-wrap" style="filter: drop-shadow(0 12px 28px rgba(8,2,24,0.25))">
+          <button type="button" class="ood-key" aria-pressed="false" style="background: radial-gradient(135% 165% at 50% -34%, rgb(121,105,144) 0%, rgb(34,21,68) 42%, rgb(12,7,23) 100%)">
+            <span class="key__name">Awareness</span>
+            <span class="key__line">There is lots of life in the little things</span>
+            <span class="key__more"><span class="key__aside">Listen intently. Hold that thought.</span></span>
+          </button>
+        </li>
+        <li class="ood-key-wrap" style="filter: drop-shadow(0 10px 25px rgba(8,2,24,0.22))">
+          <button type="button" class="ood-key" aria-pressed="false" style="background: radial-gradient(135% 165% at 50% -34%, rgb(104,90,124) 0%, rgb(24,14,50) 42%, rgb(8,5,17) 100%)">
+            <span class="key__name">Cozy connections</span>
+            <span class="key__line">Clear your mindspace</span>
+            <span class="key__more"><span class="key__aside">Find a little lift. Enjoy the ride.</span></span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+<script>
+  /* a click lights a key, like the Ooo Divisions keys; a second click lets it
+     go. On a phone one key is lit at a time, so the opened sublines never
+     outgrow the fixed-height Wix embed. */
+  /* phone: zoom the 281-wide layout to the real embed width, as Wix does */
+  var DESIGN_W = 281;
+  function fit() {
+    var w = document.documentElement.clientWidth;
+    document.body.style.zoom = w <= 480 ? String(w / DESIGN_W) : "";
+  }
+  fit();
+  window.addEventListener("resize", fit);
+
+  var keys = document.querySelectorAll(".ood-key");
+  var phone = window.matchMedia("(max-width: 480px)");
+  Array.prototype.forEach.call(keys, function (key) {
+    key.addEventListener("click", function () {
+      var on = key.classList.toggle("is-on");
+      key.setAttribute("aria-pressed", on ? "true" : "false");
+      if (on && phone.matches) {
+        Array.prototype.forEach.call(keys, function (k) {
+          if (k !== key) { k.classList.remove("is-on"); k.setAttribute("aria-pressed", "false"); }
+        });
+      }
+    });
+  });
+
+  /* the text ends level with the panel at rest; an opening key extends the
+     panel downward without moving the text, so the row is held at the
+     panel's resting height (side by side only) */
+  (function () {
+    var sec = document.querySelector(".welcome");
+    var col = document.querySelector(".ood-col");
+    var text = document.querySelector(".welcome__text");
+    var stacked = window.matchMedia("(max-width: 760px)");
+    function hold() {
+      sec.style.gridTemplateRows = "";
+      if (stacked.matches) return;
+      sec.classList.add("is-measuring");            /* every subline closed, for one read */
+      var rest = Math.max(col.offsetHeight, text.offsetHeight);
+      sec.classList.remove("is-measuring");
+      sec.style.gridTemplateRows = "auto " + rest + "px";
+    }
+    hold();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(hold);
+    window.addEventListener("load", hold);
+    window.addEventListener("resize", hold);
+  })();
+</script>
+</body>
+</html>

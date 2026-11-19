@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rejang section mark panel</title>
+<!-- Slow Stream "Watch" page strip with the Rejang section mark expander
+     (Greg, 2026-11-13). Paste the whole file into a Wix Embed HTML element
+     in Code mode. The gradient is sampled from the strip Greg built in Wix. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,500;0,600;1,500&family=Noto+Sans+Rejang&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #FFF0FF;
+    --ink-soft: rgba(255, 240, 255, .78);
+    --lilac: #C9A8FF;
+    --glow: #8B4DFF;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    font-family: 'Raleway', 'Poppins', system-ui, sans-serif;
+    color: var(--ink);
+    background: #19042D;
+    overflow: hidden;
+  }
+  p { margin: 0; }
+  button { font: inherit; color: inherit; }
+
+  /* the strip: Greg's Wix gradient, filling the whole embed */
+  .strip {
+    position: relative;
+    height: 100%;
+    min-height: 100px;
+    overflow: hidden;
+    background: linear-gradient(90deg, #2B0563 0%, #5309BA 27%, #2A0656 60%, #19042D 75%, #19042D 100%);
+  }
+
+  /* rest state: the two lines */
+  .rest {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: space-around; gap: 24px;
+    padding: 0 clamp(20px, 5vw, 80px);
+    transition: opacity .35s ease, transform .35s ease;
+  }
+  .line { font-size: clamp(1.05rem, 1.75vw, 1.45rem); font-weight: 400; letter-spacing: .035em; line-height: 1.3; text-align: center; }
+  .line--mark { display: flex; align-items: center; gap: .35em; }
+
+  /* the section mark: the button that drops the panel */
+  .glyph { font-family: 'Noto Sans Rejang', serif; font-weight: 400; line-height: 1; }
+  .mark {
+    display: inline-grid; place-items: center;
+    width: 1.75em; height: 1.75em; padding: 0;
+    border: 1px solid rgba(255, 240, 255, .35); border-radius: 50%;
+    background: rgba(255, 255, 255, .06);
+    font-size: 1em; cursor: pointer;
+    transition: background-color .2s, border-color .2s, box-shadow .2s, transform .2s;
+    animation: beckon 2.6s ease-in-out 1s 2;
+  }
+  .mark .glyph { font-size: 1.05em; transform: translateY(.04em); }
+  .mark:hover, .mark:focus-visible { background: rgba(139, 77, 255, .35); border-color: var(--lilac); box-shadow: 0 0 0 4px rgba(139, 77, 255, .25); outline: none; transform: rotate(-12deg); }
+  @keyframes beckon { 0%, 100% { box-shadow: 0 0 0 0 rgba(201, 168, 255, 0); } 50% { box-shadow: 0 0 0 6px rgba(201, 168, 255, .28); } }
+
+  /* open state: the drop slides down over the strip */
+  .drop {
+    position: absolute; inset: 0;
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(18px, 3vw, 44px); align-items: center;
+    padding: 14px clamp(52px, 6vw, 96px) 14px clamp(20px, 5vw, 80px);
+    opacity: 0; transform: translateY(-14px); pointer-events: none;
+    transition: opacity .35s ease, transform .35s ease;
+    overflow-y: auto;
+  }
+  .strip.is-open .rest { opacity: 0; transform: translateY(14px); pointer-events: none; }
+  .strip.is-open .drop { opacity: 1; transform: none; pointer-events: auto; }
+
+  .drop__title { display: flex; align-items: center; gap: .45em; margin-bottom: .3em; font-size: clamp(1rem, 1.4vw, 1.15rem); font-weight: 600; letter-spacing: .04em; }
+  .drop__title .glyph { font-size: 1.25em; color: var(--lilac); }
+  .drop__text { font-size: clamp(.82rem, 1.05vw, .92rem); line-height: 1.5; color: var(--ink-soft); }
+
+  .drop__q { margin-bottom: .55em; font-size: clamp(.9rem, 1.15vw, 1rem); font-weight: 500; letter-spacing: .02em; }
+  .drop__q em { font-style: italic; color: var(--lilac); }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opt {
+    padding: 7px 14px; border: 1px solid rgba(255, 240, 255, .4); border-radius: 999px;
+    background: rgba(255, 255, 255, .06); font-size: clamp(.8rem, 1vw, .88rem); font-weight: 500; line-height: 1.25; text-align: left; cursor: pointer;
+    transition: background-color .2s, border-color .2s;
+  }
+  .opt:hover, .opt:focus-visible { background: rgba(139, 77, 255, .35); border-color: var(--lilac); outline: none; }
+  .drop__answer { font-size: clamp(.8rem, 1.02vw, .9rem); line-height: 1.5; color: var(--ink-soft); }
+  .drop__answer strong { font-weight: 600; color: var(--ink); }
+  .quiz.is-answered .opts { display: none; }
+  .drop__answer[hidden] { display: none; }
+
+  .close {
+    position: absolute; top: 50%; right: clamp(12px, 2vw, 28px); transform: translateY(-50%);
+    width: 34px; height: 34px; padding: 0; border: 1px solid rgba(255, 240, 255, .35); border-radius: 50%;
+    background: rgba(255, 255, 255, .06); font-size: 1.15rem; line-height: 1; cursor: pointer;
+    transition: background-color .2s, border-color .2s;
+  }
+  .close:hover, .close:focus-visible { background: rgba(139, 77, 255, .35); border-color: var(--lilac); outline: none; }
+
+  /* tablet and phone: the lines and the drop stack */
+  @media (max-width: 760px) {
+    .rest { flex-direction: column; justify-content: center; gap: 10px; }
+    .drop { grid-template-columns: 1fr; align-content: center; gap: 14px; padding: 16px 52px 16px 20px; }
+    .close { top: 14px; transform: none; }
+  }
+  /* phone (Greg, 2026-11-18): the Wix phone embed is about 329 x 113, so
+     each line holds to one line, sized off the width, and the pair sits
+     centred in the strip; the drop tightens and scrolls inside if the
+     embed is shorter than it */
+  @media (max-width: 480px) {
+    .rest { gap: 8px; padding: 0 14px; }
+    .line { font-size: clamp(.78rem, 4.4vw, 1.05rem); letter-spacing: .02em; white-space: nowrap; }
+    .line--mark { gap: .4em; }
+    .drop { align-content: start; gap: 10px; padding: 14px 50px 14px 16px; }
+    .drop__title { font-size: 1rem; }
+    .drop__text, .drop__answer { font-size: .84rem; line-height: 1.45; }
+    .drop__q { font-size: .9rem; }
+    .opt { padding: 6px 12px; font-size: .82rem; }
+    .close { top: 10px; right: 10px; width: 32px; height: 32px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rest, .drop, .mark { transition: none; animation: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="strip" id="strip">
+    <div class="rest">
+      <p class="line">Enjoy your premium stream selection</p>
+      <p class="line line--mark">
+        <button type="button" class="mark" id="mark" aria-expanded="false" aria-controls="drop" aria-label="About the Rejang section mark"><span class="glyph" aria-hidden="true">&#xA95F;</span></button>
+        <span>Uplifting airways with open gates</span>
+      </p>
+    </div>
+
+    <section class="drop" id="drop" aria-labelledby="drop-title" aria-hidden="true">
+      <div class="drop__about">
+        <h2 class="drop__title" id="drop-title"><span class="glyph" aria-hidden="true">&#xA95F;</span> Rejang Section Mark</h2>
+        <p class="drop__text">The Indigenous Rejang people of Sumatra originally carved this intricate symbol into bamboo to mark a place to pause. We appreciate the aesthetic design while honouring its origin.</p>
+      </div>
+      <div class="quiz" id="quiz">
+        <p class="drop__q" id="quiz-q">What does the <em>Rejang section mark</em> look like to you?</p>
+        <div class="opts" role="group" aria-labelledby="quiz-q">
+          <button type="button" class="opt">Perhaps a pinwheel</button>
+          <button type="button" class="opt">A radiating sun</button>
+          <button type="button" class="opt">Functional punctuation mark (even if that&rsquo;s no fun)</button>
+        </div>
+        <p class="drop__answer" id="answer" aria-live="polite" hidden><strong>Answer:</strong> It is a functional punctuation mark. While the possibilities are fun to imagine, it officially opens and closes sections in Aksara Kaganga (Rejang script), recognized by the Indonesian Ministry of Education and Culture as an Intangible Cultural Heritage (Warisan Budaya Takbenda Indonesia, Decree No. 238/M/2013).</p>
+      </div>
+      <button type="button" class="close" id="close" aria-label="Close">&times;</button>
+    </section>
+  </div>
+
+<script>
+  (function () {
+    var strip = document.getElementById("strip");
+    var mark = document.getElementById("mark");
+    var drop = document.getElementById("drop");
+    var close = document.getElementById("close");
+    var quiz = document.getElementById("quiz");
+    var answer = document.getElementById("answer");
+
+    function setOpen(open) {
+      strip.classList.toggle("is-open", open);
+      mark.setAttribute("aria-expanded", open ? "true" : "false");
+      drop.setAttribute("aria-hidden", open ? "false" : "true");
+      if (open) {
+        var first = quiz.classList.contains("is-answered") ? close : quiz.querySelector(".opt");
+        setTimeout(function () { first.focus({ preventScroll: true }); }, 60);
+      } else {
+        mark.focus({ preventScroll: true });
+      }
+    }
+    mark.addEventListener("click", function () { setOpen(true); });
+    close.addEventListener("click", function () { setOpen(false); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && strip.classList.contains("is-open")) setOpen(false);
+    });
+
+    /* any pick reveals the answer */
+    Array.prototype.forEach.call(quiz.querySelectorAll(".opt"), function (opt) {
+      opt.addEventListener("click", function () {
+        quiz.classList.add("is-answered");
+        answer.hidden = false;
+        close.focus({ preventScroll: true });
+      });
+    });
+  })();
+</script>
+</body>
+</html>
