@@ -98,10 +98,14 @@
      scales everything around it. Room is left under the panel for one key's
      subline to open (a tap lights one key at a time here). */
   @media (max-width: 480px) {
-    .welcome { --w: 132px; padding: 6px 12px 14px; }
+    /* any height Greg adds to the embed is shared above and below the group */
+    .welcome { --w: 132px; padding: 6px 12px 14px; min-height: var(--room, auto); align-content: center; }
     .welcome__text { padding-top: calc(var(--below) + 2px); }
     .welcome__title { font-size: 1.22rem; line-height: 1.15; }
-    .welcome__lede, .welcome__close { margin-top: .4em; font-size: .82rem; line-height: 1.4; }
+    /* the two sentences read as one paragraph: no gap between them, lines closer */
+    .welcome__lede, .welcome__close { font-size: .82rem; line-height: 1.3; }
+    .welcome__lede { margin-top: .45em; }
+    .welcome__close { margin-top: 0; }
     .ood-col { margin-top: 12px; padding: 8px; border-radius: 16px; }
     .ood-keys { gap: 6px; }
     .ood-key { min-height: 0; padding: .5rem .75rem; border-radius: 10px; }
@@ -164,7 +168,10 @@
   var DESIGN_W = 281;
   function fit() {
     var w = document.documentElement.clientWidth;
-    document.body.style.zoom = w <= 480 ? String(w / DESIGN_W) : "";
+    var z = w <= 480 ? w / DESIGN_W : 1;
+    document.body.style.zoom = w <= 480 ? String(z) : "";
+    /* the embed height in layout units, so the phone layout can centre in it */
+    document.querySelector(".welcome").style.setProperty("--room", w <= 480 ? (document.documentElement.clientHeight / z) + "px" : "auto");
   }
   fit();
   window.addEventListener("resize", fit);
