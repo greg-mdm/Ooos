@@ -109,11 +109,14 @@
      (281) and the script zooms it to the real width, so its height in the
      editor stays the same number on every phone. */
   @media (max-width: 480px) {
-    .feature { padding: 12px 12px 18px; }
+    /* the print runs edge to edge on phones (Greg, 2026-11-19): a straight
+       dark band for the title and series, no rounded rim */
+    .feature { padding: 0 0 18px; }
+    .print { border: 0; border-radius: 0; box-shadow: none; }
     .row { gap: 14px; }
     .print__head { padding: 12px 14px 10px; gap: 4px 14px; }
     .print__title { font-size: 1.35rem; }
-    .print__tag { font-size: .8rem; line-height: 1.35; }
+    .print__tag { font-size: 8.9px; line-height: 1.35; letter-spacing: 0; white-space: nowrap; }   /* the series on one straight line */
     .print__flag { top: 8px; left: 8px; padding: 5px 9px; font-size: .64rem; }
     .print__thumbs { gap: 8px; padding: 10px 14px 12px; }
     .print__thumb { flex: 1 1 0; width: auto; min-width: 0; }
@@ -126,6 +129,8 @@
     .print__size { font-size: .8rem; }
     .print__cta { padding: 12px 16px; font-size: .88rem; }
     .adopt { width: min(100%, 230px); }
+    /* the card grows to its content on phones, so the button is never cut */
+    .adopt .lot-auction__card { aspect-ratio: auto; }
   }
   @media (prefers-reduced-motion: reduce) {
     .lot-auction__ghost, .lot-auction__shadow { animation: none; }
