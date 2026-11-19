@@ -192,14 +192,28 @@
   </section>
 
 <script>
-  /* phone: zoom the 281-wide layout to the real embed width, as Wix does */
+  /* Wix scales every element with the window (desktop drawn on a ~1280 px
+     canvas, phones on a 320 px one), so the embed keeps its editor shape on
+     every screen (1270 x 940 on desktop in the editor). The layout is drawn
+     at the editor width (1270 desktop, 281 phone) and zoomed by the same
+     factor; if the box is ever shorter than the content, it shrinks to fit
+     rather than crop. */
   (function () {
     function fit() {
-      var w = document.documentElement.clientWidth;
-      document.body.style.zoom = w <= 480 ? String(w / 281) : "";
+      var root = document.documentElement;
+      var w = root.clientWidth, h = root.clientHeight;
+      var z = w <= 480 ? w / 281 : (w >= 1000 ? w / 1270 : 1);
+      for (var i = 0; i < 4; i++) {
+        document.body.style.zoom = String(z);
+        var need = root.scrollHeight;
+        if (need <= h + 1) break;
+        z = z * h / need;
+      }
     }
     fit();
     window.addEventListener("resize", fit);
+    window.addEventListener("load", fit);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
   })();
 
   /* the product page the buy button opens, in the main window */

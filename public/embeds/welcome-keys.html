@@ -164,17 +164,45 @@
   /* a click lights a key, like the Ooo Divisions keys; a second click lets it
      go. On a phone one key is lit at a time, so the opened sublines never
      outgrow the fixed-height Wix embed. */
-  /* phone: zoom the 281-wide layout to the real embed width, as Wix does */
-  var DESIGN_W = 281;
+  /* Wix scales every element with the window (desktop drawn on a ~1280 px
+     canvas, phones on a 320 px one), so the embed keeps its editor shape on
+     every screen. The layout is drawn at the editor width (1270 desktop, 281
+     phone) and zoomed by the same factor, so it looks as it does in the
+     editor; if the box is ever shorter than the content, it shrinks to fit
+     rather than crop. Measured with every subline closed. */
+  var sec = document.querySelector(".welcome");
+  var col = document.querySelector(".ood-col");
+  var text = document.querySelector(".welcome__text");
+  var stacked = window.matchMedia("(max-width: 760px)");
+  /* the text ends level with the panel at rest; an opening key extends the
+     panel downward without moving the text, so the row is held at the
+     panel's resting height (side by side only) */
+  function hold() {
+    sec.style.gridTemplateRows = "";
+    if (stacked.matches) return;
+    var rest = Math.max(col.offsetHeight, text.offsetHeight);
+    sec.style.gridTemplateRows = "auto " + rest + "px";
+  }
   function fit() {
-    var w = document.documentElement.clientWidth;
-    var z = w <= 480 ? w / DESIGN_W : 1;
-    document.body.style.zoom = w <= 480 ? String(z) : "";
-    /* the embed height in layout units, so the phone layout can centre in it */
-    document.querySelector(".welcome").style.setProperty("--room", w <= 480 ? (document.documentElement.clientHeight / z) + "px" : "auto");
+    var root = document.documentElement;
+    var w = root.clientWidth, h = root.clientHeight;
+    var z = w <= 480 ? w / 281 : (w >= 1000 ? w / 1270 : 1);
+    sec.classList.add("is-measuring");
+    for (var i = 0; i < 4; i++) {
+      document.body.style.zoom = String(z);
+      /* the embed height in layout units, so the phone layout centres in it */
+      sec.style.setProperty("--room", w <= 480 ? (h / z) + "px" : "auto");
+      hold();
+      var need = root.scrollHeight;
+      if (need <= h + 1) break;
+      z = z * h / need;
+    }
+    sec.classList.remove("is-measuring");
   }
   fit();
   window.addEventListener("resize", fit);
+  window.addEventListener("load", fit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
 
   var keys = document.querySelectorAll(".ood-key");
   var phone = window.matchMedia("(max-width: 480px)");
@@ -190,27 +218,6 @@
     });
   });
 
-  /* the text ends level with the panel at rest; an opening key extends the
-     panel downward without moving the text, so the row is held at the
-     panel's resting height (side by side only) */
-  (function () {
-    var sec = document.querySelector(".welcome");
-    var col = document.querySelector(".ood-col");
-    var text = document.querySelector(".welcome__text");
-    var stacked = window.matchMedia("(max-width: 760px)");
-    function hold() {
-      sec.style.gridTemplateRows = "";
-      if (stacked.matches) return;
-      sec.classList.add("is-measuring");            /* every subline closed, for one read */
-      var rest = Math.max(col.offsetHeight, text.offsetHeight);
-      sec.classList.remove("is-measuring");
-      sec.style.gridTemplateRows = "auto " + rest + "px";
-    }
-    hold();
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(hold);
-    window.addEventListener("load", hold);
-    window.addEventListener("resize", hold);
-  })();
 </script>
 </body>
 </html>
