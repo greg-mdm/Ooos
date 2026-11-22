@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Journey through the Golden Circle</title>
+<!-- Slow Stream "Watch" page: the Golden Circle section heading (Greg,
+     2026-11-22). Two of Greg's Iceland photos run across the full width as
+     two rounded cards with a slim gap (the Thingvellir fissure pool on the
+     left, the moss crack on the right), after Greg's sketch, and the
+     heading sits on a panel laid across the top of both: light lavender
+     #E6E6FA on the left, drifting cloud greys through the middle, the page
+     colour #F1F0F2 on the right, its lower edge dissolving into the photos.
+     Fills whatever box the Wix Embed HTML element gives it; type scales
+     with the box width the way Wix scales the page.
+     Hosted at ooos.ca/embeds/golden-circle-heading.html; point a Wix Embed
+     HTML element at it with Link. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body { background: #F1F0F2; overflow: hidden; }
+
+  .gc { position: relative; height: 100%; min-height: 240px; overflow: hidden; container-type: inline-size; }
+
+  /* the picture: two photos side by side as rounded cards, a slim gap between */
+  .gc__photos { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1.2cqw; padding: 0 .9cqw .9cqw; }
+  .gc__photos picture { display: block; min-width: 0; overflow: hidden; border-radius: 1.4cqw; }
+  .gc__photos img { display: block; width: 100%; height: 100%; }
+  .gc__photos img { object-fit: cover; }
+  .gc__left img { object-position: 50% 58%; }                 /* the still water and its reflections */
+  .gc__right img { object-position: 50% 48%; }                 /* the crack running down through the moss */
+
+  /* the heading panel over the top of the picture */
+  .gc__panel { position: absolute; left: 0; right: 0; top: 0; z-index: 1;
+    padding: 2.6cqw 4cqw 6.2cqw; text-align: center;
+    background:
+      radial-gradient(28% 70% at 38% 40%, rgba(196, 194, 208, .55) 0%, rgba(196, 194, 208, 0) 100%),   /* cloud grey */
+      radial-gradient(24% 60% at 58% 62%, rgba(204, 204, 210, .50) 0%, rgba(204, 204, 210, 0) 100%),   /* a second, softer cloud */
+      radial-gradient(20% 55% at 70% 30%, rgba(226, 226, 230, .60) 0%, rgba(226, 226, 230, 0) 100%),   /* pale mist */
+      linear-gradient(90deg, #E6E6FA 0%, #E2E1F2 16%, #D2D0DE 36%, #CBCAD4 50%, #DCDBE0 64%, #E8E7EA 80%, #F1F0F2 100%);
+    /* the lower edge dissolves into the photos */
+    -webkit-mask-image: linear-gradient(180deg, #000 0, #000 72%, rgba(0, 0, 0, .55) 86%, transparent 100%);
+            mask-image: linear-gradient(180deg, #000 0, #000 72%, rgba(0, 0, 0, .55) 86%, transparent 100%); }
+  .gc__title { margin: 0; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 3.3cqw; line-height: 1.12; letter-spacing: -.01em; color: #06021C; text-wrap: balance; }
+  .gc__place { margin: .2em 0 0; font-family: 'Poppins', sans-serif; font-weight: 300; font-size: 4.4cqw; line-height: 1; letter-spacing: .02em; color: #333333; }
+
+  /* phones: the panel and type take a larger share of the narrow width */
+  @container (max-width: 600px) {
+    .gc__panel { padding: 5cqw 6cqw 12cqw; }
+    .gc__title { font-size: 7.2cqw; }
+    .gc__place { font-size: 10cqw; }
+    .gc__left img { object-position: 52% 64%; }
+    .gc__photos { gap: 2cqw; padding: 0 1.6cqw 1.6cqw; }
+    .gc__photos picture { border-radius: 3cqw; }
+  }
+</style>
+</head>
+<body>
+<section class="gc" aria-labelledby="gc-title">
+  <div class="gc__photos">
+    <picture class="gc__left">
+      <source media="(max-width: 600px)" srcset="https://ooos.ca/assets/slowstream/iceland-thingvellir-fissure-600.webp">
+      <img src="https://ooos.ca/assets/slowstream/iceland-thingvellir-fissure-1100.webp" width="1100" height="1467"
+           alt="A still, dark pool in a lava fissure at Thingvellir, Iceland, between moss-covered rocks under a misty sky">
+    </picture>
+    <picture class="gc__right">
+      <source media="(max-width: 600px)" srcset="https://ooos.ca/assets/slowstream/iceland-moss-crack-600.webp">
+      <img src="https://ooos.ca/assets/slowstream/iceland-moss-crack-1100.webp" width="1100" height="1467"
+           alt="A narrow crack running through moss and reddish lava ground in Iceland">
+    </picture>
+  </div>
+  <div class="gc__panel">
+    <h2 class="gc__title" id="gc-title">Journey through the Golden Circle</h2>
+    <p class="gc__place">ICELAND</p>
+  </div>
+</section>
+</body>
+</html>
