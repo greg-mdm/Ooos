@@ -81,7 +81,7 @@
     foot.style.setProperty("--logo-w", L.logoW + "px");
     foot.style.setProperty("--spot-y", (L.spotY * 100) + "%");
     foot.style.setProperty("--spot-r", Math.round(L.logoW * 1.05) + "px");
-    foot.style.setProperty("--spot-ry", Math.round(L.logoW * 0.66) + "px");
+    foot.style.setProperty("--spot-ry", Math.round(L.logoW * 0.50) + "px");
     drawSeabed(w, L.bedH);
   }
 
@@ -154,19 +154,19 @@
     "  vec2 p=uv; p.x*=asp;",
     "  float mt=u_time*0.018;",                           /* slow in-place morph */
     "  float drift=u_time*0.060;",                        /* gentle left-to-right travel */
-    "  vec3 col=mix(DEEP,INDIGO,0.55+0.45*sin(uv.x*3.14159));",
+    "  vec3 col=mix(DEEP,INDIGO,0.30+0.30*sin(uv.x*3.14159));",  /* deep water away from the light */
     "  float acc=0.0;",
-    "  for(int i=0;i<2;i++){ float fi=float(i); float depth=1.0+fi*0.7;",
-    "    vec2 q=p/depth; q*=vec2(0.55,1.35);",            /* stretched: reads as a horizontal current */
+    "  for(int i=0;i<3;i++){ float fi=float(i); float depth=1.0+fi*0.6;",
+    "    vec2 q=p/depth; q*=vec2(0.50,1.9); q.y+=fi*2.7;",  /* long horizontal currents, one per layer */            /* stretched: reads as a horizontal current */
     "    q.x-=drift*(1.0+fi*0.35);",
     "    vec2 w=vec2(fbm(q+vec2(0.0,mt)),fbm(q+vec2(3.1,-mt)));",
-    "    float dens=fbm(q+1.7*w); dens=smoothstep(0.38,0.72,dens);",
-    "    float layerA=dens*(0.80/depth);",
-    "    vec3 lc=mix(VIOLET*0.85,mix(VIOLET,LILAC,0.45),smoothstep(0.35,1.0,dens));",
+    "    float dens=fbm(q+1.7*w); dens=smoothstep(0.40,0.74,dens);",
+    "    float layerA=dens*(0.85/depth);",
+    "    vec3 lc=mix(INDIGO*1.25,mix(VIOLET,LILAC,0.30),smoothstep(0.45,1.0,dens));",  /* darker hues, lit crests */
     "    col=mix(col,lc,layerA); acc+=layerA;",
     "  }",
     /* the spotlight on the logo: the water lifts to lilac and mist behind it */
-    "  col*=mix(0.45,1.0,smoothstep(1.05,0.15,length((uv-vec2(0.5,0.55))*vec2(1.0,0.9))));",  /* deep at the edges */
+    "  col*=mix(0.62,1.0,smoothstep(1.10,0.10,length((uv-vec2(0.5,0.55))*vec2(1.0,0.6))));",  /* deep at the edges */
     "  vec2 d=(uv-u_spot)*u_res/u_spotR;",
     "  float s=exp(-dot(d,d)*1.0);",
     "  vec3 light=mix(LILAC,MIST,0.08+0.40*acc);",  /* the current still shows through the light */
@@ -209,7 +209,7 @@
     gl.uniform2f(uRes, cw, ch);
     gl.uniform1f(uTime, (performance.now() - t0) / 1000);
     gl.uniform2f(uSpot, 0.5, 1.0 - L.spotY);             /* GL counts up from the bottom */
-    gl.uniform2f(uSpotR, L.logoW * 0.80 * dpr, L.logoW * 0.50 * dpr);
+    gl.uniform2f(uSpotR, L.logoW * 0.82 * dpr, L.logoW * 0.40 * dpr);   /* the light hugs the logo; the water above and below stays dark and moving */
     gl.drawArrays(gl.TRIANGLES, 0, 3);
   }
 
