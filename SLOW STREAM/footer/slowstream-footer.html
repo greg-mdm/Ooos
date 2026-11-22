@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slow Stream footer</title>
+<!-- Slow Stream footer panel (Greg, 2026-11-22). A tall closing panel for
+     slowstream.ca in three layers, all drawn to fill whatever box the Wix
+     Embed HTML element gives it, on desktop and phones alike:
+       1. the water: the ooos.ca nav-band aurora shader (AuroraHeader.tsx),
+          recoloured to the Slow Stream violets and slowed to a gentle
+          left-to-right drift, with a spotlight on the logo so the water is
+          brightest behind it (dark ink on light lilac, well past WCAG AA);
+       2. the Slow Stream logo, centred: the transparent waves from ooos.ca
+          and "Slow Stream." as live Raleway italic with a round pebble
+          period, set in the waves' pocket the way the brand card has it;
+       3. the seabed: layered dark bands with fine violet edges, generated
+          for the box width so the art matches on every screen.
+     No WebGL or reduced motion: a still CSS gradient with the same spotlight.
+     Hosted at ooos.ca/embeds/slowstream-footer.html; point a Wix Embed HTML
+     element at it with Link. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body { overflow: hidden; background: #12042A; }
+
+  .foot { position: relative; height: 100%; min-height: 220px; overflow: hidden; isolation: isolate;
+    /* the still water: also the fallback when the shader is off */
+    background:
+      radial-gradient(var(--spot-r, 38%) var(--spot-ry, 48%) at 50% var(--spot-y, 42%), #DCCBFF 0%, #C4A6F8 30%, #8E5EEA 56%, rgba(76, 22, 186, 0) 82%),
+      linear-gradient(90deg, #12042A 0%, #2A0870 30%, #3A0FA0 50%, #2A0870 70%, #12042A 100%); }
+  .foot canvas { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; display: block; }
+
+  /* the logo: waves with the wordmark in their pocket, sized to the box */
+  .logo { position: absolute; z-index: 2; left: 50%; top: var(--spot-y, 42%); width: var(--logo-w, 40%); transform: translate(-50%, -50%); container-type: inline-size; }
+  .logo img { display: block; width: 100%; height: auto; }
+  .logo__word { position: absolute; left: 9.6%; top: -1%; margin: 0; white-space: nowrap;
+    font-family: 'Raleway', sans-serif; font-style: italic; font-weight: 700; font-size: 10.6cqw; line-height: 1; letter-spacing: -.005em;
+    color: #170735;
+    /* a light letterpress edge below, the weight of the shadow close underneath */
+    text-shadow: 0 .03em 0 rgba(255, 255, 255, .38), 0 -.02em .03em rgba(6, 2, 28, .35); }
+  .pebble { display: inline-block; width: .19em; height: .19em; margin-left: .06em; border-radius: 50%; background: currentColor;
+    box-shadow: 0 .03em 0 rgba(255, 255, 255, .38); }
+
+  /* the seabed */
+  .seabed { position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; width: 100%; display: block; }
+</style>
+</head>
+<body>
+<footer class="foot" id="foot">
+  <canvas id="water" aria-hidden="true"></canvas>
+  <div class="logo" role="img" aria-label="Slow Stream">
+    <img src="https://ooos.ca/assets/slowstream/slow-stream-waves-1200.webp" width="1200" height="562" alt="">
+    <p class="logo__word" aria-hidden="true">Slow Stream<span class="pebble"></span></p>
+  </div>
+  <svg class="seabed" id="seabed" aria-hidden="true" focusable="false"></svg>
+</footer>
+
+<script>
+(function () {
+  var foot = document.getElementById("foot");
+  var canvas = document.getElementById("water");
+  var seabed = document.getElementById("seabed");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---- layout: logo size, spotlight and seabed height from the box ---- */
+  var L = { w: 0, h: 0, logoW: 0, spotY: 0.42, bedH: 0 };
+  function layout() {
+    var w = foot.clientWidth, h = foot.clientHeight;
+    var narrow = w < 600;
+    L.w = w; L.h = h;
+    L.bedH = Math.round(Math.min(h * (narrow ? 0.30 : 0.34), w * (narrow ? 0.34 : 0.16)));
+    var room = h - L.bedH;                               /* water above the seabed */
+    var byW = w * (narrow ? 0.74 : 0.40);
+    var byH = (room * 0.70) * 1200 / 562;                /* the logo keeps clear of the seabed */
+    L.logoW = Math.max(140, Math.min(byW, byH, 620));
+    L.spotY = (room * 0.50) / h;                         /* logo centred in the open water */
+    foot.style.setProperty("--logo-w", L.logoW + "px");
+    foot.style.setProperty("--spot-y", (L.spotY * 100) + "%");
+    foot.style.setProperty("--spot-r", Math.round(L.logoW * 1.05) + "px");
+    foot.style.setProperty("--spot-ry", Math.round(L.logoW * 0.66) + "px");
+    drawSeabed(w, L.bedH);
+  }
+
+  /* ---- the seabed: dark layered bands, fine violet edges ---- */
+  function wave(x, w, seed, amp) {
+    var t = x / w;
+    return amp * (Math.sin(t * 6.283 * 1.15 + seed) * 0.55
+                + Math.sin(t * 6.283 * 2.6 + seed * 1.7) * 0.28
+                + Math.sin(t * 6.283 * 5.3 + seed * 2.3) * 0.12);
+  }
+  function drawSeabed(w, bh) {
+    var NS = "http://www.w3.org/2000/svg";
+    seabed.setAttribute("viewBox", "0 0 " + w + " " + bh);
+    seabed.setAttribute("width", w); seabed.setAttribute("height", bh);
+    seabed.style.height = bh + "px";
+    while (seabed.firstChild) seabed.removeChild(seabed.firstChild);
+    /* back to front: each band a little darker, a lighter line on its crest */
+    var bands = [
+      { y: 0.16, amp: 0.10, seed: 0.4, fill: "#2B0B78", edge: "rgba(201,168,255,.55)" },
+      { y: 0.30, amp: 0.09, seed: 1.9, fill: "#22085F", edge: "rgba(160,110,250,.55)" },
+      { y: 0.44, amp: 0.08, seed: 3.1, fill: "#1A064B", edge: "rgba(140, 90,240,.50)" },
+      { y: 0.57, amp: 0.07, seed: 4.6, fill: "#13043A", edge: "rgba(120, 70,230,.45)" },
+      { y: 0.70, amp: 0.06, seed: 5.8, fill: "#0D032A", edge: "rgba(108, 11,244,.45)" },
+      { y: 0.83, amp: 0.05, seed: 7.2, fill: "#08021C", edge: "rgba(108, 11,244,.35)" }
+    ];
+    var step = Math.max(6, Math.round(w / 140));
+    bands.forEach(function (b) {
+      var base = b.y * bh, amp = b.amp * bh, d = "", line = "";
+      for (var x = 0; x <= w + step; x += step) {
+        var y = (base + wave(x, w, b.seed, amp)).toFixed(1);
+        d += (x === 0 ? "M" : "L") + x + " " + y + " ";
+      }
+      line = d;
+      d += "L" + (w + step) + " " + bh + " L0 " + bh + " Z";
+      var fill = document.createElementNS(NS, "path");
+      fill.setAttribute("d", d); fill.setAttribute("fill", b.fill);
+      seabed.appendChild(fill);
+      var edge = document.createElementNS(NS, "path");
+      edge.setAttribute("d", line); edge.setAttribute("fill", "none");
+      edge.setAttribute("stroke", b.edge); edge.setAttribute("stroke-width", "1.25");
+      edge.setAttribute("vector-effect", "non-scaling-stroke");
+      seabed.appendChild(edge);
+    });
+  }
+
+  layout();
+  window.addEventListener("resize", layout);
+
+  /* ---- the water: the ooos.ca nav-band aurora, in Slow Stream colours ---- */
+  if (reduce) return;                                   /* the still CSS water stays */
+  var gl = canvas.getContext("webgl", { antialias: false, premultipliedAlpha: false });
+  if (!gl) return;
+
+  var FRAG = [
+    "precision highp float;",
+    "uniform vec2 u_res; uniform float u_time; uniform vec2 u_spot; uniform vec2 u_spotR;",
+    "const vec3 DEEP=vec3(0.071,0.016,0.165);",           /* #12042A */
+    "const vec3 INDIGO=vec3(0.165,0.031,0.439);",         /* #2A0870 */
+    "const vec3 VIOLET=vec3(0.424,0.043,0.957);",         /* #6C0BF4 */
+    "const vec3 LILAC=vec3(0.788,0.659,1.0);",            /* #C9A8FF */
+    "const vec3 MIST=vec3(0.910,0.925,0.957);",           /* #E8ECF4 */
+    "mat2 rot(float a){float c=cos(a),s=sin(a);return mat2(c,-s,s,c);}",
+    "float hash21(vec2 p){p=fract(p*vec2(123.34,345.45));p+=dot(p,p+34.345);return fract(p.x*p.y);}",
+    "float noise(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.0-2.0*f);",
+    "  float a=hash21(i),b=hash21(i+vec2(1,0)),c=hash21(i+vec2(0,1)),d=hash21(i+vec2(1,1));",
+    "  return mix(mix(a,b,u.x),mix(c,d,u.x),u.y);}",
+    "float fbm(vec2 p){float v=0.0,a=0.5;for(int i=0;i<4;i++){v+=a*noise(p);p=rot(0.5)*p*2.0+11.3;a*=0.5;}return v;}",
+    "void main(){",
+    "  vec2 uv=gl_FragCoord.xy/u_res; float asp=u_res.x/u_res.y;",
+    "  vec2 p=uv; p.x*=asp;",
+    "  float mt=u_time*0.010;",                           /* slow in-place morph */
+    "  float drift=u_time*0.045;",                        /* gentle left-to-right travel */
+    "  vec3 col=mix(DEEP,INDIGO,0.55+0.45*sin(uv.x*3.14159));",
+    "  float acc=0.0;",
+    "  for(int i=0;i<2;i++){ float fi=float(i); float depth=1.0+fi*0.7;",
+    "    vec2 q=p/depth; q*=vec2(0.55,1.35);",            /* stretched: reads as a horizontal current */
+    "    q.x-=drift*(1.0+fi*0.35);",
+    "    vec2 w=vec2(fbm(q+vec2(0.0,mt)),fbm(q+vec2(3.1,-mt)));",
+    "    float dens=fbm(q+1.7*w); dens=smoothstep(0.34,0.95,dens);",
+    "    float layerA=dens*(0.72/depth);",
+    "    vec3 lc=mix(INDIGO,VIOLET,smoothstep(0.30,1.0,dens));",
+    "    col=mix(col,lc,layerA); acc+=layerA;",
+    "  }",
+    /* the spotlight on the logo: the water lifts to lilac and mist behind it */
+    "  col*=mix(0.45,1.0,smoothstep(1.05,0.15,length((uv-vec2(0.5,0.55))*vec2(1.0,0.9))));",  /* deep at the edges */
+    "  vec2 d=(uv-u_spot)*u_res/u_spotR;",
+    "  float s=exp(-dot(d,d)*1.0);",
+    "  vec3 light=mix(LILAC,MIST,0.22+0.18*acc);",
+    "  col=mix(col,light,s*0.96);",
+    "  col=mix(col,mix(LILAC,VIOLET,0.55),smoothstep(0.0,0.6,s)*(1.0-s)*0.35);", /* a violet halo where the light meets the dark */
+    "  col+=(hash21(gl_FragCoord.xy+u_time)-0.5)*0.008;",
+    "  gl_FragColor=vec4(col,1.0);",
+    "}"
+  ].join("\n");
+  var VERT = "attribute vec2 a_pos; void main(){ gl_Position=vec4(a_pos,0.0,1.0); }";
+
+  function comp(src, type) {
+    var o = gl.createShader(type); gl.shaderSource(o, src); gl.compileShader(o);
+    if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(o));
+    return o;
+  }
+  var prog;
+  try {
+    prog = gl.createProgram();
+    gl.attachShader(prog, comp(VERT, gl.VERTEX_SHADER));
+    gl.attachShader(prog, comp(FRAG, gl.FRAGMENT_SHADER));
+    gl.linkProgram(prog); gl.useProgram(prog);
+  } catch (e) { return; }                               /* the still CSS water stays */
+
+  var buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  var la = gl.getAttribLocation(prog, "a_pos");
+  gl.enableVertexAttribArray(la);
+  gl.vertexAttribPointer(la, 2, gl.FLOAT, false, 0, 0);
+  var uRes = gl.getUniformLocation(prog, "u_res"), uTime = gl.getUniformLocation(prog, "u_time"),
+      uSpot = gl.getUniformLocation(prog, "u_spot"), uSpotR = gl.getUniformLocation(prog, "u_spotR");
+
+  var dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+  var t0 = performance.now();
+  function render() {
+    var cw = Math.max(1, Math.floor(canvas.clientWidth * dpr)), ch = Math.max(1, Math.floor(canvas.clientHeight * dpr));
+    if (canvas.width !== cw || canvas.height !== ch) { canvas.width = cw; canvas.height = ch; }
+    gl.viewport(0, 0, cw, ch);
+    gl.uniform2f(uRes, cw, ch);
+    gl.uniform1f(uTime, (performance.now() - t0) / 1000);
+    gl.uniform2f(uSpot, 0.5, 1.0 - L.spotY);             /* GL counts up from the bottom */
+    gl.uniform2f(uSpotR, L.logoW * 0.80 * dpr, L.logoW * 0.50 * dpr);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  }
+
+  /* ~30fps, and only while the footer is on screen */
+  var visible = true, raf = 0, last = 0;
+  function loop(now) {
+    raf = requestAnimationFrame(loop);
+    if (!visible || document.hidden) return;
+    if (now - last >= 33) { last = now; render(); }
+  }
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }, { threshold: 0 }).observe(foot);
+  }
+  render();
+  raf = requestAnimationFrame(loop);
+  window.addEventListener("resize", render);
+})();
+</script>
+</body>
+</html>
