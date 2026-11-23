@@ -4,92 +4,63 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Allies in Arts: Oslo has eyes for you</title>
-<!-- Slow Stream "Watch" page: the Oslo section heading (Greg, 2026-11-22).
-     The same format as the Golden Circle heading, a shade darker: four of
-     Greg's Oslo photos as frames on a strip of film running edge to edge
-     (sprocket holes along both edges), and the heading on a panel laid
-     across the top in cloud grey #DADADA, deepening to darker cloud greys
-     through the middle, its lower edge dissolving into the film. Four
-     frames in a row on wide screens, two rows of two on phones. Fills
-     whatever box the Wix Embed HTML element gives it.
-     Hosted at ooos.ca/embeds/oslo-filmstrip-heading.html; point a Wix
-     Embed HTML element at it with Link. -->
+<!-- Slow Stream "Watch" page: the Oslo section heading (Greg, 2026-11-23).
+     The same format as the Golden Circle heading, a shade darker: the
+     heading panel in cloud grey #DADADA deepening to darker cloud greys
+     through the middle, and below it four of Greg's Oslo photos as square
+     frames edge to edge, a thin #DADADA line between them. Four across on
+     wide screens, two by two on phones. The squares set the height: about
+     1270 x 470 on desktop and 281 x 400 on phones.
+     Hosted at ooos.ca/embeds/oslo-filmstrip-heading.html; point a Wix Embed
+     HTML element at it with Link. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; }
-  html, body { height: 100%; margin: 0; }
-  body { background: #DADADA; overflow: hidden; }
+  html, body { margin: 0; }
+  body { background: #DADADA; }
 
-  /* the panel on top, the film beneath it; only the panel's fade overlaps the film */
-  .os { position: relative; height: 100%; min-height: 240px; overflow: hidden; container-type: inline-size;
-    display: grid; grid-template-rows: auto minmax(0, 1fr); }
+  .os { container-type: inline-size; }
 
-  /* the film: a dark base with a row of sprocket holes along each edge */
-  .os__film { position: relative; grid-row: 2; z-index: 0; min-height: 0; display: flex; flex-direction: column; gap: 0; background: #141216; }
-  .os__strip { position: relative; flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: .8cqw;
-    padding: 3.2cqw .8cqw; background: #141216; }
-  .os__strip::before, .os__strip::after { content: ""; position: absolute; left: 0; right: 0; height: 1.3cqw; pointer-events: none;
-    /* rounded sprocket holes, the grey of the page showing through */
-    background: radial-gradient(closest-side, #DADADA 0 92%, transparent 100%) 0 0 / 2.6cqw 100% repeat-x;
- }
-  .os__strip::before { top: .95cqw; }
-  .os__strip::after { bottom: .95cqw; }
-  .os__frame { position: relative; min-width: 0; min-height: 0; overflow: hidden; background: #0A090B;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .06); }
-  .os__frame img { display: block; width: 100%; height: 100%; object-fit: cover; filter: saturate(.92) contrast(1.03); }
-  .os__frame--hat img { object-position: 50% 32%; }
-  .os__frame--baby img { object-position: 68% 52%; }
-  .os__frame--sphere img { object-position: 22% 55%; }
-  .os__frame--sit img { object-position: 44% 50%; }
-
-  /* the heading panel over the top of the film */
-  .os__panel { position: relative; grid-row: 1; z-index: 1; margin-bottom: -4.2cqw;
-    padding: 2.6cqw 4cqw 6.4cqw; text-align: center;
+  /* the heading panel */
+  .os__panel { padding: 2.4cqw 4cqw 2.6cqw; text-align: center;
     background:
       radial-gradient(26% 70% at 36% 42%, rgba(170, 168, 178, .55) 0%, rgba(170, 168, 178, 0) 100%),
       radial-gradient(22% 60% at 60% 60%, rgba(178, 177, 184, .50) 0%, rgba(178, 177, 184, 0) 100%),
       radial-gradient(18% 55% at 72% 30%, rgba(206, 206, 210, .55) 0%, rgba(206, 206, 210, 0) 100%),
-      linear-gradient(90deg, #DADADA 0%, #CFCED3 16%, #BDBCC3 36%, #B5B4BB 50%, #C4C3C8 64%, #D3D2D5 80%, #DADADA 100%);
-    -webkit-mask-image: linear-gradient(180deg, #000 0, #000 72%, rgba(0, 0, 0, .55) 86%, transparent 100%);
-            mask-image: linear-gradient(180deg, #000 0, #000 72%, rgba(0, 0, 0, .55) 86%, transparent 100%); }
+      linear-gradient(90deg, #DADADA 0%, #CFCED3 16%, #BDBCC3 36%, #B5B4BB 50%, #C4C3C8 64%, #D3D2D5 80%, #DADADA 100%); }
   .os__title { margin: 0; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 3.3cqw; line-height: 1.12; letter-spacing: -.01em; color: #06021C; text-wrap: balance; }
   .os__place { margin: .2em 0 0; font-family: 'Poppins', sans-serif; font-weight: 300; font-size: 4.4cqw; line-height: 1; letter-spacing: .02em; color: #2A2A2A; }
 
-  /* phones: two rows of two frames, larger type */
-  .os__strip--b { display: none; }
+  /* four square photos, edge to edge, a thin light line between */
+  .os__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
+  .os__frame { margin: 0; aspect-ratio: 1 / 1; overflow: hidden; background: #0A090B; }
+  .os__frame img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .os__frame--hat img { object-position: 50% 26%; }
+  .os__frame--baby img { object-position: 66% 50%; }
+  .os__frame--sphere img { object-position: 20% 55%; }
+  .os__frame--sit img { object-position: 50% 50%; }
+
   @container (max-width: 600px) {
-    .os__strip { grid-template-columns: repeat(2, 1fr); gap: 1.6cqw; padding: 5.6cqw 1.6cqw; }
-    .os__strip::before, .os__strip::after { height: 2.4cqw; background-size: 4.8cqw 100%; }
-    .os__strip::before { top: 1.6cqw; }
-    .os__strip::after { bottom: 1.6cqw; }
-    .os__strip--a .os__frame:nth-child(n+3) { display: none; }
-    .os__strip--b { display: grid; }
-    .os__panel { padding: 5cqw 6cqw 12cqw; margin-bottom: -8cqw; }
+    .os__panel { padding: 5cqw 6cqw 5.4cqw; }
     .os__title { font-size: 7.2cqw; }
     .os__place { font-size: 10cqw; }
+    .os__grid { grid-template-columns: repeat(2, 1fr); gap: 2px; }
   }
 </style>
 </head>
 <body>
 <section class="os" aria-labelledby="os-title">
-  <div class="os__film">
-    <div class="os__strip os__strip--a">
-      <div class="os__frame os__frame--hat"><img src="https://ooos.ca/assets/slowstream/oslo-statue-red-hat.webp" width="640" height="853" alt="A bronze statue of a standing woman in a wide red hat and red heels on a plaza in Oslo"></div>
-      <div class="os__frame os__frame--baby"><img src="https://ooos.ca/assets/slowstream/oslo-stencil-baby.webp" width="640" height="853" alt="A stencil of a stomping, crying baby on a concrete wall above an Oslo road, signed LA STAA"></div>
-      <div class="os__frame os__frame--sphere"><img src="https://ooos.ca/assets/slowstream/oslo-bronze-sphere.webp" width="640" height="800" alt="Close-up of a textured bronze sphere sculpture split like a smile, an office building glowing behind it at dusk"></div>
-      <div class="os__frame os__frame--sit"><img src="https://ooos.ca/assets/slowstream/oslo-reclining-statue.webp" width="1000" height="750" alt="A man in a grey blazer sits beside a reclining bronze statue in a red hat and golden sandals on an Oslo plaza"></div>
-    </div>
-    <!-- phones: the last two frames on a second strip -->
-    <div class="os__strip os__strip--b" aria-hidden="true">
-      <div class="os__frame os__frame--sphere"><img src="https://ooos.ca/assets/slowstream/oslo-bronze-sphere.webp" width="640" height="800" alt=""></div>
-      <div class="os__frame os__frame--sit"><img src="https://ooos.ca/assets/slowstream/oslo-reclining-statue.webp" width="1000" height="750" alt=""></div>
-    </div>
-  </div>
   <div class="os__panel">
     <h2 class="os__title" id="os-title">Allies in Arts: Oslo has eyes for you</h2>
     <p class="os__place">NORWAY</p>
+  </div>
+  <div class="os__grid">
+    <figure class="os__frame os__frame--hat"><img src="https://ooos.ca/assets/slowstream/oslo-statue-red-hat.webp" width="640" height="853" alt="A bronze statue of a standing woman in a wide red hat and red heels on a plaza in Oslo"></figure>
+    <figure class="os__frame os__frame--baby"><img src="https://ooos.ca/assets/slowstream/oslo-stencil-baby.webp" width="640" height="853" alt="A stencil of a stomping, crying baby on a concrete wall above an Oslo road, signed LA STAA"></figure>
+    <figure class="os__frame os__frame--sphere"><img src="https://ooos.ca/assets/slowstream/oslo-bronze-sphere.webp" width="640" height="800" alt="Close-up of a textured bronze sphere sculpture split like a smile, an office building glowing behind it at dusk"></figure>
+    <figure class="os__frame os__frame--sit"><img src="https://ooos.ca/assets/slowstream/oslo-reclining-statue-square.webp" width="800" height="800" alt="A reclining bronze statue in a red hat and golden sandals, a blue cup beside her, on a plaza in Oslo"></figure>
   </div>
 </section>
 </body>
