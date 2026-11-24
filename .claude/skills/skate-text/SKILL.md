@@ -101,7 +101,7 @@ stays sharp on high-density screens.
 
 ## Where it is used
 
-- slowstream.ca welcome section: `https://ooos.ca/assets/slowstream/enter-the-present-waves.webp`
-  (and `-still.webp`), made with `presets/slow-stream.json`. The welcome
-  section aligns the waves' centre of mass (67.2% down this image) with the
-  top of the key panel.
+- Nowhere live. The slowstream.ca welcome section used
+  `enter-the-present-waves.webp` (and `-still.webp`), made with
+  `presets/slow-stream.json`, until 2026-11-24, when Greg cut it as too big;
+  both files were deleted. Rebuild them with the preset if it comes back.
