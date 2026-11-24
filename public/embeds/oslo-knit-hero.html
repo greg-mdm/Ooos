@@ -9,8 +9,8 @@
      the smiling head, and the La Staa baby, lined top and bottom with one
      continuous white-grey braided knit cord (no side borders) and thin braids
      at the two seams.
-     The heart sits over the plinth edge (its middle on the plinth's right
-     edge), pulses slowly, and opens large on click. Hovering the bikini, on
+     The heart sits in the cement in front of the plinth, clear of the
+     statue and her shoes, with its tip breaking out below the braid; it pulses slowly, and opens large on click. Hovering the bikini, on
      the statue or in the heart, shows "Shop the look": three designers the
      piece pays homage to, with links, and a share button.
      Hosted at ooos.ca/embeds/oslo-knit-hero.html; point a Wix Embed HTML
@@ -23,13 +23,15 @@
   html, body { margin: 0; }
   body { background: #F1F0F2; font-family: 'Poppins', sans-serif; color: #0A0614; }
 
-  .kh { container-type: inline-size; position: relative; }
+  /* room under the art so the heart tip can break out below the bottom braid */
+  .kh { container-type: inline-size; position: relative; padding-bottom: 7%; }
   .kh__art { position: relative; width: 100%; aspect-ratio: 3600 / 1500; }
   .kh__art > img { display: block; width: 100%; height: 100%; }
 
-  /* the heart: its middle on the plinth's right edge (x 30.3%), level with the plinth top */
-  .kh__heart { position: absolute; left: 30.3%; top: 60%; width: 18%; aspect-ratio: 2400 / 2280;
-    transform: translate(-50%, -47.4%); padding: 0; border: 0; background: none; cursor: zoom-in;
+  /* the heart: down in the cement in front of the plinth, clear of her and her yellow shoes
+     (lobes start at 57% of the art height, under the shoes at 54%); the tip breaks out below the bottom braid */
+  .kh__heart { position: absolute; left: 31.2%; top: 53.1%; width: 27.7%; aspect-ratio: 2400 / 2280;
+    transform: translateX(-50%); padding: 0; border: 0; background: none; cursor: zoom-in;
     -webkit-tap-highlight-color: transparent; }
   .kh__heart img { display: block; width: 100%; height: 100%; animation: kh-beat 2.6s ease-in-out infinite; transform-origin: 50% 55%; }
   .kh__heart:focus-visible { outline: 3px solid #5B04DE; outline-offset: 4px; border-radius: 12px; }
