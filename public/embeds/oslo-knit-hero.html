@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sunbathing in Oslo: the SKANDI · CAN knit</title>
+<!-- Slow Stream Oslo hero (Greg, 2026-11-24).
+     The digital-craft banner: the sunhat lady in her SKANDI · CAN knit bikini,
+     the smiling head, and the La Staa baby, lined top and bottom with one
+     continuous white-grey braided knit cord (no side borders) and thin braids
+     at the two seams.
+     The heart sits over the plinth edge (its middle on the plinth's right
+     edge), pulses slowly, and opens large on click. Hovering the bikini, on
+     the statue or in the heart, shows "Shop the look": three designers the
+     piece pays homage to, with links, and a share button.
+     Hosted at ooos.ca/embeds/oslo-knit-hero.html; point a Wix Embed HTML
+     element at it with Link. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: #F1F0F2; font-family: 'Poppins', sans-serif; color: #0A0614; }
+
+  .kh { container-type: inline-size; position: relative; }
+  .kh__art { position: relative; width: 100%; aspect-ratio: 3600 / 1500; }
+  .kh__art > img { display: block; width: 100%; height: 100%; }
+
+  /* the heart: its middle on the plinth's right edge (x 30.3%), level with the plinth top */
+  .kh__heart { position: absolute; left: 30.3%; top: 60%; width: 18%; aspect-ratio: 2400 / 2280;
+    transform: translate(-50%, -47.4%); padding: 0; border: 0; background: none; cursor: zoom-in;
+    -webkit-tap-highlight-color: transparent; }
+  .kh__heart img { display: block; width: 100%; height: 100%; animation: kh-beat 2.6s ease-in-out infinite; transform-origin: 50% 55%; }
+  .kh__heart:focus-visible { outline: 3px solid #5B04DE; outline-offset: 4px; border-radius: 12px; }
+  @keyframes kh-beat { 0%, 100% { transform: scale(1); } 14% { transform: scale(1.06); } 28% { transform: scale(1); } 42% { transform: scale(1.035); } 60% { transform: scale(1); } }
+
+  /* the bikini on the statue: a quiet hover target */
+  .kh__spot { position: absolute; left: 16.6%; top: 31.3%; width: 8.3%; height: 17.4%; padding: 0; border: 0;
+    background: none; cursor: pointer; border-radius: 40%; }
+  .kh__spot:focus-visible { outline: 3px solid #5B04DE; outline-offset: 2px; }
+
+  /* "Shop the look" chip, shown on hover or focus of the bikini or the heart */
+  .kh__chip { position: absolute; left: 30.3%; top: 18%; transform: translate(-50%, 0) scale(.92); opacity: 0; pointer-events: none;
+    display: inline-flex; align-items: center; gap: .5em; padding: .55em 1em .55em .8em; border: 0; border-radius: 999px;
+    background: #FFFFFF; color: #0A0614; font: 500 max(12px, 1.25cqw) / 1 'Poppins', sans-serif; letter-spacing: .01em;
+    box-shadow: 0 .4cqw 1.6cqw rgba(10, 6, 20, .28); cursor: pointer; transition: opacity .2s ease, transform .2s ease; white-space: nowrap; }
+  .kh__chip svg { width: 1.3em; height: 1.3em; flex: none; }
+  .kh.is-look .kh__chip, .kh__chip:hover, .kh__chip:focus-visible { opacity: 1; pointer-events: auto; transform: translate(-50%, 0) scale(1); }
+  .kh__chip:focus-visible { outline: 3px solid #5B04DE; outline-offset: 3px; }
+
+  /* dialogs */
+  dialog { border: 0; padding: 0; background: transparent; max-width: 100vw; max-height: 100vh; }
+  dialog::backdrop { background: rgba(10, 6, 20, .72); }
+  .kh__zoom { width: min(88vw, calc((88vh - 64px) * 1.05)); overflow: visible; }
+  .kh__zoom img { display: block; width: 100%; height: auto; animation: kh-beat 2.6s ease-in-out infinite; }
+  .kh__close { position: absolute; top: 8px; right: 8px; width: 40px; height: 40px; border: 0; border-radius: 50%;
+    background: #FFFFFF; color: #0A0614; font: 300 26px/1 'Poppins', sans-serif; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,.25); }
+  .kh__close:focus-visible { outline: 3px solid #5B04DE; outline-offset: 2px; }
+  .kh__zoom-actions { display: flex; justify-content: center; margin-top: 10px; }
+
+  .kh__look { width: min(560px, 94vw); background: #FFFFFF; border-radius: 18px; padding: 26px 24px 22px; position: relative; }
+  .kh__look h2 { margin: 0 0 4px; font-weight: 700; font-size: 22px; line-height: 1.2; }
+  .kh__look p.kh__lede { margin: 0 0 16px; max-width: 60ch; text-wrap: balance; font-weight: 300; font-size: 14px; line-height: 1.5; color: #19007D; }
+  .kh__src span:not(.kh__num) { text-wrap: balance; }
+  .kh__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .kh__src { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; align-items: start; padding: 12px 14px;
+    border-radius: 12px; background: #F1F0F2; text-decoration: none; color: inherit; transition: background .15s ease; }
+  .kh__src:hover { background: #E6E6FA; }
+  .kh__src:focus-visible { outline: 3px solid #5B04DE; outline-offset: 2px; }
+  .kh__num { grid-row: span 2; width: 26px; height: 26px; border-radius: 50%; background: #0A0614; color: #FFFFFF;
+    font: 500 13px/26px 'Poppins', sans-serif; text-align: center; }
+  .kh__src strong { font-weight: 500; font-size: 15px; }
+  .kh__src span:not(.kh__num) { font-weight: 300; font-size: 13px; line-height: 1.45; color: #2A2A2A; }
+  .kh__src em { font-style: normal; color: #5B04DE; font-weight: 500; }
+  .kh__share { margin-top: 16px; display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border: 0; border-radius: 999px;
+    background: #0A0614; color: #FFFFFF; font: 500 14px/1 'Poppins', sans-serif; cursor: pointer; }
+  .kh__share:focus-visible { outline: 3px solid #5B04DE; outline-offset: 3px; }
+  .kh__note { margin: 10px 0 0; font-size: 12px; font-weight: 300; color: #19007D; min-height: 1em; }
+
+  @media (prefers-reduced-motion: reduce) { .kh__heart img, .kh__zoom img { animation: none; } .kh__chip { transition: none; } }
+  @container (max-width: 600px) { .kh__chip { font-size: 11px; top: 8%; } }
+</style>
+</head>
+<body>
+<section class="kh" id="kh" aria-label="Sunbathing in Oslo: the SKANDI · CAN knit">
+  <div class="kh__art">
+    <img src="/assets/slowstream/oslo-knit-hero.webp" width="3600" height="1500"
+      alt="A bronze statue of a reclining woman in a red sun hat on an Oslo plaza, wearing a hand-knit red-orange bikini with SKANDI and CAN letter beads; beside her a smiling bronze head and a stencil of a stomping baby in a red glitter diaper, all framed top and bottom by a braided knit cord">
+    <button class="kh__spot" type="button" aria-label="Shop the look: the SKANDI · CAN knit bikini"></button>
+    <button class="kh__heart" type="button" aria-label="Open the heart close-up of the knit bikini">
+      <img src="/assets/slowstream/oslo-knit-heart.webp" width="2400" height="2280" alt="">
+    </button>
+    <button class="kh__chip" type="button" aria-haspopup="dialog">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      Shop the look
+    </button>
+  </div>
+</section>
+
+<dialog class="kh__zoom" id="kh-zoom" aria-label="Heart close-up of the knit bikini">
+  <button class="kh__close" type="button" data-close aria-label="Close">×</button>
+  <img src="/assets/slowstream/oslo-knit-heart.webp" width="2400" height="2280"
+    alt="Heart-shaped close-up of the knit bikini: red-orange braided starburst with opal gems, the SKANDI letter beads looped around her thigh and the red and white CAN beads across her hip">
+  <div class="kh__zoom-actions"><button class="kh__chip" type="button" data-look style="position:static;opacity:1;pointer-events:auto;transform:none;font-size:14px">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+    Shop the look</button></div>
+</dialog>
+
+<dialog class="kh__look" id="kh-look" aria-labelledby="kh-look-title">
+  <button class="kh__close" type="button" data-close aria-label="Close">×</button>
+  <h2 id="kh-look-title">Shop the look</h2>
+  <p class="kh__lede">A one-off, made by hand for her. These three designers inspired it.</p>
+  <ol class="kh__list">
+    <li><a class="kh__src" href="https://www.mrporter.com/en-us/mens/product/sefr/clothing/crew-necks/sol-oversized-cable-knit-wool-sweater/46376663162877967" target="_blank" rel="noopener">
+      <span class="kh__num">1</span><strong>Séfr · Sol cable-knit sweater</strong>
+      <span><em>Inspired by</em> the red and orange yarn plied together into fat plaited stitches.</span></a></li>
+    <li><a class="kh__src" href="https://holzweileroslo.com" target="_blank" rel="noopener">
+      <span class="kh__num">2</span><strong>Holzweiler · Oslo</strong>
+      <span><em>Paying homage</em> to their loose, hand-made net knits in Norwegian wool.</span></a></li>
+    <li><a class="kh__src" href="https://www.karitraa.com" target="_blank" rel="noopener">
+      <span class="kh__num">3</span><strong>Kari Traa · Norway</strong>
+      <span><em>Inspired by</em> their maximalist, head-to-toe knitwear in loud colour.</span></a></li>
+  </ol>
+  <button class="kh__share" type="button" id="kh-share">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+    Share the look</button>
+  <p class="kh__note" id="kh-note" role="status"></p>
+</dialog>
+
+<script>
+(() => {
+  const hero = document.getElementById('kh'), zoom = document.getElementById('kh-zoom'), look = document.getElementById('kh-look');
+  const heart = hero.querySelector('.kh__heart'), spot = hero.querySelector('.kh__spot'), chip = hero.querySelector('.kh__chip');
+  let hideTimer;
+  const show = () => { clearTimeout(hideTimer); hero.classList.add('is-look'); };
+  const hide = () => { hideTimer = setTimeout(() => hero.classList.remove('is-look'), 450); };
+  [spot, heart, chip].forEach(el => { el.addEventListener('mouseenter', show); el.addEventListener('mouseleave', hide); el.addEventListener('focus', show); el.addEventListener('blur', hide); });
+  const open = d => { if (typeof d.showModal === 'function') d.showModal(); else d.setAttribute('open', ''); };
+  const close = d => { if (typeof d.close === 'function') d.close(); else d.removeAttribute('open'); };
+  heart.addEventListener('click', () => open(zoom));
+  spot.addEventListener('click', () => open(look));
+  chip.addEventListener('click', () => open(look));
+  zoom.querySelector('[data-look]').addEventListener('click', () => { close(zoom); open(look); });
+  document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => close(b.closest('dialog'))));
+  [zoom, look].forEach(d => d.addEventListener('click', e => { if (e.target === d) close(d); }));
+  // share: the page link via the device share sheet, or copied
+  const note = document.getElementById('kh-note');
+  document.getElementById('kh-share').addEventListener('click', async () => {
+    const url = 'https://ooos.ca/embeds/oslo-knit-hero.html', data = { title: 'Sunbathing in Oslo: the SKANDI · CAN knit', url };
+    try { if (navigator.share) { await navigator.share(data); return; } } catch (e) { if (e && e.name === 'AbortError') return; }
+    try { await navigator.clipboard.writeText(url); note.textContent = 'Link copied.'; }
+    catch { note.textContent = url; }
+  });
+})();
+</script>
+</body>
+</html>
