@@ -13,6 +13,9 @@
      statue and her shoes, with its tip breaking out below the braid; it pulses slowly, and opens large on click. Hovering the bikini, on
      the statue or in the heart, shows "Shop the look": three designers the
      piece pays homage to, with links, and a share button.
+     Below it, one panel: The Angry Boy (Oslo art and city tour) beside the red
+     knit and the @refashionedhippie reel (Scandinavian style). The reel loads
+     only on click, into a box of fixed size, so the page height never changes.
      Hosted at ooos.ca/embeds/oslo-knit-hero.html; point a Wix Embed HTML
      element at it with Link. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,8 +26,8 @@
   html, body { margin: 0; }
   body { background: #F1F0F2; font-family: 'Poppins', sans-serif; color: #0A0614; }
 
-  /* room under the art so the heart tip can break out below the bottom braid */
-  .kh { container-type: inline-size; position: relative; padding-bottom: 7%; }
+  /* the panel below keeps 7.5% of the width clear so the heart tip can break out below the bottom braid */
+  .kh { container-type: inline-size; position: relative; }
   .kh__art { position: relative; width: 100%; aspect-ratio: 3600 / 1500; }
   .kh__art > img { display: block; width: 100%; height: 100%; }
 
@@ -80,6 +83,27 @@
   .kh__share:focus-visible { outline: 3px solid #5B04DE; outline-offset: 3px; }
   .kh__note { margin: 10px 0 0; font-size: 12px; font-weight: 300; color: #19007D; min-height: 1em; }
 
+  /* the panel below the hero: two cards, Oslo art and city tour beside Scandinavian style.
+     Its height never changes (the reel box is the same size before and after play), so a fixed-height
+     Wix embed in the classic editor does not clip or scroll. */
+  .kp { padding: 7.5cqw 4cqw 4cqw; display: grid; grid-template-columns: 1fr 1fr; gap: 2.4cqw; align-items: start; }
+  .kp__card { background: #FFFFFF; border-radius: 18px; padding: 24px 26px; box-shadow: 0 1px 0 #E6E6FA; }
+  .kp__eyebrow { margin: 0 0 6px; font: 500 12px/1.2 "Poppins", sans-serif; letter-spacing: .08em; text-transform: uppercase; color: #5B04DE; }
+  .kp h2 { margin: 0 0 10px; font-weight: 700; font-size: 22px; line-height: 1.2; }
+  .kp p { margin: 0 0 12px; max-width: 62ch; text-wrap: balance; font-weight: 300; font-size: 14px; line-height: 1.6; }
+  .kp a { color: #19007D; text-decoration-color: #E6E6FA; text-underline-offset: 2px; }
+  .kp a:hover { text-decoration-color: currentColor; }
+  .kp a:focus-visible, .kp__play:focus-visible { outline: 3px solid #5B04DE; outline-offset: 2px; border-radius: 4px; }
+  .kp__credit { font-size: 12px !important; color: #5A5566; }
+  .kp__quote { margin: 0 0 6px; font: 300 italic 17px/1.5 "Poppins", sans-serif; color: #0A0614; max-width: 46ch; text-wrap: balance; }
+  .kp__reel { position: relative; width: 100%; max-width: 340px; aspect-ratio: 340 / 660; margin-top: 14px; border-radius: 14px; overflow: hidden; background: #0A0614; }
+  .kp__reel iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #FFFFFF; }
+  .kp__play { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 12px; border: 0; cursor: pointer;
+    background: radial-gradient(120% 80% at 50% 30%, #5B04DE 0%, #19007D 55%, #0A0614 100%); color: #FFFFFF; font: 500 15px/1.3 "Poppins", sans-serif; padding: 24px; text-align: center; }
+  .kp__play svg { width: 64px; height: 64px; }
+  .kp__play small { display: block; font-weight: 300; font-size: 12px; opacity: .8; max-width: 26ch; }
+  @container (max-width: 720px) { .kp { grid-template-columns: 1fr; padding: 7.5cqw 16px 20px; gap: 14px; } .kp__card { padding: 20px; } .kp__reel { margin-inline: auto; } }
+
   @media (prefers-reduced-motion: reduce) { .kh__heart img, .kh__zoom img { animation: none; } .kh__chip { transition: none; } }
   @container (max-width: 600px) { .kh__chip { font-size: 11px; top: 8%; } }
 </style>
@@ -97,6 +121,28 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
       Shop the look
     </button>
+  </div>
+  <div class="kp">
+    <article class="kp__card" aria-labelledby="kp-boy">
+      <p class="kp__eyebrow">Oslo art and city tour</p>
+      <h2 id="kp-boy">The Angry Boy</h2>
+      <p>The Angry Boy (<a href="https://en.wikipedia.org/wiki/Norwegian_language" target="_blank" rel="noopener">Norwegian</a>: Sinnataggen) is a sculpture in the <a href="https://en.wikipedia.org/wiki/Vigeland_installation" target="_blank" rel="noopener">Vigeland installation</a> in <a href="https://en.wikipedia.org/wiki/Frogner_Park" target="_blank" rel="noopener">Frogner Park</a>, <a href="https://en.wikipedia.org/wiki/Oslo" target="_blank" rel="noopener">Oslo</a>. It depicts a small, angry boy and is considered Gustav Vigeland’s most famous sculpture. The sculpture, cast in bronze, was likely modeled in 1928 and installed as one of 58 sculptures on the “Bridge” in the sculpture park in 1940.</p>
+      <p>The stomping baby in our banner is a street-art copy, spray-painted near Holmenkollen, the ski jump from the 1952 Winter Olympics.</p>
+      <p class="kp__credit">Text from <a href="https://en.wikipedia.org/wiki/The_Angry_Boy" target="_blank" rel="noopener">Wikipedia</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>.</p>
+    </article>
+    <article class="kp__card" aria-labelledby="kp-style">
+      <p class="kp__eyebrow">Scandinavian style</p>
+      <h2 id="kp-style">The red knit</h2>
+      <p class="kp__quote">“I love crafters. Especially when men get into crafting it can be a wonderful thing… special shoutout to this one man…”</p>
+      <p class="kp__credit"><a href="https://www.instagram.com/refashionedhippie/" target="_blank" rel="noopener">@refashionedhippie</a> on <a href="https://www.instagram.com/reel/DgAzdBiu7c8/" target="_blank" rel="noopener">Instagram</a></p>
+      <div class="kp__reel" id="kp-reel">
+        <button class="kp__play" type="button" id="kp-play" aria-label="Play the reel by @refashionedhippie (loads Instagram)">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="31" fill="none" stroke="#FFFFFF" stroke-width="2"/><path d="M26 20l20 12-20 12z" fill="#FFFFFF"/></svg>
+          Play the reel
+          <small>Loads Instagram, which may set cookies.</small>
+        </button>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -153,6 +199,13 @@
     try { if (navigator.share) { await navigator.share(data); return; } } catch (e) { if (e && e.name === 'AbortError') return; }
     try { await navigator.clipboard.writeText(url); note.textContent = 'Link copied.'; }
     catch { note.textContent = url; }
+  });
+  // the reel: Instagram loads only on request, into a box that keeps its size
+  document.getElementById("kp-play").addEventListener("click", () => {
+    const box = document.getElementById("kp-reel"), f = document.createElement("iframe");
+    f.src = "https://www.instagram.com/reel/DgAzdBiu7c8/embed/"; f.title = "Reel by @refashionedhippie on Instagram";
+    f.allow = "autoplay; encrypted-media; picture-in-picture; clipboard-write"; f.loading = "eager";
+    box.replaceChildren(f);
   });
 })();
 </script>
