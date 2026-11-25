@@ -13,8 +13,8 @@
      statue and her shoes, with its tip breaking out below the braid; it pulses slowly, and opens large on click. Hovering the bikini, on
      the statue or in the heart, shows "Shop the look": three designers the
      piece pays homage to, with links, and a share button.
-     Below it, one panel: The Angry Boy (Oslo art and city tour) beside the red
-     knit and the @refashionedhippie reel (Scandinavian style). The reel loads
+     Order: the Scandinavian style feature (red knit, V analysis, the
+     @refashionedhippie reel), then the banner, then The Angry Boy card. The reel loads
      only on click, into a box of fixed size, so the page height never changes.
      Hosted at ooos.ca/embeds/oslo-knit-hero.html; point a Wix Embed HTML
      element at it with Link. -->
@@ -114,6 +114,8 @@
   .kp__fig { margin: 0 0 16px; } .kp__fig img { display: block; width: 100%; height: auto; aspect-ratio: 750 / 562; object-fit: cover; border-radius: 14px; background: #E6E6FA; }
   .kp__fig figcaption { margin-top: 6px; font-size: 12px; color: #5A5566; }
   @container (max-width: 720px) { .kp__feature { grid-template-columns: 1fr; gap: 8px; } }
+  .kp--top { padding-top: 4cqw; }
+  @container (max-width: 720px) { .kp--top { padding-top: 20px !important; } }
   @container (max-width: 720px) { .kp { grid-template-columns: 1fr; padding: 7.5cqw 16px 20px; gap: 14px; } .kp__card { padding: 20px; } .kp__reel { margin-inline: auto; } }
 
   @media (prefers-reduced-motion: reduce) { .kh__heart img, .kh__zoom img { animation: none; } .kh__chip { transition: none; } }
@@ -122,19 +124,7 @@
 </head>
 <body>
 <section class="kh" id="kh" aria-label="Sunbathing in Oslo: the SKANDI · CAN knit">
-  <div class="kh__art">
-    <img src="/assets/slowstream/oslo-knit-hero.webp" width="3600" height="1500"
-      alt="A bronze statue of a reclining woman in a red sun hat on an Oslo plaza, wearing a hand-knit red-orange bikini with SKANDI and CAN letter beads; beside her a smiling bronze head and a stencil of a stomping baby in a red glitter diaper, all framed top and bottom by a braided knit cord">
-    <button class="kh__spot" type="button" aria-label="Shop the look: the SKANDI · CAN knit bikini"></button>
-    <button class="kh__heart" type="button" aria-label="Open the heart close-up of the knit bikini">
-      <img src="/assets/slowstream/oslo-knit-heart-norway.webp" width="2400" height="2280" alt="">
-    </button>
-    <button class="kh__chip" type="button" aria-haspopup="dialog">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
-      Shop the look
-    </button>
-  </div>
-  <div class="kp">
+  <div class="kp kp--top">
     <article class="kp__card kp__card--wide" aria-labelledby="kp-style">
       <p class="kp__eyebrow">Scandinavian style</p>
       <div class="kp__feature">
@@ -177,6 +167,20 @@
         </div>
       </div>
     </article>
+  </div>
+  <div class="kh__art">
+    <img src="/assets/slowstream/oslo-knit-hero.webp" width="3600" height="1500"
+      alt="A bronze statue of a reclining woman in a red sun hat on an Oslo plaza, wearing a hand-knit red-orange bikini with SKANDI and CAN letter beads; beside her a smiling bronze head and a stencil of a stomping baby in a red glitter diaper, all framed top and bottom by a braided knit cord">
+    <button class="kh__spot" type="button" aria-label="Shop the look: the SKANDI · CAN knit bikini"></button>
+    <button class="kh__heart" type="button" aria-label="Open the heart close-up of the knit bikini">
+      <img src="/assets/slowstream/oslo-knit-heart-norway.webp" width="2400" height="2280" alt="">
+    </button>
+    <button class="kh__chip" type="button" aria-haspopup="dialog">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      Shop the look
+    </button>
+  </div>
+  <div class="kp">
     <article class="kp__card kp__card--wide" aria-labelledby="kp-boy">
       <p class="kp__eyebrow">Oslo art and city tour</p>
       <h2 id="kp-boy">Tagged: Sinnataggen, The Angry Boy</h2>
