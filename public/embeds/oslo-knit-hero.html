@@ -113,7 +113,7 @@
   .kp h3 { margin: 18px 0 6px; font: italic 600 16px/1.3 "Poppins", sans-serif; color: #0A0614; }
   .kp__list { margin: 4px 0 12px; padding-left: 1.1em; font-weight: 300; font-size: 14px; line-height: 1.6; }
   .kp__list li { margin-bottom: 4px; } .kp__list strong { font-weight: 500; }
-  .kp__fig { margin: 0 0 16px; max-width: 600px; } .kp__fig img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 14px; background: #E6E6FA; }
+  .kp__fig { margin: 0 0 16px; } .kp__fig img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 14px; background: #E6E6FA; }
   .kp__fig figcaption { margin-top: 6px; font-size: 12px; color: #5A5566; }
   @container (max-width: 720px) { .kp__feature { grid-template-columns: 1fr; gap: 8px; } }
   /* the two cards under the banner mirror the Shop the look dialog: bold title, violet lede, soft grey rows */
@@ -144,6 +144,32 @@
   .kp:last-child { border-bottom: 0; }
   /* under the banner the heart tip breaks out below the braid: the cards start their text below it */
   @container (max-width: 720px) { .kp { grid-template-columns: 1fr; } .kp__card { padding: 24px 16px; } .kp__reel { margin-inline: auto; } }
+
+  /* fluid to the canvas: the embed runs edge to edge on Slow Stream, so type, spacing and media grow with the
+     embed width (cqw = 1% of it) instead of stopping at fixed pixel sizes and leaving empty bands on wide screens */
+  .kp p, .kp__list, .kp__look .kp__lede, .kp__meta { font-size: clamp(14px, 1.25cqw, 24px) !important; }
+  .kp h2 { font-size: clamp(22px, 2.3cqw, 44px); }
+  .kp h3 { font-size: clamp(16px, 1.45cqw, 27px); }
+  .kp__dek { font-size: clamp(16px, 1.55cqw, 29px) !important; }
+  .kp__eyebrow { font-size: clamp(12px, .95cqw, 17px); }
+  .kp__credit, .kp__fig figcaption { font-size: clamp(12px, .95cqw, 17px) !important; }
+  .kp__quote { font-size: clamp(17px, 1.55cqw, 29px) !important; }
+  .kp__look .kp__row, .kp__look div.kp__row p, .kp__look div.kp__row li { font-size: clamp(13px, 1.15cqw, 21px) !important; }
+  .kp__reel { max-width: clamp(340px, 24cqw, 460px); }
+  .kh__heart--card { max-width: clamp(180px, 15cqw, 300px); }
+  /* the feature: article and photo split the canvas in two equal halves and end together.
+     The photo fills whatever height the article takes (cropped to cover), so there is no overhang and no gap. */
+  .kp__feature:not(.kp__feature--lower) { grid-template-columns: 1.2fr 1fr; gap: 4cqw; align-items: stretch; }
+  .kp__feature:not(.kp__feature--lower) > div:last-child { display: flex; flex-direction: column; }
+  .kp__feature:not(.kp__feature--lower) .kp__fig { flex: 1 1 auto; display: flex; flex-direction: column; }
+  .kp__feature:not(.kp__feature--lower) .kp__fig > a { position: relative; flex: 1 1 auto; min-height: 28cqw; display: block; }
+  .kp__feature:not(.kp__feature--lower) .kp__fig img { position: absolute; inset: 0; height: 100%; aspect-ratio: auto; object-position: 50% 8%; }
+  .kp__feature--lower { grid-template-columns: 1fr 1fr; gap: 4cqw; }
+  @container (max-width: 720px) {
+    .kp__feature:not(.kp__feature--lower), .kp__feature--lower { grid-template-columns: 1fr; gap: 8px; }
+    .kp__feature:not(.kp__feature--lower) .kp__fig > a { min-height: 0; }
+    .kp__feature:not(.kp__feature--lower) .kp__fig img { position: static; aspect-ratio: 4 / 5; }
+  }
 
   @media (prefers-reduced-motion: reduce) { .kh__heart img, .kh__zoom img { animation: none; } .kh__chip { transition: none; } }
   @container (max-width: 600px) { .kh__chip { font-size: 11px; top: 8%; } }
