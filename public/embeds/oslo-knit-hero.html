@@ -119,6 +119,10 @@
   .kp__look .kp__lede { margin: 0 0 16px; font-weight: 300; font-size: 14px; line-height: 1.5; color: #19007D; }
   .kp__look .kp__row { margin: 0 0 10px; padding: 12px 14px; border-radius: 12px; background: #F1F0F2; font-size: 13px; line-height: 1.45; color: #2A2A2A; max-width: none; }
   .kp__look .kp__credit { margin-top: 14px; }
+  .kp__stack { display: grid; gap: 2.4cqw; }
+  .kp__piece { margin: 0; padding: 18px; background: #FFFFFF; border-radius: 18px; }
+  .kp__piece img { display: block; width: 100%; height: auto; }
+  @container (max-width: 720px) { .kp__stack { gap: 14px; } }
   .kp--top { padding-top: 4cqw; }
   @container (max-width: 720px) { .kp--top { padding-top: 20px !important; } }
   @container (max-width: 720px) { .kp { grid-template-columns: 1fr; padding: 7.5cqw 16px 20px; gap: 14px; } .kp__card { padding: 20px; } .kp__reel { margin-inline: auto; } }
@@ -186,16 +190,16 @@
     </button>
   </div>
   <div class="kp">
-    <article class="kp__card kp__look" aria-labelledby="kp-skandi">
-      <h2 id="kp-skandi">SKANDI CAN</h2>
-      <p class="kp__lede">Canadian designer Gregory Tyler Long rekindles an old flame by crafting this custom couture bikini bottom for Lady at the Dock.</p>
-      <p class="kp__row">He’s got something to rave about and a soft spot for older women.</p>
-    </article>
+    <div class="kp__stack">
+      <article class="kp__card kp__look" aria-labelledby="kp-skandi">
+        <h2 id="kp-skandi">SKANDI CAN</h2>
+        <p class="kp__lede">Canadian designer Gregory Tyler Long rekindles an old flame by crafting this custom couture bikini bottom for Lady at the Dock.</p>
+      </article>
+      <figure class="kp__piece"><img src="/assets/slowstream/skandi-can-bikini.webp" width="2000" height="1116" loading="lazy" alt="The SKANDI CAN bikini bottom: a red-orange hand-knit cable panel set with opal-like stones, on braided cord straps, with SKANDI spelled in purple letter beads on the left and CAN in red-and-white letter beads on the right"></figure>
+    </div>
     <article class="kp__card kp__look" aria-labelledby="kp-boy">
-      <p class="kp__eyebrow">Oslo art and city tour</p>
-      <h2 id="kp-boy">Tagged: Sinnataggen, The Angry Boy</h2>
-      <p class="kp__lede">Attributed to Norwegian street artist La Staa.</p>
-      <p class="kp__row">Spray-painted stencil on a concrete slab.</p>
+      <h2 id="kp-boy">Tagged: Sinnataggen</h2>
+      <p class="kp__lede">Sinnataggen, tagged on a concrete slab. The angry boy is a spray-painted stencil attributed to Norwegian street artist La Staa.</p>
       <p class="kp__row">Photographed near Holmenkollen mountain, where a sky-high ski jump once hosted the 1952 Winter Olympics in Oslo.</p>
       <p class="kp__row">Oslo’s most famous tantrum. Sculpted in bronze by Gustav Vigeland, this little boy has been stamping his foot on the bridge in Frogner Park since 1940.</p>
     </article>
