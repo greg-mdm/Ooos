@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+<script>document.documentElement.classList.add("js")</script>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -119,10 +120,14 @@
   .kp__look .kp__lede { margin: 0 0 16px; font-weight: 300; font-size: 14px; line-height: 1.5; color: #19007D; }
   .kp__look .kp__row { margin: 0 0 10px; padding: 12px 14px; border-radius: 12px; background: #F1F0F2; font-size: 13px; line-height: 1.45; color: #2A2A2A; max-width: none; }
   .kp__look .kp__credit { margin-top: 14px; }
-  .kp__stack { display: grid; gap: 2.4cqw; }
-  .kp__piece { margin: 0; padding: 18px; background: #FFFFFF; border-radius: 18px; }
+  .kp__look h3 { margin: 2px 0 8px; }
+  .kp__piece { margin: 4px 0 0; }
   .kp__piece img { display: block; width: 100%; height: auto; }
-  @container (max-width: 720px) { .kp__stack { gap: 14px; } }
+  /* progressive reveal: each line of the two cards fades up in turn as the card scrolls into view.
+     The space is always reserved, so the page height never changes (the old Wix editor fixes it). */
+  .js [data-reveal] > * { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+  .js [data-reveal].is-in > * { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .js [data-reveal] > * { transform: none; transition: opacity .3s ease; } }
   .kp--top { padding-top: 4cqw; }
   @container (max-width: 720px) { .kp--top { padding-top: 20px !important; } }
   @container (max-width: 720px) { .kp { grid-template-columns: 1fr; padding: 7.5cqw 16px 20px; gap: 14px; } .kp__card { padding: 20px; } .kp__reel { margin-inline: auto; } }
@@ -190,16 +195,15 @@
     </button>
   </div>
   <div class="kp">
-    <div class="kp__stack">
-      <article class="kp__card kp__look" aria-labelledby="kp-skandi">
-        <h2 id="kp-skandi">SKANDI CAN</h2>
-        <p class="kp__lede">Canadian designer Gregory Tyler Long rekindles an old flame by crafting this custom couture bikini bottom for Lady at the Dock.</p>
-      </article>
+    <article class="kp__card kp__look" aria-labelledby="kp-skandi" data-reveal>
+      <h2 id="kp-skandi">The SKANDI CAN</h2>
+      <h3>Crafted Couture V</h3>
+      <p class="kp__lede">Canadian designer Gregory Tyler Long rekindles an old flame by crafting this custom couture bikini bottom for Lady at the Dock.</p>
       <figure class="kp__piece"><img src="/assets/slowstream/skandi-can-bikini.webp" width="2000" height="1116" loading="lazy" alt="The SKANDI CAN bikini bottom: a red-orange hand-knit cable panel set with opal-like stones, on braided cord straps, with SKANDI spelled in purple letter beads on the left and CAN in red-and-white letter beads on the right"></figure>
-    </div>
-    <article class="kp__card kp__look" aria-labelledby="kp-boy">
-      <h2 id="kp-boy">Sinnataggen, tagged on a concrete slab.</h2>
-      <p class="kp__lede">This angry boy is a spray-painted stencil attributed to Norwegian street artist La Staa.</p>
+    </article>
+    <article class="kp__card kp__look" aria-labelledby="kp-boy" data-reveal>
+      <h2 id="kp-boy">Tagged: Sinnataggen (The Angry Boy)</h2>
+      <p class="kp__lede">Spray-painted stencil on a concrete slab near Holmenkollen mountain. Attributed to Norwegian street artist La Staa.</p>
       <p class="kp__row">Photographed near Holmenkollen mountain, where a sky-high ski jump once hosted the 1952 Winter Olympics in Oslo.</p>
       <p class="kp__row">Oslo’s most famous tantrum. Sculpted in bronze by Gustav Vigeland, this little boy has been stamping his foot on the bridge in Frogner Park since 1940.</p>
     </article>
@@ -260,6 +264,13 @@
     try { await navigator.clipboard.writeText(url); note.textContent = 'Link copied.'; }
     catch { note.textContent = url; }
   });
+  // progressive reveal of the two cards under the banner, line by line
+  const cards = document.querySelectorAll("[data-reveal]");
+  cards.forEach(c => [...c.children].forEach((el, i) => { el.style.transitionDelay = (i * 0.16) + "s"; }));
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } }), { threshold: 0.25 });
+    cards.forEach(c => io.observe(c));
+  } else cards.forEach(c => c.classList.add("is-in"));
   // the reel: Instagram loads only on request, into a box that keeps its size
   document.getElementById("kp-play").addEventListener("click", () => {
     const box = document.getElementById("kp-reel"), f = document.createElement("iframe");
