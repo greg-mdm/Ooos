@@ -123,6 +123,13 @@
   .kp__look .kp__credit { margin-top: 14px; }
   .kp__look h3 { margin: 2px 0 8px; }
   .kp__piece { margin: 4px 0 0; }
+  /* the heart close-up now sits in the SKANDI CAN card beside its caption; it still pulses and opens large on click */
+  .kp__muse { display: flex; align-items: center; gap: 18px; margin: 14px 0 12px; }
+  .kp__muse h3 { margin-top: 0; }
+  .kp__muse p { margin: 0; }
+  .kh__heart--card { position: relative; left: auto; top: auto; transform: none; flex: none; width: 40%; max-width: 220px; }
+  .kp__meta { margin: 0 0 10px !important; font-size: 14px !important; }
+  .kp__look strong, .kp__meta strong { font-weight: 600; }
   .kp__look div.kp__row p { margin: 0 0 6px; font-size: 13px; line-height: 1.45; }
   .kp__look div.kp__row ul { margin: 0; padding-left: 1.1em; }
   .kp__look div.kp__row li { margin: 0 0 2px; font-weight: 300; font-size: 13px; line-height: 1.45; }
@@ -136,8 +143,7 @@
   .kp--top { border-top: 0; } /* the feature is the canvas: flush to the top edge */
   .kp:last-child { border-bottom: 0; }
   /* under the banner the heart tip breaks out below the braid: the cards start their text below it */
-  .kp:not(.kp--top) > .kp__card { padding-top: calc(7.5cqw + 3cqw); }
-  @container (max-width: 720px) { .kp { grid-template-columns: 1fr; } .kp__card { padding: 24px 16px; } .kp:not(.kp--top) > .kp__card { padding-top: 24px; } .kp:not(.kp--top) > .kp__card:first-child { padding-top: calc(7.5cqw + 20px); } .kp__reel { margin-inline: auto; } }
+  @container (max-width: 720px) { .kp { grid-template-columns: 1fr; } .kp__card { padding: 24px 16px; } .kp__reel { margin-inline: auto; } }
 
   @media (prefers-reduced-motion: reduce) { .kh__heart img, .kh__zoom img { animation: none; } .kh__chip { transition: none; } }
   @container (max-width: 600px) { .kh__chip { font-size: 11px; top: 8%; } }
@@ -193,9 +199,6 @@
     <img src="/assets/slowstream/oslo-knit-hero.webp" width="3600" height="1500"
       alt="A bronze statue of a reclining woman in a red sun hat on an Oslo plaza, wearing a hand-knit red-orange bikini with SKANDI and CAN letter beads; beside her a smiling bronze head and a stencil of a stomping baby in a red glitter diaper, all framed top and bottom by a braided knit cord">
     <button class="kh__spot" type="button" aria-label="Shop the look: the SKANDI · CAN knit bikini"></button>
-    <button class="kh__heart" type="button" aria-label="Open the heart close-up of the knit bikini">
-      <img src="/assets/slowstream/oslo-knit-heart-norway.webp" width="2400" height="2280" alt="">
-    </button>
     <button class="kh__chip" type="button" aria-haspopup="dialog">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
       Shop the look
@@ -204,8 +207,8 @@
   <div class="kp">
     <article class="kp__card kp__look" aria-labelledby="kp-skandi" data-reveal>
       <h2 id="kp-skandi">SKANDI CAN</h2>
-      <h3>Outsider art by Ooo!</h3>
-      <p class="kp__lede">Hand-braided silk yarn crystallized with citrine and lapis lazuli.</p>
+      <h3>Outsider art by Ooo! Knotted, pitched and crystallized</h3>
+      <p class="kp__meta"><strong>Medium:</strong> Hand-braided silk yarn sprinkled with pinched citrine and lapis lazuli.</p>
       <div class="kp__row">
         <p>Canadian crystal sands, responsibly sourced through fair-trade agreements:</p>
         <ul>
@@ -216,18 +219,25 @@
       </div>
       <p class="kp__row">Something to rave about. Finally, an avant-garde garter belt that goes both ways.</p>
       <figure class="kp__piece"><img src="/assets/slowstream/skandi-can-bikini.webp" width="2000" height="1116" loading="lazy" alt="The SKANDI CAN garter belt: a red-orange hand-braided panel set with crystals, on braided cord straps, with SKANDI spelled in purple letter beads on the left and CAN in red-and-white letter beads on the right"></figure>
-      <h3>Lady at the Dock in creative couture</h3>
-      <p>The versatile garment is modelled by its muse.</p>
-      <p class="kp__credit">Artistic Director: Gregory Tyler Long</p>
+      <div class="kp__muse">
+        <button class="kh__heart kh__heart--card" type="button" aria-label="Open the heart close-up of Lady at the Dock in the SKANDI CAN">
+          <img src="/assets/slowstream/oslo-knit-heart-norway.webp" width="2400" height="2280" alt="">
+        </button>
+        <div>
+          <h3>Lady at the Dock in creative couture</h3>
+          <p>The versatile garment is modelled by its muse.</p>
+        </div>
+      </div>
+      <p class="kp__meta"><strong>Artistic Director:</strong> Gregory Tyler Long</p>
     </article>
     <article class="kp__card kp__look" aria-labelledby="kp-boy" data-reveal>
       <h2 id="kp-boy">Tagged: Sinnataggen (The Angry Boy)</h2>
-      <h3>Medium: Spray-paint on a concrete slab</h3>
+      <p class="kp__meta"><strong>Medium:</strong> Spray-paint on a concrete slab</p>
       <p class="kp__lede">This one-of-a-kind artifact is attributed to Norwegian street artist La Staa.</p>
       <div class="kp__row">
-        <p>Habitat: Holmenkollen mountain</p>
-        <p>Type status: Holotype (This single specimen still stands alone)</p>
-        <p>Mimicry class: Batesian, after Vigeland’s bronze</p>
+        <p><strong>Habitat:</strong> Holmenkollen mountain</p>
+        <p><strong>Type status:</strong> Holotype (This single specimen still stands alone)</p>
+        <p><strong>Mimicry class:</strong> Batesian, after Vigeland’s bronze</p>
       </div>
       <p class="kp__row">Oslo’s most famous tantrum. Originally sculpted in bronze by Gustav Vigeland, this little boy has been stamping his foot on the bridge in Frogner Park since 1940.</p>
     </article>
@@ -271,7 +281,7 @@
   let hideTimer;
   const show = () => { clearTimeout(hideTimer); hero.classList.add('is-look'); };
   const hide = () => { hideTimer = setTimeout(() => hero.classList.remove('is-look'), 450); };
-  [spot, heart, chip].forEach(el => { el.addEventListener('mouseenter', show); el.addEventListener('mouseleave', hide); el.addEventListener('focus', show); el.addEventListener('blur', hide); });
+  [spot, chip].forEach(el => { el.addEventListener('mouseenter', show); el.addEventListener('mouseleave', hide); el.addEventListener('focus', show); el.addEventListener('blur', hide); });
   const open = d => { if (typeof d.showModal === 'function') d.showModal(); else d.setAttribute('open', ''); };
   const close = d => { if (typeof d.close === 'function') d.close(); else d.removeAttribute('open'); };
   heart.addEventListener('click', () => open(zoom));
@@ -292,7 +302,7 @@
   const cards = document.querySelectorAll("[data-reveal]");
   cards.forEach(c => [...c.children].forEach((el, i) => { el.style.transitionDelay = (i * 0.16) + "s"; }));
   if ("IntersectionObserver" in window) {
-    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } }), { threshold: 0.25 });
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } }), { threshold: 0, rootMargin: "0px 0px -12% 0px" });
     cards.forEach(c => io.observe(c));
   } else cards.forEach(c => c.classList.add("is-in"));
   // the reel: Instagram loads only on request, into a box that keeps its size
