@@ -114,6 +114,11 @@
   .kp__fig { margin: 0 0 16px; } .kp__fig img { display: block; width: 100%; height: auto; aspect-ratio: 750 / 562; object-fit: cover; border-radius: 14px; background: #E6E6FA; }
   .kp__fig figcaption { margin-top: 6px; font-size: 12px; color: #5A5566; }
   @container (max-width: 720px) { .kp__feature { grid-template-columns: 1fr; gap: 8px; } }
+  /* the two cards under the banner mirror the Shop the look dialog: bold title, violet lede, soft grey rows */
+  .kp__look h2 { margin: 0 0 4px; }
+  .kp__look .kp__lede { margin: 0 0 16px; font-weight: 300; font-size: 14px; line-height: 1.5; color: #19007D; }
+  .kp__look .kp__row { margin: 0 0 10px; padding: 12px 14px; border-radius: 12px; background: #F1F0F2; font-size: 13px; line-height: 1.45; color: #2A2A2A; max-width: none; }
+  .kp__look .kp__credit { margin-top: 14px; }
   .kp--top { padding-top: 4cqw; }
   @container (max-width: 720px) { .kp--top { padding-top: 20px !important; } }
   @container (max-width: 720px) { .kp { grid-template-columns: 1fr; padding: 7.5cqw 16px 20px; gap: 14px; } .kp__card { padding: 20px; } .kp__reel { margin-inline: auto; } }
@@ -181,13 +186,18 @@
     </button>
   </div>
   <div class="kp">
-    <article class="kp__card kp__card--wide" aria-labelledby="kp-boy">
+    <article class="kp__card kp__look" aria-labelledby="kp-skandi">
+      <h2 id="kp-skandi">SKANDI CAN</h2>
+      <p class="kp__lede">Canadian designer Gregory Tyler Long rekindles an old flame by crafting this custom couture bikini bottom for Lady at the Dock.</p>
+      <p class="kp__row">He’s got something to rave about and a soft spot for older women.</p>
+    </article>
+    <article class="kp__card kp__look" aria-labelledby="kp-boy">
       <p class="kp__eyebrow">Oslo art and city tour</p>
       <h2 id="kp-boy">Tagged: Sinnataggen, The Angry Boy</h2>
-      <p>Attributed to Norwegian street artist La Staa.</p>
-      <p>Spray-painted stencil on a concrete slab.</p>
-      <p>Photographed near Holmenkollen mountain, where a sky-high ski jump once hosted the 1952 Winter Olympics in Oslo.</p>
-      <p>Oslo’s most famous tantrum. Sculpted in bronze by Gustav Vigeland, this little boy has been stamping his foot on the bridge in Frogner Park since 1940.</p>
+      <p class="kp__lede">Attributed to Norwegian street artist La Staa.</p>
+      <p class="kp__row">Spray-painted stencil on a concrete slab.</p>
+      <p class="kp__row">Photographed near Holmenkollen mountain, where a sky-high ski jump once hosted the 1952 Winter Olympics in Oslo.</p>
+      <p class="kp__row">Oslo’s most famous tantrum. Sculpted in bronze by Gustav Vigeland, this little boy has been stamping his foot on the bridge in Frogner Park since 1940.</p>
       <p class="kp__credit"><a href="https://en.wikipedia.org/wiki/The_Angry_Boy" target="_blank" rel="noopener">More about the Angry Boy</a></p>
     </article>
   </div>
