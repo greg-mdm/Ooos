@@ -171,6 +171,35 @@
     .kp__feature:not(.kp__feature--lower) .kp__fig img { position: static; aspect-ratio: 4 / 5; }
   }
 
+  .kp__muse p + .kp__meta { margin-top: 10px !important; }
+  /* the reel row: one panel on the yarn background, the lead-in on a gradient beside the reel.
+     The reel never sits in an area of its own: on phones the panel stacks the text above it. */
+  .kp__reelrow { margin-top: 3cqw; display: grid; grid-template-columns: 1.2fr 1fr; gap: 4cqw; align-items: center; padding: 4cqw;
+    border-radius: 18px; color: #FFFFFF;
+    background: linear-gradient(90deg, rgba(10,6,20,.92) 0%, rgba(25,0,125,.72) 45%, rgba(25,0,125,.25) 100%), url("/assets/slowstream/yarn-roving-duotone.webp") center / cover; }
+  .kp__reelrow p, .kp__reelrow .kp__quote { color: #FFFFFF; }
+  .kp__reelrow .kp__credit, .kp__reelrow a { color: #E6E6FA !important; }
+  .kp__reelrow .kp__reel { margin: 0 auto; width: 100%; aspect-ratio: 340 / 790; }
+  .kp__play { padding: 0; gap: 0; display: flex; flex-direction: column; background: #FFFFFF; color: #0A0614; text-align: left; font: 400 13px/1.3 "Poppins", sans-serif; }
+  .ig__head { display: flex; align-items: center; gap: 10px; padding: 10px 12px; }
+  .ig__head img { width: 32px; height: 32px; border-radius: 50%; }
+  .ig__head b { display: block; font-weight: 600; font-size: 13px; } .ig__head small { display: block; font-size: 11px; color: #5A5566; }
+  .ig__head i { margin-left: auto; font-style: normal; font-weight: 600; font-size: 12px; color: #FFFFFF; background: #4F5BFF; padding: 6px 12px; border-radius: 8px; white-space: nowrap; }
+  .ig__media { position: relative; flex: 1 1 auto; min-height: 0; background: #0A0614; overflow: hidden; }
+  .ig__media > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .kp__play .ig__tri { position: absolute; height: auto; left: 50%; top: 42%; width: 22%; transform: translate(-40%, -50%); filter: drop-shadow(0 2px 6px rgba(0,0,0,.4)); opacity: .9; }
+  .ig__band { position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 14px 16px; background: linear-gradient(180deg, rgba(25,0,125,.82), rgba(10,6,20,.95));
+    color: #FFFFFF; font: 500 14px/1.35 "Poppins", sans-serif; text-align: center; }
+  .ig__band small { display: block; max-width: none; margin-top: 4px; font-weight: 300; font-size: 12px; opacity: .85; }
+  .ig__foot { padding: 10px 12px 12px; }
+  .ig__icons { display: flex; gap: 14px; margin-bottom: 6px; }
+  .ig__icons svg { width: 22px; height: 22px; fill: none; stroke: #0A0614; stroke-width: 1.8; stroke-linejoin: round; stroke-linecap: round; }
+  .ig__icons .ig__save { margin-left: auto; }
+  .ig__foot b { font-weight: 600; font-size: 13px; }
+  .kp__play:hover .ig__band { background: linear-gradient(180deg, rgba(91,4,222,.9), rgba(25,0,125,.95)); }
+  @container (max-width: 720px) { .kp__reelrow { grid-template-columns: 1fr; padding: 20px 16px; gap: 18px; border-radius: 14px; }
+    .kp__reelrow { background: linear-gradient(180deg, rgba(10,6,20,.9) 0%, rgba(25,0,125,.6) 55%, rgba(25,0,125,.3) 100%), url("/assets/slowstream/yarn-roving-duotone.webp") center / cover; } }
+
   @media (prefers-reduced-motion: reduce) { .kh__heart img, .kh__zoom img { animation: none; } .kh__chip { transition: none; } }
   @container (max-width: 600px) { .kh__chip { font-size: 11px; top: 8%; } }
 </style>
@@ -203,20 +232,21 @@
           <p>Simple. Sophisticated. Intricately interconnected.</p>
         </div>
       </div>
-      <div class="kp__feature kp__feature--lower">
-        <div>
-          <p>Cue the “my first blanket looks like ground pork” story, retold by @refashionedhippie, a velvet-voiced fashion commentator with a comforting presence and a sharp eye for contemporary semiotic analysis.</p>
+      <div class="kp__reelrow">
+        <div class="kp__lead">
+          <p>Cue the “my first blanket looks like ground pork” story, retold by velvet-voiced fashion commentator @refashionedhippie.</p>
           <p class="kp__quote">“I love crafters. Especially when men get into crafting, it can be a wonderful thing… special shoutout to this one man…”</p>
           <p class="kp__credit"><a href="https://www.instagram.com/refashionedhippie/" target="_blank" rel="noopener">@refashionedhippie</a> on <a href="https://www.instagram.com/reel/DgAzdBiu7c8/" target="_blank" rel="noopener">Instagram</a></p>
         </div>
-        <div>
-          <div class="kp__reel" id="kp-reel">
-            <button class="kp__play" type="button" id="kp-play" aria-label="Play the reel by @refashionedhippie (loads Instagram)">
-              <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="31" fill="none" stroke="#FFFFFF" stroke-width="2"/><path d="M26 20l20 12-20 12z" fill="#FFFFFF"/></svg>
-              Play the reel
-              <small>Loads Instagram, which may set cookies.</small>
-            </button>
-          </div>
+        <div class="kp__reel" id="kp-reel">
+          <button class="kp__play" type="button" id="kp-play" aria-label="Play the reel by @refashionedhippie (loads Instagram, which may add cookies)">
+            <span class="ig__head"><img src="/assets/slowstream/refashionedhippie-avatar.jpg" width="150" height="150" alt=""><span><b>refashionedhippie</b><small>Original audio</small></span><i>View profile</i></span>
+            <span class="ig__media"><img src="/assets/slowstream/refashionedhippie-reel-poster.jpg" width="1320" height="2347" alt="">
+              <svg class="ig__tri" viewBox="0 0 64 64" aria-hidden="true"><path d="M20 12l34 20-34 20z" fill="#FFFFFF"/></svg>
+              <span class="ig__band">Click to play video embed from @refashionedhippie.<small>Cookies may be added via Instagram.</small></span>
+            </span>
+            <span class="ig__foot"><span class="ig__icons" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-3.2-6.4A8 8 0 0 1 20 12zM20 20l-2.6-2.6"/></svg><svg viewBox="0 0 24 24"><path d="M12 4v11M7 9l5-5 5 5M5 14v5h14v-5"/></svg><svg class="ig__save" viewBox="0 0 24 24"><path d="M6 4h12v16l-6-5-6 5z"/></svg></span><b>15,064 likes</b></span>
+          </button>
         </div>
       </div>
     </article>
@@ -250,11 +280,11 @@
           <img src="/assets/slowstream/oslo-knit-heart-norway.webp" width="2400" height="2280" alt="">
         </button>
         <div>
-          <h3>Lady at the Dock in creative couture</h3>
+          <h3>Lady at the Dock in couture</h3>
           <p>The versatile garment is modelled by its muse.</p>
+          <p class="kp__meta"><strong>Artistic Director:</strong> Gregory Tyler Long</p>
         </div>
       </div>
-      <p class="kp__meta"><strong>Artistic Director:</strong> Gregory Tyler Long</p>
     </article>
     <article class="kp__card kp__look" aria-labelledby="kp-boy" data-reveal>
       <h2 id="kp-boy">Tagged: Sinnataggen (The Angry Boy)</h2>
