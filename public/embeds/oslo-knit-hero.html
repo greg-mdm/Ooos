@@ -179,13 +179,14 @@
     background: linear-gradient(90deg, rgba(10,6,20,.92) 0%, rgba(25,0,125,.72) 45%, rgba(25,0,125,.25) 100%), url("/assets/slowstream/yarn-roving-duotone.webp") center / cover; }
   .kp__reelrow p, .kp__reelrow .kp__quote { color: #FFFFFF; }
   .kp__reelrow .kp__credit, .kp__reelrow a { color: #E6E6FA !important; }
-  .kp__reelrow .kp__reel { margin: 0 auto; width: 100%; aspect-ratio: 340 / 790; }
+  .kp__reelrow .kp__reel { margin: 0 auto; width: 100%; aspect-ratio: auto; }
+  .kp__reelrow .kp__play { position: relative; inset: auto; width: 100%; }
   .kp__play { padding: 0; gap: 0; display: flex; flex-direction: column; background: #FFFFFF; color: #0A0614; text-align: left; font: 400 13px/1.3 "Poppins", sans-serif; }
   .ig__head { display: flex; align-items: center; gap: 10px; padding: 10px 12px; }
   .ig__head img { width: 32px; height: 32px; border-radius: 50%; }
   .ig__head b { display: block; font-weight: 600; font-size: 13px; } .ig__head small { display: block; font-size: 11px; color: #5A5566; }
   .ig__head i { margin-left: auto; font-style: normal; font-weight: 600; font-size: 12px; color: #FFFFFF; background: #4F5BFF; padding: 6px 12px; border-radius: 8px; white-space: nowrap; }
-  .ig__media { position: relative; flex: 1 1 auto; min-height: 0; background: #0A0614; overflow: hidden; }
+  .ig__media { position: relative; flex: none; aspect-ratio: 1320 / 2347; background: #0A0614; overflow: hidden; }
   .ig__media > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .kp__play .ig__tri { position: absolute; height: auto; left: 50%; top: 42%; width: 22%; transform: translate(-40%, -50%); filter: drop-shadow(0 2px 6px rgba(0,0,0,.4)); opacity: .9; }
   .ig__band { position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 14px 16px; background: linear-gradient(180deg, rgba(25,0,125,.82), rgba(10,6,20,.95));
@@ -364,6 +365,7 @@
   // the reel: Instagram loads only on request, into a box that keeps its size
   document.getElementById("kp-play").addEventListener("click", () => {
     const box = document.getElementById("kp-reel"), f = document.createElement("iframe");
+    box.style.height = box.offsetHeight + "px"; // keep the poster size so the page never jumps
     f.src = "https://www.instagram.com/reel/DgAzdBiu7c8/embed/"; f.title = "Reel by @refashionedhippie on Instagram";
     f.allow = "autoplay; encrypted-media; picture-in-picture; clipboard-write"; f.loading = "eager";
     box.replaceChildren(f);
