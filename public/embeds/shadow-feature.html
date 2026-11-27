@@ -4,13 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Shadow framed art print</title>
-<!-- Slow Stream "Watch" page: the Shadow feature in light mode (Greg,
-     2026-11-13). The framed print card and the Art on Demand card from the
-     dark Shadow gallery embed (public/embeds/shadow-gallery.html), without
-     the host video, on the light #F9FAFB ground with bigger images. The Art on
-     Demand card stays dark so the sheet ghost glows.
-     Black bands above and below the photo hold the title, series, views and
-     artist in bright silver; the white section below holds the key details. Images load from ooos.ca.
+<!-- Slow Stream "Watch" page: the Shadow feature, small format (Greg,
+     2026-11-27). One image and the details. The Art on Demand ghost panel and
+     the three-view thumbnail bar are gone: the other two views now live in a
+     Wix panel beside this embed. A black band holds the title, series and
+     artist; the studio photo sits beside the key details on white. Images
+     load from ooos.ca.
      Hosted at ooos.ca/embeds/shadow-feature.html: point a Wix Embed HTML
      element at it with Website address. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,44 +22,32 @@
   p { margin: 0; }
   a:focus-visible, button:focus-visible { outline: 3px solid #06021C; outline-offset: 3px; border-radius: 6px; }
 
-  /* the Shadow panel runs flush to the section's edges, so the section's
-     padding is kept in variables the panel can cancel out */
-  /* edge to edge (Greg, 2026-11-26): the slowstream.ca canvas is 1270 px wide and runs edge to edge, so the
-     embed IS the canvas. No section padding, no gap, no floating card: the print and the Art on Demand panel
-     touch the iframe on every side and fill its full height. */
-  .feature { --pad-y: 0px; --pad-x: 0px; margin: 0; padding: 0; display: flex; flex-direction: column; }
-  .row { flex: 1 1 auto; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 3fr); gap: 0; align-items: stretch; }
+  /* edge to edge: the embed IS the canvas. No section padding, no gap, no
+     floating card; the band, the photo and the details touch the iframe on
+     every side and fill its full height. */
+  .feature { margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .print { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; overflow: hidden; background: #FFFFFF; }
 
-  /* ---- the framed print card: a museum label on white, dark ink, gold
-     highlight, no purple ---- */
-  .print {
-    min-width: 0; display: flex; flex-direction: column; overflow: hidden;
-    border-radius: 0; background: #FFFFFF; border: 0; box-shadow: none;
-  }
+  /* ---- the black band: title, series, artist, all in bright silver ---- */
   .print__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 22px; padding: 18px 22px 16px; background: #000000; }
   .print__title { display: flex; align-items: center; column-gap: .45em; font-family: 'Poppins', sans-serif; font-size: clamp(1.5rem, 2.3vw, 2rem); font-weight: 700; line-height: 1.1; letter-spacing: .1em; text-transform: uppercase; color: #E8ECF4; white-space: nowrap; }
   .print__title svg { width: .85em; height: .85em; flex: none; align-self: center; color: #8A3CF6; }
-  /* the series line: a plain italic caption, the way a gallery label reads */
   .print__tag { font-style: italic; font-size: .95rem; line-height: 1.4; color: #E8ECF4; }
+  .print__artist { margin-left: auto; font-size: .98rem; font-weight: 500; color: #E8ECF4; white-space: nowrap; }
   @media (min-width: 821px) { .print__head { flex-wrap: nowrap; } .print__tag { min-width: 0; } }
 
-  .print__stage { position: relative; flex: 1 0 auto; aspect-ratio: 16 / 10; background: #000000; overflow: hidden; }
-  .print__img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; }
+  /* ---- one photo beside the details ---- */
+  .print__row { flex: 1 1 auto; display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: stretch; }
+  .print__stage { position: relative; min-height: 300px; background: #000000; overflow: hidden; }
+  .print__img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; }
   .print__flag { position: absolute; top: 16px; left: 16px; padding: 8px 14px; border-radius: 4px; background: #06021C; color: #E8ECF4; font-family: 'Raleway', sans-serif; font-size: .86rem; font-weight: 600; letter-spacing: .04em; box-shadow: 0 6px 18px rgba(6, 2, 28, .3); }
 
-  .print__thumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 14px 22px; background: #000000; }
-  .print__thumb { flex: 0 0 auto; width: 104px; aspect-ratio: 3 / 2; padding: 0; border-radius: 4px; overflow: hidden; cursor: pointer; border: 2px solid rgba(255, 255, 255, .14); background: #0F031C; opacity: .7; transition: opacity .15s, border-color .15s; }
-  .print__thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
-  .print__thumb:hover { opacity: 1; }
-  .print__thumb[aria-pressed="true"] { opacity: 1; border-color: #F0C040; }
-  .print__artist { margin-left: auto; align-self: center; font-size: .98rem; font-weight: 500; color: #E8ECF4; white-space: nowrap; }
-
-  .print__body { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 28px; padding: 20px 22px 22px; flex: 1 1 auto; }
-  .print__about { display: flex; flex-direction: column; gap: 4px; flex: 1 1 320px; min-width: 0; }
+  .print__body { display: flex; flex-direction: column; justify-content: center; gap: 18px; padding: 24px 26px; }
+  .print__about { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
   .print__name { font-family: 'Poppins', sans-serif; font-size: clamp(1.15rem, 1.6vw, 1.4rem); font-weight: 700; color: #06021C; }
-  .print__desc { margin-top: 6px; max-width: 60ch; font-size: 1.02rem; line-height: 1.6; color: #333333; text-wrap: balance; }
+  .print__desc { margin-top: 6px; max-width: 48ch; font-size: 1.02rem; line-height: 1.6; color: #333333; text-wrap: balance; }
   .print__desc cite { font-style: italic; font-weight: 600; }
-  .print__buy { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; flex: 0 0 auto; }
+  .print__buy { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
   .print__price { font-family: 'Poppins', sans-serif; font-size: clamp(1.6rem, 2.3vw, 2rem); font-weight: 700; line-height: 1.1; color: #06021C; }
   .print__was { margin-right: .4em; font-size: .62em; font-weight: 600; color: rgba(51, 51, 51, .6); text-decoration-thickness: 2px; text-decoration-color: rgba(51, 51, 51, .7); }
   .print__size { font-size: .9rem; color: rgba(51, 51, 51, .8); }
@@ -72,122 +59,54 @@
   }
   a.print__cta:hover, a.print__cta:focus-visible { box-shadow: rgba(240, 192, 64, .7) 0 0 5px, rgba(240, 192, 64, .3) 0 0 14px, 0 10px 22px -10px rgba(6, 2, 28, .7); transform: translateY(-1px); outline: none; }
   span.print__cta { cursor: default; }
-  @media (max-width: 640px) { .print__cta { width: 100%; text-align: center; } .print__buy { width: 100%; } }
-  @media (max-width: 520px) { .print__thumb { width: 76px; } .print__flag { font-size: .72rem; padding: 6px 11px; } }
 
-  /* ---- the Art on Demand panel: a straight dark band flush to the
-     section's edges (Greg, 2026-11-24: no rounded corner, no floating box),
-     Shadow floating on it and running off the edge of the page ---- */
-  .lot-auction { width: 100%; container-type: inline-size; }
-  .lot-auction__card { position: relative; isolation: isolate; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: flex-start; padding: 9cqw 8cqw 8cqw; overflow: hidden; color: #FFFAF3; font-family: 'Poppins', sans-serif; background: radial-gradient(70% 45% at 78% 50%, rgba(70, 38, 96, .28), transparent 80%), linear-gradient(152deg, #06021C 0%, #0F0222 42%, #110320 78%, #0F031C 100%); }
-  .lot-auction__stage { position: relative; width: 100%; flex: 1 0 64cqw; min-height: 0; }
-  /* the ghost sits right of centre and the page edge crops its right side */
-  .lot-auction__ghost { display: block; position: absolute; width: 64cqw; height: 111.27cqw; left: 52cqw; top: calc(50% - 57cqw); filter: drop-shadow(rgba(0, 0, 0, .7) 0 10px 12px) drop-shadow(rgba(81, 42, 112, .12) 0 1px 7px); animation: lot-auction-float 3.8s ease-in-out infinite; }
-  .lot-auction__shadow { position: absolute; left: 60cqw; bottom: 1cqw; width: 46cqw; height: 4cqw; border-radius: 50%; background: rgba(0, 0, 0, .85); filter: blur(2px); box-shadow: rgba(94, 57, 125, .1) 0 0 18px 9px; animation: lot-auction-shadow 3.8s ease-in-out infinite; }
-  .lot-auction__title { position: relative; z-index: 2; margin-top: 6cqw; font-size: max(18px, 8cqw); line-height: 1.2; font-weight: 700; letter-spacing: -.02em; }
-  .lot-auction__bid { text-decoration: none; position: relative; z-index: 2; appearance: none; display: inline-flex; align-items: center; justify-content: center; margin: 5.6667cqw 0 0; width: 69.3333cqw; max-width: 100%; min-height: 44px; padding: 4.3333cqw 4cqw; border: 1px solid #F0C040; border-radius: 999px; background: linear-gradient(165deg, #110320 0%, #06021C 85%); color: #FFFAF3; font: 600 max(10px, 3.6667cqw) / 1.3 'Poppins', sans-serif; letter-spacing: .15em; text-transform: uppercase; text-align: center; cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; box-shadow: rgba(240, 192, 64, .65) 0 0 5px, rgba(240, 192, 64, .26) 0 0 13px, rgba(0, 0, 0, .5) 0 7px 12px, rgba(240, 192, 64, .14) 0 1px 3px inset; transition: transform .22s, box-shadow .22s, background .22s; }
-  .lot-auction__bid.is-collected { border-color: #E8ECF4; box-shadow: rgba(232, 236, 244, .55) 0 0 5px, rgba(232, 236, 244, .2) 0 0 13px, rgba(0, 0, 0, .5) 0 7px 12px, rgba(232, 236, 244, .12) 0 1px 3px inset; }
-  .lot-auction__bid:focus-visible { outline: 3px solid #F1CF78; outline-offset: 5px; }
-  .lot-auction__bid:active { transform: translateY(0) scale(.98); }
-  @media (hover: hover) and (pointer: fine) {
-    .lot-auction__bid:hover { transform: translateY(-3px); background: #110320; box-shadow: rgba(240, 192, 64, .85) 0 0 6px, rgba(240, 192, 64, .38) 0 0 18px, rgba(0, 0, 0, .55) 0 9px 17px; }
-    .lot-auction__bid.is-collected:hover { box-shadow: rgba(232, 236, 244, .75) 0 0 6px, rgba(232, 236, 244, .3) 0 0 18px, rgba(0, 0, 0, .55) 0 9px 17px; }
-  }
-  @keyframes lot-auction-float { 0%, 100% { transform: translateY(1px); } 50% { transform: translateY(-9px); } }
-  @keyframes lot-auction-shadow { 0%, 100% { transform: scaleX(1); opacity: .62; } 50% { transform: scaleX(.8); opacity: .38; } }
-
-  /* side by side from 821px: the panel fills the right of the section, from
-     its top edge to its bottom edge and off the right side of the page */
-  @media (min-width: 821px) {
-    .feature { padding-right: 0; }
-    .adopt { display: flex; margin: calc(var(--pad-y) * -1) 0; }
-    .adopt .lot-auction__card { justify-content: space-between; padding-top: calc(var(--pad-y) + 7cqw); padding-bottom: calc(var(--pad-y) + 6cqw); }
-    /* Shadow stands whole above the words, centred on the Adopt a hero button (Greg, 2026-11-26: no crop).
-       The button is 69.33cqw wide from the 8cqw padding, so its centre sits 34.67cqw into the stage. */
-    .adopt .lot-auction__ghost { width: 50cqw; height: 86.93cqw; left: 9.67cqw; top: calc(50% - 46cqw); }
-    .adopt .lot-auction__shadow { left: 16.67cqw; width: 36cqw; height: 3.4cqw; bottom: 0; }
-  }
-  /* stacked below 821px: the panel is a full-width band under the print,
-     the words on the left and the ghost on the right, off the page edge */
+  /* stacked below 821px: the photo above the details */
   @media (max-width: 820px) {
-    .row { grid-template-columns: minmax(0, 1fr); }
-    .adopt { width: auto; margin: 0 calc(var(--pad-x) * -1) calc(var(--pad-y) * -1); }
-    .adopt .lot-auction__card { display: grid; grid-template-columns: minmax(0, 1fr) 40%; grid-template-rows: auto auto; align-content: center; padding: 7cqw 6cqw; min-height: 52cqw; }
-    .adopt .lot-auction__title { grid-column: 1; grid-row: 1; margin-top: 0; font-size: max(17px, 6cqw); }
-    .adopt .lot-auction__bid { grid-column: 1; grid-row: 2; justify-self: start; width: auto; margin-top: 4cqw; padding: 3cqw 6cqw; font-size: max(10px, 2.4cqw); }
-    /* the stage covers the right column; the ghost runs off the right edge */
-    .adopt .lot-auction__stage { grid-column: 2; grid-row: 1 / -1; position: static; flex: none; }
-    .adopt .lot-auction__ghost { width: 29cqw; height: 50.4cqw; left: auto; right: -7cqw; top: calc(50% - 25.2cqw); }
-    .adopt .lot-auction__shadow { left: auto; right: -2cqw; bottom: 2.5cqw; width: 20cqw; height: 2.6cqw; }
+    .print__row { grid-template-columns: minmax(0, 1fr); }
+    .print__stage { min-height: 0; aspect-ratio: 16 / 10; }
+    .print__artist { margin-left: 0; flex-basis: 100%; }
+    .print__body { padding: 20px 22px 22px; }
   }
-  /* phone (Greg, 2026-11-18). Wix draws its mobile page on a 320 px canvas
-     and scales every element with the phone width, so an embed keeps its
-     editor shape on every phone. This layout is drawn for the editor width
-     (281) and the script zooms it to the real width, so its height in the
-     editor stays the same number on every phone. */
+  @media (max-width: 640px) { .print__cta { width: 100%; text-align: center; } .print__buy { width: 100%; } }
+  /* phone: Wix draws its mobile page on a 320 px canvas and scales every
+     element with the phone width. This layout is drawn for the editor width
+     (281) and the script zooms it to the real width. */
   @media (max-width: 480px) {
-    /* the print runs edge to edge on phones (Greg, 2026-11-19): a straight
-       dark band for the title and series, no rounded rim */
-    .feature { --pad-y: 0px; --pad-x: 0px; padding: 0; }
-    .print { border: 0; border-radius: 0; box-shadow: none; }
-    .row { gap: 0; }
     .print__head { padding: 12px 14px 10px; gap: 4px 14px; }
     .print__title { font-size: 1.35rem; }
     .print__tag { font-size: 8.9px; line-height: 1.35; letter-spacing: 0; white-space: nowrap; }   /* the series on one straight line */
+    .print__artist { font-size: .82rem; text-align: right; }
     .print__flag { top: 8px; left: 8px; padding: 5px 9px; font-size: .64rem; }
-    .print__thumbs { gap: 8px; padding: 10px 14px 12px; }
-    .print__thumb { flex: 1 1 0; width: auto; min-width: 0; }
-    .print__artist { flex-basis: 100%; margin-left: 0; text-align: right; font-size: .82rem; }
     .print__body { gap: 12px; padding: 14px 14px 16px; }
-    .print__about { flex-basis: 100%; }
     .print__name { font-size: 1.08rem; }
     .print__desc { margin-top: 2px; font-size: .88rem; line-height: 1.5; }
     .print__price { font-size: 1.5rem; }
     .print__size { font-size: .8rem; }
     .print__cta { padding: 12px 16px; font-size: .88rem; }
-    /* phones: a little more room for the words beside the ghost */
-    .adopt .lot-auction__card { grid-template-columns: minmax(0, 1fr) 36%; padding: 22px 14px; min-height: 178px; }
-    .adopt .lot-auction__title { font-size: 18px; }
-    .adopt .lot-auction__bid { margin-top: 12px; min-height: 38px; padding: 8px 16px; font-size: 10px; }
-    .adopt .lot-auction__ghost { width: 82px; height: 143px; right: -22px; top: calc(50% - 70px); }
-    .adopt .lot-auction__shadow { right: -6px; bottom: 6px; width: 64px; height: 8px; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .lot-auction__ghost, .lot-auction__shadow { animation: none; }
-    .lot-auction__bid, .print__cta, .print__thumb { transition: none; }
-    .lot-auction__bid:hover, .lot-auction__bid:active { transform: none; }
+    .print__cta { transition: none; }
   }
 </style>
 </head>
 <body>
   <section class="feature" aria-labelledby="lot-title">
-    <div class="row">
-      <article class="print">
-        <header class="print__head">
-          <span id="lot-title" class="print__title">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-              <circle cx="9" cy="12" r="6" /><circle cx="15" cy="12" r="6" />
-              <path d="M12 6.8a6 6 0 0 1 0 10.4a6 6 0 0 1 0-10.4z" fill="currentColor" stroke="none" />
-            </svg>
-            <span>Shadow</span>
-          </span>
-          <span class="print__tag">From &lsquo;Canvases of Old Dreams,&rsquo; a collection of abstract artworks</span>
-        </header>
+    <article class="print">
+      <header class="print__head">
+        <span id="lot-title" class="print__title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <circle cx="9" cy="12" r="6" /><circle cx="15" cy="12" r="6" />
+            <path d="M12 6.8a6 6 0 0 1 0 10.4a6 6 0 0 1 0-10.4z" fill="currentColor" stroke="none" />
+          </svg>
+          <span>Shadow</span>
+        </span>
+        <span class="print__tag">From &lsquo;Canvases of Old Dreams,&rsquo; a collection of abstract artworks</span>
+        <span class="print__artist">Artist: McCormack</span>
+      </header>
+      <div class="print__row">
         <div class="print__stage">
           <img class="print__img" id="shot" src="https://ooos.ca/assets/exhibition/shadow-print-studio.jpg" alt="Shadow framed in black on a white studio wall between a wooden easel and a paint-covered worktable">
           <span class="print__flag">New Release: Only on Slow Stream</span>
-        </div>
-        <div class="print__thumbs" role="group" aria-label="Views of the framed print">
-          <button type="button" class="print__thumb" aria-pressed="true" aria-label="View 1"
-            data-src="https://ooos.ca/assets/exhibition/shadow-print-studio.jpg"
-            data-alt="Shadow framed in black on a white studio wall between a wooden easel and a paint-covered worktable"><img src="https://ooos.ca/assets/exhibition/shadow-print-studio.jpg" alt="" loading="lazy"></button>
-          <button type="button" class="print__thumb" aria-pressed="false" aria-label="View 2"
-            data-src="https://ooos.ca/assets/exhibition/shadow-print-marble.jpg"
-            data-alt="Shadow framed in black on a dark marble wall above a marble console, a brass lamp and a silver vase beside it"><img src="https://ooos.ca/assets/exhibition/shadow-print-marble.jpg" alt="" loading="lazy"></button>
-          <button type="button" class="print__thumb" aria-pressed="false" aria-label="View 3"
-            data-src="https://ooos.ca/assets/exhibition/shadow-print-gallery.jpg"
-            data-alt="Shadow framed in black on a pale gallery wall, an arched hallway to the left"><img src="https://ooos.ca/assets/exhibition/shadow-print-gallery.jpg" alt="" loading="lazy"></button>
-          <span class="print__artist">Artist: McCormack</span>
         </div>
         <div class="print__body">
           <div class="print__about">
@@ -200,32 +119,17 @@
             <span class="print__cta" id="cta" aria-disabled="true">Order the print</span>
           </div>
         </div>
-      </article>
-
-      <div class="lot-auction adopt">
-        <div class="lot-auction__card">
-          <div class="lot-auction__stage">
-            <span class="lot-auction__shadow" aria-hidden="true"></span>
-            <img class="lot-auction__ghost" src="https://ooos.ca/assets/exhibition/live-auction-shadow.webp" alt="Shadow, the sheet ghost with violet eyes, floating" width="306" height="532">
-          </div>
-          <p class="lot-auction__title">Art on Demand</p>
-          <a class="lot-auction__bid" href="https://www.slowstream.ca/product-page/framed-poster" target="_top">Adopt a hero</a>
-        </div>
       </div>
-    </div>
+    </article>
   </section>
 
 <script>
   /* Wix scales every element with the window (desktop drawn on a ~1280 px
      canvas, phones on a 320 px one), so the embed keeps its editor shape on
-     every screen (1270 x 940 on desktop in the editor). The layout is drawn
-     at the editor width (1270 desktop, 281 phone) and zoomed by the same
-     factor; if the box is ever shorter than the content, it shrinks to fit
-     rather than crop. */
+     every screen. The layout is drawn at the editor width (1270 desktop, 281
+     phone) and zoomed by the same factor. If the Wix box is taller than the
+     content, the section stretches so the photo still reaches the bottom edge. */
   (function () {
-    /* desktop is drawn at the 1270 px canvas and zoomed to the real width, so it always fills the frame edge
-       to edge (no shrink-to-fit, which left uneven white borders). If the Wix box is taller than the content,
-       the section stretches so the print photo and the dark panel still reach the bottom edge. */
     var feature = document.querySelector(".feature");
     function fit() {
       var root = document.documentElement;
@@ -251,20 +155,6 @@
     a.textContent = "Order the print";
     old.replaceWith(a);
   }
-
-  /* the three views */
-  var shot = document.getElementById("shot");
-  var thumbs = document.querySelectorAll(".print__thumb");
-  thumbs.forEach(function (t) {
-    t.addEventListener("click", function () {
-      thumbs.forEach(function (o) { o.setAttribute("aria-pressed", o === t ? "true" : "false"); });
-      shot.src = t.dataset.src;
-      shot.alt = t.dataset.alt;
-    });
-  });
-
-  /* Adopt a hero opens the product page too (Greg, 2026-11-14: every Shadow
-     call to action goes to the product page on Wix) */
 </script>
 </body>
 </html>
