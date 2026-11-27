@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Land acknowledgement · Slow Stream</title>
+<!-- Slow Stream homepage: the land acknowledgement as one small edge-to-edge
+     panel (Greg, 2026-11-27). The Toronto street sign on the left, the
+     eyebrow and the lead on the right, the whole panel a link to the Ontario
+     page. Same sign, colours and type as the land acknowledgement card in
+     ontario-regions-welcome.html; hovering, focusing or tapping turns the
+     sign to Tkarón:to. Images load from ooos.ca.
+     Hosted at ooos.ca/embeds/land-ack-panel.html: point a Wix Embed HTML
+     element at it with Website address. The link destination defaults to
+     https://www.slowstream.ca/ontario; override it from Wix with
+     ?to=<url> on the embed address, for example
+     ooos.ca/embeds/land-ack-panel.html?to=https://www.slowstream.ca/ontario-open-for-business -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&family=Jost:wght@700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --electric: #6C0BF4;
+    --amethyst: #4A0F8A;
+    --night: #06021C;
+    --lavender: #E6E6FA;
+    --cloud: #F1F0F2;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; color: var(--night); background: var(--cloud); -webkit-font-smoothing: antialiased; }
+  p { margin: 0; }
+
+  /* edge to edge: the embed IS the canvas. The panel is the link. */
+  .panel { display: flex; flex-direction: column; min-height: 100%; }
+  .ack {
+    flex: 1 1 auto; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; gap: 0 clamp(28px, 4vw, 56px);
+    padding: clamp(22px, 2.6vw, 34px) clamp(28px, 4vw, 56px);
+    text-decoration: none; color: inherit;
+    background: linear-gradient(160deg, rgba(255, 255, 255, .8) 0%, rgba(230, 230, 250, .85) 100%), var(--lavender);
+    transition: background-color .25s;
+  }
+  .ack:focus-visible { outline: 3px solid var(--electric); outline-offset: -3px; }
+
+  /* the sign: same two faces as the Ontario page; the panel's hover and focus flip it.
+     The Ontario cue sits under the sign, centred on it. */
+  .ack__left { display: flex; flex-direction: column; align-items: center; gap: 12px; min-width: 0; }
+  .ack__sign { position: relative; display: block; width: 100%; max-width: 440px; margin: 0 auto; container-type: inline-size; filter: drop-shadow(0 6px 14px rgba(25, 5, 46, .18)); }
+  .ack__sign img { display: block; width: 100%; height: auto; }
+  .ack__sign-face { display: block; transition: opacity .45s ease; }
+  .ack__sign-face--two { position: absolute; inset: 0; opacity: 0; }
+  .ack__sign-name { position: absolute; left: 50%; top: 54.5%; transform: translate(-50%, -50%); font-family: 'Jost', 'Poppins', sans-serif; font-weight: 700; font-size: 6.4cqw; line-height: 1; letter-spacing: .05em; white-space: nowrap; color: #08031C; text-shadow: .1cqw .3cqw .35cqw rgba(25, 5, 46, .35); }
+  .ack:hover .ack__sign-face--one, .ack:focus-visible .ack__sign-face--one, .ack.is-tkaronto .ack__sign-face--one { opacity: 0; }
+  .ack:hover .ack__sign-face--two, .ack:focus-visible .ack__sign-face--two, .ack.is-tkaronto .ack__sign-face--two { opacity: 1; }
+
+  /* the words: eyebrow, lead, and a quiet cue that the panel goes somewhere */
+  .ack__text { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+  .ack__eyebrow { font-family: 'Poppins', sans-serif; font-size: .78rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--amethyst); }
+  .ack__lead { font-family: 'Poppins', sans-serif; font-size: clamp(1.25rem, 1.9vw, 1.6rem); font-weight: 500; line-height: 1.35; color: var(--night); text-wrap: balance; max-width: 24ch; }
+  .ack__cue { font-size: .95rem; font-weight: 500; color: var(--electric); text-align: center; }
+  .ack__cue span { border-bottom: 1px solid rgba(108, 11, 244, .35); }
+  .ack:hover .ack__cue span, .ack:focus-visible .ack__cue span { color: var(--amethyst); border-color: var(--amethyst); }
+
+  /* stacked below 821px: the sign above the words, both centred */
+  @media (max-width: 820px) {
+    .ack { grid-template-columns: minmax(0, 1fr); gap: 18px 0; text-align: center; padding: 26px 22px 28px; }
+    .ack__sign { max-width: 360px; }
+    .ack__text { align-items: center; }
+  }
+  /* phone: Wix draws its mobile page on a 320 px canvas; this is drawn at the
+     editor width (281) and the script zooms it to the real width */
+  @media (max-width: 480px) {
+    .ack { gap: 14px 0; padding: 20px 16px 22px; }
+    .ack__eyebrow { font-size: .68rem; letter-spacing: .18em; }
+    .ack__lead { font-size: 1.08rem; max-width: none; }
+    .ack__cue { font-size: .86rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { .ack__sign-face, .ack { transition: none; } }
+</style>
+</head>
+<body>
+  <div class="panel">
+    <a class="ack" id="ack" href="https://www.slowstream.ca/ontario" target="_top" aria-label="Land acknowledgement. Slow Stream Studio sits on Indigenous land in Toronto, Ontario, Canada. Continue to the Ontario page">
+      <span class="ack__left">
+      <span class="ack__sign" role="img" aria-label="Street sign reading Toronto, Canada, which turns to read Tkar&oacute;n:to">
+        <picture class="ack__sign-face ack__sign-face--one">
+          <source type="image/webp" srcset="https://ooos.ca/assets/slowstream/toronto-canada-sign-640.webp 640w, https://ooos.ca/assets/slowstream/toronto-canada-sign-1200.webp 1200w" sizes="(min-width: 821px) 440px, 90vw">
+          <img src="https://ooos.ca/assets/slowstream/toronto-canada-sign-1200.webp" width="2484" height="816" alt="" decoding="async">
+        </picture>
+        <span class="ack__sign-face ack__sign-face--two" aria-hidden="true">
+          <img src="https://ooos.ca/assets/slowstream/toronto-sign-blank-1200.webp" srcset="https://ooos.ca/assets/slowstream/toronto-sign-blank-640.webp 640w, https://ooos.ca/assets/slowstream/toronto-sign-blank-1200.webp 1200w" sizes="(min-width: 821px) 440px, 90vw" width="2484" height="816" alt="" loading="lazy" decoding="async">
+          <span class="ack__sign-name" lang="moh">Tkar&oacute;n:to</span>
+        </span>
+      </span>
+      <span class="ack__cue"><span>Ontario: Open for Business</span> &#8599;</span>
+      </span>
+      <span class="ack__text">
+        <span class="ack__eyebrow">Land acknowledgement</span>
+        <span class="ack__lead">Slow Stream Studio sits on Indigenous land in Toronto, Ontario, Canada.</span>
+      </span>
+    </a>
+  </div>
+
+<script>
+  (function () {
+    /* the destination: ?to=<url> on the embed address wins over the default */
+    var ack = document.getElementById("ack");
+    var m = /[?&]to=([^&]+)/.exec(location.search);
+    if (m) {
+      try {
+        var u = new URL(decodeURIComponent(m[1]), "https://www.slowstream.ca/");
+        if (/^https?:$/.test(u.protocol)) ack.href = u.href;
+      } catch (e) {}
+    }
+
+    /* Wix scales every element with the window (desktop drawn on a ~1280 px
+       canvas, phones on a 320 px one). The layout is drawn at the editor width
+       (1270 desktop, 281 phone) and zoomed by the same factor; if the Wix box is
+       taller than the content, the panel stretches to fill it. */
+    var panel = document.querySelector(".panel");
+    function fit() {
+      var root = document.documentElement;
+      var w = root.clientWidth, h = root.clientHeight;
+      var z = w <= 480 ? w / 281 : (w >= 1000 ? w / 1270 : 1);
+      document.body.style.zoom = String(z);
+      panel.style.minHeight = (h / z) + "px";
+    }
+    fit();
+    window.addEventListener("resize", fit);
+    window.addEventListener("load", fit);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+
+    /* touch screens have no hover: the first tap turns the sign, the second follows the link */
+    if (window.matchMedia("(hover: none)").matches) {
+      ack.addEventListener("click", function (e) {
+        if (!ack.classList.contains("is-tkaronto")) { e.preventDefault(); ack.classList.add("is-tkaronto"); }
+      });
+    }
+  })();
+</script>
+</body>
+</html>
