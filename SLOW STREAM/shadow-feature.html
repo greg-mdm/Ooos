@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shadow framed art print</title>
+<!-- Slow Stream "Watch" page: the Shadow feature, small format (Greg,
+     2026-11-27). One image and the details. The Art on Demand ghost panel and
+     the three-view thumbnail bar are gone: the other two views now live in a
+     Wix panel beside this embed. A black band holds the title, series and
+     artist; the studio photo sits beside the key details on white. Images
+     load from ooos.ca.
+     Hosted at ooos.ca/embeds/shadow-feature.html: point a Wix Embed HTML
+     element at it with Website address. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Raleway:ital,wght@0,400;0,500;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #F9FAFB; color: #333333; font-family: 'Raleway', 'Poppins', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  p { margin: 0; }
+  a:focus-visible, button:focus-visible { outline: 3px solid #06021C; outline-offset: 3px; border-radius: 6px; }
+
+  /* edge to edge: the embed IS the canvas. No section padding, no gap, no
+     floating card; the band, the photo and the details touch the iframe on
+     every side and fill its full height. */
+  .feature { margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .print { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; overflow: hidden; background: #FFFFFF; }
+
+  /* ---- the black band: title, series, artist, all in bright silver ---- */
+  .print__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 22px; padding: 18px 22px 16px; background: #000000; }
+  .print__title { display: flex; align-items: center; column-gap: .45em; font-family: 'Poppins', sans-serif; font-size: clamp(1.5rem, 2.3vw, 2rem); font-weight: 700; line-height: 1.1; letter-spacing: .1em; text-transform: uppercase; color: #E8ECF4; white-space: nowrap; }
+  .print__title svg { width: .85em; height: .85em; flex: none; align-self: center; color: #8A3CF6; }
+  .print__tag { font-style: italic; font-size: .95rem; line-height: 1.4; color: #E8ECF4; }
+  .print__artist { margin-left: auto; font-size: .98rem; font-weight: 500; color: #E8ECF4; white-space: nowrap; }
+  @media (min-width: 821px) { .print__head { flex-wrap: nowrap; } .print__tag { min-width: 0; } }
+
+  /* ---- one photo beside the details ---- */
+  .print__row { flex: 1 1 auto; display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: stretch; }
+  .print__stage { position: relative; min-height: 300px; background: #000000; overflow: hidden; }
+  .print__img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; }
+  .print__flag { position: absolute; top: 16px; left: 16px; padding: 8px 14px; border-radius: 4px; background: #06021C; color: #E8ECF4; font-family: 'Raleway', sans-serif; font-size: .86rem; font-weight: 600; letter-spacing: .04em; box-shadow: 0 6px 18px rgba(6, 2, 28, .3); }
+
+  .print__body { display: flex; flex-direction: column; justify-content: center; gap: 18px; padding: 24px 26px; }
+  .print__about { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .print__name { font-family: 'Poppins', sans-serif; font-size: clamp(1.15rem, 1.6vw, 1.4rem); font-weight: 700; color: #06021C; }
+  .print__desc { margin-top: 6px; max-width: 48ch; font-size: 1.02rem; line-height: 1.6; color: #333333; text-wrap: balance; }
+  .print__desc cite { font-style: italic; font-weight: 600; }
+  .print__buy { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+  .print__price { font-family: 'Poppins', sans-serif; font-size: clamp(1.6rem, 2.3vw, 2rem); font-weight: 700; line-height: 1.1; color: #06021C; }
+  .print__was { margin-right: .4em; font-size: .62em; font-weight: 600; color: rgba(51, 51, 51, .6); text-decoration-thickness: 2px; text-decoration-color: rgba(51, 51, 51, .7); }
+  .print__size { font-size: .9rem; color: rgba(51, 51, 51, .8); }
+  .print__cta {
+    display: inline-block; margin-top: 8px; padding: 13px 24px; border-radius: 6px; text-decoration: none;
+    font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 600; line-height: 1; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap;
+    color: #FFFFFF; background: #06021C; border: 1px solid #F0C040;
+    box-shadow: 0 8px 20px -10px rgba(6, 2, 28, .6); transition: box-shadow .18s, transform .18s;
+  }
+  a.print__cta:hover, a.print__cta:focus-visible { box-shadow: rgba(240, 192, 64, .7) 0 0 5px, rgba(240, 192, 64, .3) 0 0 14px, 0 10px 22px -10px rgba(6, 2, 28, .7); transform: translateY(-1px); outline: none; }
+  span.print__cta { cursor: default; }
+
+  /* stacked below 821px: the photo above the details */
+  @media (max-width: 820px) {
+    .print__row { grid-template-columns: minmax(0, 1fr); }
+    .print__stage { min-height: 0; aspect-ratio: 16 / 10; }
+    .print__artist { margin-left: 0; flex-basis: 100%; }
+    .print__body { padding: 20px 22px 22px; }
+  }
+  @media (max-width: 640px) { .print__cta { width: 100%; text-align: center; } .print__buy { width: 100%; } }
+  /* phone: Wix draws its mobile page on a 320 px canvas and scales every
+     element with the phone width. This layout is drawn for the editor width
+     (281) and the script zooms it to the real width. */
+  @media (max-width: 480px) {
+    .print__head { padding: 12px 14px 10px; gap: 4px 14px; }
+    .print__title { font-size: 1.35rem; }
+    .print__tag { font-size: 8.9px; line-height: 1.35; letter-spacing: 0; white-space: nowrap; }   /* the series on one straight line */
+    .print__artist { font-size: .82rem; text-align: right; }
+    .print__flag { top: 8px; left: 8px; padding: 5px 9px; font-size: .64rem; }
+    .print__body { gap: 12px; padding: 14px 14px 16px; }
+    .print__name { font-size: 1.08rem; }
+    .print__desc { margin-top: 2px; font-size: .88rem; line-height: 1.5; }
+    .print__price { font-size: 1.5rem; }
+    .print__size { font-size: .8rem; }
+    .print__cta { padding: 12px 16px; font-size: .88rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .print__cta { transition: none; }
+  }
+</style>
+</head>
+<body>
+  <section class="feature" aria-labelledby="lot-title">
+    <article class="print">
+      <header class="print__head">
+        <span id="lot-title" class="print__title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <circle cx="9" cy="12" r="6" /><circle cx="15" cy="12" r="6" />
+            <path d="M12 6.8a6 6 0 0 1 0 10.4a6 6 0 0 1 0-10.4z" fill="currentColor" stroke="none" />
+          </svg>
+          <span>Shadow</span>
+        </span>
+        <span class="print__tag">From &lsquo;Canvases of Old Dreams,&rsquo; a collection of abstract artworks</span>
+        <span class="print__artist">Artist: McCormack</span>
+      </header>
+      <div class="print__row">
+        <div class="print__stage">
+          <img class="print__img" id="shot" src="https://ooos.ca/assets/exhibition/shadow-print-studio.jpg" alt="Shadow framed in black on a white studio wall between a wooden easel and a paint-covered worktable">
+          <span class="print__flag">New Release: Only on Slow Stream</span>
+        </div>
+        <div class="print__body">
+          <div class="print__about">
+            <span class="print__name">Framed Art Print</span>
+            <p class="print__desc">Collect <cite>Shadow</cite> in physical form: this black wooden frame holds a vibrant painting digitally remixed by the artist, printed on museum-quality matte paper.</p>
+          </div>
+          <div class="print__buy">
+            <span class="print__price"><s class="print__was" aria-label="Was CA$100">CA$100</s><span aria-label="now CA$69">CA$69</span></span>
+            <span class="print__size">12 &times; 16 in, black wood frame</span>
+            <span class="print__cta" id="cta" aria-disabled="true">Order the print</span>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+<script>
+  /* Wix scales every element with the window (desktop drawn on a ~1280 px
+     canvas, phones on a 320 px one), so the embed keeps its editor shape on
+     every screen. The layout is drawn at the editor width (1270 desktop, 281
+     phone) and zoomed by the same factor. If the Wix box is taller than the
+     content, the section stretches so the photo still reaches the bottom edge. */
+  (function () {
+    var feature = document.querySelector(".feature");
+    function fit() {
+      var root = document.documentElement;
+      var w = root.clientWidth, h = root.clientHeight;
+      var z = w <= 480 ? w / 281 : (w >= 1000 ? w / 1270 : 1);
+      document.body.style.zoom = String(z);
+      feature.style.minHeight = (h / z) + "px";
+    }
+    fit();
+    window.addEventListener("resize", fit);
+    window.addEventListener("load", fit);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+  })();
+
+  /* the product page the buy button opens, in the main window */
+  var BUY_URL = "https://www.slowstream.ca/product-page/framed-poster";
+  if (BUY_URL) {
+    var old = document.getElementById("cta");
+    var a = document.createElement("a");
+    a.className = "print__cta";
+    a.href = BUY_URL;
+    a.target = "_top";
+    a.textContent = "Order the print";
+    old.replaceWith(a);
+  }
+</script>
+</body>
+</html>
