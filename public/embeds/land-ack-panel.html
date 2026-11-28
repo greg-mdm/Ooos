@@ -6,9 +6,9 @@
 <title>Land acknowledgement · Slow Stream</title>
 <!-- Slow Stream homepage: the land acknowledgement as one small edge-to-edge
      panel (Greg, 2026-11-27; recut 2026-11-28). The Toronto street sign on
-     the left with the welcome under it, the eyebrow and one sentence in the
-     middle, the Slow Stream logo on the right, the whole panel a link to the
-     Ontario page. The panel wears the brand gradient from the Slow Stream
+     the left with the welcome under it; the land acknowledgement (eyebrow and
+     one sentence) in the middle, set toward the right; the Slow Stream logo
+     on its own at the far right; the whole panel a link to the Ontario page. The panel wears the brand gradient from the Slow Stream
      wave card (lavender #DBCDFA down to violet #9E69F2). The sign and its
      Tkarón:to flip come from ontario-regions-welcome.html; the waves and the
      live Raleway wordmark come from slowstream-footer.html. Images load from
@@ -29,7 +29,7 @@
     --ink: #170735;
     --lav-top: #DBCDFA;
     --lav-mid: #C5A7F5;
-    --lav-low: #9E69F2;
+    --lav-low: #B48BF4;   /* eased from the card's #9E69F2 so small text at the bottom edge keeps AAA contrast */
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
@@ -39,7 +39,7 @@
   /* edge to edge: the embed IS the canvas. The panel is the link. */
   .panel { display: flex; flex-direction: column; min-height: 100%; }
   .ack {
-    flex: 1 1 auto; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 5fr) minmax(0, 3fr); align-items: center; gap: 0 clamp(24px, 3.2vw, 44px);
+    flex: 1 1 auto; display: grid; grid-template-columns: minmax(0, 1fr) auto 280px; align-items: center; gap: 0 clamp(24px, 3.2vw, 44px);
     padding: clamp(22px, 2.6vw, 30px) clamp(28px, 4vw, 56px);
     text-decoration: none; color: inherit;
     background: linear-gradient(180deg, var(--lav-top) 0%, var(--lav-mid) 48%, var(--lav-low) 100%);
@@ -59,24 +59,22 @@
   /* both lines hang on the sign's centre line: "to" sits on it, and the
      contrast icon sits directly under "to". Each line is a three-column grid
      (1fr auto 1fr) so the middle piece is centred whatever the outer words weigh. */
-  .ack__cue { display: flex; flex-direction: column; gap: 2px; width: 100%; color: var(--indigo); }
+  .ack__cue { display: flex; flex-direction: column; gap: 2px; width: 100%; color: var(--night); }
   .ack__welcome, .ack__line { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; column-gap: .45em; white-space: nowrap; }
   .ack__welcome > :first-child, .ack__line > :first-child { text-align: right; justify-self: end; }
   .ack__welcome > :last-child, .ack__line > :last-child { text-align: left; justify-self: start; }
-  .ack__welcome { font-family: 'Poppins', sans-serif; font-size: .68rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--indigo); column-gap: .35em; }
-  .ack__line { font-family: 'Poppins', sans-serif; font-size: .95rem; font-weight: 500; line-height: 1.3; color: var(--indigo); }
+  .ack__welcome { font-family: 'Poppins', sans-serif; font-size: .72rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--night); column-gap: .35em; }
+  .ack__line { font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 500; line-height: 1.3; color: var(--night); }
   .ack__line svg { width: 1.05em; height: 1.05em; display: block; }
 
-  /* the words */
+  /* the acknowledgement: its own column, set toward the logo */
   .ack__text { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
-  .ack__eyebrow { font-family: 'Poppins', sans-serif; font-size: .78rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--amethyst); }
-  .ack__lead { font-family: 'Poppins', sans-serif; font-size: clamp(1.2rem, 1.8vw, 1.5rem); font-weight: 500; line-height: 1.35; color: var(--night); text-wrap: balance; max-width: 26ch; }
+  .ack__left { justify-self: start; }
+  .ack__eyebrow { font-family: 'Poppins', sans-serif; font-size: .8rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--night); }
+  .ack__lead { font-family: 'Poppins', sans-serif; font-size: clamp(1.2rem, 1.8vw, 1.5rem); font-weight: 500; line-height: 1.35; color: var(--night); text-wrap: balance; max-width: 24ch; }
 
-  /* the logo: the transparent waves with the wordmark in their pocket, as the
-     footer has it. The LAND ACKNOWLEDGEMENT eyebrow sits above it, its left edge
-     on the same 9.6% line as the "Slow" of the wordmark. */
-  .logo { display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 300px; margin: 0 0 0 auto; container-type: inline-size; }
-  .logo .ack__eyebrow { margin-left: 9.6%; }
+  /* the logo: the transparent waves with the wordmark in their pocket, as the footer has it */
+  .logo { display: block; width: 100%; max-width: 280px; margin: 0 0 0 auto; container-type: inline-size; }
   .logo__art { position: relative; width: 100%; filter: drop-shadow(0 6px 14px rgba(25, 5, 46, .18)); }
   .logo img { display: block; width: 100%; height: auto; }
   .logo__word { position: absolute; left: 9.6%; top: -1%; margin: 0; white-space: nowrap;
@@ -89,9 +87,8 @@
   @media (max-width: 820px) {
     .ack { grid-template-columns: minmax(0, 1fr); gap: 18px 0; text-align: center; padding: 26px 22px 28px; }
     .ack__sign { max-width: 260px; }
-    .ack__text { align-items: center; }
+    .ack__text { align-items: center; justify-self: center; }
     .logo { margin: 0 auto; max-width: 240px; }
-    .logo .ack__eyebrow { margin-left: 0; text-align: center; }
   }
   /* phone: Wix draws its mobile page on a 320 px canvas; this is drawn at the
      editor width (281) and the script zooms it to the real width */
@@ -124,22 +121,22 @@
       <span class="ack__cue">
         <span class="ack__welcome"><span>Welcome</span><span>to</span><span>Ontario</span></span>
         <span class="ack__line"><span>Open for business</span>
-          <!-- the contrast icon: the business half in indigo, the discovery half in lavender -->
+          <!-- the contrast icon: the business half in night, the discovery half in lavender -->
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M12 2.9a9.1 9.1 0 0 0 0 18.2Z" fill="#19007D" />
+            <path d="M12 2.9a9.1 9.1 0 0 0 0 18.2Z" fill="#06021C" />
             <path d="M12 2.9a9.1 9.1 0 0 1 0 18.2Z" fill="#E6E6FA" />
-            <circle cx="12" cy="12" r="9.1" fill="none" stroke="#19007D" stroke-width="1.7" />
+            <circle cx="12" cy="12" r="9.1" fill="none" stroke="#06021C" stroke-width="1.7" />
           </svg>
           <span>Yours to discover</span></span>
       </span>
       </span>
       <span class="ack__text">
+        <span class="ack__eyebrow">Land acknowledgement</span>
         <span class="ack__lead">With gratitude, we live and work on Indigenous lands in Toronto, Canada.</span>
       </span>
       <span class="logo">
-        <span class="ack__eyebrow">Land acknowledgement</span>
         <span class="logo__art" role="img" aria-label="Slow Stream">
-          <img src="https://ooos.ca/assets/slowstream/slow-stream-waves-1200.webp" srcset="https://ooos.ca/assets/slowstream/slow-stream-waves-640.webp 640w, https://ooos.ca/assets/slowstream/slow-stream-waves-1200.webp 1200w" sizes="(min-width: 821px) 300px, 70vw" width="1200" height="562" alt="" decoding="async">
+          <img src="https://ooos.ca/assets/slowstream/slow-stream-waves-1200.webp" srcset="https://ooos.ca/assets/slowstream/slow-stream-waves-640.webp 640w, https://ooos.ca/assets/slowstream/slow-stream-waves-1200.webp 1200w" sizes="(min-width: 821px) 280px, 70vw" width="1200" height="562" alt="" decoding="async">
           <span class="logo__word" aria-hidden="true">Slow Stream<span class="pebble"></span></span>
         </span>
       </span>
